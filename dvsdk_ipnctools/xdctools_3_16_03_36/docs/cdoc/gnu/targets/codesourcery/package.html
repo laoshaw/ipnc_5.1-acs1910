@@ -1,0 +1,53 @@
+<html>
+<head>
+<title>package gnu.targets.codesourcery</title>
+<meta name="description" content="Codesourcery code generation targets for Arm processors">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">gnu.targets.codesourcery</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../gnu/targets/codesourcery/GCArmv5T.html" title="module GCArmv5T"><img class="xdocHdrArrow" src="../../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#gnu/targets/codesourcery/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Codesourcery code generation targets for Arm processors</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+</ul>
+<div class="xdocBrief">
+This package supports two Codesourcery gcc targets. One is <tt>GCArmv5T</tt> for 
+  code compatible with Arm v5T architecture, and another one is <tt>GCArmv6</tt> for
+  Arm v6 architecture. These targets are deprecated, and the targets from
+  <a class="xdoc-link" href="../../../gnu/targets/arm/package.html" title="gnu.targets.arm">gnu.targets.arm</a> should be used instead.
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../gnu/targets/codesourcery/package-src.html"><span class="xdocLabelFile">gnu/targets/codesourcery/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../gnu/targets/package.html" title="gnu.targets">gnu.targets</a>[1, 0, 1];
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">gnu.targets.codesourcery</span></go> [1, 0, 0, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../gnu/targets/codesourcery/GCArmv5T.html' title='gnu.targets.codesourcery.GCArmv5T'><span class="xdoc-id">GCArmv5T</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;This module defines an embedded target for Linux on Arm. The target
+  generates code compatible with the "v5TE" architecture</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../gnu/targets/codesourcery/GCArmv6.html' title='gnu.targets.codesourcery.GCArmv6'><span class="xdoc-id">GCArmv6</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;This module defines an embedded target for Linux on Arm. The target
+  generates code compatible with the "v6" architecture</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:32 GMT</div>
+</div></div></body>
+</html>

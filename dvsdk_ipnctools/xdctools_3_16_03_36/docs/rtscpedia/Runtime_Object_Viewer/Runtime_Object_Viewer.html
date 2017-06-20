@@ -1,0 +1,272 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Runtime Object Viewer - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Runtime Object Viewer&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Runtime Object Viewer" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_RTSC_with_CCStudio_v4/Using_RTSC_with_CCStudio_v4.html" title="Using RTSC with CCStudio v4"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../Real-Time_Analysis_Tools/Real-Time_Analysis_Tools.html" title="Real-Time Analysis Tools"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Runtime Object Viewer</p><p id="subtitle">Using ROV for Eclipse-Based Debugging</p>
+<p>The Runtime Object Viewer (ROV) is a debugging tool you can use with applications that make use of RTSC content in CCStudio 4. This viewer provides state information about all the RTSC modules in the application. ROV is a <b>stop-mode</b> debugging tool, which means it can receive data about an application only when the target is halted, not when it is running. ROV provides data at stop points even if you have disabled RTDX in your application. In contrast, the Real-Time Analysis (RTA) tools require RTDX.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Opening_ROV"><span class="tocnumber">1</span> <span class="toctext">Opening ROV</span></a></li>
+<li class="toclevel-1"><a href="#Viewing_Data_with_ROV"><span class="tocnumber">2</span> <span class="toctext">Viewing Data with ROV</span></a></li>
+<li class="toclevel-1"><a href="#ROV_tabs"><span class="tocnumber">3</span> <span class="toctext">ROV tabs</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Raw_tab"><span class="tocnumber">3.1</span> <span class="toctext">Raw tab</span></a></li>
+<li class="toclevel-2"><a href="#Basic_and_Detailed_tabs"><span class="tocnumber">3.2</span> <span class="toctext">Basic and Detailed tabs</span></a></li>
+<li class="toclevel-2"><a href="#Module_tab"><span class="tocnumber">3.3</span> <span class="toctext">Module tab</span></a></li>
+<li class="toclevel-2"><a href="#Data_tab"><span class="tocnumber">3.4</span> <span class="toctext">Data tab</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p><br />
+If you are in a CCSv4 project debug session, ROV automatically gets paths to packages from your CCSv4 project.
+</p>
+<a name="Opening_ROV"></a><h2> <span class="mw-headline">Opening ROV</span></h2>
+<div class="thumb tright"><div class="thumbinner" style="width:238px;"><a href="images/Rov_tree.png" class="image" title="Rov tree.png"><img alt="" src="images/Rov_tree.png" width="236" height="444" border="0" class="thumbimage" /></a>  <div class="thumbcaption"></div></div></div>To open ROV, follow these steps:
+<ol><li> Load your application for debugging. If you are using a multi-core device, select the device you want to debug before opening ROV.
+</li><li> Choose <b>Tools &gt; ROV</b> from the CCSv4 menus. This opens the ROV area in the Debug perspective. (You can open ROV at any time while you have an application loaded.)
+</li><li> In the left pane of the ROV tool, select a module from the expandable tree (see figure) of RTSC packages used by the application. 
+</li><li> In the right pane of the ROV tool, select one of the tabs. (The <a href="#ROV_tabs" title="">"ROV tabs"</a> vary depending on the module you select.)
+</li><li> Halt the target or run to a breakpoint. Fresh data will be loaded from the target to the ROV display.
+</li></ol>
+<a name="Viewing_Data_with_ROV"></a><h2> <span class="mw-headline">Viewing Data with ROV</span></h2>
+<p>The left side of the ROV GUI displays the modules in the application, organized as a tree according to the package hierarchy. Double-clicking a module in the tree shows its state information on the right side.
+</p><p>When you click on a module or tab in ROV, you see the "Acquiring data..." message while ROV retrieves and processes information. If you switch to a different tab or module, ROV cancels the previous data request and begins a new one. Data for non-selected tabs is not loaded in the background when you switch tabs or modules.
+</p><p><a href="images/Rov_acquiring.png" class="image" title="Image:rov_acquiring.png"><img alt="Image:rov_acquiring.png" src="images/Rov_acquiring.png" width="264" height="63" border="0" /></a>
+</p><p>When you reload or rerun the application, ROV clears all of its cached data. 
+</p><p>When the application halts at a breakpoint, ROV refreshes only the currently displayed information. If any data has changed since the last time ROV requested that particular data, ROV displays that data in <b><font color="red">red text</font></b>. Keep in mind, however, that ROV only retrieves data when it is requested. If ROV did not get an item at the last breakpoint, it has nothing to compare it to at the current breakpoint. In short, if a field is not red, this does not necessarily mean that the data did not change.
+</p><p><a href="images/Rov_changed.png" class="image" title="Image:rov_changed.png"><img alt="Image:rov_changed.png" src="images/Rov_changed.png" width="362" height="111" border="0" /></a>
+</p><p>While the target is running, you may continue to explore ROV. Any data that was retrieved at the last breakpoint is shown in <b><font color="gray">gray text</font></b>. If data was not retrieved you see a "Target running..." message that indicates that ROV cannot retrieve new data while the target is running.
+</p><p><a href="images/Rov_running.png" class="image" title="Image:rov_running.png"><img alt="Image:rov_running.png" src="images/Rov_running.png" width="471" height="100" border="0" /></a>
+</p><p>ROV highlights errors by making the <span style="background: rgb(255,60,60)">&nbsp;background red </span>. Hover your mouse over a field with a red background to see the error message. 
+</p><p><a href="images/Rov_errormsg.png" class="image" title="Image:rov_errormsg.png"><img alt="Image:rov_errormsg.png" src="images/Rov_errormsg.png" width="400" height="136" border="0" /></a>
+</p><p>ROV can detect the following types of errors.
+</p>
+<ul><li> <b>Validation errors.</b> RTSC modules can provide validation of information ROV receives from the target. For example, a particular structure field can have a maximum value of 32. If the value on the target is 33, the module can report this as a problem. 
+</li><li> <b>Memory.</b> ROV may report bad memory accesses or other detectable problems.
+</li><li> <b>ROV errors.</b> ROV reports standard exceptions if a corrupted data from the target causes ROV-related code in a module to behave incorrectly.
+</li></ul>
+<a name="ROV_tabs"></a><h2> <span class="mw-headline">ROV tabs</span></h2>
+<p>ROV can show state information for every module in an application that maintains a state. All modules have at least a "Raw" tab. Other modules may have additional tabs, such as "Basic", "Detailed", and "Module". These additional tabs are implemented by the module writer to provide different views into the data.
+</p><p><a href="images/Rov_tabs.png" class="image" title="Image:rov_tabs.png"><img alt="Image:rov_tabs.png" src="images/Rov_tabs.png" width="206" height="29" border="0" /></a>
+</p><p>For details about the data available in ROV for a particular module, refer to the online help for that module.
+</p>
+<a name="Raw_tab"></a><h3> <span class="mw-headline">Raw tab</span></h3>
+<p>All modules have a "Raw" tab that displays unprocessed data from the target.
+</p><p>The "Raw" tab has expandable items for the module's state structure, any instances' state structures, and the configuration properties for the module.
+</p><p><a href="images/Rov_raw.png" class="image" title="Image:rov_raw.png"><img alt="Image:rov_raw.png" src="images/Rov_raw.png" width="511" height="186" border="0" /></a>
+</p><p>When you expand the "Module State" node, you see variables owned by the module along with their values. Structures with multiple fields can be further expanded to view their values.
+</p><p>When you expand the "Instance States" node, you see a list of instances that have been created for that module. Statically-created instances have the name you gave them when you configured them. Dynamically-created instances have an address value as the name.
+</p><p>When you expand the "Configuration node, you see a list of configuration properties for the module. Expanding the node for an instance also shows a list of configuration properties for the instance. The values of these properties may have been set statically, and may be changed programmatically at run-time.
+</p><p>Use the <a href="images/Icon_pause.png" class="image" title="Image:icon_pause.png"><img alt="Image:icon_pause.png" src="images/Icon_pause.png" width="21" height="22" border="0" /></a> icon to pause updates to the ROV tool so that new values are not downloaded automatically at the next breakpoint.
+</p><p>Use the <a href="images/Icon_autofit.png" class="image" title="Image:icon_autofit.png"><img alt="Image:icon_autofit.png" src="images/Icon_autofit.png" width="21" height="22" border="0" /></a> icon to fit the columns in the ROV to best fit their contents.
+</p><p>Use the <a href="images/Icon_refresh.png" class="image" title="Image:icon_refresh.png"><img alt="Image:icon_refresh.png" src="images/Icon_refresh.png" width="21" height="22" border="0" /></a> icon to get the current data from the target.
+</p>
+<a name="Basic_and_Detailed_tabs"></a><h3> <span class="mw-headline">Basic and Detailed tabs</span></h3>
+<p>The "Basic" and "Detailed" tabs contain state information about the selected module's instances. Each row of the table represents an instance of the module. ROV tabs that contain instance information always have the instance's address (the address of the instance's state structure) in the first column.
+</p><p>The following example shows the Detailed tab for the DSP/BIOS Task module.
+</p><p><a href="images/Rov_detailed.png" class="image" title="Image:rov_detailed.png"><img alt="Image:rov_detailed.png" src="images/Rov_detailed.png" width="864" height="98" border="0" /></a>
+</p><p>The "Basic" and "Detailed" tabs contain largely the same information. The "Detailed" tab generally provides detailed information that may require longer processing time. If you do not need the extra information in the "Detailed" tab, you may use the "Basic" tab for somewhat quicker response times.
+</p>
+<a name="Module_tab"></a><h3> <span class="mw-headline">Module tab</span></h3>
+<p>The "Module" tab presents module state information. It has only one row, which represents the module's state object.
+</p>
+<a name="Data_tab"></a><h3> <span class="mw-headline">Data tab</span></h3>
+<p>Some modules have a "Data" tab. This tab displays tables of data associated with the instances managed by a module. A good example is a memory heap. The data tab for a memory heap module could show all the heap's allocable memory blocks.
+</p><p>A data tab may have a name other than "Data" to describe the data it displays, such as "Records" or "Blocks".
+</p><p>A "Data" tab lists the module's instances on the left. Expanding an instance shows a list of all of the data elements. Selecting one or more data elements on the left shows details about them on the right. You can select all the elements in an instance by clicking the first element, holding down the Shift key, and clicking the last element.
+</p><p><a href="images/Rov_data.png" class="image" title="Image:rov_data.png"><img alt="Image:rov_data.png" src="images/Rov_data.png" width="428" height="217" border="0" /></a>
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../RTSC%2BCCStudio_v4_QuickStart/RTSC%2BCCStudio_v4_QuickStart.html" title="RTSC+CCStudio v4 QuickStart">RTSC+CCStudio v4 QuickStart</a>
+</td><td class="DocListSubTitle1">Using CCStudio v4 to create, build, and debug RTSC projects
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../RTSC%2BEclipse_FAQs/RTSC%2BEclipse_FAQs.html" title="RTSC+Eclipse FAQs">RTSC+Eclipse FAQs</a>
+</td><td class="DocListSubTitle">Using RTSC with Eclipse-Based Tools
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XGCONF_User%27s_Guide/XGCONF_User%27s_Guide.html" title="XGCONF User's Guide">XGCONF User's Guide</a>
+</td><td class="DocListSubTitle">Using the RTSC Graphical Configuration Tool in CCSv4
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Runtime Object Viewer&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Runtime Object Viewer" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_RTSC_with_CCStudio_v4/Using_RTSC_with_CCStudio_v4.html" title="Using RTSC with CCStudio v4"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../Real-Time_Analysis_Tools/Real-Time_Analysis_Tools.html" title="Real-Time Analysis Tools"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Runtime_Object_Viewer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.284 secs. --></body></html>

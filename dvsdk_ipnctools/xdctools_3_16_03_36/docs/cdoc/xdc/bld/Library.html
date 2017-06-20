@@ -1,0 +1,545 @@
+<html>
+<head>
+<title>module xdc.bld.Library</title>
+<meta name="description" content="Model of a searchable collection of object files">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">Library</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Library.html">index URL</a></div>
+<p class="xdocHdrSummary">Model of a searchable collection of object files</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+A library is a collection of one or more object files that is searched
+  to resolve undefined references at link time.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Library-src.html"><span class="xdocLabelFile">xdc/bld/Library.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Library</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">instance</span>:<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Library = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.Library'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Attrs">Library.<span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for a Library instance</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">profile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;target options profile</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;asm options for objects</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">copts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ options for objects</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">defs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;definitions for added objects</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">incs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;include options for objects</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aropts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;library-specific archiver options</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">suffix</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional suffix of library name; e.g.,".lib"</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportSrc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, export library sources to releases</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">releases</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;releases this library is a part of</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Library.<a class="xdocSynGo" href="#per-instance_config_parameters"><span class="xdoc-id">Params</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Instance config-params object</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This library's optional attributes</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">Library.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The base name of the library</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#target"><span class="xdoc-id">target</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The target used to build objects added to this library</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Objects">inst.<span class="xdoc-id">addObjects</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified object to be built and archived into this library</span></span></a>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <go><span class="xdoc-id">names</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/Object.html#.Attrs" title="xdc.bld.Object.Attrs">Object.Attrs</a></i> <go><span class="xdoc-id">objAttrs</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Library-src.html"><span class="xdocLabelFile">xdc/bld/Library.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Library</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for a Library instance</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">profile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;target options profile</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;asm options for objects</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">copts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ options for objects</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">defs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;definitions for added objects</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">incs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;include options for objects</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aropts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;library-specific archiver options</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">suffix</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional suffix of library name; e.g.,".lib"</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportSrc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, export library sources to releases</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">releases</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;releases this library is a part of</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">instance</span>:
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">Library.Attrs</a>&nbsp;<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This library's optional attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The base name of the library</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>&nbsp;<a class="xdocSynGo" href="#target"><span class="xdoc-id">target</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The target used to build objects added to this library</span></span></a>;
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#add.Objects"><span class="xdoc-id">addObjects</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified object to be built and archived into this library</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">names</span></go>[<span class="xdoc-kw2"></span>], <a class="xdoc-link" href="../../xdc/bld/Object.html#.Attrs" title="xdc.bld.Object.Attrs">Object.Attrs</a>&nbsp;<go><span class="xdoc-id">objAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">A library is a collection of one or more object files that is searched
+  to resolve undefined references at link time.</div>
+<div class="xdocText">Instances of this module represent a target independent collection of
+  object files that implement a single set of APIs.  Thus, a library is
+  really a container of target-specific archives which contain the object
+  files necessary to implement a common API.  Although, a library may
+  contain target dependent APIs, each library is expected to
+  encapsulate the same basic functionality independent of the target.</div>
+<div class="xdocText">Instances must be created via the
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#add.Library" title="xdc.bld.PackageContents.addLibrary">xdc.bld.PackageContents.addLibrary()</a></tt> function; this
+  ensures that each library created appears in the package's manifest and
+  that it properly "inherits" appropriate default attributes from the
+  containing package.</div>
+<div class="xdocText">Library instances are initially create without *any* objects; this ensures
+  that the developer complete control over what objects should be in each
+  library. Thus, even modules declared in a package's specification,
+  <tt>package.xdc</tt>, must be explicitly added to each library in the package
+  (via <tt><a class="xdoc-link" href="Library.html#add.Objects" title="addObjects">addObjects()</a></tt>).</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Library.</span><span class="xdoc-id">Attrs</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Library.html#.Attrs">index URL</a></div>
+<p class="xdocHdrSummary">Optional attributes for a Library instance</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> Library.<span class="xdoc-id">Attrs</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">profile</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;target options profile</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">aopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;asm options for objects</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">copts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;C/C++ options for objects</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">defs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;definitions for added objects</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">incs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;include options for objects</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">aropts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;library-specific archiver options</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">suffix</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;optional suffix of library name; e.g.,".lib"</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportSrc</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if true, export library sources to releases</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">releases</span> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;releases this library is a part of</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">incs</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains include path options used by
+          the compiler (or assembler) to locate include files; e.g.,
+          "<tt>-I ../../include -I ../c55xx</tt>".  Note that the syntax of 
+          this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">defs</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the
+          compiler (or assembler) to define macros; e.g.,
+          "<tt>-D_C6xxx -DDEBUG=1</tt>".  Note that the syntax of 
+          this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">aopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the assembler
+          to produce object files; e.g., "<tt>-mP1</tt>".  Note that the syntax
+          of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">copts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the C/C++
+          compiler to produce object files; e.g., "<tt>-o3 -mi1</tt>".  Note
+          that the syntax of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">aropts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the archiver
+          produce archive files; e.g., "<tt>-q</tt>".  Note
+          that the syntax of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportSrc</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to true, the sources
+          specified via <tt><a class="xdoc-link" href="Library.html#add.Objects" title="addObjects">addObjects</a>()</tt>
+          will be part of the releases named in the releases
+          array.  If it is unspecified (or set to <tt>null</tt>) and the
+          release specifies that sources are to be exported,
+          the sources will be part of the release.  In
+          all other cases, the sources are not part of the
+          release.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">suffix</span>
+<span class="xdocChildSum">&#151;&nbsp;If this string is set to a non-<tt>null</tt> value, it 
+          specifies the suffix (or extension) of the archive produced.
+          This suffix is used in lieu of the default suffix
+          ("<tt>.a&lt;targ_suffix&gt;</tt>", where <tt>&lt;targ_suffix&gt;</tt> is the suffix
+          property of the target used to create the archive).  So,
+          care must be taken when creating multiple libraries for
+          different targets to ensure that the resulting archive names
+          are unique.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">profile</span>
+<span class="xdocChildSum">&#151;&nbsp;This string names a profile defined by the
+          library's target.  The profile specifies a set of compiler,
+          assembler, and archiver options that are to be used when 
+          producing the archive.  Note that these tool options are
+          in addition to any options specified via <tt>aopts</tt>, <tt>copts</tt>,
+          etc.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">releases</span>
+<span class="xdocChildSum">&#151;&nbsp;This array contains releases that will contain the
+          library.  Thus, a single library can be part of any set of
+          releases.  Each library is always added to the package's
+          "default release" in addition to any releases specified in
+          the releases array.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Unspecified attributes are "inherited" from
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs</a></tt>; i.e., if one of fields in this
+  structure is unspecified *and* this field's name matches a field name
+  in <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs</a></tt>, then this field's value
+  defaults to the value in specified by
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs</a></tt>.  This mechanism makes it
+  possible to establish package-wide default values for any of the
+  "inherited" attributes.</div>
+<div class="xdocText">Suppose, for example, that you want all archives in this
+  package to be build with the '<tt>release</tt>' profile, but one particular 
+  archive must be built with '<tt>debug</tt>' (because it is a source example).
+  The following build script fragment shows how this can be
+  accomplished:</div>
+<div class="xdocText"><PRE class="Example">      Pkg.attrs.profile = 'release';
+      var lib = Pkg.addLibrary('example', ..., {profile: 'debug'});
+</PRE></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Library.html#attrs" title="attrs">attrs</a>, <a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_config_parameters"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance config parameters</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Library.html#per-instance_config_parameters">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Library.<span class="xdoc-id">Params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params object</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">Library.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;This library's optional attributes</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The base name of the library</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">target</span> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The target used to build objects added to this library</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Library.</span><span class="xdoc-id">attrs</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Library.html#attrs">index URL</a></div>
+<p class="xdocHdrSummary">This library's optional attributes</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Library.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">Library.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">These attributes are "inherited" by all objects added to this
+  library; i.e., any object attribute that is undefined but is
+  defined here will be assigned the value from these attributes.</div>
+<div class="xdocText">Similarly, any unspecified attributes that also appear in
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs</a></tt> are inherited from
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs</a></tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Library.</span><span class="xdoc-id">name</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Library.html#name">index URL</a></div>
+<p class="xdocHdrSummary">The base name of the library</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Library.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This name names a sub-directory in the package directory that
+  contains all the object files and archives created for each of the
+  targets specified.</div>
+<div class="xdocText">The name of each library is <tt>&lt;name&gt;/&lt;name&gt;.a&lt;target_suffix&gt;</tt>, where
+  <tt>&lt;name&gt;</tt> is the base name and <tt>&lt;target_suffix&gt;</tt> is the suffix property
+  of the target for which the library is built.  For example, one is
+  building a <tt>"hello"</tt> library for big endian C62 the library's file
+  name is "<tt>hello/hello.a62e</tt>"</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="target"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Library.</span><span class="xdoc-id">target</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Library.html#target">index URL</a></div>
+<p class="xdocHdrSummary">The target used to build objects added to this library</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Library.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">target</span> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Objects"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Library.</span><span class="xdoc-id">addObjects</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Library.html#add.Objects">index URL</a></div>
+<p class="xdocHdrSummary">Add specified object to be built and archived into this library</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>inst.<span class="xdoc-id">addObjects</span>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-id">names</span>, <i><a class="xdoc-link" href="../../xdc/bld/Object.html#.Attrs" title="xdc.bld.Object.Attrs">Object.Attrs</a></i> <span class="xdoc-id">objAttrs</span> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">names</span>
+<span class="xdocChildSum">&#151;&nbsp;array of base names of the sources of object files
+                      to be created and archived into the library.
+			    See NOTE in <tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt> for filename rules.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">objAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;optional <tt><a class="xdoc-link" href="Object.html#.Attrs" title="Object.Attrs">Object.Attrs</a></tt> for the array of
+                      objects added; all objects named by <tt>names</tt> will be
+                      given the attributes <tt>objAttrs</tt>.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Examples</div>
+<div class="xdocText">1. Locate a source file whose name starts with "fir" with
+      an extension supported by the library's target, compile it
+      and add to the library lib:</div>
+<div class="xdocText"><PRE class="Example">          lib.addObjects(["fir"]);
+</PRE></div>
+<div class="xdocText">If fir.c exists compile and add to lib, if fir.asm exists
+      assemble and add to lib, etc.  If no such file is located,
+      an warning is emitted.</div>
+<div class="xdocText">2. Compile <tt>fir.c</tt> and <tt>iir.c</tt> and add to the library <tt>lib</tt>:</div>
+<div class="xdocText"><PRE class="Example">          lib.addObjects(["fir.c", "iir.c"]);
+</PRE></div>
+<div class="xdocText">3. Names may include sub-directory prefixes.  In this case, the
+      source will be located in a sub-directory of the current
+      package.  The following statement declares that the file
+      "<tt>foo/fir.c</tt>" should be compiled and added to the library
+      <tt>lib</tt>:</div>
+<div class="xdocText"><PRE class="Example">          lib.addObjects(["foo/fir.c"]);
+</PRE></div>
+<div class="xdocText">As in the previous examples, the extension ".c" is optional. 
+      In case an extension is not supplied, each extension
+      understood by the target will be tried until a source file
+      is located.</div>
+<div class="xdocText">4. It is also possible to supply file specific compilation
+      options.</div>
+<div class="xdocText"><PRE class="Example">          lib.addObjects(["fir.c", "iir.c"], {defs: "-D_DEBUG"});
+</PRE></div>
+<div class="xdocText">In this case, both files <tt>fir.c</tt> and <tt>iir.c</tt> will be compiled
+      with the "<tt>-D_DEBUG</tt>" flag.  Any setting of <tt>attrs.defs</tt> in the
+      library or package is overridden by this definition.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText"><tt>void</tt></div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:17 GMT</div>
+</div></div></body>
+</html>

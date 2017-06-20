@@ -1,0 +1,36 @@
+<html><head><title>interface xdc.tools.ICmd</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class=xdoc>//! Generic xdc-script (xs) command </span>
+    13    <span class=key>metaonly</span> <span class=key>interface</span> ICmd {
+    14    
+    15        <span class=xdoc>//! Usage for this command</span>
+    16        <span class=key>config</span> String usage[] = [];
+    17    
+    18        <span class=xdoc>//! 'xs' shell entry point</span>
+    19        <span class=key>final</span> <span class=key>function</span> main(args);
+    20    
+    21        <span class=xdoc>//! 'xs' script entry point</span>
+    22        <span class=key>final</span> <span class=key>function</span> exec(args);
+    23    
+    24    <span class=key>instance</span>:
+    25    
+    26        <span class=xdoc>//! Underlying implementation</span>
+    27        Any run(Cmdr.Instance cmdr, String args[]);
+    28    }
+</pre>
+</body></html>

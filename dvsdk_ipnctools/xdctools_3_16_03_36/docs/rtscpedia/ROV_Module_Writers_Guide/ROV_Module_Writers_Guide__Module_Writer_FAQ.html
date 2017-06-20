@@ -1,0 +1,457 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>ROV Module Writers Guide/Module Writer FAQ - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=ROV Module Writers Guide/Module Writer FAQ&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="ROV_Module_Writers_Guide.html#TOC" title="ROV Module Writers Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">ROV Module Writers Guide/Module Writer FAQ</p><p id="subtitle">Discussion of specific ROV tasks and use cases</p>
+<p>This section of the guide deals with specific ROV use cases. It is organized like a FAQ in question and answer form with code snippets and discussion of the answers.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#How_do_I_incorporate_the_data_from_my_.27Basic.27_view_into_my_.27Detailed.27_view.3F"><span class="tocnumber">1</span> <span class="toctext">How do I incorporate the data from my 'Basic' view into my 'Detailed' view?</span></a></li>
+<li class="toclevel-1"><a href="#If_I_have_a_Handle_to_an_instance.2C_how_do_I_retrieve_the_view_for_that_instance.3F"><span class="tocnumber">2</span> <span class="toctext">If I have a Handle to an instance, how do I retrieve the view for that instance?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_retrieve_a_view_from_another_module_if_I_don.27t_have_a_Handle.3F"><span class="tocnumber">3</span> <span class="toctext">How do I retrieve a view from another module if I don't have a Handle?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_retrieve_the_raw_state_data_for_a_module.3F"><span class="tocnumber">4</span> <span class="toctext">How do I retrieve the raw state data for a module?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_retrieve_the_view_for_an_embedded_instance_.28advanced.29.3F"><span class="tocnumber">5</span> <span class="toctext">How do I retrieve the view for an embedded instance (advanced)?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_fetch_a_structure_for_which_I_have_an_address.3F"><span class="tocnumber">6</span> <span class="toctext">How do I fetch a structure for which I have an address?</span></a></li>
+<li class="toclevel-1"><a href="#I_have_a_pointer_to_a_structure.2C_but_the_pointer_is_not_part_of_my_state._How_do_I_fetch_the_structure.3F"><span class="tocnumber">7</span> <span class="toctext">I have a pointer to a structure, but the pointer is not part of my state. How do I fetch the structure?</span></a></li>
+<li class="toclevel-1"><a href="#My_state_structure_contains_an_array._How_do_I_fetch_the_array.27s_data.3F"><span class="tocnumber">8</span> <span class="toctext">My state structure contains an array. How do I fetch the array's data?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_fetch_a_string.3F"><span class="tocnumber">9</span> <span class="toctext">How do I fetch a string?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_fetch_a_global_scalar_value.3F"><span class="tocnumber">10</span> <span class="toctext">How do I fetch a global scalar value?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_retrieve_the_label_for_my_instance.3F"><span class="tocnumber">11</span> <span class="toctext">How do I retrieve the label for my instance?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_access_the_module_configuration_values_used_to_configure_my_application.3F"><span class="tocnumber">12</span> <span class="toctext">How do I access the module configuration values used to configure my application?</span></a></li>
+<li class="toclevel-1"><a href="#How_can_I_save_data_to_be_shared_across_different_views.3F"><span class="tocnumber">13</span> <span class="toctext">How can I save data to be shared across different views?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_retrieve_the_address_of_my_state_structure.3F"><span class="tocnumber">14</span> <span class="toctext">How do I retrieve the address of my state structure?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_lookup_the_symbols_associated_with_an_address.3F"><span class="tocnumber">15</span> <span class="toctext">How do I lookup the symbols associated with an address?</span></a></li>
+<li class="toclevel-1"><a href="#How_do_I_display_the_names_for_an_enum_type_instead_of_the_integer_values.3F"><span class="tocnumber">16</span> <span class="toctext">How do I display the names for an enum type instead of the integer values?</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="How_do_I_incorporate_the_data_from_my_.27Basic.27_view_into_my_.27Detailed.27_view.3F"></a><h3> <span class="mw-headline"> How do I incorporate the data from my 'Basic' view into my 'Detailed' view? </span></h3>
+<p>With the tab support in ROV, the convention for the relationship between a 'Basic' and a 'Detailed' view is that the Detailed view displays all of the same fields as the Basic view, but with a few extra fields which require extra processing. 
+</p><p>To avoid duplicating all of the processing for your basic view, simply call your 'viewInitBasic' function from your 'viewInitDetailed' function.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">metaonly</span> <span class="kw1">struct</span> BasicView <span class="br0">&#123;</span>
+    <span class="kw2">String</span>  label;
+    <span class="kw2">Int</span>     fldA;
+    <span class="kw2">Int</span>     fldB;    
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">metaonly</span> <span class="kw1">struct</span> DetailedView <span class="br0">&#123;</span>
+    <span class="kw2">String</span>  label;
+    <span class="kw2">Int</span>     fldA;
+    <span class="kw2">Int</span>     fldB;
+    <span class="kw2">Int</span>     fldC;    
+<span class="br0">&#125;</span></pre></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> viewInitDetailed<span class="br0">&#40;</span>view, obj<span class="br0">&#41;</span> 
+<span class="br0">&#123;</span>
+    <span class="co1">// Call the basic view function first</span>
+    viewInitBasic<span class="br0">&#40;</span>view, obj<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="co1">// Fill in the other fields</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>This will potentially result in the same view code being run twice. For example, if the user clicks on the 'Basic' tab and then clicks on the 'Detailed' tab, the 'Basic' view function will be run twice. The penalty is usually minor, though, since the target state has already been read in.
+</p>
+<a name="If_I_have_a_Handle_to_an_instance.2C_how_do_I_retrieve_the_view_for_that_instance.3F"></a><h3> <span class="mw-headline"> If I have a Handle to an instance, how do I retrieve the view for that instance? </span></h3>
+<p>If a state object contains a handle to an instance of another module, the view for that handle can be retrieved using <tt>Program.scanHandleView</tt>.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec">Instance_View <span class="br0">&#123;</span>
+    <span class="kw2">String</span> taskLabel;
+<span class="br0">&#125;</span>
+&nbsp;
+Instance_State <span class="br0">&#123;</span>
+    Task.Handle tsk;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> viewInitBasic <span class="br0">&#40;</span>view, obj<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">try</span> <span class="br0">&#123;</span>
+        <span class="kw1">var</span> tskView = Program.scanHandleView<span class="br0">&#40;</span><span class="st1">'Task'</span>, obj.tsk, <span class="st1">'Basic'</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">catch</span> <span class="br0">&#40;</span>e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;taskLabel&quot;</span>, e<span class="br0">&#41;</span>;
+        <span class="kw1">return</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    view.taskLabel = tskView.label;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<a name="How_do_I_retrieve_a_view_from_another_module_if_I_don.27t_have_a_Handle.3F"></a><h3> <span class="mw-headline"> How do I retrieve a view from another module if I don't have a Handle? </span></h3>
+<p>To retrieve a view of another module, you just need the module name and the name of the view that you want to retrieve. Use <tt>Program.scanModuleView</tt> if the view is a module-type view, and use <tt>Program.scanInstanceView</tt> if the view is an instance-type view. <tt>Program.scanModuleView</tt> will return just the requested module view. <tt>Program.scanInstanceView</tt> will return an array of instance views, one for each instance of the module.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">try</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> semViews = Program.scanInstanceView<span class="br0">&#40;</span><span class="st1">'Semaphore'</span>, <span class="st1">'Basic'</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="kw1">catch</span> <span class="br0">&#40;</span>e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;blockedOn&quot;</span>, e<span class="br0">&#41;</span>;
+    <span class="kw1">return</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> semView <span class="kw1">in</span> semViews<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// Do something with the Semaphore's view data</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="How_do_I_retrieve_the_raw_state_data_for_a_module.3F"></a><h3> <span class="mw-headline"> How do I retrieve the raw state data for a module? </span></h3>
+<p>To retrieve just the state data for another module, and not its processed view data, you can use the <tt>Program.scanRawView</tt> API. This returns a structure of type <tt>xdc.rov.Program.RawView</tt>, which contains the module state, an array of all the instance states, and an object containing all of the module's configuration info.
+</p><p>The use of this API is discouraged unless there is no other way to retrieve the desired data. The problem with using it is that the raw data has not been validated by the module's own view, and so you may end up operating with corrupted data.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">try</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> rawView = Program.scanRawView<span class="br0">&#40;</span><span class="st1">'Task'</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="kw1">catch</span> <span class="br0">&#40;</span>e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;someField&quot;</span>, e<span class="br0">&#41;</span>;
+    <span class="kw1">return</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// Do something with the module state</span>
+<span class="kw1">var</span> curTask = rawView.modState.curTask;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> instState <span class="kw1">in</span> rawView.instStates<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="co1">// Do something with the instance states</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// Do something with the module config info</span>
+<span class="kw1">var</span> numPriorities = rawView.modCfg.numPriorities;</pre></td></tr></table>
+<p>The scanRawView API can also be used as a way for an instance view to retrieve the raw module state, but again it is preferable to retrieve a formal Module view so that it includes some data validation.
+</p>
+<a name="How_do_I_retrieve_the_view_for_an_embedded_instance_.28advanced.29.3F"></a><h3> <span class="mw-headline"> How do I retrieve the view for an embedded instance (advanced)? </span></h3>
+<p>If a state object contains an embedded instance of another module, a view for that embedded instance can be retrieved using Program.scanObjectView.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">try</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> qView = Program.scanObjectView<span class="br0">&#40;</span><span class="st1">'ti.sysbios.misc.Queue'</span>, obj.pendQ, <span class="st1">'Basic'</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="kw1">catch</span> <span class="br0">&#40;</span>e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;pendQ&quot;</span>, e<span class="br0">&#41;</span>;
+    <span class="kw1">return</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// Do something with the view</span>
+<span class="kw1">var</span> elem = qView.elem;</pre></td></tr></table>
+<p>Since XDCtools has no way of knowing what embedded objects are present in a system, embedded objects do not appear in the list of a module's instances until they have been scanned in this way.
+</p>
+<a name="How_do_I_fetch_a_structure_for_which_I_have_an_address.3F"></a><h3> <span class="mw-headline"> How do I fetch a structure for which I have an address?  </span></h3>
+<p>The <tt>Program.fetchStruct</tt> API is used to retrieve and decode a structure from the target given its address. It takes a fetch descriptor and the address of the structure to fetch. Fetch descriptors are explained <a href="#.27fetch.27_Functions_-_Fetching_raw_data" title="">here</a>.
+</p><p>The <tt>fetchStruct</tt> API returns a JavaScript object representing the structure with the data from the target.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">try</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> myStruct = Program.fetchStruct<span class="br0">&#40;</span>obj.structPtr$fetchDesc, obj.structPtr<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="kw1">catch</span> <span class="br0">&#40;</span>e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;pendElems&quot;</span>, e<span class="br0">&#41;</span>;
+    <span class="kw1">return</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// Do something with the fetched struct</span>
+view.fieldA = myStruct.fieldA;</pre></td></tr></table>
+<a name="I_have_a_pointer_to_a_structure.2C_but_the_pointer_is_not_part_of_my_state._How_do_I_fetch_the_structure.3F"></a><h3> <span class="mw-headline"> I have a pointer to a structure, but the pointer is not part of my state. How do I fetch the structure? </span></h3>
+<p>It is possible to have a pointer that is not a part of your state structure, or that actually has a different type then what is specified in the state structure. For example, if you traverse a linked list of data, the type of the element pointers may be different than the type of data on the list.
+</p><p>In this case, you will not have a '$fetchDesc' property generated in your object for the type of data you are interested in. It is still possible to fetch this data, however.
+</p><p>For every type that a module defines, a '$fetchDesc' property is defined for that type. For example, if the Semaphore module defines a struct PendElem, then the Semaphore module will have a property 'Semaphore.PendElem$fetchDesc'.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Semaphore = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'Semaphore'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">try</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> pendElem = Program.fetchStruct<span class="br0">&#40;</span>Semaphore.PendElem$fetchDesc, pendElemAddr<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="kw1">catch</span> <span class="br0">&#40;</span>e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;pendElems&quot;</span>, e<span class="br0">&#41;</span>;
+    <span class="kw1">return</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="co1">// Do something with the fetched struct (pendElem)</span></pre></td></tr></table>
+<a name="My_state_structure_contains_an_array._How_do_I_fetch_the_array.27s_data.3F"></a><h3> <span class="mw-headline"> My state structure contains an array. How do I fetch the array's data? </span></h3>
+<p>The Program.fetchArray API is used to retrieve an array from the target given its address and length. It takes a fetch descriptor, the address of the array, and the length of the array.
+</p><p>The fetchArray API returns a JavaScript array containing the data from the target. 
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>
+    <span class="kw2">Char</span> stack<span class="br0">&#91;</span><span class="br0">&#93;</span>;
+<span class="br0">&#125;</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> data = Program.fetchArray<span class="br0">&#40;</span>obj.stack$fetchDesc, obj.stack, obj.stackSize<span class="br0">&#41;</span>;</pre></td></tr></table>
+</td></tr></table>
+<p>If the array contains structures, those structures will be decoded. However, if the array contains pointers, the data at those pointers will have to be fetched separately.
+</p>
+<a name="How_do_I_fetch_a_string.3F"></a><h3> <span class="mw-headline"> How do I fetch a string? </span></h3>
+<p>If your state structure contains a string, the field will simply contain the address of the string, and not the string of characters. To retrieve the string itself, use the Program.fetchString API, passing it just the address of the string.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">try</span> <span class="br0">&#123;</span>
+    view.myString = Program.fetchString<span class="br0">&#40;</span>obj.myString<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+<span class="kw1">catch</span> <span class="br0">&#40;</span>e<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;myString&quot;</span>, e<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>ROV retrieves the string by reading characters starting at the given address until it finds the terminating character '\0'. To protect against memory corruption, ROV will read a maximum of 128 characters and throw an error if this limit is reached.
+</p>
+<a name="How_do_I_fetch_a_global_scalar_value.3F"></a><h3> <span class="mw-headline"> How do I fetch a global scalar value? </span></h3>
+<p>If you have an address and want to retrieve a global scalar, you will need to use the xdc.rov.support.ScalarStructs module. This module simply defines a structure for every XDC scalar type. The structures are named after the scalar, such as ScalarStructs.S_UInt. The structures contain a single field with the name 'elem' which is of the type of the scalar.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>ScalarStructs.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">struct</span> S_UInt <span class="br0">&#123;</span>
+    <span class="kw2">UInt</span> elem;
+<span class="br0">&#125;</span>;</pre></td></tr></table>
+<p>To retrieve the scalar, use the fetch descriptor from the ScalarStructs module for the structure corresponding to your scalar. For example, to retrieve a UInt32, use ScalarStructs.S_UInt32$fetchDesc. 
+</p><p>Pass this fetch descriptor to the Program.fetchStruct API, and it will return a structure containing your scalar in the 'elem' field of the structure.
+</p><p>For example, to retrieve a UInt32 at the address 'addr':
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.rov.Program'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> ScalarStructs = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.rov.support.ScalarStructs'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* Fetch the UInt32 at address 'addr' using the ScalarStructs module. */</span> 
+<span class="kw1">var</span> sstruct = Program.fetchStruct<span class="br0">&#40;</span>ScalarStructs.S_UInt32$fetchDesc, addr<span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* fetchStruct will return a structure with the value in the 'elem' field. */</span>
+<span class="kw1">var</span> myInt = sstruct.elem;</pre></td></tr></table>
+<a name="How_do_I_retrieve_the_label_for_my_instance.3F"></a><h3> <span class="mw-headline"> How do I retrieve the label for my instance? </span></h3>
+<p>All instances have a label, which is stored in obj.$label. The label varies depending on whether or not a name was given to the instance by the user.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>Task@c0000008// No name given
+Task@c0000008:myTsk0// Named 'myTask0'</pre></td></tr></table>
+<p>To retrieve just the given name of the instance, without the module name and address, use the Program.getShortName API:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">view.label = Program.getShortName<span class="br0">&#40;</span>obj.$label<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>If a name was not given to the instance, <tt>Program.getShortName</tt> will return an empty string.
+</p>
+<a name="How_do_I_access_the_module_configuration_values_used_to_configure_my_application.3F"></a><h3> <span class="mw-headline"> How do I access the module configuration values used to configure my application? </span></h3>
+<p>The module config values used to configure the application are available from within the view initialization functions. They can be accessed by calling Program.getModuleConfig(<i>moduleName</i>), which returns an object containing the configuration info. 
+</p><p>In this example, the instance's priority is compared to the configured maximum priority to validate it.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">view.priority = obj.priority;
+&nbsp;
+<span class="coMULTI">/* 
+ * Validate 'priority' by comparing the actual priority to the configured
+ * maximum priority.
+ */</span>
+<span class="kw1">var</span> modCfg = Program.getModuleConfig<span class="br0">&#40;</span><span class="st1">'Task'</span><span class="br0">&#41;</span>; 
+<span class="kw1">if</span> <span class="br0">&#40;</span>obj.priority &gt; modCfg.numPriorities<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Program.displayError<span class="br0">&#40;</span>view, <span class="st0">&quot;priority&quot;</span>, <span class="st0">&quot;Corrupted data: Task priority is greater&quot;</span> +
+                                           <span class="st0">&quot;than Task.numPriorities&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="How_can_I_save_data_to_be_shared_across_different_views.3F"></a><h3> <span class="mw-headline"> How can I save data to be shared across different views? </span></h3>
+<p>Some modules may contain data which is referenced by more than one of the module's views. ROV provides a mechanism for storing and sharing this data across the different views using the Program.getPrivateData API.
+</p><p>The 'getPrivateData' API takes a module name and returns a JavaScript object which can be used to store data. Data can be stored by hanging it off of this object.
+</p><p>ROV will refresh these objects at every breakpoint (whenever the ROV Model receives a 'clear cache' command).
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.rov.Program'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* Retrieve the private data object for this module. */</span>
+<span class="kw1">var</span> modData = Program.getPrivateData<span class="br0">&#40;</span><span class="st1">'modA'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* Check if the data has been retrieved yet. */</span>
+<span class="kw1">if</span> <span class="br0">&#40;</span>modData.myData === undefined<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="coMULTI">/* 
+     * Retrieve the data and store it in modData.myData so
+     * that it can also be accessed by other views that need it.
+     */</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* The data is available to work with. */</span></pre></td></tr></table>
+<a name="How_do_I_retrieve_the_address_of_my_state_structure.3F"></a><h3> <span class="mw-headline"> How do I retrieve the address of my state structure? </span></h3>
+<p>The 'obj' parameter to the view init functions has a '$addr' field which stores the address of the module or instance state structure. This is the same address displayed in the 'address' field of the GUI.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> address = obj.$addr
+<span class="co1">// Do something with the address</span></pre></td></tr></table>
+<a name="How_do_I_lookup_the_symbols_associated_with_an_address.3F"></a><h3> <span class="mw-headline"> How do I lookup the symbols associated with an address? </span></h3>
+<p>If a state object contains a pointer which has a symbol, such as a function pointer, a reverse symbol lookup can be performed to retrieve the symbol name using the Program.lookupDataSymbol and Program.lookupFuncName functions. The 'lookupDataSymbol' function is used for symbols in data pages and the 'lookupFuncName' function is used for symbols in text pages.
+</p><p>Because there may be multiple symbols at a given address, each of these functions returns an array of symbols.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* Get the name of the function at the address 'obj.fxn'. */</span>
+<span class="kw1">var</span> symArr = Program.lookupFuncName<span class="br0">&#40;</span>obj.fxn<span class="br0">&#41;</span>;
+view.fxn = symArr;
+&nbsp;
+<span class="coMULTI">/* Get the name of the symbol at the address 'obj.$addr'. */</span>
+symArr = Program.lookupDataSymbol<span class="br0">&#40;</span>Number<span class="br0">&#40;</span>obj.$addr<span class="br0">&#41;</span><span class="br0">&#41;</span>;
+view.stateName = symArr;</pre></td></tr></table>
+<a name="How_do_I_display_the_names_for_an_enum_type_instead_of_the_integer_values.3F"></a><h3> <span class="mw-headline"> How do I display the names for an enum type instead of the integer values? </span></h3>
+<p>Enum values have a separate string and integer representation. Use String(<i>enumValue</i>) to force the string representation and Number(<i>enumValue</i>) to force the integer representation. 
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">enum</span> Mode <span class="br0">&#123;</span>
+    Mode_COUNTING, 
+    Mode_BINARY
+<span class="br0">&#125;</span>;
+&nbsp;
+<span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>
+    Mode mode;
+<span class="br0">&#125;</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Module.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">view.mode = String<span class="br0">&#40;</span>obj.mode<span class="br0">&#41;</span>; <span class="co1">// sets mode to &quot;Semaphore.Mode_COUNTING&quot;</span>
+view.mode = Number<span class="br0">&#40;</span>obj.mode<span class="br0">&#41;</span>; <span class="co1">// sets mode to &quot;0&quot;</span></pre></td></tr></table>
+</td></tr></table>
+<p><br />
+</p><!-- 
+Pre-expand include size: 1828 bytes
+Post-expand include size: 355 bytes
+Template argument size: 104 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__ROV_Module_Writers_Guide.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.211 secs. --></body></html>

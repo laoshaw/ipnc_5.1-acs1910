@@ -1,0 +1,94 @@
+<html><head><title>module xdc.platform.generic.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  ======== Platform.xdc ========
+</span>     3    <span class="comment"> */</span>
+     4    
+     5    <span class="xdoc">/*!
+</span>     6    <span class="xdoc"> *  ======== Platform ========
+</span>     7    <span class="xdoc"> *  A generic platform that supports any HW platform
+</span>     8    <span class="xdoc"> *
+</span>     9    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    10    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    11    <span class="xdoc"> */</span>
+    12    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    13    {
+    14        <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = { 
+    15            id:             <span class="string">"0"</span>,
+    16            boardName:      <span class="string">"generic"</span>,
+    17            boardFamily:    <span class=key>null</span>,
+    18            boardRevision:  <span class=key>null</span>
+    19        };
+    20    
+    21    <span class=key>instance</span>:
+    22    
+    23        <span class=key>config</span> xdc.platform.IExeContext.Cpu CPU = { 
+    24            id:             <span class="string">"0"</span>,
+    25            clockRate:      0,
+    26            catalogName:    <span class=key>null</span>,
+    27            deviceName:     <span class=key>null</span>,
+    28            revision:       <span class="string">""</span>,
+    29        };
+    30    
+    31        <span class="xdoc">/*!
+</span>    32    <span class="xdoc">     *  ======== deviceName ========
+</span>    33    <span class="xdoc">     *  The CPU provided by this platform
+</span>    34    <span class="xdoc">     *
+</span>    35    <span class="xdoc">     *  This parameter is required and named a module within a "catalog"
+</span>    36    <span class="xdoc">     *  package that implements the `xdc.platform.ICpuDataSheet` interface.
+</span>    37    <span class="xdoc">     *
+</span>    38    <span class="xdoc">     *  <b>@see</b> xdc.platform.ICpuDataSheet
+</span>    39    <span class="xdoc">     *  <b>@see</b> #catalogName
+</span>    40    <span class="xdoc">     */</span>
+    41        <span class=key>config</span> string deviceName;
+    42    
+    43        <span class="xdoc">/*!
+</span>    44    <span class="xdoc">     *  ======== catalogName ========
+</span>    45    <span class="xdoc">     *  The name of the package that contains the module 'deviceName'.
+</span>    46    <span class="xdoc">     *
+</span>    47    <span class="xdoc">     *  This parameter is required.
+</span>    48    <span class="xdoc">     *
+</span>    49    <span class="xdoc">     *  <b>@see</b> #deviceName
+</span>    50    <span class="xdoc">     */</span>
+    51        <span class=key>config</span> string catalogName;
+    52    
+    53        <span class="xdoc">/*!
+</span>    54    <span class="xdoc">     *  ======== clockRate ========
+</span>    55    <span class="xdoc">     *  The clock rate for the simulated device.
+</span>    56    <span class="xdoc">     *
+</span>    57    <span class="xdoc">     *  This parameter is required. There are no checks to determine if the
+</span>    58    <span class="xdoc">     *  device can actually support the given clock rate.
+</span>    59    <span class="xdoc">     *
+</span>    60    <span class="xdoc">     *  This clock rate is used to compute CPU loads and may be used
+</span>    61    <span class="xdoc">     *  by configuration scripts to configure/check on-device timers.
+</span>    62    <span class="xdoc">     */</span>
+    63        <span class=key>config</span> Double clockRate;
+    64    
+    65        <span class="comment">/*
+</span>    66    <span class="comment">     *  ======== codeMemory ========
+</span>    67    <span class="comment">     *  See xdc.platform.IPlatform
+</span>    68    <span class="comment">     */</span>
+    69        <span class=key>override</span> <span class=key>config</span> string codeMemory = <span class=key>null</span>;
+    70        
+    71        <span class="comment">/*
+</span>    72    <span class="comment">     *  ======== dataMemory ========
+</span>    73    <span class="comment">     *  See xdc.platform.IPlatform
+</span>    74    <span class="comment">     */</span>
+    75        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class=key>null</span>;
+    76    
+    77        <span class="comment">/*
+</span>    78    <span class="comment">     *  ======== stackMemory ========
+</span>    79    <span class="comment">     *  See xdc.platform.IPlatform
+</span>    80    <span class="comment">     */</span>
+    81        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class=key>null</span>;
+    82    };
+    83    <span class="comment">/*
+</span>    84    <span class="comment"> *  @(#) xdc.platform.generic; 1, 0, 0,46; 2-22-2010 10:33:23; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>    85    <span class="comment"> */</span>
+    86    
+</pre>
+</body></html>

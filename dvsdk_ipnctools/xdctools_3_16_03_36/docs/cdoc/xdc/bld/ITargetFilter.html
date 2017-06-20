@@ -1,0 +1,502 @@
+<html>
+<head>
+<title>interface xdc.bld.ITargetFilter</title>
+<meta name="description" content="User-supplied filter of a target's command set">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">ITargetFilter</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITarget2.html" title="interface ITarget2"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html">index URL</a></div>
+<p class="xdocHdrSummary">User-supplied filter of a target's command set</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+This interface defines a set of user-supplied methods that are invoked
+  during the Build Model's makefile generation process.  These methods
+  can augment or modify the commands that are placed in the generated
+  makefiles.  For example, an <tt>ITargetFilter</tt> module can add pre or post
+  build steps for virtually any generated file.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <go><span class="xdoc-id">ITargetFilter</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">instance</span>:<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <go><span class="xdoc-id">ITargetFilter</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Gen.Desc"><span class="xdoc-id">GenDesc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Configuration file generation descriptor</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Gen.Desc"><span class="xdoc-id">template</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of the template to expand</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Gen.Desc"><span class="xdoc-id">file</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;the name of the file to generate</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Inst.Desc"><span class="xdoc-id">InstDesc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;<tt>ITargetFilter</tt> Instance descriptor</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Inst.Desc"><span class="xdoc-id">moduleName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of a module implementing <tt>ITargetFilter</tt></span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#.Inst.Desc"><span class="xdoc-id">params</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;params passed to ITargetFilter.create()</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Macro.Desc"><span class="xdoc-id">MacroDesc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Macro definition descriptor</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Macro.Desc"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of the macro</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Macro.Desc"><span class="xdoc-id">value</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;the name value of the macro name</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">instance</span>:
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#archive"><span class="xdoc-kw1">function </span><span class="xdoc-id">archive</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Archive command filter</span></span></a>( <go><span class="xdoc-id">container</span></go>, <go><span class="xdoc-id">lib</span></go>, <go><span class="xdoc-id">objList</span></go>, <go><span class="xdoc-id">archArgs</span></go>, <go><span class="xdoc-id">result</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#compile"><span class="xdoc-kw1">function </span><span class="xdoc-id">compile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Compile command filter</span></span></a>( <go><span class="xdoc-id">container</span></go>, <go><span class="xdoc-id">target</span></go>, <go><span class="xdoc-id">goal</span></go>, <go><span class="xdoc-id">compArgs</span></go>, <go><span class="xdoc-id">result</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Defs"><span class="xdoc-kw1">function </span><span class="xdoc-id">getDefs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Get table of macro definitions</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Gen.Tab"><span class="xdoc-kw1">function </span><span class="xdoc-id">getGenTab</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Get table of files to be generated during configuration</span></span></a>( <go><span class="xdoc-id">prog</span></go>, <go><span class="xdoc-id">cfgDir</span></go>, <go><span class="xdoc-id">configName</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#link"><span class="xdoc-kw1">function </span><span class="xdoc-id">link</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Link command filter</span></span></a>( <go><span class="xdoc-id">container</span></go>, <go><span class="xdoc-id">cfgBase</span></go>, <go><span class="xdoc-id">prog</span></go>, <go><span class="xdoc-id">objList</span></go>, <go><span class="xdoc-id">linkArgs</span></go>, <go><span class="xdoc-id">result</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This interface defines a set of user-supplied methods that are invoked
+  during the Build Model's makefile generation process.  These methods
+  can augment or modify the commands that are placed in the generated
+  makefiles.  For example, an <tt>ITargetFilter</tt> module can add pre or post
+  build steps for virtually any generated file.</div>
+<div class="xdocText">Filters can:</div>
+<div class="xdocText"><OL><LI> modify or augment the commands returned by a target's compile,
+        link and archive methods via <tt><a class="xdoc-link" href="ITargetFilter.html#compile" title="compile">compile</a></tt>, <tt><a class="xdoc-link" href="ITargetFilter.html#link" title="link">link</a></tt>,
+        and <tt><a class="xdoc-link" href="ITargetFilter.html#archive" title="archive">archive</a></tt>;
+</LI><LI> add new definitions to the generated makefiles usable by the
+        command added above via <tt><a class="xdoc-link" href="ITargetFilter.html#get.Defs" title="getDefs">getDefs</a></tt>; and
+</LI><LI> specify new files to be generated during the configuration process
+        that may be used during or after the link process via
+        <tt><a class="xdoc-link" href="ITargetFilter.html#get.Gen.Tab" title="getGenTab">getGenTab</a></tt>.
+</LI></OL></div>
+<div class="xdocText">Filters are created implicitly when a target's profile
+  (<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#profiles" title="xdc.bld.ITarget.profiles">xdc.bld.ITarget.profiles</a></tt>) that references the filter is used.
+  To use a filter, one must configure a profile's option set
+  (<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Option.Set" title="xdc.bld.ITarget.OptionSet">xdc.bld.ITarget.OptionSet</a></tt>) in the build configuration script
+  <tt>config.bld</tt>.  It is possible to add filters to existing profiles (such
+  as <tt>"debug"</tt> and <tt>"release"</tt>) or to create entirely new profiles that
+  utilize the filters.</div>
+<div class="xdocText">When modifying existing profiles, no changes to individual packages using
+  these profiles is required; one simply has to clean and rebuild these
+  packages for the filters to have an effect.</div>
+<div class="xdocText">By adding new profiles, one can ensure that existing build artifacts are
+  unchanged and only those packages that want to take advantage of a filter
+  can do so easily by adding a new build artifact that uses the new
+  profile; for example, see <tt><a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">xdc.bld.Library.Attrs</a></tt>.</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Gen.Desc"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">GenDesc</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#.Gen.Desc">index URL</a></div>
+<p class="xdocHdrSummary">Configuration file generation descriptor</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">GenDesc</span> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">template</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;name of the template to expand</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">file</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;the name of the file to generate</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>};
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This structure is used to specify a new file to be generated during
+  the configuration process.</div>
+<div class="xdocText">Templates are expanded in the context of the Configuration domain;
+  as a result, the contents of the generated file can be a function
+  of an executable's <tt><a class="xdoc-link" href="../../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt> object.  Template names
+  are interpreted using the <tt>xdc.findFile()</tt> method to
+  locate the template file name.  Templates can, therefore, be 
+  contained in any package located along the package path.</div>
+<div class="xdocText">Names of files to be generated are always interpreted relative to
+  the base directory of the package for which makefiles are being
+  generated.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="ITargetFilter.html#get.Gen.Tab" title="getGenTab">getGenTab</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Inst.Desc"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">InstDesc</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#.Inst.Desc">index URL</a></div>
+<p class="xdocHdrSummary"><tt>ITargetFilter</tt> Instance descriptor</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">InstDesc</span> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">moduleName</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;name of a module implementing <tt>ITargetFilter</tt></div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Any</span>&nbsp;<span class="xdoc-id">params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;params passed to ITargetFilter.create()</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>};
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This structure provides the information necessary to create an
+  instance of an <tt>ITargetFilter</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Option.Set" title="xdc.bld.ITarget.OptionSet">xdc.bld.ITarget.OptionSet</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Macro.Desc"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">MacroDesc</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#.Macro.Desc">index URL</a></div>
+<p class="xdocHdrSummary">Macro definition descriptor</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">MacroDesc</span> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">name</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;name of the macro</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">value</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;the name value of the macro name</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>};
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This structure is used to specify macro name-value pairs that are
+  added to the generated makefiles.  These names can be used
+  by commands added via the filter's <tt><a class="xdoc-link" href="ITargetFilter.html#archive" title="archive">archive()</a></tt>,
+  <tt><a class="xdoc-link" href="ITargetFilter.html#compile" title="compile">compile()</a></tt>, or <tt><a class="xdoc-link" href="ITargetFilter.html#link" title="link">link()</a></tt> methods.</div>
+<div class="xdocText">Using symbolic values in lieu of embeddeding explicit paths or values
+  enables the end-user to re-define these values without requiring
+  regeneration of makefiles.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="ITargetFilter.html#get.Defs" title="getDefs">getDefs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_config_parameters"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance config parameters</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#per-instance_config_parameters">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> ITargetFilter.<span class="xdoc-id">Params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params object</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="archive"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">archive</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#archive">index URL</a></div>
+<p class="xdocHdrSummary">Archive command filter</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">archive</span>( <span class="xdoc-id">container</span>, <span class="xdoc-id">lib</span>, <span class="xdoc-id">objList</span>, <span class="xdoc-id">archArgs</span>, <span class="xdoc-id">result</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">container</span>
+<span class="xdocChildSum">&#151;&nbsp;String</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">lib</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/Library.html" title="xdc.bld.Library">xdc.bld.Library</a></tt></span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">archArgs</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Archive.Goal" title="xdc.bld.ITarget.ArchiveGoal">xdc.bld.ITarget.ArchiveGoal</a></tt></span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">result</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Command.Set" title="xdc.bld.ITarget.CommandSet">xdc.bld.ITarget.CommandSet</a></tt></span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This method is called for every archive created by the package's
+  build script (via <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#add.Library" title="xdc.bld.PackageContents.addLibrary">xdc.bld.PackageContents.addLibrary()</a></tt>).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="compile"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">compile</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#compile">index URL</a></div>
+<p class="xdocHdrSummary">Compile command filter</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">compile</span>( <span class="xdoc-id">container</span>, <span class="xdoc-id">target</span>, <span class="xdoc-id">goal</span>, <span class="xdoc-id">compArgs</span>, <span class="xdoc-id">result</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">container</span>
+<span class="xdocChildSum">&#151;&nbsp;String</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">target</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html" title="xdc.bld.ITarget">xdc.bld.ITarget</a>.Module</tt></span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">goal</span>
+<span class="xdocChildSum">&#151;&nbsp;String goal file</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">compArgs</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Compile.Goal" title="xdc.bld.ITarget.CompileGoal">xdc.bld.ITarget.CompileGoal</a></tt> the file to
+                      compile</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">result</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Command.Set" title="xdc.bld.ITarget.CommandSet">xdc.bld.ITarget.CommandSet</a></tt></span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This method is called for every object created by the package's
+  build script (via <tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#add.Objects" title="xdc.bld.Executable.addObjects">xdc.bld.Executable.addObjects()</a></tt>,
+  <tt><a class="xdoc-link" href="../../xdc/bld/Library.html#add.Objects" title="xdc.bld.Library.addObjects">xdc.bld.Library.addObjects()</a></tt>, ...).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Defs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">getDefs</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#get.Defs">index URL</a></div>
+<p class="xdocHdrSummary">Get table of macro definitions</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">getDefs</span>(  );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This method is called during makefile generation to obtain
+  a list of macro definitions that are to be added to the
+  generated makefile.  These macros can then be referenced by
+  commands added via a filter function (<tt><a class="xdoc-link" href="ITargetFilter.html#archive" title="archive">archive()</a></tt>,
+  <tt><a class="xdoc-link" href="ITargetFilter.html#compile" title="compile">compile()</a></tt> or <tt><a class="xdoc-link" href="ITargetFilter.html#link" title="link">link()</a></tt>).</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">array of <tt><a class="xdoc-link" href="ITargetFilter.html#.Macro.Desc" title="MacroDesc">MacroDesc</a></tt></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Gen.Tab"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">getGenTab</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#get.Gen.Tab">index URL</a></div>
+<p class="xdocHdrSummary">Get table of files to be generated during configuration</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">getGenTab</span>( <span class="xdoc-id">prog</span>, <span class="xdoc-id">cfgDir</span>, <span class="xdoc-id">configName</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">prog</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/Executable.html" title="xdc.bld.Executable">xdc.bld.Executable</a></tt> or Assembly</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">cfgDir</span>
+<span class="xdocChildSum">&#151;&nbsp;String directory where generated config files are
+                      placed</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">configName</span>
+<span class="xdocChildSum">&#151;&nbsp;String base name of the configuration</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This method is called during makefile generation to obtain
+  a list of additional files to be generated during configuration.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">array of <tt><a class="xdoc-link" href="ITargetFilter.html#.Gen.Desc" title="GenDesc">GenDesc</a></tt></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="link"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">ITargetFilter.</span><span class="xdoc-id">link</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/ITargetFilter.html#link">index URL</a></div>
+<p class="xdocHdrSummary">Link command filter</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/ITargetFilter-src.html"><span class="xdocLabelFile">xdc/bld/ITargetFilter.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">link</span>( <span class="xdoc-id">container</span>, <span class="xdoc-id">cfgBase</span>, <span class="xdoc-id">prog</span>, <span class="xdoc-id">objList</span>, <span class="xdoc-id">linkArgs</span>, <span class="xdoc-id">result</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">container</span>
+<span class="xdocChildSum">&#151;&nbsp;String</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">cfgbase</span>
+<span class="xdocChildSum">&#151;&nbsp;String</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">prog</span>
+<span class="xdocChildSum">&#151;&nbsp;Executable or Assembly</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">objList</span>
+<span class="xdocChildSum">&#151;&nbsp;String</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">linkArgs</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Link.Goal" title="xdc.bld.ITarget.LinkGoal">xdc.bld.ITarget.LinkGoal</a></tt></span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">result</span>
+<span class="xdocChildSum">&#151;&nbsp;<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Command.Set" title="xdc.bld.ITarget.CommandSet">xdc.bld.ITarget.CommandSet</a></tt></span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This method is called for every executable created by the package's
+  build script (via <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#add.Executable" title="xdc.bld.PackageContents.addExecutable">xdc.bld.PackageContents.addExecutable()</a></tt>,
+  ...).</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:17 GMT</div>
+</div></div></body>
+</html>

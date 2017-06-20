@@ -1,0 +1,252 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Interface Primer - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/RTSC Interface Primer" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_11.html" title="Lesson 11"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Interface Primer</p><p id="subtitle">Working with spec'd target modules in the abstract</p>
+<p></p>
+<p>This Primer introduces RTSC <b>interfaces</b>, used to abstract the functionality of spec'd target modules.  Picking up where the companion <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a> leaves off, we'll take the production and consumption of ordinary (concrete) modules to a whole new level of generality through the use of (abstract) RTSC interfaces.
+</p><p>Along the way, we'll probe ever-deeper into <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> and <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>&#151;two special-purpose languages that work hand-in-hand with standard C in a symbiotic alliance of programmatic capabilities that RTSC names <b><i>e<span style="font-size:115%;" class="color-green">X</span>pan<span style="font-size:115%;" class="color-red">D</span>ed&nbsp;&nbsp;<span style="font-size:115%;" class="color-blue">C</span></i></b>:
+</p>
+<ul><li> As for <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt>, we'll formally introduce <span class="kw1"><tt>interface</tt></span> as a language keyword, taking its place alongside <span class="kw1"><tt>module</tt></span> and <span class="kw1"><tt>package</tt></span> as the one of the programmatic pillars upon which all of RTSC rests.
+</li></ul>
+<p></p>
+<ul><li> As for <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>, we'll leverage its general-purpose programmability within ever-more sophisticated meta-content used to build, configure, and test ever-more sophisticated target-content. 
+</li></ul>
+<p>As an overarching objective, RTSC promises a higher-level form of C programming&#151;one suitable for developing, delivering, and deploying real-time software components&#151;but without sacrificing overall system performance through additional runtime overhead.  With RTSC interfaces just in front of us&#151;along with the all-important <b>proxy-delegate</b> design pattern that composes RTSC modules using RTSC interfaces&#151;we can now declare:&nbsp;  <i>You're finally here!</i>    
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Who.27s_the_audience"><span class="tocnumber">1</span> <span class="toctext">Who's the audience</span></a></li>
+<li class="toclevel-1"><a href="#What_we.27ll_cover"><span class="tocnumber">2</span> <span class="toctext">What we'll cover</span></a></li>
+<li class="toclevel-1"><a href="#How_to_proceed"><span class="tocnumber">3</span> <span class="toctext">How to proceed</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Who.27s_the_audience"></a><h2> <span class="mw-headline">Who's the audience</span></h2>
+<p>Needless to say, we assume you've studied&#151;and hopefully retained&#151;much of the material covered in the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>.  Your ability to not only consume but also <i>produce</i> RTSC modules will become axiomatic to working with RTSC interfaces&#151;which, as you'll come to appreciate, abstract the behavior of entire families of conforming RTSC modules.
+</p><p>In all other respects, our presumptions about your software background and experience remain the same:
+</p>
+<ul><li> you've worked with the C programming language, preferably in developing embedded applications;
+</li><li> you <i>don't</i> necessarily have any experience with object-oriented programming or languages; but
+</li><li> you <i>are</i> at least curious about how RTSC can take C programming to an entirely new level.
+</li></ul>
+<p>As for RTSC itself, we require neither prior knowledge of its concepts nor practical experience with the <tt>XDCtools</tt> product&#151;<i>other</i> than what you've already mastered from reading the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>.
+</p>
+<a name="What_we.27ll_cover"></a><h2> <span class="mw-headline">What we'll cover</span></h2>
+<p><span id="TOC"></span>We've structured the Primer as a graduated series of lessons, reinforcing concepts and idioms fundamental not only to producing and consuming RTSC modules but also to <i>abstracting</i> the behavior of these modules through RTSC interfaces.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:20%;"><a href="RTSC_Interface_Primer__Lesson_11.html" title="RTSC Interface Primer/Lesson 11">Lesson 11</a>
+</td><td class="DocListSubTitle1">Module abstraction &#151; specifying &amp; implementing the <tt>IGen</tt> interface
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="RTSC_Interface_Primer__Lesson_12.html" title="RTSC Interface Primer/Lesson 12">Lesson 12</a>
+</td><td class="DocListSubTitle">Proxy modules &#151; generalizing the implementation of <tt>Bench</tt>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="RTSC_Interface_Primer__Lesson_13.html" title="RTSC Interface Primer/Lesson 13">Lesson 13</a>
+</td><td class="DocListSubTitle">Proxy modules &#151; managing target-specific <tt>Fir</tt> implementations
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="RTSC_Interface_Primer__Lesson_14.html" title="RTSC Interface Primer/Lesson 14">Lesson 14</a>
+</td><td class="DocListSubTitle">Abstract testing &#151; benchmarking <tt>IFir</tt> implementations
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="RTSC_Interface_Primer__Lesson_15.html" title="RTSC Interface Primer/Lesson 15">Lesson 15</a>
+</td><td class="DocListSubTitle">Abstract instances &#151; techniques for creating <tt>IGen</tt> objects
+</td></tr></table>
+<p>To further emphasize how all of this material ultimately builds upon the foundation laid down by the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>, you'll notice we've numbered these Lessons 11-15.  Without exception, each lesson of the Interface Primer will revisit programming examples covered in earlier <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html#TOC" title="RTSC Module Primer">lessons</a> within the Module Primer&#151;but now, through the use of RTSC interfaces, will render these examples more flexible, more portable, and hence more re-usable.
+</p>
+<a name="How_to_proceed"></a><h2> <span class="mw-headline">How to proceed</span></h2>
+<p>No different than before&#151;that is, iteratively....  More than ever we encourage making several passes through these lessons, which actually pack quite of bit of (new) information as they move from one example to the next.  As before, don't feel compelled to actually run any of the programming examples in your initial reading(s) of this material&#151;stay in "read-only" mode instead, and focus instead on grasping the underlying concepts before the programming mechanics.
+</p><p><span class="Leader">Installing the examples</span>.&nbsp;  Even if you don't plan to run the programming examples at this time, you might consider installing the examples for reference.  Unlike the earlier Module Primer&#151;which faithfully reproduced all of the example code within the body of the document&#151;we'll now omit portions of a source file not pertinent to the discussion at hand; or, we'll simply omit certain (trivial) files from the discussion altogether, inviting you to browse the code instead.
+</p><p>You'll find the examples <a href="images/Int-primer-examples.zip" class="internal" title="Int-primer-examples.zip">here</a>, distributed as a single <tt>.zip</tt> file which you should unpack into the same <span class="mq">&laquo;</span><tt>examples</tt><span class="mq">&raquo;</span> directory populated back in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_0.html#Unpacking_the_examples" title="RTSC Module Primer/Lesson 0">Lesson 0</a>.  Note that we've created <i>new</i> package names for the (new) examples presented in Lessons 11-16, so you can indeed install these packages in the same <span class="mq">&laquo;</span><tt>examples</tt><span class="mq">&raquo;</span> repository used earlier.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListSpacer1">&nbsp;
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/RTSC Interface Primer" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_11.html" title="Lesson 11"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 3665 bytes
+Post-expand include size: 1509 bytes
+Template argument size: 237 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Interface_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.205 secs. --></body></html>

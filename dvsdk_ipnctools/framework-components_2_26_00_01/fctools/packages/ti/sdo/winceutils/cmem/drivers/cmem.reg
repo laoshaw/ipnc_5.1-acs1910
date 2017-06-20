@@ -1,0 +1,108 @@
+IF _TGTPLAT = DAVINCI
+;#include cmem_dm6446.reg (would like something like this)
+;-- CMEM --------------------------------------------------------------------
+IF SYSGEN_CMEM
+[HKEY_LOCAL_MACHINE\Drivers\BuiltIn\CMEMK]
+    "Prefix"="CMK"
+    "Dll"="cmemk.dll"
+    "Index"=dword:1
+    ; Make 3 pools available for allocation for block 0
+    ; Make 1 pool available for allocation for block 1
+;;;    "NumPools0"=dword:7
+    "NumPools0"=dword:3
+    "NumPools1"=dword:0
+
+    "Block0_NumBuffers_Pool0"=dword:20
+    "Block0_PoolSize_Pool0"=dword:1000 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool1"=dword:8
+    "Block0_PoolSize_Pool1"=dword:20000 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool2"=dword:2   ; 5
+    "Block0_PoolSize_Pool2"=dword:100000 ; size in bytes (hex)
+
+    "Block0_NumBuffers_Pool3"=dword:1
+    "Block0_PoolSize_Pool3"=dword:15cfc0 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool4"=dword:1
+    "Block0_PoolSize_Pool4"=dword:3e800 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool5"=dword:1
+    "Block0_PoolSize_Pool5"=dword:36ee80 ; size in bytes (hex)
+
+    "Block0_NumBuffers_Pool6"=dword:3
+    "Block0_PoolSize_Pool6"=dword:96000 ; size in bytes (hex)
+
+    ;; "Block1_NumBuffers_Pool1"=dword:2
+    ;; "Block1_PoolSize_Pool1"=dword:4000 ; size in bytes (hex)
+
+
+    ; Physical start + physical end can be use to ask CMEM to map a specific
+    ; range of physical addresses.
+    ; This is a potential security risk.  If physical start == 0 then the code
+    ; hits a special case.
+    ; physical end - physical start == length of allocation.  In the special
+    ; case, memory is allocated via a call to AllocPhysMem() (as shown in
+    ; this example).  MmMapIoSpace() is used to map the normal case where
+    ; physical start != 0.
+    ;
+    ; physical start and end for block 0
+    "PhysicalStart0"=dword:87800000
+    "PhysicalEnd0"=dword:88000000
+;;;    "PhysicalEnd0"=dword:86000000
+    ; physical start and end for block 1
+    "PhysicalStart1"=dword:0
+    "PhysicalEnd1"=dword:0
+ENDIF SYSGEN_CMEM
+;------------------------------------------------------------------------------
+ENDIF
+
+IF _TGTPLAT = TI_EVM_3530
+;#include cmem_3530.reg
+;-- CMEM --------------------------------------------------------------------
+IF SYSGEN_CMEM
+[HKEY_LOCAL_MACHINE\Drivers\BuiltIn\CMEMK]
+    "Prefix"="CMK"
+    "Dll"="cmemk.dll"
+    "Index"=dword:1
+    ; Make 7 pools available for allocation for block 0
+    ; Make 1 pool available for allocation for block 1
+    "NumPools0"=dword:7
+    "NumPools1"=dword:0
+
+    "Block0_NumBuffers_Pool0"=dword:20
+    "Block0_PoolSize_Pool0"=dword:1000 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool1"=dword:8
+    "Block0_PoolSize_Pool1"=dword:20000 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool2"=dword:5
+    "Block0_PoolSize_Pool2"=dword:100000 ; size in bytes (hex)
+
+    "Block0_NumBuffers_Pool3"=dword:1
+    "Block0_PoolSize_Pool3"=dword:15cfc0 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool4"=dword:1
+    "Block0_PoolSize_Pool4"=dword:3e800 ; size in bytes (hex)
+    "Block0_NumBuffers_Pool5"=dword:1
+    "Block0_PoolSize_Pool5"=dword:36ee80 ; size in bytes (hex)
+
+    "Block0_NumBuffers_Pool6"=dword:3
+    "Block0_PoolSize_Pool6"=dword:96000 ; size in bytes (hex)
+
+    ;; "Block1_NumBuffers_Pool1"=dword:2
+    ;; "Block1_PoolSize_Pool1"=dword:4000 ; size in bytes (hex)
+
+
+    ; Physical start + physical end can be use to ask CMEM to map a specific
+    ; range of physical addresses.
+    ; This is a potential security risk.  If physical start == 0 then the code
+    ; hits a special case.
+    ; physical end - physical start == length of allocation.  In the special
+    ; case, memory is allocated via a call to AllocPhysMem() (as shown in
+    ; this example).  MmMapIoSpace() is used to map the normal case where
+    ; physical start != 0.
+    ;
+    ; physical start and end for block 0
+    "PhysicalStart0"=dword:85000000
+    "PhysicalEnd0"=dword:86000000
+    ; physical start and end for block 1
+    "PhysicalStart1"=dword:0
+    "PhysicalEnd1"=dword:0
+ENDIF SYSGEN_CMEM
+;------------------------------------------------------------------------------
+
+ENDIF

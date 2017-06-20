@@ -1,0 +1,294 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 6 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 6&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_5.html" title="Lesson 5"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_7.html" title="Lesson 7"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 6</p><p id="subtitle">Package Release &#151; manufacturing <tt>charlie.sqrtlib</tt> archives</p>
+<p></p>
+<p>Having finally <i>built</i> <tt>charlie.sqrtlib</tt>, we'll return again to the process of creating deliverable archives during the <i>release</i> phase of package production.  Using <tt>charlie.sqrtlib</tt> as illustrative of a "typical" RTSC package that houses target content, we'll now explore some more advanced capabilities of the <tt>xdc.bld</tt> meta-modules which ultimately give the package producer greater control at the tail-end of RTSC build flow.
+</p>
+<div class="Info"><p class="Info">This lesson will also expose even more of <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> as a general-purpose programming language, useful for scripting a wide-range of hosted tasks often required when producing a RTSC package.</p></div>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Releasing_multiple_archives"><span class="tocnumber">1</span> <span class="toctext">Releasing multiple archives</span></a></li>
+<li class="toclevel-1"><a href="#Filtering_released_content"><span class="tocnumber">2</span> <span class="toctext">Filtering released content</span></a></li>
+<li class="toclevel-1"><a href="#Using_the_xdc_command"><span class="tocnumber">3</span> <span class="toctext">Using the xdc command</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Releasing_multiple_archives"></a><h2> <span class="mw-headline">Releasing multiple archives</span></h2>
+<p>The basic <tt>xdc.bld</tt> mechanisms first introduced in <a href="RTSC_Packaging_Primer__Lesson_4.html#Scripting_package_production" title="RTSC Packaging Primer/Lesson 4">Lesson 4</a> for defining the contents of the (default) package archive file can in fact scale to handle scenarios when a single package yields multiple archives.  As an example, let's assume the supplier of <tt>charlie.sqrtlib</tt> wants to manufacture <i>three</i> distinctly named package archives:
+</p>
+<ul><li><tt>charlie_sqrtlib.zip</tt>, which delivers (binary) libraries compiled for all RTSC targets;
+</li><li><tt>charlie_sqrtlib-DSP.zip</tt>, which delivers (binary) libraries compiled only for one target; and
+</li><li><tt>charlie_sqrtlib-SRC.zip</tt>, which delivers a buildable (source) form of the original package.
+</li></ul>
+<div class="Info"><p class="Info">Another variation on this theme occurs when suppliers wish to deliver a special "evaluation-only" release of their content that may lack certain features otherwise available in the default "production-quality" offering.</p></div> 
+<p>To illustrate the technique, we'll now complete the <tt>package.bld</tt> script for <tt>charlie.sqrtlib</tt> begun in the last lesson&#151;filling in the details of what to <i>release</i> as well as what to build.
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><div id="cl-1:3"></div><div id="cl-1:4"></div><div id="cl-1:5"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Build = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.BuildEnvironment'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.PackageContents'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* ---- what to build ---- */</span>
+&nbsp;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> targ <span class="kw1">in</span> Build.targets<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Pkg.addLibrary<span class="br0">&#40;</span><span class="st0">&quot;lib/isqrt_loop&quot;</span>, targ<span class="br0">&#41;</span>.addObjects<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;isqrt_loop.c&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+    Pkg.addLibrary<span class="br0">&#40;</span><span class="st0">&quot;lib/isqrt_unroll&quot;</span>, targ<span class="br0">&#41;</span>.addObjects<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;isqrt_unroll.c&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ---- what to release ---- */</span>
+&nbsp;
+Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;
+Pkg.otherFiles = <span class="br0">&#91;</span><span class="st0">&quot;isqrt.h&quot;</span><span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">var</span> relDSP = Pkg.addRelease<span class="br0">&#40;</span><span class="st0">&quot;charlie_sqrtlib-DSP&quot;</span><span class="br0">&#41;</span>;
+relDSP.otherFiles = <span class="br0">&#91;</span><span class="st0">&quot;lib/isqrt_loop.a64P&quot;</span>, <span class="st0">&quot;lib/isqrt_unroll.a64P&quot;</span><span class="br0">&#93;</span>;
+relDSP.attrs.label = <span class="st0">&quot;DSP&quot;</span>;
+&nbsp;
+<span class="kw1">var</span> relSRC = Pkg.addRelease<span class="br0">&#40;</span><span class="st0">&quot;charlie_sqrtlib-SRC&quot;</span><span class="br0">&#41;</span>;
+relSRC.attrs.exportAll = <span class="kw2">true</span>;
+relSRC.attrs.label = <span class="st0">&quot;SRC&quot;</span>;
+relSRC.attrs.relScript = <span class="st0">&quot;./copyright.rel&quot;</span>;</pre></td></tr></table>
+<p>With multiple releases defined here, the pair of assignments at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> in fact prescribe characteristics common to <i>all</i> archives produced by this package&#151;not just the package's "default" archive (automatically added under the name <span class="st0"><tt>"charlie_sqrtlib"</tt></span> and labeled as <span class="st0"><tt>"default"</tt></span>).  In this example, all package releases would use <tt>.zip</tt> files; and all package releases would include the <tt>isqrt.h</tt> header.
+</p><p>Explicit calls to the <tt>addRelease</tt> meta-function at lines <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> and <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> then return new <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> objects with an analogous set of assignable properties, selectively updated to override or else extend default values taken from the <tt>PackageContents</tt> module itself.  Looking closer at the DSP-only release defined after line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a>, the assignment here to <tt>otherFiles</tt> effectively <i>adds</i> these two libraries to the array of files already common to all releases&#151;just <tt>isqrt.h</tt> in our case; the assignment of <span class="st0"><tt>"DSP"</tt></span> to <tt>attrs.label</tt>, by contrast, replaces its original <span class="st0"><tt>"default"</tt></span> value.
+</p>
+<div class="Info"><p class="Info">You might note that adding the same pair of function libraries (compiled for "all" targets) to the <i>default</i> package release happens implicitly here&#151;a convenient side-effect of the fact that we've already named these libraries as generated artifacts via the <tt>addLibrary</tt> calls after line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a>.  Suffice it to say that the RTSC package build flow already comprehends many different categories of generated files; and the <i>default</i> package release will automatically contain an appropriate subset of these if the supplier takes no further action.</p></div>
+<p>In the case of the source-code release defined after line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a>, setting <tt>attrs.exportAll</tt> effectively adds all of the files <i>not</i> generated during package build to this particular archive&#151;including the <tt>package.bld</tt> file itself.  As a further consequence of the <tt>addLibrary</tt> calls after line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a>, this set includes the C source files directly used when generating the <tt>lib/isqrt_loop</tt> and <tt>lib/isqrt_unroll</tt> libraries.
+</p>
+<div class="Info"><p class="Info">In cases where a package producer must deliver libraries built <i>outside</i> of the RTSC build flow&#151;but nevertheless still rooted in the current package directory&#151;simply follow the protocol first illustrated in <a href="RTSC_Packaging_Primer__Lesson_4.html#cl-2:3" title="RTSC Packaging Primer/Lesson 4">Lesson 4</a> and add their paths to the <tt>otherFiles</tt> array.  Along these lines, we should mention that the <tt>PackageContents</tt> meta-module has a <tt>makePrologue</tt> and <tt>makeEpilogue</tt> property through which producers can furnish customized <tt>gmake</tt> command sequences that will bracket the generated <tt>package.mak</tt> file.  Strange as it might seem, the <tt>xdc</tt> command (alias <tt>gmake</tt>) could in fact fire off a <i>legacy</i> build flow for some <i>legacy</i> content; and by applying the techniques illustrated between lines <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> and <a class="codexLink" href="#cl-1:5"><span class="codexLink">5</span></a> of the earlier <tt>package.bld</tt> script, the containing package could even release a <i>buildable</i> form of itself.</p></div>
+<a name="Filtering_released_content"></a><h2> <span class="mw-headline">Filtering released content</span></h2>
+<p>Besides prescribing the file-level contents of individual archives manufactured during package release, more advanced mechanisms exist that allow you to filter individual files as well&#151;programmatically transforming a copy of the file itself just before adding it to one of the released package archives.  As a motivating (and not uncommon) example, let's assume the supplier of <tt>charlie.sqrtlib</tt> wants to add a special comment of the form <span class="co1"><small><tt>/*</tt>&nbsp;<tt>Copyright</tt>&nbsp;<tt>Charlie</tt>&nbsp;<tt>&amp;</tt>&nbsp;<tt>Co.</tt>&nbsp;<tt>*/</tt></small></span> at the top of each <tt>.c</tt> file included in this package's source-code release.
+</p><p>The assignment to <tt>attrs.relScript</tt> at line <a class="codexLink" href="#cl-1:5"><span class="codexLink">5</span></a> of the <tt>package.bld</tt> script presented above already sets the stage, naming yet another <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> source file which then organizes and performs the filtering per se.  As evidenced from the form of its name, the <tt>./copyright.rel</tt> file presumably exists within the <tt>charlie/sqrtlib</tt> package directory.
+</p>
+<div class="Info"><p class="Info">In practice, a file like <tt>copyright.rel</tt> might reside within a separate package&#151;say, <tt>charlie.common</tt>&#151;used to house artifacts shared across <i>Charlie &amp; Co.</i>  Our <tt>package.bld</tt> script would then reference this file as <span class="st0"><tt>"charlie/common/copyright.rel"</tt></span> using a <i>stable</i> canonical name ultimately resolved by searching the current package path&#151;no differently from the <span class="re1"><tt>#include</tt></span> directive used in <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:2" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a>.</p></div>  
+<div id="cl-2:1"></div><div id="cl-2:2"></div><div id="cl-2:3"></div><div id="cl-2:4"></div><div id="cl-2:5"></div><div id="cl-2:6"></div><div id="cl-2:7"></div><div id="cl-2:8"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/copyright.rel</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br /><span class="codexLab">6</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">7</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">8</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Manifest = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.Manifest'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> fname <span class="kw1">in</span> Manifest.files<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>!fname.match<span class="br0">&#40;</span>/<span class="br0">&#91;</span>\/<span class="br0">&#93;</span>package<span class="br0">&#91;</span>\/<span class="br0">&#93;</span>/<span class="br0">&#41;</span> &amp;&amp; fname.match<span class="br0">&#40;</span>/<span class="br0">&#91;</span>\.<span class="br0">&#93;</span>c$/<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">var</span> filter = <span class="kw1">new</span> Manifest.Filter<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        filter.operation = addComment;
+        Manifest.filterMap<span class="br0">&#91;</span>fname<span class="br0">&#93;</span> = filter;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">var</span> COPYRIGHT_COMMENT = <span class="st0">&quot;/* Copyright Charlie &amp; Co. */<span class="es0">\n</span><span class="es0">\n</span>&quot;</span>;
+&nbsp;
+<span class="kw1">function</span> addComment<span class="br0">&#40;</span> filter, src, dst, base <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span><span class="st0">&quot;copyrighting &quot;</span> + base + <span class="st0">&quot; ...&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">var</span> infile = <span class="kw1">new</span> java.io.BufferedReader<span class="br0">&#40;</span><span class="kw1">new</span> java.io.FileReader<span class="br0">&#40;</span>src<span class="br0">&#41;</span><span class="br0">&#41;</span>;
+    <span class="kw1">var</span> outfile = <span class="kw1">new</span> java.io.BufferedWriter<span class="br0">&#40;</span><span class="kw1">new</span> java.io.FileWriter<span class="br0">&#40;</span>dst<span class="br0">&#41;</span><span class="br0">&#41;</span>;
+&nbsp;
+    outfile.write<span class="br0">&#40;</span>COPYRIGHT_COMMENT<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">var</span> line;
+    <span class="kw1">while</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>line = infile.readLine<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>&nbsp;!= <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        outfile.write<span class="br0">&#40;</span>line<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    infile.close<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    outfile.close<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Similar to how <tt>package.bld</tt> manipulates <tt>PackageContents</tt>, this script works with parameters of the special <tt>Manifest</tt> meta-module imported at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>&#151;likewise found in the <tt>xdc.bld</tt> package bundled with <tt>XDCtools</tt>.  The main portion of this script iterates over each file name contained in the <tt>Manifest.files</tt> array, beginning at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a>.  Using a built-in <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> method for matching character strings against regular expressions (courtesy of the underlying JavaScript engine), files <i>not</i> found within the   
+special <tt>package/</tt> sub-directory and whose names end with <tt>.c</tt> become entries in the <tt>Manifest.filterMap</tt> at line <a class="codexLink" href="#cl-2:4"><span class="codexLink">4</span></a>.
+</p>
+<div class="Info"><p class="Info">Our <tt>copyright.rel</tt> script bypasses generated C files like <tt>package/package_charlie_sqrtlib.c</tt>, discussed briefly back in <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-4:3b" title="RTSC Packaging Primer/Lesson 5">Lesson 5</a>.</p></div>
+<p>Each entry in <tt>Manifest.filterMap</tt>&#151;an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> hash-table keyed by the names of individual files&#151;itself represents another <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object of type <tt>Manifest.Filter</tt>, newly-created back at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a>.  The value then assigned to this object's <tt>operation</tt> property further identifies an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> function called <tt>addComment</tt>, also defined inside of <tt>copyright.rel</tt> beginning at line <a class="codexLink" href="#cl-2:5"><span class="codexLink">5</span></a>.
+</p>
+<div class="Info"><p class="Info">Other properties of <tt>Manifest.Filter</tt> objects not only enable you to pass additional arguments to the <tt>operation</tt> function, but also give you the flexibility to actually choose a <i>different</i> name for the corresponding file.  Taking matters one step further, your release script can directly manipulate the <tt>Manifest.files</tt> arrays&#151;not only removing unwanted files but even adding (newly-generated!) files at this time.  Collectively, these capabilities allow package producers to accommodate a wide range of physical designs when manufacturing package archives&#151;even legacy designs that don't necessarily align with RTSC conventions.</p></div>
+<p>Turning now to the body of <tt>addComment</tt>&#151;which may even surprise some readers already familiar with JavaScript&#151;this function basically writes the <tt>COPYRIGHT_COMMENT</tt> string to the output file (named <tt>dst</tt>) [<a class="codexLink" href="#cl-2:7"><span class="codexLink">7</span></a>] followed then with each successive line read from the input file (named <tt>src</tt>) [<a class="codexLink" href="#cl-2:8"><span class="codexLink">8</span></a>].  Note that while <tt>dst</tt> will generally reference a temporary directory used in manufacturing package archives, the <tt>base</tt> argument to <tt>addComment</tt> printed at the outset [<a class="codexLink" href="#cl-2:6"><span class="codexLink">6</span></a>] mirrors the original file name contained in the <tt>Manifest.files</tt> arrays searched back at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a>; for completeness, the <tt>filter</tt> argument to <tt>addComment</tt> tracks the <tt>Manifest.Filter</tt> instance object originally created back at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a>.
+</p>
+<div class="Info"><p class="Info">Contrary to what the textbooks may tell you, JavaScript <i>can</i> script Java&#151;or at least the Rhino/JavaScript engine underlying <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> can, using a technology known as <i>LiveConnect</i>.  In a nutshell, this technology grants scripts access to any of the <span class="kw1"><tt>public</tt></span> fields or functions available through any Java <span class="kw1"><tt>class</tt></span>&#151;no differently from how we've already accessed client-visible properties of native <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> objects.  This bridge to the world of Java consequently puts a large, robust, and widely-deployed base of general-purpose capabilities&#151;file management, network services, graphics toolkits, and so forth&#151;at the immediate disposal of <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> content developers.</p></div>
+<a name="Using_the_xdc_command"></a><h2> <span class="mw-headline">Using the <tt>xdc</tt> command</span></h2>
+<p>Invoking the <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>release</tt></span> command&#151;first illustrated back in <a href="RTSC_Packaging_Primer__Lesson_4.html#cl-3:1" title="RTSC Packaging Primer/Lesson 4">Lesson 4</a>&#151;would here manufacture all three of the package archives prescribed in the <tt>package.bld</tt> script for <tt>charlie.sqrtlib</tt>.  Alternatively, you can manufacture just one of these package archives by invoking (say) <span class="cmdFrag"><tt>xdc&nbsp;release,charlie_sqrtlib-SRC</tt></span> from within the package directory.
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xdc release,charlie_sqrtlib-SRC</span></b>
+all files complete.
+making release file charlie_sqrtlib-SRC.zip (because of ...) ...
+copyrighting charlie/sqrtlib/isqrt_loop.c ...
+copyrighting charlie/sqrtlib/isqrt_unroll.c ...</pre></td></tr></table>
+<p>The output at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> reflects the fact that we've already <i>built</i> this package; otherwise, you'd see output commensurate with invoking <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>all</tt></span> immediately before running this command.  As you'd expect from any flow based on <tt>gmake</tt>, the generated <tt>package.mak</tt> file for this package enforces this dependency and re-builds when necessary.
+</p><p>The output at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a> tracks the <tt>print</tt> statement at line <a class="codexLink" href="#cl-2:6"><span class="codexLink">6</span></a> of <tt>copyright.rel</tt>&#151;not only confirming that we've extracted the correct files from the <tt>Manifest.files</tt> array beginning at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> of the same file, but also reinforcing the fact that <tt>copyright.rel</tt> executes near the <i>end</i> of the RTSC build flow.
+</p>
+<div class="Info"><p class="Info">To increase your understanding here, try dropping a <tt>print</tt> statement inside of the <tt>package.bld</tt> script after line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> which then displays the current value of the <tt>targ.isa</tt> property&#151;the "instruction-set architecture" for this particular target.  Upon re-entering the same <span class="cmdFrag"><tt>xdc&nbsp;release,charlie_sqrtlib-SRC</tt></span> command, you'd now see additional output with values like <span class="st0"><tt>"64P"</tt></span> or <span class="st0"><tt>"x86"</tt></span> at the very <i>beginning</i> of the process&#151;when <tt>package.bld</tt> itself executes prior to generating the <tt>package.mak</tt> file which then manages the rest of the flow.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p><span class="todo"><b>TODO:</b>&nbsp;&nbsp;write it</span>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 6&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_5.html" title="Lesson 5"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_7.html" title="Lesson 7"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 13843 bytes
+Post-expand include size: 4724 bytes
+Template argument size: 725 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>

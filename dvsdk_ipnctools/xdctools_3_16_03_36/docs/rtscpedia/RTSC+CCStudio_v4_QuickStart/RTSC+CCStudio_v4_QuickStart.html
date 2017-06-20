@@ -1,0 +1,351 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC+CCStudio v4 QuickStart - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC+CCStudio v4 QuickStart&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/RTSC+CCStudio v4 QuickStart" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_RTSC_with_CCStudio_v4/Using_RTSC_with_CCStudio_v4.html" title="Using RTSC with CCStudio v4"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../XGCONF_User's_Guide/XGCONF_User's_Guide.html" title="XGCONF User's Guide"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC+CCStudio v4 QuickStart</p><p id="subtitle">Using CCStudio v4 to create, build, and debug RTSC projects</p>
+<p><br />
+This page provides quick instructions for creating, building, and debugging a project that uses RTSC within an Eclipse IDE such as Code Composer Studio v4. If you don't have CCSv4 or prefer to use the the <tt>XDCtools</tt> command line tools directly, see <a href="../Using_XDCtools_Commands/Using_XDCtools_Commands.html" title="Using XDCtools Commands">Using XDCtools Commands</a>.  
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Creating_CCSv4_projects_that_use_RTSC"><span class="tocnumber">1</span> <span class="toctext">Creating CCSv4 projects that use RTSC</span></a></li>
+<li class="toclevel-1"><a href="#Using_a_RTSC_configuration_template"><span class="tocnumber">2</span> <span class="toctext">Using a RTSC configuration template</span></a></li>
+<li class="toclevel-1"><a href="#Adding_files_to_projects"><span class="tocnumber">3</span> <span class="toctext">Adding files to projects</span></a></li>
+<li class="toclevel-1"><a href="#Using_XGCONF_to_edit_RTSC_configurations"><span class="tocnumber">4</span> <span class="toctext">Using XGCONF to edit RTSC configurations</span></a></li>
+<li class="toclevel-1"><a href="#Building_the_project"><span class="tocnumber">5</span> <span class="toctext">Building the project</span></a></li>
+<li class="toclevel-1"><a href="#Rules_for_working_with_CCS_Build_Settings"><span class="tocnumber">6</span> <span class="toctext">Rules for working with CCS Build Settings</span></a></li>
+<li class="toclevel-1"><a href="#Running_and_debugging_an_application"><span class="tocnumber">7</span> <span class="toctext">Running and debugging an application</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">8</span> <span class="toctext">See also</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Flash_demos"><span class="tocnumber">8.1</span> <span class="toctext">Flash demos</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p><br />
+</p>
+<a name="Creating_CCSv4_projects_that_use_RTSC"></a><h2> <span class="mw-headline">Creating CCSv4 projects that use RTSC</span></h2>
+<p>Follow these steps to use CCSv4 to create a project that can use RTSC. You can also <a href="../Demo_of_RTSC_Project_Creation_in_CCSv4/Demo_of_RTSC_Project_Creation_in_CCSv4.html" title="Demo of RTSC Project Creation in CCSv4"> watch a demo</a> that shows most of the steps in this page.
+</p>
+<ol><li> Open CCSv4 and choose <b>File &gt; New &gt; CCS Project</b> from the menu bar.
+</li><li><div class="floatright"><span><a href="images/Newproj.png" class="image" title="Creating new CCS project"><img alt="Creating new CCS project" src="images/Newproj.png" width="436" height="142" border="0" /></a></span></div>In the New CCS Project dialog, type a Project Name. For example, to begin creating a project using "hello world" example code provided with DSP/BIOS, you can type "hello". The default project location automatically reflects the project name. Then, click <b>Next</b>.
+</li><li> Select your platform type in the Project Type field. For example, you might select "C6000". Then, click <b>Next</b>.
+</li><li> Click <b>Next</b> on the "Additional Project Settings" page.
+</li><li><div class="floatright"><span><a href="images/Dev_variant.png" class="image" title="Device variant fields"><img alt="Device variant fields" src="images/Dev_variant.png" width="496" height="195" border="0" /></a></span></div>In the <b>Device Variant</b> row of the "CCS Project Settings" page, select a filter in the first field. This shortens the list of device variants in the second field. Then, select the actual device you are using. For example, you might select "TMS320C64X" in the filter field and "Generic C64x+ Device" in the second field. Depending on your device, you might also need to adjust the <b>Device Endianness</b> and <b>Runtime Support Library</b> settings.
+</li><li><div class="floatright"><span><a href="images/Enable_rtsc.png" class="image" title="Enabling RTSC support"><img alt="Enabling RTSC support" src="images/Enable_rtsc.png" width="424" height="99" border="0" /></a></span></div>In the <b>Target content</b> area, select the <b>Enable RTSC support</b> option. Then, click <b>Next</b>.
+</li><li> On the "Referenced RTSC Configuration" page, choose whether you want to create a new RTSC configuration or use an existing one. If you are getting started with RTSC, you will probably need to create a new configuration. Then, click <b>Next</b>. (If you want to share configurations between projects, see the <a href="../FAQ-080729-5/FAQ-080729-5.html" title="FAQ-080729-5">RTSC+Eclipse FAQs</a>.)
+</li><li> On the "New RTSC Configuration Page" page, accept the default name and location for the configuration project. Then, click <b>Next</b>.
+</li><li><div class="floatright"><span><a href="images/Rtsc_config_set.png" class="image" title="Example configuration settings"><img alt="Example configuration settings" src="images/Rtsc_config_set.png" width="381" height="358" border="0" /></a></span></div>On the "RTSC Configuration Settings" page, make sure the versions of <tt>XDCtools</tt>, DSP/BIOS, and other products that you want to use are selected. By default, the most recent versions are selected.
+</li><li> Also on the "RTSC Configuration Settings" page, click the drop-down arrow next to the <b>RTSC Platform</b> field. CCSv4 scans the available packages for available platforms. Click on the list and choose the platform you want to use.
+</li><li> You can choose which libraries you want the configuration build to link with in the <b>RTSC Build-Profile</b> field. The <b>RTSC Target</b> setting is based on device settings you made on earlier pages, and should not need to be changed. Then, click <b>Next</b>.
+</li><li> On the "RTSC Configuration Templates" page, check the <b>Create a project using one of the templates</b> box if you want to use a <a href="#Using_a_RTSC_configuration_template" title="">provided template</a> as the basis for your configuration. For example, you can select the <b>Hello example</b>, which uses the <tt>XDCtools</tt> System module. If you don't want to use a template, you can later <a href="#Adding_files_to_projects" title="">add files to your projects</a>. Then, click <b>Finish</b>.
+</li></ol>
+<div class="floatright"><span><a href="images/Rtsc_project.png" class="image" title="Project list"><img alt="Project list" src="images/Rtsc_project.png" width="204" height="154" border="0" /></a></span></div>This procedure adds two projects to the C/C++ Projects list in CCSv4:
+<ul><li><b>The main project for your application</b>, which will contain the application source code. This project references the RTSC configuration project.
+</li><li><b>The RTSC configuration project</b>, which contains a *.cfg file for static configuration of RTSC modules and objects (and for RTSC-based products like DSP/BIOS).
+</li></ul>
+<div class="Info"><p class="Info">The RTSC <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> and <a href="../Glossary/Glossary.html#Platform" title="Glossary">platform</a> are key parameters that describe your embedded hardware environment. See <a href="../Using_Targets_and_Platforms/Using_Targets_and_Platforms.html" title="Using Targets and Platforms">Using Targets and Platforms</a> for more information on choosing a RTSC target and platform for your project. Check the <a href="../../cdoc/ti/targets/package.html" class="cdoc"><tt>ti.targets</tt></a> package and <a href="../../cdoc/index.html#/all-packages.html" class="cdoc"><tt>ti.platforms.*</tt></a> packages for pre-built targets and platforms suitable for use in CCSv4.</p></div>
+<a name="Using_a_RTSC_configuration_template"></a><h2> <span class="mw-headline">Using a RTSC configuration template</span></h2>
+<div class="floatright"><span><a href="images/Config_templates.png" class="image" title="Configuration templates"><img alt="Configuration templates" src="images/Config_templates.png" width="296" height="353" border="0" /></a></span></div>
+<p>When you are creating a CCSv4 project that enables RTSC support, you can select a RTSC Configuration Template. When you highlight a template, a brief description is provided to the right.
+</p><p>When you use <b>File &gt; New &gt; CCS Project</b> and get to the RTSC Configuration Templates page of the project creation wizard, choosing a template copies <i>both</i> a default .c file into the CCS Project and a default .cfg file into the RTSC Configuration Project.
+</p><p>When you use <b>File &gt; New &gt; RTSC Configuration Project</b> and get to the RTSC Configuration Templates page of the project creation wizard, choosing a template copies <i>only</i> a default .cfg file into the RTSC Configuration Project (but no .c file).
+</p><p>See the <i>DSP/BIOS Getting Started Guide</i> (in the DSP/BIOS installation) for further descriptions of the DSP/BIOS templates you see on the RTSC Configuration Templates page of the project creation wizard.
+</p>
+<a name="Adding_files_to_projects"></a><h2> <span class="mw-headline">Adding files to projects</span></h2>
+<p>If you create a project using a <a href="#Using_a_RTSC_configuration_template" title="">RTSC configuration template</a>, source files are automatically added to your projects, and you can modify those files as needed.
+</p><p>If you chose not to use a template, you can add C source files to your project by selecting the main application project and doing any of the following:
+</p><p><br />
+</p>
+<ul><li><div class="floatright"><span><a href="images/File_menu.png" class="image" title="New file types"><img alt="New file types" src="images/File_menu.png" width="333" height="278" border="0" /></a></span></div><b>Creating a new file.</b> From CCSv4's menus, choose <b>File &gt; New &gt; Source File</b> (or <b>File &gt; New &gt; Header File</b>).
+</li><li><b>Copying an existing file.</b> From CCSv4's menus, choose <b>Project &gt; Add Files to Active Project</b>. Browse to the folder than contains the file you want to add. Select the file and click <b>Open</b>. This copies the file to the directory that contains your project.
+</li><li> <b>Linking to an existing file.</b> From CCSv4's menus, choose <b>Project &gt; Link Files to Active Project</b>. Browse to the folder than contains the file you want to add. Select the file and click <b>Open</b>. This links to the file in the directory where it was stored. 
+</li></ul>
+<p>If you chose not to use a template, you can add a RTSC configuration file to your project by selecting the RTSC Configuration Project and making it the active project in CCSv4 (by right-clicking on the project and choosing <b>Set as Active Project</b>). Then, do any of the actions listed above for C source files, except that you create new files by choosing <b>File &gt; New &gt; RTSC Configuration File</b>.
+</p>
+<div class="Info"><p class="Info">The folders listed in the <tt>Includes</tt> list (except for the compiler-related folder) are folders that are on the RTSC <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a>.</p></div>
+<p>If you expand the node for a source file in the project list, it lists the header files it references and the functions it contains.
+</p>
+<a name="Using_XGCONF_to_edit_RTSC_configurations"></a><h2> <span class="mw-headline">Using XGCONF to edit RTSC configurations</span></h2>
+<p>XGCONF is a tool that allows you to graphically create and view RTSC configuration scripts. (If you have used DSP/BIOS 5.x, it is somewhat similar to the DSP/BIOS Configuration Tool.) 
+</p><p>To start XGCONF, follow these steps:
+</p>
+<ol><li> Make the project containing the RTSC configuration file (with a 'cfg' extension) the "Active" project. This may be accomplished by right-clicking on the project in the "C/C++ Projects" view and selecting <b>Set as Active Project</b>. This step is important since XGCONF works with the properties of the current active project in the workspace. 
+</li><li> Right-click on the RTSC configuration file and select <b>Open with &gt; XGCONF</b>.
+</li></ol>
+<p>You can <a href="../Demo_of_XGCONF_in_CCSv4/Demo_of_XGCONF_in_CCSv4.html" title="Demo of XGCONF in CCSv4"> watch a demo</a> that shows how to use XGCONF. For further information about using XGCONF, see the <a href="../XGCONF_User%27s_Guide/XGCONF_User%27s_Guide.html" title="XGCONF User's Guide">XGCONF User's Guide</a>.
+</p>
+<a name="Building_the_project"></a><h2> <span class="mw-headline">Building the project</span></h2>
+<p>When you build an application project, the associated RTSC configuration project is also rebuilt if the configuration has been changed.
+</p><p>To build the project, follow these steps:
+</p>
+<ol><li> Make sure the main application project is the active project. (If it isn't active, right-click on the project and select <b>Set as Active Project</b> from the menu.)
+</li><li> Choose <b>Project &gt; Build Active Project</b>.
+</li><li> Examine the Console log to see if errors occurred.
+</li></ol>
+<div class="Info"><p class="Info">For help with build errors, see <a href="../Trouble_Shooting/Trouble_Shooting.html" title="Trouble Shooting">Troubleshooting</a>.</p></div>
+<p>The RTSC configuration step occurs before compiling the .c files in your application, or whenever the <tt>prog.cfg</tt> file changes. CCStudio runs a command-line tool called <a href="../Command_-_xdc.tools.configuro/Command_-_xdc.tools.configuro.html" title="Command - xdc.tools.configuro">"<tt>configuro</tt>"</a> that processes the configuration script and outputs  static C data structures and code to be linked with your application.
+</p>
+<div class="Info"><p class="Info">Configuro can be used to integrate RTSC configuration into other build systems, command-line or graphical. For more information, see <a href="../Consuming_Configurable_Content/Consuming_Configurable_Content.html" title="Consuming Configurable Content">Consuming Configurable Content</a>.</p></div>
+<p>After you build the project, look again at the C/C++ Projects view. You can expand the Debug folder to see the files that were generated by <tt>configuro</tt> and the build process. Notice that the project build flow diagram shown here references certain important files that were generated by <tt>configuro</tt>.
+</p><p><a href="images/ModPrimerFig1.png" class="image" title="RTSC project build flow"><img alt="RTSC project build flow" src="images/ModPrimerFig1.png" width="455" height="352" border="0" /></a>
+</p>
+<a name="Rules_for_working_with_CCS_Build_Settings"></a><h2> <span class="mw-headline">Rules for working with CCS Build Settings</span></h2>
+<p>After you have created a RTSC Configuration Project, you can change the properties of the project in CCSv4 by right-clicking the project name and choosing <b>Properties</b>. 
+</p><p>However, you should be careful about changing the CCS Build Settings for a RTSC configuration project. The build settings for the configuration project much match or be compatible with those of all application projects that reference the RTSC configuration project. So, if you change the CCS Build Settings for a RTSC configuration project, you should also change the build settings for the application projects that use that configuration.
+</p><p>In the "CCS Build Settings" category of the Properties dialog, the <b>General</b> tab applies to compiler settings, the <b>RTSC Configuration</b> tab applies to the "configuro" utility used to process the .cfg file, and the <b>Link Order</b> tab applies to the linker settings.
+</p><p>Note that if there is any platform-specific configuration in your .cfg file, you much change those settings in addition to any changes you make to the CCS Build Settings.
+</p>
+<a name="Running_and_debugging_an_application"></a><h2> <span class="mw-headline">Running and debugging an application</span></h2>
+<p>If you haven't already created a default target configuration, follow these steps or watch the <a href="../Demo_of_Target_Configuration_Creation_in_CCSv4/Demo_of_Target_Configuration_Creation_in_CCSv4.html" title="Demo of Target Configuration Creation in CCSv4">demo</a>:
+</p>
+<ol><li> Choose <b>File &gt; New &gt; Target Configuration File</b>.
+</li><li> Type a filename for the target configuration, which will be stored as part of the CCS project. For example, you might type TCI6482sim.ccxml if that reflects the target you want to use. Then, click <b>Finish</b>.
+</li><li> In the Connection field for your target configuration, choose the type of connection you have to the target. Then type part of the target name in the Device filter field. For example, you might choose the "TI Simulator" connection and filter by "64xp" to find a C64x+ simulator.
+</li><li> Choose <b>File &gt; Save</b> or click the <b>Save</b> icon to save your target configuration.
+</li><li> You can right-click on a target configuration and choose <b>Set as Default Target</b> to set which target configuration is used for debugging.
+</li></ol>
+<p>To debug an application, follow these steps:
+</p>
+<ol><li><div class="floatright"><span><a href="images/Ecl_runprog.png" class="image" title="debug view"><img alt="debug view" src="images/Ecl_runprog.png" width="465" height="236" border="0" /></a></span></div>Choose <b>Run &gt; Debug Active Project</b> or click the <a href="images/Ecl_bug.png" class="image" title="bug"><img alt="bug" src="images/Ecl_bug.png" width="18" height="17" border="0" /></a> icon. This loads the program and switches you to the "Debug" perspective.
+</li><li>Set a breakpoint at line 10 by placing your cursor in the line of prog.c and clicking the <a href="images/Ecl_hand.png" class="image" title="hand"><img alt="hand" src="images/Ecl_hand.png" width="16" height="16" border="0" /></a> icon.
+</li><li>Press F8 to run to the breakpoint. <p></p>
+</li><li>Look at the messages in the "Console" tab.
+</li></ol>
+<div class="Info"><p class="Info">For Eclipse-based debugging of applications that use RTSC modules, XDCtools provides the Runtime Object Viewer (ROV). For information on using this tool, see <a href="../Runtime_Object_Viewer/Runtime_Object_Viewer.html" title="Runtime Object Viewer">Runtime Object Viewer (ROV)</a>.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../RTSC%2BEclipse_FAQs/RTSC%2BEclipse_FAQs.html" title="RTSC+Eclipse FAQs">RTSC+Eclipse FAQs</a>
+</td><td class="DocListSubTitle1">Using RTSC with Eclipse-Based Tools
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XGCONF_User%27s_Guide/XGCONF_User%27s_Guide.html" title="XGCONF User's Guide">XGCONF User's Guide</a>
+</td><td class="DocListSubTitle">Using the RTSC Graphical Configuration Tool in CCSv4
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Runtime_Object_Viewer/Runtime_Object_Viewer.html" title="Runtime Object Viewer">Runtime Object Viewer</a>
+</td><td class="DocListSubTitle">Using ROV for Eclipse-Based Debugging
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>
+</td><td class="DocListSubTitle">Producing and consuming spec'd modules
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Using_Targets_and_Platforms/Using_Targets_and_Platforms.html" title="Using Targets and Platforms">Using Targets and Platforms</a>
+</td><td class="DocListSubTitle">Introduction to targets and platforms
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Using_xdc.runtime_System/Using_xdc.runtime_System.html" title="Using xdc.runtime System">Using xdc.runtime System</a>
+</td><td class="DocListSubTitle">How to boot, print a message, and shutdown
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html" title="Overview of xdc.runtime">Overview of xdc.runtime</a>
+</td><td class="DocListSubTitle">Introduction to the xdc.runtime package
+</td></tr></table>
+<p></p>
+<a name="Flash_demos"></a><h4> <span class="mw-headline">Flash demos</span></h4>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Demo_of_RTSC_Project_Creation_in_CCSv4/Demo_of_RTSC_Project_Creation_in_CCSv4.html" title="Demo of RTSC Project Creation in CCSv4">Demo of RTSC Project Creation in CCSv4</a>
+</td><td class="DocListSubTitle1">Using CCStudio v4 to create a RTSC project
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Demo_of_XGCONF_in_CCSv4/Demo_of_XGCONF_in_CCSv4.html" title="Demo of XGCONF in CCSv4">Demo of XGCONF in CCSv4</a>
+</td><td class="DocListSubTitle">Using XGCONF to create a RTSC configuration
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Demo_of_Target_Configuration_Creation_in_CCSv4/Demo_of_Target_Configuration_Creation_in_CCSv4.html" title="Demo of Target Configuration Creation in CCSv4">Demo of Target Configuration Creation in CCSv4</a>
+</td><td class="DocListSubTitle">Using CCStudio v4 to create a target configuration for debugging
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Demo_of_DSPBIOS_5.x_Project_Creation_in_CCSv4/Demo_of_DSPBIOS_5.x_Project_Creation_in_CCSv4.html" title="Demo of DSPBIOS 5.x Project Creation in CCSv4">Demo of DSPBIOS 5.x Project Creation in CCSv4</a>
+</td><td class="DocListSubTitle">Using CCStudio v4 to create a DSP/BIOS 5.x project
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Demo_of_the_RTSC_Platform_Wizard_in_CCSv4/Demo_of_the_RTSC_Platform_Wizard_in_CCSv4.html" title="Demo of the RTSC Platform Wizard in CCSv4">Demo of the RTSC Platform Wizard in CCSv4</a>
+</td><td class="DocListSubTitle">Using CCStudio v4 to create a custom RTSC platform
+</td></tr></table>
+<p><br />
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC+CCStudio v4 QuickStart&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/RTSC+CCStudio v4 QuickStart" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_RTSC_with_CCStudio_v4/Using_RTSC_with_CCStudio_v4.html" title="Using RTSC with CCStudio v4"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../XGCONF_User's_Guide/XGCONF_User's_Guide.html" title="XGCONF User's Guide"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2814 bytes
+Post-expand include size: 1054 bytes
+Template argument size: 176 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC%2BCCStudio_v4_QuickStart.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.216 secs. --></body></html>

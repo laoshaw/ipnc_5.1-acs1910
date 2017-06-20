@@ -1,0 +1,302 @@
+<html>
+<head>
+<title>module xdc.bld.Repository</title>
+<meta name="description" content="Model of a package repository">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">Repository</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Release.html" title="module Release"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Script.html" title="module Script"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Repository.html">index URL</a></div>
+<p class="xdocHdrSummary">Model of a package repository</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+</ul>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Repository-src.html"><span class="xdocLabelFile">xdc/bld/Repository.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Repository</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">instance</span>:<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Repository = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.Repository'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Attrs">Repository.<span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for a repository</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">releases</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;releases that this rep is a part of</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Repository.<a class="xdocSynGo" href="#per-instance_config_parameters"><span class="xdoc-id">Params</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Instance config-params object</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The repository's attributes</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">Repository.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The repository's directory name</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Packages">inst.<span class="xdoc-id">addPackages</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified package releases to this repository</span></span></a>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <go><span class="xdoc-id">names</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Repository-src.html"><span class="xdocLabelFile">xdc/bld/Repository.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Repository</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for a repository</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">releases</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;releases that this rep is a part of</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">instance</span>:
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">Repository.Attrs</a>&nbsp;<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The repository's attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The repository's directory name</span></span></a>;
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#add.Packages"><span class="xdoc-id">addPackages</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified package releases to this repository</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">names</span></go>[<span class="xdoc-kw2"></span>] );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Repository.</span><span class="xdoc-id">Attrs</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Repository.html" title="module Repository"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Repository.html#.Attrs">index URL</a></div>
+<p class="xdocHdrSummary">Optional attributes for a repository</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> Repository.<span class="xdoc-id">Attrs</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">releases</span> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;releases that this rep is a part of</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">releases</span>
+<span class="xdocChildSum">&#151;&nbsp;This array contains releases that will contain the
+          repository.  Thus, a single repository can be part of any set 
+          of releases.  Each repository is always added to the 
+          package's "default release" in addition to any releases
+          specified in the releases array.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Repository.html#attrs" title="attrs">attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_config_parameters"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance config parameters</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Repository.html" title="module Repository"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Repository.html#per-instance_config_parameters">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Repository.<span class="xdoc-id">Params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params object</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">Repository.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The repository's attributes</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The repository's directory name</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Repository.</span><span class="xdoc-id">attrs</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Repository.html" title="module Repository"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Repository.html#attrs">index URL</a></div>
+<p class="xdocHdrSummary">The repository's attributes</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Repository.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">Repository.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Repository.</span><span class="xdoc-id">name</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Repository.html" title="module Repository"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Repository.html#name">index URL</a></div>
+<p class="xdocHdrSummary">The repository's directory name</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Repository.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Packages"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Repository.</span><span class="xdoc-id">addPackages</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Repository.html" title="module Repository"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Repository.html#add.Packages">index URL</a></div>
+<p class="xdocHdrSummary">Add specified package releases to this repository</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>inst.<span class="xdoc-id">addPackages</span>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-id">names</span> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">names</span>
+<span class="xdocChildSum">&#151;&nbsp;An array of strings naming package releases to be added
+          to the repository.  Package releases are named as follows:</span>
+</div>
+<div class="xdocChildText"><PRE class="Example">              &lt;pkgName&gt;:&lt;releaseName&gt;
+</PRE></div>
+<div class="xdocChildText">where <tt>&lt;pkgName&gt;</tt> is the name of the package to add to the
+          repository and <tt>&lt;releaseName&gt;</tt> is the name of one of that
+          package's releases.  A package release name may be either the
+          archive file name (relative to the package's base directory)
+          of the release archive or the name used create the release in
+          package named <tt>&lt;pkgName&gt;</tt>.</div>
+<div class="xdocChildText">For example, if the package <tt>ti.bios</tt> had a release named
+          <tt>exports/ti_bios,src</tt>, the following statements would add
+          this release to the repository named <tt>packages</tt>:</div>
+<div class="xdocChildText"><PRE class="Example">              var r = Pkg.addRepository("packages");
+              r.addPackages(["ti.bios:exports/ti_bios,src"]);
+</PRE></div>
+<div class="xdocChildText">Alternatively, one can specify the archive file name:</div>
+<div class="xdocChildText"><PRE class="Example">              var r = Pkg.addRepository("packages");
+              r.addPackages(["ti.bios:exports/ti_bios,src.tar"]);
+</PRE></div>
+<div class="xdocChildText">It is possible to get a list of release archive names from a
+          package via the
+          <tt><a class="xdoc-link" href="../../xdc/bld/BuildEnvironment.html#get.Release.Descs" title="xdc.bld.BuildEnvironment.getReleaseDescs">xdc.bld.BuildEnvironment.getReleaseDescs()</a></tt>
+          method.  For example, to get the physical archive name of the
+          default release of the <tt>ti.bios</tt> package, the following loop
+          can be added to a build script:</div>
+<div class="xdocChildText"><PRE class="Example">              var archiveName;
+              var rels = Build.getReleaseDescs('ti.bios');
+              for (var j = 0; j &lt; rels.length; j++) {
+                  if (rels[j].label == "default") {
+                      archiveName = rels[j].aname;
+                      break;
+                  }
+              }
+              // archiveName is now set to the file name of the ti.bios
+              // default release archive (or undefined)
+</PRE></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/BuildEnvironment.html#get.Release.Descs" title="xdc.bld.BuildEnvironment.getReleaseDescs">xdc.bld.BuildEnvironment.getReleaseDescs()</a></div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:18 GMT</div>
+</div></div></body>
+</html>

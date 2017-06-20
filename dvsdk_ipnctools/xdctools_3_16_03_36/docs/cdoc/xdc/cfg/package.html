@@ -1,0 +1,140 @@
+<html>
+<head>
+<title>package xdc.cfg</title>
+<meta name="description" content="Configuration Object Model elements">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">xdc.cfg</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Configuration Object Model elements</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">COMPATIBILITY CHECKS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-3">CONTROLLING COMPATIBILITY CHECKS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-4">THROWS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-5">SEE</a></li>
+</ul>
+<div class="xdocBrief">
+This package contains the modules necessary to populate the XDC
+  Configuration Object Model.  In addition, this package supplies a
+  C/C++ header, <tt>global.h</tt>, that facilitates the creation of portable
+  sources that need to reference global values defined as part of
+  a configuration (<tt><a class="xdoc-link" href="../../xdc/cfg/Program.html#global" title="xdc.cfg.Program.global">xdc.cfg.Program.global</a></tt>).
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/cfg/package-src.html"><span class="xdocLabelFile">xdc/cfg/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../xdc/services/global/package.html" title="xdc.services.global">xdc.services.global</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">xdc.cfg</span></go> [1, 0, 2, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/cfg/Program.html' title='xdc.cfg.Program'><span class="xdoc-id">Program</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The Program object for the configuration object model</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This package contains the modules necessary to populate the XDC
+  Configuration Object Model.  In addition, this package supplies a
+  C/C++ header, <tt>global.h</tt>, that facilitates the creation of portable
+  sources that need to reference global values defined as part of
+  a configuration (<tt><a class="xdoc-link" href="../../xdc/cfg/Program.html#global" title="xdc.cfg.Program.global">xdc.cfg.Program.global</a></tt>).</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">COMPATIBILITY CHECKS</div>
+<div class="xdocText">During configuration certain compatibility checks are made.  These checks
+  include:</div>
+<div class="xdocText"><OL><LI>   target compatibility among all packages that are included in the
+        configuration
+</LI><LI>   package compatibility among all packages included in the
+        configuration
+</LI><LI>   package compatibility with respect to the set of packages used to
+        build the packages that are part of the configuration set.
+</LI></OL></div>
+<div class="xdocText">By default, if any of the checks above fail, the configuration step fails.
+  It is possible, however, to selectively exclude particular
+  packages from these checks and/or treat check failures as non-fatal
+  warnings.</div>
+<div class="xdocText">There are two "environment" variables that control these checks:</div>
+<div class="xdocText"><DL><DT> <tt>xdc.cfg.check.exclude</tt></DT><DD>
+        a regular expression that is used to select packages that should
+        be excluded from the set of packages checked during configuration.
+</DD><DT> <tt>xdc.cfg.check.fatal</tt></DT><DD>
+        if set to "<tt>false</tt>", force any incompatibilities detected to be
+        treated as warnings only; otherwise incompatibilities are fatal
+</DD></DL></div>
+<div class="xdocText">Of course, it is also possible to use both options together to achieve
+  a desired effect.</div>
+<div class="xdocText">To define these environment variables one must pass the appropriate <tt>-D</tt>
+  options to the XDCscript shell (<tt>xs</tt>) which is used to run the
+  <tt><a class="xdoc-link" href="../../xdc/tools/configuro/package.html" title="xdc.tools.configuro">configuro</a></tt> command line configuration tool.
+  If, on the other hand, you are using <tt>xdc</tt> to run the configuration step
+  you can set these variables by setting the
+  <tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">xsopts</a></tt> attribute of an
+  <tt><a class="xdoc-link" href="../../xdc/bld/Executable.html" title="xdc.bld.Executable">xdc.bld.Executable</a></tt> within a build script.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">CONTROLLING COMPATIBILITY CHECKS</div>
+<div class="xdocText">To treat compatibility check failures as warnings for the executable
+  <tt>app</tt>:</div>
+<div class="xdocText"><PRE class="Example">    Pkg.addExecutable("app", targ, targ.platform, {
+         xsopts: "-Dxdc.cfg.check.fatal=false"
+    });
+</PRE></div>
+<div class="xdocText">To ignore any incompatibilities triggered by targets used by the
+  <tt>ti.targets.rts*</tt> packages:</div>
+<div class="xdocText"><PRE class="Example">    Pkg.addExecutable("app", targ, targ.platform, {
+        xsopts: "-Dxdc.cfg.check.exclude='ti.targets.rts.*'"
+    });
+</PRE></div>
+<div class="xdocText">In this case, the <tt>xdc.cfg.check.exclude</tt> option is regular expression used
+  to exclude any package whose names matches the regular expression from the
+  checks.</div>
+<div class="xdocText">Finally, if you don't want to set <tt>xsopts</tt> on each executable, it is
+  possible to set it for all executables within a package by setting the
+  <tt>xsopts</tt> attribute of the <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html" title="xdc.bld.PackageContents">xdc.bld.PackageContents</a></tt> (a.k.a. <tt>Pkg</tt>)
+  object.  For example, to turn all compatibility checks into warnings for
+  all executables in a package, add the following line to the package's
+  build script:</div>
+<div class="xdocText"><PRE class="Example">    Pkg.attrs.xsopts = "-Dxdc.cfg.check.fatal=false";
+</PRE></div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal errors. The following error
+  codes are reported in the exception message:</div>
+<div class="xdocText"><DL><DT>  <tt>xdc.cfg.CONFIG_ERROR</tt></DT><DD>
+           This is a general error reported when the program configuration
+           fails. This error is caused by one or more configuration errors.
+           The list of those specific errors preceds this error.
+</DD><DT>  <tt>xdc.cfg.INCOMPATIBLE_TARGET_VERSION</tt></DT><DD>
+           This is an error or a warning usually reported when the version of 
+           the compiler used in the current build is not compatible with the
+           version of the compiler used to build some of the loaded packages.
+           The compiler version might be encoded in the compatibility keys
+           displayed in the error message, but it is not required. Please
+           check the documentation of the current target's package for the
+           content of the compatibility keys.
+</DD></DL></div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/cfg/Program.html#global" title="xdc.cfg.Program.global">xdc.cfg.Program.global</a>, <a class="xdoc-link" href="../../xdc/tools/configuro/Main.html" title="xdc.tools.configuro.Main">xdc.tools.configuro.Main</a></div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:27 GMT</div>
+</div></div></body>
+</html>

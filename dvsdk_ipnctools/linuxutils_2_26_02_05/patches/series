@@ -1,0 +1,2 @@
+CMEM-fix-for-issue-symbol-arm926_dma_map_area.patch -p1
+migrate-irqk-to-kernel-2.6.37.patch -p1

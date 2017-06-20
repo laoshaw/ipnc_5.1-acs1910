@@ -1,0 +1,160 @@
+<html><head><title>interface xdc.bld.ITarget2</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2009 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== ITarget.xdc ========
+</span>    14    <span class="comment"> *
+</span>    15    <span class="comment"> *! Revision History
+</span>    16    <span class="comment"> *! ================
+</span>    17    <span class="comment"> *! 26-Aug-2009 sasha   created
+</span>    18    <span class="comment"> */</span>
+    19    <span class=key>package</span> xdc.bld;
+    20    
+    21    <span class="xdoc">/*!
+</span>    22    <span class="xdoc"> *  ======== ITarget2 ========
+</span>    23    <span class="xdoc"> *  Extension of the interface {<b>@link</b> xdc.bld.ITarget}.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  This interface contains some common structures and config parameters
+</span>    26    <span class="xdoc"> *  shared by several packages that contain targets.
+</span>    27    <span class="xdoc"> */</span>
+    28    <span class=key>metaonly</span> <span class=key>interface</span> ITarget2 <span class=key>inherits</span> ITarget {
+    29    
+    30        <span class="xdoc">/*!
+</span>    31    <span class="xdoc">     *  ======== Command ========
+</span>    32    <span class="xdoc">     *  Required command and options.
+</span>    33    <span class="xdoc">     *
+</span>    34    <span class="xdoc">     *  The compile, link, and archive functions in this interface are
+</span>    35    <span class="xdoc">     *  implemented by expanding the strings specified in this structure
+</span>    36    <span class="xdoc">     *  and inserting strings from the Options structure to form a single
+</span>    37    <span class="xdoc">     *  command.  The strings in this structure can not be changed by
+</span>    38    <span class="xdoc">     *  the user (they are fixed by the target), but the string in the
+</span>    39    <span class="xdoc">     *  Options structure may be changed by the user.
+</span>    40    <span class="xdoc">     *
+</span>    41    <span class="xdoc">     *  The final command is:
+</span>    42    <span class="xdoc">     *      Command.cmd Options.prefix Command.opts Options.suffix
+</span>    43    <span class="xdoc">     *
+</span>    44    <span class="xdoc">     *  <b>@field(cmd)</b>     name of a tool-chain executable without any path
+</span>    45    <span class="xdoc">     *                  information.  The location of this executable is
+</span>    46    <span class="xdoc">     *                  specified by the binDir (or pathPrefix) 
+</span>    47    <span class="xdoc">     *                  configuration parameter.
+</span>    48    <span class="xdoc">     *
+</span>    49    <span class="xdoc">     *  <b>@field(opts)</b>    required options passed to the command; these options
+</span>    50    <span class="xdoc">     *                  can not be changed or eliminated by user's
+</span>    51    <span class="xdoc">     *                  configuration script.
+</span>    52    <span class="xdoc">     */</span>
+    53        <span class=key>struct</span> Command {
+    54            string cmd;     <span class="xdoc">/*! the command to run */</span>
+    55            string opts;    <span class="xdoc">/*! required options for the command */</span>
+    56        }
+    57    
+    58        <span class="xdoc">/*!
+</span>    59    <span class="xdoc">     *  ======== Options ========
+</span>    60    <span class="xdoc">     *  User configurable command options.
+</span>    61    <span class="xdoc">     *
+</span>    62    <span class="xdoc">     *  The option strings allow the user to pass additional parameters to the
+</span>    63    <span class="xdoc">     *  executable that is responsible for compiling, linker, or archiving.
+</span>    64    <span class="xdoc">     *  See `xdc.bld.ITarget2.Command`.
+</span>    65    <span class="xdoc">     */</span>
+    66        <span class=key>struct</span> Options {
+    67            string prefix;  <span class="xdoc">/*! options that appear before Command.opts */</span>
+    68            string suffix;  <span class="xdoc">/*! options that appear after Command.opts */</span>
+    69        }
+    70    
+    71        <span class="xdoc">/*!
+</span>    72    <span class="xdoc">     *  ======== ar ========
+</span>    73    <span class="xdoc">     *  The command used to create an archive
+</span>    74    <span class="xdoc">     */</span>
+    75        <span class=key>readonly</span> <span class=key>config</span> Command ar;
+    76    
+    77        <span class="xdoc">/*!
+</span>    78    <span class="xdoc">     *  ======== arOpts ========
+</span>    79    <span class="xdoc">     *  User configurable archiver options.
+</span>    80    <span class="xdoc">     */</span>
+    81        <span class=key>config</span> Options arOpts = {
+    82            prefix: <span class="string">""</span>,
+    83            suffix: <span class="string">""</span>
+    84        };
+    85    
+    86        <span class="xdoc">/*!
+</span>    87    <span class="xdoc">     *  ======== lnk ========
+</span>    88    <span class="xdoc">     *  The command used to link executables.
+</span>    89    <span class="xdoc">     */</span>
+    90        <span class=key>readonly</span> <span class=key>config</span> Command lnk;
+    91    
+    92        <span class="xdoc">/*!
+</span>    93    <span class="xdoc">     *  ======== lnkOpts ========
+</span>    94    <span class="xdoc">     *  User configurable linker options.
+</span>    95    <span class="xdoc">     */</span>
+    96        <span class=key>config</span> Options lnkOpts = {
+    97            prefix: <span class="string">""</span>,
+    98            suffix: <span class="string">""</span>
+    99        };
+   100    
+   101        <span class="xdoc">/*!
+</span>   102    <span class="xdoc">     *  ======== cc ========
+</span>   103    <span class="xdoc">     *  The command used to compile C/C++ source files into object files
+</span>   104    <span class="xdoc">     */</span>
+   105        <span class=key>readonly</span> <span class=key>config</span> Command cc;
+   106    
+   107        <span class="xdoc">/*!
+</span>   108    <span class="xdoc">     *  ======== ccOpts ========
+</span>   109    <span class="xdoc">     *  User configurable compiler options.
+</span>   110    <span class="xdoc">     */</span>
+   111        <span class=key>config</span> Options ccOpts = {
+   112            prefix: <span class="string">""</span>,
+   113            suffix: <span class="string">""</span>
+   114        };
+   115    
+   116        <span class="xdoc">/*!
+</span>   117    <span class="xdoc">     *  ======== ccConfigOpts ========
+</span>   118    <span class="xdoc">     *  User configurable compiler options for the generated config C file.
+</span>   119    <span class="xdoc">     *
+</span>   120    <span class="xdoc">     *  By default, this parameter inherits values specified in ccOpts, by
+</span>   121    <span class="xdoc">     *  expanding $(ccOpts.prefix) and $(ccOpts.suffix) into the values
+</span>   122    <span class="xdoc">     *  specified in ccOpts for this target.
+</span>   123    <span class="xdoc">     */</span>
+   124        <span class=key>config</span> Options ccConfigOpts = {
+   125            prefix: <span class="string">"$(ccOpts.prefix)"</span>,
+   126            suffix: <span class="string">"$(ccOpts.suffix)"</span>
+   127        };
+   128    
+   129        <span class="xdoc">/*!
+</span>   130    <span class="xdoc">     *  ======== asm ========
+</span>   131    <span class="xdoc">     *  The command used to assembles assembly source files into object files
+</span>   132    <span class="xdoc">     */</span>
+   133        <span class=key>readonly</span> <span class=key>config</span> Command asm;
+   134    
+   135        <span class="xdoc">/*!
+</span>   136    <span class="xdoc">     *  ======== asmOpts ========
+</span>   137    <span class="xdoc">     *  User configurable assembler options.
+</span>   138    <span class="xdoc">     */</span>
+   139        <span class=key>config</span> Options asmOpts = {
+   140            prefix: <span class="string">""</span>,
+   141            suffix: <span class="string">""</span>
+   142        };
+   143    
+   144        <span class="xdoc">/*!
+</span>   145    <span class="xdoc">     *  ======== includeOpts ========
+</span>   146    <span class="xdoc">     *  Additional user configurable target-specific include path options
+</span>   147    <span class="xdoc">     */</span>
+   148        <span class=key>config</span> string includeOpts;
+   149    }<span class="comment">/*
+</span>   150    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:31; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   151    <span class="comment"> */</span>
+   152    
+</pre>
+</body></html>

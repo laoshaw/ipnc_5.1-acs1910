@@ -1,0 +1,110 @@
+<html><head><title>module xdc.bld.Utils</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Utils.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== Utils ========
+</span>    19    <span class="xdoc"> *  Utility functions to simplify creation of targets and platforms
+</span>    20    <span class="xdoc"> */</span>
+    21    <span class=key>metaonly</span> <span class=key>module</span> Utils
+    22    {
+    23        <span class="xdoc">/*!
+</span>    24    <span class="xdoc">     *  ======== expandString ========
+</span>    25    <span class="xdoc">     *  Expand references within a string to specified values
+</span>    26    <span class="xdoc">     *
+</span>    27    <span class="xdoc">     *  All references of the form "`$(&lt;name&gt;)`" within the command string,
+</span>    28    <span class="xdoc">     *  `cmd` are replaced with the string value having key `&lt;name&gt;` in the
+</span>    29    <span class="xdoc">     *  hashtable `values`.
+</span>    30    <span class="xdoc">     *
+</span>    31    <span class="xdoc">     *  If `&lt;name&gt;` appears in values and its value is `null` or `undefined`,
+</span>    32    <span class="xdoc">     *  then `$(&lt;name&gt;)` is replaced with the empty string.  If `&lt;name&gt;` does
+</span>    33    <span class="xdoc">     *  not appear in `values`, then `$(&lt;name&gt;)` is not replaced.
+</span>    34    <span class="xdoc">     *
+</span>    35    <span class="xdoc">     *  <b>@param(cmd)</b>     a string with embeded references to values defined in
+</span>    36    <span class="xdoc">     *                  the values hashtable parameter
+</span>    37    <span class="xdoc">     *  <b>@param(values)</b>  an arbitrary hash of name-value pairs; these values
+</span>    38    <span class="xdoc">     *                  are used to substitute for references of the form
+</span>    39    <span class="xdoc">     *                  `$(name)` that appear within `cmd`.
+</span>    40    <span class="xdoc">     *
+</span>    41    <span class="xdoc">     *  <b>@a(returns)</b>     string with references replaced as specified by the
+</span>    42    <span class="xdoc">     *                  `values` hash.
+</span>    43    <span class="xdoc">     *
+</span>    44    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors
+</span>    45    <span class="xdoc">     */</span>
+    46        String expandString(String cmd, Any values);
+    47    
+    48        <span class="xdoc">/*!
+</span>    49    <span class="xdoc">     *  ======== expandDbgName ========
+</span>    50    <span class="xdoc">     *  Generate name of a debug support output file
+</span>    51    <span class="xdoc">     *
+</span>    52    <span class="xdoc">     *  <b>@param(cfgName)</b> the name of the generated configuration script
+</span>    53    <span class="xdoc">     *                  without the ".cfg" extension
+</span>    54    <span class="xdoc">     *  <b>@param(exeName)</b> the name of the output executable
+</span>    55    <span class="xdoc">     *  <b>@param(pattern)</b> file name pattern
+</span>    56    <span class="xdoc">     *
+</span>    57    <span class="xdoc">     *  Both cfgName and exeName are relative to the directory containing
+</span>    58    <span class="xdoc">     *  package.bld.
+</span>    59    <span class="xdoc">     *
+</span>    60    <span class="xdoc">     *  <b>@_nodoc</b> this function is an internal method shared between xdc.bld
+</span>    61    <span class="xdoc">     *  and xdc.cfg and has little value outside this context.
+</span>    62    <span class="xdoc">     */</span>
+    63        <span class=key>function</span> expandDbgName(cfgName, exeName, pattern);
+    64        
+    65        <span class="xdoc">/*!
+</span>    66    <span class="xdoc">     *  ======== parsePlatName ========
+</span>    67    <span class="xdoc">     *  Parse platform instance name into platform package name and short
+</span>    68    <span class="xdoc">     *  instance name
+</span>    69    <span class="xdoc">     *
+</span>    70    <span class="xdoc">     *  <b>@param(platInstName)</b>     the name of a platform instance
+</span>    71    <span class="xdoc">     *
+</span>    72    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>    73    <span class="xdoc">     *  returns object with the following fields:
+</span>    74    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    75    <span class="xdoc">     *      - `platPkgName`
+</span>    76    <span class="xdoc">     *              name of the platform package name
+</span>    77    <span class="xdoc">     *      - `instName`
+</span>    78    <span class="xdoc">     *              name of the platform instance
+</span>    79    <span class="xdoc">     *      - `instMod`
+</span>    80    <span class="xdoc">     *              module object specifying platform instances (if it exists)
+</span>    81    <span class="xdoc">     * <b>@p</b>
+</span>    82    <span class="xdoc">     *
+</span>    83    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors
+</span>    84    <span class="xdoc">
+</span>    85    <span class="xdoc">     *  <b>@_nodoc</b> this function is an internal method shared between xdc.bld
+</span>    86    <span class="xdoc">     *  and xdc.cfg and has little value outside this context.
+</span>    87    <span class="xdoc">     */</span>
+    88        <span class=key>function</span> parsePlatName(platInstName);
+    89    
+    90        <span class="xdoc">/*!
+</span>    91    <span class="xdoc">     *  ======== display ========
+</span>    92    <span class="xdoc">     *  Recursively print arbitrary object
+</span>    93    <span class="xdoc">     *
+</span>    94    <span class="xdoc">     *  <b>@param(msg)</b>  a string to print before printing the object
+</span>    95    <span class="xdoc">     *  <b>@param(obj)</b>  an arbitrary object to display
+</span>    96    <span class="xdoc">     */</span>
+    97        Void display(String msg, Any obj);
+    98    }
+    99    <span class="comment">/*
+</span>   100    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   101    <span class="comment"> */</span>
+   102    
+</pre>
+</body></html>

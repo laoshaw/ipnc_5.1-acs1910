@@ -1,0 +1,58 @@
+ cmem_test
+
+ Timestamp is 4cd9a953 (Tue Nov 09 12:04:35 2010)
+
+ Preferred load address is 00010000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00000028H .rdata                  CODE
+ 0001:00000028 00000026H .rdata$debug            CODE
+ 0001:00000050 00000658H .text                   CODE
+ 0001:000006a8 00000014H .idata$2                CODE
+ 0001:000006bc 00000014H .idata$3                CODE
+ 0001:000006d0 00000018H .idata$4                CODE
+ 0001:000006e8 0000000cH .idata$6                CODE
+ 0001:000006f4 00000000H .edata                  CODE
+ 0002:00000000 00000018H .idata$5                DATA
+ 0002:00000018 0000000cH .data                   DATA
+ 0002:00000024 0000000cH .bss                    DATA
+ 0003:00000000 00000070H .pdata                  DATA
+
+  Address         Publics by Value              Rva+Base       Lib:Object
+
+ 0000:00000000       ___safe_se_handler_count   00000000     <absolute>
+ 0000:00000000       ___safe_se_handler_table   00000000     <absolute>
+ 0001:0000001c       ??_C@_1M@IMNEMCPG@?$AAC?$AAM?$AAK?$AA1?$AA?3?$AA?$AA@ 0001101c     cmem:cmem.obj
+ 0001:00000050       main                       00011050 f   cmem_test.obj
+ 0001:000001fc       CMEM_allocPool             000111fc f   cmem:cmem.obj
+ 0001:00000218       CMEM_getPool2              00011218 f   cmem:cmem.obj
+ 0001:0000028c       CMEM_getPhys               0001128c f   cmem:cmem.obj
+ 0001:000002f8       CMEM_getVersion            000112f8 f   cmem:cmem.obj
+ 0001:000003e0       CMEM_getBlockAttrs         000113e0 f   cmem:cmem.obj
+ 0001:000003f4       CMEM_getNumBlocks          000113f4 f   cmem:cmem.obj
+ 0001:0000046c       CMEM_exit                  0001146c f   cmem:cmem.obj
+ 0001:000004a4       CMEM_init                  000114a4 f   cmem:cmem.obj
+ 0001:00000564       alloc                      00011564 f   cmem:cmem.obj
+ 0001:0000063c       CMEM_alloc                 0001163c f   cmem:cmem.obj
+ 0001:00000658       __GetUserKData             00011658 f   coredll:COREDLL.dll
+ 0001:00000668       DeviceIoControl            00011668 f   coredll:COREDLL.dll
+ 0001:00000678       CloseHandle                00011678 f   coredll:COREDLL.dll
+ 0001:00000688       GetSystemInfo              00011688 f   coredll:COREDLL.dll
+ 0001:00000698       CreateFileW                00011698 f   coredll:COREDLL.dll
+ 0001:000006a8       __IMPORT_DESCRIPTOR_COREDLL 000116a8     coredll:COREDLL.dll
+ 0001:000006bc       __NULL_IMPORT_DESCRIPTOR   000116bc     coredll:COREDLL.dll
+ 0002:00000000       __imp_DeviceIoControl      00012000     coredll:COREDLL.dll
+ 0002:00000004       __imp_CloseHandle          00012004     coredll:COREDLL.dll
+ 0002:00000008       __imp_GetSystemInfo        00012008     coredll:COREDLL.dll
+ 0002:0000000c       __imp_CreateFileW          0001200c     coredll:COREDLL.dll
+ 0002:00000010       __imp___GetUserKData       00012010     coredll:COREDLL.dll
+ 0002:00000014       \177COREDLL_NULL_THUNK_DATA 00012014     coredll:COREDLL.dll
+ 0002:00000018       CMEM_DEFAULTPARAMS         00012018     cmem:cmem.obj
+
+ entry point at        0001:00000050
+
+ Static symbols
+
+ 0001:000000e4       allocFromHeap              000110e4 f   cmem:cmem.obj
+ 0001:00000168       allocPool                  00011168 f   cmem:cmem.obj
+ 0001:0000035c       getBlock                   0001135c f   cmem:cmem.obj

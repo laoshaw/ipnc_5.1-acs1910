@@ -1,0 +1,91 @@
+#! /bin/sh
+#
+# rcS		Call all S??* scripts in /etc/rcS.d in
+#		numerical/alphabetical order.
+#
+# Version:	@(#)/etc/init.d/rcS  2.76  19-Apr-1999  miquels@cistron.nl
+#
+
+PATH=/sbin:/bin:/usr/sbin:/usr/bin
+runlevel=S
+prevlevel=N
+umask 022
+export PATH runlevel prevlevel
+
+[ -d "/proc/1" ] || mount /proc
+#
+#	See if system needs to be setup. This is ONLY meant to
+#	be used for the initial setup after a fresh installation!
+#
+if [ -x /sbin/unconfigured.sh ]
+then
+  /sbin/unconfigured.sh
+fi
+
+#
+#	Source defaults.
+#
+. /etc/default/rcS
+export VERBOSE
+
+#
+#	Trap CTRL-C &c only in this shell so we can interrupt subprocesses.
+#
+trap ":" INT QUIT TSTP
+
+#
+#	Call all parts in order.
+#
+for i in /etc/rc.d/rcS.d/S??*
+do
+	# Ignore dangling symlinks for now.
+	[ ! -f "$i" ] && continue
+
+	case "$i" in
+		*.sh)
+			# Source shell script for speed.
+			(
+				trap - INT QUIT TSTP
+				set start
+				. $i
+			)
+			;;
+		*)
+			# No sh extension, so fork subprocess.
+			$i start
+			;;
+	esac
+done
+
+#      Run /etc/rc.d/rc.local if it exists
+[ -x /etc/rc.d/rc.local ] && /etc/rc.d/rc.local
+
+#
+#	Finish setup if needed. The comment above about
+#	/sbin/unconfigured.sh applies here as well!
+#
+if [ -x /sbin/setup.sh ]
+then
+  /sbin/setup.sh
+fi
+
+DVEVMDIR=/opt/ipnc
+
+
+# Load the dsplink and cmem kernel modules
+/bin/mount -t sysfs none /sys -n
+mount -t debugfs none /sys/kernel/debug
+cd $DVEVMDIR
+mount -t jffs2 /dev/mtdblock4 /mnt/nand
+
+mknod -m 666 /dev/spidev0.0 c 153 0
+
+./system_server &
+$DVEVMDIR/beforeloadkmodule.sh
+$DVEVMDIR/loadkmodules.sh
+$DVEVMDIR/loadmodules_ipnc.sh
+ifconfig lo 127.0.0.1
+cd $DVEVMDIR
+./boot_proc 1
+$DVEVMDIR/autorun.sh
+mount devpts /dev/pts -t devpts

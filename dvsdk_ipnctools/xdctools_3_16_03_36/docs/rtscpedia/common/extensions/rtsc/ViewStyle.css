@@ -1,0 +1,29 @@
+body {
+    background: rgb(234,234,234);
+}
+
+#content {
+    margin: .15in .08in ! important;
+}
+
+
+#column-one { display: none; }
+#footer { display: none; }
+#catlinks { display: none; }
+
+#bodyContent .nbcomment { display: none; }
+#bodyContent .offline { display: none; }
+
+#bodyContent .offlineDate {
+    color: #888;
+    display: block !important;
+    font-size: 70% !important;
+    padding-top: 1.5em;
+    #padding-top: .5em;
+    width: 50%;
+}
+
+#bodyContent a.external {
+    background: url(images/external.png) center right no-repeat !important;
+    padding-right: 13px !important;
+}

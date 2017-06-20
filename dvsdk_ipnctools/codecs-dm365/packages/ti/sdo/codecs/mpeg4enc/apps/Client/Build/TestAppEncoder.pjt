@@ -1,0 +1,61 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="D:\Beta_Release\DM365Codecs_01_00_00_02\dm365_codecs\mpeg4_encoder\Client\Build\"
+ProjectType=Executable
+CPUFamily=TMS470R2X
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="Linker"
+Tool="XDC"
+Config="Debug"
+Config="Release"
+
+[Project Dependencies]
+Source="..\..\Src\Build\mp4vencAlg.pjt"
+
+["..\..\Src\Build\mp4vencAlg.pjt" Settings]
+MatchConfigName=true
+
+["..\..\Src\Build\mp4vencAlg.pjt" Settings: "Debug"]
+Config="Debug"
+
+["..\..\Src\Build\mp4vencAlg.pjt" Settings: "Release"]
+Config="Debug"
+
+[Source Files]
+Source="..\..\..\imcopcsl\src\cache.c"
+Source="..\..\Lib\rts32earm9.lib"
+Source="..\Test\Src\alg_control.c"
+Source="..\Test\Src\alg_create.c"
+Source="..\Test\Src\alg_malloc.c"
+Source="..\Test\Src\ccs\testapp_arm926intc.c"
+Source="..\Test\Src\ccs\testapp_inthandler.asm"
+Source="..\Test\Src\ccs\testapp_intvecs.asm"
+Source="..\Test\Src\ccs\testapp_mmutable.asm"
+Source="..\Test\src\ccs\timer.c"
+Source="..\Test\Src\LockMP.c"
+Source="..\Test\Src\mpeg4EncTestApp.c"
+Source="..\Test\Src\mylinuxutils.c"
+Source="..\Test\Src\TestAppConfigParser.c"
+Source="..\Test\Src\vicp_framework.c"
+Source="mp4vencApp.cmd"
+
+["Compiler" Settings: "Debug"]
+Options=-g -fr"$(Proj_dir)\Obj" -i"C:\Framework_Components\framework_components_2_21_00_07\packages\" -i"C:\Framework_Components\framework_components_2_21_00_07\fctools\packages\" -i"$(Proj_dir)\..\..\..\imcopcsl\inc" -i"$(Proj_dir)\..\..\..\include" -i"$(Proj_dir)\..\Test\inc" -i"$(Proj_dir)\..\..\Inc" -i"$(Proj_dir)\..\..\..\imcopcsl\inc\arminc" -i"$(Proj_dir)\..\..\..\imcopcsl\inc\armcsl" -d"TIMER_PROFILE" -d"ENABLE_IDMA3" -d"__FAR__" -md -me -ml
+
+["Compiler" Settings: "Release"]
+Options=-o3 -fr"$(Proj_dir)\Obj" -i"C:\Framework_Components\framework_components_2_21_00_07\packages\" -i"C:\Framework_Components\framework_components_2_21_00_07\fctools\packages\" -i"$(Proj_dir)\..\..\..\imcopcsl\inc" -i"$(Proj_dir)\..\..\..\include" -i"$(Proj_dir)\..\Test\inc" -i"$(Proj_dir)\..\..\Inc" -i"$(Proj_dir)\..\..\..\imcopcsl\inc\arminc" -i"$(Proj_dir)\..\..\..\imcopcsl\inc\armcsl" -d"TIMER_PROFILE" -d"ENABLE_IDMA3" -d"__FAR__" -md -me -mf -ml --symdebug:none
+
+["Linker" Settings: "Debug"]
+Options=-c -m".\Debug\TestAppEncoder.map" -o".\Debug\TestAppEncoder.out" -w -x -i"$(Proj_dir)\..\..\Lib" -i"$(Install_dir)\CCSStudio_3.2.39.5\tms470\cgtools" --large_model
+
+["Linker" Settings: "Release"]
+Options=-c -m"$(Proj_dir)\Map\mp4vencApp.map" -o"$(Proj_dir)\Out\mp4vencApp.out" -w -x -i"$(Proj_dir)\..\..\Lib" -i"$(Install_dir)\CCSStudio_3.2.39.5\tms470\cgtools" --large_model
+
+["mp4vencApp.cmd" Settings: "Debug"]
+LinkOrder=1
+
+["mp4vencApp.cmd" Settings: "Release"]
+LinkOrder=1
+

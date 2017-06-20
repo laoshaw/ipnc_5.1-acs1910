@@ -1,0 +1,29 @@
+diff -Naur linuxutils_2_26_02_05_ori/packages/ti/sdo/linuxutils/irq/src/module/irqk.c linuxutils_2_26_02_05_new/packages/ti/sdo/linuxutils/irq/src/module/irqk.c
+--- linuxutils_2_26_02_05_ori/packages/ti/sdo/linuxutils/irq/src/module/irqk.c	2011-07-12 23:32:28.000000000 +0530
++++ linuxutils_2_26_02_05_new/packages/ti/sdo/linuxutils/irq/src/module/irqk.c	2012-02-08 16:38:00.066763000 +0530
+@@ -33,6 +33,7 @@
+ #include <linux/cdev.h>
+ #include <linux/mm.h>
+ #include <linux/interrupt.h>
++#include <linux/slab.h>
+ 
+ #include <asm/io.h>
+ #include <asm/memory.h>
+@@ -347,7 +348,7 @@
+ 
+                 __D("REQUESTIRQ: ... got it\n");
+ 
+-                init_MUTEX_LOCKED(&channelp->completion_sem);
++		sema_init(&channelp->completion_sem, 0);
+                 channelp->transfer_complete = 0;
+                 channelp->resource = req.resource;
+ 
+@@ -860,7 +861,7 @@
+ 
+     for (i = 0; i < IRQK_NUMCHANNELS; i++) {
+         channelp = &channels[i];
+-        init_MUTEX(&channelp->resource_sem);
++	sema_init(&channelp->resource_sem, 1);
+         channelp->transfer_complete = 0;
+         channelp->resource = IRQK_NONE;
+         INIT_LIST_HEAD(&channelp->users);

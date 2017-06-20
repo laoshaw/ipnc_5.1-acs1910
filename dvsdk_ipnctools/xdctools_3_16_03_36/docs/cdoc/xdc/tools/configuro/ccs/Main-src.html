@@ -1,0 +1,173 @@
+<html><head><title>module xdc.tools.configuro.ccs.Main</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright 2007 by Texas Instruments Incorporated.
+</span>     3    <span class="comment"> *
+</span>     4    <span class="comment"> *  All rights reserved. Property of Texas Instruments Incorporated.
+</span>     5    <span class="comment"> *  Restricted rights to use, duplicate or disclose this code are
+</span>     6    <span class="comment"> *  granted through contract.
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> */</span>
+     9    
+    10    <span class="xdoc">/*!
+</span>    11    <span class="xdoc"> *  ======== Main ========
+</span>    12    <span class="xdoc"> *  Command-line configuration tool adapter for Code Composer Studio
+</span>    13    <span class="xdoc"> *
+</span>    14    <span class="xdoc"> *  This command is a wrapper for {<b>@link</b> xdc.tools.configuro Configuro}
+</span>    15    <span class="xdoc"> *  that adapts it for use inside Code Composer Studio. It is not
+</span>    16    <span class="xdoc"> *  intended to be called directly by users.
+</span>    17    <span class="xdoc"> */</span>
+    18    <span class=key>metaonly</span> <span class=key>module</span> Main <span class=key>inherits</span> xdc.tools.ICmd {
+    19    
+    20        <span class="xdoc">/*!
+</span>    21    <span class="xdoc">     * usage help message
+</span>    22    <span class="xdoc">     */</span>
+    23        <span class=key>override</span> <span class=key>config</span> String usage[] = [
+    24            <span class="string">'[-v|--help]'</span>,
+    25            <span class="string">'[-@ optionsfile] [--xp xdcpath]'</span>,
+    26            <span class="string">'[-b config_bld | -c codegen_dir | --cb]'</span>,
+    27            <span class="string">'[-t target] [-p platform[:instance]] [-r profile]'</span>,
+    28            <span class="string">'[-Dname=value] [--tcf] [--bios5]'</span>,
+    29            <span class="string">'[-w|-x regexp]'</span>,
+    30            <span class="string">'[-o outdir] infile.cfg'</span>
+    31        ];
+    32    
+    33    <span class=key>instance</span>:
+    34    
+    35        <span class="xdoc">/*!
+</span>    36    <span class="xdoc">     * XDC path
+</span>    37    <span class="xdoc">     */</span>
+    38        @CommandOption(<span class="string">"xp"</span>)
+    39        <span class=key>config</span> String xdcPath[] = [];
+    40    
+    41        <span class="xdoc">/*!
+</span>    42    <span class="xdoc">     * name of the text file containing xdc paths
+</span>    43    <span class="xdoc">     *
+</span>    44    <span class="xdoc">     * <b>@_nodoc</b>
+</span>    45    <span class="xdoc">     *
+</span>    46    <span class="xdoc">     * Both plain directory listing and javascript syntax are supported; 
+</span>    47    <span class="xdoc">     * for javascript, the file must start with double slashes -- "//" -- and 
+</span>    48    <span class="xdoc">     * it must define a variable called xdcpaths.
+</span>    49    <span class="xdoc">     */</span>
+    50        @CommandOption(<span class="string">"xdcpathsfile"</span>)
+    51        <span class=key>config</span> String xdcPathsFile = <span class=key>null</span>;        
+    52        
+    53        <span class="xdoc">/*!
+</span>    54    <span class="xdoc">     * Process infile.tcf in addition to infile.cfg
+</span>    55    <span class="xdoc">     */</span>
+    56        @CommandOption(<span class="string">"tcf"</span>)
+    57        <span class=key>config</span> Bool hasTconf = <span class=key>false</span>;
+    58        
+    59        <span class="xdoc">/*!
+</span>    60    <span class="xdoc">     * Add "include" directory from pacakge "ti.bios" to compiler options
+</span>    61    <span class="xdoc">     */</span>
+    62        @CommandOption(<span class="string">"bios5"</span>)
+    63        <span class=key>config</span> Bool bios5Incs = <span class=key>false</span>;
+    64    
+    65        <span class="xdoc">/*!
+</span>    66    <span class="xdoc">     * name of the output directory
+</span>    67    <span class="xdoc">     */</span>
+    68        @CommandOption(<span class="string">"o"</span>)
+    69        <span class=key>config</span> String output = <span class=key>null</span>;
+    70    
+    71        <span class="xdoc">/*!
+</span>    72    <span class="xdoc">     * config.bld file name
+</span>    73    <span class="xdoc">     *
+</span>    74    <span class="xdoc">     * The path to the user's config.bld. Replaces ROOTDIR.
+</span>    75    <span class="xdoc">     */</span>
+    76        @CommandOption(<span class="string">"b"</span>)
+    77        <span class=key>config</span> String configbld = <span class=key>null</span>;
+    78    
+    79        <span class="xdoc">/*!
+</span>    80    <span class="xdoc">     * Use a config.bld found along the package path
+</span>    81    <span class="xdoc">     */</span>
+    82        @CommandOption(<span class="string">"cb"</span>)
+    83    
+    84        <span class=key>config</span> Bool searchForConfigBld = <span class=key>false</span>;
+    85        <span class="xdoc">/*!
+</span>    86    <span class="xdoc">     * target module
+</span>    87    <span class="xdoc">     *
+</span>    88    <span class="xdoc">     * The name of an XDC build target module to use, for example
+</span>    89    <span class="xdoc">     * `ti.targets.C64P`. If no target is named, the target used is
+</span>    90    <span class="xdoc">     * `Build.targets[0]`, from `config.bld`.
+</span>    91    <span class="xdoc">     */</span>
+    92        @CommandOption(<span class="string">"t"</span>)
+    93        <span class=key>config</span> String target = <span class=key>null</span>;
+    94    
+    95        <span class="xdoc">/*!
+</span>    96    <span class="xdoc">     * build profile to use
+</span>    97    <span class="xdoc">     *
+</span>    98    <span class="xdoc">     * The name of the build profile to use for the XDC content, for
+</span>    99    <span class="xdoc">     * example 'release' or 'debug'. The list of allowed profiles is
+</span>   100    <span class="xdoc">     * determined by the XDC build target named.
+</span>   101    <span class="xdoc">     */</span>
+   102        @CommandOption(<span class="string">"r"</span>)
+   103        <span class=key>config</span> String profile = <span class="string">'release'</span>;
+   104    
+   105        <span class="xdoc">/*!
+</span>   106    <span class="xdoc">     * the platform to use
+</span>   107    <span class="xdoc">     *
+</span>   108    <span class="xdoc">     * If undefined, the default platform for the XDC build target
+</span>   109    <span class="xdoc">     * named.
+</span>   110    <span class="xdoc">     */</span>
+   111        @CommandOption(<span class="string">"p"</span>)
+   112        <span class=key>config</span> String platform = <span class=key>null</span>;
+   113    
+   114        <span class="xdoc">/*!
+</span>   115    <span class="xdoc">     * root directory of the code generation tools
+</span>   116    <span class="xdoc">     *
+</span>   117    <span class="xdoc">     * The path to the installation directory of the compiler and linker.
+</span>   118    <span class="xdoc">     */</span>
+   119        @CommandOption(<span class="string">"c"</span>)
+   120        <span class=key>config</span> String rootdir = <span class=key>null</span>;
+   121    
+   122        <span class="xdoc">/*!
+</span>   123    <span class="xdoc">     * show details during build
+</span>   124    <span class="xdoc">     */</span>
+   125        @CommandOption(<span class="string">"v"</span>)
+   126        <span class=key>config</span> Bool verbose = <span class=key>false</span>;
+   127    
+   128        <span class="xdoc">/*!
+</span>   129    <span class="xdoc">     * exclude packages from compatibility checking
+</span>   130    <span class="xdoc">     *
+</span>   131    <span class="xdoc">     * A list of regular expressions used to select packages that should
+</span>   132    <span class="xdoc">     * be excluded from the set of packages checked during configuration.
+</span>   133    <span class="xdoc">     * <b>@see</b> xdc.cfg
+</span>   134    <span class="xdoc">     */</span>
+   135        @CommandOption(<span class="string">"x"</span>)
+   136        <span class=key>config</span> String exclude = <span class=key>null</span>;
+   137    
+   138        <span class="xdoc">/*!
+</span>   139    <span class="xdoc">     * incompatibilites are treated only as warnings
+</span>   140    <span class="xdoc">     *
+</span>   141    <span class="xdoc">     * If set to "`true`", force any incompatibilities detected to be
+</span>   142    <span class="xdoc">     * treated as warnings only; otherwise incompatibilities are fatal.
+</span>   143    <span class="xdoc">     * <b>@see</b> xdc.cfg
+</span>   144    <span class="xdoc">     */</span>
+   145        @CommandOption(<span class="string">"w"</span>)
+   146        <span class=key>config</span> Bool warn = <span class=key>false</span>;
+   147    
+   148        <span class="xdoc">/*!
+</span>   149    <span class="xdoc">     * set Java properties in the configuration environment
+</span>   150    <span class="xdoc">     *
+</span>   151    <span class="xdoc">     * -Dconfig.importPath is treated specially -- these directories are
+</span>   152    <span class="xdoc">     * added to the end of the package path.
+</span>   153    <span class="xdoc">     */</span>
+   154        @CommandOption(<span class="string">"D"</span>)
+   155        <span class=key>config</span> String defines[] = [];
+   156        
+   157        <span class="xdoc">/*!
+</span>   158    <span class="xdoc">     * Generate and build the configuration package.
+</span>   159    <span class="xdoc">     */</span>
+   160        <span class=key>int</span> gen(String infile);
+   161    }
+   162    <span class="comment">/*
+</span>   163    <span class="comment"> *  @(#) xdc.tools.configuro.ccs; 1, 0, 0, 0,34; 12-15-2007 18:23:21; /db/ztree/library/trees/bti-a52x/src/
+</span>   164    <span class="comment"> */</span>
+   165    
+</pre>
+</body></html>

@@ -1,0 +1,87 @@
+<html><head><title>module ti.catalog.arm.TMS570PSF762</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS570PSF762.xdc ========
+</span>    15    <span class="comment"> */</span>
+    16    <span class=key>package</span> ti.catalog.arm;
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== TMS570PSF762 ========
+</span>    20    <span class="xdoc"> *  The C470 device data sheet module.
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is 
+</span>    23    <span class="xdoc"> *  used by platforms to obtain "data sheet" information about this device.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  Warning: The data for this module comes from the linker command file 
+</span>    26    <span class="xdoc"> *  shipped with the TI 470 tools and does NOT come from any published data
+</span>    27    <span class="xdoc"> *  sheet.
+</span>    28    <span class="xdoc"> */</span>
+    29    <span class=key>metaonly</span> <span class=key>module</span> TMS570PSF762 <span class=key>inherits</span> TMS470xx
+    30    {
+    31    
+    32    <span class=key>instance</span>:
+    33        <span class=key>override</span> <span class=key>config</span> string cpuCore           = <span class="string">"R4"</span>;
+    34        <span class=key>override</span> <span class=key>config</span> string isa               = <span class="string">"v7R"</span>;
+    35        <span class=key>override</span> <span class=key>config</span> string cpuCoreRevision   = <span class="string">"1.0"</span>;
+    36        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minProgUnitSize   = 1;
+    37        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minDataUnitSize   = 1;
+    38        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    dataWordSize      = 4;
+    39    
+    40        <span class="xdoc">/*!
+</span>    41    <span class="xdoc">     *  ======== memMap ========
+</span>    42    <span class="xdoc">     *  The default memory map for this device
+</span>    43    <span class="xdoc">     */</span>
+    44        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    45            [<span class="string">"LO_FLASH"</span>, {
+    46                name:       <span class="string">"FLASH"</span>,
+    47                base:       0x00000000,
+    48                len:        0x00080000,
+    49                space:      <span class="string">"code"</span>,
+    50                access:     <span class="string">"RX"</span>
+    51            }],
+    52            [<span class="string">"HI_IRAM"</span>, {
+    53                name:       <span class="string">"IRAM"</span>,
+    54                base:       0x08000000,
+    55                len:        0x0000A000,
+    56                space:      <span class="string">"code/data"</span>,
+    57                access:     <span class="string">"RWX"</span>
+    58            }],
+    59            [<span class="string">"HI_FLASH"</span>, {
+    60                name:       <span class="string">"FLASH"</span>,
+    61                base:       0x20000000,
+    62                len:        0x00080000,
+    63                space:      <span class="string">"code"</span>,
+    64                access:     <span class="string">"RX"</span>
+    65            }],
+    66            [<span class="string">"LO_IRAM"</span>, {
+    67                name:       <span class="string">"IRAM"</span>,
+    68                base:       0x00000000,
+    69                len:        0x0000A000,
+    70                space:      <span class="string">"code/data"</span>,
+    71                access:     <span class="string">"RWX"</span>
+    72            }],
+    73        ];
+    74    };
+    75    
+    76    <span class="comment">/*
+</span>    77    <span class="comment"> *  @(#) ti.catalog.arm; 1, 0, 1, 0,116; 2-23-2010 16:50:34; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    78    <span class="comment"> */</span>
+    79    
+</pre>
+</body></html>

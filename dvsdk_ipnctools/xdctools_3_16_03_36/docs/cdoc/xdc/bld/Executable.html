@@ -1,0 +1,932 @@
+<html>
+<head>
+<title>module xdc.bld.Executable</title>
+<meta name="description" content="Model of a file that can be loaded and executed on a platform">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">Executable</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html">index URL</a></div>
+<p class="xdocHdrSummary">Model of a file that can be loaded and executed on a platform</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+</ul>
+<div class="xdocBrief">
+Executable instances represent executable files.  Instances must be
+  created via the <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#add.Executable" title="xdc.bld.PackageContents.addExecutable">xdc.bld.PackageContents.addExecutable()</a></tt>
+  function; this ensures that each executable created appears in the
+  package's manifest and that it properly "inherits" appropriate default
+  attributes from the containing package.
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Executable-src.html"><span class="xdocLabelFile">xdc/bld/Executable.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Executable</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">instance</span>:<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Executable = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.Executable'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Attrs">Executable.<span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for an Executable instance</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">profile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;target options profile</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;asm options for objs added to this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">copts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ options for objs added to this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ options for the C config file</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">defs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;definitions for objs added to this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">incs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;include opts for objs added to this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">lopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;linker options for this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">tcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;<tt>tconf</tt> options for this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">xsopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;<tt>xs</tt> options for this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cpuId</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional id of CPU on platform</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">rtsName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional run time support package name</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cpuArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional register settings</span></span></a> = <i><span class="xdoc-kw2">Any</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgScript</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional name of config script</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgHome</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional home package of config model</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional arguments passed to cfgScript</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgArgsEncoded</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, cfgArgs is encoded via escape()</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportExe</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;export executable's exe file?</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportCfg</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;export executable's config script?</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportSrc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, export exe sources to releases</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">releases</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;releases that this exe is a part of</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">test</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;test attrs for tests added to this exe</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">linkTemplate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;linker command file template for this exe</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">isRom</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, exe is a ROMable sub-assembly</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Executable.<a class="xdocSynGo" href="#per-instance_config_parameters"><span class="xdoc-id">Params</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Instance config-params object</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This executable's optional attributes</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">Executable.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Base name of the executable</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#platform"><span class="xdoc-id">platform</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the platform that will run this executable</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#target"><span class="xdoc-id">target</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The target (on a platform) that executable should be built for</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Objects">inst.<span class="xdoc-id">addObjects</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified object to be built and linked into this executable</span></span></a>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <go><span class="xdoc-id">names</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/Object.html#.Attrs" title="xdc.bld.Object.Attrs">Object.Attrs</a></i> <go><span class="xdoc-id">objAttrs</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Test">inst.<span class="xdoc-id">addTest</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified test to executable</span></span></a>( <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a></i> <go><span class="xdoc-id">testAttrs</span></go> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Instance" title="xdc.bld.Test.Instance">Test.Instance</a></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Executable-src.html"><span class="xdocLabelFile">xdc/bld/Executable.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Executable</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for an Executable instance</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">profile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;target options profile</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;asm options for objs added to this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">copts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ options for objs added to this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ options for the C config file</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">defs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;definitions for objs added to this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">incs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;include opts for objs added to this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">lopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;linker options for this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">tcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;<tt>tconf</tt> options for this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">xsopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;<tt>xs</tt> options for this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cpuId</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional id of CPU on platform</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">rtsName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional run time support package name</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cpuArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional register settings</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgScript</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional name of config script</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgHome</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional home package of config model</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;optional arguments passed to cfgScript</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgArgsEncoded</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, cfgArgs is encoded via escape()</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportExe</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;export executable's exe file?</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportCfg</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;export executable's config script?</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportSrc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, export exe sources to releases</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">releases</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;releases that this exe is a part of</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">test</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;test attrs for tests added to this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">linkTemplate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;linker command file template for this exe</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">isRom</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if true, exe is a ROMable sub-assembly</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">instance</span>:
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">Executable.Attrs</a>&nbsp;<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This executable's optional attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Base name of the executable</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#platform"><span class="xdoc-id">platform</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the platform that will run this executable</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>&nbsp;<a class="xdocSynGo" href="#target"><span class="xdoc-id">target</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The target (on a platform) that executable should be built for</span></span></a>;
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#add.Objects"><span class="xdoc-id">addObjects</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified object to be built and linked into this executable</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">names</span></go>[<span class="xdoc-kw2"></span>], <a class="xdoc-link" href="../../xdc/bld/Object.html#.Attrs" title="xdc.bld.Object.Attrs">Object.Attrs</a>&nbsp;<go><span class="xdoc-id">objAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/bld/Test.html#.Instance" title="xdc.bld.Test.Instance">Test.Instance</a>&nbsp;<a class="xdocSynGo" href="#add.Test"><span class="xdoc-id">addTest</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified test to executable</span></span></a>( <a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a>&nbsp;<go><span class="xdoc-id">testAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Executable.</span><span class="xdoc-id">Attrs</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#.Attrs">index URL</a></div>
+<p class="xdocHdrSummary">Optional attributes for an Executable instance</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> Executable.<span class="xdoc-id">Attrs</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">profile</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;target options profile</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">aopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;asm options for objs added to this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">copts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;C/C++ options for objs added to this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cfgcopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;C/C++ options for the C config file</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">defs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;definitions for objs added to this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">incs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;include opts for objs added to this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">lopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;linker options for this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">tcopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;<tt>tconf</tt> options for this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">xsopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;<tt>xs</tt> options for this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cpuId</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;optional id of CPU on platform</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">rtsName</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;optional run time support package name</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cpuArgs</span> = <i><span class="xdoc-kw2">Any</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;optional register settings</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cfgScript</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;optional name of config script</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cfgHome</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;optional home package of config model</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cfgArgs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;optional arguments passed to cfgScript</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cfgArgsEncoded</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if true, cfgArgs is encoded via escape()</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportExe</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;export executable's exe file?</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportCfg</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;export executable's config script?</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportSrc</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if true, export exe sources to releases</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">releases</span> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;releases that this exe is a part of</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">test</span> = <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;test attrs for tests added to this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">linkTemplate</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;linker command file template for this exe</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">isRom</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if true, exe is a ROMable sub-assembly</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">cfgArgs</span>
+<span class="xdocChildSum">&#151;&nbsp;This string may contain any expression that can be
+          assigned to a JavaScript property.  It is evaluated in
+          the configuration domain after the platform package is
+          imported and just prior to running the executable's
+          configuration script.  Its value (after evaluation) is
+          assigned to <tt>Program.build.cfgArgs</tt>; so, program
+          configuration scripts can use this property to adjust their
+          behavior based on values specified in a build script.</span>
+</div>
+<div class="xdocChildText">For example, a package's build script might build an
+          executable for each possible level of a "trace" value:</div>
+<div class="xdocChildText"><PRE class="Example">              for (t = 0; t &lt; NUM_TRACE_LEVELS; t++) {
+                      :
+                  Pkg.addExecutable("myExe" + t, targ, plat, {
+                      cfgArgs:   "{traceLevel: " + t + "}",
+                      cfgScript: "myExe.cfg"
+                  });
+              }
+</PRE></div>
+<div class="xdocChildText">In this case, the configuration script <tt>myExe.cfg</tt> can
+          reference the "trace level" set in the build script by
+          referencing the <tt>Program.build.cfgArgs</tt> object directly:</div>
+<div class="xdocChildText"><PRE class="Example">              if (Program.build.cfgArgs.traceLevel == 1) {
+                  :
+              }
+</PRE></div>
+<div class="xdocChild"><span class="xdocChildId">cfgArgsEncoded</span>
+<span class="xdocChildSum">&#151;&nbsp;This boolean flag indicates whether the
+  string <tt>cfgArgs</tt> should be treated as an encoded string (via ECMA-262
+  <tt>escape()</tt>) or not.  If this field is <tt>true</tt>, the string is treated
+  as an encoded string and is decoded via <tt>unescape()</tt> prior to
+  interpretation.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">incs</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains include path options used by
+          the compiler (or assembler) to locate include files; e.g.,
+          "-I ../../include -I ../c55xx".  Note that the syntax of 
+          this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">defs</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the
+          compiler (or assembler) to define macros; e.g.,
+          "-D_C6xxx -DDEBUG=1".  Note that the syntax of 
+          this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">aopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the assembler
+          to produce object files; e.g., "-mP1".  Note that the syntax
+          of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">copts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the C/C++
+          compiler to produce object files; e.g., "-o3 -mi1".  Note
+          that the syntax of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">cfgcopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the C/C++
+          compiler to compile the generated C config file. If <tt>cfgopts</tt>
+          is not specified, either explicitly or through
+          <tt>Pkg.attrs.cfgcopts</tt>, the options specified in <tt>copts</tt> are
+          used instead.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">lopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the linker
+          produce object files; e.g., "-l mylib.lib".  Note
+          that the syntax of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">tcopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options passed to <tt>tconf</tt>.
+          Deprecated, use <tt>xsopts</tt> instead.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">xsopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options passed to <tt>xs</tt>
+          when running configuration scripts; e.g., to turn on the
+          reporting of warnings this string can be set to "-js -w",
+          or to define the name-value pair "FOO=bar" available via
+          the environment hash-table <tt>xsopts</tt> should be set to
+          "-DFOO=bar".</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">cfgHome</span>
+<span class="xdocChildSum">&#151;&nbsp;This string names the package that is bound to
+          the Configuration Model's <tt>$homepkg</tt>.  This home package
+          is automatically loaded as part of configuration and, as
+          a result, may contribute libraries to the configuration.</span>
+</div>
+<div class="xdocChildText">If this parameter is not specified, the package containing
+          the configuration script is used as the home package.  This
+          ensures that the results of a configuration script are
+          independent of the package building the configuration.  In
+          most cases, the build package is the package containing the
+          configuration script and this distinction is not important.
+          But there are times when it is important to control the home
+          package; e.g., when an external tool generates a
+          configuration script from information supplied by another
+          package or when a configuration script in not in any package.</div>
+<div class="xdocChild"><span class="xdocChildId">cfgScript</span>
+<span class="xdocChildSum">&#151;&nbsp;This string names the program configuration
+          script used to create the files necessary to create the
+          executable.  If <tt>cfgScript</tt> is not specified, the configuration
+          script is assumed to be <tt>&lt;name&gt;.cfg</tt>, where <tt>&lt;name&gt;</tt> is the
+          base name of the executable.  If <tt>cfgScript</tt> is set to <tt>null</tt>,
+          the executable is assumed to be a "legacy" application that
+          defines <tt>main()</tt> directly and does not require any
+          <tt><a class="xdoc-link" href="../../xdc/runtime/package.html" title="xdc.runtime">xdc.runtime</a></tt> support.</span>
+</div>
+<div class="xdocChildText">If this string is set to a non-<tt>null</tt> value, and does not have
+          an extension, then the extension <tt>".cfg"</tt> is automatically
+          added.</div>
+<div class="xdocChildText">If the specified configuration file does not exist in the
+          package where the executable is being built and
+          the name does not begin with <tt>"./"</tt>, it is searched 
+          for along the package path.  Thus, it is possible to use
+          configuration scripts in other packages to build executables;
+          e.g., to use the configuration script "myExe.cfg" from a
+          <tt>ti.bios.examples.hello</tt> package, <tt>cfgScript</tt> should be set
+          to <tt>"ti/bios/examples/hello/myExe.cfg"</tt>.</div>
+<div class="xdocChildText">The package containing the specified configuration script is 
+          imported prior to running the configuration script and this
+          package is used to set <tt>xdc.$homepkg</tt>; thus, configuration
+          scripts that use <tt>xdc.$homepkg</tt> will configure the same
+          executable independent of the package building the executable.</div>
+<div class="xdocChild"><span class="xdocChildId">profile</span>
+<span class="xdocChildSum">&#151;&nbsp;This string names a profile defined by the
+          executable's target.  The profile specifies a set of compiler,
+          linker, and archiver options that are to be used when 
+          producing the executable.  Note that these tool options are
+          in addition to any options specified via <tt>aopts</tt>, <tt>copts</tt>,
+          etc.</span>
+</div>
+<div class="xdocChildText">If this field is not set or set to <tt>null</tt>, the value of
+          <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs.profile</a></tt> is used.  If
+          <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs.profile</a></tt> is not
+          specified or equal to <tt>null</tt>, the <tt>"release"</tt> profile is used.</div>
+<div class="xdocChild"><span class="xdocChildId">cpuId</span>
+<span class="xdocChildSum">&#151;&nbsp;This string is used to uniquely identify the
+          particular CPU on a platform that will run the executable; on
+          platforms that contain a single CPU, this string is ignored.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">rtsName</span>
+<span class="xdocChildSum">&#151;&nbsp;This string names a RunTime Support (RTS) package that
+          will be implicitly loaded prior to running the executable's
+          configuration script.  If this field is set to <tt>null</tt>, then
+          no RTS package will be loaded.  If this field is not set (or
+          set to <tt>undefined</tt>), the RTS package specified by this
+          executable's target will be used (see
+          <a class="xdoc-link" href="../../xdc/bld/ITarget.html#rts" title="xdc.bld.ITarget.rts">xdc.bld.ITarget.rts</a>) .</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">cpuArgs</span>
+<span class="xdocChildSum">&#151;&nbsp;This field is a hash-table of name-value pairs
+          interpreted by the CPU as register settings that exist at the
+          time that the executable is loaded; e.g., it is possible to
+          specify a non-reset value for the <tt>PMST</tt> register on a C54xx
+          CPU by setting this parameter to <tt>{PMST: 0xffff}</tt>.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportCfg</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to true, the configuration
+          script will be part of the releases named in the releases
+          array.  If it is unspecified (or set to <tt>null</tt>) and the
+          release specifies that configurations are to be exported,
+          the configuration script will be part of the release.  In
+          all other cases, the configuration is not part of the
+          release.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportSrc</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to true, the sources
+          specified via <tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#add.Objects" title="xdc.bld.Executable.addObjects">xdc.bld.Executable.addObjects()</a></tt>
+          will be part of the releases named in the releases
+          array.  If it is unspecified (or set to <tt>null</tt>) and the
+          release specifies that sources are to be exported,
+          the sources will be part of the release.  In
+          all other cases, the sources are not added to the
+          release.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportExe</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to true, the executable
+          will be part of the releases named in the releases
+          array.  If it is unspecified (or set to <tt>null</tt>) and the
+          release specifies that configurations are to be exported,
+          the executable will be part of the release.  In
+          all other cases, the executable is not part of the
+          release.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">releases</span>
+<span class="xdocChildSum">&#151;&nbsp;This array contains releases that will contain the
+          executable.  Thus, a single executable can be part of any set 
+          of releases.  Each executable is always added to the 
+          package's "default release" in addition to any releases
+          specified in the releases array.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">test</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set, it defines default attributes for
+          tests added to this executable, including the implicitly
+          added test (see <a class="xdoc-link" href="../../xdc/bld/PackageContents.html#add.Executable" title="xdc.bld.PackageContents.addExecutable">xdc.bld.PackageContents.addExecutable</a>).</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">linkTemplate</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set, it defines the linker 
+          command file template to be used to link this executable.  
+          This specification may, however, be overridden by the
+          configuration script (see
+          <a class="xdoc-link" href="../../xdc/cfg/Program.html#link.Template" title="xdc.cfg.Program.linkTemplate">xdc.cfg.Program.linkTemplate</a>).</span>
+</div>
+<div class="xdocChildText">As with configuration scripts, if the specified file does not
+          exist in the package where the executable is being built and
+          the name does not begin with <tt>"./"</tt>, it is searched for along
+          the package path.  Thus, it is possible to use templates in
+          other packages to build executables; e.g., to use the linker
+          command file "<tt>myExe.cmd</tt>" from the <tt>ti.bios.examples.hello</tt>
+          package, <tt>linkTemplate</tt> should be set to
+          <tt>"ti/bios/examples/hello/myExe.cmd"</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Unspecified attributes are "inherited" from
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs</a></tt>;
+  i.e., if one of fields in this structure is unspecified *and* this
+  field's name matches a field name in
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs</a></tt>, then this field's value
+  defaults to the value in specified by
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs</a></tt>.  This mechanism makes it
+  possible to establish package-wide default values for any of the
+  "inherited" attributes.</div>
+<div class="xdocText">Suppose, for example, that you want all executable files in this
+  package to be built with the 'release' profile, but one particular file
+  must be built with 'debug' (because it is a source example).  The
+  following build script fragment shows how this can be accomplished:</div>
+<div class="xdocText"><PRE class="Example">      Pkg.attrs.profile = 'release';
+      var exe = Pkg.addExecutable('example', ..., {profile: 'debug'});
+</PRE></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Executable.html#attrs" title="attrs">attrs</a>, <a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_config_parameters"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance config parameters</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#per-instance_config_parameters">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Executable.<span class="xdoc-id">Params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params object</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">Executable.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;This executable's optional attributes</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Base name of the executable</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">platform</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The name of the platform that will run this executable</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">target</span> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The target (on a platform) that executable should be built for</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Executable.</span><span class="xdoc-id">attrs</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#attrs">index URL</a></div>
+<p class="xdocHdrSummary">This executable's optional attributes</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Executable.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">Executable.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">These attributes are "inherited" by all objects added to this
+  executable; i.e., any object attribute that is undefined but is
+  defined here will be assigned the value from these attributes.</div>
+<div class="xdocText">Similarly, any unspecified attributes that also appear in
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs</a></tt> are inherited from
+  <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#attrs" title="xdc.bld.PackageContents.attrs">xdc.bld.PackageContents.attrs</a></tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Executable.</span><span class="xdoc-id">name</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#name">index URL</a></div>
+<p class="xdocHdrSummary">Base name of the executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Executable.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This name is used to construct the final executable file name as
+  follows:</div>
+<div class="xdocText"><PRE class="Example">      &lt;name&gt;.x&lt;target_suffix&gt;
+</PRE></div>
+<div class="xdocText">where <tt>&lt;name&gt;</tt> is name and <tt>&lt;target_suffix&gt;</tt> is the suffix defined 
+  by each target that the file is built for. See NOTE in 
+ <tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt> for filename rules.</div>
+<div class="xdocText">Note: if the same executable is to be built for different platforms
+  (having the same target), then name must "encode" the platform's
+  name.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="platform"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Executable.</span><span class="xdoc-id">platform</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#platform">index URL</a></div>
+<p class="xdocHdrSummary">The name of the platform that will run this executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Executable.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">platform</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Platforms are modeled as packages that have a module called
+  "Platform"; thus the platform name is really a package name.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="target"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Executable.</span><span class="xdoc-id">target</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#target">index URL</a></div>
+<p class="xdocHdrSummary">The target (on a platform) that executable should be built for</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Executable.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">target</span> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter is used to determine the target to use for any
+  objects added to the executable.</div>
+<div class="xdocText">During configuration, the executable's platform package can
+  validate that the target is compatible with the configuration of
+  the platform; the target object is accessible via the expression
+  <tt>Program.build.target</tt>.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Objects"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Executable.</span><span class="xdoc-id">addObjects</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#add.Objects">index URL</a></div>
+<p class="xdocHdrSummary">Add specified object to be built and linked into this executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>inst.<span class="xdoc-id">addObjects</span>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-id">names</span>, <i><a class="xdoc-link" href="../../xdc/bld/Object.html#.Attrs" title="xdc.bld.Object.Attrs">Object.Attrs</a></i> <span class="xdoc-id">objAttrs</span> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">names</span>
+<span class="xdocChildSum">&#151;&nbsp;array of base names of the sources of object files
+                      to be created and linked into the executable.
+ 			    See NOTE in <tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt> for filename rules.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">objAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;optional <tt><a class="xdoc-link" href="../../xdc/bld/Object.html#.Attrs" title="xdc.bld.Object.Attrs">xdc.bld.Object.Attrs</a></tt> for the
+                      array of objects added; all objects named by names
+                      will be given the attributes <tt>objAttrs</tt>.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">All objects added to the executable are built with the symbol
+  <tt>xdc_cfg__header__</tt> defined to be the name of the executable-specific
+  C header generated by the program configuration tool.  This symbol
+  is used by the <tt>xdc/cfg/global.h</tt> header to include the generated
+  header file; see <tt><a class="xdoc-link" href="../../xdc/cfg/Program.html#global" title="xdc.cfg.Program.global">xdc.cfg.Program.global</a></tt>.  Thus, it is
+  possible to portably include configuration specific definitions in a
+  source file that is used in many different configurations.</div>
+<div class="xdocText">For example, a portable <tt>main.c</tt> might be structured as follows:</div>
+<div class="xdocText"><PRE class="Example">      #include &lt;xdc/std.h&gt;
+      #include &lt;ti/bios/include/log.h&gt;
+
+      #include &lt;xdc/cfg/global.h&gt;    // include declaration of trace
+      
+      int main(int argc, char *argv[])
+      {
+          LOG_printf(trace, "hello world");
+              :
+      }
+</PRE></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">EXAMPLES</div>
+<div class="xdocText"></div>
+<div class="xdocText">1. Locate a source file whose name starts with "hello" with
+      an extension supported by the executable's target, compile it
+      and link it into the executable <tt>myExe</tt>:</div>
+<div class="xdocText"><PRE class="Example">          myExe.addObjects(["hello"]);
+</PRE></div>
+<div class="xdocText">If hello.c exists, compile and add to <tt>myExe</tt>, if hello.asm exists
+      assemble and add to <tt>myExe</tt>, etc.  If no such file is located,
+      a warning is emitted.</div>
+<div class="xdocText">2. Compile hello.c and add to the executable <tt>myExe</tt>:</div>
+<div class="xdocText"><PRE class="Example">          myExe.addObjects(["hello.c"]);
+</PRE></div>
+<div class="xdocText">3. Names may include sub-directory prefixes.  In this case, the
+      source will be located in a sub-directory of the current
+      package.  The following statement declares that the file
+      "<tt>foo/hello.c</tt>" should be compiled and linked into the executable
+      <tt>myExe</tt>:</div>
+<div class="xdocText"><PRE class="Example">          myExe.addObjects(["foo/hello.c"]);
+</PRE></div>
+<div class="xdocText">As in the previous examples, the extension ".c" is optional. 
+      In case an extension is not supplied, each extension
+      understood by the target will be tried until a source file
+      is located.</div>
+<div class="xdocText">4. It is also possible to supply file specific compilation
+      options.</div>
+<div class="xdocText"><PRE class="Example">          myExe.addObjects(["fir.c", "iir.c"], {defs: "-D_DEBUG"});
+</PRE></div>
+<div class="xdocText">In this case, both files fir.c and iir.c will be compiled
+      with the "<tt>-D_DEBUG</tt>" flag.  Any setting of <tt>attrs.defs</tt> in the
+      executable or package is overridden by this definition.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText"><tt>void</tt></div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors</div>
+<span id="xdoc-sect-6"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/cfg/Program.html#global" title="xdc.cfg.Program.global">xdc.cfg.Program.global</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Test"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Executable.</span><span class="xdoc-id">addTest</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Executable.html#add.Test">index URL</a></div>
+<p class="xdocHdrSummary">Add specified test to executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>inst.<span class="xdoc-id">addTest</span>( <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a></i> <span class="xdoc-id">testAttrs</span> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Instance" title="xdc.bld.Test.Instance">Test.Instance</a></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">testAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;test attrs object (<tt><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">xdc.bld.Test.Attrs</a></tt>)</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">A test encapsulates an executable and a set of arguments passed to
+  the executable when it is run.</div>
+<div class="xdocText">Tests are run by naming the goal "<tt>&lt;test_name&gt;.test</tt>" on the xdc
+  command line; <tt>&lt;test_name&gt;</tt> is the test's name.</div>
+<div class="xdocText">Multiple tests may have the same name; in this case, it is possible
+  to run all tests using the single goal "<tt>&lt;test_name&gt;.test</tt>"</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">the <tt><a class="xdoc-link" href="../../xdc/bld/Test.html" title="xdc.bld.Test">xdc.bld.Test</a></tt> instance object created</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:17 GMT</div>
+</div></div></body>
+</html>

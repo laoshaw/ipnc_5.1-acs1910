@@ -1,0 +1,169 @@
+<html><head><title>module ti.targets.C55P_byte</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== C55P_byte.xdc ========
+</span>    14    <span class="comment"> *
+</span>    15    <span class="comment"> */</span>
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== C55P_byte ========
+</span>    19    <span class="xdoc"> *  TI C55P byte mode target
+</span>    20    <span class="xdoc"> */</span>
+    21    <span class=key>metaonly</span> <span class=key>module</span> C55P_byte <span class=key>inherits</span> ti.targets.ITarget {
+    22        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name                = <span class="string">"C55P_byte"</span>;  
+    23        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix              = <span class="string">"55Pb"</span>;
+    24        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa                 = <span class="string">"55P"</span>;        
+    25        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts                 = <span class="string">"ti.targets.rts5500"</span>;
+    26    
+    27        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model = {
+    28            endian: <span class="string">"big"</span>,
+    29            dataModel: <span class="string">"huge"</span>
+    30        };
+    31    
+    32        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command ar = {
+    33            cmd: <span class="string">"ar55"</span>,
+    34            opts: <span class="string">"rq"</span>
+    35        };
+    36    
+    37        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command cc = {
+    38            cmd: <span class="string">"cl55 -c"</span>,
+    39            opts: <span class="string">"--memory_model=huge --byte_mode"</span>
+    40        };
+    41    
+    42        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command vers = {
+    43            cmd: <span class="string">"cl55"</span>,
+    44            opts: <span class="string">""</span>
+    45        };
+    46    
+    47        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command asm = {
+    48            cmd: <span class="string">"cl55 -c"</span>,
+    49            opts: <span class="string">"--memory_model=huge --byte_mode"</span>
+    50        };
+    51    
+    52        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command lnk = {
+    53            cmd: <span class="string">"lnk55"</span>,
+    54            opts: <span class="string">""</span>
+    55        };
+    56    
+    57        <span class="xdoc">/*!
+</span>    58    <span class="xdoc">     *  ======== asmOpts ========
+</span>    59    <span class="xdoc">     *  User configurable assembler options.
+</span>    60    <span class="xdoc">     *
+</span>    61    <span class="xdoc">     *  Defaults:
+</span>    62    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    63    <span class="xdoc">     *      -`-qq`
+</span>    64    <span class="xdoc">     *          super quiet mode
+</span>    65    <span class="xdoc">     *      -`-vcore:3.5`
+</span>    66    <span class="xdoc">     *          huge model byte mode is only supported on rev 3.5 cores (and
+</span>    67    <span class="xdoc">     *          above)
+</span>    68    <span class="xdoc">     */</span>
+    69        <span class=key>override</span> <span class=key>config</span> ITarget.Options asmOpts = {
+    70            prefix: <span class="string">"-vcore+ -qq"</span>,
+    71            suffix: <span class="string">""</span>
+    72        };
+    73    
+    74        <span class="xdoc">/*!
+</span>    75    <span class="xdoc">     *  ======== ccOpts ========
+</span>    76    <span class="xdoc">     *  User configurable compiler options.
+</span>    77    <span class="xdoc">     *
+</span>    78    <span class="xdoc">     *  Defaults:
+</span>    79    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    80    <span class="xdoc">     *      -`-qq`
+</span>    81    <span class="xdoc">     *          super quiet mode
+</span>    82    <span class="xdoc">     *      -`-pdsw225`
+</span>    83    <span class="xdoc">     *          generate a warning for implicitly declared functions; i.e.,
+</span>    84    <span class="xdoc">     *          functions without prototypes
+</span>    85    <span class="xdoc">     *      -`-Dfar= `
+</span>    86    <span class="xdoc">     *          ignore keyword far; this allows one to write code that can
+</span>    87    <span class="xdoc">     *          be compiled in large model and small model without #ifdef's
+</span>    88    <span class="xdoc">     *      -`-vcore:3.5`
+</span>    89    <span class="xdoc">     *          huge model byte mode is only supported on rev 3.5 cores (and
+</span>    90    <span class="xdoc">     *          above)
+</span>    91    <span class="xdoc">     */</span>
+    92        <span class=key>override</span> <span class=key>config</span> ITarget.Options ccOpts = {
+    93            prefix: <span class="string">"-vcore+ -qq -pdsw225 -Dfar= "</span>,
+    94            suffix: <span class="string">""</span>
+    95        };
+    96    
+    97        <span class="xdoc">/*!
+</span>    98    <span class="xdoc">     *  ======== lnkOpts ========
+</span>    99    <span class="xdoc">     *  User configurable linker options.
+</span>   100    <span class="xdoc">     *
+</span>   101    <span class="xdoc">     *  Defaults:
+</span>   102    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   103    <span class="xdoc">     *      -`-w`
+</span>   104    <span class="xdoc">     *          Display linker warnings
+</span>   105    <span class="xdoc">     *      -`-q`
+</span>   106    <span class="xdoc">     *          Quite run
+</span>   107    <span class="xdoc">     *      -`-u`
+</span>   108    <span class="xdoc">     *          Place unresolved external symbol into symbol table
+</span>   109    <span class="xdoc">     *      -`-c`
+</span>   110    <span class="xdoc">     *          ROM autoinitialization model
+</span>   111    <span class="xdoc">     *      -`-m`
+</span>   112    <span class="xdoc">     *          create a map file
+</span>   113    <span class="xdoc">     *      -`-l`
+</span>   114    <span class="xdoc">     *          archive library file as linker input
+</span>   115    <span class="xdoc">     */</span>
+   116        <span class=key>override</span> <span class=key>config</span> ITarget.Options lnkOpts = {
+   117            prefix: <span class="string">"-w -q -u _c_int00"</span>,
+   118            suffix: <span class="string">"-c -m $(XDCCFGDIR)/$@.map -l $(rootDir)/lib/rts55phb.lib"</span>
+   119        };
+   120    
+   121        <span class=key>override</span> <span class=key>config</span> string includeOpts = <span class="string">"-I$(rootDir)/include"</span>;
+   122    
+   123        <span class=key>final</span> <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string sectMap[string] = [
+   124            [<span class="string">".text"</span>,     <span class="string">"code"</span>],
+   125            [<span class="string">".stack"</span>,    <span class="string">"stack"</span>],
+   126            [<span class="string">".sysstack"</span>, <span class="string">"stack"</span>],
+   127            [<span class="string">".bss"</span>,      <span class="string">"data"</span>],
+   128            [<span class="string">".cinit"</span>,    <span class="string">"code"</span>],
+   129            [<span class="string">".pinit"</span>,    <span class="string">"code"</span>],
+   130            [<span class="string">".cio"</span>,      <span class="string">"code"</span>],
+   131            [<span class="string">".args"</span>,     <span class="string">"data"</span>],
+   132            [<span class="string">".const"</span>,    <span class="string">"data"</span>],
+   133            [<span class="string">".data"</span>,     <span class="string">"data"</span>],
+   134            [<span class="string">".switch"</span>,   <span class="string">"code"</span>],
+   135            [<span class="string">".sysmem"</span>,   <span class="string">"code"</span>],
+   136            [<span class="string">".far"</span>,      <span class="string">"data"</span>],
+   137            [<span class="string">"vectors"</span>,   <span class="string">"data"</span>],
+   138        ];
+   139    
+   140        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.StdTypes stdTypes = {
+   141            t_IArg          : { size: 4, align: 4 },
+   142            t_Char          : { size: 1, align: 1 },
+   143            t_Double        : { size: 4, align: 4 },
+   144            t_Float         : { size: 4, align: 4 },
+   145            t_Fxn           : { size: 4, align: 4 },
+   146            t_Int           : { size: 2, align: 2 },
+   147            t_Int8          : { size: 2, align: 2 }, <span class="comment">/* stdint.h */</span>
+   148            t_Int16         : { size: 2, align: 2 },
+   149            t_Int32         : { size: 4, align: 4 },
+   150            t_Int40         : { size: 8, align: 8 },
+   151            t_Long          : { size: 4, align: 4 },
+   152            t_LDouble       : { size: 4, align: 4 },
+   153            t_LLong         : { size: 8, align: 8 },
+   154            t_Ptr           : { size: 4, align: 4 },
+   155            t_Short         : { size: 2, align: 2 },
+   156        };
+   157    };
+   158    <span class="comment">/*
+</span>   159    <span class="comment"> *  @(#) ti.targets; 1, 0, 3,385; 2-24-2010 16:24:14; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>   160    <span class="comment"> */</span>
+   161    
+</pre>
+</body></html>

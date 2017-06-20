@@ -1,0 +1,75 @@
+clean::
+	$(RM) package/ti.sdo.codecs.dei.ce.ccs
+	$(RM) package/.vers_g104
+	$(RM) package/.vers_r108
+	$(RM) package/.vers_b102
+	$(RM) package/ti.sdo.codecs.dei.ce.sch
+	$(RM) package/package_ti.sdo.codecs.dei.ce.c
+	$(RM) package/package.defs.h
+	$(RM) package/package.doc.xml
+
+.interfaces: package/ti.sdo.codecs.dei.ce.ccs package/.vers_g104 package/.vers_r108 package/.vers_b102 package/ti.sdo.codecs.dei.ce.sch package/package_ti.sdo.codecs.dei.ce.c package/package.defs.h package/package.doc.xml 
+package/package.xdc.inc: package/.vers_g104
+package/.vers_g104:
+package/package.xdc.inc: package/.vers_r108
+package/.vers_r108:
+package/package.xdc.inc: package/.vers_b102
+package/.vers_b102:
+
+.interfaces: DEI.xdc 
+
+# schema include file dependencies
+DEI.xs:
+package/package.xdc.inc: DEI.xs
+
+# schema update dependencies
+package/package.xdc.inc: DEI.xdc
+package/package.xdc.inc: xdc/IPackage.xdc
+xdc/IPackage.xdc:
+vpath xdc/IPackage.xdc $(XPKGVPATH)
+package/package.xdc.inc: ti/sdo/ce/video1/IVIDENC1.xdc
+ti/sdo/ce/video1/IVIDENC1.xdc:
+vpath ti/sdo/ce/video1/IVIDENC1.xdc $(XPKGVPATH)
+package/package.xdc.inc: ti/sdo/ce/ICodec.xdc
+ti/sdo/ce/ICodec.xdc:
+vpath ti/sdo/ce/ICodec.xdc $(XPKGVPATH)
+package/package.xdc.inc: xdc/cfg/Program.xdc
+xdc/cfg/Program.xdc:
+vpath xdc/cfg/Program.xdc $(XPKGVPATH)
+package/package.xdc.inc: xdc/platform/IExeContext.xdc
+xdc/platform/IExeContext.xdc:
+vpath xdc/platform/IExeContext.xdc $(XPKGVPATH)
+package/package.xdc.inc: xdc/platform/IPlatform.xdc
+xdc/platform/IPlatform.xdc:
+vpath xdc/platform/IPlatform.xdc $(XPKGVPATH)
+package/package.xdc.inc: xdc/platform/ICpuDataSheet.xdc
+xdc/platform/ICpuDataSheet.xdc:
+vpath xdc/platform/ICpuDataSheet.xdc $(XPKGVPATH)
+package/package.xdc.inc: ti/sdo/codecs/dei/DEI.xdc
+ti/sdo/codecs/dei/DEI.xdc:
+vpath ti/sdo/codecs/dei/DEI.xdc $(XPKGVPATH)
+
+ifneq (clean,$(MAKECMDGOALS))
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/junit.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/junit.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/spec/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/spec/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/xsr/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/xsr/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/global/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/global/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/tar.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/tar.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/js.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/js.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/antlr.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/antlr.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/cmd/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/cmd/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/xbean.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/xbean.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/gen/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/gen/java/package.jar
+endif
+# goals for files generated during schema generation but unspecified by schema's pattern rule
+

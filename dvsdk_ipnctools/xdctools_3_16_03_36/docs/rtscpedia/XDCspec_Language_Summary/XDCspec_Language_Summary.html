@@ -1,0 +1,673 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XDCspec Language Summary - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCspec Language Summary&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCspec Language Summary" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><p id="title">XDCspec Language Summary</p><p id="subtitle">XDCspec language quick reference</p>
+<p></p>
+<p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;This document will be retired shortly, after its contents has been merged into the <a href="../XDCspec_Language_Reference/XDCspec_Language_Reference.html" title="XDCspec Language Reference">XDCspec Language Reference</a>.</span>
+</p><p><tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> is a special-purpose language for expressing the logical structure of software content in terms of three higher-level constructs --<i> modules</i>, <i>interfaces</i>, and <i>packages</i>. Enforcing a clean separation between software specification and software implementation, an <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file effectively serves as a programmatic contract between content suppliers (producers) and their clients (consumers). Incorporating familiar C constructs for defining client-visible constants, types, and functions, a specification expressed in <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> often resembles a "cleaned-up" rendition of a legacy header file.
+</p><p>While comparable to an IDL (Interface Definition Language), the true power of <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> lies in its ability to forge a <i>single</i> specification that serves <i>two</i> congruent programming domains: [1] a target-domain, where the specified content is implemented in C/C++ and executes on a suitable hardware platform; and [2] a meta-domain, where this same content is potentially configured to match specific system requirements <i>before</i> target execution begins. In support of the latter, <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> works hand-in-hand with <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> -- a general-purpose language based on industry-standard JavaScript -- used by producers and consumers alike to implement host-based <i>meta-programs</i> that ultimately beget target executables.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#lexical-elements"><span class="tocnumber">1</span> <span class="toctext">lexical-elements</span></a></li>
+<li class="toclevel-1"><a href="#syntactic-elements"><span class="tocnumber">2</span> <span class="toctext">syntactic-elements</span></a></li>
+<li class="toclevel-1"><a href="#package-specification"><span class="tocnumber">3</span> <span class="toctext">package-specification</span></a></li>
+<li class="toclevel-1"><a href="#unit-specification"><span class="tocnumber">4</span> <span class="toctext">unit-specification</span></a></li>
+<li class="toclevel-1"><a href="#auxiliary-definition"><span class="tocnumber">5</span> <span class="toctext">auxiliary-definition</span></a></li>
+<li class="toclevel-1"><a href="#config-parameter"><span class="tocnumber">6</span> <span class="toctext">config-parameter</span></a></li>
+<li class="toclevel-1"><a href="#function-declaration"><span class="tocnumber">7</span> <span class="toctext">function-declaration</span></a></li>
+<li class="toclevel-1"><a href="#typed-declaration"><span class="tocnumber">8</span> <span class="toctext">typed-declaration</span></a></li>
+<li class="toclevel-1"><a href="#initializer"><span class="tocnumber">9</span> <span class="toctext">initializer</span></a></li>
+<li class="toclevel-1"><a href="#.2F.2F.21_.40xdoc"><span class="tocnumber">10</span> <span class="toctext">//! @xdoc</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="lexical-elements"></a><h2> <span class="mw-headline"> lexical-elements </span></h2>
+<p>The lexical structure of <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> closely tracks that of JavaScript, which in turn is patterned after familiar conventions originating in C. The following table summarizes the different sorts of lexical elements potentially found in an <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file:
+</p>
+<table class="prettytable">
+<tr>
+<th> Element
+</th><th> Examples
+</th></tr>
+<tr>
+<td> whitespace
+</td><td> <i>space</i>, <i>tab</i>, <i>newline</i>
+</td></tr>
+<tr>
+<td> single-line comment
+</td><td> // <i>text</i>
+</td></tr>
+<tr>
+<td> block comment
+</td><td> /* <i>text</i> */
+</td></tr>
+<tr>
+<td> C-style identifier
+</td><td> main , int32 , _private
+</td></tr>
+<tr>
+<td> JavaScript number
+</td><td> 123 , 0xff , 6.02e23
+</td></tr>
+<tr>
+<td> JavaScript string
+</td><td> "hello\n" , 'abc'
+</td></tr></table>
+<a name="syntactic-elements"></a><h2> <span class="mw-headline"> syntactic-elements </span></h2>
+<p>The following table summarizes the different sorts of syntactic elements appearing throughout the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> reference grammar:
+</p>
+<table class="prettytable">
+<tr>
+<th> Element
+</th><th> Examples
+</th></tr>
+<tr>
+<td> syntactic production
+</td><td> requires-statement , unit-category
+</td></tr>
+<tr>
+<td> language keyword
+</td><td> <b>package</b> , <b>module</b>
+</td></tr>
+<tr>
+<td> language identifier
+</td><td> <i>dirname</i> , <i>UnitName</i>
+</td></tr>
+<tr>
+<td> literal value
+</td><td> <i>number</i> , <i>string</i>
+</td></tr>
+<tr>
+<td> literal symbol
+</td><td> <b>[</b> , <b>}</b> , ;
+</td></tr>
+<tr>
+<td> documentation comment
+</td><td> <b>//! @<i>xdoc</i></b>
+</td></tr>
+<tr>
+<td> optional term
+</td><td> <i>grammar-term</i>&nbsp;?
+</td></tr>
+<tr>
+<td> alternative terms
+</td><td><i> grammar-term</i>
+</td></tr>
+<tr>
+<td> zero-or-more occurrences
+</td><td> <i>grammar-term</i> *
+</td></tr>
+<tr>
+<td> one-or-more occurrences
+</td><td> <i>grammar-term</i> +
+</td></tr>
+<tr>
+<td> group-of terms
+</td><td> [<i> grammar-term</i> <i>grammar-term </i>]
+</td></tr></table>
+<a name="package-specification"></a><h2> <span class="mw-headline"> package-specification </span></h2>
+<p>Within the realm of <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt>, a package is a programmatic element that logically contains modules and interfaces -- collectively termed <i>units</i> -- within its scope. Besides introducing its own public name, a package specification may identify other named packages upon which the current package in some way depends. The specification may also declare its (in)compatibility with earlier versions of the same package, as well as further constrain the level of compatibility required of any dependent packages. Specially-formatted comments embedded in package-specification source file are processed by the xdoc utility when generating HTML documentation for a set of packages.
+</p>
+<dl><dt>package-specification
+</dt></dl>
+<pre>requires-statement*
+
+<b>//!</b> <b>@<i>xdoc</i></b>
+<b>package</b> qualified-package-name compatibility-key?
+<b>{</b>
+   unit-declaration-list*
+<b>}</b>[<b>;</b>]?
+<b>//!</b> <b>@<i>xdoc</i></b>
+</pre>
+<dl><dt>requires-statement
+</dt></dl>
+<pre><b>requires</b> qualified-package-name compatibility-key? <b>;</b>
+</pre>
+<dl><dt>qualified-package-name
+</dt></dl>
+<pre><i>dirname</i> [<b>.</b><i>dirname</i>]*
+</pre>
+<dl><dt>compatibility-key
+</dt></dl>
+<pre><b>[</b> <i>number</i> [<b>,</b><i>number</i>]* <b>]</b>
+</pre>
+<dl><dt>unit-declaration-list
+</dt></dl>
+<pre>unit-category <i>UnitName</i> [<b>,</b><i>UnitName</i>]* <b>;</b>
+</pre>
+<dl><dt>unit-category
+</dt></dl>
+<pre><b>module</b> | <b>interface</b>
+</pre>
+<ul><li> A qualified-package-name should in general be globally-unique. Packages are located in a directory with a matching name found along the system package path.
+</li><li> A package-specification resides in a distinguished source file named package.xdc, found in the corresponding package directory.
+</li><li> Each unit-declaration-list introduces individual modules and interfaces within the scope of the current package, all of which must be uniquely named. Units with the same name may only appear in different packages.
+</li><li> Each requires-statement designates another package upon which the current package in someway depends. The requires-relation among packages cannot contain cycles.
+</li><li> A compatibility-key is generally interpreted as an numeric array of the form [m,s,r,p] where m denotes major functionality, s denotes source level, r denotes specification radius, and p denotes a particular patch. A new release of a package is <i>source-compatible</i> with any predecessor in which m is the same, and is <i>binary-compatible</i> with that predecessor if s is the same as well.
+</li><li> By convention, package names are composed of lowercase identifiers whereas units (modules or interfaces) are named with TitleCase identifiers. 
+</li></ul>
+<a name="unit-specification"></a><h2> <span class="mw-headline"> unit-specification </span></h2>
+<p>A unit specification defines all client-visible programmatic features of a module or interface. While virtually identical vis-Ã -vis their <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> syntax, semantically this pair of programmatic elements are almost opposites: a module is <i>concrete</i> and <i>closed</i>, comprising a public specification accompanied by a conforming implementation; an interface is <i>abstract</i> and <i>open</i>, comprising only a public specification which others may import and ultimately implement. In general, the specification of a module or interface can inherit features from exactly one other (interface) specification, which itself can inherit additional features in the same manner -- as if the latterâ€™s cumulative set of features had been directly defined with the unit specification of its inheritor. 
+</p><p>The features defined within the scope of a unit partition themselves into two main groups: <i>module-wide</i> features, which are associated with a solitary programmatic object encapsulating the implementation of some concrete module; and <i>per-instance</i> features, which are associated with a family of programmatic objects individually created and manipulated by the same underlying module. Aside from auxiliary definitions of supporting constants and types (deemed module-wide for convenience), features with a meaningful run-time presence in the underlying implementation -- assignable configuration parameters along with callable functions -- can participate in either category. As with packages, special documentation comments can be associated with the module/interface as a whole as well as with any named feature defined within its scope.
+</p><p>In the general case, a single unit specification for a module or interface defines a presence in two congruent programming domains: [1] the <i>target</i>-domain, where specified features become accessible within executable programs (written in C/C++) running on some particular platform; and [2] the <i>meta</i>-domain, where specified features become accessible within hosted scripts (written in <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>) used to configure these very same target programs ahead of their execution. In some cases, the specification of a particular module or interface can be restricted to the meta-domain -- useful when constructing configuration "facades" atop legacy content as well as when distributing host-based meta-content for use in a broader range of scripting contexts.
+</p>
+<dl><dt>unit-specification
+</dt></dl>
+<pre><b>//!</b> <b>@<i>xdoc</i></b>
+<b>metaonly</b>? unit-category <i>UnitName</i>inherited-interface?<b>{</b>
+    module-wide-feature* [ <b>instance:</b>per-instance-feature*]?
+<b>}</b>[<b>;</b>]?
+<b>//!</b> <b>@<i>xdoc</i></b>
+</pre>
+<dl><dt>inherited-interface
+</dt></dl>
+<pre><b>inherits</b> qualified-unit-name
+</pre>
+<dl><dt>qualified-unit-name
+</dt></dl>
+<pre>[qualified-package-name <b>.</b>]? <i>UnitName</i>
+</pre>
+<dl><dt>module-wide-feature
+</dt></dl>
+<pre><b>//!</b> <b>@<i>xdoc</i></b>
+[auxiliary-definition | config-parameter | function-declaration]
+</pre>
+<dl><dt>per-instance-feature
+</dt></dl>
+<pre><b>//!</b> <b>@<i>xdoc</i></b>
+[config-parameter | function-declaration]
+</pre>
+<ul><li> A qualified-unit-name effectively extends the (already) globally-unique name of the unitâ€™s containing package. If the qualified-package-name prefix is absent, the current package name is presumed.
+</li><li> A unit-specification resides in a source file named <i>UnitName</i>.xdc, found in the directory of its containing package.
+</li><li> Each module-wide-feature or per-instance-feature introduces an individual feature with the scope of the current unit, all of which must be uniquely named. Features with the same name may only appear in different units.
+</li><li> An inherited-interface designates a <i>single</i> interface whose features are introduced within the scope of the current unit. Any module or interface can optionally inherit features from another interface, so long as the inherits-relation among all units remains acyclic.
+</li><li> Each unit manifests itself in both the target- and meta-programming domains, unless designated <b>metaonly</b>. As a rule, inheritors of metaonly interfaces must themselves be metaonly modules or interfaces.
+</li></ul>
+<a name="auxiliary-definition"></a><h2> <span class="mw-headline"> auxiliary-definition </span></h2>
+<p>An <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> auxiliary definition defines a (module-wide) constant or type, often supporting other module-wide or per-instance features defined in the same unit. These definitions are also used by clients who consume this unit, both within any modules or interfaces they may specify as well as within any target (or meta) content they may implement. For the most part, the syntax and semantics of each form of auxiliary definition is patterned after a familiar programmatic construct already found in C. Further semantic restrictions guarantee auxiliary definitions have a meaningful manifestation in the meta-domain as well as in the target-domain.
+</p>
+<dl><dt>auxiliary-definition
+</dt></dl>
+<pre>const | enum | extern | struct
+</pre>
+<dl><dt>const
+</dt></dl>
+<pre><b>const</b> typed-declaration <b>=</b> initializer <b>;</b>
+</pre>
+<dl><dt>enum
+</dt></dl>
+<pre><b>enum </b><i>EnumName</i><b> {</b>
+    <b>enum-value</b> //!<b> </b>@<i>xdoc</i>
+   <b> [enum-value ]* </b>//!<b> </b>@<i>xdoc</i>
+}<b> [</b>;<b>]?</b>
+</pre>
+<dl><dt>enum-value
+</dt></dl>
+<pre><i>ENUMVAL_NAME</i> [<b>=</b> initializer]?
+</pre>
+<dl><dt>extern
+</dt></dl>
+<pre><b>extern</b> typed-declaration <b>=</b> <i>symbolName</i> <b>;</b>
+</pre>
+<dl><dt>struct
+</dt></dl>
+<pre><b>struct </b><i>StructName</i><b> {</b>
+    <b>struct-field*</b>
+<b>}</b> [<b>;</b>]?
+</pre>
+<dl><dt>struct-field
+</dt></dl>
+<pre>typed-declaration <b>; //!</b> <b>@<i>xdoc</i></b>
+</pre>
+<dl><dt>typedef
+</dt></dl>
+<pre><b>typedef</b> typed-declaration <b>;</b>
+</pre>
+<ul><li> A const is restricted to numeric types, either standard or else enumerated. Its persistent value is defined by a statically-evaluated initializer consistent with its typed-declaration.
+</li><li> An enum is a new numeric type that ranges over a finite set of named values. As in C, integer values beginning with 0 are assigned to each successive enum-value (unless altered by an explicit numeric initializer). Each named value is actually resident in the scope of the containing module or interface, and hence must be unique among all features defined in this unit.
+</li><li> An extern is a special form of constant that effectively aliases an external program symbol naming a C-language function or variable. Its typed-declaration is restricted to standard C types, including arbitrary pointer-types.
+</li><li> A struct defines a new aggregate type comprising a set of assignable fields of any type. Each struct-field must be uniquely named within the scope of the enclosing struct.
+</li><li> A typedef effectively defines a <i>synonym</i> for the type specified in its typed-declaration, rather than a new type per se. As in C, typedef names can appear in other typed declarations not unlike previously-defined enum or struct names.
+</li><li> By convention: UPPER_CASE identifiers are used to name a const, enum value, or extern; TitleCase identifiers are used to name an enum/struct types as well as in typedefs; and camelCase identifiers are used to name struct fields. 
+</li></ul>
+<a name="config-parameter"></a><h2> <span class="mw-headline"> config-parameter </span></h2>
+<p>A configuration parameter is a feature that behaves like a "property" of the underlying module or instance object -- a readable (and sometimes writeable) variable of virtually any type. In the most general case, module-wide configuration parameters are assigned within the meta-domain and then become persistent constants within the target-domain; per-instance configuration parameters are likewise assignable within the meta-domain, but are limited to supporting run-time instance creation within the target-domain. Where appropriate, configuration parameters can be restricted to the meta-domain as well as designated readonly after initialization.
+</p><p>A configuration parameter inherited from some previously specified interface can itself be overridden -- typically to (re-)define its initial value. A configuration parameter can also be finalized, effectively freezing its definition and precluding further overrides. 
+</p>
+<dl><dt>config-parameter
+</dt></dl>
+<pre>config-modifiers <b>config</b> typed-declaration [ <b>=</b> initializer]? <b>;</b>
+</pre>
+<dl><dt>config-modifiers
+</dt></dl>
+<pre><b>final</b>? <b>override</b>? <b>readonly</b>? <b>metaonly</b>?
+</pre>
+<ul><li> The optional initializer must yield a value consistent with the typed-declaration, using the rules of assignment-compatibility defined by <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> for the meta-domain. If no initializer is supplied, the configuration parameter starts out <b>undefined</b> in the meta-domain.
+</li><li> If <b>override</b> is specified among the config-modifiers for a configuration parameter, its typed-declaration as well as its use of <b>readonly</b> and <b>metaonly</b> must <i>exactly</i> match that of the inherited configuration parameter being overridden. Configuration parameters marked <b>final</b> cannot be overridden.
+</li><li> A <b>readonly</b> configuration parameter without an initializer can still be assigned a persistent value in the meta-domain, during construction of an underlying module/instance object.
+</li><li> By convention, configuration parameters names are camelCase identifiers.
+</li></ul>
+<a name="function-declaration"></a><h2> <span class="mw-headline"> function-declaration </span></h2>
+<p>An <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> function declaration generally stipulates the signature -- argument and return types -- of a callable routine implemented through a concrete module in either the target-domain or else (if so indicated) in the meta-domain; a target function also manifests itself in the meta-domain as an extern symbol of a function-pointer type derived from the stipulated signature. Following C++, default values can be specified for the last <i>k</i> arguments of an <i>n</i>-ary function, enabling the same routine to be called with as few as <i>n-k</i> inputs; an untyped sequence of optional trailing arguments can be also specified using the familiar ... notation. For those meta-domain functions wishing to adopt a more "weakly-typed" style supported (but not necessarily encouraged!) by the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> language, their corresponding declaration in <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> can just contain the names for each argument.
+</p><p>Like configuration parameters, a function declaration inherited from a previously-specified interface can be overridden -- typically, to alter or extend the set of default argument values or else to allow optional trailing arguments. Note, though, that since interfaces are entirely abstract (void of any "default" implementation), inheritance of functions is limited to their client-visible specification; ultimately, it is concrete modules (or their delegates) that bear responsibility for implementing all functions directly or indirectly declared in their specification. With <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> support for <i>Design-By-Contract</i> forthcoming, overriding inherited function declarations becomes an essential technique for weakening pre-conditions and strengthening post-conditions specified previously through executable expressions. 
+</p>
+<dl><dt>function-declaration
+</dt></dl>
+<pre>typed-function-declaration | untyped-function-declaration
+</pre>
+<dl><dt>typed-function-declaration
+</dt></dl>
+<pre>function-modifiers
+typed-declaration <b>(</b> typed-arguments? [<b>,</b> <b>...</b>]? <b>);</b>
+</pre>
+<dl><dt>function-modifier
+</dt></dl>
+<p><b>final</b>? <b>override</b>? <b>metaonly</b>?
+</p>
+<dl><dt>typed-arguments
+</dt></dl>
+<pre>arg-declaration [<b>,</b>arg-declaration]*
+</pre>
+<dl><dt>arg-declaration
+</dt></dl>
+<pre>typed-declaration [<b>=</b> initializer]?
+</pre>
+<dl><dt>untyped-function-declaration
+</dt></dl>
+<pre><b>function</b> <i>fxnName</i><b>(</b> untyped-arguments? <b>);</b>
+</pre>
+<dl><dt>untyped-arguments
+</dt></dl>
+<pre><i>argName</i> [<b>,</b><i>argName</i>]*
+</pre>
+<ul><li> If <b>override</b> is specified among the function-modifiers for a function, its name and type signature as well as its use of <b>metaonly</b> must <i>exactly</i> match that of the inherited declaration being overridden. Functions marked <b>final</b> cannot be overridden.
+</li><li> The optional initializer within an arg-declaration must yield a value consistent with the typed-declaration, using the rules of assignment-compatibility defined by <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> for the meta-domain.
+</li><li> All argument names -- whether typed-arguments or untyped-arguments -- must be uniquely named on a per-function basis.
+</li><li> An untyped-function-declaration is implicitly modified <b>final</b> and <b>metaonly</b>.
+</li><li> By convention, function and argument names are camelCase identifiers.
+</li></ul>
+<a name="typed-declaration"></a><h2> <span class="mw-headline"> typed-declaration </span></h2>
+<p>Generic declarations of typed identifiers patterned after the familiar (and sometimes awkward) syntax of C lie at the heart of virtually all <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> feature definitions. These declarations stipulate a type name, either built-in or previously-defined, followed by what is conventionally termed a <i>declarator</i> -- the name of the feature per se, optionally adorned with other syntactic elements. As in C, use of the <b>*</b>, <b>[]</b>, and <b>()</b> operators within the declarator denotes new types such <i>pointer-to</i>(<i>t</i>), <i>array-of</i>(<i>t</i>), and <i>function-returning</i>(<i>t</i>)for some base type <i>t</i>; extra parentheses are typically used to bind the lower-precedent <b>*</b> operator to the declared name, especially when defining types of form <i>pointer-to</i>(<i>function-returning</i>(<i>t</i>)).
+</p><p>Beyond these familiar C constructs lifted from the target-domain -- each given a corresponding meaning in the meta-domain -- <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> introduces additional base types as well as more specialized forms of the array: 
+</p>
+<ol><li> the built-in type <b>any</b>, which subsumes all other types in the meta-domain; 
+</li><li> the keywords <b>Module</b>, <b>Instance</b> or <b>Handle</b>, signifying an opaque type referencing a concrete module, meta-domain instance object, or target-domain instance object, whose visible features are limited to those specified in the corresponding named unit; 
+</li><li> the keyword <b>length</b> in conjunction with the <b>[]</b> operator, signifying the type <i>vector-of</i>(<i>t</i>) whose length can be altered in the meta-domain and retrieved in the target-domain; and 
+</li><li> the keyword <b>string</b> in conjunction with the <b>[]</b> operator, signifying the type <i>map-into</i>(<i>t</i>) that effectively overlays direct access via string-valued keys on an underlying <i>vector-of</i>(<i>t</i>).
+</li></ol>
+<p>[Note that only a subset of the elementary C types are recognized at this time. More comprehensive support for target-domain types -- including a set of &quot;portable&quot; numeric types -- is forthcoming.] 
+</p>
+<dl><dt>typed-declaration
+</dt></dl>
+<pre>[ standard-type | defined-type ] declarator
+</pre>
+<dl><dt>standard-type
+</dt></dl>
+<pre><b>any</b> | <b>bool</b> | <b>float</b> | <b>int</b> | <b>string</b> | <b>void</b>
+</pre>
+<dl><dt>defined-type
+</dt></dl>
+<pre>[qualified-unit-name <b>.</b>]? defined-type-name
+</pre>
+<dl><dt>defined-type-name
+</dt></dl>
+<pre><i>EnumName</i> | <i>StructName</i> | <i>TypedefName</i> | <b>Instance</b> | <b>Handle</b> | <b>Module</b>
+</pre>
+<dl><dt>declarator
+</dt></dl>
+<pre>declared-name&nbsp;?
+ | <b>*</b> declarator
+ | declarator <b>[</b> [<i>number</i> | <b>length</b> | <b>string</b>]? <b>]</b>
+ | declarator <b>(</b> argument-types&nbsp;? [<b>...</b>]? <b>)</b>
+ | <b>(</b> declarator <b>)</b>
+</pre>
+<dl><dt>declared-name
+</dt></dl>
+<pre><i>CONST_NAME</i> | <i>EXTERN_NAME</i> | <i>TypedefName</i> | <i>argName</i> | <i>configName</i> | <i>fieldName</i> | <i>fxnName</i>
+</pre>
+<dl><dt>argument-types
+</dt></dl>
+<pre>typed-declaration [<b>,</b>typed-declaration ]*
+</pre>
+<ul><li> The following table summarizes the meaning of certain standard-type(s) in each domain:
+</li></ul>
+<table class="prettytable">
+<tr>
+<th> Type
+</th><th> Target Domain
+</th><th> Meta Domain
+</th></tr>
+<tr>
+<td> <b>bool</b>
+</td><td> standard C bool
+</td><td> standard JavaScript boolean
+</td></tr>
+<tr>
+<td> <b>float</b>
+</td><td> standard C float
+</td><td> standard JavaScript number
+</td></tr>
+<tr>
+<td> <b>int</b>
+</td><td> standard C int
+</td><td> standard JavaScript number
+</td></tr>
+<tr>
+<td> <b>string</b>
+</td><td> standard C char*
+</td><td> standard JavaScript string
+</td></tr></table>
+<ul><li> The standard-type <b>void</b>, as in the C-based target-domain, is basically limited to specifying the type of functions returning "no" value in the meta-domain as well. The type <b>void*</b> likewise preserves the semantics of a "universal pointer" in the meta-domain, assignable any value of type <i>pointer-to</i>(<i>t</i>).
+</li><li> The standard-type <b>any</b> is only defined for the meta-domain.
+</li><li> A defined-type identifies a previously defined type, either in the module or interface designated by a valid qualified-unit-name or else in the current unit.
+</li><li> The declared-name at the heart of a declarator is only optional within arguments-types, typically used when declaring a type <i>pointer-to</i>(<i>function-returning</i>(<i>t</i>)). C reference grammars usually refer to this syntactic construct as an <i>abstract-declarator</i>.
+</li></ul>
+<a name="initializer"></a><h2> <span class="mw-headline"> initializer </span></h2>
+<p>An initializer is an expression that denotes either a scalar or aggregate value, and whose elementary terms are manifest constants of known types. While certainly C-like in form and substance, <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> scalar initializers are in fact statically-evaluated using JavaScript semantics (upon which <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> is based). Building on this foundation, <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> aggregate initializers adopt standard JavaScript notation for denoting object and array values. 
+</p>
+<dl><dt>initializer
+</dt></dl>
+<pre>scalar-initializer | array-initializer | struct-initializer
+</pre>
+<dl><dt>scalar-initializer
+</dt></dl>
+<pre>literal | defined-constant | unary-op scalar-initializer |
+scalar-initializer binary-op scalar-initializer |
+scalar-initializer <b>?</b> scalar-initializer <b>:</b> scalar-initializer
+|<b>(</b>scalar initializer<b>)</b>
+</pre>
+<dl><dt>literal
+</dt></dl>
+<pre><i>number</i> | <i>string</i> | <b>true</b> | <b>false</b> | <b>null</b> | <b>undefined</b>
+</pre>
+<dl><dt>defined-constant
+</dt></dl>
+<pre>[qualified-unit-name <b>.</b>]? defined-constant-name
+</pre>
+<dl><dt>defined-constant-name
+</dt></dl>
+<pre><i>CONST_NAME</i> | <i>ENUMVAL_NAME</i>
+</pre>
+<dl><dt>unary-op
+</dt></dl>
+<pre><b>*</b>|<b>-</b>|<b>~</b>|<b>!</b>
+</pre>
+<dl><dt>binary-op
+</dt></dl>
+<pre><b>+</b>|<b>-</b>|<b>*</b>|<b>/</b>|<b>%</b>|<b>&lt;&lt;</b>|<b>&gt;&gt;</b>|<b>==</b>|<b>!=</b>|<b>&lt;</b>|<b>&lt;=</b>|<b>&gt;</b>|<b>&gt;=</b>|<b>&amp;</b>|<b>|</b>|<b>^</b>
+</pre>
+<dl><dt>array-initializer
+</dt></dl>
+<pre><b>[</b> <b>]</b> | <b>[</b> initializer [<b>,</b>initializer]* [<b>,</b>]?<b>]</b>
+</pre>
+<dl><dt>struct-initializer
+</dt></dl>
+<pre><b>{ }</b> | <b>{</b> field-initializer [<b>,</b>field-initializer]* [<b>,</b>]?<b>}</b>
+</pre>
+<dl><dt>field-initializer
+</dt></dl>
+<pre><i>fieldName</i> <b>:</b> initializer
+</pre>
+<ul><li> A literal <i>number</i> or <i>string</i> must conform to standard JavaScript, which also tracks standard C in this regard.
+</li><li> A defined-constant identifies a previously defined constant, either in the module or interface designated by a valid qualified-unit-name or else in the current unit.
+</li><li> The meaning and precedence of each unary-op and binary-op conforms to standard JavaScript, which likewise mirrors C. Note that JavaScript often overloads operators like <b>+</b> and <b>&lt;</b> to accept strings as well as numbers.
+</li></ul>
+<a name=".2F.2F.21_.40xdoc"></a><h2> <span class="mw-headline"> //! @<i>xdoc</i> </span></h2>
+<p>Special comments embedded within a specification source file are processed by the xdoc utility when generating HTML documentation for a set of packages. These documentation comments are identified by an extra leading "bang" character -- <b>//!</b> for single-line comments, <b>/*!</b> for the block variety -- and can be juxtaposed with most named elements in the specification. Whenever multiple comments of either variety are associated with an individual specification element, their bodies are effectively concatenated into a single <i>documentation block</i> comprising one or more lines of text.
+</p><p>Markup of the form <b>@<i>tag</i></b>, when present at the beginning of a line, further punctuates a documentation block into distinct sections comprising various styles of paragraphs. To avoid clutter in the source file due to excessive markup, most commentary can be written as &quot;plain text&quot; that follows some simple conventions to indicate (say) change-of-font or end-of-paragraph. Each documentation block generally comprises: [1] an untagged <i>summary</i> section, which is typically a &quot;one-liner&quot;; [2] an optional untagged <i>details</i> section, which may contain multiple paragraphs with additional information; and [3] a series of <i>tagged</i> sections, which further compartmentalize information about the associated specification element.
+</p>
+<dl><dt><b>//! @<i>xdoc</i></b>
+</dt></dl>
+<pre>summary-section
+details-section?
+tagged-section*
+</pre>
+<dl><dt>summary-section
+</dt></dl>
+<pre>comment-paragraph
+</pre>
+<dl><dt>details-section
+</dt></dl>
+<pre>comment-paragraph+
+</pre>
+<dl><dt>tagged-section
+</dt></dl>
+<pre><b>@<i>sectTag</i>(<i>ident</i>)</b> comment-paragraph+
+</pre>
+<dl><dt>comment-paragraph
+</dt></dl>
+<pre>[<b>@p</b>[<b>(<i>style</i>)</b>]?]? <i>textLines</i>*
+</pre>
+<ul><li> The <b>@a(<i>sectName</i>)</b> and <b>@b(<i>sectName</i>)</b> tags create named sections that will respectively appear <i>after</i> or <i>before</i> the details section for this documentation block.
+</li><li> The <b>@c(<i>childName</i>)</b> tag is used in struct, enum, or function-declaration documentation to respectively comment on one of its named children -- fields, values, or arguments. All such comments are output together as a definition list in a special section.
+</li><li> The tags <b>@field</b>, <b>@value</b>, <b>@arg</b>, and <b>@param</b> are available as (more mnemonic) alternatives to the <b>@c</b> tag.
+</li><li> An struct-field or enum-value can be immediately followed by a documentation comment, which must begin on the same line. The body of this comment is limited to a summary section.
+</li><li> The <b>@p(<i>style</i>)</b> tag is used to change the prevailing paragraph style, which remains in effect until the next tag. Without any parameter, <b>@p</b> reverts to the default "plain-text" style in effect at the beginning of the block. The following table summarizes the different styles supported through this tag, and the interpretation each imposes on subsequent lines of text:
+</li></ul>
+<table class="prettytable">
+<tr>
+<td> <b>Style</b>
+</td><td> <b>Interpretation Of Subsequent Text</b>
+</td></tr>
+<tr>
+<td> <b>blist</b>
+</td><td> a bulleted list, with leading dashes indicating successive list elements
+</td></tr>
+<tr>
+<td> <b>code</b>
+</td><td> monospace text in which whitespace is preserved
+</td></tr>
+<tr>
+<td> <b>dlist</b>
+</td><td> a definition list, with leading dashes indicating successive terms; unmarked lines are the definitions
+</td></tr>
+<tr>
+<td> <b>html</b>
+</td><td> text containing standard HTML markup
+</td></tr>
+<tr>
+<td> <b>nlist</b>
+</td><td> a numbered list, with leading dashes indicating successive list elements
+</td></tr>
+<tr>
+<td> <b>text</b>
+</td><td> "plain-text" with minimal in-line formatting; the default
+</td></tr></table>
+<ul><li> Except for <b>code</b> and <b>html</b>, all <b>@p</b> styles support the following formatting conventions within the lines of text under their control:
+</li></ul>
+<table class="prettytable">
+<tr>
+<th> Convention
+</th><th> Resulting Format
+</th></tr>
+<tr>
+<td> <tt><i>text</i></tt>
+</td><td> render this <i>text</i> in monospace
+</td></tr>
+<tr>
+<td> *<i>text</i>*
+</td><td> render this <i>text</i> with <i>emphasis</i>
+</td></tr>
+<tr>
+<td> <i>blank-line</i>
+</td><td> skip a line and start a new paragraph
+</td></tr></table>
+<p><br />
+</p><!-- 
+Pre-expand include size: 3907 bytes
+Post-expand include size: 2211 bytes
+Template argument size: 76 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XDCspec_Language_Summary.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.220 secs. --></body></html>

@@ -1,0 +1,316 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Module Primer/Lesson 4 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/green_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Module Primer/Lesson 4&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Module_Primer__Lesson_3.html" title="Lesson 3"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Module_Primer.html#TOC" title="RTSC Module Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Module_Primer__Lesson_5.html" title="Lesson 5"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Module Primer/Lesson 4</p><p id="subtitle">Instance object life-cycle &#151; using the <tt>RandGen</tt> module</p>
+<p>Building upon the instance creation pattern you encountered in <a href="RTSC_Module_Primer__Lesson_3.html#Creating_instance_objects" title="RTSC Module Primer/Lesson 3">Lesson 3</a>, we'll now expand the paradigm to include alternate ways of creating instance objects&#151;in particular, <i>static</i> instances formed by basically moving <tt><i>Mod</i>_create</tt> function calls from the target-program back upstream to its corresponding meta-program.  We'll also illustrate the general programming pattern for deleting instances, thereby completing the life-cycle of RTSC instance objects.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Running_the_program"><span class="tocnumber">1</span> <span class="toctext">Running the program</span></a></li>
+<li class="toclevel-1"><a href="#Reading_the_program"><span class="tocnumber">2</span> <span class="toctext">Reading the program</span></a></li>
+<li class="toclevel-1"><a href="#Guidelines_for_usage"><span class="tocnumber">3</span> <span class="toctext">Guidelines for usage</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Running_the_program"></a><h2> <span class="mw-headline">Running the program</span></h2>
+<p>Deviating a bit from the format of previous lessons, let's start by building and running the program <i>before</i> examining its source code.  This example will make much more sense if you can first see its final output&#151;a sequence of random-numbers extracted from three distinct <tt>RandGen</tt> instance objects, each formed in a slightly different fashion:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; gmake test</span></b>
+dynamically-created instance:
+	6 7 10 1 12 8 10 14 1 15
+&nbsp;
+dynamically-constructed instance:
+	13 2 1 22 12 5 10 19 17 12
+&nbsp;
+statically-created instance:
+	12 5 3 11 11 19 5 1 15 0</pre></td></tr></table>
+<a name="Reading_the_program"></a><h2> <span class="mw-headline">Reading the program</span></h2>
+<p>This example significantly expands <tt>prog.c</tt> from its counterpart back in <a href="RTSC_Module_Primer__Lesson_3.html#Reading_the_program" title="RTSC Module Primer/Lesson 3">Lesson 3</a>, now illustrating several alternative idioms for creating (as well as deleting) <tt>RandGen</tt> instance objects.  Moreover, creation of one particular <tt>RandGen</tt> instance has actually migrated into <tt>prog.cfg</tt> where an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> rendition of a target-domain <tt>RandGen_create</tt> call now appears.
+</p>
+<table>
+
+<tr>
+<td><div id="cl-1:1"></div><div id="cl-1:2"></div><div id="cl-1:3a"></div><div id="cl-1:3b"></div><div id="cl-1:4a"></div><div id="cl-1:4b"></div><div id="cl-1:5a"></div><div id="cl-1:5b"></div><div id="cl-1:5c"></div><div id="cl-1:6a"></div><div id="cl-1:6b"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>lesson4/prog.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3a</span><br /><span class="codexLab">3b</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4a</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4b</span><br />&nbsp;<br /><span class="codexLab">5a</span><br /><span class="codexLab">5b</span><br /><span class="codexLab">5c</span><br />&nbsp;<br /><span class="codexLab">6a</span><br /><span class="codexLab">6b</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;bravo/math/RandGen.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;xdc/cfg/global.h&gt;
+&nbsp;
+<span class="re1">#define</span> COUNT <span class="nu0">10</span>
+&nbsp;
+<span class="kw2">Void</span> printNums<span class="br0">&#40;</span>RandGen_Handle rgInst, <span class="kw2">String</span> label<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i;
+&nbsp;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;%s:<span class="es0">\n</span><span class="es0">\t</span>&quot;</span>, label<span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; COUNT; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        System_printf<span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span>, RandGen_next<span class="br0">&#40;</span>rgInst<span class="br0">&#41;</span><span class="br0">&#41;</span>; 
+    <span class="br0">&#125;</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\n</span><span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    RandGen_Handle rgInstHandle;
+    RandGen_Struct rgInstStruct;
+    RandGen_Params rgParams;
+&nbsp;
+    RandGen_Params_init<span class="br0">&#40;</span>&amp;rgParams<span class="br0">&#41;</span>;
+&nbsp;
+    rgParams.range = <span class="nu0">15</span>;
+    rgParams.seed = <span class="nu0">3</span>;
+    rgInstHandle = RandGen_create<span class="br0">&#40;</span>&amp;rgParams, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+&nbsp;
+    rgParams.range = <span class="nu0">25</span>;
+    rgParams.seed = <span class="nu0">2</span>;
+    RandGen_construct<span class="br0">&#40;</span>&amp;rgInstStruct, &amp;rgParams<span class="br0">&#41;</span>;
+&nbsp;
+    printNums<span class="br0">&#40;</span>rgInstHandle, <span class="st0">&quot;dynamically-created instance&quot;</span><span class="br0">&#41;</span>;
+    printNums<span class="br0">&#40;</span>RandGen_handle<span class="br0">&#40;</span>&amp;rgInstStruct<span class="br0">&#41;</span>, <span class="st0">&quot;dynamically-constructed instance&quot;</span><span class="br0">&#41;</span>;
+    printNums<span class="br0">&#40;</span>rgInstStatic, <span class="st0">&quot;statically-created instance&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    RandGen_delete<span class="br0">&#40;</span>&amp;rgInstHandle<span class="br0">&#41;</span>;
+    RandGen_destruct<span class="br0">&#40;</span>&amp;rgInstStruct<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr>
+<tr>
+<td> &nbsp;
+</td></tr>
+<tr>
+<td><div id="cl-1:7"></div><div id="cl-1:8"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>lesson4/prog.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">7</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">8</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.cfg.Program'</span><span class="br0">&#41;</span>; 
+&nbsp;
+<span class="kw1">var</span> RandGen = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math.RandGen'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.System'</span><span class="br0">&#41;</span>;
+&nbsp;
+Program.global<span class="br0">&#91;</span><span class="st0">&quot;rgInstStatic&quot;</span><span class="br0">&#93;</span> = RandGen.create<span class="br0">&#40;</span><span class="br0">&#123;</span>range: <span class="nu0">20</span>, seed: <span class="nu0">4</span><span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td></tr></table>
+<p>Working "middle-out" starting from lines <a class="codexLink" href="#cl-1:5a"><span class="codexLink">5a</span></a>-<a class="codexLink" href="#cl-1:5c"><span class="codexLink">5c</span></a> in <tt>prog.c</tt>, these three successive calls to the <tt>printNums</tt> helper function (defined at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a>) each input a different <tt>RandGen_Handle</tt> value that in turn references a distinct instance object; the <span class="kw2"><tt>String</tt></span> label passed as the second argument to <tt>printNums</tt> suggests something about how we've created these particular instances.  In the case of <tt>rgInstHandle</tt> (used at line <a class="codexLink" href="#cl-1:5a"><span class="codexLink">5a</span></a>), its creation pattern (lines <a class="codexLink" href="#cl-1:3a"><span class="codexLink">3a</span></a> and <a class="codexLink" href="#cl-1:4a"><span class="codexLink">4a</span></a>) tracks identically with what you've already seen in <a href="RTSC_Module_Primer__Lesson_3.html#Reading_the_program" title="RTSC Module Primer/Lesson 3">Lesson 3</a>.  
+</p><p><span class="Leader">Constructed instance</span>.&nbsp; By contrast, the creation pattern for <tt>rgInstStruct</tt>&#151;declared, initialized, and used at lines <a class="codexLink" href="#cl-1:3b"><span class="codexLink">3b</span></a>, <a class="codexLink" href="#cl-1:4b"><span class="codexLink">4b</span></a>, and <a class="codexLink" href="#cl-1:5b"><span class="codexLink">5b</span></a> respectively&#151;deviates from the model of <a href="RTSC_Module_Primer__Lesson_3.html#Creating_instance_objects" title="RTSC Module Primer/Lesson 3">Lesson 3</a> in several important ways:
+</p>
+<ul><li> Unlike <tt>rgInstHandle</tt>, which holds a reference (pointer) to some underlying object dynamically allocated by <tt>RandGen_create</tt>, line <a class="codexLink" href="#cl-1:3b"><span class="codexLink">3b</span></a> effectively allocates the necessary memory for the instance object at the point of declaration. Variables of type <tt>RandGen_Struct</tt> are actually C structures of sufficient size to hold an individual <tt>RandGen</tt> instance object; variables of type <tt>RandGen_Handle</tt>, by contrast, hold only pointers.  Either way, the client has no knowledge of the <i>internal representation</i> of these instance objects&#151;that is to say, both <tt>RandGen_Handle</tt> and <tt>RandGen_Struct</tt> remain <i>opaque</i> types.
+</li></ul>
+<p></p>
+<ul><li> With the necessary memory already allocated in <tt>rgInstStruct</tt>, we simply pass a pointer to this (uninitialized) structure as the first argument to <tt>RandGen_construct</tt> at line <a class="codexLink" href="#cl-1:4b"><span class="codexLink">4b</span></a>; this function's second argument is a pointer to a previously initialized <tt>RandGen_Params</tt> structure (or <tt>NULL</tt>, to select defaults).  Since no internal memory allocation occurs within <tt>RandGen_construct</tt>&#151;unlike <tt>RandGen_create</tt>&#151;the caller need not establish an error-handling policy when dynamically-constructing (as opposed to dynamically-creating) new instance objects.
+</li></ul>
+<p>Put another way, <tt>RandGen_create</tt> allocates <i>and</i> initializes storage for a new instance object; <tt>RandGen_construct</tt> just initializes storage already allocated in a variable of type <tt>RandGen_Struct</tt>.  Once initialized, you can obtain a corresponding <tt>RandGen_Handle</tt> that references a particular <tt>RandGen_Struct</tt> by calling the special conversion function <tt>RandGen_handle</tt>, as illustrated on line <a class="codexLink" href="#cl-1:5b"><span class="codexLink">5b</span></a>.
+</p><p><span class="Leader">Instance termination</span>.&nbsp;  Lines <a class="codexLink" href="#cl-1:6a"><span class="codexLink">6a</span></a> and <a class="codexLink" href="#cl-1:6b"><span class="codexLink">6b</span></a> introduce two more special functions respectively used to terminate the life-cycle of a dynamically-created and a dynamically-constructed instance object:
+</p>
+<ul><li> The function <tt>RandGen_delete</tt>, as you might expect, internally frees storage allocated for this instance object through a prior call to <tt>RandGen_create</tt>; somewhat unexpected, <tt>RandGen_delete</tt> takes the <i>address</i> of a <tt>RandGen_Handle</tt> as its sole argument and will actually overwrite the variable <tt>rgInstHandle</tt> with the value <tt>NULL</tt> upon return&#151;a lightweight safety measure to minimize dangling references to inactive instance objects.  
+</li></ul>
+<p></p>
+<ul><li> The function <tt>RandGen_destruct</tt>&#151;the dual of <tt>RandGen_construct</tt>&#151;receives the address of a <tt>RandGen_Struct</tt> as its sole argument and then "finalizes" the instance object; upon return, the variable <tt>rgInstStruct</tt> effectively returns to that same undefined (and unusable) status it had back at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a>.     
+</li></ul>
+<p>Not unlike other resource management patterns involving pairs of functions already familiar to C programmers&#151;such as <tt>malloc</tt> and <tt>free</tt> or <tt>fopen</tt> and <tt>fclose</tt>&#151;clients of a RTSC instance module must ultimately assume responsibility for properly disposing previously created instance objects if/when necessary, as well as for ensuring that instance handles used in their code do not reference terminated objects.
+</p><p><span class="Leader">Static instances</span>.&nbsp;  The third <tt>RandGen</tt> instance used in this example&#151;referenced through the <tt>RandGen_Handle</tt> variable <tt>rgInstStatic</tt> at line <a class="codexLink" href="#cl-1:5c"><span class="codexLink">5c</span></a> of <tt>prog.c</tt>&#151;requires no prior call to <tt>RandGen_create</tt> during program execution.  Not unlike a statically initialized global variable in C, <tt>rgInstStatic</tt> references a statically allocated and initialized instance object that is "ready-to-go" when program execution begins.  An <tt>extern</tt> declaration for <tt>rgInstStatic</tt> appears in a special header file automatically associated with this program and always named <tt>xdc/cfg/global.h</tt> (see line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a>); as the name of this header file suggests, global variables accessible within <tt>prog.c</tt> are first introduced and initialized within <tt>prog.cfg</tt>.
+</p><p>Line <a class="codexLink" href="#cl-1:8"><span class="codexLink">8</span></a> of <tt>prog.cfg</tt> illustrates two different RTSC programming idioms that you can use independently or else in combination with one another, as is the case here:
+</p>
+<ul><li>  The fragment <tt>Program.global[<span class="st0">"rgInstStatic"</span>]</tt> names a new global variable whose type in the target-program (here, <tt>RandGen_Handle</tt>) is inferred from its initial value in the meta-program (here, the result of calling <tt>RandGen.create</tt>); alternatively, you can assign these globals an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> string, number, or boolean in lieu of an instance object handle.  Note that the <tt>Program</tt> object introduced at line <a class="codexLink" href="#cl-1:7"><span class="codexLink">7</span></a> refers to a special module canonically named <tt>xdc.cfg.Program</tt> whose configs and functions help shape any number of "global" characteristics of the corresponding target-program&#151;placement of memory, debugger integration, program stack size, as well as global variable definitions.
+</li></ul>
+<p></p>
+<ul><li>  The fragment <tt>RandGen.create({range: 20, seed: 4})</tt> calls the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> equivalent of <tt>RandGen_create</tt>, which likewise returns the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> equivalent of a <tt>RandGen_Handle</tt>.  Leveraging the more compact syntax of standard JavaScript versus standard C, we can express the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> equivalent of a <tt>RandGen_Params</tt> structure as an <i>object literal</i> comprising a comma-separated list of <tt>field:value</tt> pairs enclosed in curly braces.  Any fields not explictly assigned will take on the default value of the corresponding per-instance config; <tt>RandGen.create</tt> uses all instance config defaults when passed an empty structure <tt>{}</tt> or else the value <tt>null</tt>.  Unlike its target-domain counterpart, <tt>RandGen.create</tt> does not require any additional arguments to support error-handling.
+</li></ul>
+<p>Given their status as permanent objects, needless to say you cannot delete statically-created instances at any point during their life-cycle&#151;neither in the <tt>prog.c</tt> target-program nor even in the <tt>prog.cfg</tt> meta-program.
+</p>
+<a name="Guidelines_for_usage"></a><h2> <span class="mw-headline">Guidelines for usage</span></h2>
+<p>The example at hand illustrates three distinctive idioms for creating RTSC instance objects, each taking a somewhat different path to obtain the same result&#151;a <tt><i>Mod</i>_Handle</tt> that you can pass to other public functions of a RTSC instance module.  Here, then, are some guidelines to help you choose which instance creation idiom to employ in a particular application setting.
+</p><p><span class="Leader">Target-domain <tt><i>Mod</i>_create</tt> (dynamically-created instances)</span>.&nbsp; You should consider this path as the <i>norm</i>, with the others representing variations that typically yield performance gains at the expense of some additional programming complexity.  During the early phases of application development&#151;when program correctness and robustness should always trump program speed and size&#151;you should utilize target-domain <tt><i>Mod</i>_create</tt> calls by default until proven otherwise.
+</p><p>In practice, most target-domain <tt><i>Mod</i>_create</tt> calls occur soon after execution enters the program's <tt>main</tt> function, usually well before any time-critical processing begins.  Since dynamically-created instances require runtime <i>allocation</i> as well as initialization of object storage&#151;a potentially lengthy and non-deterministic operation that may impact real-time performance&#151;limiting target-domain <tt><i>Mod</i>_create</tt> calls to program startup often becomes mandatory.  Along these lines, you may also find that (once created during startup) these instances can effectively live forever in many embedded applications.
+</p>
+<div class="Info"><p class="Info">Recognizing the prevalence of "create-only" target programs that never call any instance <tt><i>Mod</i>_delete</tt> functions, RTSC enables you to configure simpler, more deterministic memory allocators used internally by <tt><i>Mod</i>_create</tt>&#151;resulting in non-trivial reductions in program footprint.</p></div>  
+<p><span class="Leader">Target-domain <tt><i>Mod</i>_construct</tt> (dynamically-constructed instances)</span>.&nbsp; With allocation of space for the instance object under explicit client control, target-domain <tt><i>Mod</i>_construct</tt> calls certainly have a degree of flexibility not shared by <tt><i>Mod</i>_create</tt>&#151;you can declare the <tt><i>Mod</i>_Struct</tt> passed to <tt><i>Mod</i>_construct</tt> as a local or global variable, or even allocate the space by directly calling a memory allocator of your choice.  The <tt><i>Mod</i>_construct</tt> function simply <i>initializes</i> the object, and hence can potentially find use in situations where the internal memory allocation performed as part of <tt><i>Mod</i>_create</tt> proves too costly.
+</p><p>One common scenario for preferring <tt><i>Mod</i>_construct</tt> over <tt><i>Mod</i>_create</tt> occurs when an instance object will have a very short lifetime&#151;and the object itself needs to come and go with minimal impact on real-time performance.  Local <tt><i>Mod</i>_Struct</tt> variables coupled with matching calls to <tt><i>Mod</i>_construct</tt> and <tt><i>Mod</i>_destruct</tt>&#151;all appearing within the scope of a single client function&#151;serve this purpose nicely, essentially by eliminating the cost of memory allocation.  While this approach certainly scales to (long-lived) global <tt><i>Mod</i>_Struct</tt> variables, efficiency advantages over <tt><i>Mod</i>_create</tt> begin to diminish in this scenario; statically-created instance objects (reviewed next) in fact represent a better choice for optimizing performance in these situations.
+</p>
+<div class="Info"><p class="Info">Though outside the scope of this Primer, suffice it to say that constructed instances may have <i>less</i> diagnostic support than created instances&#151;another trade-off between robustness and performance.  In particular, RTSC analysis tooling used to view the set of instance objects currently associated with an individual module may <i>not</i> account for any dynamically-constructed instances&#151;only instances resulting from <tt><i>Mod</i>_create</tt> calls, either dynamically in the target-domain or else statically in the meta-domain.  This limitation reinforces our suggestion to restrict use of <tt><i>Mod</i>_construct</tt> to short-lived, transient instance objects.</p></div>
+<p><span class="Leader">Meta-domain <tt><i>Mod</i>.create</tt> (statically-created instances)</span>.&nbsp; This idiom can offer significant performance gains in time and (especially) space whenever your application uses instance objects that effectively remain live throughout program execution.  Applications that follow the model of <tt>prog.c</tt> from <a href="RTSC_Module_Primer__Lesson_3.html#Reading_the_program" title="RTSC Module Primer/Lesson 3">Lesson 3</a>&#151;instance <tt><i>Mod</i>_create</tt> calls in <tt>main</tt>, but no instance <tt><i>Mod</i>_delete</tt> calls within <tt>prog.c</tt>.  Starting with a <i>working</i> target program&#151;functionally correct, but with a larger memory footprint than desired&#151;you can better focus on translating <tt><i>Mod</i>_create</tt> calls from standard C into the less familiar world of <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>; after a while, this translation process will seem almost mechanical to you. 
+</p><p>By moving <i>all</i> target-domain <tt><i>Mod</i>_create</tt> calls on a particular instance module upstream to the meta-domain, the target program need not carry runtime code supplied by that module for initializing (and finalizing) dynamically-created instances&#151;often, a significant percentage of a module's internal implementation.  And by moving all target-domain <tt><i>Mod</i>_create</tt> calls on <i>all</i> instance modules into the meta-domain, the target program need not carry a runtime memory allocator&#151;another significant portion of C code.
+</p><p>Besides a consequential reduction in target-program footprint, the virtually unlimited resources of the host-based meta-domain enable module suppliers to validate the correctness of each statically-created instance&#151;starting with its per-instance configs and expanding to its interrelationship with other program elements.  Though theoretically possible to implement equivalent runtime checks in the target-program, the practical constraints of embedded programming in C often suggest otherwise.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../../cdoc/xdc/cfg/Program.html#global" class="cdoc"><tt>xdc.cfg.Program.global</tt></a>
+</td><td class="DocListSubTitle1">Client documentation for <tt>xdc.cfg.Program.global</tt>
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/green_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Module Primer/Lesson 4&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Module_Primer__Lesson_3.html" title="Lesson 3"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Module_Primer.html#TOC" title="RTSC Module Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Module_Primer__Lesson_5.html" title="Lesson 5"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 8359 bytes
+Post-expand include size: 3484 bytes
+Template argument size: 495 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Module_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.243 secs. --></body></html>

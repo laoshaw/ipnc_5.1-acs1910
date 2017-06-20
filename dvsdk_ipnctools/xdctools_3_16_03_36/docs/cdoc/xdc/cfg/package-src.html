@@ -1,0 +1,126 @@
+<html><head><title>package xdc.cfg</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class=key>requires</span> xdc.services.global;
+    13    
+    14    <span class="xdoc">/*!
+</span>    15    <span class="xdoc"> *  ======== xdc.cfg ========
+</span>    16    <span class="xdoc"> *  Configuration Object Model elements
+</span>    17    <span class="xdoc"> *
+</span>    18    <span class="xdoc"> *  This package contains the modules necessary to populate the XDC
+</span>    19    <span class="xdoc"> *  Configuration Object Model.  In addition, this package supplies a
+</span>    20    <span class="xdoc"> *  C/C++ header, `global.h`, that facilitates the creation of portable
+</span>    21    <span class="xdoc"> *  sources that need to reference global values defined as part of
+</span>    22    <span class="xdoc"> *  a configuration (`{<b>@link</b> xdc.cfg.Program#global}`).
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  <b>@a(Compatibility Checks)</b>
+</span>    25    <span class="xdoc"> *  During configuration certain compatibility checks are made.  These checks
+</span>    26    <span class="xdoc"> *  include:
+</span>    27    <span class="xdoc"> *  <b>@p(nlist)</b>
+</span>    28    <span class="xdoc"> *    -   target compatibility among all packages that are included in the
+</span>    29    <span class="xdoc"> *        configuration
+</span>    30    <span class="xdoc"> *    -   package compatibility among all packages included in the
+</span>    31    <span class="xdoc"> *        configuration
+</span>    32    <span class="xdoc"> *    -   package compatibility with respect to the set of packages used to
+</span>    33    <span class="xdoc"> *        build the packages that are part of the configuration set.
+</span>    34    <span class="xdoc"> *  <b>@p</b>
+</span>    35    <span class="xdoc"> *  By default, if any of the checks above fail, the configuration step fails.
+</span>    36    <span class="xdoc"> *  It is possible, however, to selectively exclude particular
+</span>    37    <span class="xdoc"> *  packages from these checks and/or treat check failures as non-fatal
+</span>    38    <span class="xdoc"> *  warnings.
+</span>    39    <span class="xdoc"> *
+</span>    40    <span class="xdoc"> *  There are two "environment" variables that control these checks:
+</span>    41    <span class="xdoc"> *  <b>@p(dlist)</b>
+</span>    42    <span class="xdoc"> *    - `xdc.cfg.check.exclude`
+</span>    43    <span class="xdoc"> *        a regular expression that is used to select packages that should
+</span>    44    <span class="xdoc"> *        be excluded from the set of packages checked during configuration.
+</span>    45    <span class="xdoc"> *
+</span>    46    <span class="xdoc"> *    - `xdc.cfg.check.fatal`
+</span>    47    <span class="xdoc"> *        if set to "`false`", force any incompatibilities detected to be
+</span>    48    <span class="xdoc"> *        treated as warnings only; otherwise incompatibilities are fatal
+</span>    49    <span class="xdoc"> *  <b>@p</b>
+</span>    50    <span class="xdoc"> *  Of course, it is also possible to use both options together to achieve
+</span>    51    <span class="xdoc"> *  a desired effect.
+</span>    52    <span class="xdoc"> *
+</span>    53    <span class="xdoc"> *  To define these environment variables one must pass the appropriate `-D`
+</span>    54    <span class="xdoc"> *  options to the XDCscript shell (`xs`) which is used to run the
+</span>    55    <span class="xdoc"> *  `{<b>@link</b> xdc.tools.configuro configuro}` command line configuration tool.
+</span>    56    <span class="xdoc"> *  If, on the other hand, you are using `xdc` to run the configuration step
+</span>    57    <span class="xdoc"> *  you can set these variables by setting the
+</span>    58    <span class="xdoc"> *  `{<b>@link</b> xdc.bld.Executable#Attrs xsopts}` attribute of an
+</span>    59    <span class="xdoc"> *  `{<b>@link</b> xdc.bld.Executable}` within a build script.
+</span>    60    <span class="xdoc"> *
+</span>    61    <span class="xdoc"> *  <b>@a(Controlling Compatibility Checks)</b>
+</span>    62    <span class="xdoc"> *  To treat compatibility check failures as warnings for the executable
+</span>    63    <span class="xdoc"> *  `app`:
+</span>    64    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    65    <span class="xdoc"> *    Pkg.addExecutable("app", targ, targ.platform, {
+</span>    66    <span class="xdoc"> *         xsopts: "-Dxdc.cfg.check.fatal=false"
+</span>    67    <span class="xdoc"> *    });
+</span>    68    <span class="xdoc"> *  <b>@p</b>
+</span>    69    <span class="xdoc"> *
+</span>    70    <span class="xdoc"> *  To ignore any incompatibilities triggered by targets used by the
+</span>    71    <span class="xdoc"> *  `ti.targets.rts*` packages:
+</span>    72    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    73    <span class="xdoc"> *    Pkg.addExecutable("app", targ, targ.platform, {
+</span>    74    <span class="xdoc"> *        xsopts: "-Dxdc.cfg.check.exclude='ti.targets.rts.*'"
+</span>    75    <span class="xdoc"> *    });
+</span>    76    <span class="xdoc"> *  <b>@p</b>
+</span>    77    <span class="xdoc"> *  In this case, the `xdc.cfg.check.exclude` option is regular expression used
+</span>    78    <span class="xdoc"> *  to exclude any package whose names matches the regular expression from the
+</span>    79    <span class="xdoc"> *  checks.
+</span>    80    <span class="xdoc"> *
+</span>    81    <span class="xdoc"> *  Finally, if you don't want to set `xsopts` on each executable, it is
+</span>    82    <span class="xdoc"> *  possible to set it for all executables within a package by setting the
+</span>    83    <span class="xdoc"> *  `xsopts` attribute of the `{<b>@link</b> xdc.bld.PackageContents}` (a.k.a. `Pkg`)
+</span>    84    <span class="xdoc"> *  object.  For example, to turn all compatibility checks into warnings for
+</span>    85    <span class="xdoc"> *  all executables in a package, add the following line to the package's
+</span>    86    <span class="xdoc"> *  build script:
+</span>    87    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    88    <span class="xdoc"> *    Pkg.attrs.xsopts = "-Dxdc.cfg.check.fatal=false";
+</span>    89    <span class="xdoc"> *  <b>@p</b>
+</span>    90    <span class="xdoc"> *
+</span>    91    <span class="xdoc"> *  <b>@a(Throws)</b>
+</span>    92    <span class="xdoc"> *  `XDCException` exceptions are thrown for fatal errors. The following error
+</span>    93    <span class="xdoc"> *  codes are reported in the exception message:
+</span>    94    <span class="xdoc"> *  <b>@p(dlist)</b>                            
+</span>    95    <span class="xdoc"> *      -  `xdc.cfg.CONFIG_ERROR`
+</span>    96    <span class="xdoc"> *           This is a general error reported when the program configuration
+</span>    97    <span class="xdoc"> *           fails. This error is caused by one or more configuration errors.
+</span>    98    <span class="xdoc"> *           The list of those specific errors preceds this error.
+</span>    99    <span class="xdoc"> *      -  `xdc.cfg.INCOMPATIBLE_TARGET_VERSION`
+</span>   100    <span class="xdoc"> *           This is an error or a warning usually reported when the version of 
+</span>   101    <span class="xdoc"> *           the compiler used in the current build is not compatible with the
+</span>   102    <span class="xdoc"> *           version of the compiler used to build some of the loaded packages.
+</span>   103    <span class="xdoc"> *           The compiler version might be encoded in the compatibility keys
+</span>   104    <span class="xdoc"> *           displayed in the error message, but it is not required. Please
+</span>   105    <span class="xdoc"> *           check the documentation of the current target's package for the
+</span>   106    <span class="xdoc"> *           content of the compatibility keys.
+</span>   107    <span class="xdoc"> *  <b>@p</b>
+</span>   108    <span class="xdoc"> *
+</span>   109    <span class="xdoc"> *  <b>@see</b> xdc.cfg.Program#global
+</span>   110    <span class="xdoc"> *  <b>@see</b> xdc.tools.configuro.Main
+</span>   111    <span class="xdoc"> */</span>
+   112    <span class=key>package</span> xdc.cfg [1,0,2,0] {
+   113        <span class=key>module</span> Program, Main;
+   114    }
+   115    <span class="comment">/*
+</span>   116    <span class="comment"> *  @(#) xdc.cfg; 1, 0, 2, 0,237; 2-22-2010 10:33:11; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   117    <span class="comment"> */</span>
+   118    
+</pre>
+</body></html>

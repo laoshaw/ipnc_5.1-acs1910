@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Writing getLibs() - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Writing getLibs()&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Writing getLibs()" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Writing getLibs()</p><p id="subtitle">Guidelines for package <tt>getLibs()</tt> functions</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Configuration_phase"><span class="tocnumber">2</span> <span class="toctext">Configuration phase</span></a></li>
+<li class="toclevel-1"><a href="#Program_configuration_parameters"><span class="tocnumber">3</span> <span class="toctext">Program configuration parameters</span></a></li>
+<li class="toclevel-1"><a href="#Target_parameters"><span class="tocnumber">4</span> <span class="toctext">Target parameters</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Target_compatibility"><span class="tocnumber">4.1</span> <span class="toctext">Target compatibility</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Use_cases"><span class="tocnumber">5</span> <span class="toctext">Use cases</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Packages_built_with_XDCtools_3.00_and_other_build_systems"><span class="tocnumber">5.1</span> <span class="toctext">Packages built with XDCtools 3.00 and other build systems</span></a></li>
+<li class="toclevel-2"><a href="#Packages_loaded_by_XDCtools_3.05_and_earlier"><span class="tocnumber">5.2</span> <span class="toctext">Packages loaded by XDCtools 3.05 and earlier</span></a></li>
+<li class="toclevel-2"><a href="#Supplying_libraries_based_on_profiles"><span class="tocnumber">5.3</span> <span class="toctext">Supplying libraries based on profiles</span></a></li>
+<li class="toclevel-2"><a href="#Supplying_libraries_based_on_device"><span class="tocnumber">5.4</span> <span class="toctext">Supplying libraries based on device</span></a></li>
+<li class="toclevel-2"><a href="#Packages_with_multiple_releases"><span class="tocnumber">5.5</span> <span class="toctext">Packages with multiple releases</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Changing_compatibleSuffixes"><span class="tocnumber">6</span> <span class="toctext">Changing compatibleSuffixes</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>Configuration is one of the phases of <a href="../The_RTSC_Flow/The_RTSC_Flow.html" title="The RTSC Flow">the RTSC flow</a>. During configuration, a program configuration script loads a set of packages that contribute source code and libraries to the generated executable image. Packages may control which libraries they contribute by implementing <a href="../../cdoc/xdc/IPackage.html#get.Libs" class="cdoc"><tt>getLibs()</tt></a> in their <tt>package.xs</tt> file. This document provides a guide to RTSC package producers for writing <tt>getLibs()</tt> for the most frequent use cases.
+</p>
+<a name="Configuration_phase"></a><h2> <span class="mw-headline">Configuration phase</span></h2>
+<p>The function <tt>getLibs()</tt> is used during RTSC configuration model’s generation phase. After the user’s configuration script finishes, and all loaded packages finish running their <a href="../../cdoc/xdc/IPackage.html#close" class="cdoc"><tt>close()</tt></a> and <a href="../../cdoc/index.html#xdc/IPackage.html#validate" class="cdoc"><tt>validate()</tt></a> functions, RTSC configuration model invokes <tt>getLibs()</tt> for each loaded package.
+</p><p><a href="images/Get_Libs_Image2.png" class="image" title="{caption Figure 1}"><img alt="{caption Figure 1}" src="images/Get_Libs_Image2.png" width="702" height="180" border="0" /></a>
+</p><p>Each package's <tt>getLibs()</tt> function returns libraries and/or object files, which are then forwarded to a linker command file template. The target-specific template transforms the list of libraries into a linker command file with the target-specific syntax. In the figure above, the linker command file contains the syntax specific to TI targets.
+</p>
+<a name="Program_configuration_parameters"></a><h2> <span class="mw-headline">Program configuration parameters</span></h2>
+<p>The content of <tt>getLibs()</tt> consists of querying various configuration parameters of the global object <a href="../../cdoc/xdc/cfg/Program.html" class="cdoc"><tt>Program</tt></a>, which represents properties of the executable being built. This module is globally available during RTSC configuration, and can be referred to simply as <tt>Program</tt>, but is also passed as the only argument to <tt>getLibs()</tt>. Based on <tt>Program</tt>'s parameters, one or more of a package's libraries is supplied.
+</p><p>In most cases, a package selects libraries to supply based on:
+</p>
+<ul><li>which target is being used,
+</li><li>which CPU core is being used,
+</li><li>which device and platform are being used.
+</li></ul>
+<p>The following configuration properties of the module <tt>Program</tt> contain that information:
+</p>
+<ul><li><a href="../../cdoc/xdc/cfg/Program.html#build" class="cdoc"><tt>Program.build.target</tt></a> – an object representing RTSC build target, i.e. the target for which the executable is built
+</li><li><a href="../../cdoc/xdc/cfg/Program.html#cpu" class="cdoc"><tt>Program.cpu</tt></a> – an object representing the hardware for which the executable is built, including a specific device and CPU core
+</li><li><a href="../../cdoc/xdc/cfg/Program.html#platform.Name" class="cdoc"><tt>Program.platformName</tt></a> – the name of the platform
+</li></ul>
+<a name="Target_parameters"></a><h2> <span class="mw-headline">Target parameters</span></h2>
+<p>The recommended target parameter that package producers should use to identify the build target is <a href="../../cdoc/xdc/bld/ITarget.html#suffix" class="cdoc"><tt>suffix</tt></a>, which can be accessed during configuration phase as <tt>Program.build.target.suffix</tt>. The parameter <tt>suffix</tt> is a string that a target package producer assigns to its target as a unique readonly identifier.
+</p><p>Ideally, any other target that generates binary compatible code would have the same suffix, to advertise the compatibility with the original target. For example, two targets that use GCC compilers to generate code for Arm v5T architecture should have the same suffix. 
+</p>
+<p class="Remark"><img src="../common/extensions/rtsc/images/Remark.png" /><i>Different GCC compilers configured for a same Arm architecture can still generate incompatible code, depending on the used compiler options. A producer of a RTSC target package must ensure that his target and an existing target are compatible, if they are going to use the same suffix. <tt>XDCtools</tt> do not have any additional mechanisms that test the compatibility between the targets.</i></p>
+<a name="Target_compatibility"></a><h3> <span class="mw-headline">Target compatibility</span></h3>
+<p>However, it is possible that independent producers select different suffixes for their compatible targets, and the package producers would have to be aware of compatibility of different suffixes to be able to supply the most compatible libraries. Also, if a new target backward compatible with an existing target is released after the package producer releases his package, the package may not be able to recognize that the libraries built for the older target can be supplied to builds for the new target.
+</p><p>In <tt>XDCtools</tt> 3.10, the object <tt>Program.build.target</tt> is enriched with a new target compatibility API. This API allows producers of RTSC target packages to declare compatibility between their targets and other existing RTSC targets. It also allows producers of RTSC packages to build their packages in such a way that the packages can be consumed in builds for targets that were not known at the time their packages were produced.
+</p><p>The API consists of a configuration parameter <a href="../../cdoc/xdc/bld/ITarget.html#compatible.Suffixes" class="cdoc"><tt>compatibleSuffixes</tt></a> and the function <a href="../../cdoc/index.html#xdc/bld/ITarget.html#find.Suffix" class="cdoc"><tt>findSuffix()</tt></a>. The parameter <tt>compatibleSuffixes</tt> allows the target producers who created compatible targets with different suffixes to declare their targets compatible. Also, <tt>compatibleSuffixes</tt> allows target producers to declare one-way compatibility, where code produced by one target can be linked into an executable built by another target, but not the other way around.
+</p><p>In the case of two compatible targets mentioned above, each of them would have the other target's suffix in its own <tt>compatibleSuffixes</tt> array. In the case of one-way compatibility, a target that can accept other targets' code would list those targets' suffixes in its <tt>compatibilitySuffixes</tt>. For example, an Arm v7A target would have in its <tt>compatibleSuffixes</tt> array the suffixes for Arm v6 and Arm v5T targets. The suffixes are listed in order of preference, therefore the Arm v6 target should be listed before Arm v5T target.
+</p>
+<a name="Use_cases"></a><h2> <span class="mw-headline">Use cases</span></h2>
+<p>The function <tt>findSuffix()</tt> compares the list of libraries in a package with the build target's <tt>suffix</tt> and <tt>compatibleSuffixes</tt>, and returns <tt>suffix</tt> that is the best match between the two. The build target's <tt>suffix</tt> is the preferred match, so if the library package contains libraries for the build target, <tt>compatibleSuffixes</tt> array will not be considered. If the package does not contain any library compatible with the build target, the function returns <tt>null</tt>. Here is the sample code that selects a library based on the value returned from <tt>findSuffix()</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">var</span> suffix = prog.build.target.findSuffix<span class="br0">&#40;</span><span class="kw2">this</span><span class="br0">&#41;</span>;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>suffix&nbsp;!= <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a&quot;</span> + suffix<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">null</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="Packages_built_with_XDCtools_3.00_and_other_build_systems"></a><h3> <span class="mw-headline">Packages built with <tt>XDCtools</tt> 3.00 and other build systems</span></h3>
+<p>The function <tt>getLibs()</tt>, as written above will work only for packages built by <tt>XDCtools</tt> 3.05 and newer. Any package using an older <tt>XDCtools</tt> version or building libraries outside of the RTSC build cannot rely on the function <tt>findSuffix()</tt> to determine which libraries are available in the package. Such packages must explicitly supply a list of suffixes to <tt>findSuffix()</tt> and the function will return the suffix that is the preferred one by the build target. For example, if the package producer created libraries for targets with suffixes <tt>v5T</tt>, <tt>470MV</tt>, <tt>86U</tt> and <tt>64P</tt>, the function <tt>getLibs()</tt> looks as follows:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">var</span> suffixes = <span class="br0">&#91;</span><span class="st0">&quot;v5T&quot;</span>, <span class="st0">&quot;470MV&quot;</span>, <span class="st0">&quot;86U&quot;</span>, <span class="st0">&quot;64P&quot;</span><span class="br0">&#93;</span>;
+    <span class="kw1">var</span> suffix = prog.build.target.findSuffix<span class="br0">&#40;</span>suffixes<span class="br0">&#41;</span>;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>suffix&nbsp;!= <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a&quot;</span> + suffix<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">null</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="Packages_loaded_by_XDCtools_3.05_and_earlier"></a><h3> <span class="mw-headline">Packages loaded by <tt>XDCtools</tt> 3.05 and earlier</span></h3>
+<p>Both of the <tt>getLibs()</tt> examples above are written to be consumed only by <tt>XDCtools</tt> 3.10 or newer, because the code assumes that <tt>findSuffix()</tt> is always available. However, since that function was introduced only in <tt>XDCtools</tt> 3.10, if a package with any of the <tt>getLibs()</tt> versions above was loaded by an older version of <tt>XDCtools</tt>, the error <tt>TypeError: Cannot find function findSuffix</tt> will be displayed. The following version of <tt>getLibs()</tt> queries  <tt>Program.build.target</tt> for <tt>findSuffix</tt> and if it is not found, <tt>getLibs()</tt> reverts to simply using <tt>Program.build.target.suffix</tt> to look for compatible libraries.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="st0">&quot;findSuffix&quot;</span> <span class="kw1">in</span>  prog.build.target<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">var</span> suffix = prog.build.target.findSuffix<span class="br0">&#40;</span><span class="kw2">this</span><span class="br0">&#41;</span>;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>suffix&nbsp;!= <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">return</span> <span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a&quot;</span> + suffix<span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="br0">&#123;</span>
+        <span class="kw1">var</span> lib = <span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a&quot;</span> + prog.build.target.suffix;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>java.io.File<span class="br0">&#40;</span><span class="kw2">this</span>.packageBase + lib<span class="br0">&#41;</span>.exists<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">return</span><span class="br0">&#40;</span>lib<span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">null</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="Supplying_libraries_based_on_profiles"></a><h3> <span class="mw-headline">Supplying libraries based on <tt>profiles</tt></span></h3>
+<p>Another common case is a package with multiple libraries built for the same target, but one of them built in the <tt>debug</tt> mode and another one in the <tt>release</tt> mode. In that case, besides figuring out the right suffix, <tt>getLibs()</tt> should check the property <a href="../../cdoc/xdc/IPackage.html#profile" class="cdoc"><tt>profile</tt></a> of its own package. That property can be accessed through <tt>this.profile</tt> in <tt>getLibs()</tt>. In all functions in <tt>package.xs</tt>, <tt>this</tt> refers to the current package.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">var</span> suffix = …;
+&nbsp;
+    <span class="kw1">var</span> lib = <span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.profile + <span class="st0">&quot;/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a&quot;</span> + suffix;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>java.io.File<span class="br0">&#40;</span><span class="kw2">this</span>.packageBase + lib<span class="br0">&#41;</span>.exists<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span><span class="br0">&#40;</span>lib<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span><span class="br0">&#40;</span><span class="st0">&quot;lib/release/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a&quot;</span> + suffix<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The first part of the script, ommitted for brevity, selects a compatible <tt>suffix</tt> or returns <tt>null</tt> if there are no suffixes compatible with the build target. Then, the function builds the library name using <tt>this.profile</tt>. The property <tt>this.profile</tt> of the current package could be explicitly set in the program configuration script, or if it is not set at all for this package, then it will be set to <tt>Program.build.profile</tt> property. In any case, the function <tt>getLibs()</tt> does not change.
+However, the use case where <tt>this.profile</tt> can be set to any string allows the package producer to document custom profiles in the package documentation, and then to deliver libraries corresponding to those profiles. For example, a package producer can have two additional libraries in <tt>optimize_speed</tt> and <tt>optimize_space</tt> modes for suffixes <tt>v5T</tt> and <tt>470MV</tt>, in addition to common <tt>debug</tt> and <tt>release</tt> available for all targets that the package supports. The function <tt>getLibs()</tt> would not change in that case, but it would still deliver libraries built for custom modes, or <tt>release</tt> libraries for targets that do not support those custom modes.
+</p>
+<a name="Supplying_libraries_based_on_device"></a><h3> <span class="mw-headline">Supplying libraries based on device</span></h3>
+<p>The mechanism of offering different profiles can allow package producers to build many custom libraries, and to document in which cases such libraries can be used. However, package consumers may want to leave it to the producers to determine the most appropriate library based on different package properties. A package producer may decide to return different libraries for different devices that all build for the same target. For example, the DSP-side of OMAP2530 and OMAP3530 devices may be best served by different libraries, even though they both can run code built for the <tt>ti.targets.C64P</tt> target with the suffix <tt>64P</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">var</span> suffix = …;
+&nbsp;
+    <span class="kw1">switch</span> <span class="br0">&#40;</span>suffix<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">case</span> <span class="st0">&quot;64P&quot;</span>:
+            <span class="kw1">if</span> <span class="br0">&#40;</span>prog.cpu.deviceName == <span class="st0">&quot;OMAP2530&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw1">return</span> <span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;_2530.a64P&quot;</span><span class="br0">&#41;</span>;
+            <span class="br0">&#125;</span>
+            <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>prog.cpu.deviceName == <span class="st0">&quot;OMAP3530&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                <span class="kw1">return</span> <span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;_3530.a64P&quot;</span><span class="br0">&#41;</span>;
+            <span class="br0">&#125;</span>
+            <span class="kw1">else</span> <span class="br0">&#123;</span>
+                <span class="kw1">return</span> <span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a64P&quot;</span><span class="br0">&#41;</span>;
+            <span class="br0">&#125;</span>
+            <span class="kw1">break</span>;
+        <span class="kw1">case</span> <span class="kw1">default</span>:
+            <span class="kw1">return</span> <span class="br0">&#40;</span><span class="st0">&quot;lib/release/&quot;</span> + <span class="kw2">this</span>.$name + <span class="st0">&quot;.a&quot;</span> + suffix<span class="br0">&#41;</span>;
+            <span class="kw1">break</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Please note here that even though we are dealing with devices that have two cores, where the parameter <tt>deviceName</tt> does not specify if we are building for DSP or GPP core, we did not check which of these cores will be used to run the executable. We relied on the program configuration script or the platform package to ensure that the C64P target is matched with the right hardware platform. Platforms are better equipped to catch such an issue, rather than many different library packages verifying the right match between the target and the platform.
+But, in the case the package producer needs to check the hardware platform for the OMAP2530 device, for example, there is a property <tt>Program.cpu.attrs.cpuCore</tt>, which will contain <tt>v6</tt> if the program is being built for the Arm core or <tt>C64x+</tt> if the program is built for the DSP core.
+</p>
+<p class="Remark"><img src="../common/extensions/rtsc/images/Remark.png" /><i>Don't use platformName to determine the device, for example by searching the platform name for a specific device name. A user can use the same device with different platforms, where platformName may or may not contain the name of a device. For example, a user can use the device OMAP2530 with 'ti.platforms.generic', instead of using evm2530 platform.</i></p>
+<a name="Packages_with_multiple_releases"></a><h3> <span class="mw-headline">Packages with multiple releases</span></h3>
+<p><div class="Notice-red"><p class="Notice-red">This section relies on undocumented features that are supported in <tt>XDCtools</tt> 3.10 and earlier releases, but may not be supported later and could be replaced with a different interface for querying the current package release.</p></div></p>
+<p>Different releases of the same library package may contain only a subset of libraries built in the package. For example, a release delivered to a subset of customers may contain a debug mode version of the supplied libraries, while a release delivered to another subset of customers may contain libraries optimized for speed or memory footprint, but not a debug version of the libraries. In some simple cases, code in <tt>getLibs()</tt> can simply check the existence of the libraries using <tt>java.io.File.exists()</tt> interface. However, in more complex cases it must be necessary to know the actual release.
+</p><p>Releases can be identified by the required parameter <a href="../../cdoc/xdc/bld/Release.html#name" class="cdoc"><tt>name</tt></a>.
+The parameters of a release are available in the XML file <tt>package.rel.xml</tt> in the directory <tt>package</tt> of the released package. The parameter <tt>name</tt> is the string supplied as the name of the release, when calling <a href="../../cdoc/xdc/bld/PackageContents.html#add.Release" class="cdoc"><tt>Pkg.addRelease()</tt></a>, in <tt>package.bld</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">var</span> release = <span class="re1">xdc.loadXML</span><span class="br0">&#40;</span><span class="kw2">this</span>.packageBase + <span class="st0">&quot;/package/package.rel.xml&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">var</span> releaseName = release.@name;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>releaseName == <span class="st0">&quot;pkgs_myPkg,full&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        ...
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>releaseName == <span class="st0">&quot;pkgs_myPkg,withDebug&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        ...
+    <span class="br0">&#125;</span>
+    ...
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Alternatively, the optional parameter <tt>label</tt> from <a href="../../cdoc/xdc/bld/Release.html#.Attrs" class="cdoc"><tt>Release.Attrs</tt></a> can be used.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">var</span> release = <span class="re1">xdc.loadXML</span><span class="br0">&#40;</span><span class="kw2">this</span>.packageBase + <span class="st0">&quot;/package/package.rel.xml&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">var</span> releaseLabel = release.@label;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>releaseLabel == <span class="st0">&quot;default&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        ...
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="kw1">if</span> <span class="br0">&#40;</span>releaseLabel == <span class="st0">&quot;withDebug&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        ...
+    <span class="br0">&#125;</span>
+    ...
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="Changing_compatibleSuffixes"></a><h2> <span class="mw-headline">Changing <tt>compatibleSuffixes</tt></span></h2>
+<p>A package consumer configuring the application can determine that <tt>compatibleSuffixes</tt> array for his build target is incomplete, i.e. there are some new targets available that the target package producer did not include in <tt>compatibleSuffixes</tt>. In his <tt>config.bld</tt>, the package consumer can change <tt>compatibleSuffixes</tt> configuration parameter.
+</p><p>For example, a user could be building an application for the <a href="../../cdoc/gnu/targets/arm/GCArmv6.html" class="cdoc"><tt>gnu.targets.arm.GCArmv6</tt></a> target, whose <tt>compatibleSuffixes</tt> is set to <tt>["v5T", "470MV"]</tt>. If there is a new <tt>GCArmv4</tt> target, which generates code compatible with code for <tt>GCArmv6</tt>, the user can add <tt>GCArmv4.suffix</tt> to <tt>GCArmv6.compatibleSuffixes</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> armTargets = <span class="re1">xdc.loadPackage</span><span class="br0">&#40;</span><span class="st0">&quot;gnu.targets.arm&quot;</span><span class="br0">&#41;</span>;
+armTargets.GCArmv6.compatibleSuffixes = <span class="br0">&#91;</span><span class="st0">&quot;v5T&quot;</span>, <span class="st0">&quot;470MV&quot;</span>, <span class="st0">&quot;v4&quot;</span><span class="br0">&#93;</span>;
+...</pre></td></tr></table>
+<p><br />
+</p><!-- 
+Pre-expand include size: 3161 bytes
+Post-expand include size: 1236 bytes
+Template argument size: 135 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Writing_getLibs%28%29.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.216 secs. --></body></html>

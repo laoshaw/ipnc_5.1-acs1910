@@ -1,0 +1,423 @@
+<html>
+<head>
+<title>module xdc.services.global.Trace</title>
+<meta name="description" content="Trace support">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.services.global.</span><span class="xdoc-id">Trace</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Clock.html" title="module Clock"><img class="xdocHdrArrow" src="../../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/package.html" title="package xdc.services.global"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html">index URL</a></div>
+<p class="xdocHdrSummary">Trace support</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+This module allows system integrators to selectively enable trace
+  statements, from within XDCscripts. Trace statements can be selected
+  based on the file (capsule) and the package in which they are located.
+  For example, trace statements from file <tt>Mod.xs</tt> in package <tt>myPkgs.pkgA'
+  can be enabled either with </tt>Trace.capsuleEnable(["myPkgs/pkgA/Mod"])<tt> or
+  with </tt>Trace.packageEnable(["myPkgs.pkgA"])`.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../xdc/services/global/Trace-src.html"><span class="xdocLabelFile">xdc/services/global/Trace.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Trace</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Trace = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.services.global.Trace'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#module.Use">Trace.<span class="xdoc-id">moduleUse</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace of used modules</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#package.Load">Trace.<span class="xdoc-id">packageLoad</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace of loaded packages</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Supergroup">Trace.<span class="xdoc-id">addSupergroup</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add a group that contains other groups</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">supergroup</span></go>, <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <go><span class="xdoc-id">subgroups</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#capsule.Enable">Trace.<span class="xdoc-id">capsuleEnable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace output from selected capsules</span></span></a>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <go><span class="xdoc-id">capsules</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#group.Enable">Trace.<span class="xdoc-id">groupEnable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace output from selected groups</span></span></a>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <go><span class="xdoc-id">groups</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#package.Enable">Trace.<span class="xdoc-id">packageEnable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace output from selected packages</span></span></a>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <go><span class="xdoc-id">packages</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#set.Level">Trace.<span class="xdoc-id">setLevel</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Set the verbosity level</span></span></a>( <i><span class="xdoc-kw2">Int</span></i> <go><span class="xdoc-id">level</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Int</span></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../xdc/services/global/Trace-src.html"><span class="xdocLabelFile">xdc/services/global/Trace.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../../xdc/services/global/package.html" title="xdc.services.global">xdc.services.global</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Trace</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.String.Array"><span class="xdoc-id">StringArray</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#module.Use"><span class="xdoc-id">moduleUse</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace of used modules</span></span></a> = <span class="xdoc-kw2">false</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#package.Load"><span class="xdoc-id">packageLoad</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace of loaded packages</span></span></a> = <span class="xdoc-kw2">false</span>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#add.Supergroup"><span class="xdoc-id">addSupergroup</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add a group that contains other groups</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">supergroup</span></go>, <a class="xdoc-link" href="../../../xdc/services/global/Trace.html#.String.Array" title="xdc.services.global.Trace.StringArray">Trace.StringArray</a>&nbsp;<go><span class="xdoc-id">subgroups</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../../xdc/services/global/Trace.html#.String.Array" title="xdc.services.global.Trace.StringArray">Trace.StringArray</a>&nbsp;<a class="xdocSynGo" href="#capsule.Enable"><span class="xdoc-id">capsuleEnable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace output from selected capsules</span></span></a>( <a class="xdoc-link" href="../../../xdc/services/global/Trace.html#.String.Array" title="xdc.services.global.Trace.StringArray">Trace.StringArray</a>&nbsp;<go><span class="xdoc-id">capsules</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../../xdc/services/global/Trace.html#.String.Array" title="xdc.services.global.Trace.StringArray">Trace.StringArray</a>&nbsp;<a class="xdocSynGo" href="#group.Enable"><span class="xdoc-id">groupEnable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace output from selected groups</span></span></a>( <a class="xdoc-link" href="../../../xdc/services/global/Trace.html#.String.Array" title="xdc.services.global.Trace.StringArray">Trace.StringArray</a>&nbsp;<go><span class="xdoc-id">groups</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../../xdc/services/global/Trace.html#.String.Array" title="xdc.services.global.Trace.StringArray">Trace.StringArray</a>&nbsp;<a class="xdocSynGo" href="#package.Enable"><span class="xdoc-id">packageEnable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable trace output from selected packages</span></span></a>( <a class="xdoc-link" href="../../../xdc/services/global/Trace.html#.String.Array" title="xdc.services.global.Trace.StringArray">Trace.StringArray</a>&nbsp;<go><span class="xdoc-id">packages</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#set.Level"><span class="xdoc-id">setLevel</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Set the verbosity level</span></span></a>( <span class="xdoc-kw2">Int</span>&nbsp;<go><span class="xdoc-id">level</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This module allows system integrators to selectively enable trace
+  statements, from within XDCscripts. Trace statements can be selected
+  based on the file (capsule) and the package in which they are located.
+  For example, trace statements from file <tt>Mod.xs</tt> in package <tt>myPkgs.pkgA'
+  can be enabled either with </tt>Trace.capsuleEnable(["myPkgs/pkgA/Mod"])<tt> or
+  with </tt>Trace.packageEnable(["myPkgs.pkgA"])`.</div>
+<div class="xdocText">Trace statements can also belong to groups, strings defined by package
+  producers when they need to group related trace statements, distributed
+  across different modules and packages, into trace units that can be
+  disabled or enabled as a whole. If some of the trace statements from file
+  <tt>Mod.xs</tt> are tagged to belong to a group "init", the following will
+  activate them:</div>
+<div class="xdocText"><PRE class="Example">  Trace.groupEnable(["init"]);
+</PRE></div>
+<div class="xdocText">Each trace statement by default belongs to the group "all". To activate
+  all trace statements:</div>
+<div class="xdocText"><PRE class="Example">  Trace.setLevel(2);
+  Trace.groupEnable(["all"]);
+</PRE></div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".String.Array"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">typedef</span> <span class="xdoc-id">Trace.</span><span class="xdoc-id">StringArray</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#.String.Array">index URL</a></div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">Trace_StringArray</span>[<span class="xdoc-kw2"></span>];
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="module.Use"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Trace.</span><span class="xdoc-id">moduleUse</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#module.Use">index URL</a></div>
+<p class="xdocHdrSummary">Enable trace of used modules</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Trace.<span class="xdoc-id">moduleUse</span> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This setting enables the messages that inform when the function
+  <tt>xdc.useModule()</tt> is invoked on a module, and when a module's
+  <tt>module$use</tt> function is invoked.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="package.Load"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Trace.</span><span class="xdoc-id">packageLoad</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#package.Load">index URL</a></div>
+<p class="xdocHdrSummary">Enable trace of loaded packages</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Trace.<span class="xdoc-id">packageLoad</span> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This setting enables the messages related to loading packages.
+  If <tt>true</tt>, whenever a package is loaded, the following info is
+  displayed:</div>
+<div class="xdocText"><UL><LI> name of a package loading another package
+</LI><LI> name of the loaded package
+</LI><LI> repository from which the package is being loaded 
+</LI></UL></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Supergroup"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Trace.</span><span class="xdoc-id">addSupergroup</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#add.Supergroup">index URL</a></div>
+<p class="xdocHdrSummary">Add a group that contains other groups</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Trace.<span class="xdoc-id">addSupergroup</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">supergroup</span>, <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-id">subgroups</span> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId"></span>
+<span class="xdocChildSum">&#151;&nbsp;supergroup	name of the new group</span>
+</div>
+<div class="xdocChildText">subgroups	array of the existing trace groups</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function allows giving a name to an array of existing 
+  trace groups.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="capsule.Enable"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Trace.</span><span class="xdoc-id">capsuleEnable</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#capsule.Enable">index URL</a></div>
+<p class="xdocHdrSummary">Enable trace output from selected capsules</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Trace.<span class="xdoc-id">capsuleEnable</span>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-id">capsules</span> ) <i>returns</i> <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Capsules are either XDCscript files or Java source files. The
+  function parameter is treated as an array of JavaScript
+  regular expressions, therefore it can contain partial capsule
+  names.</div>
+<div class="xdocText">If this function is invoked repeatedly, each new call replaces
+  the array of currently enabled capsules with the array supplied
+  as the parameter. The array of the currently enabled capsules is
+  returned. If the function is invoked with a zero-length array, it
+  returns the currently enabled capsules, but it also leaves them
+  active. Therefore, the sequence of calls that would add new 
+  capsules instead of replacing the current ones is:</div>
+<div class="xdocText"><PRE class="Example">  var current = Trace.capsuleEnable([]);
+  current[current.length++] = "pkg/ModA.xs";
+  current[current.length++] = "pkg/ModB.xs";
+  Trace.capsuleEnable(current);
+</PRE></div>
+<div class="xdocText">To disable trace for all capsules, the function must be invoked
+  with an empty string as the only element of the array.</div>
+<div class="xdocText"><PRE class="Example">  Trace.capsuleEnable([""]);
+</PRE></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">PARAMS</div>
+<div class="xdocText">capsules	array of capsule names</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURN</div>
+<div class="xdocText">array of currently enabled capsule names</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="group.Enable"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Trace.</span><span class="xdoc-id">groupEnable</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#group.Enable">index URL</a></div>
+<p class="xdocHdrSummary">Enable trace output from selected groups</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Trace.<span class="xdoc-id">groupEnable</span>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-id">groups</span> ) <i>returns</i> <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">A group is a string defined by package producers when they need to
+  group related trace statements, distributed across different
+  modules and packages, into trace units that can be disabled or
+  enabled as a whole. The function parameter is treated as an array
+  of JavaScript regular expressions, therefore it can contain partial
+  group names.</div>
+<div class="xdocText">If this function is invoked repeatedly, each new call replaces
+  the array of currently enabled groups with the array supplied
+  as the parameter. The array of the currently enabled groups is
+  returned. If the function is invoked with a zero-length array, it
+  returns the currently enabled groups, but it also leaves them
+  active. Therefore, the sequence of calls that would add new groups 
+  instead of replacing the current ones is:</div>
+<div class="xdocText"><PRE class="Example">  var current = Trace.groupEnable([]);
+  current[current.length++] = "libPkgs";
+  Trace.groupEnable(current);
+</PRE></div>
+<div class="xdocText">To disable trace for all groups, the function must be invoked
+  with an empty string as the only element of the array.</div>
+<div class="xdocText"><PRE class="Example">  Trace.groupEnable([""]);
+</PRE></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">PARAMS</div>
+<div class="xdocText">groups	array of groups</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURN</div>
+<div class="xdocText">array of currently enabled groups</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="package.Enable"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Trace.</span><span class="xdoc-id">packageEnable</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#package.Enable">index URL</a></div>
+<p class="xdocHdrSummary">Enable trace output from selected packages</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Trace.<span class="xdoc-id">packageEnable</span>( <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-id">packages</span> ) <i>returns</i> <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Packages that can be enabled through this function are RTSC
+  packages and Java packages. The function parameter is treated as
+  an array of JavaScript regular expressions, therefore it can
+  contain partial package names.</div>
+<div class="xdocText">If this function is invoked repeatedly, each new call replaces
+  the array of currently enabled packages with the array supplied
+  as the parameter. The array of the currently enabled packages is
+  returned. If the function is invoked with a zero-length array, it
+  returns the currently enabled packages, but it also leaves them
+  active. Therefore, the sequence of calls that would add new 
+  packages instead of replacing the current ones is:</div>
+<div class="xdocText"><PRE class="Example">  var current = Trace.packageEnable([]);
+  current[current.length++] = "ti.targets";
+  Trace.packageEnable(current);
+</PRE></div>
+<div class="xdocText">To disable trace for all packages, the function must be invoked
+  with an empty string as the only element of the array.</div>
+<div class="xdocText"><PRE class="Example">  Trace.packageEnable([""]);
+</PRE></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">PARAMS</div>
+<div class="xdocText">capsules	array of package names</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURN</div>
+<div class="xdocText">array of currently enabled package names</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="set.Level"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Trace.</span><span class="xdoc-id">setLevel</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/services/global/Trace.html" title="module Trace"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/global/Trace.html#set.Level">index URL</a></div>
+<p class="xdocHdrSummary">Set the verbosity level</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Trace.<span class="xdoc-id">setLevel</span>( <i><span class="xdoc-kw2">Int</span></i> <span class="xdoc-id">level</span> ) <i>returns</i> <i><span class="xdoc-kw2">Int</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function limits trace output to trace statement tagged with
+  level equal or lower than this function's parameter. By default,
+  the verbosity level is set to 0, which is the least verbose level.
+  The most verbose level is 2.</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:12 GMT</div>
+</div></div></body>
+</html>

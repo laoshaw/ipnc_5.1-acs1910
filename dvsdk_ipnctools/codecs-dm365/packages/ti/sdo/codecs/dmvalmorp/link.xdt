@@ -1,0 +1,7 @@
+SECTIONS
+{
+% if (this.DMVALMORP.dataSection) { 
+    .data  > `this.DMVALMORP.dataSection`
+    .rodata.str1.4  > `this.DMVALMORP.dataSection`
+%}
+}

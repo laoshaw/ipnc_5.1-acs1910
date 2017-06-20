@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Overview of xdc.runtime/Example 2 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Overview of xdc.runtime/Example 2&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Overview_of_xdc.runtime__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="Overview_of_xdc.runtime.html#TOC" title="Overview of xdc.runtime"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Overview of xdc.runtime/Example 2</p><p id="subtitle">Embedded use of <tt>xdc.runtime</tt></p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Minimizing_External_Dependencies"><span class="tocnumber">1</span> <span class="toctext">Minimizing External Dependencies</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Configuring_the_Memory_Module"><span class="tocnumber">1.1</span> <span class="toctext">Configuring the Memory Module</span></a></li>
+<li class="toclevel-2"><a href="#Configuring_the_System_Module"><span class="tocnumber">1.2</span> <span class="toctext">Configuring the System Module</span></a></li>
+<li class="toclevel-2"><a href="#A_Complete_Example"><span class="tocnumber">1.3</span> <span class="toctext">A Complete Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">2</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Minimizing_External_Dependencies"></a><h2> <span class="mw-headline">Minimizing External Dependencies</span></h2>
+<p>The <tt>xdc.runtime</tt> package's modules are designed to be used in environments where only a minimal subset of the ANSI C Standard Library is available.  At the same time, these modules can be easily used in environments where you want them to use existing Standard Library support; e.g., using <tt>malloc()</tt> and <tt>free()</tt> for memory allocation and <tt>fwrite()</tt> for character I/O.  In order to support both use cases, the <tt>xdc.runtime</tt> modules define several configuration parameters that allow the user to precisely control how much of the ANSI C Standard Library is required by the <tt>xdc.runtime</tt> package.
+</p><p>In this example we show how to configure the <tt>xdc.runtime</tt> packages to minimize references to the ANSI C Standard Library.  The <tt>xdc.runtime</tt> package optionally uses the ANSI C Standard Library to allocate memory, perform character I/O, and perform application shutdown.  Since the <tt><a href="../../cdoc/xdc/runtime/Memory.html" class="cdoc"><tt>Memory</tt></a></tt> module handles all memory management and the <tt><a href="../../cdoc/index.html#xdc/runtime/System.html" class="cdoc"><tt>System</tt></a></tt> module is responsible for all character I/O and application shutdown, we need to configure the <tt>Memory</tt> and <tt>System</tt> modules to minimize their references to the ANSI C Standard Library.
+</p>
+<a name="Configuring_the_Memory_Module"></a><h3> <span class="mw-headline">Configuring the <tt>Memory</tt> Module</span></h3>
+<p>All memory allocation within the <tt>xdc.runtime</tt> package is handled via calls to <tt><a href="../../cdoc/xdc/runtime/Memory.html#alloc" class="cdoc"><tt>Memory_alloc()</tt></a></tt> or <tt><a href="../../cdoc/index.html#xdc/runtime/Memory.html#calloc" class="cdoc"><tt>Memory_calloc()</tt></a></tt>.  Both methods take a heap parameter from which the memory is allocated and this heap parameter is either <tt>NULL</tt>, indicating that <tt>Memory</tt> should use the configured "default heap", or it is a non-<tt>NULL</tt> instance pointer created by some heap module.  The <tt>Memory</tt> module itself does not reference any memory allocation functions from the ANSI C Standard Library, any such references are made indirectly via the specified heap instance.  So, to eliminate all references to <tt>malloc()</tt> and <tt>free()</tt>, it is sufficient to ensure that all heaps instances come from modules that do not reference <tt>malloc()</tt> or <tt>free()</tt>.
+</p><p>The <tt>xdc.runtime</tt> package contains two heap managers: <tt><a href="../../cdoc/xdc/runtime/HeapMin.html" class="cdoc"><tt>HeapMin</tt></a></tt> and <tt><a href="../../cdoc/index.html#xdc/runtime/HeapStd.html" class="cdoc"><tt>HeapStd</tt></a></tt>.  The <tt>HeapStd</tt> module uses <tt>malloc()</tt> and <tt>free()</tt>.  However, <tt>HeapMin</tt> simply manages a "high water" mark within a pre-configured static buffer.  As a result, <tt>HeapMin</tt> can be used in applications that do not need dynamic memory management to eliminate references to <tt>malloc()</tt> and <tt>free()</tt>.
+</p><p>By default, the <tt>Memory</tt> module uses <tt>HeapStd</tt> as the "default heap" when <tt>NULL</tt> is passed as the first parameter to <tt>Memory_alloc()</tt> or <tt>Memory_calloc()</tt>.  Fortunately the <tt>Memory</tt> module provides a configuration parameter, <tt><a href="../../cdoc/xdc/runtime/Memory.html#default/.Heap/.Instance" class="cdoc"><tt>Memory.defaultHeapInstance</tt></a></tt>, that allows you to specify an alternative default heap.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> HeapMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.HeapMin&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Memory = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Memory&quot;</span><span class="br0">&#41;</span>;
+Memory.defaultHeapInstance = HeapMin.create<span class="br0">&#40;</span><span class="br0">&#123;</span>size: <span class="nu0">4096</span><span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>Of course some environments without <tt>malloc()</tt> and <tt>free()</tt> still need dynamic memory management.  In this case, you will have to create your own module that implements the <tt><a href="../../cdoc/xdc/runtime/IHeap.html" class="cdoc"><tt>IHeap</tt></a></tt> interface.  For more information about how to create custom heap mangers see <a href="../Extending_xdc.runtime_Memory/Extending_xdc.runtime_Memory.html" title="Extending xdc.runtime Memory">Extending xdc.runtime Memory</a>.
+</p>
+<a name="Configuring_the_System_Module"></a><h3> <span class="mw-headline">Configuring the <tt>System</tt> Module</span></h3>
+<p>The <tt><a href="../../cdoc/xdc/runtime/System.html" class="cdoc"><tt>System</tt></a></tt> module is responsible for basic character output and application termination.  In order to enable <tt>System</tt> to operate in different environments with a variety of character output options, <tt>System</tt> relies on a "provider" module that implements the <a href="../../cdoc/index.html#xdc/runtime/ISystemProvider.html" class="cdoc"><tt>ISystemProvider</tt></a> interface.  The <tt>System</tt> module provides a configuration parameter, <tt><a href="../../cdoc/index.html#xdc/runtime/System.html#/.Support/.Proxy" class="cdoc"><tt>System.SupportProxy</tt></a></tt>, which determines the "provider" module used.  
+</p><p>The <tt>xdc.runtime</tt> package contains two system providers: <tt><a href="../../cdoc/xdc/runtime/SysMin.html" class="cdoc"><tt>SysMin</tt></a></tt> and <tt><a href="../../cdoc/index.html#xdc/runtime/SysStd.html" class="cdoc"><tt>SysStd</tt></a></tt>.  The <tt>SysStd</tt> module uses <tt>putchar()</tt> and <tt>fflush()</tt> for basic character output.  However, <tt>SysMin</tt> simply copies characters to a pre-configured static buffer for character output and provides a configuration parameter that allows you to specify how these characters are output when <tt><a href="../../cdoc/index.html#xdc/runtime/System.html#flush" class="cdoc"><tt>System_flush()</tt></a></tt> is called.  As a result, <tt>SysMin</tt> can be used in applications that need to avoid all references to the ANSI C Standard Library I/O functions.
+</p><p>With the exception of <tt>exit()</tt>, <tt>atexit()</tt>, and <tt>abort()</tt>, the <tt>System</tt> module does not directly reference any ANSI C Standard Library functions; any other references are the result of the <tt>System</tt> module's supporting module <tt>System.SupportProxy</tt>.  If the <tt>System.SupportProxy</tt> configuration parameter is not set, it defaults to <tt>SysMin</tt>.
+</p><p>By default, the <tt>SysMin</tt> support module will call <tt>fwrite()</tt> to output characters written to its internal buffer.  To eliminate this reference, it is sufficient to define your own output function, say <tt>myOutputFxn</tt>, and set <tt><a href="../../cdoc/xdc/runtime/SysMin.html#output/.Fxn" class="cdoc"><tt>SysMin.outputFxn</tt></a></tt> to reference this function.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> SysMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.SysMin&quot;</span><span class="br0">&#41;</span>;
+SysMin.outputFxn = <span class="st0">&quot;&amp;myOutputFxn&quot;</span>;
+System.SupportProxy = SysMin;  <span class="coMULTI">/* not really necessary since this is the default */</span></pre></td></tr></table>
+<p>Of course there may be other reasons why the use of <tt>SysMin</tt> is not appropriate.  For example, you may want to output characters at the time they are generated rather than buffering them.  In this case, you'll need to create your own <tt>ISystemProvider</tt> module.  For information about how to create a new <tt>ISystemProvider</tt> module see <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System.html" title="Extending xdc.runtime System">Extending xdc.runtime System</a>.
+</p>
+<a name="A_Complete_Example"></a><h3> <span class="mw-headline">A Complete Example</span></h3>
+<p>Combining the configuration options illustrated above, we can create a configuration of the <tt>xdc.runtime</tt> package that has no external references to the ANSI C Standard Library functions other than <tt>exit()</tt>, <tt>atexit()</tt>, and <tt>abort()</tt>.  
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Memory.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;string.h&gt;
+&nbsp;
+<span class="coMULTI">/* ======== main ======== */</span>
+<span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">String</span> argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i;
+    <span class="kw2">Char</span> *buf;
+&nbsp;
+    buf = Memory_calloc<span class="br0">&#40;</span><span class="kw2">NULL</span>, <span class="nu0">80</span>, <span class="nu0">0</span>, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+    strcat<span class="br0">&#40;</span>buf, <span class="st0">&quot;hello world&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; <span class="nu0">3</span>; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        System_printf<span class="br0">&#40;</span><span class="st0">&quot;%s:&nbsp;%d<span class="es0">\n</span>&quot;</span>, buf, i<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== myOutputFxn ======== */</span>
+<span class="kw2">Void</span> myOutputFxn<span class="br0">&#40;</span><span class="kw2">Char</span> *buf, <span class="kw2">Int</span> len<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* output len chars from the buffer buf */</span>
+       &nbsp;:
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Memory = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Memory&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/*  eliminate all references to stdio (except exit,
+ *  abort, and atexit) 
+ */</span>
+<span class="kw1">var</span> SysMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.SysMin&quot;</span><span class="br0">&#41;</span>;
+SysMin.outputFxn = <span class="st0">&quot;&amp;myOutputFxn&quot;</span>;
+System.SupportProxy = SysMin;
+&nbsp;
+<span class="coMULTI">/* ensure all memory manager references go to HeapMin */</span>
+<span class="kw1">var</span> HeapMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.HeapMin&quot;</span><span class="br0">&#41;</span>;
+Memory.defaultHeapInstance = HeapMin.create<span class="br0">&#40;</span><span class="br0">&#123;</span>size: <span class="nu0">4096</span><span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td></tr></table>
+<p>Notice that the <i>only</i> differences between this example and <a href="Overview_of_xdc.runtime__Example_1.html" title="Overview of xdc.runtime/Example 1">Runtime Example 1</a> is the addition of the output function, <tt>myOutputFxn</tt>, and straightforward changes to the application's configuration script.  This illustrates one of the key benefits of the <tt>xdc.runtime</tt> package: code that only references the services provided by the <tt>xdc.runtime</tt> package is 100% reusable among platforms ranging all the way from native workstations down to highly resource constrained embedded platforms.  
+</p><p>While it is technically possible to possible to make the same claim about the ANSI C Standard Library, the code size footprint, execution time overhead, and inflexibility of this library make it impractical in many embedded environments.  As a result, embedded programmers have learned to avoid using the the ANSI C Standard Library in any code targeted for deployment in resource constrained devices, in effect requiring two distinct code bases: code for initial development and code for deployment.  The <tt>xdc.runtime</tt> package allows you work with and reuse a <i>single code base for any platform</i>.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="Overview_of_xdc.runtime__Example_1.html" title="Overview of xdc.runtime/Example 1">Overview of xdc.runtime/Example 1</a>
+</td><td class="DocListSubTitle1">Using <tt>xdc.runtime</tt> in native host applications
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Overview of xdc.runtime/Example 2&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Overview_of_xdc.runtime__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="Overview_of_xdc.runtime.html#TOC" title="Overview of xdc.runtime"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1753 bytes
+Post-expand include size: 1083 bytes
+Template argument size: 93 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Overview_of_xdc.runtime.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.294 secs. --></body></html>

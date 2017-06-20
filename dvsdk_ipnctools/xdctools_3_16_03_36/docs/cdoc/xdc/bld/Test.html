@@ -1,0 +1,352 @@
+<html>
+<head>
+<title>module xdc.bld.Test</title>
+<meta name="description" content="Model of a test">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">Test</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Script.html" title="module Script"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Test.html">index URL</a></div>
+<p class="xdocHdrSummary">Model of a test</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+Each Test instance represents a pair consisting of an executable and
+  command line arguments for that executable.  Each pair uniquely
+  identifies an output sequence (the result of running the executable
+  with the specified arguments) that can be compared to a known valid
+  result.  Executables that have non-deterministic execution behavior
+  (e.g., multi-threaded apps) must ensure that the output is independent
+  of these variations.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Test-src.html"><span class="xdocLabelFile">xdc/bld/Test.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Test</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">instance</span>:<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Test = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.Test'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Attrs">Test.<span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for a test instance</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">args</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;arguments passed to the exe for this test</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">execCmd</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;exec command for this test</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">execArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;arguments to the exec command itself</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">groupName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of a group of related tests</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">refOutput</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of a reference output file</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">refExitCode</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;expected exit code (default = 0)</span></span></a> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Test.<a class="xdocSynGo" href="#per-instance_config_parameters"><span class="xdoc-id">Params</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Instance config-params object</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for this test instance</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Test-src.html"><span class="xdocLabelFile">xdc/bld/Test.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Test</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for a test instance</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">args</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;arguments passed to the exe for this test</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">execCmd</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;exec command for this test</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">execArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;arguments to the exec command itself</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">groupName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of a group of related tests</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">refOutput</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of a reference output file</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">refExitCode</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;expected exit code (default = 0)</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">instance</span>:
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a>&nbsp;<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Optional attributes for this test instance</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Each Test instance represents a pair consisting of an executable and
+  command line arguments for that executable.  Each pair uniquely
+  identifies an output sequence (the result of running the executable
+  with the specified arguments) that can be compared to a known valid
+  result.  Executables that have non-deterministic execution behavior
+  (e.g., multi-threaded apps) must ensure that the output is independent
+  of these variations.</div>
+<div class="xdocText">Test instances are created via the <tt>Executable.addTest()</tt> function; 
+  this ensures that each test is associated with a containing executable.</div>
+<div class="xdocText">Test instances do not have unique names. However, each test does have
+  a "group" name which is optionally specified via <tt>Test.Attrs</tt>.  If the
+  "group" name is not specified, it defaults to the name of the containing
+  executable.  To run any group of tests (which may consist of one or more
+  executable and command-line pairs) it is sufficient to run
+  the following command:</div>
+<div class="xdocText"><PRE class="Example">      xdc &lt;test_group_name&gt;.test
+</PRE></div>
+<div class="xdocText">where <tt>&lt;test_group_name&gt;</tt> is the name of the test group to run.</div>
+<div class="xdocText">Each Executable instance (created via <tt>PackageContents.addExecutable()</tt>)
+  implicitly adds a test whose "group" name is the name of the executable
+  and whose arguments are empty (i.e., argc == 0).  Thus, it is possible
+  to run any executable that can be built using the following command:</div>
+<div class="xdocText"><PRE class="Example">      xdc &lt;exe_name&gt;.test
+</PRE></div>
+<div class="xdocText">where <tt>&lt;exe_name&gt;</tt> is the name of the executable.  Note that if you add a
+  test to the executable (without specifying a unique <tt>groupName</tt>), the
+  command above will run the executable more than once; it will run once
+  for every test associated with the executable.</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Test.</span><span class="xdoc-id">Attrs</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Test.html" title="module Test"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Test.html#.Attrs">index URL</a></div>
+<p class="xdocHdrSummary">Optional attributes for a test instance</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> Test.<span class="xdoc-id">Attrs</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">args</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;arguments passed to the exe for this test</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">execCmd</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;exec command for this test</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">execArgs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;arguments to the exec command itself</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">groupName</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;name of a group of related tests</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">refOutput</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;name of a reference output file</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">refExitCode</span> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;expected exit code (default = 0)</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">args</span>
+<span class="xdocChildSum">&#151;&nbsp;this is a string of arguments (which may contain
+                      embedded strings) that are passed to the executable
+                      being run.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">execCmd</span>
+<span class="xdocChildSum">&#151;&nbsp;this string names the "loader" which is responsible
+                      for running the executable with the arguments
+                      specified by the <tt>args</tt> field.  If this field is
+                      <tt>null</tt> or <tt>undefined</tt>, the command used to run
+                      the executable is determined by the executable's
+                      configuration script; see
+                      <tt><a class="xdoc-link" href="../../xdc/cfg/Program.html#exec.Cmd" title="xdc.cfg.Program.execCmd">xdc.cfg.Program.execCmd</a></tt>.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">execArgs</span>
+<span class="xdocChildSum">&#151;&nbsp;this is a string of arguments passed to the
+                      "loader" to control how this loader manages the
+                      execution of the executable being run.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">groupName</span>
+<span class="xdocChildSum">&#151;&nbsp;the name of the group of tests that this test is a
+                      a member of.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">refOutput</span>
+<span class="xdocChildSum">&#151;&nbsp;the name of a "reference" text file that is used
+                      to validate the output generated by running
+                      the executable with the specified arguments.  If
+                      the exit status of the executable is 0 and the
+                      output of the executable differs from the
+                      contents of <tt>refOutput</tt>, the test fails.  If this
+                      comparison fails, the output of the executable is
+                      saved to a temporary file to allow analysis of the
+                      failure.  The temporary file's name is:
+                      "<tt>.tmp,{exeName},{id}</tt>", where <tt>{exeName}</tt> is the
+                      name of the executable and <tt>{id}</tt> is a test
+                      id number.</span>
+</div>
+<div class="xdocChildText">If <tt>refOutput</tt> is not defined (or set to <tt>null</tt>)
+                      no comparison is made; only the exit status of the
+                      executable is used to determine the success or
+                      failure of the test.</div>
+<div class="xdocChild"><span class="xdocChildId">refExitCode</span>
+<span class="xdocChildSum">&#151;&nbsp;the expected exit status of the executable.</span>
+</div>
+<div class="xdocChildText">If <tt>refExitCode</tt> is not defined (or set to <tt>null</tt>)
+                      an exit status of 0 is assumed.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Unspecified attributes are "inherited" from <tt><a class="xdoc-link" href="Executable.html#.Attrs" title="Executable.Attrs">Executable.Attrs</a></tt>;
+  i.e., if one of fields in this structure is unspecified *and* this
+  field's name matches a field name in <tt>Executable.Attrs</tt>, then
+  this field's value defaults to the value in specified by
+  <tt>Executable.Attrs</tt>.  This mechanism makes it possible to establish
+  executable-specific default values for any of the "inherited"
+  attributes.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Test.html#attrs" title="attrs">attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_config_parameters"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance config parameters</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Test.html" title="module Test"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Test.html#per-instance_config_parameters">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Test.<span class="xdoc-id">Params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params object</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Optional attributes for this test instance</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Test.</span><span class="xdoc-id">attrs</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Test.html" title="module Test"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Test.html#attrs">index URL</a></div>
+<p class="xdocHdrSummary">Optional attributes for this test instance</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> Test.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">Test.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Default values for each of the fields in attrs:</div>
+<div class="xdocText"><DL><DT> <tt>groupName</tt></DT><DD>
+          name of the program "containing" this test
+</DD><DT> <tt>execCmd</tt></DT><DD>
+          the first non-<tt>null</tt> value in:
+              <tt>prog.attrs.test.exec,
+              xdc.cfg.Program.execCmd</tt>,
+              <tt>prog.platform.getExecCmd()</tt>.
+</DD><DT> execArgs</DT><DD>
+          the first non-<tt>null</tt> value in:
+              <tt>prog.attrs.test.execArgs</tt>,
+              "".
+</DD><DT> args</DT><DD>
+          the first non-<tt>null</tt> value in:
+              <tt>prog.attrs.test.args</tt>,
+              "".
+     
+</DD></DL></div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:18 GMT</div>
+</div></div></body>
+</html>

@@ -1,0 +1,384 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Interface Primer/Lesson 12 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 12&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_11.html" title="Lesson 11"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_13.html" title="Lesson 13"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Interface Primer/Lesson 12</p><p id="subtitle">Proxy modules &#151; generalizing the implementation of <tt>Bench</tt></p>
+<p>As in the last lesson, we'll once again define a single RTSC interface that abstracts external functionality shared across a family of RTSC modules&#151;each with their own unique implementation of an otherwise common set of client-visible functions.  But unlike the last lesson&#151;which emphasized implementing concrete modules like <tt>SineGen</tt> that inherited abstract interfaces like <tt>ISineGen</tt>&#151;the focus here will now extend to <i>using</i> these sorts of abstracted modules from the client's perspective.
+</p><p>To illustrate, we'll revisit the implementation of the <tt>Bench</tt> module first seen in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_7.html" title="RTSC Module Primer/Lesson 7">Lesson 7</a> and then&#151;by relying upon an abstract interface used internally within <tt>Bench.c</tt>&#151;will actually render the module even more adaptable (and hence reusable) than before.  This particular design technique&#151;termed the <b>proxy-delegate</b> pattern&#151;has proven so overwhelmingly practical and so widely applicable that RTSC has actually promoted the concept to first-class <span class="kw1"><tt>keyword</tt></span> status within the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> language.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Abstracting_the_clock_function"><span class="tocnumber">1</span> <span class="toctext">Abstracting the clock function</span></a></li>
+<li class="toclevel-1"><a href="#Alternate_IClock_implementations"><span class="tocnumber">2</span> <span class="toctext">Alternate IClock implementations</span></a></li>
+<li class="toclevel-1"><a href="#Using_a_spec.27d_proxy_module"><span class="tocnumber">3</span> <span class="toctext">Using a spec'd proxy module</span></a></li>
+<li class="toclevel-1"><a href="#Considerations_for_configuration"><span class="tocnumber">4</span> <span class="toctext">Considerations for configuration</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Abstracting_the_clock_function"></a><h2> <span class="mw-headline">Abstracting the <tt>clock</tt> function</span></h2>
+<p>Recalling some fragments of our earlier implementation of <tt>acme.utils.Bench</tt> in the target-domain, we've relied here on direct calls to the standard C function <tt>clock</tt> to obtain the current time.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/utils/Bench.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Startup.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/Bench.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;time.h&gt;
+&nbsp;
+    ...
+<span class="kw2">Void</span> Bench_begin<span class="br0">&#40;</span><span class="kw2">String</span> msg<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>Bench_enableFlag<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        module-&gt;beginClock = clock<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        module-&gt;beginMsg = msg;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Though theoretically supported by any ANSI C compiler&#151;and hence by any RTSC target&#151;practically speaking the <tt>clock</tt> function implementation supplied with many tool chains often proves inadequate for use within deeply embedded systems.  Indeed, some cross-compilers targeting "bare-deck" CPUs without operating system support will simply stub out the body of <tt>clock</tt> altogether; embedded programs requiring clock services in these sorts of systems may instead rely upon a timer peripheral in the underlying hardware platform or perhaps a free-running instruction-cycle counter supported by the CPU itself.
+</p><p>Given a range of possible implementations for the <tt>clock</tt> function&#151;and coupled with the possibility that several of these alternate implementations may need to co-exist within the same program&#151;let's postulate a new RTSC interface canonically named <tt>acme.utils2.clocks.IClock</tt> that specs a single function for retrieving the current time.
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/utils2/clocks/IClock.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Abstract clock */</span>
+<span class="kw1">interface</span> IClock <span class="br0">&#123;</span>
+&nbsp;
+   <span class="xdoc">/*! Time value type */</span>
+   <span class="kw1">typedef</span> <span class="kw2">Bits32</span> TimeValue;
+&nbsp;
+   <span class="xdoc">/*! Get the current time */</span>
+   TimeValue getTime<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Unlike the <tt>IGen</tt> or <tt>ISineGen</tt> interfaces seen in the last lesson, the abstract functionality captured within the <tt>IClock</tt> interface would apply <i>module-wide</i> rather than per-instance; inheriting modules would implement the <tt>getTime</tt> function spec'd at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> without any additional argument representing some sort of instance object handle.  To make <tt>IClock</tt> a little more expressive, we've elected to define a logical type at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> corresponding to our chosen representation for time values&#151;an unsigned integer of exactly 32-bits, implied by our use of the built-in RTSC type <tt>Bits32</tt>.
+</p>
+<div class="Info"><p class="Info">Here's one area where RTSC interfaces diverge from similarly-named constructs in Java or C#:&nbsp; interfaces in these languages can <i>only</i> declare functions that apply to (class) instances.  But with modules playing a central role in RTSC programming&#151;and with modules naturally embodying the object-<i>dis</i>orientation of C&#151;it seems only logical to allow RTSC interfaces to abstract <i>any</i> client-visible elements normally found in RTSC module specs.</p></div>
+<a name="Alternate_IClock_implementations"></a><h2> <span class="mw-headline">Alternate <tt>IClock</tt> implementations</span></h2>
+<p><span class="Leader"><tt>ClockStd</tt></span>.&nbsp; Given that the <tt>Bench</tt> module originally relied upon direct calls to the standard C <tt>clock</tt> function&#151;certainly appropriate in some environments&#151;this immediately suggests one possible <tt>IClock</tt> implementation in which the <tt>getTime</tt> function directly calls <tt>clock</tt>.  Consider, then, the portable <tt>acme.utils2.clocks.ClockStd</tt> module which first inherits and then implements the <tt>acme.utils2.clocks.IClock</tt> interface.
+</p>
+<table>
+
+<tr>
+<td><div id="cl-2:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/utils2/clocks/ClockStd.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Portable IClock module */</span>
+<span class="kw1">module</span> ClockStd <span class="kw1">inherits</span> IClock <span class="br0">&#123;</span>
+    <span class="coMULTI">/* no additional features or internal details */</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr>
+<tr>
+<td>&nbsp;
+</td></tr>
+<div id="cl-2:2"></div><div id="cl-2:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/utils2/clocks/ClockStd.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="st0">&quot;package/internal/ClockStd.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;time.h&gt;
+&nbsp;
+ClockStd_TimeValue ClockStd_getTime<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>ClockStd_TimeValue<span class="br0">&#41;</span> clock<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</table>
+<p>Note that since the <tt>ClockStd</tt> module and the <tt>IClock</tt> interface both reside in the same <tt>acme.utils2.clocks</tt> package (and hence in the same namespace), we need not reference <tt>IClock</tt> with its fully-qualified name at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>.  In general, excessive use of canonical names in <i>any</i> source file tends to impair readability; whenever possible, we'll prefer mechanisms that allow us to name RTSC modules or interfaces using their short names instead.
+</p>
+<div class="Info"><p class="Info">As you'll see with the next <tt>IClock</tt> module &#151;which does <i>not</i> reside in the <tt>acme.utils2.clocks</tt> package&#151;the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> language supports a special <span class="kw1"><tt>import</tt></span> statement that enables us to reference modules/interfaces from other packages using short names, as if they were defined locally.</p></div>
+<p>Looking now at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> of <tt>ClockStd.c</tt>, we should once again emphasize that target-implementations of RTSC modules can freely <span class="re1"><tt>#include</tt></span> legacy header files that declare legacy functions.  In the case of <tt>clock</tt>&#151;declared of type <tt>long</tt> in <tt>&lt;time.h&gt;</tt>&#151;we've explicitly cast its result at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> to match the return type of <tt>getTime</tt> originally specified in <tt>IClock.xdc</tt>.  As with the target-implementation of any module inheriting an interface, references to all names spec'd in the interface become C identifiers prefixed with the name of the module&#151;<tt>getTime</tt> becomes <tt>ClockStd_getTime</tt> and <tt>TimeValue</tt> becomes <tt>ClockStd_TimeValue</tt>. 
+</p><p>Finally, because our target-implementation does not rely upon any internal variables requiring static initialization, we can field an <i>empty</i> implementation in the meta-domain by simply omitting the usual <tt>ClockStd.xs</tt> file that would otherwise contain definitions of special functions like <tt>module$static$init</tt>.
+</p>
+<div class="Info"><p class="Info">In a similar way, you could imagine modules whose spec contains no target functions at all&#151;only client-visible constants, types, and even module-wide configs; in these cases, you could likewise omit the usual <tt><i>Mod</i>.c</tt> file that would otherwise contain definitions of target-domain functions.</p></div>
+<p><span class="Leader"><tt>Clock64P</tt></span>.&nbsp; As it turns out, all Texas Instruments TMS320C64+ processors&#151;the family of CPUs covered by the <tt>ti.targets.C64P</tt> RTSC target&#151;support a free-running on-chip counter with 64-bits of resolution, providing a very efficient means for measuring elapsed execution time at the granularity of a single instruction cycle.  Consider, then, an alternate implementation of the <tt>acme.utils2.clocks.IClock</tt> interface by a <tt>Clock64P</tt> module residing in a different package&#151;say, <tt>txn.clocks</tt> which might contain similar modules supporting other families of Texas Instruments processors.
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>txn/clocks/Clock64P.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> acme.utils2.clocks.IClock;
+&nbsp;
+<span class="xdoc">/*! TMS320C64+ IClock module */</span>
+<span class="re1">@ModuleStartup</span>
+<span class="kw1">module</span> Clock64P <span class="kw1">inherits</span> IClock <span class="br0">&#123;</span>
+    <span class="coMULTI">/* no additional features or internal details */</span>
+<span class="br0">&#125;</span>;</pre></td></tr></table>
+<p></p>
+<table>
+
+<tr valign="top">
+<td><div id="cl-3:3"></div><div id="cl-3:4"></div><div id="cl-3:5"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>txn/clocks/Clock64P.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Startup.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/Clock64P.xdc.h&quot;</span>
+&nbsp;
+<span class="kw1">extern</span> <span class="kw1">volatile</span> cregister <span class="kw2">unsigned</span> <span class="kw2">int</span> TSCL;
+&nbsp;
+<span class="kw2">Int</span> Clock64P_Module_startup<span class="br0">&#40;</span><span class="kw2">Int</span> state<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    TSCL = <span class="nu0">0</span>;
+    <span class="kw1">return</span> Startup_DONE;
+<span class="br0">&#125;</span>
+&nbsp;
+Clock64P_TimeValue Clock64P_getTime<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>Clock64P_TimeValue<span class="br0">&#41;</span> TSCL;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><div id="cl-3:6"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>txn/clocks/Clock64P.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">6</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> module$use<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.Startup'</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<p>As we mentioned earlier, the <span class="kw1"><tt>import</tt></span> statement at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> effectively adds the identifier <tt>IClock</tt> to the <tt>txn.clocks</tt> package namespace, which in turn allows us to avoid using a fully-qualified name in the <span class="kw1"><tt>inherits</tt></span> clause at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a>.  Though perhaps a little pedantic in this particular situation, the <span class="kw1"><tt>import</tt></span> statement proves particularly helpful when the current spec contains multiple references to individual RTSC units&#151;concrete modules as well as abstract interfaces.  The current spec can then reference client-visible elements defined within the scope of these modules or interfaces using a <tt><i>UnitName</i>.<i>elementName</i></tt> idiom.
+</p><p>Turning now to the <tt>Clock64P.c</tt> file&#151;a body of C code clearly tied to the TMS320C64+ processor and compiler tools&#151;the target-implementation simply declares, enables, and then subsequently reads a special on-chip cycle counter named <tt>TSCL</tt> at lines <a class="codexLink" href="#cl-3:3"><span class="codexLink">3</span></a>, <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a>, and <a class="codexLink" href="#cl-3:5"><span class="codexLink">5</span></a> respectively.  Given its dependency on <tt>xdc.runtime.Startup</tt> by virtue of the <span class="re1"><tt>@ModuleStartup</tt></span> attribute before line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a> of <tt>Clock64P.xdc</tt>, the (non-empty) meta-implementation in <tt>Clock64P.xs</tt> predictably contains a corresponding <span class="re1"><tt>xdc.useModule</tt></span> directive at line <a class="codexLink" href="#cl-3:6"><span class="codexLink">6</span></a>.
+</p>
+<a name="Using_a_spec.27d_proxy_module"></a><h2> <span class="mw-headline">Using a spec'd proxy module</span></h2>
+<p>Returning to <tt>Bench.c</tt>&#151;which will no longer call the <tt>clock</tt> function directly, but will instead presumably use some concrete module that inherits the <tt>IClock</tt> interface&#151;we now have an interesting dilemna:&nbsp;  the target-domain implementation of <tt>Bench</tt> simply <i>cannot</i> know the true identity of the <tt>IClock</tt> module it will actually use at runtime; some sort of indirection appears necessary in the source code, so that we can compile <tt>Bench.c</tt> once and for all.
+</p>
+<div class="Info"><p class="Info">One could imagine solving this problem using C preprocessor directives that <span class="re1"><tt>#define</tt></span> a well-known macro inside of <tt>Bench.c</tt>, a macro which would then expand (at compile-time) into an explicit call to some concrete <tt>IClock</tt> module; similar techniques would ensure inclusion of the client header file associated with the chosen <tt>IClock</tt> module. This implies, of course, that any client of <tt>Bench</tt> has access to the module's implementation source files&#151;something module suppliers in general may not elect to make broadly available; it also imposes some additional integration steps outside of the standard RTSC configuration flow we've used consistently from the very outset.  Needless to say, we reject this approach.</p></div>
+<p>To maintain the anonymity of the actual <tt>IClock</tt> module used inside <tt>Bench.c</tt>, we'll rely upon a special <b>proxy module</b> whose (auto-generated) implementation simply forwards any calls it may receive to an associated <b>delegate module</b>&#151;the true provider of the requested service.  Unlike an ordinary RTSC module (or RTSC interface)&#151;"top-level" units contained within the namespace of some package&#151;specifying a RTSC proxy actually resembles declarations of other module-wide features that themselves reside with the scope of some containing module (or interface).  Consider, now, our new spec for <tt>acme.utils2.Bench</tt>.
+</p>
+<div id="cl-4:1"></div><div id="cl-4:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/utils2/Bench.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> acme.utils2.clocks.IClock;
+&nbsp;
+<span class="xdoc">/*! Benchmark timing support */</span>
+<span class="re1">@ModuleStartup</span>
+<span class="kw1">module</span> Bench <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! Selectable IClock service provider */</span>
+    <span class="kw1">proxy</span> PClock <span class="kw1">inherits</span> IClock;
+&nbsp;
+    <span class="xdoc">/*! Enable/disable benchmark functions */</span>
+    <span class="kw1">config</span> <span class="kw2">Bool</span> enableFlag = <span class="kw1">true</span>;
+&nbsp;
+    <span class="xdoc">/*! Start the benchmark */</span>
+    <span class="kw2">Void</span> begin<span class="br0">&#40;</span><span class="kw2">String</span> msg<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="xdoc">/*! End the benchmark and print the current time */</span>
+    <span class="kw2">Void</span> end<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">internal</span>:
+&nbsp;
+    <span class="kw1">struct</span> Module_State <span class="br0">&#123;</span>
+        <span class="kw2">String</span> beginMsg;    <span class="coMULTI">/* current begin() message */</span>
+        <span class="kw2">Int</span> beginClock;     <span class="coMULTI">/* begin() start time */</span>
+        <span class="kw2">Int</span> overhead;       <span class="coMULTI">/* timing overhead factor */</span>
+    <span class="br0">&#125;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Consistent with other scoped features like <tt>enableFlag</tt>, we'll reference the <tt>PClock</tt> proxy declared at line <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a> as <tt>Bench_PClock</tt> within the target-domain and as <tt>Bench.PClock</tt> within the meta-domain; but unlike <tt>enableFlag</tt>, we're not talking about <tt>Bool</tt> values here.  Using the same sort of <span class="kw1"><tt>inherits</tt></span> clause seen in earlier examples, we've effectively spec'd the <i>module type</i> of our <tt>PClock</tt> proxy&#151;it belongs to the family of modules inheriting the <tt>IClock</tt> interface.
+</p><p>Setting aside for the moment how we'll actually bind the <tt>PClock</tt> proxy to some suitable delegate module&#151;which of course must inherit <tt>IClock</tt>&#151;use of the proxy within <tt>Bench.c</tt> has a familiar look-and-feel.  Once again, we'll show only a fragment of <tt>Bench.c</tt> to illustrate idiomatic use of proxy modules within target-implementations.
+</p>
+<div id="cl-5:1"></div><div id="cl-5:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/utils2/Bench.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Startup.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/Bench.xdc.h&quot;</span>
+    ...
+<span class="kw2">Void</span> Bench_begin<span class="br0">&#40;</span><span class="kw2">String</span> msg<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>Bench_enableFlag<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        module-&gt;beginClock = Bench_PClock_getTime<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        module-&gt;beginMsg = msg;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Unlike "top-level" modules such as <tt>xdc.runtime.Startup</tt> whose associated client header requires explicit inclusion, the <tt>Bench</tt> module's self-contained internal header already read in at line <a class="codexLink" href="#cl-5:1"><span class="codexLink">1</span></a> automatically enables use of the <tt>Bench_PClock</tt> proxy module without requiring any further <span class="re1"><tt>#include</tt></span> directives.  Typical calls to proxy functions such as <tt>Bench_PClock_getTime</tt> at line <a class="codexLink" href="#cl-5:2"><span class="codexLink">2</span></a>&#151;even with their slightly longer C identifiers&#151;remain completely consistent with every other RTSC programming idiom we've already seen in target-domain implementations.
+</p>
+<div class="Info"><p class="Info">For consistency with interface names (such as <tt>IClock</tt>), our examples will always use proxy names (such as <tt>PClock</tt>) that begin with a '<tt>P</tt>'.  Unlike the nearly universal '<tt>I</tt>' naming convention used with interfaces, current use of proxies in packages like <tt>xdc.runtime</tt> favors even longer names (such as <tt>ClockProvider</tt> or <tt>ClockSupplier</tt>).  For now, though, we'll stick with the more predictable <tt>PClock</tt> proxy that inherits the <tt>IClock</tt> interface.</p></div>
+<a name="Considerations_for_configuration"></a><h2> <span class="mw-headline">Considerations for configuration</span></h2>
+<p>Within the meta-domain, a proxy such as <tt>PClock</tt> becomes an assignable property of the <tt>Bench</tt> module, not unlike module-wide configs such as <tt>enableFlag</tt>.  A top-level <tt>prog.cfg</tt> meta-program might then look like this.
+</p>
+<div id="cl-6:1a"></div><div id="cl-6:2a"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>prog.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1a</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2a</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Bench = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.utils2.Bench'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Clock64P = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'txn.clocks.Clock64P'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">if</span> <span class="br0">&#40;</span>Program.build.target.isa == <span class="st0">&quot;64P&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Bench.PClock = Clock64P;
+    Bench.enableFlag = <span class="kw2">true</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Here again, explicit inclusion of the chosen <tt>IClock</tt> delegate module at line <a class="codexLink" href="#cl-6:1a"><span class="codexLink">1a</span></a> followed by its assignment to <tt>Bench.PClock</tt> at line <a class="codexLink" href="#cl-6:2a"><span class="codexLink">2a</span></a> leverages familiar meta-domain programming idioms you've seen all along.  Note also that <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> enforces strict type-checking when binding delegate modules to proxies; assigning (say) the <tt>bravo.math2.SineGen</tt> module to <tt>Bench.PClock</tt> provokes the same sort of fatal type error as when assigning (say) the value <tt>123</tt> in lieu of a boolean to <tt>Bench.enableFlag</tt>.
+</p>
+<div class="Info"><p class="Info">Lesson 14 illustrates a technique for passing arguments to meta-programs like <tt>prog.cfg</tt>, enabling them to remain independent of any particular RTSC target (<tt>ti.targets.C64P</tt>) by removing explicit references to target-dependent modules (<tt>txn.clocks.Clock64P</tt>).</p></div>
+<p>Unlike configs in general&#151;which typically have default values&#151;<tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> (currently) provides no means for specifying a default proxy-delegate binding whenever <tt>Bench.PClock</tt> remains unassigned after <tt>prog.cfg</tt> completes execution in the meta-domain; rather, <tt>Bench.PClock</tt>&#151;as with all RTSC proxies&#151;takes on <tt>null</tt> as its default value.  By convention, then, the meta-implementation of <tt>Bench</tt> must assume responsibility for binding some suitable default delegate to its <tt>PClock</tt> proxy if necessary.
+</p>
+<div id="cl-6:1b"></div><div id="cl-6:2b"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/utils2/Bench.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1b</span><br /><span class="codexLab">2b</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> module$use<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.Startup'</span><span class="br0">&#41;</span>;
+    <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.System'</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">var</span> Bench = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.utils2.Bench'</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>Bench.PClock == <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">var</span> ClockStd = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.utils2.clocks.ClockStd'</span><span class="br0">&#41;</span>;
+        Bench.PClock = ClockStd;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">function</span> module$static$init<span class="br0">&#40;</span>obj<span class="br0">&#41;</span>
+    ...</pre></td></tr></table>
+<p>The statements in <tt>Bench.xs</tt> at lines <a class="codexLink" href="#cl-6:1b"><span class="codexLink">1b</span></a> and <a class="codexLink" href="#cl-6:2b"><span class="codexLink">2b</span></a> mimic similar code seen earlier in <tt>prog.cfg</tt> at lines <a class="codexLink" href="#cl-6:1a"><span class="codexLink">1a</span></a> and <a class="codexLink" href="#cl-6:2a"><span class="codexLink">2a</span></a>, though the code here only executes if <tt>Bench.PClock</tt> remains unbound at this point in the process.  As a rule, you should leverage the special function <tt>module$use</tt>&#151;which in general already introduces other modules into the current configuration&#151;as the locale for binding all <i>unbound</i> proxies associated with this module.  Any proxies left unbound going forward will cause the entire configuration process to terminate with an appropriate error message, thus inhibiting any subsequent target-program build steps.
+</p>
+<div class="Info"><p class="Info">Our convention of assigning the results of an <span class="re1"><tt>xdc.useModule</tt></span> directive to a suitably named <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> variable is just that&#151;a convention.  Clearly, this practice makes sense whenever the current code accesses properties of the module more than once, as with the local variable <tt>Bench</tt> inside of the earlier <tt>module$use</tt> function; indeed, you've already seen several <tt><i>Mod</i>.xs</tt> examples that first declare <i>file-level</i> variables corresponding to module names, that then assign these variables inside of <tt>module$use</tt>, and that finally use these variables inside subsequent functions within the meta-implementation.</p></div>
+<div class="Info"><p class="Info">Though one could technically fold lines <a class="codexLink" href="#cl-6:1b"><span class="codexLink">1b</span></a> and <a class="codexLink" href="#cl-6:2b"><span class="codexLink">2b</span></a> of <tt>Bench.xs</tt> into a single assignment statement, dropping the variable altogether, we prefer this somewhat more pedantic idiom to ensure consistency.  At the same, you'll occasionally see <span class="re1"><tt>xdc.useModule</tt></span> directives appearing as standalone expressions, as they do inside the same <tt>Bench.xs</tt> <tt>module$use</tt> function defined earlier; declaring unused local variables in this case feels excessive.  At the end of the day, just use common sense&#151;and always remember that while you may <i>write</i> a piece of code just once, many others will <i>read</i> the same code many more times.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListSpacer1">&nbsp;
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 12&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_11.html" title="Lesson 11"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_13.html" title="Lesson 13"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 13743 bytes
+Post-expand include size: 4133 bytes
+Template argument size: 508 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Interface_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.205 secs. --></body></html>

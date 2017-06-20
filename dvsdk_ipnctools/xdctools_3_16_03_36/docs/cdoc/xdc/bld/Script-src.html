@@ -1,0 +1,102 @@
+<html><head><title>module xdc.bld.Script</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Script.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== Script ========
+</span>    19    <span class="xdoc"> *  Model of a script
+</span>    20    <span class="xdoc"> */</span>
+    21    <span class=key>metaonly</span> <span class=key>module</span> Script {
+    22        <span class="xdoc">/*!
+</span>    23    <span class="xdoc">     *  ======== Attrs ========
+</span>    24    <span class="xdoc">     *  Optional attributes for a script instance.
+</span>    25    <span class="xdoc">     *
+</span>    26    <span class="xdoc">     *  <b>@field(releases)</b>  This array contains releases that will contain the
+</span>    27    <span class="xdoc">     *          script.  Thus, a single script can be part of any set of
+</span>    28    <span class="xdoc">     *          releases.  Each script is always added to the package's
+</span>    29    <span class="xdoc">     *          "default release" in addition to any releases specified in
+</span>    30    <span class="xdoc">     *          the releases array.
+</span>    31    <span class="xdoc">     *
+</span>    32    <span class="xdoc">     *  <b>@field(hasMain)</b>  This script defines a `main()` function.  This
+</span>    33    <span class="xdoc">     *          function is called after the capsule is loaded.  If the
+</span>    34    <span class="xdoc">     *          script does not define `main()`, it must contain statements
+</span>    35    <span class="xdoc">     *          that will run script as part of loading the script.
+</span>    36    <span class="xdoc">     *
+</span>    37    <span class="xdoc">     *  <b>@field(exportSrc)</b> Scripts are added to the default release
+</span>    38    <span class="xdoc">     *          unless this flag is set to `false`.
+</span>    39    <span class="xdoc">     *
+</span>    40    <span class="xdoc">     *  <b>@see</b> #attrs
+</span>    41    <span class="xdoc">     */</span>
+    42        <span class=key>struct</span> Attrs {
+    43            Bool hasMain;       <span class="xdoc">/*! if true, this script defines main()  */</span>
+    44            Bool exportSrc;     <span class="xdoc">/*! if false, don't add to default release */</span>
+    45            Release.Instance releases[];  <span class="xdoc">/*! releases this script is a part of */</span>
+    46        };
+    47    
+    48    <span class=key>instance</span>:
+    49        <span class="xdoc">/*!
+</span>    50    <span class="xdoc">     *  ======== create ========
+</span>    51    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>    52    <span class="xdoc">     *  Instances should only be created via PackageContents.addScript()
+</span>    53    <span class="xdoc">     */</span>
+    54        create();
+    55    
+    56        <span class=key>config</span> String name;
+    57        
+    58        <span class="xdoc">/*!
+</span>    59    <span class="xdoc">     *  ======== attrs ========
+</span>    60    <span class="xdoc">     *  Optional attributes for this test instance.
+</span>    61    <span class="xdoc">     *
+</span>    62    <span class="xdoc">     */</span>
+    63        <span class=key>config</span> Script.Attrs attrs;
+    64    
+    65        <span class="xdoc">/*!
+</span>    66    <span class="xdoc">     *  ======== addTest ========
+</span>    67    <span class="xdoc">     *  Add specified test to script
+</span>    68    <span class="xdoc">     *
+</span>    69    <span class="xdoc">     *  A test encapsulates a script and a set of arguments passed to
+</span>    70    <span class="xdoc">     *  the script when it is run.
+</span>    71    <span class="xdoc">     *
+</span>    72    <span class="xdoc">     *  Tests are run by naming the goal "&lt;test_name&gt;.test" on the xdc
+</span>    73    <span class="xdoc">     *  command line; &lt;test_name&gt; is the test's name.
+</span>    74    <span class="xdoc">     *
+</span>    75    <span class="xdoc">     *  Multiple tests may have the same name; in this case, it is possible
+</span>    76    <span class="xdoc">     *  to run all tests using the single goal "&lt;test_name&gt;.test" 
+</span>    77    <span class="xdoc">     *
+</span>    78    <span class="xdoc">     *  <b>@param(testAttrs)</b>   optional test attrs object
+</span>    79    <span class="xdoc">     *                      (`{<b>@link</b> xdc.bld.Test#Attrs}`)
+</span>    80    <span class="xdoc">     *
+</span>    81    <span class="xdoc">     *  <b>@a(returns)</b>         Returns the `{<b>@link</b> xdc.bld.Test}` instance object
+</span>    82    <span class="xdoc">     *                      created.
+</span>    83    <span class="xdoc">     *
+</span>    84    <span class="xdoc">     *  <b>@a(throws)</b>          `Error` exceptions are thrown for fatal errors.
+</span>    85    <span class="xdoc">     *
+</span>    86    <span class="xdoc">     *  <b>@see</b> xdc.bld.Test
+</span>    87    <span class="xdoc">     *  <b>@see</b> xdc.bld.Test#Attrs
+</span>    88    <span class="xdoc">     */</span>
+    89        Test.Instance addTest(Test.Attrs testAttrs = {});
+    90    }
+    91    <span class="comment">/*
+</span>    92    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>    93    <span class="comment"> */</span>
+    94    
+</pre>
+</body></html>

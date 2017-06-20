@@ -1,0 +1,288 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Module Primer/Lesson 1 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/green_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Module Primer/Lesson 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Module_Primer__Lesson_0.html" title="Lesson 0"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Module_Primer.html#TOC" title="RTSC Module Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Module_Primer__Lesson_2.html" title="Lesson 2"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Module Primer/Lesson 1</p><p id="subtitle">Basic concepts &#151; constructing "Hello World"</p>
+<p>Like every other programming text on the planet, we'll begin with a minimal "Hello World" program to illustrate some basic concepts of RTSC.  While fundamentally rooted in the C programming language, RTSC introduces new capabilities for configuring and building embedded applications which augment more familiar processes of constructing C programs.  Pay careful attention to these differences, however subtle they may appear&#151;these are the essence of RTSC.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Reading_the_program"><span class="tocnumber">1</span> <span class="toctext">Reading the program</span></a></li>
+<li class="toclevel-1"><a href="#Configuring_RTSC_programs"><span class="tocnumber">2</span> <span class="toctext">Configuring RTSC programs</span></a></li>
+<li class="toclevel-1"><a href="#Building_and_running_the_program"><span class="tocnumber">3</span> <span class="toctext">Building and running the program</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Reading_the_program"></a><h2> <span class="mw-headline">Reading the program</span></h2>
+<p>The code for this simplest of applications resides in <i>two</i> source files, and not just one as you might have expected.  The first file (<tt>prog.c</tt>) should seem "obvious" to anyone fluent in C (though our use of the C language may seem a little stylized).  But the second file (<tt>prog.cfg</tt>) is truly something new and different&#151;a RTSC <b>meta-program</b> that serves to <i>configure</i> the corresponding <b>target-program</b>.
+</p>
+<table>
+
+<tr valign="top">
+<td><div id="cl-1:1"></div><div id="cl-1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>lesson1/prog.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+&nbsp;
+<span class="kw2">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;Hello World<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>lesson1/prog.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.System'</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td></tr></table>
+<p>Before examining the three labeled lines in these source files, suffice it to say that this RTSC program <i>uses</i>&#151;is a client of&#151;a RTSC <b>module</b> whose canonical, fully-qualified ("long") name is <tt>xdc.runtime.System</tt>.  Briefly, a RTSC module defines a programmatic <i>boundary</i> between client and supplier characterized by:
+</p>
+<ul><li> a <i>public specification</i> featuring a cohesive and stable collection of constants, types, and functions (what others might term an "API") visible to and used by the module's clients; and
+</li></ul>
+<p></p>
+<ul><li> an <i>internal implementation</i> known to the module's supplier but whose code/data otherwise remain hidden from any clients and are potentially subject to change.
+</li></ul>
+<p>Each RTSC module in turn must reside within some RTSC <b>package</b>, where a package simultaneously serves as a logical as well as a physical container for a set of modules:
+</p>
+<ul><li> <i>logically</i>, a package provides a globally-unique programmatic namespace that scopes the definition of any its constituent modules, much as a C <tt>struct</tt> scopes the definition of its fields; and
+</li></ul>
+<p></p>
+<ul><li> <i>physically</i>, a package represents a similarly named directory that houses all public/internal files associated with the specification/implementation of its modules.
+</li></ul>
+<p>In our example at hand, the module canonically referred to as <tt>xdc.runtime.System</tt> resides in a package whose (canonical) name is <tt>xdc.runtime</tt>.  Besides <tt>System</tt>, this package houses other modules such as <tt>Memory</tt>, <tt>Error</tt>, and <tt>Startup</tt> which we will use in later examples.
+</p>
+<div class="Info"><p class="Info">The <tt>System</tt> module itself specifies a minimal set of basic functions whose names&#151;<tt>printf</tt>, <tt>atexit</tt>, <tt>abort</tt>&#151;suggest kinship with identically named functions found in the standard C library.  In reality, the internal implementation of the <tt>System</tt> module may not necessarily leverage the general-purpose libraries supplied with most C compilers, choosing instead to employ more scalable renderings of these functions optimized for resource-constrained embedded platforms.  How this actually works is an advanced topic in RTSC programming, beyond the scope of this Primer.  For now, just think of <tt>System_printf</tt> as doing what <tt>printf</tt> normally does.</p></div>
+<p>From the C programmer's perspective, using a RTSC module is not unlike working with most legacy libraries&#151;you first <span class="re1"><tt>#include</tt></span> some <tt>.h</tt> header files and then you use the constants, types, and functions declared therein; lines <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> in the code above apply this pattern for the <tt>xdc.runtime.System</tt> module.  As a rule, the <span class="re1"><tt>#include</tt></span> directive for any RTSC module will always designate its corresponding <tt>.h</tt> file through a <i>directory path</i> that derives from the module's fully-qualified name in an obvious way.  On the other hand, references to any constants, types, or functions spec'd by a module (such as the call to <tt>System_printf</tt> at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> above) will generally occur through C language identifiers of the form <tt><i>ModuleName_elementName</i></tt>, reinforcing the fact that RTSC modules themselves serve as a namespace that further scopes the definition of other programmatic elements.
+</p>
+<div class="Info"><p class="Info">Yes, you can also use long C identifiers like <tt>xdc_runtime_System_printf</tt>, but readability suggests otherwise.  Sometimes, though, this is unavoidable&#151;say, when <i>another</i> package containing a module named <tt>System</tt> is used in the same client program.  Fortunately, these sorts of collisions happen much less frequently than you might imagine.</p></div>
+<p>Turning to the second file in our example, the statement at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> says it all&#151;even though you're not necessarily sure what role <tt>prog.cfg</tt> plays in the overall flow, let alone what language we're speaking here.  By design, all RTSC <b>target-programs</b>&#151;C programs with a <tt>main()</tt> entry-point&#151;conceptually begin life within a corresponding RTSC <b>meta-program</b> that executes on your host-computer <i>before</i> the final compile/link of your application.  In the example at hand, the <tt>prog.cfg</tt> meta-program simply prescribes that the <tt>prog.c</tt> target-program will be using the <tt>xdc.runtime.System</tt> module during its own execution; as a rule, <span class="re1"><tt>xdc.useModule</tt></span> calls in the meta-program will mirror <span class="re1"><tt>#include</tt></span> directives in the target-program.  In the lessons that follow, the role of <tt>prog.cfg</tt> will expand to incorporate other aspects of RTSC program configuration.
+</p><p>And as for the <b>meta-language</b> used to express <i>meta-programs</i>, RTSC introduces a special-purpose language known as <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>&#151;a superset of industry-standard JavaScript that builds upon Mozilla's openly available Rhino implementation.  Already a mainstay in DSP/BIOS as its textual configuration language (<tt>tconf</tt>), we have in fact extended Rhino/JavaScript to better integrate with other elements in the overall RTSC development flow&#151;for sure, you won't find <span class="re1"><tt>xdc.useModule</tt></span> described in any current textbooks about JavaScript.
+</p>
+<div class="Info"><p class="Info">Recall that <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> is one of two special-purpose languages introduced by RTSC under the banner of <b><i>e<span style="font-size:115%;" class="color-green">X</span>pan<span style="font-size:115%;" class="color-red">D</span>ed&nbsp;&nbsp;<span style="font-size:115%;" class="color-blue">C</span></i></b>&#151;suggesting that C alone is not enough.  The latter half of this Primer introduces the other special-purpose <b><i>e<span style="font-size:115%;" class="color-green">X</span>pan<span style="font-size:115%;" class="color-red">D</span>ed&nbsp;&nbsp;<span style="font-size:115%;" class="color-blue">C</span></i></b> language&#151;the higher-level <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> specification language&#151;used by suppliers of RTSC modules looking to deliver flexible yet efficient software components targeted for a variety of embedded platforms.</p></div>
+<a name="Configuring_RTSC_programs"></a><h2> <span class="mw-headline">Configuring RTSC programs</span></h2>
+<p>RTSC configuration, as we've already hinted, occurs <i>before</i> the final compile/link of your application:  executing the <tt>prog.cfg</tt> meta-program serves as a "pre-build" step that ultimately affects the compiling and linking of the <tt>prog.c</tt> target-program.  To ease integration into existing program build flows&#151;whether driven by command-line tools or a graphical IDE&#151;we'll initially rely on another tool known as <tt>configuro</tt> to orchestrate the RTSC configuration process:
+</p>
+<span id="figure"><center><a href="images/ModPrimerFig1.png" class="image" title="image:ModPrimerFig1.png"><img alt="image:ModPrimerFig1.png" src="images/ModPrimerFig1.png" width="455" height="352" border="0" /></a></center></span>
+<p>Included as part of the <tt>XDCtools</tt> product you've already installed in <a href="RTSC_Module_Primer__Lesson_0.html#Downloading_the_XDCtools_product" title="RTSC Module Primer/Lesson 0">Lesson 0</a>, <tt>configuro</tt> generates two output files that in turn become inputs to the compiler and linker when building your target-program:
+</p>
+<ul><li> <tt>compiler.opt</tt>, which sets all <tt>-D</tt> and <tt>-I</tt> flags needed to locate any RTSC module headers included by this program (such as <tt>xdc/runtime/System.h</tt>); and
+</li></ul>
+<p></p>
+<ul><li> <tt>linker.cmd</tt>, which enumerates the appropriate pre-compiled libraries containing implementations of any RTSC modules used by this program (such as <tt>xdc.runtime.System</tt>).
+</li></ul>
+<p>Besides the <tt>prog.cfg</tt> meta-program, input to <tt>configuro</tt> will typically designate a RTSC <b>target</b> as well as a RTSC <b>platform</b>&#151;pre-defined <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> recipes that respectively guide the compiling and linking of <tt>prog.c</tt> in our example at hand:
+</p>
+<ul><li> a RTSC target knows how to compile C sources into an object-code library for a particular CPU instruction set and memory model using a specific vendor tool-chain; and
+</li></ul>
+<p></p>
+<ul><li> a RTSC platform knows how to link and execute a C program for a particular hardware board (real or simulated) featuring a specific complement of processors, memory, and peripherals.
+</li></ul>
+<p>While clearly impacting the contents of <tt>compiler.opt</tt> and <tt>linker.cmd</tt>, the wealth of information encapsulated within a RTSC target and RTSC platform is generally available throughout the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> environment&#151;during execution of the <tt>prog.cfg</tt> meta-program as well as from within special back-end meta-functions we'll encounter later on.
+</p>
+<a name="Building_and_running_the_program"></a><h2> <span class="mw-headline">Building and running the program</span></h2>
+<p>As a concrete illustration of the build flow, the directory <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/lesson1</tt> in your installation contains a <tt>makefile</tt> along with copies of <tt>prog.c</tt> and <tt>prog.cfg</tt>.  The <tt>makefile</tt> itself simply includes the <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/common.mak</tt> file which you edited in <a href="RTSC_Module_Primer__Lesson_0.html#Configuring_for_build" title="RTSC Module Primer/Lesson 0">Lesson 0</a>.
+</p><p>Using a version of <tt>gmake</tt> bundled with <tt>XDCtools</tt> (and assuming you've added <tt><span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span></tt> to your <tt>PATH</tt>), invoking the command <span class="cmdFrag"><tt>gmake</tt>&nbsp;<tt>all</tt></span> from within the <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/lesson1</tt> directory should yield the following messages:
+</p>
+<div id="cl-2:1"></div><div id="cl-2:2"></div><div id="cl-2:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; gmake all</span></b>
+<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/xs xdc.tools.configuro -c <span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span> -t ti.targets.C64P -p ti.platforms.sim64Pxx -o cfgsite prog.cfg
+making package.mak (because of package.bld) ...
+generating interfaces for package cfgsite (because package/package.xdc.xml is older than package.xdc) ...
+configuring prog.x64P from package/cfg/prog_x64P.cfg ...
+cl64P package/cfg/prog_x64P.c ...
+<span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span>/bin/cl6x -q -@cfgsite/compiler.opt -c prog.c
+<span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span>/bin/lnk6x -q -z -c prog.obj cfgsite/linker.cmd -o prog.out -l <span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span>/lib/rts64plus.lib</pre></td></tr></table>
+<div class="Info"><p class="Info">The actual output would replace the symbols <tt><span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span></tt> and <tt><span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span></tt> with full paths to the directories where you've installed the <tt>XDCtools</tt> product and the Texas Instruments C6000 Code Generation Tools back in <a href="RTSC_Module_Primer__Lesson_0.html#Downloading_the_XDCtools_product" title="RTSC Module Primer/Lesson 0">Lesson 0</a>.</p></div>
+<p>Lines <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>, <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a>, and <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> respectively follow the flow outlined in the earlier <a href="#figure" title="">figure</a>, but now with all the details of invoking these tools made explicit.  We'll revisit these messages in the next lesson and explain a little more about what you're seeing here.
+</p><p>And last but not least, you can run the example by invoking <span class="cmdFrag"><tt>gmake</tt>&nbsp;<tt>test</tt></span> from the command-line&#151;the output should be obvious!
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Consuming_Configurable_Content/Consuming_Configurable_Content.html" title="Consuming Configurable Content">Consuming Configurable Content</a>
+</td><td class="DocListSubTitle1">Introduction to the RTSC configuration process
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html" title="Overview of xdc.runtime">Overview of xdc.runtime</a>
+</td><td class="DocListSubTitle">Introduction to the xdc.runtime package
+</td></tr>
+<tr>
+<td class="DocListSpacer">&nbsp;
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../../cdoc/xdc/runtime/System.html#printf" class="cdoc"><tt>xdc.runtime.System.printf</tt></a>
+</td><td class="DocListSubTitle">Client documentation for <tt>xdc.runtime.System.printf</tt>
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/green_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Module Primer/Lesson 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Module_Primer__Lesson_0.html" title="Lesson 0"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Module_Primer.html#TOC" title="RTSC Module Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Module_Primer__Lesson_2.html" title="Lesson 2"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 8737 bytes
+Post-expand include size: 2886 bytes
+Template argument size: 285 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Module_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.243 secs. --></body></html>

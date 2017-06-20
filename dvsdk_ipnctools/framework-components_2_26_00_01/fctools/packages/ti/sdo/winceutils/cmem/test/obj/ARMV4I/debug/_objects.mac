@@ -1,0 +1,3 @@
+OBJECTS=\
+    obj\ARMV4I\debug\cmem_test.obj
+

@@ -1,0 +1,295 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using xdc.runtime Gates - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Gates&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime Gates" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_Gates__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Using xdc.runtime Gates</p><p id="subtitle">How to serialize access to shared data structures</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Architecture"><span class="tocnumber">2.1</span> <span class="toctext">Architecture</span></a></li>
+<li class="toclevel-2"><a href="#Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1"><a href="#Performance_Considerations"><span class="tocnumber">4</span> <span class="toctext">Performance Considerations</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>The <tt>xdc.runtime</tt> package contains modules that work together to provide support for serializing access to shared data structures.  This section focuses on the <tt><a href="../../cdoc/xdc/runtime/Gate.html" class="cdoc"><tt>Gate</tt></a></tt> module which is used to "enter" and "leave" critical sections of code that access shared data.    
+</p><p>Use of this module is illustrated below by a series of examples that take advantage of one other distinguished <tt>xdc.runtime</tt> module:
+</p>
+<ul><li><tt><a href="../../cdoc/xdc/runtime/GateNull.html" class="cdoc"><tt>GateNull</tt></a></tt> - a module that is used to eliminate unnecessary serialization overhead for those situations where data is known to be accessed by one thread at a time; e.g., in single threaded systems or for modules that are known to be used by just one thread in a multi-threaded application.
+</li></ul>
+<p>Obviously the most interesting examples will require a "real" gate; i.e., one that serializes access to a shared data structure in a multi-threaded application.  <a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates.html" title="Extending xdc.runtime Gates">Extending xdc.runtime Gates</a> provides an example that uses posix mutexes and illustrates how, using services commonly provided by an RTOS, the <tt>xdc.runtime</tt> package can be made thread-safe with respect to that RTOS.
+</p>
+<a name="Overview"></a><h2> <span class="mw-headline">Overview</span></h2>
+<p>Each embedded application runs in a unique environment with specific mechanisms for managing multiple threads; some use a real-time operating system while others simply run a control loop that coordinates with interrupt service routines.  The <tt>Gate</tt> module provides an RTOS independent interface that allows applications to portably protect shared data structures in multi-threaded environments by simply "entering a gate" prior to using the data and "leaving the gate" once access is no longer required.
+</p><p>Gates are also used internally by the <tt>xdc.runtime</tt> package.  In order to allow the <tt>xdc.runtime</tt> functions to be called from different threads, it is important that any global data managed by the <tt>xdc.runtime</tt> modules is updated "atomically".  The <tt>xdc.runtime</tt> package atomically updates global data by always "entering the <tt>System</tt> gate" (via <a href="../../cdoc/xdc/runtime/Gate.html#enter.System" class="cdoc"><tt>Gate_enterSystem()</tt></a>) prior to accessing the global data and "leaving the <tt>System</tt> gate" (via <a href="../../cdoc/index.html#xdc/runtime/Gate.html#leave.System" class="cdoc"><tt>Gate_leaveSystem()</tt></a>) once the update is complete.
+</p><p>While gates make it easy to protect shared data structures and ensure the functional correctness of a multi-threaded application, it is important to minimize the time spent within a gate; the longer a thread operates within a gate the greater the chance that this thread will interfere with the timely operation of other threads in the system.  If two (or more) threads need to enter the same gate, all but one will be suspended until the thread in the gate leaves <i>even if the thread inside the gate has lower priority than the blocked threads</i>.  Worse, for performance reasons, some gates work by disabling <i>all</i> scheduling while inside the gate; even threads that are not trying to modify the data protected by the gate are potentially affected.
+</p><p>By carefully selecting the type of gate used to protect shared data structures and associating each shared data structure with a unique gate, it is possible to strike a balance between the runtime overhead caused by frequent calls to enter and leave gates and the scheduling latency engendered by unnecessarily blocking the execution of threads that are operating on unrelated data.
+</p><p>The <tt>xdc.runtime</tt> package 
+</p>
+<ul><li> enables creation of portable thread-safe code with shared data structures,
+</li><li> provides a distinguished "<tt>System</tt> gate" to efficiently protect very short critical sections,
+</li><li> supports gates on both a per-module and a per-instance basis for modules that need to operate within a gate for periods longer than the worst-case scheduling latency allowed by the application, and
+</li><li> allows system integrators to configure gates to achieve the proper balance between runtime overhead and scheduling latency for their application.
+</li></ul>
+<a name="Architecture"></a><h3> <span class="mw-headline">Architecture</span></h3>
+<p>Any module may declare that it is "<a href="../Glossary/Glossary.html#GatedModule" title="Glossary">gated</a>"; i.e., that the module protects internal data shared among multiple threads in the system via an <tt>xdc.runtime.Gate</tt> instance.  Gated modules always have at least one gate instance created implicitly.  However, it is possible to override the creation of this gate by explicitly creating it and assigning it to the module's <tt>common$.gate</tt> configuration parameter during configuration.
+</p><p>Modules enter and leave gates via the methods provided by the <tt><a href="../../cdoc/xdc/runtime/Gate.html" class="cdoc"><tt>xdc.runtime.Gate</tt></a></tt> module.  This <tt>Gate</tt> module provides methods that enable modules to enter (and leave) their gate as well as dynamically create and delete gates associated with their instance objects.  Users of gated modules don't need to use these methods (they are for use within the implementation of  RTSC modules) and should consult the documentation of each gated module used to understand how best to balance the module's need to protect shared data structures and the application's scheduling latency requirements.
+</p><p>In addition to the services provided to implement thread-safe modules, the <tt>Gate</tt> module also provides access to the distinguished "<tt>System</tt> gate" via <tt><a href="../../cdoc/xdc/runtime/Gate.html#enter.System" class="cdoc"><tt>Gate_enterSystem()</tt></a></tt> and <tt><a href="../../cdoc/index.html#xdc/runtime/Gate.html#leave.System" class="cdoc"><tt>Gate_leaveSystem</tt></a></tt>.  In fact, this <tt>System</tt> gate is the gate associated with the gated <tt><a href="../../cdoc/index.html#xdc/runtime/System.html" class="cdoc"><tt>xdc.runtime.System</tt></a></tt> module.  This one gate is used throughout the <tt>xdc.runtime</tt> package to serialize access to global data and it's only used when the duration of the critical section is known to be <i>deterministic and very short</i>.
+</p>
+<div class="Info"><p class="Info">Using the <tt>System</tt> gate to protect logically independent data structures is contrary to the design principle that, to minimize scheduling latency effects, you should use a unique gate for independent data structures.  This exception exists because, <i>if</i> the duration of time required to update these independent structures is always very short (less than any application's maximum scheduling latency requirements), the <tt>System</tt> gate can be implemented very efficiently by simply disabling <i>all</i> scheduling while inside the gate.  While this may sound excessive, it often results in a significant overall performance gain, keeps data space requirements to a minimum with just one gate, and has no impact to scheduling latency.</p></div>
+<center><a href="images/RuntimeGates.png" class="image" title="Image:RuntimeGates.png"><img alt="Image:RuntimeGates.png" src="images/RuntimeGates.png" width="640" height="303" border="0" /></a></center>
+<p></p>
+<p><span class="Leader">Deadlocks</span>.&nbsp;  Although it is possible to "nest" gates &#151; enter a gate while inside another gate &#151; care should be taken to avoid deadlocks; e.g., thread 1 enters gate a, thread 2 enters gate b, thread 1 tries to enter gate b and blocks waiting for thread 2 to leave, but thread 2 tries to enter gate a and blocks waiting for thread 1 to leave.  One way to avoid deadlocks is to ensure that nested gates are always entered in the same order.
+</p>
+<p><div class="Notice"><p class="Notice">Since the <tt>System</tt> gate is used throughout the <tt>xdc.runtime</tt> and the modules in this package are widely used, you should never enter another gate while inside the <tt>System</tt> gate.  If another thread enters the same gate <i>and</i> makes a call to an <tt>xdc.runtime</tt> method, such as <tt>System_printf()</tt>, there is a risk of deadlock.</p></div></p>
+<p>The <tt>System</tt> gate should <i>only</i> be used to protect low-level data structures where the total execution time within the gate has a constant upper bound independent of the data being protected.
+</p><p><span class="Leader">Scheduling Latency</span>.&nbsp;  Undisciplined use of gates can lead to scheduling latencies that violate a system's real-time constraints.  Since the <tt>System</tt> gate is used to protect a wide variety of independent data structures, it is important to keep the time within the <tt>System</tt> gate to an absolute minimum. Similarly, when assigning gates to gated modules it's important to minimize sharing gates between different modules; while sharing can reduce your application's data footprint, you risk creating unnecessary scheduling blockages.
+</p>
+<a name="Configuration"></a><h3> <span class="mw-headline">Configuration</span></h3>
+<p>Users can configure their application to specify 
+</p>
+<ul><li>on a per application basis, the <tt>System</tt> gate used to protect global data (including the <tt>xdc.runtime</tt> shared data), 
+</li><li>on a per module basis, the gate used to protect the module's global data structures as well as the parameters used to create additional gates used internally by the module to protect the data in its individual instances.
+</li></ul>
+<p><span class="Leader">The <tt>System</tt> gate</span>.&nbsp;  Since the <tt>System</tt> gate is used throughout the <tt>xdc.runtime</tt> package, it's important to configure the <tt>System</tt> module's gate before using the <tt>xdc.runtime</tt> modules in a multi-threaded environment.  Fortunately, some RTOS providers automatically configure the <tt>xdc.runtime.System</tt> gate to ensure correct operation in a multi-threaded environment.  For example, if you use the <tt>ti.sysbios</tt> package, lines similar to the following are effectively added to your configuration by the <tt>ti.sysbios</tt> package itself:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> GateHwi = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;ti.sysbios.gates.GateHwi&quot;</span><span class="br0">&#41;</span>;
+System.common$.gate = GateHwi.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p><img src="../common/extensions/rtsc/images/warning.png" /> If the <tt>System</tt> gate is not configured by some package in the system, it will default to an instance of <tt>GateNull</tt>. Since <tt>GateNull</tt> provides <i>no</i> synchronization, it should only be used for modules that are never called by more than one thread at a time.  Multi-threaded applications must either 
+</p>
+<ol><li>configure the <tt>System</tt> module's gate with a mutex that serializes all threads that access the <tt>xdc.runtime</tt> modules, or
+</li><li>ensure that there are no concurrent accesses to the <tt>xdc.runtime</tt> modules.
+</li></ol>
+<p>It's easy to identify those modules that provide gates; only modules that inherit the <tt><a href="../../cdoc/xdc/runtime/IGateProvider.html" class="cdoc"><tt>xdc.runtime.IGateProvider</tt></a></tt> interface can be used to create gates.  For posix-based applications, you can use the <a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates__Example_1.html#The_Lock_Module" title="Extending xdc.runtime Gates/Example 1"><tt>Lock</tt> module</a> developed in <a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates__Example_1.html" title="Extending xdc.runtime Gates/Example 1">Extending xdc.runtime Gates/Example 1</a>.
+</p><p>For more information about how the <tt>System</tt> gate is used within the <tt>xdc.runtime</tt> package, see <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html#Multi-Threading_Support" title="Working with xdc.runtime">Multi-Threading Support</a> section of <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html" title="Working with xdc.runtime">Working with xdc.runtime</a>.
+</p><p><span class="Leader">Configuring gated modules</span>.&nbsp;  Every gated module, <tt>Mod</tt>, has two configuration parameters related to gates:
+</p>
+<ol><li> <tt><a href="../../cdoc/xdc/runtime/Types.html#.Common$" class="cdoc"><tt>Mod.common$.gate</tt></a></tt> &#151; the gate instance object used by <tt>Mod</tt> to protect module-wide shared data.
+</li><li> <tt><a href="../../cdoc/xdc/runtime/Types.html#.Common$" class="cdoc"><tt>Mod.common$.gateParams</tt></a></tt> &#151; gate instance creation parameters used by <tt>Mod</tt> to create gates for its instance objects.  These parameters are used with the same module that manages the <tt>Mod.common$.gate</tt> instance.
+</li></ol>
+<p>Suppose there is a heap memory module, say <tt>Heap</tt>, whose instances manage independent heaps and, to avoid unnecessary scheduling blockages, <tt>Heap</tt> uses a separate gate per instance to protect each heap.  The following configuration script uses a hypothetical gate module named <tt>GateSemaphore</tt>, with a <tt>timeout</tt> instance parameter, to provide gates to <tt>Heap</tt>.   
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Heap = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;...Heap&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> GateSemaphore= <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;...GateSemaphore&quot;</span><span class="br0">&#41;</span>;
+Heap.common$.gate = GateSemaphore.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+Heap.common$.gateParams = <span class="kw1">new</span> GateSemaphore.Params<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+Heap.common$.gateParams.timeout = ...;</pre></td></tr></table>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<p>In the table below, we provide a examples that illustrate the key capabilities of the <tt>Gate</tt> module.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Example</b>
+</th><th align="center"> <b>Description</b>
+</th><th align="center"> <b>Purpose</b>
+</th></tr>
+<tr>
+<td align="left"> <a href="Using_xdc.runtime_Gates__Example_1.html" title="Using xdc.runtime Gates/Example 1">Example 1</a>
+</td><td align="left"> Using <tt>Gate</tt> to protect global data
+</td><td align="left"> a minimal example to illustrate using <tt>Gate</tt> in existing code bases
+</td></tr></table>
+<p>In addition to the "client-side" examples above, the table below lists examples of how to create <tt>IGateProvider</tt> modules that can be used to manage simple concurrency requirements.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Example</b>
+</th><th align="center"> <b>Description</b>
+</th><th align="center"> <b>Purpose</b>
+</th></tr>
+<tr>
+<td align="left"> <a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates__Example_1.html" title="Extending xdc.runtime Gates/Example 1">Example 1</a>
+</td><td align="left"> posix-based <tt>IGateProvider</tt>
+</td><td align="left"> a simple but complete example of a Gate provider for pthread-based applications
+</td></tr></table>
+<a name="Performance_Considerations"></a><h2> <span class="mw-headline">Performance Considerations</span></h2>
+<p>There are important scheduling latency and performance considerations that affect the "type" of gate used to protect each data structure.  For example, the best way to protect a shared counter on a single core CPU is to simply disable all interrupts before the update and restore the interrupt state after the update; disabling all interrupts prevents all thread switching, so the update is guaranteed to be "atomic".  Although highly efficient, this method of creating atomic sections causes serious system latencies when the time required to update the data structure can't be bounded.
+</p><p>For example, a memory manager's list of free blocks can grow indefinitely long during periods of high fragmentation.  Searching such a list during an allocation operation with interrupts disabled would cause system latencies to also become unbounded. In this case, the best solution is to provide a gate that suspends the execution of  threads that try to enter a gate that has already been entered; i.e., the gate "blocks" the thread until the thread already in the gate leaves.  The time required to enter and leave the gate is greater than simply enabling and restoring interrupts, but since the time spent within the gate is relatively large, the overhead caused by entering and leaving gates will not become a significant percentage of overall system time.  More importantly, threads that do not need to access the shared data structure are completely unaffected by threads that do access it.
+</p><p><span class="todo"><b>TODO:</b>&nbsp;&nbsp;describe system gate, gate qualities, and the latency-performance tradeoff</span>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Gates&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime Gates" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_Gates__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 3420 bytes
+Post-expand include size: 1438 bytes
+Template argument size: 312 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_xdc.runtime_Gates.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.227 secs. --></body></html>

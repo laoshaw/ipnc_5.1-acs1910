@@ -1,0 +1,77 @@
+<html><head><title>module ti.platforms.osk5912.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Platform ========
+</span>    20    <span class="xdoc"> *  Platform support for the osk5912
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    23    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    26    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    27    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    28    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    29    <span class="xdoc"> */</span>
+    30    
+    31    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    32    {
+    33        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    34            id:             <span class="string">"0"</span>,
+    35            boardName:      <span class="string">"osk5912"</span>,
+    36            boardFamily:    <span class="string">"osk5912"</span>,
+    37            boardRevision:  <span class=key>null</span>,
+    38        };
+    39            
+    40        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu DSP = {        
+    41            id:             <span class="string">"0"</span>,
+    42            clockRate:      192.0,
+    43            catalogName:    <span class="string">"ti.catalog.c5500"</span>,
+    44            deviceName:     <span class="string">"TMS320C5912"</span>,
+    45            revision:       <span class="string">"1.0"</span>,
+    46        };
+    47        
+    48        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu GPP = {
+    49            id:             <span class="string">"1"</span>,
+    50            id:             <span class="string">"0"</span>,
+    51            clockRate:      192.0,
+    52            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    53            deviceName:     <span class="string">"TMS320C5912"</span>,
+    54            revision:       <span class="string">"1.0"</span>,
+    55        };
+    56    
+    57    <span class=key>instance</span>:
+    58    
+    59        <span class="comment">/*
+</span>    60    <span class="comment">     *  ======== memTab ========
+</span>    61    <span class="comment">     *  Define the osk5912 memory map
+</span>    62    <span class="comment">     */</span>
+    63        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.MemoryMap
+    64            externalMemoryMap = [];
+    65    }
+    66    <span class="comment">/*
+</span>    67    <span class="comment"> *  @(#) ti.platforms.osk5912; 1, 0, 1, 0,276; 2-23-2010 16:53:32; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    68    <span class="comment"> */</span>
+    69    
+</pre>
+</body></html>

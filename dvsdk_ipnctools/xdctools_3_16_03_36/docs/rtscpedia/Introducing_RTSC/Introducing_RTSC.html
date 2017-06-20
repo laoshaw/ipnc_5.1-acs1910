@@ -1,0 +1,373 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Introducing RTSC - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/green_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Introducing RTSC&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Introducing RTSC" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><p id="title">Introducing RTSC</p><p id="subtitle">Learning about <i>Real-Time Software Components</i></p>
+<p>Welcome to the world of RTSC....  To help you learn more, this document provides an important introduction to the <i>what</i>, <i>why</i>, and <i>how</i> of RTSC.  Once grounded in concepts and terminology fundamental to RTSC, we'll explore two complementary roles which you may find yourself playing as you work with RTSC&#151;that of <b>producer</b> and <b>consumer</b> of <b>R</b>eal-<b>T</b>ime <b>S</b>oftware <b>C</b>omponents.
+</p><p>This introductory document also contains links to a handful of other technical documents and support resources which together serve as "next-steps" as you further explore the world of RTSC.
+</p>
+<div class="Info"><p class="Info">In April 2008, our proposed <i>RTSC Project</i> passed its creation review at <b>eclipse.org</b>, joining this growing open-source community.  Moving forward, we plan to re-license the RTSC technology outlined in this document&#151;initially  developed by Texas Instruments and currently used in a number of its flagship products&#151;for broader use by embedded software developers targeting <i>any</i> hardware platform.</p></div>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Bringing_component_technology_to_embedded_C"><span class="tocnumber">1</span> <span class="toctext">Bringing component technology to embedded C</span></a></li>
+<li class="toclevel-1"><a href="#From_producer_to_consumer_under_RTSC"><span class="tocnumber">2</span> <span class="toctext">From producer to consumer under RTSC</span></a></li>
+<li class="toclevel-1"><a href="#A_quick_tour_of_the_XDCtools_product"><span class="tocnumber">3</span> <span class="toctext">A quick tour of the XDCtools product</span></a></li>
+<li class="toclevel-1"><a href="#Additional_RTSC_resources"><span class="tocnumber">4</span> <span class="toctext">Additional RTSC resources</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Bringing_component_technology_to_embedded_C"></a><h2> <span class="mw-headline"> Bringing component technology to embedded C</span></h2>
+<p><span class="Leader">The producer/consumer dilemma</span>.&nbsp;  As C programmers developing embedded applications, we'll generally play the role of producer <i>and</i> consumer of target software content:
+</p>
+<ul><li> we'll <i>produce</i> libraries of callable functions, often with an eye towards re-use from one application program to the next; but then at the same time,
+</li></ul>
+<p></p>
+<ul><li> we'll <i>consume</i> these sorts of libraries by calling their functions, perhaps to produce other libraries but ultimately for use within an executable program targeted for a particular hardware platform.
+</li></ul>
+<p>As embedded systems and software become ever more sophisticated and complex, a natural tension that already exists between these two roles becomes ever more pronounced.  As content producers&#151;always looking to minimize <i>non-recurring engineering costs</i> through greater re-use&#151;we'll favor making our software as portable, as flexible, and as general-purpose as possible.  As producers, our challenge becomes one of managing content <i>fan-out</i>&#151;leveraging a single code base across multiple instruction-sets, multiple tool-chains, and multiple application settings.
+</p><p>Playing the role of content consumer, however, our values can reverse rather rapidly.  Always looking to minimize <i>recurring end-equipment costs</i>&#151;less MIPs, less memory, less power&#151;we'll give up a measure of software portability, flexibility, and generality in exchange for code that has been optimized, tailored, and specialized for the particular application at hand.  Needless to say, priorities like these often thwart any efforts aimed at broad software re-use.
+</p><p>But software re-use <i>is</i> important&#151;especially as engineering schedules and resources remain inversely proportional to the growing list of software-based features demanded in next-generation end-equipments.  With today's software producers truly distributed in time/space, often working independently from one another in different parts of the world, the traditional role of content consumer will further expand to one of software <i>integrator</i>&#151;combining and assembling these elements in novel ways that their original producers had not necessarily anticipated or even imagined.
+</p><p>Beyond concerns about trading system performance for software re-use, our challenge as consumers becomes one of managing content <i>fan-in</i>&#151;reconciling a diverse array of tools, formats, and techniques used by different producers to describe, deliver, and deploy individual software elements.  The naive view that content producers can simply ship C headers/libraries to content consumers belittles the problem here.  Lacking any common ground on matters ranging from portable types and function names to directory structure and version compatibility, <i>interoperability</i> amongst different software elements becomes intractable as the number of content producers grows to even a handful.  Once again, concerted attempts at broad software re-use will come up short.    
+</p><p><span class="Leader">The promise of software components</span>.&nbsp; Components have become a pillar of modern software engineering practices.  Beginning with COM and CORBA in the 1990s, contemporary programming languages like Java or C# innately support the design, delivery, and deployment of software components.  Thanks to component frameworks aligned with these languages, present-day applications are more <i>modular</i>, more <i>scalable</i>, and more <i>flexible</i> than ever before; software components also promote greater levels of <i>re-use</i> from one application to the next.  Equally important, thriving ecosystems of component producers/consumers working in contemporary programming languages validate how establishing some common ground can successfully overcome the fan-out/fan-in challenges mentioned earlier.
+</p><p>While overwhelmingly successful in the mainstream, component technology has had very little impact on the development of embedded applications where C (still!) remains the programming language of choice.  Given the constraints of time, space, and power under which most embedded systems must operate, the run-time overhead typically incurred by mainstream languages and frameworks is simply too high a price to pay.  And yet, given the rising complexity of embedded applications coupled with a desire to field portable (and re-usable) software across a range of systems, we continually struggle with trade-offs between flexible, generic&#151;yet inefficient&#151;building-blocks versus more specialized elements optimized for one particular application setting or hardware platform.
+</p><p>With <b>RTSC</b> (pronounced <i>rit-see</i>), however, we can finally resolve this dilemma between producers/consumers in the world of embedded C programming.  Requiring no more than an ANSI C compiler, RTSC effectively takes the C language to new heights by introducing supplementary tooling and infrastructure aligned with modern programming practices, yet responsive to the unique challenges of producing/consuming embedded software.  Simply a better way to leverage C, RTSC enables a higher-level form of programming&#151;one that encourages producing more modular, more scalable, and more flexible target-content&#151;<i>without</i> necessarily impacting system performance through additional run-time overhead.
+</p>
+<div class="Info"><p class="Info">We believe that taking RTSC open-source can accelerate adoption across an otherwise fragmented community of nearly a half-million embedded C programmers.</p></div>
+<a name="From_producer_to_consumer_under_RTSC"></a><h2> <span class="mw-headline"> From producer to consumer under RTSC</span></h2>
+<p>RTSC introduces tooling and infrastructure that articulates a five-phase flow spanning the life-cycle of embedded software components implemented in C&#151;from component production to component consumption.
+</p>
+<center><a href="images/Intro-Fig1.png" class="image" title="image:Intro-Fig1.png"><img alt="image:Intro-Fig1.png" src="images/Intro-Fig1.png" width="700" height="500" border="0" /></a></center>
+<p>As we touch upon each phase of the RTSC flow, bear in mind that the familiar steps of compiling and linking C libraries and programs remain unchanged&#151;RTSC strives to leverage and enhance C, not replace it. 
+</p><p><br />
+<a class="codexLink" href="#cl-0:1"><span class="codexLink">1</span></a>&nbsp; <big><span class="Leader">Specification</span></big>
+</p>
+<center><a href="images/Intro-Fig1-1.png" class="image" title="image:Intro-Fig1-1.png"><img alt="image:Intro-Fig1-1.png" src="images/Intro-Fig1-1.png" width="700" height="500" border="0" /></a></center>
+<p>Like any component-based flow, RTSC begins with well-specified components&#151;a necessary requirement to enable downstream consumers to mix-and-match components sourced from different producers, freely substituting one component for another based upon common specifications.  Acknowledging the limits of C in this regard, RTSC introduces a special C-like <span class="color-green"><b>specification language</b></span> used to formally define programmatic boundaries between producer and consumer in a more expressive and robust manner than possible with C headers; in fact, RTSC <i>generates</i> C <span class="color-blue"><b><tt>.h</tt></b></span> files used by producers and consumers alike from specifications sourced in this (higher-level) language.
+</p><p>The RTSC specification language promotes three important programming constructs not directly supported in C, but necessary when using C to implement components participating in ever larger and more complex applications:
+</p>
+<dl><dt><span class="color-green"><b>module</b></span>
+</dt><dd><small>a cohesive set of constants, types, and functions with a public specification and a private implementation</small>
+</dd></dl>
+<dl><dt><span class="color-green"><b>interface</b></span>
+</dt><dd><small>an <i>abstract</i> module (spec only) that other interfaces may inherit and that modules will ultimately implement</small>
+</dd></dl>
+<dl><dt><span class="color-green"><b>package</b></span>
+</dt><dd><small>a higher-level programmatic namespace that in turn contains modules/interfaces within its scope</small>
+</dd></dl>
+<p>Not surprising, modern programming languages like Java and C#&#151;which <i>already</i> support higher-level constructs very similar to these&#151;do not necessarily require a companion specification language as does C.
+</p><p><br />
+<a class="codexLink" href="#cl-0:2"><span class="codexLink">2</span></a>&nbsp; <big><span class="Leader">Implementation</span></big>
+</p>
+<center><a href="images/Intro-Fig1-2.png" class="image" title="image:Intro-Fig1-2.png"><img alt="image:Intro-Fig1-2.png" src="images/Intro-Fig1-2.png" width="700" height="500" border="0" /></a></center>
+<p>As a producer, you'll typically implement spec'd RTSC modules in C (though you can use C++ or assembly code where desired or appropriate) using a very clean, crisp, and portable style of programming that is both easy-to-read and fun-to-write.  In general, though, RTSC modules will carry <i>two</i> implementations that nicely complement one another:
+</p>
+<dl><dt><span class="color-blue"><b>target-implementation</b></span>
+</dt><dd><small>C-based content for later consumption within target programs executing on embedded hardware platforms</small>
+</dd></dl>
+<dl><dt><span class="color-red"><b>meta-implementation</b></span>
+</dt><dd><small>higher-level meta-content that guides downstream configuration and analysis of these target programs</small>
+</dd></dl>
+<p>Whereas C-based <span class="color-blue"><b>target-content</b></span> typically executes on a resource-constrained platform, <span class="color-red"><b>meta-content</b></span> invariably executes on your <i>resource-rich</i> host computer and enjoys access to virtually unlimited resources; skillful partitioning of functionality between these two complementary domains helps fulfill RTSC's promise of higher-level programming <i>and</i> higher-levels of performance.  Again recognizing the limitations of C, RTSC introduces a dedicated <span class="color-red"><b>meta-language</b></span> based on industry-standard JavaScript. 
+</p><p><br />
+<a class="codexLink" href="#cl-0:3"><span class="codexLink">3</span></a>&nbsp; <big><span class="Leader">Packaging</span></big>
+</p>
+<center><a href="images/Intro-Fig1-3.png" class="image" title="image:Intro-Fig1-3.png"><img alt="image:Intro-Fig1-3.png" src="images/Intro-Fig1-3.png" width="700" height="500" border="0" /></a></center>
+<p>RTSC packages serve as both logical and physical containers.  Besides providing a programmatic namespace that scopes spec'd RTSC modules/interfaces, each RTSC package has a concrete manifestation as a file-system directory that follows a prescribed set of conventions, but otherwise can house virtually any sort of software artifact originating with the component producer&#151;specs, headers, libraries, scripts, docs, even other packages.  To help maintain its internal integrity, each RTSC package is built, released, and ultimately deployed as an <i>indivisible</i> element&#151;that is to say, all of its content remains in place throughout the component life-cycle.
+</p><p>To help manage the producer's fan-out challenge, RTSC packaging streamlines the process of building <i>multiple</i> libraries using <i>multiple</i> C compilers by leveraging instances of a basic abstraction termed a <span class="color-brown"><b>target</b></span>&#151;a recipe that prescribes the steps necessary to compile C source files for a <i>particular</i> instruction-set and memory-model using a <i>particular</i> compiler tool-chain.  Additional mechanisms enables producers to fabricate side-by-side releases of a particular package, to specify dependencies of one package on other RTSC packages, and to characterize compatibility with earlier versions of the same package.
+</p><p>On the consumer's side, standardizing upon RTSC packages as the unit of <i>delivery</i> goes a long way towards mitigating the fan-in challenge.  RTSC packages also standardize content <i>deployment</i> by leveraging a proven physical design (patterned after Java) that builds upon three basic concepts:
+</p>
+<dl><dt><span class="color-brown"><b>package directory</b></span>
+</dt><dd><small>a directory whose relative path-name matches the package-name and which houses the package's contents</small>
+</dd></dl>
+<dl><dt><span class="color-brown"><b>package repository</b></span>
+</dt><dd><small>an arbitrarily-named directory that in turn contains canonically-named package directories</small>  
+</dd></dl>
+<dl><dt><span class="color-brown"><b>package path</b></span>
+</dt><dd><small>an ordered list of package repositories used to locate packages and their contents using relative path-names</small>
+</dd></dl>
+<p>By finding some common ground here, automated tooling can easily validate the completeness and consistency of a set of deployed RTSC packages&#151;enabling a more friction-free flow of content from producers to consumers.
+</p><p><br />
+<a class="codexLink" href="#cl-0:4"><span class="codexLink">4</span></a>&nbsp; <big><span class="Leader">Configuration</span></big>
+</p>
+<center><a href="images/Intro-Fig1-4.png" class="image" title="image:Intro-Fig1-4.png"><img alt="image:Intro-Fig1-4.png" src="images/Intro-Fig1-4.png" width="700" height="500" border="0" /></a></center>
+<p>From the consumer's perspective, RTSC configuration serves as <i>the</i> focal point for component integration&#151;combining and assembling uniformly packaged target-content elements delivered by multiple producers for ultimate use within an application program executing on some hardware platform.  Here again, <i>uniformity</i> becomes the operative word as we strive to streamline the passage of content from producers to consumers.
+</p><p>The process begins with a dedicated configuration script&#151;sourced in the RTSC <span class="color-red"><b>meta-language</b></span>&#151;which identifies each software element required within a corresponding <span class="color-blue"><b>target-program</b></span>.  The configuration process eventually yields additional <span class="color-blue"><b>target-content</b></span> artifacts that in turn become inputs to your compiler/linker during final program build.  To coordinate these latter steps, content consumers will designate a RTSC
+<span class="color-brown"><b>target</b></span> <i>and</i> <span class="color-brown"><b>platform</b></span> as additional configuration inputs&#151;recipes for compiling <i>and</i> linking target-content that help shape configuration outputs.  
+</p><p>Within the configuration script&#151;consider it the application's <span class="color-red"><b>meta-program</b></span>&#151;the content consumer identifies each spec'd <span class="color-green"><b>module</b></span> included within the corresponding <span class="color-blue"><b>target-program</b></span>.  While the target-program ultimately <i>uses</i> the module by calling its public functions, its meta-program will typically <i>tailor</i> the module's run-time behavior by altering its public <span class="color-red"><b>configuration parameters</b></span>.  A unique feature of the RTSC <span class="color-green"><b>specification language</b></span>, module configuration parameters transition from read-write variables in the meta-program to read-only constants in the target-program, and play a central role in "specializing" otherwise generic software elements for the application at hand. 
+</p><p>Once the consumer's configuration script has finished execution, <i>all</i> RTSC packages contributing target-content to this application become active contributors to the configuration process through corresponding <span class="color-red"><b>meta-content</b></span> supplied by the producer.  Systematically invoked during the tail-end of configuration, RTSC meta-content enables component producers to programmatically participate at this all-important juncture in several ways:
+</p>
+<ul><li> by importing other RTSC modules and assigning their configuration parameters;
+</li><li> by issuing errors or warnings if anything seems "wrong" with the current configuration;
+</li><li> by guiding generation of linker-commands customized for this program and its platform; and
+</li><li> by automatically synthesizing C code using knowledge gained throughout the configuration process.
+</li></ul>
+<p>As a final point, we can't stress enough that RTSC configuration is an <i>automated</i> process, supplanting past practices whereby content consumers would hand-edit producer-supplied files of linker commands or C code/data.  By leveraging the virtually unlimited resources of your host computer&#151;to execute <span class="color-red"><b>meta-content</b></span> <i>before</i> consuming corresponding <span class="color-blue"><b>target-content</b></span>&#151;the net result becomes early detection of serious problems that (at best) may yield obscure downstream compiler/linker errors or else (at worst) may trigger run-time behavior with fatal consequences.
+</p><p><br />
+<a class="codexLink" href="#cl-0:5"><span class="codexLink">5</span></a>&nbsp; <big><span class="Leader">Analysis</span></big>
+</p>
+<center><a href="images/Intro-Fig1.png" class="image" title="image:Intro-Fig1.png"><img alt="image:Intro-Fig1.png" src="images/Intro-Fig1.png" width="700" height="500" border="0" /></a></center>
+<p>Besides guiding the integration-time consumption of RTSC modules into executable programs, producer-supplied <span class="color-red"><b>meta-content</b></span> can also actively partake in the run-time analysis of module behavior once execution has commenced (or even terminated).  Given the ability to read the program's data memory&#151;via a host-based debugger, an embedded program monitor, or even a snapshot of program state saved to disk&#151;RTSC analysis tooling first decodes a module's <span class="color-blue"><b>target-implementation</b></span> state-structures into equivalent JavaScript objects before calling upon the same module's <span class="color-red"><b>meta-implementation</b></span> to transform these objects into a more meaningful <i>view</i> of the underlying state.
+</p><p>Complementing this state-oriented perspective, another dimension of RTSC analysis involves merging, filtering, and interpreting streams of time-stamped <i>events</i> sourced during program execution; events can be retained in target-side memory or else uploaded in real-time using an appropriate output device on the underlying hardware platform.  By calling upon a special <tt>Log</tt> module furnished by RTSC, producers and consumers alike can emit meaningful events from anywhere within their C code. Furthermore, configuration parameters exist on a per-module and program-wide basis to enable/disable different levels of event logging&#151;either permanently or else through run-time flags.
+</p>
+<a name="A_quick_tour_of_the_XDCtools_product"></a><h2> <span class="mw-headline"> A quick tour of the <tt>XDCtools</tt> product</span></h2>
+<p>You'll find all of the tooling and infrastructure needed to support each phase of the RTSC flow&#151;from component production to component consumption&#151;within a single product known as <tt>XDCtools</tt>.  After a quick tour, we'll direct you to other resources that in turn will guide you through installing the product as well as working with its many elements.
+</p>
+<div class="Info"><p class="Info">This product&#151;freely available from Texas Instruments from the outset&#151;will nevertheless transition to <b>eclipse.org</b>, where the embedded software community at large can not only openly leverage the capabilities of <tt>XDCtools</tt> but can <i>contribute</i> to them as well.</p></div>
+<p><span id="ProductFigure"></span>
+</p>
+<center><a href="images/Intro-Fig2.png" class="image" title="image:Intro-Fig2.png"><img alt="image:Intro-Fig2.png" src="images/Intro-Fig2.png" width="556" height="268" border="0" /></a></center>
+<p><br />
+<span class="Leader">Language support</span>.&nbsp;  At its most rudimentary level, <tt>XDCtools</tt> supports the RTSC <span class="color-green"><b>specification language</b></span> as well as the RTSC <span class="color-red"><b>meta-language</b></span>&#151;respectively named <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> and <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>.  Working hand-in-hand with standard C&#151;supplementing the language in ways we've already described&#151;the net result forges an alliance of higher-level programming capabilities for specifying and implementing components which we've termed <b><i>e<span style="font-size:115%;" class="color-green">X</span>pan<span style="font-size:115%;" class="color-red">D</span>ed&nbsp;&nbsp;<span style="font-size:115%;" class="color-blue">C</span></i></b>.
+</p>
+<center><a href="images/Intro-Fig3.png" class="image" title="image:Intro-Fig3.png"><img alt="image:Intro-Fig3.png" src="images/Intro-Fig3.png" width="556" height="236" border="0" /></a></center>
+<p>As for C itself, the <tt>XDCtools</tt> product does not bundle any particular compiler tool-chain(s); indeed, the <tt>XDCtools</tt> can work with <i>any</i> ANSI C compiler. At the same time, the product does maintain full knowledge of literally dozens of different C compilers from multiple vendors through standardized recipes known as RTSC <span class="color-brown"><b>targets</b></span>&#151;which, as it turns out, leverage <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> and <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> for their specification and meta-implementation.  Using the <tt>XDCtools</tt> product itself, anyone can add support for a compiler tool-chain with only modest effort by creating a <i>new</i> RTSC target.
+</p><p><span class="Leader">Core packages</span>.&nbsp;  Moving up a level in the product <a href="#ProductFigure" title="">block-diagram</a>, the bulk of <tt>XDCtools</tt> comprises over a hundred RTSC packages containing even more modules/interfaces that broadly fall into three major groups:
+</p>
+<dl><dt><span class="color-brown"><b>package life-cycle</b></span> 
+</dt></dl>
+<dl><dd><small>packages that support the general build/release/deploy life-cycle of other RTSC packages; just as many contemporary programming environments bootstrap themselves, all RTSC packages are ultimately managed through other well-known packages that lie at the core of <tt>XDCtools</tt>.</small>
+</dd></dl>
+<p></p>
+<dl><dt><span class="color-red"><b>program life-cycle</b></span>
+</dt></dl>
+<dl><dd><small>packages that support the general configure/execute/analyze life-cycle of RTSC programs; here again, <tt>XDCtools</tt> builds upon itself through stock meta-content that in turn drives integration-time synthesis and run-time analysis of target-content elements in executable programs.</small>
+</dd></dl>
+<p></p>
+<dl><dt><span class="color-blue"><b>program run-time</b></span>
+</dt></dl>
+<dl><dd><small>packages that provide basic run-time support for executable C programs using other RTSC modules; this target-content offers improved embedded C support for pluggable memory allocators, event logging and error handling, entry/exit of critical sections, as well as overall program startup/shutdown.</small>
+</dd></dl>
+<p>Focusing on the latter for a moment, the <tt>XDCtools</tt> product ships a special RTSC package named <tt><b>xdc.runtime</b></tt> whose constituent RTSC modules&#151;implemented in portable ANSI C with sources available&#151;facilitate migration to a variety of targets, hardware platforms, and embedded operating environments.
+</p><p><span class="Leader">Essential utilities</span>.&nbsp;  Finally, the <tt>XDCtools</tt> product incorporates a number of basic commands and utilities used by producers and consumers alike throughout the component life-cycle:
+</p>
+<dl><dt><span class="color-black"><tt>xdc</tt></span>
+</dt><dd><small>command for building/releasing packages for multiple targets</small>
+</dd></dl>
+<dl><dt><span class="color-black"><tt>xdc.tools.cdoc</tt></span>
+</dt><dd><small>utility for generating documentation from <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> sources</small>
+</dd></dl>
+<dl><dt><span class="color-black"><tt>xdc.tools.repoman</tt></span>
+</dt><dd><small>utility for managing package repositories</small>
+</dd></dl>
+<dl><dt><span class="color-black"><tt>xdc.tools.path</tt></span>
+</dt><dd><small>utility for managing the package path</small>
+</dd></dl>
+<dl><dt><span class="color-black"><tt>xdc.tools.configuro</tt></span>
+</dt><dd><small>utility for integrating configuration into existing build flows</small>
+</dd></dl>
+<dl><dt><span class="color-black"><tt>xs</tt></span>
+</dt><dd><small>command for invoking other tools written in <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> </small>
+</dd></dl>
+<p>In general, you can use these tools directly from the command-line or else invoke them through extension points within your development environment.  And if you haven't already guessed from their canonical names, each of these utilities <i>is</i> a full-fledged RTSC package whose meta-content leverages <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> and <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> for its specification and implementation.  This suggests, of course, that anyone can contribute additional tooling to the RTSC ecosystem by simply producing and delivering a package!
+</p>
+<a name="Additional_RTSC_resources"></a><h2> <span class="mw-headline"> Additional RTSC resources</span></h2>
+<p>Visit the <a href="http://rtsc.eclipse.org/docs" class="external text" title="http://rtsc.eclipse.org/docs" rel="nofollow"><b>RTSC-Pedia</b></a>, a centralized wiki devoted to all-things RTSC.  Besides holding the most up-to-date versions of all RTSC documents, the <b>RTSC-Pedia</b> maintains active discussion pages for each document where <i>you</i> can comment on the material as well as ask directed questions.
+</p><p>If you have technical issues&#151;general or specific&#151;not addressed by material in the <b>RTSC-Pedia</b>, we've established a dedicated public <a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc" class="external text" title="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc" rel="nofollow">newsgroup</a> where you can search for answers as well as contribute new questions.
+</p><p>And finally, there's the <i>RTSC Project</i> itself at <a href="http://rtsc.eclipse.org" class="external text" title="http://rtsc.eclipse.org" rel="nofollow">rtsc.eclipse.org</a>, where you can track the migration of the current <tt>XDCtools</tt> product into the open-source community.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:20%;"><a href="../FAQ-080713-9/FAQ-080713-9.html" title="FAQ-080713-9">FAQ-080713-9</a>
+</td><td class="DocListSubTitle1"><i>How is the <b>RTSC-Pedia</b> organized, and what sorts of documents exist</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="../FAQ-080713-7/FAQ-080713-7.html" title="FAQ-080713-7">FAQ-080713-7</a>
+</td><td class="DocListSubTitle"><i>If I'm only consuming RTSC content, what should I read next</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="../FAQ-080713-8/FAQ-080713-8.html" title="FAQ-080713-8">FAQ-080713-8</a>
+</td><td class="DocListSubTitle"><i>I also want to produce RTSC content, what should I read next</i>
+</td></tr>
+<tr>
+<td class="DocListSpacer">&nbsp;
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="../FAQ-080713-4/FAQ-080713-4.html" title="FAQ-080713-4">FAQ-080713-4</a>
+</td><td class="DocListSubTitle"><i>Can I leverage RTSC with legacy content, or am I starting from scratch</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:20%;"><a href="../FAQ-080713-6/FAQ-080713-6.html" title="FAQ-080713-6">FAQ-080713-6</a>
+</td><td class="DocListSubTitle"><i>Who's using RTSC today, and what's the roadmap going forward</i>
+</td></tr></table>
+<p></p><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/green_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Introducing RTSC&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Introducing RTSC" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<p><br />
+</p><!-- 
+Pre-expand include size: 13055 bytes
+Post-expand include size: 5110 bytes
+Template argument size: 1581 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Introducing_RTSC.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.223 secs. --></body></html>

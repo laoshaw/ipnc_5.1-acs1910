@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Overview of xdc.runtime - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Overview of xdc.runtime&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Overview of xdc.runtime" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Overview_of_xdc.runtime__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Overview of xdc.runtime</p><p id="subtitle">Introduction to the xdc.runtime package</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Architecture"><span class="tocnumber">2</span> <span class="toctext">Architecture</span></a></li>
+<li class="toclevel-1"><a href="#Using_This_Package"><span class="tocnumber">3</span> <span class="toctext">Using This Package</span></a></li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">4</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1"><a href="#Extending_This_Package"><span class="tocnumber">5</span> <span class="toctext">Extending This Package</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>The <tt>xdc.runtime</tt> package contains many low-level modules that work together to provide "core" services appropriate for any embedded C/C++ application:
+</p>
+<ul><li><i>memory management</i>: basic memory allocation and freeing from multiple heaps
+</li><li><i>concurrency support</i>: low-level critical region protection mechanisms
+</li><li><i>real-time diagnostics</i>: printf-like logging, error management, and assertion support
+</li><li><i>system services</i>: system initialization and shutdown (<tt>exit()</tt>, <tt>atexit()</tt>, <tt>abort()</tt>, etc.) and basic character output (<tt>printf()</tt>)
+</li></ul>
+<a name="Architecture"></a><h2> <span class="mw-headline">Architecture</span></h2>
+<p>The services provided by the <tt>xdc.runtime</tt> package are partition into numerous modules.  The relationship between the modules in the <tt>xdc.runtime</tt> package and the services they provide is depicted in the figure below.
+</p>
+<center><a href="images/RuntimeArch.png" class="image" title="xdc.runtime Architecture"><img alt="xdc.runtime Architecture" src="images/RuntimeArch.png" width="729" height="368" border="0" /></a></center>
+<p>All of the modules and interfaces provided in the <tt>xdc.runtime</tt> package are supplied in portable C source code form.  In addition, all of the modules are designed to be thread-safe and, where necessary, use the <tt>Gate</tt> module to serialize access to global data structures.  
+</p><p>In order to ensure platform independence, those modules that require platform-specific services are designed to support one (or more) platform-specific "service providers".  Each of these providers implements one of the interfaces supplied.  Simple implementations of each service provider interface are also included in this package.
+</p>
+<a name="Using_This_Package"></a><h2> <span class="mw-headline">Using This Package</span></h2>
+<p>Only a subset of the <tt>xdc.runtime</tt> package's modules are directly referenced by an application.  The other modules provided in the <tt>xdc.runtime</tt> package are simple implementations of "service provider" interfaces required by the application-level modules or are supporting modules that may be used in these implementations.
+</p><p>The table below summarizes the application-level modules and provides links to both the reference API documentation as well as user guide information for each category of service provided by the <tt>xdc.runtime</tt> package.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Category</b>
+</th><th align="center"> <b>Modules</b>
+</th><th align="center"> <b>User's Guide Documentation</b>
+</th></tr>
+<tr>
+<td align="left"> memory management
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/Memory.html" class="cdoc"><tt>Memory</tt></a>
+</td><td align="left"> <a href="../Using_xdc.runtime_Memory/Using_xdc.runtime_Memory.html" title="Using xdc.runtime Memory">Memory Management</a>
+</td></tr>
+<tr>
+<td align="left"> concurrency support
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/Gate.html" class="cdoc"><tt>Gate</tt></a>
+</td><td align="left"> <a href="../Using_xdc.runtime_Gates/Using_xdc.runtime_Gates.html" title="Using xdc.runtime Gates">Mutual Exclusion Gates</a>
+</td></tr>
+<tr>
+<td align="left"> real-time diagnostics
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/Log.html" class="cdoc"><tt>Log</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/Assert.html" class="cdoc"><tt>Assert</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/Error.html" class="cdoc"><tt>Error</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/Timestamp.html" class="cdoc"><tt>Timestamp</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/Diags.html" class="cdoc"><tt>Diags</tt></a>
+</td><td align="left"> <a href="../Using_xdc.runtime_Logging/Using_xdc.runtime_Logging.html" title="Using xdc.runtime Logging">Event Logging</a>, <a href="../Using_xdc.runtime_Errors/Using_xdc.runtime_Errors.html" title="Using xdc.runtime Errors">Error Handling</a>, <a href="../Using_xdc.runtime_Timestamps/Using_xdc.runtime_Timestamps.html" title="Using xdc.runtime Timestamps">Timestamp Services</a>
+</td></tr>
+<tr>
+<td align="left"> system services
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/System.html" class="cdoc"><tt>System</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/Startup.html" class="cdoc"><tt>Startup</tt></a>
+</td><td align="left"> <a href="../Using_xdc.runtime_System/Using_xdc.runtime_System.html" title="Using xdc.runtime System">Basic Services</a>
+</td></tr></table>
+<p>Like all packages, client applications must specify in a configuration script which modules of this package are to be included in the application.  This configuration script is processed by the configuration tools to produce files that must be incorporated into your application.  The configuration tool and how it is used is described in <a href="../Consuming_Configurable_Content/Consuming_Configurable_Content.html" title="Consuming Configurable Content">Configuration Basics</a>.
+</p><p>Unlike other packages, however, the <tt>xdc.runtime</tt> package is treated specially within the <tt>XDCtools</tt> product.  
+</p>
+<ol><li>Unless explicitly disabled, every <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> implicitly adds a package containing a compiled version of the <tt>xdc.runtime</tt> modules to your configuration.  See the <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html#Removing_xdc.runtime_From_an_Application" title="Working with xdc.runtime">Removing <tt>xdc.runtime</tt> From an Application</a> section of <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html" title="Working with xdc.runtime">Working with <tt>xdc.runtime</tt></a> to see how to disable the implicit include of this package.
+</li><li>Every RTSC <a href="../Glossary/Glossary.html#TargetModule" title="Glossary">target module</a> references "service provider" modules implementing <tt>IHeap</tt> and <tt>IGateProvider</tt> and, unless you specify otherwise, each RTSC target module will be "bound" to default implementations of these interfaces: <tt>HeapMin</tt> and <tt>GateNull</tt>.
+</li><li>Every RTSC target module also allows the client to bind a "service provider" module implementing the <tt>ILogger</tt> interface.
+</li></ol>
+<p>There are several practical consequences of this special treatment:
+</p>
+<ul><li>by default, all applications link with a library containing the <tt>xdc.runtime</tt> modules.
+</li><li>since the <tt>xdc.runtime</tt> modules are used by most other modules (including service providers), <tt>xdc.runtime</tt> modules often become part of a configuration even if you omit the declaration within your configuration script; e.g., configuration scripts that do not explicitly call <tt>xdc.useModule("xdc.runtime.System")</tt> may coincidently work with applications that directly reference the <tt>System</tt> module.
+</li><li>if you do not specify a module that implements the <tt>ILogger</tt> interface, <i>all</i> <tt>Log</tt> methods will be disabled and no <tt>Log</tt> events will be generated.  In addition, unlike all other modules, you can not use <tt>xdc.runtime.Defaults</tt> to enable logging for the modules in the <tt>xdc.runtime</tt> package; you must explicitly set the logger and diagnostics flags for any module in <tt>xdc.runtime</tt> that you want to trace.
+</li></ul>
+<p>This package includes a single C++ file that defines a single statically initialized variable - the return value of the <tt>Startup</tt> module's initialization function.  Since the ANSI C++ Standard ensures that all static variables are initialized <i>prior</i> to <tt>main()</tt>, module initialization via <tt>Startup</tt> always occurs prior to <tt>main()</tt>.  This technique of initialization, while portable, implies that applications must, by default, be linked as C++ applications.  If you are using a target that does not support C++ or you need to build an application that must not include C++ startup initialization, see <a href="../Using_xdc.runtime_Startup/Using_xdc.runtime_Startup.html" title="Using xdc.runtime Startup">Using xdc.runtime Startup</a>. 
+</p>
+<p><div class="Notice"><p class="Notice">If you are using this package in a multi-threaded environment, you must supply at least one implementation of the <tt><a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates.html" title="Extending xdc.runtime Gates">IGateProvider</a></tt> interface; otherwise, some <tt>xdc.runtime</tt> operations &#151; as well as any modules that rely on these operations &#151; will have undefined behavior.  For more information about how to use this package in a multi-threaded environment, see the <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html#MultiThreadingSupport" title="Working with xdc.runtime">Multi-Threading Support</a> section of <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html" title="Working with xdc.runtime">Working with xdc.runtime</a>.</p></div></p>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<p>The best way to understand how to use and take advantage of the <tt>xdc.runtime</tt> package is to study some simple examples.  In the table below, we provide examples that illustrate the use of the <tt>xdc.runtime</tt> package within different execution contexts.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Example</b>
+</th><th align="center"> <b>Description</b>
+</th><th align="center"> <b>Purpose</b>
+</th></tr>
+<tr>
+<td align="left"> <a href="Overview_of_xdc.runtime__Example_1.html" title="Overview of xdc.runtime/Example 1">Example 1</a>
+</td><td align="left"> Using <tt>xdc.runtime</tt> in native workstation applications
+</td><td align="left"> illustrate how to configure <tt>xdc.runtime</tt> to use existing memory and I/O services provided by standard C runtime environments
+</td></tr>
+<tr>
+<td align="left"> <a href="Overview_of_xdc.runtime__Example_2.html" title="Overview of xdc.runtime/Example 2">Example 2</a>
+</td><td align="left"> Using <tt>xdc.runtime</tt> in deeply embedded applications
+</td><td align="left"> illustrate how to configure <tt>xdc.runtime</tt> to minimize external dependencies
+</td></tr></table>
+<a name="Extending_This_Package"></a><h2> <span class="mw-headline">Extending This Package</span></h2>
+<p>Every embedded system has a unique set of capabilities and resource constraints.  In order to enable the APIs provided by the <tt>xdc.runtime</tt> package to be available in <i>every</i> application, many of the <tt>xdc.runtime</tt> package's modules can be customized or "extended" to operate in a manner consistent with the runtime requirements of the embedded application.  For example, when diagnostic events are generated, these events must be transmitted or stored using capabilities unique to the embedded platform. 
+</p><p>Many of the modules in the <tt>xdc.runtime</tt> package have a corresponding "provider" interface that can be implemented in a platform-specific manner without requiring any change to existing clients.  In particular,
+</p>
+<ul><li>the <tt>Log</tt> module relies on an underlying module, that implements the <tt>xdc.runtime.ILogger</tt> interface, to "do something" with events logged; e.g., write to a local circular buffer, send to an adjoining processor, etc.
+</li><li>the <tt>Timestamp</tt> module relies on an underlying module, that implements the <tt>xdc.runtime.ITimestampProvider</tt> interface, to obtain a system-wide timestamp value with up to 64-bits of range.   Some CPUs have a running instruction cycle counter, some have a separate real-time clock, while others simply use real-time data streams to provide a timebase.
+</li><li>the <tt>Gate</tt> module relies on an underlying module, that implements the <tt>xdc.runtime.IGateProvider</tt> interface, to obtain and release a system-wide thread-safe lock.  In non-preemptive or single-threaded systems this lock doesn't need to do anything, in systems with a preemptive RTOS it needs to use the RTOS's primitives to create an appropriate mutex.
+</li><li>the <tt>System</tt> module relies in an underlying module, that implements the <tt>xdc.runtime.ISystemSupport</tt> interface, to manage the orderly termination of the application; e.g., does <tt>abort()</tt> create a "core" file to assist debugging, should <tt>exit()</tt> enter a low power state erasing local memory or simply idle the CPU, etc.
+</li><li>the <tt>Memory</tt> module relies on an underlying module, that implements the <tt>xdc.runtime.IHeap</tt> interface, to manage allocation and freeing of memory.  Some systems require deterministic operation and are willing to accept sub-optimal space usage of a fixed length allocator, other systems never perform allocation in the real-time path and require the ability to use all memory even in the face of variable length allocations, and still others never free memory.
+</li></ul>
+<p>The table below summarizes interfaces defined by the <tt>xdc.runtime</tt> package, identifies simple implementations of these interfaces (provided in the <tt>xdc.runtime</tt> package itself), and provides a reference to an "extender's" document that describes how to create new implementations of each interface.
+</p><p><span id="Extending_This_Package_Index"></span>
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Interface</b>
+</th><th align="center"> <b>Implementations</b>
+</th><th align="center"> <b>Purpose</b>
+</th><th align="center"> <b>Extender's Guide</b>
+</th></tr>
+<tr>
+<td align="left"> <tt><a href="../../cdoc/xdc/runtime/ILogger.html" class="cdoc"><tt>xdc.runtime.ILogger</tt></a></tt>
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/LoggerBuf.html" class="cdoc"><tt>LoggerBuf</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/LoggerSys.html" class="cdoc"><tt>LoggerSys</tt></a>
+</td><td align="left"> process <tt>Log</tt> events
+</td><td align="left"> <a href="../Extending_xdc.runtime_Logging/Extending_xdc.runtime_Logging.html" title="Extending xdc.runtime Logging">ILogger</a>
+</td></tr>
+<tr>
+<td align="left"> <tt><a href="../../cdoc/xdc/runtime/ITimestampProvider.html" class="cdoc"><tt>xdc.runtime.ITimestampProvider</tt></a></tt>
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/TimestampNull.html" class="cdoc"><tt>TimestampNull (default)</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/TimestampStd.html" class="cdoc"><tt>TimestampStd</tt></a>
+</td><td align="left"> provide current time with up to 64-bits of range
+</td><td align="left"> <a href="../Extending_xdc.runtime_Timestamps/Extending_xdc.runtime_Timestamps.html" title="Extending xdc.runtime Timestamps">ITimeStampProvider</a>
+</td></tr>
+<tr>
+<td align="left"> <tt><a href="../../cdoc/xdc/runtime/IGateProvider.html" class="cdoc"><tt>xdc.runtime.IGateProvider</tt></a></tt>
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/GateNull.html" class="cdoc"><tt>GateNull (default)</tt></a>
+</td><td align="left"> thread-safe mutex
+</td><td align="left"> <a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates.html" title="Extending xdc.runtime Gates">IGateProvider</a>
+</td></tr>
+<tr>
+<td align="left"> <tt><a href="../../cdoc/xdc/runtime/ISystemSupport.html" class="cdoc"><tt>xdc.runtime.ISystemSupport</tt></a></tt>
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/SysMin.html" class="cdoc"><tt>SysMin (default)</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/SysStd.html" class="cdoc"><tt>SysStd</tt></a>
+</td><td align="left"> handle application termination and basic character output
+</td><td align="left"> <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System.html" title="Extending xdc.runtime System">ISystemSupport</a>
+</td></tr>
+<tr>
+<td align="left"> <tt><a href="../../cdoc/xdc/runtime/IHeap.html" class="cdoc"><tt>xdc.runtime.IHeap</tt></a></tt>
+</td><td align="left"> <a href="../../cdoc/xdc/runtime/HeapStd.html" class="cdoc"><tt>HeapStd (default)</tt></a>, <a href="../../cdoc/index.html#xdc/runtime/HeapMin.html" class="cdoc"><tt>HeapMin</tt></a>
+</td><td align="left"> allocate and free memory
+</td><td align="left"> <a href="../Extending_xdc.runtime_Memory/Extending_xdc.runtime_Memory.html" title="Extending xdc.runtime Memory">IHeap</a>
+</td></tr></table>
+<p>Although, there is just one module responsible for implementing the <tt>ISystemSupport</tt> and <tt>ITimestampProvider</tt> interfaces, every module in a system can have an independent <tt>ILogger</tt>, <tt>IGateProvider</tt>, and <tt>IHeap</tt> implementation.
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Overview of xdc.runtime&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Overview of xdc.runtime" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Overview_of_xdc.runtime__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2755 bytes
+Post-expand include size: 1539 bytes
+Template argument size: 121 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Overview_of_xdc.runtime.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.294 secs. --></body></html>

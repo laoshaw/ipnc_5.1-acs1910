@@ -1,0 +1,463 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Interface Primer/Lesson 13 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 13&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_12.html" title="Lesson 12"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_14.html" title="Lesson 14"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Interface Primer/Lesson 13</p><p id="subtitle">Proxy modules &#151; managing target-specific <tt>Fir</tt> implementations</p>
+<p>Applying what you've already learned about RTSC interfaces and proxy modules, this lesson lays out a series of transformations of the <tt>Fir</tt> module originally introduced back in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html" title="RTSC Module Primer/Lesson 9">Lesson 9</a>.  Beginning with a portable baseline where correctness trumps efficiency, we'll then proceed to significantly improve the performance of <tt>Fir</tt>&#151;but at the cost of polluting an otherwise clean body of code with non-portable constructs.  
+</p><p>Through skillful use of a proxy, however, we can better isolate target-specific code from an otherwise portable implementation of the <tt>Fir</tt> module.  By the end of this process, <tt>Fir</tt> will not only have greater flexibility and thus higher potential for re-use across a broad spectrum of applications, the module will also enjoy an quantum improvement in its run-time performance.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Establishing_a_baseline"><span class="tocnumber">1</span> <span class="toctext">Establishing a baseline</span></a></li>
+<li class="toclevel-1"><a href="#Optimizing_for_TMS32064.2B"><span class="tocnumber">2</span> <span class="toctext">Optimizing for TMS32064+</span></a></li>
+<li class="toclevel-1"><a href="#Generalizing_through_a_proxy"><span class="tocnumber">3</span> <span class="toctext">Generalizing through a proxy</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Establishing_a_baseline"></a><h2> <span class="mw-headline">Establishing a baseline</span></h2>
+<p>With several alternative implementations of <tt>Fir</tt> lying ahead of us, let's first abstract the essence of the module's original <tt>Fir.xdc</tt> <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-1:1" title="RTSC Module Primer/Lesson 9">specification</a> into a new RTSC interface named <tt>stdsorg.math.IFir</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>stdsorg/math/IFir.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Abstract FIR filter */</span>
+<span class="kw1">interface</span> IFir <span class="br0">&#123;</span>
+&nbsp;
+<span class="kw1">instance</span>:
+&nbsp;
+    <span class="xdoc">/*! Number of data-values per frame */</span>
+    <span class="kw1">config</span> <span class="kw2">Int</span> frameLen = <span class="nu0">64</span>;
+&nbsp;
+    <span class="xdoc">/*! Create a new filter
+     *
+     *  @param(coeffs)      filter coefficients
+     *  @param(coeffsLen)   number of coefficients
+     */</span>
+    <span class="kw2">create</span><span class="br0">&#40;</span><span class="kw2">Int16</span> coeffs<span class="br0">&#91;</span><span class="br0">&#93;</span>, <span class="kw2">Int</span> coeffsLen<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="xdoc">/*! Apply this filter and update its internal history
+     *  @param(inFrame)    readonly frame of input data
+     *  @param(outFrame)   next frame of output data
+     */</span>
+    <span class="kw2">Void</span> apply<span class="br0">&#40;</span><span class="kw2">Int16</span> inFrame<span class="br0">&#91;</span><span class="br0">&#93;</span>, <span class="kw2">Int16</span> outFrame<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>We'll now trivially re-work the original <tt>acme.filters.Fir</tt> module into a derivative named <tt>acme.filters2.FirA</tt>.  Other than what seems like a gratuitous change of name&#151;we'll eventually produce a <tt>FirB</tt> and <tt>FirC</tt> module in the same package&#151;the spec of <tt>FirA</tt> boils down to a more abbreviated form of the original <tt>Fir.xdc</tt> file from <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-1:1" title="RTSC Module Primer/Lesson 9">Lesson 9</a>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/FirA.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IFir;
+&nbsp;
+<span class="xdoc">/*! Baseline IFir implementation */</span>
+<span class="re1">@InstanceInitError</span>
+<span class="re1">@InstanceFinalize</span>
+<span class="kw1">module</span> FirA <span class="kw1">inherits</span> IFir <span class="br0">&#123;</span>
+&nbsp;
+<span class="kw1">internal</span>:
+&nbsp;
+    <span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>
+        <span class="kw2">Int16</span> coeffs<span class="br0">&#91;</span><span class="br0">&#93;</span>;         <span class="coMULTI">/* create argument */</span>
+        <span class="kw2">Int</span> coeffsLen;          <span class="coMULTI">/* create argument */</span>
+        <span class="kw2">Int</span> frameLen;           <span class="coMULTI">/* instance config */</span>
+        <span class="kw2">Int16</span> history<span class="br0">&#91;</span><span class="br0">&#93;</span>;        <span class="coMULTI">/* filter history */</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>By virtue of inheriting <tt>IFir</tt>, what persists in the new <tt>FirA.xdc</tt> spec pertains exclusively to the internal implementation of this module.  Here again, other than a simple name change (<tt>Fir</tt> becomes <tt>FirA</tt>) the contents of <tt>acme/filters2/FirA.c</tt> and  <tt>acme/filters2/FirA.xs</tt> remain identical to the original <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-2:1" title="RTSC Module Primer/Lesson 9">target-implementation</a> and <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-3:1" title="RTSC Module Primer/Lesson 9">meta-implementation</a> of <tt>acme.filters.Fir</tt>; if you want to see for yourself, feel free to browse the source in  the <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/acme/filters2</tt> package directory.
+</p>
+<a name="Optimizing_for_TMS32064.2B"></a><h2> <span class="mw-headline">Optimizing for TMS32064+</span></h2>
+<p>Anyone who's worked with digital signal processors (DSPs) will immediately recognize that <tt>FirA</tt>&#151;based on the original implementation of <tt>acme.filters.Fir</tt> from <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-2:1" title="RTSC Module Primer/Lesson 9">Lesson 9</a>&#151;offers many opportunities for slashing execution time.  Always wanting to improve performance by optimizing for a particular processor, consider the <tt>acme.filters2.FirB</tt> module whose spec virtually clones <tt>FirA</tt> but whose target-implementation diverges considerably inside the <tt>apply</tt> function.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/FirB.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IFir;
+&nbsp;
+<span class="xdoc">/*! Optimized IFir implementation */</span>
+<span class="re1">@InstanceInitError</span>
+<span class="re1">@InstanceFinalize</span>
+<span class="kw1">module</span> FirB <span class="kw1">inherits</span> IFir <span class="br0">&#123;</span>
+&nbsp;
+<span class="kw1">internal</span>:
+&nbsp;
+    <span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>
+        <span class="kw2">Int16</span> coeffs<span class="br0">&#91;</span><span class="br0">&#93;</span>;         <span class="coMULTI">/* create argument */</span>
+        <span class="kw2">Int</span> coeffsLen;          <span class="coMULTI">/* create argument */</span>
+        <span class="kw2">Int</span> frameLen;           <span class="coMULTI">/* instance config */</span>
+        <span class="kw2">Int16</span> history<span class="br0">&#91;</span><span class="br0">&#93;</span>;        <span class="coMULTI">/* filter history */</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/FirB.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c">    ...
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/FirB.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;string.h&gt;
+<span class="re1">#include</span> &lt;c6x.h&gt;       <span class="coMULTI">/* declares TMS32064+ intrinsics */</span>
+&nbsp;
+    ...
+&nbsp;
+<span class="kw2">Void</span> FirB_apply<span class="br0">&#40;</span>FirB_Object *obj, <span class="kw2">Int16</span> inFrame<span class="br0">&#91;</span><span class="br0">&#93;</span>, <span class="kw2">Int16</span> outFrame<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i, j;
+    Int32 sum0, sum1;
+&nbsp;
+    <span class="kw2">Int</span> coeffsLen = obj-&gt;coeffsLen;
+    <span class="kw2">Int</span> frameLen = obj-&gt;frameLen;
+&nbsp;
+    <span class="kw2">Int16</span> *history = obj-&gt;history;
+    <span class="kw2">Int16</span> *coeffs = obj-&gt;coeffs;
+&nbsp;
+    Int32 *history2 = <span class="br0">&#40;</span>Int32 *<span class="br0">&#41;</span>history;
+    Int32 *coeffs2 = <span class="br0">&#40;</span>Int32 *<span class="br0">&#41;</span>coeffs;
+&nbsp;
+    memcpy<span class="br0">&#40;</span>&amp;history<span class="br0">&#91;</span>coeffsLen - <span class="nu0">1</span><span class="br0">&#93;</span>, inFrame, frameLen * <span class="kw1">sizeof</span> <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>j = <span class="nu0">0</span>; j &lt; frameLen / <span class="nu0">2</span>; j++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        sum0 = sum1 = <span class="nu0">0</span>;
+        <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; coeffsLen / <span class="nu0">2</span>; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            sum0 += _mpy<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j<span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+            sum0 += _mpyh<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j<span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+            sum1 += _mpyhl<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j<span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+            sum1 += _mpylh<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j + <span class="nu0">1</span><span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+        *outFrame++ = <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>sum0 &gt;&gt; <span class="nu0">15</span><span class="br0">&#41;</span>;
+        *outFrame++ = <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>sum1 &gt;&gt; <span class="nu0">15</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    memcpy<span class="br0">&#40;</span>history, &amp;history<span class="br0">&#91;</span>frameLen<span class="br0">&#93;</span>, <span class="br0">&#40;</span>coeffsLen - <span class="nu0">1</span><span class="br0">&#41;</span> * <span class="kw1">sizeof</span> <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;    
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Besides using compiler-specific intrinsics that effectively map directly to underlying processor instructions&#151;declared at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> and used after line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a>&#151;we've also unrolled the <tt>for</tt> loop beginning at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> to further increase opportunities for parallelism.  As we'll see in Lesson 14 when we benchmark <tt>FirB</tt> against our <tt>FirA</tt> baseline, we've significantly improved runtime performance here&#151;but only by transforming a <i>portable</i> implementation (<tt>FirA</tt>) into one that can now targets a specific processor supported by a specific compiler (<tt>FirB</tt>).
+</p>
+<div class="Info"><p class="Info">If none of this makes any sense, don't worry about it:&nbsp; knowledge of digital signal process(ing/ors) has never been a prerequisite for working with RTSC.  At the same, do appreciate that processor-dependent or compiler-specific C code not unlike the body of <tt>FirB_apply</tt> will indeed exist within most embedded application programs; the trick becomes <i>isolating</i> this sort of code as much as possible.</p></div>
+<a name="Generalizing_through_a_proxy"></a><h2> <span class="mw-headline">Generalizing through a proxy</span></h2>
+<p>We come now to <tt>acme.filters2.FirC</tt> which, through skillful use of a proxy, transforms the (non-portable) <tt>FirB</tt> implementation seen above into one that we can now build for <i>any</i> RTSC target or platform.  Applying the same design technique we've illustrated with <tt>Bench</tt> in <a href="RTSC_Interface_Primer__Lesson_12.html#cl-4:1" title="RTSC Interface Primer/Lesson 12">Lesson 12</a>&#151;where we employed a <tt>PClock</tt> proxy to ultimately abstract alternate implementations of a <tt>getTime</tt> function, one of which depended directly upon the TMS32064+ processor&#151;the <tt>FirC</tt> module specifies a <tt>PMathOps</tt> proxy that in turn can delegate to a module specifically tailored for the target, platform, or application at hand.
+</p>
+<div id="cl-2:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/FirC.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IFir;
+<span class="kw1">import</span> stdsorg.math.IMathOps;
+&nbsp;
+<span class="xdoc">/*! Generalized IFir implementation */</span>
+<span class="re1">@InstanceInitError</span>
+<span class="re1">@InstanceFinalize</span>
+<span class="kw1">module</span> FirC <span class="kw1">inherits</span> IFir <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! Selectable IMathOps service provider */</span>
+    <span class="kw1">proxy</span> PMathOps <span class="kw1">inherits</span> IMathOps;
+&nbsp;
+<span class="kw1">internal</span>:
+&nbsp;
+    <span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>
+        <span class="kw2">Int16</span> coeffs<span class="br0">&#91;</span><span class="br0">&#93;</span>;         <span class="coMULTI">/* create argument */</span>
+        <span class="kw2">Int</span> coeffsLen;          <span class="coMULTI">/* create argument */</span>
+        <span class="kw2">Int</span> frameLen;           <span class="coMULTI">/* instance config */</span>
+        <span class="kw2">Int16</span> history<span class="br0">&#91;</span><span class="br0">&#93;</span>;        <span class="coMULTI">/* filter history */</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The new <tt>stdsorg.math.IMathOps</tt> interface referenced here at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a> captures the essence of the low-level math operations used directly after line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> in the earlier <tt>FirB.c</tt> target-implementation.  Later on, we'll examine two different implementations of this interface&#151;one that's portable, and one that's not.  
+</p>
+<div id="cl-2:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>stdsorg/math/IMathOps.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Abstract math operations */</span>
+<span class="kw1">interface</span> IMathOps <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! Product of low 16-bits of x and y */</span>
+    <span class="kw2">Int32</span> mpy<span class="br0">&#40;</span><span class="kw2">Int32</span> x, <span class="kw2">Int32</span> y<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="xdoc">/*! Product of high 16-bits of x and y */</span>
+    <span class="kw2">Int32</span> mpyh<span class="br0">&#40;</span><span class="kw2">Int32</span> x, <span class="kw2">Int32</span> y<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="xdoc">/*! Product of high 16-bits of x and low 16-bits of y */</span>
+    <span class="kw2">Int32</span> mpyhl<span class="br0">&#40;</span><span class="kw2">Int32</span> x, <span class="kw2">Int32</span> y<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="xdoc">/*! Product of low 16-bits of x and high 16-bits of y */</span>
+    <span class="kw2">Int32</span> mpylh<span class="br0">&#40;</span><span class="kw2">Int32</span> x, <span class="kw2">Int32</span> y<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p><span class="Leader"><tt>FirC</tt> target-implementation</span>.&nbsp; Before we investigate some alternate implementations of the new <tt>IMathOps</tt> interface, consider how introducing the <tt>PMathOps</tt> proxy at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a> of <tt>FirC.xdc</tt> now leads to a <i>portable</i> C implementation of the module itself within the target-domain.
+</p>
+<div id="cl-2:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/FirC.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c">    ...
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/FirC.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;string.h&gt;
+&nbsp;
+    ...
+&nbsp;
+<span class="kw2">Void</span> FirC_apply<span class="br0">&#40;</span>FirC_Object *obj, <span class="kw2">Int16</span> inFrame<span class="br0">&#91;</span><span class="br0">&#93;</span>, <span class="kw2">Int16</span> outFrame<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ...
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>j = <span class="nu0">0</span>; j &lt; frameLen / <span class="nu0">2</span>; j++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        sum0 = sum1 = <span class="nu0">0</span>;
+        <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; coeffsLen / <span class="nu0">2</span>; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            sum0 += FirC_PMathOps_mpy<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j<span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+            sum0 += FirC_PMathOps_mpyh<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j<span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+            sum1 += FirC_PMathOps_mpyhl<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j<span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+            sum1 += FirC_PMathOps_mpylh<span class="br0">&#40;</span>history2<span class="br0">&#91;</span>i + j + <span class="nu0">1</span><span class="br0">&#93;</span>, coeffs2<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+        *outFrame++ = <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>sum0 &gt;&gt; <span class="nu0">15</span><span class="br0">&#41;</span>;
+        *outFrame++ = <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>sum1 &gt;&gt; <span class="nu0">15</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    ...
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Focusing on some small (but important) differences between the <tt>FirB</tt> and <tt>FirC</tt> implementations, we've basically replaced direct use of TMS32064+ intrinsics at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> of <tt>FirB.c</tt> with corresponding calls to proxy functions at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> of <tt>FirC.c</tt>; you'll find declarations for the latter functions back at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> of the <tt>IMathOps</tt> interface spec.  Equally important, <tt>FirC</tt> no longer requires the non-portable <tt>&lt;c6x.h&gt;</tt> intrinsics header brought in at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> of <tt>FirB.c</tt>.
+</p><p><span class="Leader">Alternate <tt>IMathOps</tt> implementations</span>.&nbsp;  As with the <tt>IClock</tt> interface used by <tt>Bench</tt> in <a href="RTSC_Interface_Primer__Lesson_12.html#Alternate_IClock_implementations" title="RTSC Interface Primer/Lesson 12">Lesson 12</a>, we'll offer up two rather distinct implementations of <tt>IMathOps</tt>&#151;one tied to the TMS32064+ intrinsics (<tt>MathOps64P</tt>), the other expressed in portable C code (<tt>MathOpsStd</tt>).  Though deployed in separate packages, the specs for this pair of modules look virtually identical.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>txn/mathops/MathOps64P.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IMathOps;
+&nbsp;
+<span class="xdoc">/*! TMS32064+ IMathOps module */</span>
+<span class="kw1">module</span> MathOps64P <span class="kw1">inherits</span> IMathOps <span class="br0">&#123;</span><span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>stdsorg/math/MathOpsStd.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IMathOps;
+&nbsp;
+<span class="xdoc">/*! Portable IMathOps module */</span>
+<span class="kw1">module</span> MathOpsStd <span class="kw1">inherits</span> IMathOps <span class="br0">&#123;</span><span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<div class="Info"><p class="Info">Although <tt>IMathOps</tt> and <tt>MathOpsStd</tt> already reside in the same package scope, we've still explicitly named <tt>stdsorg.math.IMathOps</tt> through an <span class="kw1"><tt>import</tt></span> statement in <tt>MathOpsStd.xdc</tt>.  This discipline tracks a similar pattern seen with <span class="re1"><tt>#include</tt></span> directives in the target-domain and with <span class="re1"><tt>xdc.useModule</tt></span> directives in the meta-domain&#151;that is, fully-qualified references to spec'd units near the top of the file followed by subsequent use of the unit's short name.</p></div>
+<p>Turning first to <tt>MathOps64P</tt>, its target-implementation simply leverages the same TMS32064+ intrinsics used directly at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> within <tt>FirB.c</tt>.  Just like the earlier <tt>Clock64P</tt> module from <a href="RTSC_Interface_Primer__Lesson_12.html#cl-3:3" title="RTSC Interface Primer/Lesson 12">Lesson 12</a>, we've consciously fielded a non-portable implementation dependent upon a specific compiler and processor.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>txn/mathops/MathOps64P.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="st0">&quot;package/internal/MathOps64P.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;c6x.h&gt;        <span class="coMULTI">/* declares TMS32064+ intrinsics */</span>
+&nbsp;
+Int32 MathOps64P_mpy<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> _mpy<span class="br0">&#40;</span>x, y<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+Int32 MathOps64P_mpyh<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> _mpyh<span class="br0">&#40;</span>x, y<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+Int32 MathOps64P_mpyhl<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> _mpyhl<span class="br0">&#40;</span>x, y<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+Int32 MathOps64P_mpylh<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> _mpylh<span class="br0">&#40;</span>x, y<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>By contrast, the <tt>MathOpsStd</tt> module effectively serves as a portable <i>reference</i> implementation of the <tt>IMathOps</tt> interface and&#151;rather appropriately&#151;resides in the same package containing the latter's spec.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>stdsorg/math/MathOpsStd.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="st0">&quot;package/internal/MathOpsStd.xdc.h&quot;</span>
+&nbsp;
+Int32 MathOpsStd_mpy<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>x<span class="br0">&#41;</span> * <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>y<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+Int32 MathOpsStd_mpyh<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#40;</span>0xFFFF0000 &amp; x<span class="br0">&#41;</span> &gt;&gt; <span class="nu0">16</span><span class="br0">&#41;</span> * <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#40;</span>0xFFFF0000 &amp; y<span class="br0">&#41;</span> &gt;&gt; <span class="nu0">16</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+Int32 MathOpsStd_mpyhl<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#40;</span>0xFFFF0000 &amp; x<span class="br0">&#41;</span> &gt;&gt; <span class="nu0">16</span><span class="br0">&#41;</span> * <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>y<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+Int32 MathOpsStd_mpylh<span class="br0">&#40;</span>Int32 x, Int32 y<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span>x<span class="br0">&#41;</span> * <span class="br0">&#40;</span><span class="kw2">Int16</span><span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#40;</span>0xFFFF0000 &amp; y<span class="br0">&#41;</span> &gt;&gt; <span class="nu0">16</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>As we've already seen in some earlier examples, both the <tt>MathOps64P</tt> and <tt>MathOpsStd</tt> modules have empty implementations within the meta-domain.
+</p>
+<div class="Info"><p class="Info">Besides other processor-specific implementations of the <tt>IMathOps</tt> interface suitable for packages like <tt>txn.mathops</tt>, you could likewise imagine other <i>portable</i> implementations contained in <tt>stdsorg.mathops</tt> or elsewhere.  One such implementation&#151;used perhaps during initial program testing&#151;might track the range of values actually passed to these functions at runtime; another might raise runtime errors if values fall outside a prescribed range.  In general, we can design these sorts of (portable) modules to stack atop <i>existing</i> <tt>IMathOps</tt> implementations (portable or otherwise) through introduction of their own <tt>IMathOps</tt> proxy similarly bound to a downstream delegate.</p></div> 
+<p><span class="Leader"><tt>FirC</tt> meta-implementation</span>.&nbsp; To complete the picture, the <tt>module$use</tt> function defined inside <tt>FirC.xs</tt> binds a suitable <tt>IMathOps</tt> delegate implementation to the <tt>FirC.PMathOps</tt> proxy if some client hasn't already done so.
+</p>
+<div id="cl-3:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/FirC.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">    ...
+<span class="kw1">function</span> module$use<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    Error = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.Error'</span><span class="br0">&#41;</span>;
+    Memory = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.Memory'</span><span class="br0">&#41;</span>;
+    Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.cfg.Program'</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">var</span> FirC = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.filters2.FirC'</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>FirC.PMathOps == <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>Program.build.target.isa == <span class="st0">&quot;64P&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            FirC.PMathOps = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'txn.mathops.MathOps64P'</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+        <span class="kw1">else</span> <span class="br0">&#123;</span>
+            FirC.PMathOps = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'stdsorg.math.MathOpsStd'</span><span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+    ...</pre></td></tr></table>
+<div class="Info"><p class="Info">Through disciplined choice of canonical names for target-specific implementations of <tt>IMathOps</tt> interface, we could then generalize the <span class="kw1"><tt>if</tt></span> statement at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> into a closed expression that <i>computes</i> the module's fully-qualified name as a function of the RTSC target used to build the current program.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListSpacer1">&nbsp;
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 13&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_12.html" title="Lesson 12"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_14.html" title="Lesson 14"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 6389 bytes
+Post-expand include size: 2103 bytes
+Template argument size: 382 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Interface_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.205 secs. --></body></html>

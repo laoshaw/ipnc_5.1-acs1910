@@ -1,0 +1,16 @@
+ti/sdo/codecs/iprun/ce/IPRUN.xdc
+ti/sdo/codecs/iprun/ce/IPRUN.xs
+ti/sdo/codecs/iprun/ce/package/.vers_b102
+ti/sdo/codecs/iprun/ce/package/.vers_g104
+ti/sdo/codecs/iprun/ce/package/.vers_r108
+ti/sdo/codecs/iprun/ce/package/build.cfg
+ti/sdo/codecs/iprun/ce/package/package.bld.xml
+ti/sdo/codecs/iprun/ce/package/package.defs.h
+ti/sdo/codecs/iprun/ce/package/package.doc.xml
+ti/sdo/codecs/iprun/ce/package/package.ext.xml
+ti/sdo/codecs/iprun/ce/package/package.rel.dot
+ti/sdo/codecs/iprun/ce/package/package_ti.sdo.codecs.iprun.ce.c
+ti/sdo/codecs/iprun/ce/package/ti.sdo.codecs.iprun.ce.ccs
+ti/sdo/codecs/iprun/ce/package/ti.sdo.codecs.iprun.ce.sch
+ti/sdo/codecs/iprun/ce/package.bld
+ti/sdo/codecs/iprun/ce/package.xdc

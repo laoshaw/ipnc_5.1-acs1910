@@ -1,0 +1,130 @@
+<html><head><title>module ti.catalog.c5400.TMS320C5416</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS320C5416.xdc ========
+</span>    15    <span class="comment"> */</span>
+    16    <span class=key>package</span> ti.catalog.c5400;
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== TMS320C5416 ========
+</span>    20    <span class="xdoc"> *  The C5416 device data sheet module.
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is used
+</span>    23    <span class="xdoc"> *  by platforms to obtain "data sheet" information about this device.
+</span>    24    <span class="xdoc"> */</span>
+    25    <span class=key>metaonly</span> <span class=key>module</span> TMS320C5416 <span class=key>inherits</span> ITMS320C54xx
+    26    {
+    27        <span class=key>config</span> xdc.platform.IPlatform.Memory memBlock[string]  = [
+    28            [<span class="string">"P_DARAM03"</span>, {
+    29                comment: <span class="string">"On-Chip Program DARAM 0-3"</span>,
+    30                name: <span class="string">"P_DARAM03"</span>,
+    31                base: 0x80, 
+    32                len:  0x7f80,
+    33                page: 0,
+    34                space: <span class="string">"code"</span>
+    35            }],
+    36        
+    37            [<span class="string">"P_ROM"</span>, {
+    38                comment: <span class="string">"On-Chip ROM"</span>,
+    39                name: <span class="string">"P_ROM"</span>,
+    40                base: 0xc000,
+    41                len:  0x3f00,
+    42                page: 0,
+    43                space: <span class="string">"code"</span>
+    44            }],
+    45        
+    46            [<span class="string">"VECT"</span>, {
+    47                comment: <span class="string">"On-Chip Interrupts"</span>,
+    48                name: <span class="string">"VECT"</span>,
+    49                base: 0xff80,
+    50                len:  0x80,
+    51                page: 0,
+    52                space: <span class="string">"code"</span>
+    53            }],
+    54        
+    55            [<span class="string">"P_DARAM47"</span>, {
+    56                comment: <span class="string">"On-Chip Program DARAM 4-7"</span>,
+    57                name: <span class="string">"P_DARAM47"</span>,
+    58                base: 0x18000,
+    59                len:  0x8000,
+    60                page: 1,
+    61                space: <span class="string">"code"</span>
+    62            }],
+    63        
+    64            [<span class="string">"P_SARAM03"</span>, {
+    65                comment: <span class="string">"On-Chip Program SARAM 0-3"</span>,
+    66                name: <span class="string">"P_SARAM03"</span>,
+    67                base: 0x28000,
+    68                len:  0x8000,
+    69                page: 2,
+    70                space:  <span class="string">"code"</span>
+    71            }],
+    72        
+    73            [<span class="string">"P_SARAM47"</span>, {
+    74                comment: <span class="string">"On-Chip Program SARAM 4-7"</span>,
+    75                name: <span class="string">"P_SARAM47"</span>,
+    76                base: 0x38000,
+    77                len:  0x8000,
+    78                page: 3,
+    79                space:  <span class="string">"code"</span>
+    80            }],
+    81        
+    82            [<span class="string">"D_SPRAM"</span>, {
+    83                comment: <span class="string">"On-Chip Scratch-Pad RAM"</span>,
+    84                name: <span class="string">"D_SPRAM"</span>,
+    85                base: 0x60,
+    86                len:  0x20, 
+    87                page: 1,
+    88                space: <span class="string">"data"</span>
+    89            }],
+    90        
+    91            [<span class="string">"D_DARAM03"</span>, {
+    92                comment: <span class="string">"On-Chip Data DARAM 0-3"</span>,
+    93                name: <span class="string">"D_DARAM03"</span>,
+    94                base: 0x80,
+    95                len:  0x7f80,
+    96                page: 1,
+    97                space: <span class="string">"data"</span>
+    98            }],
+    99        
+   100            [<span class="string">"D_DARAM47"</span>, {
+   101                comment: <span class="string">"On-Chip Data DARAM 4-7"</span>,
+   102                name: <span class="string">"D_DARAM47"</span>,
+   103                base: 0x8000,
+   104                len:  0x8000,
+   105                page: 1,
+   106                space: <span class="string">"data"</span>
+   107            }],
+   108        ];
+   109    
+   110    <span class=key>instance</span>:
+   111        <span class=key>override</span> <span class=key>config</span> string cpuCoreRevision = <span class="string">"1.0"</span>;
+   112    
+   113        <span class="xdoc">/*!
+</span>   114    <span class="xdoc">     *  ======== memMap ========
+</span>   115    <span class="xdoc">     *  The default memory map for this device
+</span>   116    <span class="xdoc">     */</span>
+   117        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string];
+   118    }
+   119    <span class="comment">/*
+</span>   120    <span class="comment"> *  @(#) ti.catalog.c5400; 1, 0, 0, 0,226; 2-23-2010 16:53:06; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   121    <span class="comment"> */</span>
+   122    
+</pre>
+</body></html>

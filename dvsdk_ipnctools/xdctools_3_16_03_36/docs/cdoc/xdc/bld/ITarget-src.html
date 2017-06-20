@@ -1,0 +1,1139 @@
+<html><head><title>interface xdc.bld.ITarget</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== ITarget.xdc ========
+</span>    14    <span class="comment"> *
+</span>    15    <span class="comment"> *! Revision History
+</span>    16    <span class="comment"> *! ================
+</span>    17    <span class="comment"> *! 14-Nov-2008 sasha   added typed signatures for functions
+</span>    18    <span class="comment"> *! 04-Oct-2006 toddm   Removed parameter dataSection
+</span>    19    <span class="comment"> *! 26-Sep-2006 sasha   Added parameter dataSection
+</span>    20    <span class="comment"> *! 27-Jul-2005 sasha   Moved the section map from platforms to targets
+</span>    21    <span class="comment"> *! 24-May-2006 jonr    Changed Arg to IArg
+</span>    22    <span class="comment"> */</span>
+    23    <span class=key>package</span> xdc.bld;
+    24    
+    25    <span class="xdoc">/*!
+</span>    26    <span class="xdoc"> *  ======== ITarget ========
+</span>    27    <span class="xdoc"> *  The interface between code generation tool-chains and the XDC Build
+</span>    28    <span class="xdoc"> *  Engine.
+</span>    29    <span class="xdoc"> *
+</span>    30    <span class="xdoc"> *  This interface defines an abstract interface that must be supported by
+</span>    31    <span class="xdoc"> *  a compiler tool-chain in order to be used in an XDC build environment.
+</span>    32    <span class="xdoc"> *  This interface allows the XDC Build engine to treat all compiler tool
+</span>    33    <span class="xdoc"> *  chains uniformly; thus, it is possible to add support for a new compiler
+</span>    34    <span class="xdoc"> *  without making *any* changes to the build engine.
+</span>    35    <span class="xdoc"> */</span>
+    36    <span class=key>metaonly</span> <span class=key>interface</span> ITarget {
+    37    
+    38        <span class="xdoc">/*!
+</span>    39    <span class="xdoc">     *  ======== Model ========
+</span>    40    <span class="xdoc">     *  Target runtime model.
+</span>    41    <span class="xdoc">     *
+</span>    42    <span class="xdoc">     *  <b>@field</b>(`endian`)    this string specifies the endianess of the
+</span>    43    <span class="xdoc">     *                      generated code.  Valid values include:
+</span>    44    <span class="xdoc">     *                      <b>@p(dlist)</b>
+</span>    45    <span class="xdoc">     *                          - `"big"`
+</span>    46    <span class="xdoc">     *                              big endian
+</span>    47    <span class="xdoc">     *                          - `"little"`
+</span>    48    <span class="xdoc">     *                              little endian
+</span>    49    <span class="xdoc">     *                          - `null`
+</span>    50    <span class="xdoc">     *                              unspecified
+</span>    51    <span class="xdoc">     *                      <b>@p</b>
+</span>    52    <span class="xdoc">     *
+</span>    53    <span class="xdoc">     *  <b>@field</b>(`codeModel`) this string specifies a target-specific code size
+</span>    54    <span class="xdoc">     *                      model.  Valid values include:
+</span>    55    <span class="xdoc">     *                      <b>@p(dlist)</b>
+</span>    56    <span class="xdoc">     *                          - `"near"`
+</span>    57    <span class="xdoc">     *                              C54 near mode
+</span>    58    <span class="xdoc">     *                          - `"far"`
+</span>    59    <span class="xdoc">     *                              C54 far mode
+</span>    60    <span class="xdoc">     *                          - `undefined`
+</span>    61    <span class="xdoc">     *                              unspecified
+</span>    62    <span class="xdoc">     *                      <b>@p</b>
+</span>    63    <span class="xdoc">     *
+</span>    64    <span class="xdoc">     *  <b>@field</b>(`dataModel`) this string specifies a target-specific data size
+</span>    65    <span class="xdoc">     *                      model.  Valid values include:
+</span>    66    <span class="xdoc">     *                      <b>@p(dlist)</b>
+</span>    67    <span class="xdoc">     *                          - `"large"`
+</span>    68    <span class="xdoc">     *                              C55, C28 large model
+</span>    69    <span class="xdoc">     *                          - `undefined`
+</span>    70    <span class="xdoc">     *                              unspecified
+</span>    71    <span class="xdoc">     *                      <b>@p</b>
+</span>    72    <span class="xdoc">     *
+</span>    73    <span class="xdoc">     *  <b>@field</b>(`shortEnums`) this flag specifies if a target fits the values
+</span>    74    <span class="xdoc">     *                      of an enumeration into the smallest integer type
+</span>    75    <span class="xdoc">     *                      that can accept all values. If that is the case,
+</span>    76    <span class="xdoc">     *                      this flag must be set to `true`. If all values are
+</span>    77    <span class="xdoc">     *                      the size of an Int, this flag can be either set
+</span>    78    <span class="xdoc">     *                      to `false` or left unspecified.
+</span>    79    <span class="xdoc">     * <b>@see</b> #model
+</span>    80    <span class="xdoc">     */</span>
+    81        <span class=key>struct</span> Model {
+    82            String endian;      <span class="xdoc">/*! endian-ness of this target */</span>
+    83            String codeModel;   <span class="xdoc">/*! target-specific code model */</span>
+    84            String dataModel;   <span class="xdoc">/*! target-specific data model */</span>
+    85            Bool   shortEnums;  <span class="xdoc">/*! if true, enums are packed into smallest integral type */</span>
+    86        }
+    87    
+    88        <span class="xdoc">/*!
+</span>    89    <span class="xdoc">     *  ======== name ========
+</span>    90    <span class="xdoc">     *  Nickname for this target.
+</span>    91    <span class="xdoc">     *
+</span>    92    <span class="xdoc">     *  This name is typically the name of the module without the package
+</span>    93    <span class="xdoc">     *  name prefix.  Thus, it is not necessarily globally unique.
+</span>    94    <span class="xdoc">     *
+</span>    95    <span class="xdoc">     *  Use the `$name` property of the module to get a globally unique name
+</span>    96    <span class="xdoc">     *  for the target.
+</span>    97    <span class="xdoc">     */</span>
+    98        <span class=key>readonly</span> <span class=key>config</span> String name;
+    99    
+   100        <span class="xdoc">/*!
+</span>   101    <span class="xdoc">     *  ======== suffix ========
+</span>   102    <span class="xdoc">     *  Suffix appended to all objs, libraries, and executable.
+</span>   103    <span class="xdoc">     *
+</span>   104    <span class="xdoc">     *  All files generated by this target (object files, archives,
+</span>   105    <span class="xdoc">     *  executables, etc.) have file names whose extensions end with
+</span>   106    <span class="xdoc">     *  suffix.  In particular, targets create files with the following
+</span>   107    <span class="xdoc">     *  extensions:
+</span>   108    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   109    <span class="xdoc">     *      - `".a&lt;suffix&gt;"`
+</span>   110    <span class="xdoc">     *              archive files (i.e., libraries)
+</span>   111    <span class="xdoc">     *      - `".o&lt;suffix&gt;"`
+</span>   112    <span class="xdoc">     *              object files
+</span>   113    <span class="xdoc">     *      - `".s&lt;suffix&gt;"`
+</span>   114    <span class="xdoc">     *              assembly language source (see `{<b>@link</b> #scompile()}`)
+</span>   115    <span class="xdoc">     *      - `".x&lt;suffix&gt;"`
+</span>   116    <span class="xdoc">     *              executable files
+</span>   117    <span class="xdoc">     *
+</span>   118    <span class="xdoc">     *  This suffix should be chosen to globally and uniquely identify the
+</span>   119    <span class="xdoc">     *  EABI (Embedded Application Binary Interface) of the objects produced
+</span>   120    <span class="xdoc">     *  by this target.  Targets with the same suffix should
+</span>   121    <span class="xdoc">     *  should produce 100% EABI compatible objects and, targets with different
+</span>   122    <span class="xdoc">     *  suffixes should produce objects with incompatible EABIs.
+</span>   123    <span class="xdoc">     *
+</span>   124    <span class="xdoc">     *  <b>@see</b> #scompile()
+</span>   125    <span class="xdoc">     */</span>
+   126        <span class=key>readonly</span> <span class=key>config</span> String suffix;
+   127    
+   128        <span class="xdoc">/*!
+</span>   129    <span class="xdoc">     *  ======== compatibleSuffixes ========
+</span>   130    <span class="xdoc">     *  Array of suffixes used by targets compatible with this target
+</span>   131    <span class="xdoc">     *
+</span>   132    <span class="xdoc">     *  This array is used to identify a set of targets that produce
+</span>   133    <span class="xdoc">     *  code that can be linked with code produced by this target, where the
+</span>   134    <span class="xdoc">     *  order of suffixes defines the order of preferrence. This
+</span>   135    <span class="xdoc">     *  parameter is used by `findSuffixes()`.
+</span>   136    <span class="xdoc">     *
+</span>   137    <span class="xdoc">     *  For example, an Arm target which builds for v6 architecture might have
+</span>   138    <span class="xdoc">     *  the following values in its `compatibleSuffix`: ["v5T", "MV470"].
+</span>   139    <span class="xdoc">     *  This means that code produced by targets with suffixes "v5T' and
+</span>   140    <span class="xdoc">     *  "MV470" can be linked with code produced by that target, and that "v5T"
+</span>   141    <span class="xdoc">     *  code is more preferred than "MV470" code.
+</span>   142    <span class="xdoc">     */</span>
+   143        <span class=key>config</span> String compatibleSuffixes[];
+   144    
+   145        <span class="xdoc">/*!
+</span>   146    <span class="xdoc">     *  ======== isa ========
+</span>   147    <span class="xdoc">     *  CPU Instruction Set Architecture (ISA)
+</span>   148    <span class="xdoc">     *
+</span>   149    <span class="xdoc">     *  This parameter is used to identify a set of targets that produce
+</span>   150    <span class="xdoc">     *  code for a common ISA.  This is used by build scripts that need to
+</span>   151    <span class="xdoc">     *  build for all targets that support a particular device.
+</span>   152    <span class="xdoc">     *
+</span>   153    <span class="xdoc">     *  For example, the build script for a package that is designed for
+</span>   154    <span class="xdoc">     *  the TMS32064xx (and no other CPU) can easily specify that it
+</span>   155    <span class="xdoc">     *  should be built for all targets that generate code for the
+</span>   156    <span class="xdoc">     *  TMS320C64xx without having to specify a specific target.  This
+</span>   157    <span class="xdoc">     *  allows the user to add new targets (big endian, little endian,
+</span>   158    <span class="xdoc">     *  different compilers, etc.) that build for the TMS320C64xx without
+</span>   159    <span class="xdoc">     *  having to modify the package's build script.
+</span>   160    <span class="xdoc">     *
+</span>   161    <span class="xdoc">     *  Note that this field should not be confused with platform ISA
+</span>   162    <span class="xdoc">     *  names; this field is defined by target tool-chains and may differ
+</span>   163    <span class="xdoc">     *  from the names given by a CPU device.
+</span>   164    <span class="xdoc">     *
+</span>   165    <span class="xdoc">     *  <b>@see</b> xdc.platform.ICpuDataSheet
+</span>   166    <span class="xdoc">     */</span>
+   167        <span class=key>readonly</span> <span class=key>config</span> String isa;
+   168    
+   169        <span class="xdoc">/*!
+</span>   170    <span class="xdoc">     *  ======== model ========
+</span>   171    <span class="xdoc">     *  Run-time model
+</span>   172    <span class="xdoc">     *
+</span>   173    <span class="xdoc">     *  This structure identifies a particular run-time model
+</span>   174    <span class="xdoc">     *  used by the compiler to generate instructions.
+</span>   175    <span class="xdoc">     */</span>
+   176        <span class=key>readonly</span> <span class=key>config</span> Model model;
+   177    
+   178        <span class="xdoc">/*!
+</span>   179    <span class="xdoc">     *  ======== os ========
+</span>   180    <span class="xdoc">     *  Name of OS required to run programs built for this target.
+</span>   181    <span class="xdoc">     *
+</span>   182    <span class="xdoc">     *  Native executables are run by the host OS.  This OS often
+</span>   183    <span class="xdoc">     *  defines runtime interfaces that all executables (implicitly or
+</span>   184    <span class="xdoc">     *  explicitly) use.
+</span>   185    <span class="xdoc">     *
+</span>   186    <span class="xdoc">     *  If os is undefined, then no OS is required.
+</span>   187    <span class="xdoc">     */</span>
+   188        <span class=key>readonly</span> <span class=key>config</span> String os;
+   189    
+   190        <span class="xdoc">/*!
+</span>   191    <span class="xdoc">     *  ======== rts ========
+</span>   192    <span class="xdoc">     *  Name of a run-time support package to include
+</span>   193    <span class="xdoc">     *
+</span>   194    <span class="xdoc">     *  Development environments often provide a set of common run-time
+</span>   195    <span class="xdoc">     *  support functions that all other code can easily utilize; e.g.,
+</span>   196    <span class="xdoc">     *  some means for performing a "printf", normal program termination
+</span>   197    <span class="xdoc">     *  with "exit status", etc.  If the `rts` parameter is non-`null`, it is
+</span>   198    <span class="xdoc">     *  the name of a package that is implicitly imported when building
+</span>   199    <span class="xdoc">     *  any executable that is built using this target.  If `rts` is
+</span>   200    <span class="xdoc">     *  undefined, no rts package is imported.
+</span>   201    <span class="xdoc">     *
+</span>   202    <span class="xdoc">     *  This parameter makes it possible for the target producer to name
+</span>   203    <span class="xdoc">     *  a package that provides a target-specific implementation of a runtime
+</span>   204    <span class="xdoc">     *  support interface.  Clients of a target do not need to explicitly
+</span>   205    <span class="xdoc">     *  name a target specific rts implementation; thus, it is not
+</span>   206    <span class="xdoc">     *  possible for the client to inadvertently name the wrong (or an
+</span>   207    <span class="xdoc">     *  incompatible) rts implementation.
+</span>   208    <span class="xdoc">     *
+</span>   209    <span class="xdoc">     *  Note: this package is *NOT* included if the executable's
+</span>   210    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.Executable#attrs}.rtsName` attribute is set to `null`;
+</span>   211    <span class="xdoc">     *  see {<b>@link</b> xdc.bld.Executable#Attrs}.  It is also not included if the
+</span>   212    <span class="xdoc">     *  executable is a legacy DSP/BIOS program.
+</span>   213    <span class="xdoc">     */</span>
+   214        <span class=key>readonly</span> <span class=key>config</span> String rts;
+   215    
+   216        <span class="xdoc">/*!
+</span>   217    <span class="xdoc">     *  ======== base ========
+</span>   218    <span class="xdoc">     *  A target that this target is based upon.
+</span>   219    <span class="xdoc">     *
+</span>   220    <span class="xdoc">     *  If non-`null`, this target shares the same tool-chain of the specified
+</span>   221    <span class="xdoc">     *  base target.  This parameter is used to determine various default
+</span>   222    <span class="xdoc">     *  values for target configuration parameters.  For example, the default
+</span>   223    <span class="xdoc">     *  setting of `{<b>@link</b> #rootDir}` is the value of the base's
+</span>   224    <span class="xdoc">     *  `{<b>@link</b> #rootDir}` setting.
+</span>   225    <span class="xdoc">     */</span>
+   226        <span class=key>readonly</span> <span class=key>config</span> ITarget.Module base;
+   227        
+   228        <span class="xdoc">/*!
+</span>   229    <span class="xdoc">     *  ======== dllExt ========
+</span>   230    <span class="xdoc">     *  <b>@_nodoc</b> dlls are not yet fully supported
+</span>   231    <span class="xdoc">     */</span>
+   232        <span class=key>config</span> String dllExt;
+   233    
+   234        <span class="xdoc">/*!
+</span>   235    <span class="xdoc">     *  ======== execExt ========
+</span>   236    <span class="xdoc">     *  Extension for executables.
+</span>   237    <span class="xdoc">     *
+</span>   238    <span class="xdoc">     *  Operating systems and tools often have a strong preference for a
+</span>   239    <span class="xdoc">     *  specific extension for executables; e.g., Windows expects executables
+</span>   240    <span class="xdoc">     *  to have the extension "`.exe`".  If this parameter is set, executables
+</span>   241    <span class="xdoc">     *  will be given the specified extension instead of the default
+</span>   242    <span class="xdoc">     *  "`.x&lt;suffix&gt;`", where `&lt;suffix&gt;` is the target's suffix parameter.
+</span>   243    <span class="xdoc">     *
+</span>   244    <span class="xdoc">     *  The `execExt` is an expression that is expanded prior to use.
+</span>   245    <span class="xdoc">     *  Expressions of the form "`$(name)`" within the
+</span>   246    <span class="xdoc">     *  pattern string are expanded if "`name`" is one of the built-in
+</span>   247    <span class="xdoc">     *  variables listed below.
+</span>   248    <span class="xdoc">     *
+</span>   249    <span class="xdoc">     *  Built-in variables for `execExt`:
+</span>   250    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   251    <span class="xdoc">     *      - `trgName`
+</span>   252    <span class="xdoc">     *              the target's `name` property
+</span>   253    <span class="xdoc">     *      - `trgSuffix`
+</span>   254    <span class="xdoc">     *              the target's `suffix` property
+</span>   255    <span class="xdoc">     *      - `platPName`
+</span>   256    <span class="xdoc">     *              the executable's platform package name
+</span>   257    <span class="xdoc">     *      - `platIName`
+</span>   258    <span class="xdoc">     *              the executable's platform instance name
+</span>   259    <span class="xdoc">     *  <b>@p</b>
+</span>   260    <span class="xdoc">     *
+</span>   261    <span class="xdoc">     *  <b>@a(Example)</b> If you want to build a portable executable for multiple
+</span>   262    <span class="xdoc">     *  targets side-by-side and you want (or need) to use a fixed extension
+</span>   263    <span class="xdoc">     *  such as ".out" for all executables, setting `execExt` to
+</span>   264    <span class="xdoc">     *  `"_$(trgSuffix).out"` for all targets ensures that all generated
+</span>   265    <span class="xdoc">     *  executables will have unique names and yet share a common extension
+</span>   266    <span class="xdoc">     *  of `".out"`.
+</span>   267    <span class="xdoc">     */</span>
+   268        <span class=key>config</span> String execExt;
+   269    
+   270        <span class="xdoc">/*!
+</span>   271    <span class="xdoc">     *  ======== platform ========
+</span>   272    <span class="xdoc">     *  The default platform name for this target
+</span>   273    <span class="xdoc">     *
+</span>   274    <span class="xdoc">     *  Build scripts often build for just one platform per target.  This
+</span>   275    <span class="xdoc">     *  parameter allows one to establish a default platform for each 
+</span>   276    <span class="xdoc">     *  target in a build.
+</span>   277    <span class="xdoc">     *
+</span>   278    <span class="xdoc">     *  If this parameter is `null` or `undefined` and `{<b>@link</b> #platforms}`
+</span>   279    <span class="xdoc">     *  array is non-empty, it is initialized to be the first element of the
+</span>   280    <span class="xdoc">     *  platforms array (i.e., `{<b>@link</b> #platforms[0]}`).
+</span>   281    <span class="xdoc">     */</span>
+   282        <span class=key>config</span> String platform;
+   283    
+   284        <span class="xdoc">/*!
+</span>   285    <span class="xdoc">     *  ======== platforms ========
+</span>   286    <span class="xdoc">     *  A set of platforms that can support this target
+</span>   287    <span class="xdoc">     *
+</span>   288    <span class="xdoc">     *  Some build scripts build executables for "all" platforms; e.g.,
+</span>   289    <span class="xdoc">     *  regression test suites.  This  parameter allows one to establish
+</span>   290    <span class="xdoc">     *  a set of platforms that build scripts can legitimately use to
+</span>   291    <span class="xdoc">     *  create executables, for example.
+</span>   292    <span class="xdoc">     *
+</span>   293    <span class="xdoc">     *  If this array is empty (i.e., has length 0) and `{<b>@link</b> #platform}`
+</span>   294    <span class="xdoc">     *  is non-`null`, platforms is initialized to an array of one element
+</span>   295    <span class="xdoc">     *  equal to `{<b>@link</b> #platform}`.
+</span>   296    <span class="xdoc">     */</span>
+   297        <span class=key>config</span> String platforms[] = [];
+   298    
+   299        <span class="xdoc">/*!
+</span>   300    <span class="xdoc">     *  ======== binaryParser ========
+</span>   301    <span class="xdoc">     *  The name of a object file parser
+</span>   302    <span class="xdoc">     *
+</span>   303    <span class="xdoc">     *  The value of this configuration parameter is the name of a
+</span>   304    <span class="xdoc">     *  module or Java class that implements the ?? interface.  This
+</span>   305    <span class="xdoc">     *  interface is used to extract information from the object files
+</span>   306    <span class="xdoc">     *  produced by this target.
+</span>   307    <span class="xdoc">     *
+</span>   308    <span class="xdoc">     *  <b>@_nodoc</b> object file readers are not yet fully supported
+</span>   309    <span class="xdoc">     */</span>
+   310        <span class=key>config</span> String binaryParser;
+   311        
+   312        <span class="xdoc">/*!
+</span>   313    <span class="xdoc">     *  ======== version ========
+</span>   314    <span class="xdoc">     *  The Compatibility Key associated with this target.
+</span>   315    <span class="xdoc">     *
+</span>   316    <span class="xdoc">     *  <b>@a(Readonly)</b> This value is automatically computed by the XDC Build
+</span>   317    <span class="xdoc">     *  Engine by executing the `{<b>@link</b> #getVersion()}` function after 
+</span>   318    <span class="xdoc">     *  `package.bld` completes but prior to generating `package.mak`.
+</span>   319    <span class="xdoc">     */</span>
+   320        <span class=key>config</span> String version;
+   321    
+   322        <span class="xdoc">/*!
+</span>   323    <span class="xdoc">     *  ======== versionRaw ========
+</span>   324    <span class="xdoc">     *  The unmodified version string associated with this target.
+</span>   325    <span class="xdoc">     *
+</span>   326    <span class="xdoc">     *  <b>@a(Readonly)</b> This value is automatically computed by the XDC Build
+</span>   327    <span class="xdoc">     *  Engine by executing the `{<b>@link</b> #getVersion()}` function after 
+</span>   328    <span class="xdoc">     *  `package.bld` completes but prior to generating `package.mak`.
+</span>   329    <span class="xdoc">     *
+</span>   330    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   331    <span class="xdoc">     */</span>
+   332        <span class=key>config</span> String versionRaw;
+   333    
+   334        <span class="xdoc">/*!
+</span>   335    <span class="xdoc">     *  ======== DebugGen ========
+</span>   336    <span class="xdoc">     *  Debugger integration support.
+</span>   337    <span class="xdoc">     *
+</span>   338    <span class="xdoc">     *  This structure specifies additional files that are generated
+</span>   339    <span class="xdoc">     *  in order to support integration with a debugger.  For example, the
+</span>   340    <span class="xdoc">     *  default setting for TI targets specifies the generation of CCS
+</span>   341    <span class="xdoc">     *  project files that allow one to easily debug executables that have
+</span>   342    <span class="xdoc">     *  been constructed from multiple packages.
+</span>   343    <span class="xdoc">     *
+</span>   344    <span class="xdoc">     *  There are two "types" of debug support files that are generated;
+</span>   345    <span class="xdoc">     *  one for the package as a whole, and one for each executable.
+</span>   346    <span class="xdoc">     *  Since packages may contain portable sources that are built for more
+</span>   347    <span class="xdoc">     *  than one target, a "package-level" file is generated for each target
+</span>   348    <span class="xdoc">     *  used in the package.  A separate file is generated for each
+</span>   349    <span class="xdoc">     *  executable built within the package.
+</span>   350    <span class="xdoc">     *
+</span>   351    <span class="xdoc">     *  The `execTemplate` and `packageTemplate` fields name a template that
+</span>   352    <span class="xdoc">     *  is expanded in the context of the config model and the build
+</span>   353    <span class="xdoc">     *  model, respectively.  These fields should be set to a file name
+</span>   354    <span class="xdoc">     *  string which is relative to the package path; e.g., the string
+</span>   355    <span class="xdoc">     *  "`ti/targets/cc_exec.xdt`" refers to the file "`cc_exec.xdt`" in the
+</span>   356    <span class="xdoc">     *  `ti.targets` package located along the package path.
+</span>   357    <span class="xdoc">     *
+</span>   358    <span class="xdoc">     *  Preconditions for the `execTemplate`:
+</span>   359    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   360    <span class="xdoc">     *      - `this`
+</span>   361    <span class="xdoc">     *              the configured program object (`xdc.cfg.Program`);
+</span>   362    <span class="xdoc">     *              i.e., the program object *after* the program's
+</span>   363    <span class="xdoc">     *              configuration script completes.
+</span>   364    <span class="xdoc">     *      - `$args`
+</span>   365    <span class="xdoc">     *              array of arguments passed to the template
+</span>   366    <span class="xdoc">     *
+</span>   367    <span class="xdoc">     *      - `$args[1]`
+</span>   368    <span class="xdoc">     *              the name of the executable being produced for this
+</span>   369    <span class="xdoc">     *              configuration.
+</span>   370    <span class="xdoc">     *
+</span>   371    <span class="xdoc">     *      - `environment`
+</span>   372    <span class="xdoc">     *              hash table of XDC global parameters; e.g., `"xdc.path"`,
+</span>   373    <span class="xdoc">     *              `"xdc.root"`, ...
+</span>   374    <span class="xdoc">     *  <b>@p</b>
+</span>   375    <span class="xdoc">     *  Preconditions for the `packageTemplate`:
+</span>   376    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   377    <span class="xdoc">     *      - `this`
+</span>   378    <span class="xdoc">     *              the "package contents" object (i.e.,
+</span>   379    <span class="xdoc">     *              `xdc.bld.PackageContents`) *after* the package's
+</span>   380    <span class="xdoc">     *              build script (`package.bld`) completes.
+</span>   381    <span class="xdoc">     *      - `$args`
+</span>   382    <span class="xdoc">     *              array of arguments passed to the template
+</span>   383    <span class="xdoc">     *
+</span>   384    <span class="xdoc">     *      - `$args[0]`
+</span>   385    <span class="xdoc">     *              the target (a module implementing the
+</span>   386    <span class="xdoc">     *              `{<b>@link</b> xdc.bld.ITarget}` interface)
+</span>   387    <span class="xdoc">     *
+</span>   388    <span class="xdoc">     *      - `$args[1]`
+</span>   389    <span class="xdoc">     *              hash-table of all package sources
+</span>   390    <span class="xdoc">     *
+</span>   391    <span class="xdoc">     *      - `environment`
+</span>   392    <span class="xdoc">     *              hash table of XDC global parameters; e.g., `"xdc.path"`,
+</span>   393    <span class="xdoc">     *              `"xdc.root"`, ...
+</span>   394    <span class="xdoc">     *  <b>@p</b>
+</span>   395    <span class="xdoc">     *  The `execPattern` and `packagePattern` fields are expressions that
+</span>   396    <span class="xdoc">     *  are expanded prior to template expansion to determine the name of
+</span>   397    <span class="xdoc">     *  the output file.  Expressions of the form "`$(name)`" within the
+</span>   398    <span class="xdoc">     *  pattern string are expanded if "`name`" is one of the built-in
+</span>   399    <span class="xdoc">     *  variables listed below.
+</span>   400    <span class="xdoc">     *
+</span>   401    <span class="xdoc">     *  Built-in variables for `execPattern`:
+</span>   402    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   403    <span class="xdoc">     *      - `cfgName`
+</span>   404    <span class="xdoc">     *              the name of the generated configuration file (without
+</span>   405    <span class="xdoc">     *              any directory prefix);
+</span>   406    <span class="xdoc">     *      - `cfgDir`
+</span>   407    <span class="xdoc">     *              the name of the directory containing the config file;
+</span>   408    <span class="xdoc">     *      - `exeName`
+</span>   409    <span class="xdoc">     *              the name of the executable file (without any 
+</span>   410    <span class="xdoc">     *              directory prefix);
+</span>   411    <span class="xdoc">     *      - `exeDir`
+</span>   412    <span class="xdoc">     *              the directory containing the executable file.
+</span>   413    <span class="xdoc">     *  <b>@p</b>
+</span>   414    <span class="xdoc">     *  Both the `exeDir` and `cfgDir` are relative to the directory 
+</span>   415    <span class="xdoc">     *  containing the `package.bld` script.
+</span>   416    <span class="xdoc">     *
+</span>   417    <span class="xdoc">     *  Built-in variables for `packagePattern`:
+</span>   418    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   419    <span class="xdoc">     *      - `pkgName`
+</span>   420    <span class="xdoc">     *              the package's name (e.g., `"ti.targets"`);
+</span>   421    <span class="xdoc">     *      - `trgName`
+</span>   422    <span class="xdoc">     *              the target's `name` property;
+</span>   423    <span class="xdoc">     *      - `trgSuffix`
+</span>   424    <span class="xdoc">     *              the target's `suffix` property.
+</span>   425    <span class="xdoc">     *
+</span>   426    <span class="xdoc">     * <b>@see</b> #debugGen
+</span>   427    <span class="xdoc">     */</span>
+   428        <span class=key>struct</span> DebugGen {
+   429            String execTemplate;    <span class="xdoc">/*! debugger template for executable */</span>
+   430            String execPattern;     <span class="xdoc">/*! exec file name pattern */</span>
+   431            String packageTemplate; <span class="xdoc">/*! debugger template for package */</span>
+   432            String packagePattern;  <span class="xdoc">/*! package file name pattern */</span>
+   433        }
+   434        
+   435        <span class="xdoc">/*!
+</span>   436    <span class="xdoc">     *  ======== debugGen ========
+</span>   437    <span class="xdoc">     *  Debugger/IDE file generation support.
+</span>   438    <span class="xdoc">     *
+</span>   439    <span class="xdoc">     *  This parameter allows one to automatically generate files that
+</span>   440    <span class="xdoc">     *  can be used by an IDE to more easily debug (and possibly rebuild)
+</span>   441    <span class="xdoc">     *  specified goals.
+</span>   442    <span class="xdoc">     *
+</span>   443    <span class="xdoc">     *  To avoid unnecessary build time overhead, these files are not always
+</span>   444    <span class="xdoc">     *  generated; by default, they are only generated for "debug" profiles.
+</span>   445    <span class="xdoc">     *  The generation of these files is controlled by the
+</span>   446    <span class="xdoc">     *  `{<b>@link</b> xdc.cfg.Program#gen}` configuration parameter.  To force these
+</span>   447    <span class="xdoc">     *  files to be generated for a particular executable, add the following
+</span>   448    <span class="xdoc">     *  line to the executable's program configuration script:
+</span>   449    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   450    <span class="xdoc">     *      Program.gen.debuggerFiles = true;
+</span>   451    <span class="xdoc">     *  <b>@p</b>
+</span>   452    <span class="xdoc">     *
+</span>   453    <span class="xdoc">     *  It is also possible to disable the generation of selected files by
+</span>   454    <span class="xdoc">     *  setting the appropriate fields of `{<b>@link</b> #DebugGen}` to `null` in
+</span>   455    <span class="xdoc">     *  your `config.bld` script.
+</span>   456    <span class="xdoc">     */</span>
+   457        <span class=key>config</span> DebugGen debugGen;
+   458        
+   459        <span class="xdoc">/*!
+</span>   460    <span class="xdoc">     *  ======== Extension ========
+</span>   461    <span class="xdoc">     *  File extension to file type association.
+</span>   462    <span class="xdoc">     *
+</span>   463    <span class="xdoc">     *  This structure is used by the Build Engine to determine whether a 
+</span>   464    <span class="xdoc">     *  file should be treated as C++, C, or assembly language source.
+</span>   465    <span class="xdoc">     *
+</span>   466    <span class="xdoc">     *  <b>@field(suf)</b> the file extension including any '.' characters
+</span>   467    <span class="xdoc">     *
+</span>   468    <span class="xdoc">     *  <b>@field(typ)</b> the type of the file having this extension.
+</span>   469    <span class="xdoc">     *              Allowable file type identifiers include:
+</span>   470    <span class="xdoc">     *              <b>@p(dlist)</b>
+</span>   471    <span class="xdoc">     *                 - `"c"`
+</span>   472    <span class="xdoc">     *                      C language source file
+</span>   473    <span class="xdoc">     *                 - `"asm"`
+</span>   474    <span class="xdoc">     *                      assembly language source file
+</span>   475    <span class="xdoc">     *                 - `"cpp"`
+</span>   476    <span class="xdoc">     *                      C++ language source file
+</span>   477    <span class="xdoc">     *
+</span>   478    <span class="xdoc">     *  <b>@see</b> #extensions
+</span>   479    <span class="xdoc">     */</span>
+   480        <span class=key>struct</span> Extension {
+   481            String suf;     <span class="xdoc">/*! file extension (including any '.') */</span>
+   482            String typ;     <span class="xdoc">/*! type of this file; e.g., `"c"`, `"asm"`, ... */</span>
+   483        };
+   484        
+   485        <span class="xdoc">/*!
+</span>   486    <span class="xdoc">     *  ======== extensions ========
+</span>   487    <span class="xdoc">     *  File extensions recognized by this target.
+</span>   488    <span class="xdoc">     *
+</span>   489    <span class="xdoc">     *  This is a user modifiable table used to customize file extensions
+</span>   490    <span class="xdoc">     *  recognized by each target.
+</span>   491    <span class="xdoc">     *
+</span>   492    <span class="xdoc">     *  For example, to add a new assembly language extension, say "`.s64`",
+</span>   493    <span class="xdoc">     *  to the target `ti.targets.C64P`, add the following lines to the
+</span>   494    <span class="xdoc">     *  build model startup script:
+</span>   495    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   496    <span class="xdoc">     *      var C64P = xdc.module('ti.targets.C64P');
+</span>   497    <span class="xdoc">     *      C64P.extensions[".s64"] = {
+</span>   498    <span class="xdoc">     *          suf: ".s64", typ: "asm"
+</span>   499    <span class="xdoc">     *      };
+</span>   500    <span class="xdoc">     *
+</span>   501    <span class="xdoc">     *  Note that individual targets may add additional language types.
+</span>   502    <span class="xdoc">     *
+</span>   503    <span class="xdoc">     *  It is also possible to remove default extensions.  For example, to
+</span>   504    <span class="xdoc">     *  remove the "`.asm`" extension from the target `ti.targets.C64P`, add
+</span>   505    <span class="xdoc">     *  the following lines to the build model startup script:
+</span>   506    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   507    <span class="xdoc">     *      var C64P = xdc.module('ti.targets.C64P');
+</span>   508    <span class="xdoc">     *      delete C64P.extensions[".asm"];
+</span>   509    <span class="xdoc">     *  <b>@p</b>
+</span>   510    <span class="xdoc">     */</span>
+   511        <span class=key>config</span> Extension extensions[string] = [
+   512            [<span class="string">".asm"</span>, {suf: <span class="string">".asm"</span>, typ: <span class="string">"asm"</span>}],
+   513            [<span class="string">".c"</span>,   {suf: <span class="string">".c"</span>,   typ: <span class="string">"c"</span>  }],
+   514            [<span class="string">".cpp"</span>, {suf: <span class="string">".cpp"</span>, typ: <span class="string">"cpp"</span>}],
+   515            [<span class="string">".cxx"</span>, {suf: <span class="string">".cxx"</span>, typ: <span class="string">"cpp"</span>}],
+   516            [<span class="string">".C"</span>,   {suf: <span class="string">".C"</span>,   typ: <span class="string">"cpp"</span>}],
+   517            [<span class="string">".cc"</span>,  {suf: <span class="string">".cc"</span>,  typ: <span class="string">"cpp"</span>}],
+   518        ];
+   519    
+   520        <span class="xdoc">/*!
+</span>   521    <span class="xdoc">     *  ======== versionMap ========
+</span>   522    <span class="xdoc">     *  Map of compiler version numbers to compatibility keys.
+</span>   523    <span class="xdoc">     *
+</span>   524    <span class="xdoc">     *  `versionMap` is a user modifiable table used to map tool-chain 
+</span>   525    <span class="xdoc">     *  version numbers to Compatibility Keys.
+</span>   526    <span class="xdoc">     *
+</span>   527    <span class="xdoc">     *  Each target defines the format of the tool-chain version obtained
+</span>   528    <span class="xdoc">     *  from the tool-chain.  The user can then map new tool-chain version
+</span>   529    <span class="xdoc">     *  strings to an appropriate compatibility key.  
+</span>   530    <span class="xdoc">     *
+</span>   531    <span class="xdoc">     *  Each target must respect the mapping defined by this table; i.e.,
+</span>   532    <span class="xdoc">     *  if the user supplies a compatibility key in this map, it must be
+</span>   533    <span class="xdoc">     *  returned when `{<b>@link</b> #getVersion()}` is called.
+</span>   534    <span class="xdoc">     *
+</span>   535    <span class="xdoc">     *  Thus, it is possible for the user to assert that any two compiler
+</span>   536    <span class="xdoc">     *  tool chains should be treated as equivalent (or incompatible) by
+</span>   537    <span class="xdoc">     *  mapping their version numbers to identical (incompatible)
+</span>   538    <span class="xdoc">     *  compatibility keys.
+</span>   539    <span class="xdoc">     *
+</span>   540    <span class="xdoc">     *  <b>@see</b> ti.targets.ITarget#versionMap
+</span>   541    <span class="xdoc">     */</span>
+   542        <span class=key>config</span> String versionMap[string] = [
+   543        ];
+   544    
+   545        <span class="xdoc">/*!
+</span>   546    <span class="xdoc">     *  ======== alignDirectiveSupported ========
+</span>   547    <span class="xdoc">     *  The compiler supports an align directive.
+</span>   548    <span class="xdoc">     */</span>
+   549        <span class=key>readonly</span> <span class=key>config</span> Bool alignDirectiveSupported = <span class=key>false</span>; 
+   550        
+   551        <span class="xdoc">/*!
+</span>   552    <span class="xdoc">     *  ======== rootDir ========
+</span>   553    <span class="xdoc">     *  Installation directory for this target's code generation tools.
+</span>   554    <span class="xdoc">     *
+</span>   555    <span class="xdoc">     *  Since each target potentially "wraps" a different compiler tool-chain
+</span>   556    <span class="xdoc">     *  and each tool-chain will, in general, assume a different physical
+</span>   557    <span class="xdoc">     *  design for the installation of the compiler and its associated
+</span>   558    <span class="xdoc">     *  libraries and headers, one must consult each specific target to know
+</span>   559    <span class="xdoc">     *  how to set this parameter.
+</span>   560    <span class="xdoc">     *
+</span>   561    <span class="xdoc">     *  If the `{<b>@link</b> #base}` parameter is `null`, this parameter *must* be
+</span>   562    <span class="xdoc">     *  set by the user; otherwise, `rootDir` defaults to the value
+</span>   563    <span class="xdoc">     *  `base.rootDir`.
+</span>   564    <span class="xdoc">     */</span>
+   565        <span class=key>config</span> String rootDir;
+   566    
+   567        <span class="xdoc">/*!
+</span>   568    <span class="xdoc">     *  ======== CompileOptions ========
+</span>   569    <span class="xdoc">     *  Options passed to the compiler/assembler.
+</span>   570    <span class="xdoc">     *
+</span>   571    <span class="xdoc">     *  <b>@field(aopts)</b>   a string of target-specific assembler options
+</span>   572    <span class="xdoc">     *  <b>@field(copts)</b>   a string of target-specific C/C++ compiler options
+</span>   573    <span class="xdoc">     *  <b>@field(cfgcopts)</b>   a string of C/C++ compiler options for C config file
+</span>   574    <span class="xdoc">     *  <b>@field(defs)</b>    a string of macro definitions each of the form
+</span>   575    <span class="xdoc">     *                  "`-Dname=value`" separated by white space
+</span>   576    <span class="xdoc">     *  <b>@field(incs)</b>    a string of include directories each of the form
+</span>   577    <span class="xdoc">     *                  "`-Idir`" separated by white space
+</span>   578    <span class="xdoc">     *
+</span>   579    <span class="xdoc">     *  <b>@a(Predefined Macros)</b>
+</span>   580    <span class="xdoc">     *  The XDC Build Engine automatically adds several predefined macros via
+</span>   581    <span class="xdoc">     *  `-D` definitions that enable conditional compilation of source files
+</span>   582    <span class="xdoc">     *  based on build-specific attributes.
+</span>   583    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   584    <span class="xdoc">     *      - `xdc_bld__profile_`{profile_name}
+</span>   585    <span class="xdoc">     *          this symbol is always defined and {profile_name} is the
+</span>   586    <span class="xdoc">     *          compile goal's (see `{<b>@link</b> #CompileGoal}`) profile name.
+</span>   587    <span class="xdoc">     *  <b>@p</b>
+</span>   588    <span class="xdoc">     *
+</span>   589    <span class="xdoc">     *  In addition, each target defines a set of macros that enable clients
+</span>   590    <span class="xdoc">     *  to portably support big/little endian targets, for example.  These
+</span>   591    <span class="xdoc">     *  macros are indirectly included by sources that include `xdc/std.h`; 
+</span>   592    <span class="xdoc">     *  see `{<b>@link</b> xdc}`.
+</span>   593    <span class="xdoc">     *
+</span>   594    <span class="xdoc">     *  <b>@see</b> #OptionSet
+</span>   595    <span class="xdoc">     *  <b>@see</b> #CompileGoal
+</span>   596    <span class="xdoc">     *  <b>@see</b> xdc
+</span>   597    <span class="xdoc">     */</span>
+   598        <span class=key>struct</span> CompileOptions {
+   599            String aopts;       <span class="xdoc">/*! goal specific ASM options */</span>
+   600            String copts;       <span class="xdoc">/*! goal specific C compiler options */</span>
+   601            String cfgcopts;    <span class="xdoc">/*! goal specific C config file options */</span>
+   602            String defs;        <span class="xdoc">/*! goal specific C/ASM definition options */</span>
+   603            String incs;        <span class="xdoc">/*! goal specific C/ASM include options */</span>
+   604        };
+   605        
+   606        <span class="xdoc">/*!
+</span>   607    <span class="xdoc">     *  ======== OptionSet ========
+</span>   608    <span class="xdoc">     *  Collection of tool-chain options.
+</span>   609    <span class="xdoc">     *
+</span>   610    <span class="xdoc">     *  This structure is used to define a collection of tool-chain
+</span>   611    <span class="xdoc">     *  options that are used as a group to achieve some effect supported
+</span>   612    <span class="xdoc">     *  by the tool-chain.  For example, some compilers require that
+</span>   613    <span class="xdoc">     *  specific options be passed to the compiler *and* linker in order
+</span>   614    <span class="xdoc">     *  to generate execution profile information or code coverage
+</span>   615    <span class="xdoc">     *  statistics.
+</span>   616    <span class="xdoc">     *
+</span>   617    <span class="xdoc">     *  <b>@field(compilerOptions)</b> a set of compiler/assembler options
+</span>   618    <span class="xdoc">     *  <b>@field(linkOpts)</b>        a string of target-specific linker options
+</span>   619    <span class="xdoc">     *  <b>@field(archiveOpts)</b>     a string of target-specific archiver options
+</span>   620    <span class="xdoc">     *  <b>@field(filters)</b>         an array of filters applied (in order) to
+</span>   621    <span class="xdoc">     *                          tool-chain commands
+</span>   622    <span class="xdoc">     *
+</span>   623    <span class="xdoc">     *  <b>@see</b> #profiles
+</span>   624    <span class="xdoc">     */</span>
+   625        <span class=key>struct</span> OptionSet {
+   626            CompileOptions  compileOpts;    <span class="xdoc">/*! profile-specific compiler opts */</span>
+   627            String          linkOpts;       <span class="xdoc">/*! profile-specific linker opts */</span>
+   628            String          archiveOpts;    <span class="xdoc">/*! profile-specific archiver opts */</span>
+   629    
+   630            ITargetFilter.InstDesc  filters[]; <span class="xdoc">/*! ITargetFilter instance descs */</span>
+   631        };
+   632        
+   633        <span class="xdoc">/*!
+</span>   634    <span class="xdoc">     *  ======== profiles ========
+</span>   635    <span class="xdoc">     *  Profiles supported by this target.
+</span>   636    <span class="xdoc">     *
+</span>   637    <span class="xdoc">     *  A profile is a collection of tool options used to create a
+</span>   638    <span class="xdoc">     *  library or executable that supports a certain "flavor" of library
+</span>   639    <span class="xdoc">     *  or executable; e.g., "debug" or "release".
+</span>   640    <span class="xdoc">     *
+</span>   641    <span class="xdoc">     *  Some profile names are supported by all targets even though the
+</span>   642    <span class="xdoc">     *  targets use different compilers (and therefore different options).
+</span>   643    <span class="xdoc">     *  These profile names makes it possible for a package to build
+</span>   644    <span class="xdoc">     *  libraries or executables in a "debug" (or "release") profile
+</span>   645    <span class="xdoc">     *  independent of the target, for example.
+</span>   646    <span class="xdoc">     *
+</span>   647    <span class="xdoc">     *  All targets are required to support "debug" and "release" profile
+</span>   648    <span class="xdoc">     *  names.
+</span>   649    <span class="xdoc">     *
+</span>   650    <span class="xdoc">     *  Profile options are added to beginning of any goal specific options
+</span>   651    <span class="xdoc">     *  specified by the user before being passed to the target.
+</span>   652    <span class="xdoc">     */</span>
+   653        <span class=key>config</span> OptionSet profiles[string] = [
+   654            [<span class="string">"release"</span>, {}],
+   655            [<span class="string">"debug"</span>, {}],
+   656        ];
+   657        
+   658        <span class="xdoc">/*!
+</span>   659    <span class="xdoc">     *  ======== CompileGoal ========
+</span>   660    <span class="xdoc">     *  The goal specification passed to the `{<b>@link</b> #compile}`
+</span>   661    <span class="xdoc">     *  function.
+</span>   662    <span class="xdoc">     *
+</span>   663    <span class="xdoc">     *  <b>@see</b> #compile
+</span>   664    <span class="xdoc">     *  <b>@see</b> #scompile
+</span>   665    <span class="xdoc">     */</span>
+   666        <span class=key>struct</span> CompileGoal {
+   667            String base;        <span class="xdoc">/*! base name of the source and destination */</span>
+   668            String dstPrefix;   <span class="xdoc">/*! directory prefix of destination file */</span>
+   669            String dstSuffix;   <span class="xdoc">/*! suffix of destination file; e.g., ".o62" */</span>
+   670            String srcSuffix;   <span class="xdoc">/*! optional suffix of source file; e.g., ".c" */</span>
+   671            String srcPrefix;   <span class="xdoc">/*! optional directory prefix of source file */</span>
+   672            String profile;     <span class="xdoc">/*! index into profiles map */</span>
+   673            CompileOptions opts;<span class="xdoc">/*! goal specific compiler options */</span>
+   674            Bool configOpts;    <span class="xdoc">/*! true if compiling the generated C config file */</span>
+   675        };
+   676    
+   677        <span class="xdoc">/*!
+</span>   678    <span class="xdoc">     *  ======== LinkGoal ========
+</span>   679    <span class="xdoc">     *  The goal specification passed to the `{<b>@link</b> #link}` function.
+</span>   680    <span class="xdoc">     *
+</span>   681    <span class="xdoc">     *  <b>@see</b> #link
+</span>   682    <span class="xdoc">     */</span>
+   683        <span class=key>struct</span> LinkGoal {
+   684            String base;        <span class="xdoc">/*! base name of the source and destination */</span>
+   685            String dstPrefix;   <span class="xdoc">/*! directory prefix of destination file */</span>
+   686            String dstSuffix;   <span class="xdoc">/*! suffix of destination file; e.g., ".x62" */</span>
+   687            String files;       <span class="xdoc">/*! string of files to link with */</span>
+   688            String profile;     <span class="xdoc">/*! index into profiles map */</span>
+   689            String opts;        <span class="xdoc">/*! goal specific linker options */</span>
+   690            Bool dllMode;       <span class="xdoc">/*! true if we're linking an assembly */</span>
+   691            Bool isRom;         <span class="xdoc">/*! reflects the `isRom` attribute */</span>
+   692        };
+   693        
+   694        <span class="xdoc">/*!
+</span>   695    <span class="xdoc">     *  ======== ArchiveGoal ========
+</span>   696    <span class="xdoc">     *  The goal specification passed to the `{<b>@link</b> #archive}`
+</span>   697    <span class="xdoc">     *  function.
+</span>   698    <span class="xdoc">     *
+</span>   699    <span class="xdoc">     *  <b>@see</b> #archive
+</span>   700    <span class="xdoc">     */</span>
+   701        <span class=key>struct</span> ArchiveGoal {
+   702            String base;        <span class="xdoc">/*! base name of the source and destination */</span>
+   703            String dstPrefix;   <span class="xdoc">/*! directory prefix of destination file */</span>
+   704            String dstSuffix;   <span class="xdoc">/*! suffix of destination file; e.g., ".a62" */</span>
+   705            String files;       <span class="xdoc">/*! String of files to archive */</span>
+   706            String profile;     <span class="xdoc">/*! index into profiles map */</span>
+   707            String opts;        <span class="xdoc">/*! goal specific archiver options */</span>
+   708        };
+   709        
+   710        <span class="xdoc">/*!
+</span>   711    <span class="xdoc">     *  ======== CommandSet ========
+</span>   712    <span class="xdoc">     *  The commands necessary to create a specified goal.
+</span>   713    <span class="xdoc">     *
+</span>   714    <span class="xdoc">     *  This structure is the return value of the `{<b>@link</b> #compile}`,
+</span>   715    <span class="xdoc">     *  `{<b>@link</b> #link}` and `{<b>@link</b> #archive}` functions.  This value is then
+</span>   716    <span class="xdoc">     *  used to generate a makefile or any other files necessary to generate
+</span>   717    <span class="xdoc">     *  a specified goal.
+</span>   718    <span class="xdoc">     *
+</span>   719    <span class="xdoc">     *  <b>@field(msg)</b>     a brief synopsis of the commands specified by `cmds`;
+</span>   720    <span class="xdoc">     *                  this string is output in lieu of `cmds` when building
+</span>   721    <span class="xdoc">     *                  in "non-verbose" mode.
+</span>   722    <span class="xdoc">     *
+</span>   723    <span class="xdoc">     *  <b>@field(cmds)</b>    a single string of commands that must be executed
+</span>   724    <span class="xdoc">     *                  to complete the specified operation.  Multiple
+</span>   725    <span class="xdoc">     *                  commands may be specified by separating each command
+</span>   726    <span class="xdoc">     *                  with the '\n' character.
+</span>   727    <span class="xdoc">     *
+</span>   728    <span class="xdoc">     *                  To facilitate the creation of "portable" makefiles and
+</span>   729    <span class="xdoc">     *                  to simplify the implementation of targets, certain
+</span>   730    <span class="xdoc">     *                  distinguished "macros" may be embedded in this string.
+</span>   731    <span class="xdoc">     *                  The build engine replaces these macros with the
+</span>   732    <span class="xdoc">     *                  values described below.
+</span>   733    <span class="xdoc">     *                  <b>@p(dlist)</b>
+</span>   734    <span class="xdoc">     *                      - `$(rootDir)`
+</span>   735    <span class="xdoc">     *                          the target's `{<b>@link</b> #rootDir}` configuration
+</span>   736    <span class="xdoc">     *                          parameter
+</span>   737    <span class="xdoc">     *                      - `$(packageBase)`
+</span>   738    <span class="xdoc">     *                          the target package's
+</span>   739    <span class="xdoc">     *                          `{<b>@link</b> xdc.IPackage#packageBase}` property
+</span>   740    <span class="xdoc">     *                      - `$(XDCINCS)`
+</span>   741    <span class="xdoc">     *                          a set of "-I" options that names each
+</span>   742    <span class="xdoc">     *                          repository in the package path
+</span>   743    <span class="xdoc">     *                  <b>@p</b>
+</span>   744    <span class="xdoc">     *
+</span>   745    <span class="xdoc">     *  <b>@field(envs)</b>    an array of "name=value" strings that represent
+</span>   746    <span class="xdoc">     *                  environment variables that are defined prior to the
+</span>   747    <span class="xdoc">     *                  execution of the commands specified by `cmds`
+</span>   748    <span class="xdoc">     *
+</span>   749    <span class="xdoc">     *  <b>@field(path)</b>    an array of directory names that are used to compose
+</span>   750    <span class="xdoc">     *                  the PATH environment variable that is in effect when
+</span>   751    <span class="xdoc">     *                  the commands specified by `cmds` are run.
+</span>   752    <span class="xdoc">     *
+</span>   753    <span class="xdoc">     *  <b>@see</b> #archive
+</span>   754    <span class="xdoc">     *  <b>@see</b> #compile
+</span>   755    <span class="xdoc">     *  <b>@see</b> #scompile
+</span>   756    <span class="xdoc">     *  <b>@see</b> #link
+</span>   757    <span class="xdoc">     */</span>
+   758        <span class=key>struct</span> CommandSet {
+   759            String msg;         <span class="xdoc">/*! brief message describing subsequent commands */</span>
+   760            String cmds;        <span class="xdoc">/*! commands necessary to generate goal */</span>
+   761            String path[];      <span class="xdoc">/*! host-independent representation of PATH */</span>
+   762            String envs[];      <span class="xdoc">/*! environment variable settings for the cmds */</span>
+   763        };
+   764    
+   765        <span class="xdoc">/*!
+</span>   766    <span class="xdoc">     *  ======== archive ========
+</span>   767    <span class="xdoc">     *  Create an archive.
+</span>   768    <span class="xdoc">     *
+</span>   769    <span class="xdoc">     *  This function is called during makefile generation to convert build
+</span>   770    <span class="xdoc">     *  goals into specific commands that generate the specified goal.
+</span>   771    <span class="xdoc">     *
+</span>   772    <span class="xdoc">     *  <b>@param(goal)</b> the `{<b>@link</b> #ArchiveGoal}` defining the archive to build.
+</span>   773    <span class="xdoc">     *
+</span>   774    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   775    <span class="xdoc">     *  This function returns a `{<b>@link</b> #CommandSet}`.  If non-`null`, this
+</span>   776    <span class="xdoc">     *  object defines the commands that must be executed to create the
+</span>   777    <span class="xdoc">     *  specified object file.  If `null`, then goal can not be achieved. 
+</span>   778    <span class="xdoc">     *
+</span>   779    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   780    <span class="xdoc">     */</span>
+   781        CommandSet* archive(ArchiveGoal *goal);
+   782    
+   783        <span class="xdoc">/*!
+</span>   784    <span class="xdoc">     *  ======== compile ========
+</span>   785    <span class="xdoc">     *  Compile a source file into an object file.
+</span>   786    <span class="xdoc">     *
+</span>   787    <span class="xdoc">     *  This function is called during makefile generation to convert build
+</span>   788    <span class="xdoc">     *  goals into specific commands that generate the specified object
+</span>   789    <span class="xdoc">     *  file goal.
+</span>   790    <span class="xdoc">     *
+</span>   791    <span class="xdoc">     *  <b>@param(goal)</b> a `{<b>@link</b> #CompileGoal}` that specifies what file to
+</span>   792    <span class="xdoc">     *               compile, the output file name, and any goal-specific
+</span>   793    <span class="xdoc">     *               options to use
+</span>   794    <span class="xdoc">     *
+</span>   795    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   796    <span class="xdoc">     *  This function retuns a `{<b>@link</b> #CommandSet}`.  If non-`null`,
+</span>   797    <span class="xdoc">     *  this object defines the commands that must be executed to create the
+</span>   798    <span class="xdoc">     *  specified object file.  If `null`, then goal can not be achieved. 
+</span>   799    <span class="xdoc">     *
+</span>   800    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   801    <span class="xdoc">     */</span>
+   802        CommandSet* compile(CompileGoal *goal);
+   803    
+   804        <span class="xdoc">/*!
+</span>   805    <span class="xdoc">     *  ======== scompile ========
+</span>   806    <span class="xdoc">     *  Compile a source file into an assembly language file.
+</span>   807    <span class="xdoc">     *
+</span>   808    <span class="xdoc">     *  This function is called during makefile generation to convert build
+</span>   809    <span class="xdoc">     *  goals into specific commands that generate the specified assembly
+</span>   810    <span class="xdoc">     *  language source goal.
+</span>   811    <span class="xdoc">     *
+</span>   812    <span class="xdoc">     *  <b>@param(goal)</b> a `{<b>@link</b> #CompileGoal}` that specifies what file to
+</span>   813    <span class="xdoc">     *               compile, the output file name, and any goal-specific
+</span>   814    <span class="xdoc">     *               options to use
+</span>   815    <span class="xdoc">     *
+</span>   816    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   817    <span class="xdoc">     * This function returns a `{<b>@link</b> #CommandSet}`.  If non-`null`, this
+</span>   818    <span class="xdoc">     * object defines the commands that must be executed to create the
+</span>   819    <span class="xdoc">     * specified assembly language file.  If `null`, then goal
+</span>   820    <span class="xdoc">     * can not be achieved or is unnecessary (e.g., because
+</span>   821    <span class="xdoc">     * the source file is already an asm file).
+</span>   822    <span class="xdoc">     *
+</span>   823    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   824    <span class="xdoc">     */</span>
+   825        CommandSet* scompile(CompileGoal *goal);
+   826    
+   827        <span class="xdoc">/*!
+</span>   828    <span class="xdoc">     *  ======== link ========
+</span>   829    <span class="xdoc">     *  Link object files to produce an executable.
+</span>   830    <span class="xdoc">     *
+</span>   831    <span class="xdoc">     *  This function is called during makefile generation to convert build
+</span>   832    <span class="xdoc">     *  goals into specific commands that generate the specified goal.
+</span>   833    <span class="xdoc">     *
+</span>   834    <span class="xdoc">     *  <b>@param(goal)</b> a `{<b>@link</b> #LinkGoal}` that specifies the output file
+</span>   835    <span class="xdoc">     *               name, a list of files to link with, and any goal-specific
+</span>   836    <span class="xdoc">     *               options to use
+</span>   837    <span class="xdoc">     *
+</span>   838    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   839    <span class="xdoc">     *  This function returns a `{<b>@link</b> #CommandSet}`.  If non-`null`, this
+</span>   840    <span class="xdoc">     *  object defines the commands that must be executed to create the
+</span>   841    <span class="xdoc">     *  specified object file.  If `null`, then goal can not be
+</span>   842    <span class="xdoc">     *  achieved. 
+</span>   843    <span class="xdoc">     *
+</span>   844    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   845    <span class="xdoc">     */</span>
+   846        CommandSet* link(LinkGoal *goal);
+   847    
+   848        <span class="xdoc">/*!
+</span>   849    <span class="xdoc">     *  ======== getVersion ========
+</span>   850    <span class="xdoc">     *  Get a target-specific Compatibility Key string
+</span>   851    <span class="xdoc">     *
+</span>   852    <span class="xdoc">     *  This function is called during makefile generation to obtain a 
+</span>   853    <span class="xdoc">     *  target-specific Compatibility Key string.  This string is of the
+</span>   854    <span class="xdoc">     *  form:
+</span>   855    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   856    <span class="xdoc">     *      "&lt;pkg&gt;.&lt;mod&gt;{&lt;d0&gt;,&lt;d1&gt;,&lt;d2&gt;,&lt;d3&gt;"
+</span>   857    <span class="xdoc">     *  <b>@p</b>
+</span>   858    <span class="xdoc">     *  where, `&lt;pkg&gt;.&lt;mod&gt;` is the name of the target, and `&lt;d0&gt;`, `&lt;d1&gt;`,
+</span>   859    <span class="xdoc">     *  etc. forms a Compatibility Key.
+</span>   860    <span class="xdoc">     *
+</span>   861    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   862    <span class="xdoc">     *  This function returns a string that encodes the name of the target
+</span>   863    <span class="xdoc">     *  and its Compatibility Key.
+</span>   864    <span class="xdoc">     *
+</span>   865    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   866    <span class="xdoc">     */</span>
+   867        String getVersion();
+   868    
+   869        <span class=key>typedef</span> String StringArray[];
+   870    
+   871        <span class="xdoc">/*!
+</span>   872    <span class="xdoc">     *  ======== getISAChain ========
+</span>   873    <span class="xdoc">     *  Get this target's ISA "is compatible with" relation.
+</span>   874    <span class="xdoc">     *
+</span>   875    <span class="xdoc">     *  Returns an array of ISA names (including this target's ISA) that
+</span>   876    <span class="xdoc">     *  represents the "is a" relation between ISA's.  The array starts with
+</span>   877    <span class="xdoc">     *  the most general ISA and ends with this target's ISA or with the
+</span>   878    <span class="xdoc">     *  optionally specified argument.  This relation is used to:
+</span>   879    <span class="xdoc">     *  <b>@p(nlist)</b>
+</span>   880    <span class="xdoc">     *      - pre-define macro definitions that enable code to be
+</span>   881    <span class="xdoc">     *        conditionally compiled based on compatible versions of a
+</span>   882    <span class="xdoc">     *        target's ISA.
+</span>   883    <span class="xdoc">     *
+</span>   884    <span class="xdoc">     *      - locate appropriate source files during makefile generation;
+</span>   885    <span class="xdoc">     *        each ISA named in a chain causes the extensions ".s"isa to be
+</span>   886    <span class="xdoc">     *        added to the ITarget.extensions table (in the reverse order
+</span>   887    <span class="xdoc">     *        that they appear in the chain).  For example, if a target's
+</span>   888    <span class="xdoc">     *        ISA is "64P" and the returned chain is ["62", "64", "64P"],
+</span>   889    <span class="xdoc">     *        the following assembly language suffixes are added to
+</span>   890    <span class="xdoc">     *        the target's extensions table: ".s64P", ".s64", ".s62".
+</span>   891    <span class="xdoc">     *
+</span>   892    <span class="xdoc">     *      - determine the assembly language suffix used during legacy BIOS
+</span>   893    <span class="xdoc">     *        configuration; the first element of the target's ISA chain
+</span>   894    <span class="xdoc">     *        defines the suffix.  For example, if a target's ISA is "64P"
+</span>   895    <span class="xdoc">     *        and the returned chain is ["62", "64", "64P"], the assembly
+</span>   896    <span class="xdoc">     *        suffix is ".s62".
+</span>   897    <span class="xdoc">     *  <b>@p</b>
+</span>   898    <span class="xdoc">     *
+</span>   899    <span class="xdoc">     *  This relation may also be used in the future to help validate
+</span>   900    <span class="xdoc">     *  combinations of targets and platforms; a target's CPU ISA must
+</span>   901    <span class="xdoc">     *  appear on the chain specified by the platform's CPU ISA.
+</span>   902    <span class="xdoc">     *
+</span>   903    <span class="xdoc">     *  <b>@param(isa)</b> the ISA identifier string for the ISA to lookup; if null
+</span>   904    <span class="xdoc">     *              then the target's ISA is used (ITarget.isa).
+</span>   905    <span class="xdoc">     *
+</span>   906    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   907    <span class="xdoc">     *  This function returns an array of ISA strings where the last string
+</span>   908    <span class="xdoc">     *  is the optionally specified ISA string or this target's ISA,
+</span>   909    <span class="xdoc">     *  and the first string is the "base" ISA in the
+</span>   910    <span class="xdoc">     *  is source compatible" relationship.
+</span>   911    <span class="xdoc">     *  If the specified ISA string is not in this target's chain
+</span>   912    <span class="xdoc">     *  of compatible targets, `null` is returned.
+</span>   913    <span class="xdoc">     *
+</span>   914    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   915    <span class="xdoc">     *  
+</span>   916    <span class="xdoc">     */</span>
+   917        <span class=key>function</span> getISAChain(isa);
+   918        
+   919        <span class="xdoc">/*!
+</span>   920    <span class="xdoc">     *  ======== findSuffix ========
+</span>   921    <span class="xdoc">     *  Find the suffix that is compatible with this target.
+</span>   922    <span class="xdoc">     *
+</span>   923    <span class="xdoc">     *  This function determines the list of targets supported by the
+</span>   924    <span class="xdoc">     *  package given as the argument. From that list, this function
+</span>   925    <span class="xdoc">     *  returns the suffix of a target that is compatible with this target.
+</span>   926    <span class="xdoc">     *  Compatibility in this case means that object files created by a
+</span>   927    <span class="xdoc">     *  target having the suffix returned by this function can be linked
+</span>   928    <span class="xdoc">     *  into an executable produced using this target. In the case where more
+</span>   929    <span class="xdoc">     *  than one suffix is compatible, this function returns a suffix in the
+</span>   930    <span class="xdoc">     *  following order of preference:
+</span>   931    <span class="xdoc">     *  <b>@p(nlist)</b>
+</span>   932    <span class="xdoc">     *      - if this target's suffix is in the list, that suffix is returned.
+</span>   933    <span class="xdoc">     *
+</span>   934    <span class="xdoc">     *      - suffixes from `compatibleSuffixes` are matched against the list
+</span>   935    <span class="xdoc">     *        from the first to the last, and the first one with the match is
+</span>   936    <span class="xdoc">     *        returned.
+</span>   937    <span class="xdoc">     *  <b>@p</b>
+</span>   938    <span class="xdoc">     *
+</span>   939    <span class="xdoc">     *  <b>@param(pkg)</b> a package object or an array of target suffix strings
+</span>   940    <span class="xdoc">     *              (see `{<b>@link</b> #suffix}`).
+</span>   941    <span class="xdoc">     *
+</span>   942    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   943    <span class="xdoc">     *  This function returns the suffix string of a target compatible with
+</span>   944    <span class="xdoc">     *  this target or `null` if `pkg` does not support any target compatible
+</span>   945    <span class="xdoc">     *  with this target.
+</span>   946    <span class="xdoc">     *
+</span>   947    <span class="xdoc">     */</span>
+   948        <span class=key>function</span> findSuffix(pkg);
+   949    
+   950        <span class="xdoc">/*!
+</span>   951    <span class="xdoc">     *  ======== selectSuffix ========
+</span>   952    <span class="xdoc">     *  Select the suffix that is compatible with this target.
+</span>   953    <span class="xdoc">     *
+</span>   954    <span class="xdoc">     *  From a list of suffixes supplied as an argument, this function
+</span>   955    <span class="xdoc">     *  returns the suffix compatible with this target. Compatibility in
+</span>   956    <span class="xdoc">     *  this case means that object files created by a target having the
+</span>   957    <span class="xdoc">     *  suffix returned by this function can be linked into an executable
+</span>   958    <span class="xdoc">     *  produced using this target. In the case where more than one suffix
+</span>   959    <span class="xdoc">     *  is compatible, this function returns a suffix in the following order
+</span>   960    <span class="xdoc">     *  of preference:
+</span>   961    <span class="xdoc">     *  <b>@p(nlist)</b>
+</span>   962    <span class="xdoc">     *      - if this target's suffix is in the list, that suffix is returned.
+</span>   963    <span class="xdoc">     *
+</span>   964    <span class="xdoc">     *      - suffixes from `compatibleSuffixes` are matched against the list
+</span>   965    <span class="xdoc">     *        from the first to the last, and the first one with the match is
+</span>   966    <span class="xdoc">     *        returned.
+</span>   967    <span class="xdoc">     *  <b>@p</b>
+</span>   968    <span class="xdoc">     *
+</span>   969    <span class="xdoc">     *  <b>@param(suffixList)</b>      an array of target suffix strings
+</span>   970    <span class="xdoc">     *                          (see `{<b>@link</b> #suffix}`).
+</span>   971    <span class="xdoc">     *
+</span>   972    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   973    <span class="xdoc">     *  This function returns the suffix string of a target compatible with
+</span>   974    <span class="xdoc">     *  this target or `null` if no such suffix is found in the list of
+</span>   975    <span class="xdoc">     *  suffixes specified by the first argument.
+</span>   976    <span class="xdoc">     *
+</span>   977    <span class="xdoc">     */</span>
+   978        String selectSuffix(StringArray suffixList);
+   979    
+   980        <span class="xdoc">/*!
+</span>   981    <span class="xdoc">     *  ======== sectMap ========
+</span>   982    <span class="xdoc">     *  Output section name to segment type mapping
+</span>   983    <span class="xdoc">     *
+</span>   984    <span class="xdoc">     *  This hash table is used to determine whether a particular object file
+</span>   985    <span class="xdoc">     *  output section (".text", ".stack", etc.) requires 'data', 'code' or
+</span>   986    <span class="xdoc">     *  'stack' memory segment.
+</span>   987    <span class="xdoc">     *
+</span>   988    <span class="xdoc">     *  This `sectMap` is referenced by linker command file templates during
+</span>   989    <span class="xdoc">     *  generation to create linker command files. The Platform defines the
+</span>   990    <span class="xdoc">     *  default memory segments for code and data, and based on this map and
+</span>   991    <span class="xdoc">     *  the default segments, the linker command file template places an
+</span>   992    <span class="xdoc">     *  output section into a physical memory segment.
+</span>   993    <span class="xdoc">     *
+</span>   994    <span class="xdoc">     *  Note that the `{<b>@link</b> xdc.cfg.Program}` object and the
+</span>   995    <span class="xdoc">     *  `{<b>@link</b> xdc.platform.IPlatform}` instance have a
+</span>   996    <span class="xdoc">     *  `sectMap` parameter. Both the `Program`'s and `IPlatform`'s `sectMap`
+</span>   997    <span class="xdoc">     *  can augment and/or override the placement for a section, but
+</span>   998    <span class="xdoc">     *  `{<b>@link</b> xdc.cfg.Program#sectMap}` takes precedence. Therefore, this
+</span>   999    <span class="xdoc">     *  `sectMap` and the default segments from the platform define an
+</span>  1000    <span class="xdoc">     *  initial section map which is then augmented by the `Program`'s and
+</span>  1001    <span class="xdoc">     *  `IPlatform`'s section map.
+</span>  1002    <span class="xdoc">     */</span>
+  1003        <span class=key>readonly</span> <span class=key>config</span> String sectMap[string];
+  1004    
+  1005        <span class="xdoc">/*!
+</span>  1006    <span class="xdoc">     *  ======== TypeInfo ========
+</span>  1007    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>  1008    <span class="xdoc">     *
+</span>  1009    <span class="xdoc">     *  <b>@see</b> #StdTypes
+</span>  1010    <span class="xdoc">     */</span>
+  1011        <span class=key>struct</span> TypeInfo {
+  1012            <span class=key>int</span> size;
+  1013            <span class=key>int</span> align;
+  1014        }
+  1015    
+  1016        <span class="xdoc">/*!
+</span>  1017    <span class="xdoc">     *  ======== StdTypes ========
+</span>  1018    <span class="xdoc">     *  Standard base types supported by all targets
+</span>  1019    <span class="xdoc">     *
+</span>  1020    <span class="xdoc">     *  <b>@see</b> #stdTypes
+</span>  1021    <span class="xdoc">     */</span>
+  1022        <span class=key>struct</span> StdTypes {
+  1023            TypeInfo t_IArg;
+  1024            TypeInfo t_Char;
+  1025            TypeInfo t_Double;
+  1026            TypeInfo t_Float;
+  1027            TypeInfo t_Fxn;
+  1028            TypeInfo t_Int;
+  1029            TypeInfo t_Int8;
+  1030            TypeInfo t_Int16;
+  1031            TypeInfo t_Int32;
+  1032            TypeInfo t_Int40;
+  1033            TypeInfo t_Int64;
+  1034            TypeInfo t_Long;
+  1035            TypeInfo t_LDouble;
+  1036            TypeInfo t_LLong;
+  1037            TypeInfo t_Ptr;
+  1038            TypeInfo t_Short;
+  1039            TypeInfo t_Size;
+  1040        }
+  1041    
+  1042        <span class="xdoc">/*!
+</span>  1043    <span class="xdoc">     *  ======== stdInclude ========
+</span>  1044    <span class="xdoc">     *  Standard C/C++ types header
+</span>  1045    <span class="xdoc">     *
+</span>  1046    <span class="xdoc">     *  This string identifies a header containing the C/C++ definitions
+</span>  1047    <span class="xdoc">     *  required to enable use of `xdc/std.h` in C/C++ sources; see
+</span>  1048    <span class="xdoc">     *  `{<b>@link</b> xdc}`.
+</span>  1049    <span class="xdoc">     *
+</span>  1050    <span class="xdoc">     *  The value of this string is used by `xdc/std.h` to include
+</span>  1051    <span class="xdoc">     *  target-specific definitions of the types `Int8`, `Int16`, etc.  In
+</span>  1052    <span class="xdoc">     *  addition, this header supplies target-specific definitions of the
+</span>  1053    <span class="xdoc">     *  predefined `xdc_target__*` macros required by `{<b>@link</b> xdc xdc/std.h}`.
+</span>  1054    <span class="xdoc">     *
+</span>  1055    <span class="xdoc">     *  Since this header must supply target-specific values for
+</span>  1056    <span class="xdoc">     *  target-independent names the structure of this header is usually of
+</span>  1057    <span class="xdoc">     *  the form:
+</span>  1058    <span class="xdoc">     *  <b>@p(code)</b>
+</span>  1059    <span class="xdoc">     *      // if target macros are not already defined, 
+</span>  1060    <span class="xdoc">     *      #if !defined(xdc_target_macros_include__)
+</span>  1061    <span class="xdoc">     *          // include target-specific definitions
+</span>  1062    <span class="xdoc">     *          #if defined(TARGET1)
+</span>  1063    <span class="xdoc">     *              #include "target1.h"
+</span>  1064    <span class="xdoc">     *          #elif defined(TARGET2)
+</span>  1065    <span class="xdoc">     *              #include "target2.h"
+</span>  1066    <span class="xdoc">     *          #elif ...
+</span>  1067    <span class="xdoc">     *              :
+</span>  1068    <span class="xdoc">     *          #else
+</span>  1069    <span class="xdoc">     *              #error unsupported target
+</span>  1070    <span class="xdoc">     *          #endif
+</span>  1071    <span class="xdoc">     *      #endif
+</span>  1072    <span class="xdoc">     *      // include common definitions
+</span>  1073    <span class="xdoc">     *          :
+</span>  1074    <span class="xdoc">     *  <b>@p</b>
+</span>  1075    <span class="xdoc">     *  The check of the symbol `xdc_target_macros_include__` exists to
+</span>  1076    <span class="xdoc">     *  allow others that define new targets to include this header to
+</span>  1077    <span class="xdoc">     *  get common definitions for a family of related targets.
+</span>  1078    <span class="xdoc">     *
+</span>  1079    <span class="xdoc">     *  To simplify the creation of the target-specific header files, the
+</span>  1080    <span class="xdoc">     *  template file `stddefs.xdt` in this package can be used to
+</span>  1081    <span class="xdoc">     *  automatically generate the required definitions from each target's
+</span>  1082    <span class="xdoc">     *  `.xdc` specification.
+</span>  1083    <span class="xdoc">     */</span>
+  1084        <span class=key>readonly</span> <span class=key>config</span> String stdInclude;
+  1085        
+  1086        <span class="xdoc">/*!
+</span>  1087    <span class="xdoc">     *  ======== stdTypes ========
+</span>  1088    <span class="xdoc">     *  Size and alignment for standard base types
+</span>  1089    <span class="xdoc">     *
+</span>  1090    <span class="xdoc">     *  The values of size are the values returned by the 
+</span>  1091    <span class="xdoc">     *  target-specific `sizeof()` operator applied to the specified
+</span>  1092    <span class="xdoc">     *  type (as defined by the C language).  The align value is the number
+</span>  1093    <span class="xdoc">     *  of chars used in the alignment of the specified type.
+</span>  1094    <span class="xdoc">     */</span>
+  1095        <span class=key>readonly</span> <span class=key>config</span> StdTypes stdTypes = {
+  1096            t_IArg          : { size: 0, align: 0 },
+  1097            t_Char          : { size: 0, align: 0 },
+  1098            t_Double        : { size: 0, align: 0 },
+  1099            t_Float         : { size: 0, align: 0 },
+  1100            t_Fxn           : { size: 0, align: 0 },
+  1101            t_Int           : { size: 0, align: 0 },
+  1102            t_Int8          : { size: 0, align: 0 },
+  1103            t_Int16         : { size: 0, align: 0 },
+  1104            t_Int32         : { size: 0, align: 0 },
+  1105            t_Int40         : { size: 0, align: 0 },
+  1106            t_Int64         : { size: 0, align: 0 },
+  1107            t_Long          : { size: 0, align: 0 },
+  1108            t_LDouble       : { size: 0, align: 0 },
+  1109            t_LLong         : { size: 0, align: 0 },
+  1110            t_Ptr           : { size: 0, align: 0 },
+  1111            t_Short         : { size: 0, align: 0 },
+  1112            t_Size          : { size: 0, align: 0 },
+  1113        };
+  1114    
+  1115        <span class="xdoc">/*!
+</span>  1116    <span class="xdoc">     *  ======== bitsPerChar ========
+</span>  1117    <span class="xdoc">     *  The number of bits in a variable of type `char`
+</span>  1118    <span class="xdoc">     *
+</span>  1119    <span class="xdoc">     *  This constant allows one to determine the precise number of bits in
+</span>  1120    <span class="xdoc">     *  each of the types specified in the stdTypes map.  For example, the
+</span>  1121    <span class="xdoc">     *  number of bits in the target t's `int` type is
+</span>  1122    <span class="xdoc">     *  <b>@p(code)</b>
+</span>  1123    <span class="xdoc">     *      t.stdTypes.t_Int.size * t.bitsPerChar
+</span>  1124    <span class="xdoc">     *  <b>@p</b>
+</span>  1125    <span class="xdoc">     */</span>
+  1126        <span class=key>readonly</span> <span class=key>config</span> Int bitsPerChar = 8;
+  1127    }
+  1128    <span class="comment">/*
+</span>  1129    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:31; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>  1130    <span class="comment"> */</span>
+  1131    
+</pre>
+</body></html>

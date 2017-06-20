@@ -1,0 +1,54 @@
+<html><head><title>module ti.targets.arm.elf.R4F</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== R4F.xdc ========
+</span>    14    <span class="xdoc"> *  Cortex R4F little endian target
+</span>    15    <span class="xdoc"> */</span>
+    16    <span class=key>metaonly</span> <span class=key>module</span> R4F <span class=key>inherits</span> ti.targets.arm.elf.IR4 {
+    17        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name        = <span class="string">"R4F"</span>;
+    18        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix      = <span class="string">"er4f"</span>;
+    19        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts         = <span class="string">"ti.targets.arm.rtsarm"</span>;
+    20    
+    21        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model = {
+    22            endian: <span class="string">"little"</span>,
+    23            shortEnums: <span class=key>true</span>
+    24        };
+    25    
+    26        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command cc = {
+    27            cmd:  <span class="string">"cl470 -c"</span>,
+    28            opts: <span class="string">"--float_support=vfpv3d16 --endian=little -mv7R4 --abi=eabi"</span>
+    29        };
+    30    
+    31        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command asm = {
+    32            cmd:  <span class="string">"cl470 -c"</span>,
+    33            opts: <span class="string">"--float_support=vfpv3d16 --endian=little -mv7R4 --abi=eabi"</span>
+    34        };
+    35    
+    36        <span class="xdoc">/*!
+</span>    37    <span class="xdoc">     *  ======== linkLib ========
+</span>    38    <span class="xdoc">     *  Default TMS470 cgtools runtime library to link with executable
+</span>    39    <span class="xdoc">     *  (comes from $rootDir/lib)
+</span>    40    <span class="xdoc">     */</span>
+    41        <span class=key>config</span> string linkLib = <span class="string">"rtsv7R4_A_le_v3D16_eabi.lib"</span>;
+    42    }
+    43    <span class="comment">/*
+</span>    44    <span class="comment"> *  @(#) ti.targets.arm.elf; 1, 0, 0,134; 2-24-2010 16:24:14; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>    45    <span class="comment"> */</span>
+    46    
+</pre>
+</body></html>

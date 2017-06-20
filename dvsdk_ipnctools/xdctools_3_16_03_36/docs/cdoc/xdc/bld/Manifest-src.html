@@ -1,0 +1,209 @@
+<html><head><title>module xdc.bld.Manifest</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class=key>package</span> xdc.bld;
+    13    
+    14    <span class="xdoc">/*!
+</span>    15    <span class="xdoc"> *  ======== Manifest ========
+</span>    16    <span class="xdoc"> *  The manifest object for the release file post-processing model
+</span>    17    <span class="xdoc"> *
+</span>    18    <span class="xdoc"> *  Each package release corresponds to an archive of a subset of the
+</span>    19    <span class="xdoc"> *  developent package's contents.  The contents of each release are
+</span>    20    <span class="xdoc"> *  specified by an instance of the `{<b>@link</b> Release}` module.  Each instance
+</span>    21    <span class="xdoc"> *  of the `Release` module can optionally specify a "release script" that
+</span>    22    <span class="xdoc"> *  can modify each file prior to it being added to the archive.  This script
+</span>    23    <span class="xdoc"> *  runs in the context of the "release file post-processing" model.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  This module is the root of the "release file post-processing" model.
+</span>    26    <span class="xdoc"> *  Each file in a release may be optionally post-processed by a filter
+</span>    27    <span class="xdoc"> *  specified in `{<b>@link</b> #filterMap}.`  Other fields of this module provide
+</span>    28    <span class="xdoc"> *  a release-specific "context" for the operation of the filters.  For
+</span>    29    <span class="xdoc"> *  example, a filter may use `{<b>@link</b> #packageName}`, `{<b>@link</b> #releaseName}`,
+</span>    30    <span class="xdoc"> *  and `{<b>@link</b> #buildCount}` to prefix all C sources with comments that
+</span>    31    <span class="xdoc"> *  identify where they originated.
+</span>    32    <span class="xdoc"> *
+</span>    33    <span class="xdoc"> *  All the fields of this module (except `{<b>@link</b> #filterMap}`) are initialized
+</span>    34    <span class="xdoc"> *  before a "release script" is run.  After the release script completes,
+</span>    35    <span class="xdoc"> *  the release archive is created according to the filters specifed in
+</span>    36    <span class="xdoc"> *  `{<b>@link</b> #filterMap}`.  Files that have no filter are copied without
+</span>    37    <span class="xdoc"> *  modification into the release.
+</span>    38    <span class="xdoc"> */</span>
+    39    <span class=key>metaonly</span> <span class=key>module</span> Manifest {
+    40    
+    41        <span class="xdoc">/*!
+</span>    42    <span class="xdoc">     *  ======== Filter ========
+</span>    43    <span class="xdoc">     *  A file filter descriptor
+</span>    44    <span class="xdoc">     *
+</span>    45    <span class="xdoc">     *  <b>@field(operation)</b>  a JavaScript function that filters the specified
+</span>    46    <span class="xdoc">     *      input file and puts the results in specified output file; it is
+</span>    47    <span class="xdoc">     *      the output file that is archived as part of the release (not the
+</span>    48    <span class="xdoc">     *      input file).
+</span>    49    <span class="xdoc">     *
+</span>    50    <span class="xdoc">     *      The operation is called as follows:
+</span>    51    <span class="xdoc">     *      <b>@p(code)</b>
+</span>    52    <span class="xdoc">     *          operation(filter, src, dst, base)
+</span>    53    <span class="xdoc">     *      <b>@p</b>
+</span>    54    <span class="xdoc">     *      where:
+</span>    55    <span class="xdoc">     *      <b>@p(dlist)</b>
+</span>    56    <span class="xdoc">     *        -`filter`
+</span>    57    <span class="xdoc">     *              the filter object associated with the file being
+</span>    58    <span class="xdoc">     *              processed (which specified `operation` as the function
+</span>    59    <span class="xdoc">     *              to call)
+</span>    60    <span class="xdoc">     *        -`src`
+</span>    61    <span class="xdoc">     *              input file name (relative to the current working
+</span>    62    <span class="xdoc">     *              directory)
+</span>    63    <span class="xdoc">     *        -`dst`
+</span>    64    <span class="xdoc">     *              output file name (relative to the current working
+</span>    65    <span class="xdoc">     *              directory)
+</span>    66    <span class="xdoc">     *        -`base`
+</span>    67    <span class="xdoc">     *              string name of the file as it appears in the array
+</span>    68    <span class="xdoc">     *              `Manifest.files`; unlike `dst`, it does not contain a
+</span>    69    <span class="xdoc">     *              temporary directory name prefix.
+</span>    70    <span class="xdoc">     *
+</span>    71    <span class="xdoc">     *  <b>@field(args)</b>  array of arbitrary arguments passed to `operation`
+</span>    72    <span class="xdoc">     *      (as a field of the filter object passed as the first argument to
+</span>    73    <span class="xdoc">     *      `operation`)
+</span>    74    <span class="xdoc">     *
+</span>    75    <span class="xdoc">     *  <b>@field(newFileName)</b> the new name of the output file relative to the
+</span>    76    <span class="xdoc">     *      top of the archive.  Normally this name should include the
+</span>    77    <span class="xdoc">     *      package's name but, in situations where a release must support a
+</span>    78    <span class="xdoc">     *      non-RTSC conformant physical design, `newFileName` can be anything.
+</span>    79    <span class="xdoc">     *
+</span>    80    <span class="xdoc">     *  <b>@field(newFileMode)</b> the access permissions of the output file.
+</span>    81    <span class="xdoc">     *      Normally the file will have the access permissions that exist at
+</span>    82    <span class="xdoc">     *      the time archive is created.  However, there may be times when
+</span>    83    <span class="xdoc">     *      the developer wants/needs to make a file readonly that is (for
+</span>    84    <span class="xdoc">     *      development purposes) writable.  Only two modes are supported "r"
+</span>    85    <span class="xdoc">     *      (readonly) and "rw" (readable and writable).
+</span>    86    <span class="xdoc">     *
+</span>    87    <span class="xdoc">     *  <b>@see</b> #filterMap
+</span>    88    <span class="xdoc">     */</span>
+    89        <span class=key>struct</span> Filter {
+    90            any         operation;      <span class="xdoc">/*! the JavaScript function to run */</span>
+    91            any         args[];         <span class="xdoc">/*! additional arguments for operation */</span>
+    92            String      newFileName;    <span class="xdoc">/*! the new file name */</span>
+    93            String      newFileMode;    <span class="xdoc">/*! either "r" or "rw" */</span>
+    94        }
+    95    
+    96        <span class="xdoc">/*!
+</span>    97    <span class="xdoc">     *  ======== compatibilityKey ========
+</span>    98    <span class="xdoc">     *  The released package's compatibility key
+</span>    99    <span class="xdoc">     *
+</span>   100    <span class="xdoc">     *  This string contains the value declared in the package's `package.xdc`
+</span>   101    <span class="xdoc">     *  specification file.
+</span>   102    <span class="xdoc">     *
+</span>   103    <span class="xdoc">     *  <b>@a(readonly)</b>  This value is initialized before the release script or
+</span>   104    <span class="xdoc">     *                any of its filters are run and should not be modified.
+</span>   105    <span class="xdoc">     */</span>
+   106        <span class=key>config</span> String compatibilityKey;
+   107    
+   108        <span class="xdoc">/*!
+</span>   109    <span class="xdoc">     *  ======== buildCount ========
+</span>   110    <span class="xdoc">     *  A unique build count for the released package.
+</span>   111    <span class="xdoc">     *
+</span>   112    <span class="xdoc">     *  This string contains is a decimal number that increments at least
+</span>   113    <span class="xdoc">     *  once every time the package is released.  This string together with
+</span>   114    <span class="xdoc">     *  the compatibility key forms a unique version number for the package.
+</span>   115    <span class="xdoc">     *
+</span>   116    <span class="xdoc">     *  <b>@a(readonly)</b>  This value is initialized before the release script or
+</span>   117    <span class="xdoc">     *                any of its filters are run and should not be modified.
+</span>   118    <span class="xdoc">     */</span>
+   119        <span class=key>config</span> String buildCount;
+   120    
+   121        <span class="xdoc">/*!
+</span>   122    <span class="xdoc">     *  ======== packageName ========
+</span>   123    <span class="xdoc">     *  The released package's name
+</span>   124    <span class="xdoc">     *
+</span>   125    <span class="xdoc">     *  This string contains the value declared in the package's `package.xdc`
+</span>   126    <span class="xdoc">     *  specification file.
+</span>   127    <span class="xdoc">     *
+</span>   128    <span class="xdoc">     *  <b>@a(readonly)</b>  This value is initialized before the release script or
+</span>   129    <span class="xdoc">     *                any of its filters are run and should not be modified.
+</span>   130    <span class="xdoc">     */</span>
+   131        <span class=key>config</span> String packageName;
+   132        
+   133        <span class="xdoc">/*!
+</span>   134    <span class="xdoc">     *  ======== releaseName ========
+</span>   135    <span class="xdoc">     *  The release's name
+</span>   136    <span class="xdoc">     *
+</span>   137    <span class="xdoc">     *  This string contains the value declared in the package's `package.bld`
+</span>   138    <span class="xdoc">     *  build script; it is the name of the output archive without the
+</span>   139    <span class="xdoc">     *  "`.tar`" extension.
+</span>   140    <span class="xdoc">     *
+</span>   141    <span class="xdoc">     *  <b>@a(readonly)</b>  This value is initialized before the release script or
+</span>   142    <span class="xdoc">     *                any of its filters are run and should not be modified.
+</span>   143    <span class="xdoc">     */</span>
+   144        <span class=key>config</span> String releaseName;
+   145        
+   146        <span class="xdoc">/*!
+</span>   147    <span class="xdoc">     *  ======== files ========
+</span>   148    <span class="xdoc">     *  An array of all files in the release
+</span>   149    <span class="xdoc">     *
+</span>   150    <span class="xdoc">     *  The file names in this array include the package's name; i.e.,
+</span>   151    <span class="xdoc">     *  these names are relative to the package's repository rather than 
+</span>   152    <span class="xdoc">     *  the package's build directory.
+</span>   153    <span class="xdoc">     *
+</span>   154    <span class="xdoc">     *  This value is initialized before the release script or any of its
+</span>   155    <span class="xdoc">     *  filters are run.  It contains the files specified directly or
+</span>   156    <span class="xdoc">     *  indirectly by the package's build script.
+</span>   157    <span class="xdoc">     *
+</span>   158    <span class="xdoc">     *  It is possible to remove files from a release by removing it from
+</span>   159    <span class="xdoc">     *  this array; only files in this array will appear in the release.
+</span>   160    <span class="xdoc">     *
+</span>   161    <span class="xdoc">     *  It is also possible to add files to a release by adding files to
+</span>   162    <span class="xdoc">     *  this array.  In fact, files added to the release can be generated
+</span>   163    <span class="xdoc">     *  by the filter operation specified for the file in
+</span>   164    <span class="xdoc">     *  `{<b>@link</b> #filterMap}`.  However, since these files are only present
+</span>   165    <span class="xdoc">     *  in releases of a  package (they are not built as part of the normal
+</span>   166    <span class="xdoc">     *  build of all files and only appear in installed release of a package),
+</span>   167    <span class="xdoc">     *  other packages should not refer to these files.
+</span>   168    <span class="xdoc">     */</span>
+   169        <span class=key>config</span> String files[];
+   170    
+   171        <span class="xdoc">/*!
+</span>   172    <span class="xdoc">     *  ======== filterMap ========
+</span>   173    <span class="xdoc">     *  A map of filters for each file in the release
+</span>   174    <span class="xdoc">     *
+</span>   175    <span class="xdoc">     *  This map is indexed by the name of the file (as it appears in the
+</span>   176    <span class="xdoc">     *  `{<b>@link</b> #files}` array) in the release and defines for each file a
+</span>   177    <span class="xdoc">     *  filter that is applied to the file before it is archived in a
+</span>   178    <span class="xdoc">     *  release.
+</span>   179    <span class="xdoc">     *
+</span>   180    <span class="xdoc">     *  <b>@a(example)</b>  The following script fragment illustrates how one can
+</span>   181    <span class="xdoc">     *  filter all *.c files in a release through a custom JavaScript
+</span>   182    <span class="xdoc">     *  function named `copyright`.
+</span>   183    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   184    <span class="xdoc">     *      function copyright(args, ...) { ...}
+</span>   185    <span class="xdoc">     *
+</span>   186    <span class="xdoc">     *      for (var i = 0; i &lt; Manifest.files.length; i++) {
+</span>   187    <span class="xdoc">     *          var fileName = Manifest.files[i];
+</span>   188    <span class="xdoc">     *          if (fileName.match(/\.c$/) != null) {
+</span>   189    <span class="xdoc">     *              Manifest.filterMap[fileName] = {operation: copyright};
+</span>   190    <span class="xdoc">     *          }
+</span>   191    <span class="xdoc">     *      }
+</span>   192    <span class="xdoc">     *      <b>@p</b>
+</span>   193    <span class="xdoc">     *
+</span>   194    <span class="xdoc">     *  <b>@see</b> #files
+</span>   195    <span class="xdoc">     */</span>
+   196        <span class=key>config</span> Filter filterMap[string];
+   197    }
+   198    <span class="comment">/*
+</span>   199    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   200    <span class="comment"> */</span>
+   201    
+</pre>
+</body></html>

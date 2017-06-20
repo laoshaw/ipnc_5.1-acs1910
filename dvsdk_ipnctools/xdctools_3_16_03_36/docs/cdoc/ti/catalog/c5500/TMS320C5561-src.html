@@ -1,0 +1,94 @@
+<html><head><title>module ti.catalog.c5500.TMS320C5561</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS320C5561.xdc ========
+</span>    15    <span class="comment"> *  The chip configuration settings are based on document SPRS012B.
+</span>    16    <span class="comment"> *
+</span>    17    <span class="comment"> */</span>
+    18    <span class=key>package</span> ti.catalog.c5500;
+    19    
+    20    <span class="xdoc">/*!
+</span>    21    <span class="xdoc"> *  ======== TMS320C5561 ========
+</span>    22    <span class="xdoc"> *  The C5561 device data sheet module.
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is 
+</span>    25    <span class="xdoc"> *  used by platforms to obtain "data sheet" information about this device.
+</span>    26    <span class="xdoc"> */</span>
+    27    <span class=key>metaonly</span> <span class=key>module</span> TMS320C5561 <span class=key>inherits</span> ITMS320C55xx
+    28    {
+    29    <span class=key>instance</span>:
+    30        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    31    
+    32        <span class="xdoc">/*!
+</span>    33    <span class="xdoc">     *  ======== memMap ========
+</span>    34    <span class="xdoc">     *  The default memory map for this device
+</span>    35    <span class="xdoc">     */</span>
+    36        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    37            [<span class="string">"DARAM"</span>, {
+    38                comment: <span class="string">"4 blocks of 16K bytes on-chip Dual-Access RAM"</span>,
+    39                name: <span class="string">"DARAM"</span>,
+    40                base: 0x000000,
+    41                len:  0x010000,
+    42                space: <span class="string">"data"</span>,
+    43                access: <span class="string">"RWX"</span>
+    44            }],
+    45    
+    46            [<span class="string">"SARAM"</span>, {
+    47                comment: <span class="string">"64K bytes on-chip Single-Access RAM"</span>,
+    48                name: <span class="string">"SARAM"</span>,
+    49                base: 0x010000,
+    50                len:  0x010000,
+    51                space: <span class="string">"code/data"</span>,
+    52                access: <span class="string">"RWX"</span>
+    53            }],
+    54        
+    55            [<span class="string">"SARAM1"</span>, {
+    56                comment: <span class="string">"4 blocks of 64K bytes on-chip Single-Access RAM"</span>,
+    57                name: <span class="string">"SARAM1"</span>,
+    58                base: 0x020000,
+    59                len:  0x040000,
+    60                space: <span class="string">"data"</span>,
+    61                access: <span class="string">"RWX"</span>
+    62            }],
+    63        
+    64            [<span class="string">"SHRAM"</span>, {
+    65                comment: <span class="string">"2 block of 256K bytes shared memory"</span>,
+    66                name: <span class="string">"SHRAM"</span>,
+    67                base: 0xf80000,
+    68                len:  0x07f000,
+    69                space: <span class="string">"code/data"</span>,
+    70                access: <span class="string">"RWX"</span>
+    71            }],
+    72        
+    73            [<span class="string">"ROM"</span>, {
+    74                comment: <span class="string">"4K byte on-chip ROM"</span>,
+    75                name: <span class="string">"ROM"</span>,
+    76                base: 0xfff000,
+    77                len:  0x001000,
+    78                space: <span class="string">"code/data"</span>,
+    79                access: <span class="string">"RX"</span>
+    80            }],
+    81        ];
+    82    };
+    83    <span class="comment">/*
+</span>    84    <span class="comment"> *  @(#) ti.catalog.c5500; 1, 0, 0, 0,226; 2-23-2010 16:53:06; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    85    <span class="comment"> */</span>
+    86    
+</pre>
+</body></html>

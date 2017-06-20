@@ -1,0 +1,300 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 1 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_0.html" title="Lesson 0"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_2.html" title="Lesson 2"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 1</p><p id="subtitle">Basic concepts &#151; deploying the <tt>acme.utils</tt> package</p>
+<p>To introduce the fundamentals of RTSC packaging, we'll begin by executing a rather elementary task from the content consumer's perspective&#151;installing a single RTSC package named <tt>acme.utils</tt>. Though trivial to perform (just a few simple commands), we'll use this opportunity to examine the structure and organization of RTSC packages in general as well as the mechanisms used by the <tt>XDCtools</tt> to locate packages within your file-system.
+</p><p>Understanding just a few basic concepts will ultimately enable you to make intelligent choices in <i>deploying</i> RTSC packages&#151;making their content readily available for consumption by individuals, by teams, or by entire companies.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Different_forms_of_a_package"><span class="tocnumber">1</span> <span class="toctext">Different forms of a package</span></a></li>
+<li class="toclevel-1"><a href="#Populating_a_package_repository"><span class="tocnumber">2</span> <span class="toctext">Populating a package repository</span></a></li>
+<li class="toclevel-1"><a href="#Locating_packages_in_repositories"><span class="tocnumber">3</span> <span class="toctext">Locating packages in repositories</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Different_forms_of_a_package"></a><h2> <span class="mw-headline">Different forms of a package</span></h2>
+<p>In general, RTSC packages will manifest themselves in several different forms; and we'll illustrate these using <tt>acme.utils</tt> as an example.  Despite variations in its physical representation, however, the ultimate purpose behind a package such as <tt>acme.utils</tt> remains the same&#151;to facilitate delivery of software content from producer to consumer.
+</p>
+<div class="Info"><p class="Info">In the case of <tt>acme.utils</tt>, this package just so happens to contain a RTSC <b>module</b> named <tt>Bench</tt>&#151;one which we'll use later on within a sample application program presented in Lesson 3.&nbsp;  (For anyone having read the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>, you should know exactly what we're saying here; for the rest of you, we'll fill in some missing details when we present the program.)</p></div>
+<p><span class="Leader">Logical container</span>.&nbsp;  Independent of its physical form, a RTSC package logically serves as a standardized "box" that can hold just about any sort of software artifact&#151;sources, binaries, scripts, docs, even other packages.  As this logical container moves through its natural life-cycle&#151;initially built and released by its producer and later installed and deployed by its consumer&#151;a RTSC package will always remain as a <i>unit</i> so as not to compromise the overall integrity of its contents.  As you'll soon come to appreciate, installing <tt>acme.utils</tt> doesn't really "open the box and remove its contents", but rather transforms the same logical package from one physical form to another.
+</p><p>Besides this important property of <i>unity</i>, each RTSC package also possesses an individual <i>identity</i>&#151;which is to say, each of our conceptual software boxes will have a globally-unique label associated with it.  With RTSC packages, this label takes the form of a hierarchic, multi-segment name&#151;such as <tt>acme.utils</tt> in our example at hand.  By convention, the first segment(s) of a RTSC package name will typically identify <i>who</i> produced the package; in our situation, the <tt>acme.utils</tt> package might have come from <i>Acme Software</i> who in turn might supply other RTSC packages, all with names of the form <tt>acme.<i>rest-of-the-name</i></tt>.
+</p>
+<div class="Info"><p class="Info">For those of you familiar with Java&#151;one of the first mainstream programming languages with <span class="kw1"><tt>package</tt></span> as a keyword&#151;RTSC applies many of the same concepts within its own packaging architecture.  As a case in point, Java developers routinely work with (re-usable) software elements partitioned across <i>thousands</i> of packages, each with a globally-unique muti-segment name that typically follows the reversed domain-name of the package supplier&#151;<tt>com.ibm.*</tt>, <tt>org.eclipse.*</tt>, and so on.</p></div>    
+<p><span class="Leader">File-system directory</span>.&nbsp;  When in use&#151;by producer or consumer&#151;each RTSC package physically manifests itself as a file-system directory whose relative path <i>must</i> mirror the full package name in an obvious manner; in the case of <tt>acme.utils</tt>, its contents <i>must</i> reside in a directory named <tt>acme/utils</tt>.  It's that simple&#151;<i>and there's <u>no</u> exceptions!!</i>
+</p>
+<div class="Info"><p class="Info">As you might have guessed, Java utilizes exactly the same physical design for its packages&#151;a pattern that already scales across millions of producers/consumers:&nbsp; packages named <tt>com.ibm.*</tt> reside in directories named <tt>com/ibm/*</tt>; packages named <tt>org.eclipse.*</tt> reside in directories named <tt>org/eclipse/*</tt>; and so on.  When in doubt, steal shamelessly from the success of others.</p></div>
+<p>Looking inside what we'll term the <b>package directory</b>&#151;here, <tt>acme/utils</tt>&#151;you'd find a number of special files that 
+not only confirm the identify of this directory as holding the contents of a particular RTSC package, but also track the state of this package as its advances through its natural life-cycle.  Starting in Lesson 4, we'll explore these files in greater detail as you'll begin playing the role of package producer. 
+</p>
+<span id="Fig1"><center><a href="images/PkgPrimerFig1.png" class="image" title="Image:PkgPrimerFig1.png"><img alt="Image:PkgPrimerFig1.png" src="images/PkgPrimerFig1.png" width="652" height="348" border="0" /></a></center></span>
+<p>Regardless of its state, each RTSC package will always have a distinguished <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file named <tt>package.xdc</tt> in its corresponding package directory.  If <i>buildable</i> using the <tt>XDCtools</tt> product, the package will also contain a special <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> source file named <tt>package.bld</tt>.  Again, we'll revisit both of these files beginning in Lesson 4.
+</p><p>Once <i>built</i> by its producer&#151;and hence usable by other clients, say for testing purposes&#151;the package will also contain a special sub-directory named <tt>package</tt> that in turn contains a wealth of files generated by the <tt>XDCtools</tt> product.  But ultimately, the producer would use the <tt>XDCtools</tt> to manufacture <i>released</i> forms of the package&#151;identified through a generated <tt>package/package.rel.xml</tt> file&#151;ready for delivery to package consumers.
+</p>
+<p><div class="Notice"><p class="Notice">Note that, by definition, all <i>released</i> packages are <i>built</i> packages; but a <i>released</i> package is not necessarily a <i>buildable</i> package&#151;unless its original producer took explicit steps to make it so.</p></div></p>
+<p><span class="Leader">Archive file</span>.&nbsp;  Not surprising, producers <i>deliver</i> released RTSC packages in the form of a <b>package archive</b> file&#151;typically a <tt>.zip</tt> file, though <tt>XDCtools</tt> supports <tt>tar.gz</tt> files as well&#151;which can trivially recreate the structure and contents of a released package directory at the consumer's site.  Returning to our example, you'll soon install the <tt>acme.utils</tt> package that presently resides in a package archive file named <tt>acme_utils.zip</tt>. Peeking inside, this archive preserves the <tt>acme/utils</tt> package directory along with the appropriate <tt>package*</tt> files illustrated above; and of course, this archive preserves the "real" content of <tt>acme.utils</tt> which we'll consume later on in Lesson 3.
+</p><p>Though not always obvious at first, the name of the package archive file need not precisely mirror the name of the package itself&#151;though producers will typically choose archive names suggestive of their content.  As it turns out, producers can manufacture <i>multiple</i> releases of the same package&#151;say, one that contains buildable sources and another that only supports the Texas Instruments TMS320C64+ processor family&#151;and will choose distinct file names for the corresponding package archives.  We'll revisit this topic in Lesson 6.
+</p>
+<div class="Info"><p class="Info">The same holds true for Java <tt>.jar</tt> files, which typically coalesce multiple Java packages into a single archive.  What really matters for programmers consuming Java content are the names of <i>packages</i> stored in the archive, and not the name of the archive itself.</p></div>
+<a name="Populating_a_package_repository"></a><h2> <span class="mw-headline">Populating a package repository</span></h2>
+<p>As hinted above, a package archive file serves as an transient form of a RTSC package&#151;one optimized for delivery by producers to consumers&#151;that eventually must reconstitute itself as a <i>released</i> package directory somewhere in the consumer's file-system.  The question now becomes one of <i>where</i>&#151;in the case of <tt>acme.utils</tt>, <i>where</i> should we root the <tt>acme/utils</tt> package directory currently archived in <tt>acme_utils.zip</tt>.&nbsp;  The answer is, <i>"Anywhere you want"</i>....
+</p><p>This rather direct response brings us to the next basic concept in RTSC packaging&#151;<b>package repositories</b>, which are just ordinary directories within <i>your</i> file-system that we'll populate with package directories such as <tt>acme/utils</tt>.  Whereas package directories must follow a canonical naming pattern, no such convention exists for package repositories; since <i>you</i> ultimately own and control the repository directories, name them whatever you wish.
+</p><p>So now, let's imagine a newly-created directory named <tt>myrepo</tt> rooted somewhere within your file-system, which we'll symbolically refer to as <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> in the following examples.  At this point, we could easily extract the contents of the <tt>acme_utils.zip</tt> package archive (found in <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives</tt>) into the empty <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> package repository; the directory <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo/acme/utils</tt> would then hold the contents of our <tt>acme.utils</tt> package.
+</p>
+<center><a href="images/PkgPrimerFig2.png" class="image" title="Image:PkgPrimerFig2.png"><img alt="Image:PkgPrimerFig2.png" src="images/PkgPrimerFig2.png" width="572" height="252" border="0" /></a></center>
+<p><span class="Leader">Using <tt>repoman</tt></span>.&nbsp; Instead, we recommend performing this (trivial) installation step using a command-line tool known as <tt>xdc.tools.repoman</tt>&#151;bundled with the <tt>XDCtools</tt> product you've already downloaded in <a href="RTSC_Packaging_Primer__Lesson_0.html#Downloading_the_XDCtools_product" title="RTSC Packaging Primer/Lesson 0">Lesson 0</a>.  As the name suggests, <tt>repoman</tt> performs a variety of tasks related to managing package repositories; and you'll learn more about this handy tool in Lesson 2, where we'll populate <i>multiple</i> repositories with <i>multiple</i> packages.
+</p><p>For now, though, we'll just use a series of elementary <tt>repoman</tt> commands:&nbsp; <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> to first inventory our package archive; <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> to next extract its contents into our newly-created package repository; and <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> to finally inspect the results.
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.repoman -n <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/acme_utils.zip</span></b>
+acme.utils
+&nbsp;
+<b><span class="st0">%&gt; xs xdc.tools.repoman -x -v -r <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/acme_utils.zip    </span></b>
+xdc.tools.repoman: extracting package(s)...
+xdc.tools.repoman: checking compatibility prior to extracting... 
+xdc.tools.repoman: extracting acme.utils from <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/acme_utils.zip
+xdc.tools.repoman: extracting <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/acme_utils.zip to <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo
+&nbsp;
+<b><span class="st0">%&gt; xs xdc.tools.repoman -n -p <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</span></b>
+acme.utils</pre></td></tr></table>
+<div class="Info"><p class="Info">Needless to say, the symbol <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span></tt> seen here in the command input/output designates the actual directory where you've unpacked the examples back in <a href="RTSC_Packaging_Primer__Lesson_0.html#Unpacking_the_examples" title="RTSC Packaging Primer/Lesson 0">Lesson 0</a>; the symbol <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> similarly refers to the location of our newly-created package repository.</p></div>
+<p>Compared with using standard Windows or Linux tools to inspect the directory structure of <tt>acme/utils</tt>&#151;whether archived inside <tt>acme_utils.zip</tt> or extracted into <tt>myrepo</tt>&#151;the output of <span class="cmdFrag"><tt>repoman</tt>&nbsp;<tt>-n</tt></span> at lines <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> enables you to view each RTSC package as a single <i>logical</i> entity rather than as a mass of <i>physical</i> files; you'll certainly come to appreciate this feature when managing multiple packages.  Similarly, the output of <span class="cmdFrag"><tt>repoman</tt>&nbsp;<tt>-x</tt></span> at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> hints at some of the extra steps taken by this tool beyond simply extacting <tt>acme_utils.zip</tt>; more to come in Lesson 2.
+</p>
+<a name="Locating_packages_in_repositories"></a><h2> <span class="mw-headline">Locating packages in repositories</span></h2>
+<p>To review.... RTSC package contents must reside in a canonically-named <b>package directory</b>; but RTSC package directories can reside in arbitrarily-named <b>package repositories</b>.  All of this then leads to the last of our basic concepts and the top of the RTSC packaging hierarchy&#151;the <b>package path</b>, which is a list of package repositories ultimately used by the <tt>XDCtools</tt> to locate individual packages and to retrieve their contents for client application use.
+</p>
+<div class="Info"><p class="Info">And once again, RTSC defers to the Java <i>classpath</i> as a model for its own package location and retrieval mechanism.</p></div> 
+<p><span class="Leader">Default package path</span>.&nbsp; As it turns out, <tt>XDCtools</tt> will <i>always</i> define a package path&#151;even if you've just installed the product as directed in <a href="RTSC_Packaging_Primer__Lesson_0.html#Downloading_the_XDCtools_product" title="RTSC Packaging Primer/Lesson 0">Lesson 0</a>.  To verify, we'll use another command-line tool named <tt>xdc.tools.path</tt> to first display the (default) package path and then to list all RTSC packages currently found along this path.
+</p>
+<table>
+
+<tr valign="top">
+<td><div id="cl-2:1a"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1a</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path -p          </span></b>
+<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages;</pre></td></tr></table>
+</td><td><div id="cl-2:2a"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">2a</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path -n        </span></b>
+gnu.gdb.jserver
+gnu.targets.arm
+    ...
+xdc.tools.path
+xdc.tools.path.sg
+xdc.tools.repoman
+xdc.tools.repoman.sg
+    ...
+xdc.utils</pre></td></tr></table>
+</td></tr></table>
+<p>Applying basic concepts we've already introduced, the output of the <span class="cmdFrag"><tt>path</tt>&nbsp;<tt>-p</tt></span> command at line <a class="codexLink" href="#cl-2:1a"><span class="codexLink">1a</span></a> suggests that the <tt>XDCtools</tt> product&#151;installed in a directory we've referred to as <span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>&#151;itself incorporates a package repository named <tt>packages</tt>. The output of the <span class="cmdFrag"><tt>path</tt>&nbsp;<tt>-n</tt></span> command at line <a class="codexLink" href="#cl-2:2a"><span class="codexLink">2a</span></a> then alphabetically lists all of the RTSC packages found in this <u><i>one</i></u> repository alone&#151;about 150 of them, if you've actually run the command yourself.
+</p>
+<p><div class="Notice"><p class="Notice">As a rule, the directory <tt><span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages</tt> will <i>always</i> appear within the current package path&#151;typically, at the end</p></div></p> 
+<div class="Info"><p class="Info">Perhaps you're sensing a pattern here&#151;virtually <i>everything</i> within the world of RTSC resides in some package, including hosted tools like <tt>xdc.tools.path</tt> and <tt>xdc.tools.repoman</tt> used to manage <i>other</i> RTSC packages.  Written in <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>&#151;the RTSC <b>meta-language</b>, which plays a central role for package producers and consumers alike&#151;the special <tt>xs</tt> command located in <tt><span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span></tt> invokes these tools by locating their corresponding package directory which in turn holds the necessary <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> sources.  The <tt>xs</tt> command forwards any remaining arguments after the package name to the application's main function.&nbsp;  <i>The application <u>is</u> the package, and vice versa.</i></p></div>
+<p><span class="Leader">Extending the package path</span>.&nbsp;  To quickly add our own package repository to the current package path&#151;the final step in <i>deploying</i> the <tt>acme.utils</tt> package for use in client applications&#151;simply assign the absolute directory name <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> to the <tt>XDCPATH</tt> environment variable.  To verify, re-run the earlier <span class="cmdFrag"><tt>path</tt>&nbsp;<tt>-p</tt></span> and <span class="cmdFrag"><tt>path</tt>&nbsp;<tt>-n</tt></span> commands.
+</p>
+<table>
+
+<tr valign="top">
+<td><div id="cl-3:1b"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1b</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path -p    </span></b>
+<span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo;<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages;</pre></td></tr></table>
+</td><td><div id="cl-3:2b"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">2b</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path -n        </span></b>
+acme.utils
+gnu.gdb.jserver
+gnu.targets.arm
+    ...
+xdc.utils</pre></td></tr></table>
+</td></tr></table>
+<p>As apparent from the output following line <a class="codexLink" href="#cl-3:1b"><span class="codexLink">1b</span></a>, the special <tt><span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages</tt> repository bundled with the <tt>XDCtools</tt> product itself appears <i>after</i> your own contribution(s) to the RTSC package path; the next Lesson explores some consequences of this ordering amongst the package repositories.  And as apparent from the alphabetically-sorted output following line <a class="codexLink" href="#cl-3:2b"><span class="codexLink">2b</span></a>, our <tt>acme.utils</tt> package has finally "made the list" in the eyes of the <tt>XDCtools</tt> product.
+</p>
+<div class="Info"><p class="Info">The <tt>XDCtools</tt> also include graphical variants of the command-line <tt>path</tt> and <tt>repoman</tt> tools, which you should eventually explore.  As a first step, <span class="cmdFrag"><tt>xs</tt>&nbsp;<tt>xdc.tools.path.sg</tt></span> will fire-up a GUI application&#151;written in <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>, of course&#151;that enables you to truly "see" all of the RTSC packages already found along the current package path.&nbsp; <i>Enjoy!!</i></p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Managing_the_Package_Path/Managing_the_Package_Path.html" title="Managing the Package Path">Managing the Package Path</a>
+</td><td class="DocListSubTitle1">Introduction to managing package paths
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Command_-_xdc.tools.repoman/Command_-_xdc.tools.repoman.html" title="Command - xdc.tools.repoman">Command - xdc.tools.repoman</a>
+</td><td class="DocListSubTitle">Repository management tool
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Command_-_xdc.tools.path/Command_-_xdc.tools.path.html" title="Command - xdc.tools.path">Command - xdc.tools.path</a>
+</td><td class="DocListSubTitle">Package path display tool
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_0.html" title="Lesson 0"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_2.html" title="Lesson 2"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 13712 bytes
+Post-expand include size: 4045 bytes
+Template argument size: 649 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>

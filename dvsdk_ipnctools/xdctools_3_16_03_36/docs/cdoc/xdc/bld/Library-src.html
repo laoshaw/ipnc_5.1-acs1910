@@ -1,0 +1,248 @@
+<html><head><title>module xdc.bld.Library</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Library.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== Library ========
+</span>    19    <span class="xdoc"> *  Model of a searchable collection of object files
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  A library is a collection of one or more object files that is searched
+</span>    22    <span class="xdoc"> *  to resolve undefined references at link time.
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  Instances of this module represent a target independent collection of
+</span>    25    <span class="xdoc"> *  object files that implement a single set of APIs.  Thus, a library is
+</span>    26    <span class="xdoc"> *  really a container of target-specific archives which contain the object
+</span>    27    <span class="xdoc"> *  files necessary to implement a common API.  Although, a library may
+</span>    28    <span class="xdoc"> *  contain target dependent APIs, each library is expected to
+</span>    29    <span class="xdoc"> *  encapsulate the same basic functionality independent of the target.
+</span>    30    <span class="xdoc"> *
+</span>    31    <span class="xdoc"> *  Instances must be created via the
+</span>    32    <span class="xdoc"> *  `{<b>@link</b> xdc.bld.PackageContents#addLibrary()}` function; this
+</span>    33    <span class="xdoc"> *  ensures that each library created appears in the package's manifest and
+</span>    34    <span class="xdoc"> *  that it properly "inherits" appropriate default attributes from the
+</span>    35    <span class="xdoc"> *  containing package.
+</span>    36    <span class="xdoc"> *
+</span>    37    <span class="xdoc"> *  Library instances are initially create without *any* objects; this ensures
+</span>    38    <span class="xdoc"> *  that the developer complete control over what objects should be in each
+</span>    39    <span class="xdoc"> *  library. Thus, even modules declared in a package's specification,
+</span>    40    <span class="xdoc"> *  `package.xdc`, must be explicitly added to each library in the package
+</span>    41    <span class="xdoc"> *  (via `{<b>@link</b> #addObjects()}`).
+</span>    42    <span class="xdoc"> */</span>
+    43    <span class=key>metaonly</span> <span class=key>module</span> Library {
+    44        <span class="xdoc">/*!
+</span>    45    <span class="xdoc">     *  ======== Attrs ========
+</span>    46    <span class="xdoc">     *  Optional attributes for a Library instance.
+</span>    47    <span class="xdoc">     *
+</span>    48    <span class="xdoc">     *  Unspecified attributes are "inherited" from
+</span>    49    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.PackageContents#Attrs}`; i.e., if one of fields in this
+</span>    50    <span class="xdoc">     *  structure is unspecified *and* this field's name matches a field name
+</span>    51    <span class="xdoc">     *  in `{<b>@link</b> xdc.bld.PackageContents#attrs}`, then this field's value
+</span>    52    <span class="xdoc">     *  defaults to the value in specified by
+</span>    53    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.PackageContents#attrs}`.  This mechanism makes it
+</span>    54    <span class="xdoc">     *  possible to establish package-wide default values for any of the
+</span>    55    <span class="xdoc">     *  "inherited" attributes.
+</span>    56    <span class="xdoc">     *
+</span>    57    <span class="xdoc">     *  Suppose, for example, that you want all archives in this
+</span>    58    <span class="xdoc">     *  package to be build with the '`release`' profile, but one particular 
+</span>    59    <span class="xdoc">     *  archive must be built with '`debug`' (because it is a source example).
+</span>    60    <span class="xdoc">     *  The following build script fragment shows how this can be
+</span>    61    <span class="xdoc">     *  accomplished:
+</span>    62    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    63    <span class="xdoc">     *      Pkg.attrs.profile = 'release';
+</span>    64    <span class="xdoc">     *      var lib = Pkg.addLibrary('example', ..., {profile: 'debug'});
+</span>    65    <span class="xdoc">     *  <b>@p</b>
+</span>    66    <span class="xdoc">     *  <b>@field(incs)</b>  This string contains include path options used by
+</span>    67    <span class="xdoc">     *          the compiler (or assembler) to locate include files; e.g.,
+</span>    68    <span class="xdoc">     *          "`-I ../../include -I ../c55xx`".  Note that the syntax of 
+</span>    69    <span class="xdoc">     *          this string may be target dependent.
+</span>    70    <span class="xdoc">     *
+</span>    71    <span class="xdoc">     *  <b>@field(defs)</b>  This string contains options used by the
+</span>    72    <span class="xdoc">     *          compiler (or assembler) to define macros; e.g.,
+</span>    73    <span class="xdoc">     *          "`-D_C6xxx -DDEBUG=1`".  Note that the syntax of 
+</span>    74    <span class="xdoc">     *          this string may be target dependent.
+</span>    75    <span class="xdoc">     *
+</span>    76    <span class="xdoc">     *  <b>@field(aopts)</b>  This string contains options used by the assembler
+</span>    77    <span class="xdoc">     *          to produce object files; e.g., "`-mP1`".  Note that the syntax
+</span>    78    <span class="xdoc">     *          of this string may be target dependent.
+</span>    79    <span class="xdoc">     *
+</span>    80    <span class="xdoc">     *  <b>@field(copts)</b>  This string contains options used by the C/C++
+</span>    81    <span class="xdoc">     *          compiler to produce object files; e.g., "`-o3 -mi1`".  Note
+</span>    82    <span class="xdoc">     *          that the syntax of this string may be target dependent.
+</span>    83    <span class="xdoc">     *
+</span>    84    <span class="xdoc">     *  <b>@field(aropts)</b>  This string contains options used by the archiver
+</span>    85    <span class="xdoc">     *          produce archive files; e.g., "`-q`".  Note
+</span>    86    <span class="xdoc">     *          that the syntax of this string may be target dependent.
+</span>    87    <span class="xdoc">     *
+</span>    88    <span class="xdoc">     *  <b>@field(exportSrc)</b>  If this field is set to true, the sources
+</span>    89    <span class="xdoc">     *          specified via `{<b>@link</b> #addObjects}()`
+</span>    90    <span class="xdoc">     *          will be part of the releases named in the releases
+</span>    91    <span class="xdoc">     *          array.  If it is unspecified (or set to `null`) and the
+</span>    92    <span class="xdoc">     *          release specifies that sources are to be exported,
+</span>    93    <span class="xdoc">     *          the sources will be part of the release.  In
+</span>    94    <span class="xdoc">     *          all other cases, the sources are not part of the
+</span>    95    <span class="xdoc">     *          release.
+</span>    96    <span class="xdoc">     *
+</span>    97    <span class="xdoc">     *  <b>@field(suffix)</b>  If this string is set to a non-`null` value, it 
+</span>    98    <span class="xdoc">     *          specifies the suffix (or extension) of the archive produced.
+</span>    99    <span class="xdoc">     *          This suffix is used in lieu of the default suffix
+</span>   100    <span class="xdoc">     *          ("`.a&lt;targ_suffix&gt;`", where `&lt;targ_suffix&gt;` is the suffix
+</span>   101    <span class="xdoc">     *          property of the target used to create the archive).  So,
+</span>   102    <span class="xdoc">     *          care must be taken when creating multiple libraries for
+</span>   103    <span class="xdoc">     *          different targets to ensure that the resulting archive names
+</span>   104    <span class="xdoc">     *          are unique.
+</span>   105    <span class="xdoc">     *
+</span>   106    <span class="xdoc">     *  <b>@field(profile)</b>  This string names a profile defined by the
+</span>   107    <span class="xdoc">     *          library's target.  The profile specifies a set of compiler,
+</span>   108    <span class="xdoc">     *          assembler, and archiver options that are to be used when 
+</span>   109    <span class="xdoc">     *          producing the archive.  Note that these tool options are
+</span>   110    <span class="xdoc">     *          in addition to any options specified via `aopts`, `copts`,
+</span>   111    <span class="xdoc">     *          etc.
+</span>   112    <span class="xdoc">     *
+</span>   113    <span class="xdoc">     *  <b>@field(releases)</b>  This array contains releases that will contain the
+</span>   114    <span class="xdoc">     *          library.  Thus, a single library can be part of any set of
+</span>   115    <span class="xdoc">     *          releases.  Each library is always added to the package's
+</span>   116    <span class="xdoc">     *          "default release" in addition to any releases specified in
+</span>   117    <span class="xdoc">     *          the releases array.
+</span>   118    <span class="xdoc">     *
+</span>   119    <span class="xdoc">     *  <b>@see</b> #attrs
+</span>   120    <span class="xdoc">     *  <b>@see</b> xdc.bld.PackageContents#Attrs
+</span>   121    <span class="xdoc">     */</span>
+   122        <span class=key>struct</span> Attrs {
+   123            String  profile;    <span class="xdoc">/*! target options profile */</span>
+   124            String  aopts;      <span class="xdoc">/*! asm options for objects */</span>
+   125            String  copts;      <span class="xdoc">/*! C/C++ options for objects */</span>
+   126            String  defs;       <span class="xdoc">/*! definitions for added objects */</span>
+   127            String  incs;       <span class="xdoc">/*! include options for objects */</span>
+   128            String  aropts;     <span class="xdoc">/*! library-specific archiver options */</span>
+   129            String  suffix;     <span class="xdoc">/*! optional suffix of library name; e.g.,".lib" */</span>
+   130            Bool    exportSrc;  <span class="xdoc">/*! if true, export library sources to releases */</span>
+   131            Release.Instance releases[];  <span class="xdoc">/*! releases this library is a part of */</span>
+   132        };
+   133    
+   134    <span class=key>instance</span>:
+   135        <span class="xdoc">/*!
+</span>   136    <span class="xdoc">     *  ======== create ========
+</span>   137    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   138    <span class="xdoc">     *  Instances should only be created via PackageContents.addLibrary()
+</span>   139    <span class="xdoc">     */</span>
+   140        create();
+   141    
+   142        <span class="xdoc">/*!
+</span>   143    <span class="xdoc">     *  ======== name ========
+</span>   144    <span class="xdoc">     *  The base name of the library.
+</span>   145    <span class="xdoc">     *
+</span>   146    <span class="xdoc">     *  This name names a sub-directory in the package directory that
+</span>   147    <span class="xdoc">     *  contains all the object files and archives created for each of the
+</span>   148    <span class="xdoc">     *  targets specified.
+</span>   149    <span class="xdoc">     *
+</span>   150    <span class="xdoc">     *  The name of each library is `&lt;name&gt;/&lt;name&gt;.a&lt;target_suffix&gt;`, where
+</span>   151    <span class="xdoc">     *  `&lt;name&gt;` is the base name and `&lt;target_suffix&gt;` is the suffix property
+</span>   152    <span class="xdoc">     *  of the target for which the library is built.  For example, one is
+</span>   153    <span class="xdoc">     *  building a `"hello"` library for big endian C62 the library's file
+</span>   154    <span class="xdoc">     *  name is "`hello/hello.a62e`"
+</span>   155    <span class="xdoc">     */</span>
+   156        <span class=key>config</span> String name;
+   157    
+   158        <span class="xdoc">/*!
+</span>   159    <span class="xdoc">     *  ======== target ========
+</span>   160    <span class="xdoc">     *  The target used to build objects added to this library.
+</span>   161    <span class="xdoc">     */</span>
+   162        <span class=key>config</span> ITarget.Module target;
+   163    
+   164        <span class="xdoc">/*!
+</span>   165    <span class="xdoc">     *  ======== attrs ========
+</span>   166    <span class="xdoc">     *  This library's optional attributes.
+</span>   167    <span class="xdoc">     *
+</span>   168    <span class="xdoc">     *  These attributes are "inherited" by all objects added to this
+</span>   169    <span class="xdoc">     *  library; i.e., any object attribute that is undefined but is
+</span>   170    <span class="xdoc">     *  defined here will be assigned the value from these attributes.
+</span>   171    <span class="xdoc">     *
+</span>   172    <span class="xdoc">     *  Similarly, any unspecified attributes that also appear in
+</span>   173    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.PackageContents#Attrs}` are inherited from
+</span>   174    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.PackageContents#attrs}`.
+</span>   175    <span class="xdoc">     *
+</span>   176    <span class="xdoc">     *  <b>@see</b> xdc.bld.PackageContents#Attrs
+</span>   177    <span class="xdoc">     */</span>
+   178        <span class=key>config</span> Library.Attrs attrs;
+   179        
+   180        <span class="xdoc">/*!
+</span>   181    <span class="xdoc">     *  ======== addObjects ========
+</span>   182    <span class="xdoc">     *  Add specified object to be built and archived into this library.
+</span>   183    <span class="xdoc">     *
+</span>   184    <span class="xdoc">     *  Examples
+</span>   185    <span class="xdoc">     *
+</span>   186    <span class="xdoc">     *      1. Locate a source file whose name starts with "fir" with
+</span>   187    <span class="xdoc">     *      an extension supported by the library's target, compile it
+</span>   188    <span class="xdoc">     *      and add to the library lib:
+</span>   189    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   190    <span class="xdoc">     *          lib.addObjects(["fir"]);
+</span>   191    <span class="xdoc">     *      <b>@p</b>
+</span>   192    <span class="xdoc">     *      If fir.c exists compile and add to lib, if fir.asm exists
+</span>   193    <span class="xdoc">     *      assemble and add to lib, etc.  If no such file is located,
+</span>   194    <span class="xdoc">     *      an warning is emitted.
+</span>   195    <span class="xdoc">     *
+</span>   196    <span class="xdoc">     *      2. Compile `fir.c` and `iir.c` and add to the library `lib`:
+</span>   197    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   198    <span class="xdoc">     *          lib.addObjects(["fir.c", "iir.c"]);
+</span>   199    <span class="xdoc">     *      <b>@p</b>
+</span>   200    <span class="xdoc">     *      3. Names may include sub-directory prefixes.  In this case, the
+</span>   201    <span class="xdoc">     *      source will be located in a sub-directory of the current
+</span>   202    <span class="xdoc">     *      package.  The following statement declares that the file
+</span>   203    <span class="xdoc">     *      "`foo/fir.c`" should be compiled and added to the library
+</span>   204    <span class="xdoc">     *      `lib`:
+</span>   205    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   206    <span class="xdoc">     *          lib.addObjects(["foo/fir.c"]);
+</span>   207    <span class="xdoc">     *      <b>@p</b>
+</span>   208    <span class="xdoc">     *      As in the previous examples, the extension ".c" is optional. 
+</span>   209    <span class="xdoc">     *      In case an extension is not supplied, each extension
+</span>   210    <span class="xdoc">     *      understood by the target will be tried until a source file
+</span>   211    <span class="xdoc">     *      is located.
+</span>   212    <span class="xdoc">     *
+</span>   213    <span class="xdoc">     *      4. It is also possible to supply file specific compilation
+</span>   214    <span class="xdoc">     *      options.
+</span>   215    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   216    <span class="xdoc">     *          lib.addObjects(["fir.c", "iir.c"], {defs: "-D_DEBUG"});
+</span>   217    <span class="xdoc">     *      <b>@p</b>
+</span>   218    <span class="xdoc">     *      In this case, both files `fir.c` and `iir.c` will be compiled
+</span>   219    <span class="xdoc">     *      with the "`-D_DEBUG`" flag.  Any setting of `attrs.defs` in the
+</span>   220    <span class="xdoc">     *      library or package is overridden by this definition.
+</span>   221    <span class="xdoc">     *
+</span>   222    <span class="xdoc">     *  <b>@param(names)</b>       array of base names of the sources of object files
+</span>   223    <span class="xdoc">     *                      to be created and archived into the library.
+</span>   224    <span class="xdoc">     *                      See NOTE in `{<b>@link</b> xdc.bld}` for filename rules.
+</span>   225    <span class="xdoc">     *
+</span>   226    <span class="xdoc">     *  <b>@param(objAttrs)</b>    optional `{<b>@link</b> Object#Attrs}` for the array of
+</span>   227    <span class="xdoc">     *                      objects added; all objects named by `names` will be
+</span>   228    <span class="xdoc">     *                      given the attributes `objAttrs`.
+</span>   229    <span class="xdoc">     *
+</span>   230    <span class="xdoc">     *  <b>@a(returns)</b>         `void`
+</span>   231    <span class="xdoc">     *
+</span>   232    <span class="xdoc">     *  <b>@a(throws)</b>          `Error` exceptions are thrown for fatal errors
+</span>   233    <span class="xdoc">     *
+</span>   234    <span class="xdoc">     */</span>
+   235        Void addObjects(String names[], Object.Attrs objAttrs = {});
+   236    }
+   237    <span class="comment">/*
+</span>   238    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   239    <span class="comment"> */</span>
+   240    
+</pre>
+</body></html>

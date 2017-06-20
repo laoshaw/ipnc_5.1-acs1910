@@ -1,0 +1,84 @@
+<html>
+<head>
+<title>package xdc.services.spec</title>
+<meta name="description" content="Java classes to access XDCspec information">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">xdc.services.spec</span></td>
+<td class="xdocHdrArrow">&nbsp;&nbsp;&nbsp;</td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/services/spec/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Java classes to access XDCspec information</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">NOTE</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-3">XDCSCRIPT EXAMPLES</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-4">SEE</a></li>
+</ul>
+<div class="xdocBrief">
+This package contains several Java classes that enable clients to
+  retrieve inforation about modules, interfaces, and packages from their
+  specification files (i.e., <tt>*.xdc</tt> files).  Being Java classes, the APIs
+  provided are available to both Java applications and XDCscripts (via the
+  <tt>$spec</tt> property of the module, interface, or package).
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../xdc/services/spec/package-src.html"><span class="xdocLabelFile">xdc/services/spec/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/shelf/package.html" title="xdc.shelf">xdc.shelf</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">xdc.services.spec</span></go> [1, 0, 0, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This package contains several Java classes that enable clients to
+  retrieve inforation about modules, interfaces, and packages from their
+  specification files (i.e., <tt>*.xdc</tt> files).  Being Java classes, the APIs
+  provided are available to both Java applications and XDCscripts (via the
+  <tt>$spec</tt> property of the module, interface, or package).</div>
+<div class="xdocText"><DL><DT> <tt><a class="xdoc-linkFile" href="./doc-files/javadoc/xdc/services/spec/Pkg.html" title="./doc-files/javadoc/xdc/services/spec/Pkg.html">[Pkg]</a></tt></DT><DD>
+       Package related information available from a package's <tt>$spec</tt>
+        property.
+</DD><DT> <tt><a class="xdoc-linkFile" href="./doc-files/javadoc/xdc/services/spec/Unit.html" title="./doc-files/javadoc/xdc/services/spec/Unit.html">[Unit]</a></tt></DT><DD>
+        Module (or interface) related information available from a
+        module's (or interface's) <tt>$spec</tt> property.
+</DD></DL></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">When accessing the Java methods provided by this package via XDCscript,
+  you can either either use their liternames (e.g., <tt>getName()</tt>) or use
+  the JavaBeans pattern of getters and setters in which the method
+  <tt>getName()</tt> can be accessed via just <tt>name</tt>.  The examples below provide
+  examples of how this pattern can be used.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">XDCSCRIPT EXAMPLES</div>
+<div class="xdocText">Get the declared name of a module:</div>
+<div class="xdocText"><PRE class="Example">      var Mod = xdc.module('pkg.Mod');
+      print("Module declared as " + Mod.$spec.getName());
+</PRE></div>
+<div class="xdocText">This same example can be written using the JavaBean pattern as follows:</div>
+<div class="xdocText"><PRE class="Example">      var Mod = xdc.module('pkg.Mod');
+      print("Module declared as " + Mod.$spec.name);
+</PRE></div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-linkFile" href="./doc-files/javadoc/index.html" title="./doc-files/javadoc/index.html">Javadoc</a></div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:11 GMT</div>
+</div></div></body>
+</html>

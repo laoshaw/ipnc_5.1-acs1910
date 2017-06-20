@@ -1,0 +1,554 @@
+<html><head><title>module xdc.runtime.Diags</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,ESD
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments. All rights reserved. 
+</span>     3    <span class="comment"> *  This program and the accompanying materials are made available under the 
+</span>     4    <span class="comment"> *  terms of the Eclipse Public License v1.0 and Eclipse Distribution License
+</span>     5    <span class="comment"> *  v. 1.0 which accompanies this distribution. The Eclipse Public License is
+</span>     6    <span class="comment"> *  available at http://www.eclipse.org/legal/epl-v10.html and the Eclipse
+</span>     7    <span class="comment"> *  Distribution License is available at 
+</span>     8    <span class="comment"> *  http://www.eclipse.org/org/documents/edl-v10.php.
+</span>     9    <span class="comment"> *
+</span>    10    <span class="comment"> *  Contributors:
+</span>    11    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    12    <span class="comment"> * --/COPYRIGHT--*/</span>
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Diags.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> *! Revision History
+</span>    17    <span class="comment"> *! ================
+</span>    18    <span class="comment"> *! 12-Mar-2008 agd     CDOC review changes
+</span>    19    <span class="comment"> *! 15-Feb-2008 sasha   Fixed setMaskEnabled documentation (CQ20777)
+</span>    20    <span class="comment"> */</span>
+    21    
+    22    <span class="xdoc">/*!
+</span>    23    <span class="xdoc"> *  ======== Diags ========
+</span>    24    <span class="xdoc"> *  Diagnostics manager
+</span>    25    <span class="xdoc"> *
+</span>    26    <span class="xdoc"> *  Every XDC module has a "diagnostics mask" that allows clients to
+</span>    27    <span class="xdoc"> *  enable or disable diagnostics on a per module basis both at
+</span>    28    <span class="xdoc"> *  configuration time and at runtime. The `Diags` module manages a
+</span>    29    <span class="xdoc"> *  module's diagnostics mask.
+</span>    30    <span class="xdoc"> *
+</span>    31    <span class="xdoc"> *  You use the `Diags` module to set and clear bits in a module's
+</span>    32    <span class="xdoc"> *  diagnostics mask for the purpose of controlling diagnostics
+</span>    33    <span class="xdoc"> *  within that module. Each bit corresponds to a "type" of diagnostic
+</span>    34    <span class="xdoc"> *  that can be individually enabled or disabled.
+</span>    35    <span class="xdoc"> *
+</span>    36    <span class="xdoc"> *  A module's diagnostics mask controls both `{<b>@link</b> Assert}` and
+</span>    37    <span class="xdoc"> *  `{<b>@link</b> Log}` statements within that module. A module's diagnostics
+</span>    38    <span class="xdoc"> *  mask may also be used to conditionally execute blocks of code using
+</span>    39    <span class="xdoc"> *  the `{<b>@link</b> #query Diags_query()}` runtime function.
+</span>    40    <span class="xdoc"> *  
+</span>    41    <span class="xdoc"> *  A module's diagnostics mask can be set at configuration time and
+</span>    42    <span class="xdoc"> *  at runtime. The implementation of diagnostics is such that when they
+</span>    43    <span class="xdoc"> *  are permanently turned off at configuration time 
+</span>    44    <span class="xdoc"> *  (`{<b>@link</b> #ALWAYS_OFF Mode.ALWAYS_OFF}`), an optimizer can
+</span>    45    <span class="xdoc"> *  completely eliminate the diagnostics code from the program. Similarly,
+</span>    46    <span class="xdoc"> *  if diagnostics are permanently turned on at configuration time
+</span>    47    <span class="xdoc"> *  (`{<b>@link</b> #ALWAYS_ON Mode.ALWAYS_ON}`), the optimizer can
+</span>    48    <span class="xdoc"> *  eliminate all runtime conditional checking and simply
+</span>    49    <span class="xdoc"> *  invoke the diagnostics code directly. Runtime checking of the
+</span>    50    <span class="xdoc"> *  diagnostics mask is performed only when the diagnostics are configured
+</span>    51    <span class="xdoc"> *  to be runtime modifiable (`{<b>@link</b> #RUNTIME_OFF Mode.RUNTIME_OFF}` or 
+</span>    52    <span class="xdoc"> *  `{<b>@link</b> #RUNTIME_ON Mode.RUNTIME_ON}`).
+</span>    53    <span class="xdoc"> *
+</span>    54    <span class="xdoc"> *  Each bit of the diagnostics mask is controlled by one of the following
+</span>    55    <span class="xdoc"> *  constants.
+</span>    56    <span class="xdoc"> *
+</span>    57    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    58    <span class="xdoc"> *  Constant    Meaning
+</span>    59    <span class="xdoc"> *  --------------------------
+</span>    60    <span class="xdoc"> *  ENTRY       Function entry
+</span>    61    <span class="xdoc"> *  EXIT        Function exit
+</span>    62    <span class="xdoc"> *  LIFECYCLE   Object life-cycle
+</span>    63    <span class="xdoc"> *  INTERNAL    Internal diagnostics
+</span>    64    <span class="xdoc"> *  ASSERT      Assert checking
+</span>    65    <span class="xdoc"> *  USER1       User defined diagnostics
+</span>    66    <span class="xdoc"> *  USER2       User defined diagnostics
+</span>    67    <span class="xdoc"> *  USER3       User defined diagnostics
+</span>    68    <span class="xdoc"> *  USER4       User defined diagnostics
+</span>    69    <span class="xdoc"> *  USER5       User defined diagnostics
+</span>    70    <span class="xdoc"> *  USER6       User defined diagnostics
+</span>    71    <span class="xdoc"> *  USER7       User defined diagnostics
+</span>    72    <span class="xdoc"> *  USER8       User defined diagnostics
+</span>    73    <span class="xdoc"> *  <b>@p</b>
+</span>    74    <span class="xdoc"> *
+</span>    75    <span class="xdoc"> *  These constants can be used from either JavaScript configuration
+</span>    76    <span class="xdoc"> *  scripts or C code and, therefore, have two "names". For example,
+</span>    77    <span class="xdoc"> *  to reference the ENTRY constant from JavaScript you must use
+</span>    78    <span class="xdoc"> *  `Diags.ENTRY` whereas from C you would use `Diags_ENTRY`.
+</span>    79    <span class="xdoc"> *
+</span>    80    <span class="xdoc"> *  The `ENTRY` and `EXIT` bits control Log statements at the entry and
+</span>    81    <span class="xdoc"> *  exit points, respectively, to each function within a module. This
+</span>    82    <span class="xdoc"> *  is useful for tracking the execution flow of your program.
+</span>    83    <span class="xdoc"> *
+</span>    84    <span class="xdoc"> *  The `LIFECYCLE` bit controls `Log` statements at the create/construct
+</span>    85    <span class="xdoc"> *  and delete/destruct points of each instance object for the module.
+</span>    86    <span class="xdoc"> *  This is useful for tracking the life-cycle of a module instance object.
+</span>    87    <span class="xdoc"> *
+</span>    88    <span class="xdoc"> *  The `ASSERT` bit controls Assert statements in a module. There are
+</span>    89    <span class="xdoc"> *  two classes of asserts:
+</span>    90    <span class="xdoc"> *
+</span>    91    <span class="xdoc"> *  <b>@p(blist)</b>
+</span>    92    <span class="xdoc"> *  - Public asserts, which have an `{<b>@link</b> Assert#Id Assert_Id}` and
+</span>    93    <span class="xdoc"> *  are documented in the module's reference pages. These asserts are
+</span>    94    <span class="xdoc"> *  on by default and are meant to help developers validate code that
+</span>    95    <span class="xdoc"> *  invokes a module's functions.
+</span>    96    <span class="xdoc"> *  - Internal asserts, which have no `{<b>@link</b> Assert#Id Assert_Id}`.
+</span>    97    <span class="xdoc"> *  These asserts are off by default and are typically used only when
+</span>    98    <span class="xdoc"> *  developing code. That is, like the standard C assert() mechanism,
+</span>    99    <span class="xdoc"> *  these asserts are not part of a deployed application.
+</span>   100    <span class="xdoc"> *  <b>@p</b>
+</span>   101    <span class="xdoc"> *
+</span>   102    <span class="xdoc"> *  When a module has the `ASSERT` bit set (which is set by default) in
+</span>   103    <span class="xdoc"> *  its diagnostics mask, the module executes all of its public assert
+</span>   104    <span class="xdoc"> *  statements. To enable internal asserts, you must set both the `ASSERT`
+</span>   105    <span class="xdoc"> *  and `INTERNAL` bits.
+</span>   106    <span class="xdoc"> *
+</span>   107    <span class="xdoc"> *  The `INTERNAL` bit is used to classify diagnostic code as being internal.
+</span>   108    <span class="xdoc"> *  That is to say, this class of diagnostics is undocumented and typically
+</span>   109    <span class="xdoc"> *  not used by client software.
+</span>   110    <span class="xdoc"> *
+</span>   111    <span class="xdoc"> *  The `USER1`-`8` bits are available to each module writer to use as he or
+</span>   112    <span class="xdoc"> *  she wishes.
+</span>   113    <span class="xdoc"> *
+</span>   114    <span class="xdoc"> *  <b>@a(Examples)</b>
+</span>   115    <span class="xdoc"> *  Configuration example: The following XDC configuration statements set
+</span>   116    <span class="xdoc"> *  a module's diagnostics mask in a configuration script. (In this case,
+</span>   117    <span class="xdoc"> *  the `Task` module of the `ti.sysbios.knl` package is used.) In this
+</span>   118    <span class="xdoc"> *  example, the `ENTRY` bit is turned on and the `EXIT` bit is turned off.
+</span>   119    <span class="xdoc"> *  Both bits are configured to be runtime modifiable.
+</span>   120    <span class="xdoc"> *  
+</span>   121    <span class="xdoc"> *  <b>@p(code)</b>
+</span>   122    <span class="xdoc"> *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   123    <span class="xdoc"> *  var Task = xdc.useModule('ti.sysbios.knl.Task');
+</span>   124    <span class="xdoc"> *
+</span>   125    <span class="xdoc"> *  Task.common$.diags_ENTRY = Diags.RUNTIME_ON;
+</span>   126    <span class="xdoc"> *  Task.common$.diags_EXIT = Diags.RUNTIME_OFF;
+</span>   127    <span class="xdoc"> *  <b>@p</b>
+</span>   128    <span class="xdoc"> *
+</span>   129    <span class="xdoc"> *  <b>@p(html)</b>
+</span>   130    <span class="xdoc"> *  &lt;hr /&gt;
+</span>   131    <span class="xdoc"> *  <b>@p</b>
+</span>   132    <span class="xdoc"> *
+</span>   133    <span class="xdoc"> *  Runtime example: The following C code shows how to disable and
+</span>   134    <span class="xdoc"> *  reenable `ENTER` diagnostics at runtime for the `ti.sysbios.knl.Task`
+</span>   135    <span class="xdoc"> *  module configured in the previous example. The first call to
+</span>   136    <span class="xdoc"> *  `{<b>@link</b> Diags#setMask Diag_setMask()}` enables entry diagnostics
+</span>   137    <span class="xdoc"> *  (`"+E"`) for just the `ti.sysbios.knl.Task` module; any call to any
+</span>   138    <span class="xdoc"> *  `Task` method in the application causes an "entry" `Log` event to be
+</span>   139    <span class="xdoc"> *  generated. The second call disables ("-E") the generation of these
+</span>   140    <span class="xdoc"> *  events. See `{<b>@link</b> #setMask Diags_setMask()}` for a complete
+</span>   141    <span class="xdoc"> *  description of the strings accepted by this function.
+</span>   142    <span class="xdoc"> *
+</span>   143    <span class="xdoc"> *  <b>@p(code)</b>
+</span>   144    <span class="xdoc"> *  #include &lt;xdc/runtime/Diags.h&gt;
+</span>   145    <span class="xdoc"> *  :
+</span>   146    <span class="xdoc"> *  Diags_setMask("ti.sysbios.knl.Task+E");
+</span>   147    <span class="xdoc"> *  :
+</span>   148    <span class="xdoc"> *  Diags_setMask("ti.sysbios.knl.Task-E");
+</span>   149    <span class="xdoc"> *  <b>@p</b>
+</span>   150    <span class="xdoc"> *
+</span>   151    <span class="xdoc"> *  <b>@p(html)</b>
+</span>   152    <span class="xdoc"> *  &lt;hr /&gt;
+</span>   153    <span class="xdoc"> *  <b>@p</b>
+</span>   154    <span class="xdoc"> *
+</span>   155    <span class="xdoc"> *  Configuration example: The following XDC configuration statements
+</span>   156    <span class="xdoc"> *  turn on asserts in the entire program.
+</span>   157    <span class="xdoc"> *
+</span>   158    <span class="xdoc"> *  <b>@p(code)</b>
+</span>   159    <span class="xdoc"> *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   160    <span class="xdoc"> *  var Defaults = xdc.useModule('xdc.runtime.Defaults');
+</span>   161    <span class="xdoc"> *
+</span>   162    <span class="xdoc"> *  Defaults.diags_ASSERT = Diags.ALWAYS_ON;
+</span>   163    <span class="xdoc"> *  <b>@p</b>
+</span>   164    <span class="xdoc"> *
+</span>   165    <span class="xdoc"> *  <b>@p(html)</b>
+</span>   166    <span class="xdoc"> *  &lt;hr /&gt;
+</span>   167    <span class="xdoc"> *  <b>@p</b>
+</span>   168    <span class="xdoc"> *
+</span>   169    <span class="xdoc"> *  Configuration example: Using the
+</span>   170    <span class="xdoc"> *  `{<b>@link</b> Diags#setMaskMeta Diags.setMaskMeta()}` function, the
+</span>   171    <span class="xdoc"> *  following XDC configuration statements turn on asserts in all
+</span>   172    <span class="xdoc"> *  of the modules whose name begins with "`ti.sysbios.`" In this case,
+</span>   173    <span class="xdoc"> *  no change to the application code is necessary to enable these
+</span>   174    <span class="xdoc"> *  events. It is important to note that, while the configuration
+</span>   175    <span class="xdoc"> *  step must be re-run and the application must be re-linked, no
+</span>   176    <span class="xdoc"> *  application sources need to be recompiled.
+</span>   177    <span class="xdoc"> *
+</span>   178    <span class="xdoc"> *  <b>@p(code)</b>
+</span>   179    <span class="xdoc"> *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   180    <span class="xdoc"> *  Diags.setMaskMeta("ti.sysbios.%", Diags.ASSERT, Diags.ALWAYS_ON);
+</span>   181    <span class="xdoc"> *  <b>@p</b>
+</span>   182    <span class="xdoc"> */</span>
+   183    
+   184    @CustomHeader
+   185    @Template(<span class="string">"./Diags.xdt"</span>)
+   186    
+   187    <span class=key>module</span> Diags {
+   188    
+   189        <span class="xdoc">/*!
+</span>   190    <span class="xdoc">     *  ======== Mode ========
+</span>   191    <span class="xdoc">     *  Diagnostics mask bit value used at configuration time.
+</span>   192    <span class="xdoc">     *
+</span>   193    <span class="xdoc">     *  At run-time a module's diagnostics mask is an ordinary data word
+</span>   194    <span class="xdoc">     *  with each bit value being 0 or 1 indicating whether or not the
+</span>   195    <span class="xdoc">     *  corresponding diagnostic is disabled or enabled.  At configuration
+</span>   196    <span class="xdoc">     *  time, however, each bit of the diagnostics mask can be 
+</span>   197    <span class="xdoc">     *  placed in one of several `Mode`s; these modes determine its initial
+</span>   198    <span class="xdoc">     *  runtime value and whether or not the bit is modifiable at runtime.
+</span>   199    <span class="xdoc">     *
+</span>   200    <span class="xdoc">     *  When setting a module's diagnostics mask at configuration time,
+</span>   201    <span class="xdoc">     *  use one of the enumerated values of type `Mode`. These
+</span>   202    <span class="xdoc">     *  values will either set or clear a bit in the mask and also define
+</span>   203    <span class="xdoc">     *  if the bit can be changed at run-time. For example, using 
+</span>   204    <span class="xdoc">     *  `ALWAYS_OFF` as the bit value means that bit cannot be set
+</span>   205    <span class="xdoc">     *  at run-time. This fact can be used by an optimizer to perform
+</span>   206    <span class="xdoc">     *  constant-folding and dead-code elimination.
+</span>   207    <span class="xdoc">     */</span>
+   208        <span class=key>metaonly</span> <span class=key>enum</span> Mode {
+   209            ALWAYS_OFF,     <span class=xdoc>//! Bit is permanently cleared.</span>
+   210            ALWAYS_ON,      <span class=xdoc>//! Bit is permanently set.</span>
+   211            RUNTIME_OFF,    <span class=xdoc>//! Bit is cleared and modifiable at run-time.</span>
+   212            RUNTIME_ON      <span class=xdoc>//! Bit is set and modifiable at run-time.</span>
+   213        };
+   214    
+   215        <span class="xdoc">/*! Type used to specify bits in the diags mask. */</span>
+   216        <span class=key>typedef</span> Bits16 Mask;
+   217    
+   218        <span class=key>const</span> Mask ENTRY        = 0x0001;   <span class=xdoc>//! Function entry</span>
+   219        <span class=key>const</span> Mask EXIT         = 0x0002;   <span class=xdoc>//! Function exit</span>
+   220        <span class=key>const</span> Mask LIFECYCLE    = 0x0004;   <span class=xdoc>//! Object life-cycle</span>
+   221        <span class=key>const</span> Mask INTERNAL     = 0x0008;   <span class=xdoc>//! Internal diagnostics</span>
+   222    
+   223        <span class=key>const</span> Mask ASSERT       = 0x0010;   <span class=xdoc>//! Assert checking</span>
+   224    
+   225        <span class=key>const</span> Mask USER1        = 0x0100;   <span class=xdoc>//! User defined diagnostics</span>
+   226        <span class=key>const</span> Mask USER2        = 0x0200;   <span class=xdoc>//! User defined diagnostics</span>
+   227        <span class=key>const</span> Mask USER3        = 0x0400;   <span class=xdoc>//! User defined diagnostics</span>
+   228        <span class=key>const</span> Mask USER4        = 0x0800;   <span class=xdoc>//! User defined diagnostics</span>
+   229    
+   230        <span class=key>const</span> Mask USER5        = 0x1000;   <span class=xdoc>//! User defined diagnostics</span>
+   231        <span class=key>const</span> Mask USER6        = 0x2000;   <span class=xdoc>//! User defined diagnostics</span>
+   232        <span class=key>const</span> Mask USER7        = 0x4000;   <span class=xdoc>//! User defined diagnostics</span>
+   233        <span class=key>const</span> Mask USER8        = 0x8000;   <span class=xdoc>//! User defined diagnostics</span>
+   234    
+   235        <span class=key>const</span> Mask ALL          = 0xFFFF;   <span class=xdoc>//! Turn on all diagnostics</span>
+   236    
+   237        <span class="xdoc">/*!
+</span>   238    <span class="xdoc">     *  ======== query ========
+</span>   239    <span class="xdoc">     *  Query the module's diagnostics mask against the given mask.
+</span>   240    <span class="xdoc">     *
+</span>   241    <span class="xdoc">     *  Use this query function to test the state of a module's
+</span>   242    <span class="xdoc">     *  diagnostics mask at runtime. This function will perform a logical
+</span>   243    <span class="xdoc">     *  `AND` operation on the module's diagnostics mask and the given mask.
+</span>   244    <span class="xdoc">     *  If any bits survive the operation, the function returns `true`.
+</span>   245    <span class="xdoc">     *
+</span>   246    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   247    <span class="xdoc">     *  result = moduleMask &amp; givenMask ? true : false;
+</span>   248    <span class="xdoc">     *  <b>@p</b>
+</span>   249    <span class="xdoc">     *
+</span>   250    <span class="xdoc">     *  This query function has a compile-time binding to the module's
+</span>   251    <span class="xdoc">     *  diagnostics mask. If the query function is part of the C code
+</span>   252    <span class="xdoc">     *  implementation of a module, then it will use that module's
+</span>   253    <span class="xdoc">     *  diagnostics mask. Otherwise, it will use the diagnostics mask
+</span>   254    <span class="xdoc">     *  of the `{<b>@link</b> Main xdc.runtime.Main}` module.
+</span>   255    <span class="xdoc">     *
+</span>   256    <span class="xdoc">     *  The implementation of the diagnostics mask and the query function
+</span>   257    <span class="xdoc">     *  is such that an optimizer can take advantage of dead code elimination
+</span>   258    <span class="xdoc">     *  and/or constant folding to eliminate or reduce code size. For example,
+</span>   259    <span class="xdoc">     *  if the query function is used in a conditional test, and the given
+</span>   260    <span class="xdoc">     *  mask contains only bits which have been configured to be permanently
+</span>   261    <span class="xdoc">     *  off, then the code for the entire conditional statement can be removed
+</span>   262    <span class="xdoc">     *  at link time. If the bits in the given mask have been configured to be
+</span>   263    <span class="xdoc">     *  permanently on, then the conditional code can be removed leaving the
+</span>   264    <span class="xdoc">     *  body of the conditional as direct in-line code.
+</span>   265    <span class="xdoc">     *
+</span>   266    <span class="xdoc">     *  <b>@param(mask)</b> mask of diagnostics bits to test
+</span>   267    <span class="xdoc">     *
+</span>   268    <span class="xdoc">     *  This given mask is constructed by `OR`'ing together
+</span>   269    <span class="xdoc">     *  the desired bits of the diagnostics mask using the constants listed
+</span>   270    <span class="xdoc">     *  in the {<b>@link</b> #ALL Mask Summary} above. The module's diagnostics
+</span>   271    <span class="xdoc">     *  mask will be logically `AND`'ed with the given mask, and return `true`
+</span>   272    <span class="xdoc">     *  if the result is non-zero and `false` otherwise.
+</span>   273    <span class="xdoc">     *
+</span>   274    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   275    <span class="xdoc">     *      if (Diags_query(Diags_USER1 | Diags_USER4)) {
+</span>   276    <span class="xdoc">     *          :
+</span>   277    <span class="xdoc">     *      }
+</span>   278    <span class="xdoc">     *  <b>@p</b>
+</span>   279    <span class="xdoc">     *
+</span>   280    <span class="xdoc">     *  <b>@a(Examples)</b>
+</span>   281    <span class="xdoc">     *  In the following example, the `{<b>@link</b> #USER1 USER1}` bit of the
+</span>   282    <span class="xdoc">     *  module's diagnostics mask has been configured to be permanently off,
+</span>   283    <span class="xdoc">     *  thus the entire conditional code block can be removed at link time.
+</span>   284    <span class="xdoc">     *  Note, the C code below is part of the module itself.
+</span>   285    <span class="xdoc">     *
+</span>   286    <span class="xdoc">     *  Configuration Script
+</span>   287    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   288    <span class="xdoc">     *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   289    <span class="xdoc">     *  var ModA = xdc.useModule('my.package.ModuleA');
+</span>   290    <span class="xdoc">     *  ModA.common$.diags_USER1 = Diags.ALWAYS_OFF;
+</span>   291    <span class="xdoc">     *  <b>@p</b>
+</span>   292    <span class="xdoc">     *  
+</span>   293    <span class="xdoc">     *  C Code, ModA.c
+</span>   294    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   295    <span class="xdoc">     *  if (Diags_query(Diags_USER1)) {         // this code removed
+</span>   296    <span class="xdoc">     *      ...additional code here...          // this code removed
+</span>   297    <span class="xdoc">     *  }                                       // this code removed
+</span>   298    <span class="xdoc">     *  <b>@p</b>
+</span>   299    <span class="xdoc">     *
+</span>   300    <span class="xdoc">     *  <b>@p(html)</b>
+</span>   301    <span class="xdoc">     *  &lt;hr /&gt;
+</span>   302    <span class="xdoc">     *  <b>@p</b>
+</span>   303    <span class="xdoc">     *
+</span>   304    <span class="xdoc">     *  In the following example, the `{<b>@link</b> #USER1 USER1}` bit of the
+</span>   305    <span class="xdoc">     *  module's diagnostics mask has been configured to be permanently on,
+</span>   306    <span class="xdoc">     *  thus the conditional code can be removed leaving the code contained
+</span>   307    <span class="xdoc">     *  within the conditional statement. Note, the C code below is part of
+</span>   308    <span class="xdoc">     *  the module itself.
+</span>   309    <span class="xdoc">     *
+</span>   310    <span class="xdoc">     *  Configuration Script
+</span>   311    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   312    <span class="xdoc">     *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   313    <span class="xdoc">     *  var ModA = xdc.useModule('my.package.ModuleA');
+</span>   314    <span class="xdoc">     *  ModA.common$.diags_USER1 = Diags.ALWAYS_ON;
+</span>   315    <span class="xdoc">     *  <b>@p</b>
+</span>   316    <span class="xdoc">     *  
+</span>   317    <span class="xdoc">     *  C Code, ModA.c
+</span>   318    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   319    <span class="xdoc">     *  if (Diags_query(Diags_USER1) {          // this code removed
+</span>   320    <span class="xdoc">     *      ...additional code here...          // this code remains
+</span>   321    <span class="xdoc">     *  }                                       // this code removed
+</span>   322    <span class="xdoc">     *  <b>@p</b>
+</span>   323    <span class="xdoc">     *
+</span>   324    <span class="xdoc">     */</span>
+   325        @Macro Bool query(Mask mask);
+   326    
+   327        <span class="xdoc">/*!
+</span>   328    <span class="xdoc">     *  ======== setMask ========
+</span>   329    <span class="xdoc">     *  Set a module's diagnostics mask at runtime.
+</span>   330    <span class="xdoc">     *
+</span>   331    <span class="xdoc">     *  Use the given control string to set or clear bits in a module's
+</span>   332    <span class="xdoc">     *  diagnostics mask. The control string defines one or more actions
+</span>   333    <span class="xdoc">     *  where each action modifies the diagnostics mask in one or more
+</span>   334    <span class="xdoc">     *  modules. Each action can either set, clear, or assign a module's
+</span>   335    <span class="xdoc">     *  diagnostics mask. To both set and clear bits in the same diagnostics
+</span>   336    <span class="xdoc">     *  mask requires two actions, or you can assign the entire mask
+</span>   337    <span class="xdoc">     *  explicitly in one action. Each action can specify a given module or
+</span>   338    <span class="xdoc">     *  a set of modules using name prefix matching.
+</span>   339    <span class="xdoc">     *
+</span>   340    <span class="xdoc">     *  <b>@a(Warning)</b>
+</span>   341    <span class="xdoc">     *
+</span>   342    <span class="xdoc">     *  Each bit of a module's diagnostics mask that is to be modified at
+</span>   343    <span class="xdoc">     *  runtime, must be configured to be runtime modifiable in the
+</span>   344    <span class="xdoc">     *  program's configuration script. Use either `{<b>@link</b> #Mode RUNTIME_OFF}` 
+</span>   345    <span class="xdoc">     *  or `{<b>@link</b> #Mode RUNTIME_ON}` as the configuration value for the
+</span>   346    <span class="xdoc">     *  desired bit in the diagnostics mask. In addition, the
+</span>   347    <span class="xdoc">     *  `{<b>@link</b> Diags#setMaskEnabled Diags.setMaskEnabled}` configuration
+</span>   348    <span class="xdoc">     *  parameter must be set to `true` in order to load this function onto
+</span>   349    <span class="xdoc">     *  the target. Finally, the following configuration parameters must 
+</span>   350    <span class="xdoc">     *  have the values indicated (which are their default values):
+</span>   351    <span class="xdoc">     *
+</span>   352    <span class="xdoc">     *  <b>@p(blist)</b>
+</span>   353    <span class="xdoc">     *  - `{<b>@link</b> IModule#common$ &lt;module&gt;.common$.namedModule} = true;`
+</span>   354    <span class="xdoc">     *  - `{<b>@link</b> Text#isLoaded} = true;`
+</span>   355    <span class="xdoc">     *  <b>@p</b>
+</span>   356    <span class="xdoc">     *
+</span>   357    <span class="xdoc">     *  Note: any error that occurs during the parsing of the control string
+</span>   358    <span class="xdoc">     *  causes `Diags_setmask()` to return without processing the remainder
+</span>   359    <span class="xdoc">     *  of the control string.
+</span>   360    <span class="xdoc">     *
+</span>   361    <span class="xdoc">     *  <b>@param(control)</b> diagnostic mask control string 
+</span>   362    <span class="xdoc">     *
+</span>   363    <span class="xdoc">     *  This control string defines one or more actions
+</span>   364    <span class="xdoc">     *  where each action consists of a module name, an operator character,
+</span>   365    <span class="xdoc">     *  and a list of bit specifiers. Use the `%` character as a wildcard 
+</span>   366    <span class="xdoc">     *  to turn the module name into a prefix matching pattern for a set
+</span>   367    <span class="xdoc">     *  of modules. Multiple actions are separated with the `;` character.
+</span>   368    <span class="xdoc">     *
+</span>   369    <span class="xdoc">     *  <b>@p</b>
+</span>   370    <span class="xdoc">     *  The control string has the following format:
+</span>   371    <span class="xdoc">     *
+</span>   372    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   373    <span class="xdoc">     *  &lt;module[%]&gt;&lt;op&gt;&lt;bits&gt;[;&lt;module[%]&gt;&lt;op&gt;&lt;bits&gt;]
+</span>   374    <span class="xdoc">     *  <b>@p</b>
+</span>   375    <span class="xdoc">     *
+</span>   376    <span class="xdoc">     *  Specify individual module names explicitly (e.g. 
+</span>   377    <span class="xdoc">     *  `ti.sysbios.knl.Task`), or match multiple modules using a prefix
+</span>   378    <span class="xdoc">     *  matching pattern specified with the `%` character (e.g.
+</span>   379    <span class="xdoc">     *  `ti.sysbios.knl.%`).
+</span>   380    <span class="xdoc">     *
+</span>   381    <span class="xdoc">     *  <b>@p</b>
+</span>   382    <span class="xdoc">     *  The operator is specified with a single character from the following
+</span>   383    <span class="xdoc">     *  table.
+</span>   384    <span class="xdoc">     *
+</span>   385    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   386    <span class="xdoc">     *  Operator    Description
+</span>   387    <span class="xdoc">     *  --------------------------------------------------
+</span>   388    <span class="xdoc">     *  +           Set only the specified bits (other bits preserved)
+</span>   389    <span class="xdoc">     *  -           Clear only the specified bits (other bits preserved)
+</span>   390    <span class="xdoc">     *  =           Assign the entire mask to the given value where the
+</span>   391    <span class="xdoc">     *              specified bits are set and all other bits are cleared
+</span>   392    <span class="xdoc">     *  <b>@p</b>
+</span>   393    <span class="xdoc">     *
+</span>   394    <span class="xdoc">     *  The bits are specified with a list of characters from the following
+</span>   395    <span class="xdoc">     *  table. Refer to the {<b>@link</b> #ALL Mask Summary} for a list of each
+</span>   396    <span class="xdoc">     *  bit of the diagnostics mask.
+</span>   397    <span class="xdoc">     *
+</span>   398    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   399    <span class="xdoc">     *  Control     Diagnostics
+</span>   400    <span class="xdoc">     *  Character   Constant        Description
+</span>   401    <span class="xdoc">     *  --------------------------------------------------
+</span>   402    <span class="xdoc">     *  E           ENTRY           Function entry
+</span>   403    <span class="xdoc">     *  X           EXIT            Function exit
+</span>   404    <span class="xdoc">     *  L           LIFECYCLE       Object life-cycle
+</span>   405    <span class="xdoc">     *  I           INTERNAL        Internal diagnostics
+</span>   406    <span class="xdoc">     *  A           ASSERT          Assert checking
+</span>   407    <span class="xdoc">     *  1           USER1           User defined diagnostics
+</span>   408    <span class="xdoc">     *  2           USER2           User defined diagnostics
+</span>   409    <span class="xdoc">     *  3           USER3           User defined diagnostics
+</span>   410    <span class="xdoc">     *  4           USER4           User defined diagnostics
+</span>   411    <span class="xdoc">     *  5           USER5           User defined diagnostics
+</span>   412    <span class="xdoc">     *  6           USER6           User defined diagnostics
+</span>   413    <span class="xdoc">     *  7           USER7           User defined diagnostics
+</span>   414    <span class="xdoc">     *  8           USER8           User defined diagnostics
+</span>   415    <span class="xdoc">     *  <b>@p</b>
+</span>   416    <span class="xdoc">     *
+</span>   417    <span class="xdoc">     *  <b>@a(Examples)</b>
+</span>   418    <span class="xdoc">     *  The following example demonstrates how to set a module's diagnostics
+</span>   419    <span class="xdoc">     *  mask (the `Task` module in this case) at runtime. In this example, the
+</span>   420    <span class="xdoc">     *  `{<b>@link</b> #USER1 USER1}` bit is turned on. Note that the module's
+</span>   421    <span class="xdoc">     *  `{<b>@link</b> #USER1 USER1}` diagnostics bit must be configured to be runtime
+</span>   422    <span class="xdoc">     *  modifiable. In this instance, the bit is initialized to off.
+</span>   423    <span class="xdoc">     *
+</span>   424    <span class="xdoc">     *  Configuration Script
+</span>   425    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   426    <span class="xdoc">     *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   427    <span class="xdoc">     *  var Task = xdc.useModule('ti.sysbios.knl.Task');
+</span>   428    <span class="xdoc">     *  Task.common$.diags_USER1 = Diags.RUNTIME_OFF;
+</span>   429    <span class="xdoc">     *  <b>@p</b>
+</span>   430    <span class="xdoc">     *
+</span>   431    <span class="xdoc">     *  C Code
+</span>   432    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   433    <span class="xdoc">     *  Diags_setMask("ti.sysbios.knl.Task+1");
+</span>   434    <span class="xdoc">     *  <b>@p</b>
+</span>   435    <span class="xdoc">     *
+</span>   436    <span class="xdoc">     *  <b>@p(html)</b>
+</span>   437    <span class="xdoc">     *  &lt;hr /&gt;
+</span>   438    <span class="xdoc">     *  <b>@p</b>
+</span>   439    <span class="xdoc">     *
+</span>   440    <span class="xdoc">     *  The following example demonstrates the use of the `%` wildcard
+</span>   441    <span class="xdoc">     *  character to set the `{<b>@link</b> #USER1 USER1}` bit at runtime for
+</span>   442    <span class="xdoc">     *  all modules in the `ti.sysbios.knl` package. The meta-only
+</span>   443    <span class="xdoc">     *  `{<b>@link</b> #setMaskMeta Diags.setMaskMeta}` function is used to configure
+</span>   444    <span class="xdoc">     *  the `{<b>@link</b> #USER1 USER1}` bit to be runtime modifiable. The `setMask`
+</span>   445    <span class="xdoc">     *  function is used to actually set the `{<b>@link</b> #USER1 USER1}` bit at
+</span>   446    <span class="xdoc">     *  runtime in all the `ti.sysbios.knl` modules.
+</span>   447    <span class="xdoc">     *  Note the use of the `%` character in both functions to match all the
+</span>   448    <span class="xdoc">     *  module names within the given package.
+</span>   449    <span class="xdoc">     *
+</span>   450    <span class="xdoc">     *  Configuration Script
+</span>   451    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   452    <span class="xdoc">     *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   453    <span class="xdoc">     *  Diags.setMaskMeta("ti.sysbios.knl.%", Diags.USER1, Diags.RUNTIME_OFF);
+</span>   454    <span class="xdoc">     *  <b>@p</b>
+</span>   455    <span class="xdoc">     *
+</span>   456    <span class="xdoc">     *  C Code
+</span>   457    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   458    <span class="xdoc">     *  Diags_setMask("ti.sysbios.knl.%+1");
+</span>   459    <span class="xdoc">     *  <b>@p</b>
+</span>   460    <span class="xdoc">     *
+</span>   461    <span class="xdoc">     *  <b>@p(html)</b>
+</span>   462    <span class="xdoc">     *  &lt;hr /&gt;
+</span>   463    <span class="xdoc">     *  <b>@p</b>
+</span>   464    <span class="xdoc">     *
+</span>   465    <span class="xdoc">     *  In the following example, the `{<b>@link</b> #ENTRY ENTRY}`, 
+</span>   466    <span class="xdoc">     *  `{<b>@link</b> #EXIT EXIT}` and `{<b>@link</b> #LIFECYCLE LIFECYCLE}` trace is
+</span>   467    <span class="xdoc">     *  enabled for all modules in the `ti.sysbios.knl` package but is
+</span>   468    <span class="xdoc">     *  initially off; i.e., no events will occur until explicitly turned
+</span>   469    <span class="xdoc">     *  on at runtime.
+</span>   470    <span class="xdoc">     *
+</span>   471    <span class="xdoc">     *  At runtime the call to `Diags_setMask` turns on
+</span>   472    <span class="xdoc">     *  `{<b>@link</b> #ENTRY ENTRY}` and `{<b>@link</b> #EXIT EXIT}` trace and turns off
+</span>   473    <span class="xdoc">     *  `{<b>@link</b> #LIFECYCLE LIFECYCLE}` trace for all modules in
+</span>   474    <span class="xdoc">     *  the application for which trace has been enabled during
+</span>   475    <span class="xdoc">     *  configuration.  In this case, the only modules that can generate
+</span>   476    <span class="xdoc">     *  events are those in the `ti.sysbios.knl` package.
+</span>   477    <span class="xdoc">     *
+</span>   478    <span class="xdoc">     *  Configuration Script
+</span>   479    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   480    <span class="xdoc">     *  var Diags = xdc.useModule('xdc.runtime.Diags');
+</span>   481    <span class="xdoc">     *  Diags.setMaskMeta("ti.sysbios.knl.%",
+</span>   482    <span class="xdoc">     *      Diags.ENTRY | Diags.EXIT | Diags.LIFECYCLE, Diags.RUNTIME_OFF);
+</span>   483    <span class="xdoc">     *  <b>@p</b>
+</span>   484    <span class="xdoc">     *
+</span>   485    <span class="xdoc">     *  C Code
+</span>   486    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   487    <span class="xdoc">     *  Diags_setMask("%+EX;%-L");
+</span>   488    <span class="xdoc">     *  <b>@p</b>
+</span>   489    <span class="xdoc">     */</span>
+   490        Void setMask(String control);
+   491    
+   492        <span class="xdoc">/*!
+</span>   493    <span class="xdoc">     *  ======== setMaskMeta ========
+</span>   494    <span class="xdoc">     *  Set the module's diagnostics mask at config time.
+</span>   495    <span class="xdoc">     *
+</span>   496    <span class="xdoc">     *  <b>@param(pattern)</b> module prefix or regular expression
+</span>   497    <span class="xdoc">     *
+</span>   498    <span class="xdoc">     *  The `pattern` is used to match a module's name. If `pattern` is
+</span>   499    <span class="xdoc">     *  specified as a string, then name prefix matching is used. The
+</span>   500    <span class="xdoc">     *  pattern may also be a regular expression.  Only the masks of the
+</span>   501    <span class="xdoc">     *  modules matching `pattern` are set.
+</span>   502    <span class="xdoc">     *
+</span>   503    <span class="xdoc">     *  <b>@param(mask)</b> diagnostic fields to modify
+</span>   504    <span class="xdoc">     *
+</span>   505    <span class="xdoc">     *  The `mask` is used to determine which fields in the diags mask are
+</span>   506    <span class="xdoc">     *  modified. Each field specified in the mask is set to the given
+</span>   507    <span class="xdoc">     *  `mode` value.
+</span>   508    <span class="xdoc">     *
+</span>   509    <span class="xdoc">     *  <b>@param(mode)</b> mode to assign to the specified `mask` fields
+</span>   510    <span class="xdoc">     */</span>
+   511        <span class=key>metaonly</span> Void setMaskMeta(Any pattern, Mask mask, Mode mode);
+   512    
+   513    <span class=key>internal</span>:
+   514    
+   515        <span class="xdoc">/*!
+</span>   516    <span class="xdoc">     *  ======== setMaskEnabled ========
+</span>   517    <span class="xdoc">     *  Controls the ability to set the diags mask at run-time.
+</span>   518    <span class="xdoc">     *
+</span>   519    <span class="xdoc">     *  This configuration parameter allows whole program optimizers to reduce
+</span>   520    <span class="xdoc">     *  the code size. The default is false, which means the diags mask will
+</span>   521    <span class="xdoc">     *  not be modified at run-time and thus the code is not needed.
+</span>   522    <span class="xdoc">     *
+</span>   523    <span class="xdoc">     *  For now, this should be internal because its value is determined
+</span>   524    <span class="xdoc">     *  automatically, rather than through user's input. See CQ19111 for more
+</span>   525    <span class="xdoc">     *  details.
+</span>   526    <span class="xdoc">     */</span>
+   527        <span class=key>config</span> Bool setMaskEnabled = <span class=key>false</span>;
+   528    
+   529        <span class="comment">/*
+</span>   530    <span class="comment">     *  ======== dictBase ========
+</span>   531    <span class="comment">     *  Array of module-id:diags-mask pairs in which each module is named
+</span>   532    <span class="comment">     *
+</span>   533    <span class="comment">     *  This array, generated by Diags.xdt, is terminated by an element
+</span>   534    <span class="comment">     *  with modId == 0.
+</span>   535    <span class="comment">     */</span>
+   536        <span class=key>config</span> DictElem *dictBase = <span class=key>null</span>;
+   537    
+   538        <span class=key>struct</span> DictElem {
+   539            Types.ModuleId  modId;      <span class="comment">/* statically computed module id */</span>
+   540            Bits16          *maskAddr;  <span class="comment">/* module's diags mask address */</span>
+   541        };
+   542    }
+   543    <span class="comment">/*
+</span>   544    <span class="comment"> *  @(#) xdc.runtime; 2, 0, 0, 0,237; 2-22-2010 10:33:57; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   545    <span class="comment"> */</span>
+   546    
+</pre>
+</body></html>

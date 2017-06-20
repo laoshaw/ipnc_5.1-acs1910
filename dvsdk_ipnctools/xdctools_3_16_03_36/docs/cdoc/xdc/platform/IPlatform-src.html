@@ -1,0 +1,427 @@
+<html><head><title>interface xdc.platform.IPlatform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== IPlatform.xdc ========
+</span>    14    <span class="comment"> *
+</span>    15    <span class="comment"> *! Revision History
+</span>    16    <span class="comment"> *! ================
+</span>    17    <span class="comment"> *! 19-Dec-2007 sasa    removed getCreateArgs
+</span>    18    <span class="comment"> */</span>
+    19    
+    20    <span class=key>package</span> xdc.platform;
+    21    
+    22    <span class="xdoc">/*!
+</span>    23    <span class="xdoc"> *  ======== IPlatform ========
+</span>    24    <span class="xdoc"> *  Configuration-time interface to all platforms.
+</span>    25    <span class="xdoc"> *
+</span>    26    <span class="xdoc"> *  This interface defines the elements that must be implemented by all
+</span>    27    <span class="xdoc"> *  "platform packages".  All programs are built to execute on a platform
+</span>    28    <span class="xdoc"> *  and each program includes exactly one platform package (which defines
+</span>    29    <span class="xdoc"> *  the platform).
+</span>    30    <span class="xdoc"> *
+</span>    31    <span class="xdoc"> *  Platform packages contain exactly one module named "Platform" which
+</span>    32    <span class="xdoc"> *  implements the `xdc.platform.IPlatform` interface defined here.
+</span>    33    <span class="xdoc"> *
+</span>    34    <span class="xdoc"> *  Program configuration scripts may read (but not modify) the attributes
+</span>    35    <span class="xdoc"> *  provided by this interface from the global `Program` object; see
+</span>    36    <span class="xdoc"> *  `{<b>@link</b> xdc.cfg.Program#platform}`.
+</span>    37    <span class="xdoc"> */</span>
+    38    <span class=key>metaonly</span> <span class=key>interface</span> IPlatform
+    39    {
+    40        <span class="xdoc">/*!
+</span>    41    <span class="xdoc">     *  ======== Board ========
+</span>    42    <span class="xdoc">     *  Board-level description.
+</span>    43    <span class="xdoc">     */</span>
+    44        <span class=key>struct</span> Board {
+    45            string   id;            <span class="xdoc">/*! unique id within the platform */</span>
+    46            string   boardName;     <span class="xdoc">/*! name of the board */</span>
+    47            string   boardFamily;   <span class="xdoc">/*! optional family name */</span>
+    48            string   boardRevision; <span class="xdoc">/*! optional revision string */</span>
+    49        };
+    50    
+    51        <span class="xdoc">/*!
+</span>    52    <span class="xdoc">     *  ======== Memory ========
+</span>    53    <span class="xdoc">     *  A named contiguous range of addresses.
+</span>    54    <span class="xdoc">     *
+</span>    55    <span class="xdoc">     *  Memory structures are used in the description of the memory available
+</span>    56    <span class="xdoc">     *  from CPUs and platforms.
+</span>    57    <span class="xdoc">     */</span>
+    58        <span class=key>struct</span> Memory {
+    59            string      comment;    <span class="xdoc">/*! description of this block */</span>
+    60            string      name;       <span class="xdoc">/*! name of memory segment */</span>
+    61            string      space;      <span class="xdoc">/*! "code", "data", "code/data", etc... */</span>
+    62            <span class=key>unsigned</span>    page;       <span class="xdoc">/*! page of memory segment */</span>
+    63            <span class=key>unsigned</span>    base;       <span class="xdoc">/*! base address of memory segment */</span>
+    64            <span class=key>unsigned</span>    len;        <span class="xdoc">/*! length of memory segment */</span>
+    65            string      access;     <span class="xdoc">/*! attributes of memory: "RWX" must be u.c.*/</span>
+    66        };
+    67    
+    68        <span class="xdoc">/*! Type to be used for maps of Memory objects */</span>
+    69        <span class=key>typedef</span> Memory MemoryMap[string];
+    70    
+    71    <span class=key>instance</span>:
+    72        <span class="xdoc">/*!
+</span>    73    <span class="xdoc">     *  ======== create ========
+</span>    74    <span class="xdoc">     *  Constructor for IPlatform instances.
+</span>    75    <span class="xdoc">     *
+</span>    76    <span class="xdoc">     *  <b>@param(name)</b>    the name of the platform instance being created
+</span>    77    <span class="xdoc">     *
+</span>    78    <span class="xdoc">     *                  This name is the suffix of the platform
+</span>    79    <span class="xdoc">     *                  specification supplied in the build script after
+</span>    80    <span class="xdoc">     *                  the platform name (and optional ':') prefix has
+</span>    81    <span class="xdoc">     *                  been removed.  So the platform instance name
+</span>    82    <span class="xdoc">     *                  "joes.platform.foo:bar" results in the name "bar"
+</span>    83    <span class="xdoc">     *                  and the name "joes.platform.foo" result in the name
+</span>    84    <span class="xdoc">     *                  "".
+</span>    85    <span class="xdoc">     *
+</span>    86    <span class="xdoc">     *  <b>@param(args)</b>    deprecated parameter that should not be used in
+</span>    87    <span class="xdoc">     *                  a platform instance implementation
+</span>    88    <span class="xdoc">     *
+</span>    89    <span class="xdoc">     */</span>
+    90        create(string name, any args);
+    91        
+    92        <span class="comment">/*
+</span>    93    <span class="comment">     *  ======== memTab ========
+</span>    94    <span class="comment">     *  A mapping of memory names to external memory objects.
+</span>    95    <span class="comment">     *
+</span>    96    <span class="comment">     *  This hash table is used to map linker memory region names ("EPROG",
+</span>    97    <span class="comment">     *  "EDATA", etc.) to `{@link xdc.platform.IPlatform#Memory}` objects.
+</span>    98    <span class="comment">     *  During generation of linker command files, for example, this table
+</span>    99    <span class="comment">     *  may be used to genenerate physical memory map declarations.
+</span>   100    <span class="comment">     *
+</span>   101    <span class="comment">     *  Platforms with a fixed memory map can initialize this table
+</span>   102    <span class="comment">     *  "statically" in Platform.xdc using the following syntax:
+</span>   103    <span class="comment">     *  @p(code)
+</span>   104    <span class="comment">     *      override config xdc.platform.IPlatform.Memory memTab[string] = [
+</span>   105    <span class="comment">     *          ["PMEM", {name: "PMEM", base: 0x00000200, len: 0x0000FE00}],
+</span>   106    <span class="comment">     *              :
+</span>   107    <span class="comment">     *      ];
+</span>   108    <span class="comment">     *  @p
+</span>   109    <span class="comment">     *  Alternatively, platforms can initialize this table dynamically in
+</span>   110    <span class="comment">     *  the platform package's `init()` function (see `{@link xdc.IPackage}`)
+</span>   111    <span class="comment">     *  using the following syntax:
+</span>   112    <span class="comment">     *  @p(code)
+</span>   113    <span class="comment">     *    function init()
+</span>   114    <span class="comment">     *    {
+</span>   115    <span class="comment">     *              :
+</span>   116    <span class="comment">     *        this.memTab["PMEM"] = {name: "PMEM", base: 0x200, len: 0xFE00};
+</span>   117    <span class="comment">     *              :
+</span>   118    <span class="comment">     *    }
+</span>   119    <span class="comment">     *  @p
+</span>   120    <span class="comment">     *  @a(readonly)   this parameter is set by the platform and read by
+</span>   121    <span class="comment">     *              program configuration scripts.
+</span>   122    <span class="comment">     */</span>
+   123    <span class=comment>//    config Memory memTab[string];     /* memory name =&gt; memory object */</span>
+   124    
+   125        <span class="xdoc">/*!
+</span>   126    <span class="xdoc">     *  ======== externalMemoryMap ========
+</span>   127    <span class="xdoc">     *  A mapping of memory names to memory objects for external memory.
+</span>   128    <span class="xdoc">     *
+</span>   129    <span class="xdoc">     *  This parameter defines the external portion of the platform's memory
+</span>   130    <span class="xdoc">     *  map.
+</span>   131    <span class="xdoc">     */</span>
+   132        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Memory externalMemoryMap[string];
+   133    
+   134        <span class="xdoc">/*!
+</span>   135    <span class="xdoc">     *  ======== customMemoryMap ========
+</span>   136    <span class="xdoc">     *  A custom mapping of memory names to memory objects.
+</span>   137    <span class="xdoc">     *
+</span>   138    <span class="xdoc">     *  This parameter allows platform instances to completely overwrite a 
+</span>   139    <span class="xdoc">     *  default memory map based on the internal memory map coming from CPU's
+</span>   140    <span class="xdoc">     *  memory map and externalMemoryMap.
+</span>   141    <span class="xdoc">     *
+</span>   142    <span class="xdoc">     *  Custom memory map must fit within the default memory map.
+</span>   143    <span class="xdoc">     */</span>
+   144        <span class=key>config</span> xdc.platform.IPlatform.Memory customMemoryMap[string];
+   145    
+   146        <span class="xdoc">/*!
+</span>   147    <span class="xdoc">     *  ======== renameMap ========
+</span>   148    <span class="xdoc">     *  A map for renaming memory objects.
+</span>   149    <span class="xdoc">     *
+</span>   150    <span class="xdoc">     *  This map renames memory objects. If you do not want to change
+</span>   151    <span class="xdoc">     *  addresses in the default memory map, but you only want to rename the
+</span>   152    <span class="xdoc">     *  existing memory objects, you should use this parameter.
+</span>   153    <span class="xdoc">     *
+</span>   154    <span class="xdoc">     *  This map and 'customMemoryMap' should not be used together because this
+</span>   155    <span class="xdoc">     *  map renames the default memory, but then 'customMemoryMap' replaces the
+</span>   156    <span class="xdoc">     *  default memory objects. The parameters 'codeMemory', 'dataMemory' and
+</span>   157    <span class="xdoc">     *  'stackMemory' are not automatically reassigned to new names. It is the
+</span>   158    <span class="xdoc">     *  user's responsibility to set those parameters accordingly to 
+</span>   159    <span class="xdoc">     *  'renameMap'.
+</span>   160    <span class="xdoc">     */</span>
+   161        <span class=key>config</span> string renameMap[string];
+   162    
+   163        <span class="xdoc">/*!
+</span>   164    <span class="xdoc">     *  ======== dataMemory ========
+</span>   165    <span class="xdoc">     *  The default segment for data sections.
+</span>   166    <span class="xdoc">     *
+</span>   167    <span class="xdoc">     *  Each target has a section map with keys equal to the names of all
+</span>   168    <span class="xdoc">     *  sections that compiler and assembler for that target generate. The
+</span>   169    <span class="xdoc">     *  value for each key is either "code" or "data" or "stack". A linker
+</span>   170    <span class="xdoc">     *  template reads that map and puts all "data" sections in the segment
+</span>   171    <span class="xdoc">     *  defined by this configuration parameter.
+</span>   172    <span class="xdoc">     *
+</span>   173    <span class="xdoc">     *  <b>@see</b> #codeMemory
+</span>   174    <span class="xdoc">     *  <b>@see</b> #stackMemory
+</span>   175    <span class="xdoc">     */</span>
+   176        <span class=key>config</span> string dataMemory;
+   177    
+   178        <span class="xdoc">/*!
+</span>   179    <span class="xdoc">     *  ======== codeMemory ========
+</span>   180    <span class="xdoc">     *  The default segment for code sections.
+</span>   181    <span class="xdoc">     *
+</span>   182    <span class="xdoc">     *  Each target has a section map with keys equal to the names of all
+</span>   183    <span class="xdoc">     *  sections that compiler and assembler for that target generate. The
+</span>   184    <span class="xdoc">     *  value for each key is either "code" or "data" or "stack". A linker
+</span>   185    <span class="xdoc">     *  template reads that map and puts all "code" sections in the segment
+</span>   186    <span class="xdoc">     *  defined by this configuration parameter.
+</span>   187    <span class="xdoc">     *
+</span>   188    <span class="xdoc">     *  <b>@see</b> #dataMemory
+</span>   189    <span class="xdoc">     *  <b>@see</b> #stackMemory
+</span>   190    <span class="xdoc">     */</span>
+   191        <span class=key>config</span> string codeMemory;
+   192    
+   193        <span class="xdoc">/*!
+</span>   194    <span class="xdoc">     *  ======== stackMemory ========
+</span>   195    <span class="xdoc">     *  The default segment for stack.
+</span>   196    <span class="xdoc">     *
+</span>   197    <span class="xdoc">     *  Each target has a section map with keys equal to the names of all
+</span>   198    <span class="xdoc">     *  sections that compiler and assembler for that target generate. The
+</span>   199    <span class="xdoc">     *  value for each key is either "code" or "data" or "stack". A linker
+</span>   200    <span class="xdoc">     *  template reads that map and puts all "stack" sections in the segment
+</span>   201    <span class="xdoc">     *  defined by this configuration parameter.
+</span>   202    <span class="xdoc">     *
+</span>   203    <span class="xdoc">     *  <b>@see</b> #dataMemory
+</span>   204    <span class="xdoc">     *  <b>@see</b> #codeMemory
+</span>   205    <span class="xdoc">     */</span>
+   206        <span class=key>config</span> string stackMemory;
+   207    
+   208        <span class="xdoc">/*!
+</span>   209    <span class="xdoc">     *  ======== sectMap ========
+</span>   210    <span class="xdoc">     *  A mapping of linker output section names to memory segments.
+</span>   211    <span class="xdoc">     *
+</span>   212    <span class="xdoc">     *  During the generation of linker command files, the templates used to
+</span>   213    <span class="xdoc">     *  create these files examine several sources of information to determine 
+</span>   214    <span class="xdoc">     *  the placement of named output sections into memory segments defined
+</span>   215    <span class="xdoc">     *  by the platform.  The default placement, described below,
+</span>   216    <span class="xdoc">     *  uses information from the target and this platform's
+</span>   217    <span class="xdoc">     *  `{<b>@link</b> #codeMemory}`, `{<b>@link</b> #dataMemory}`, and
+</span>   218    <span class="xdoc">     *  `{<b>@link</b> #stackMemory}` configuration parameters.
+</span>   219    <span class="xdoc">     *
+</span>   220    <span class="xdoc">     *  `sectMap` is used to override this default placement of
+</span>   221    <span class="xdoc">     *  output sections (".text", ".cinit", etc.) to a memory 
+</span>   222    <span class="xdoc">     *  segment defined by the platform's memory map.  For example, even if
+</span>   223    <span class="xdoc">     *  a platform's `codeMemory` parameter is defined to be "SRAM" and
+</span>   224    <span class="xdoc">     *  ".cinit" output sections are "code" sections, if the platform also
+</span>   225    <span class="xdoc">     *  defines the following `sectMap`, the section ".cinit" will be placed
+</span>   226    <span class="xdoc">     *  into a memory segment named "DDR2".
+</span>   227    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   228    <span class="xdoc">     *      sectMap[] = [
+</span>   229    <span class="xdoc">     *          [".cinit", "DDR2"],
+</span>   230    <span class="xdoc">     *      ];
+</span>   231    <span class="xdoc">     *  <b>@p</b>
+</span>   232    <span class="xdoc">     *
+</span>   233    <span class="xdoc">     *  <b>@a(Note)</b> If an output section has an entry in
+</span>   234    <span class="xdoc">     *  `{<b>@link</b> xdc.cfg.Program#sectMap Program.sectMap}`, that entry
+</span>   235    <span class="xdoc">     *  overrides the placement specified by this `sectMap`.  A program's
+</span>   236    <span class="xdoc">     *  `sectMap` configuration always overrides the platform's `sectMap`
+</span>   237    <span class="xdoc">     *  settings.
+</span>   238    <span class="xdoc">     *
+</span>   239    <span class="xdoc">     *  <b>@a(Default Mapping)</b>
+</span>   240    <span class="xdoc">     *  The default placement of a target's output sections into memory
+</span>   241    <span class="xdoc">     *  segments defined by the platform is determined by the following
+</span>   242    <span class="xdoc">     *  configuration parameters:
+</span>   243    <span class="xdoc">     *  <b>@p(blist)</b>
+</span>   244    <span class="xdoc">     *      - `{<b>@link</b> xdc.bld.ITarget#sectMap ITarget.sectMap}`
+</span>   245    <span class="xdoc">     *          used to map a named output section to either "code", "data",
+</span>   246    <span class="xdoc">     *          or "stack"
+</span>   247    <span class="xdoc">     *      - `{<b>@link</b> #codeMemory}`
+</span>   248    <span class="xdoc">     *          names a memory segment that will contain all "code"
+</span>   249    <span class="xdoc">     *          output sections
+</span>   250    <span class="xdoc">     *      - `{<b>@link</b> #dataMemory}`
+</span>   251    <span class="xdoc">     *          names a memory segment that will contain all "data"
+</span>   252    <span class="xdoc">     *          output sections
+</span>   253    <span class="xdoc">     *      - `{<b>@link</b> #stackMemory}`
+</span>   254    <span class="xdoc">     *          names a memory segment that will contain all "stack"
+</span>   255    <span class="xdoc">     *          output sections
+</span>   256    <span class="xdoc">     *  <b>@p</b>
+</span>   257    <span class="xdoc">     *
+</span>   258    <span class="xdoc">     *  <b>@see</b> xdc.cfg.Program#sectMap
+</span>   259    <span class="xdoc">     *  <b>@see</b> xdc.bld.ITarget#sectMap
+</span>   260    <span class="xdoc">     */</span>
+   261        <span class=key>config</span> string sectMap[string]; <span class="comment">/* section name =&gt; memory segment */</span>
+   262        
+   263        <span class="xdoc">/*!
+</span>   264    <span class="xdoc">     *  ======== getCpuDataSheet ========
+</span>   265    <span class="xdoc">     *  Get the Cpu data sheet object corresponding to specified cpu id.
+</span>   266    <span class="xdoc">     *
+</span>   267    <span class="xdoc">     *  This function executes in either the Configuration object model
+</span>   268    <span class="xdoc">     *  or the Build object model.
+</span>   269    <span class="xdoc">     *
+</span>   270    <span class="xdoc">     *  <b>@param(cpuId)</b>   a string that corresponds to the platform-specific id
+</span>   271    <span class="xdoc">     *                  of a CPU on this platform that runs executables.
+</span>   272    <span class="xdoc">     *
+</span>   273    <span class="xdoc">     *  <b>@a(returns)</b>     Returns an `{<b>@link</b> xdc.platform.ICpuDataSheet}`
+</span>   274    <span class="xdoc">     *                  instance object that corresponds to the specified
+</span>   275    <span class="xdoc">     *                  cpuId.
+</span>   276    <span class="xdoc">     *
+</span>   277    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors.
+</span>   278    <span class="xdoc">     */</span>
+   279        <span class=key>function</span> getCpuDataSheet(cpuId);
+   280    <span class=comment>//    xdc.platform.ICpuDataSheet.Instance getCpuDataSheet(string cpuId);</span>
+   281    
+   282        <span class="xdoc">/*!
+</span>   283    <span class="xdoc">     *  ======== getCreateArgs ========
+</span>   284    <span class="xdoc">     *  DEPRECATED
+</span>   285    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   286    <span class="xdoc">     *
+</span>   287    <span class="xdoc">     *  Get the value of the args parameter used to create this instance
+</span>   288    <span class="xdoc">     *
+</span>   289    <span class="xdoc">     *  This function executes in either the Configuration object model
+</span>   290    <span class="xdoc">     *  or the Build object model.
+</span>   291    <span class="xdoc">     *
+</span>   292    <span class="xdoc">     *  <b>@a(returns)</b>     Returns the "args" object that passed to this
+</span>   293    <span class="xdoc">     *                  module's create method when the instance was created.
+</span>   294    <span class="xdoc">     *
+</span>   295    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors.
+</span>   296    <span class="xdoc">     */</span>
+   297        <span class=key>function</span> getCreateArgs();
+   298    <span class=comment>// any getCreateArgs();</span>
+   299        
+   300        <span class="xdoc">/*!
+</span>   301    <span class="xdoc">     *  ======== getExeContext ========
+</span>   302    <span class="xdoc">     *  Get execution context object corresponding to the specified program.
+</span>   303    <span class="xdoc">     *
+</span>   304    <span class="xdoc">     *  This is called before the program's configuration script runs to 
+</span>   305    <span class="xdoc">     *  get the Cpu object that is assigned to the program's cpu field.
+</span>   306    <span class="xdoc">     *
+</span>   307    <span class="xdoc">     *  Note: that the build script for the program is responsible for
+</span>   308    <span class="xdoc">     *  specifying the CPU; this is done by either implicitly naming the
+</span>   309    <span class="xdoc">     *  platform or explicitly naming a particular CPU on the platform
+</span>   310    <span class="xdoc">     *  (see `{<b>@link</b> xdc.bld.Executable#Attrs.cpuId}`).
+</span>   311    <span class="xdoc">     *
+</span>   312    <span class="xdoc">     *  This function executes in the Configuration object model.
+</span>   313    <span class="xdoc">     *
+</span>   314    <span class="xdoc">     *  <b>@param(prog)</b>    the `{<b>@link</b> xdc.cfg.Program}` object representing the
+</span>   315    <span class="xdoc">     *                  program being configured.
+</span>   316    <span class="xdoc">     *
+</span>   317    <span class="xdoc">     *                  This object contains the following properties that
+</span>   318    <span class="xdoc">     *                  allows the platform to determine the appropriate Cpu
+</span>   319    <span class="xdoc">     *                  object to return (if there is more than one):
+</span>   320    <span class="xdoc">     *                      `prog.build.cpuId`,
+</span>   321    <span class="xdoc">     *                      `prog.build.cpuArgs`, 
+</span>   322    <span class="xdoc">     *                      `prog.build.target`,
+</span>   323    <span class="xdoc">     *
+</span>   324    <span class="xdoc">     *  <b>@a(returns)</b>     Returns an `{<b>@link</b> xdc.platform.IExeContext}` instance
+</span>   325    <span class="xdoc">     *                  object that corresponds to the CPU that will run the
+</span>   326    <span class="xdoc">     *                  specified program.
+</span>   327    <span class="xdoc">     *
+</span>   328    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors.
+</span>   329    <span class="xdoc">     */</span>
+   330        <span class=key>function</span> getExeContext(prog);
+   331    <span class=comment>//    xdc.platform.IExeContext.Instance getExeContext(xdc.cfg.Program.Module prog);</span>
+   332    
+   333        <span class="xdoc">/*!
+</span>   334    <span class="xdoc">     *  ======== getExecCmd ========
+</span>   335    <span class="xdoc">     *  Get the exec command used to run the program on this platform.  
+</span>   336    <span class="xdoc">     *
+</span>   337    <span class="xdoc">     *  This function is called after the program's configuration script runs
+</span>   338    <span class="xdoc">     *  and returns commands that are used to load and run the specified
+</span>   339    <span class="xdoc">     *  program.  These commands are placed in a makefile that is included
+</span>   340    <span class="xdoc">     *  by the client package's generated makefile.  Thus, the commands may
+</span>   341    <span class="xdoc">     *  refer to macros defined in this environment; e.g., `$(SHELL)` and
+</span>   342    <span class="xdoc">     *  `$(XDCROOT)`, etc.
+</span>   343    <span class="xdoc">     *
+</span>   344    <span class="xdoc">     *  The special macro `$(1)` expands to test-specific arguments
+</span>   345    <span class="xdoc">     *  (`{<b>@link</b> xdc.bld.Test#attrs.execArgs}`) that are passed from the test
+</span>   346    <span class="xdoc">     *  to the platform's exec command.  Thus, all platforms that support
+</span>   347    <span class="xdoc">     *  arguments to their exec command, should embed "`$(1)`" within the
+</span>   348    <span class="xdoc">     *  command string at the appropriate place to have these arguments
+</span>   349    <span class="xdoc">     *  interpreted the exec command.
+</span>   350    <span class="xdoc">     *
+</span>   351    <span class="xdoc">     *  For example, a platform that uses a shell script to run executables
+</span>   352    <span class="xdoc">     *  and allows options to be passed to the shell script might return
+</span>   353    <span class="xdoc">     *  the following string:
+</span>   354    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   355    <span class="xdoc">     *      "$(SHELL) &lt;exec_path&gt; $(1) &lt;exe_name&gt;"
+</span>   356    <span class="xdoc">     *  <b>@p</b>
+</span>   357    <span class="xdoc">     *  where, `&lt;exec_path&gt;` is the absolute path to the platform's exec
+</span>   358    <span class="xdoc">     *  shell script, and `&lt;prog_name&gt;` is the name of the executable relative
+</span>   359    <span class="xdoc">     *  to the package's base directory (i.e., `{<b>@link</b> xdc.cfg.Program#name}`).
+</span>   360    <span class="xdoc">     *
+</span>   361    <span class="xdoc">     *  This function executes in the Configuration object model.
+</span>   362    <span class="xdoc">     *
+</span>   363    <span class="xdoc">     *  <b>@param(prog)</b>    the `{<b>@link</b> xdc.cfg.Program}` object representing the
+</span>   364    <span class="xdoc">     *                  program being configured.
+</span>   365    <span class="xdoc">     *
+</span>   366    <span class="xdoc">     *                  This object contains the following properties that
+</span>   367    <span class="xdoc">     *                  allows the platform to determine the appropriate Cpu
+</span>   368    <span class="xdoc">     *                  object to return (if there is more than one):
+</span>   369    <span class="xdoc">     *                      `prog.build.cpuId`,
+</span>   370    <span class="xdoc">     *                      `prog.build.cpuArgs`,
+</span>   371    <span class="xdoc">     *                      `prog.build.target`
+</span>   372    <span class="xdoc">     *
+</span>   373    <span class="xdoc">     *  <b>@param(platPath)</b> full path to the platform package for the program
+</span>   374    <span class="xdoc">     *
+</span>   375    <span class="xdoc">     *  <b>@a(returns)</b>     Returns a string of commands used to execute this
+</span>   376    <span class="xdoc">     *                  program in the context of the XDC generated makefiles.
+</span>   377    <span class="xdoc">     *                  
+</span>   378    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors.
+</span>   379    <span class="xdoc">     */</span>
+   380        <span class=key>function</span> getExecCmd(prog, platPath);
+   381    <span class=comment>//    string  getExecCmd(xdc.cfg.Program.Module prog, string platPath);</span>
+   382    
+   383        <span class="xdoc">/*!
+</span>   384    <span class="xdoc">     *  ======== getLinkTemplate ========
+</span>   385    <span class="xdoc">     *  Get Linker Command file template used to link an executable.
+</span>   386    <span class="xdoc">     *
+</span>   387    <span class="xdoc">     *  In the event that no template is provided by the program
+</span>   388    <span class="xdoc">     *  configuration script (see `{<b>@link</b> xdc.cfg.Program#linkTemplate}`), 
+</span>   389    <span class="xdoc">     *  the template file identified by this method is used to generate the
+</span>   390    <span class="xdoc">     *  linker command file used to create the executable.
+</span>   391    <span class="xdoc">     *
+</span>   392    <span class="xdoc">     *  This function executes in the Configuration object model and
+</span>   393    <span class="xdoc">     *  is called after the program configuration script runs.  The template
+</span>   394    <span class="xdoc">     *  is expanded in the context of the Configuration Object Model.  
+</span>   395    <span class="xdoc">     *
+</span>   396    <span class="xdoc">     *  <b>@param(prog)</b>    the `{<b>@link</b> xdc.cfg.Program}` object representing the
+</span>   397    <span class="xdoc">     *                  program being configured.
+</span>   398    <span class="xdoc">     *
+</span>   399    <span class="xdoc">     *                  This object contains the following properties that
+</span>   400    <span class="xdoc">     *                  allows the platform to determine the appropriate link
+</span>   401    <span class="xdoc">     *                  template to return:
+</span>   402    <span class="xdoc">     *                  <b>@p(blist)</b>
+</span>   403    <span class="xdoc">     *                      - `prog.build.cpuId`,
+</span>   404    <span class="xdoc">     *                      - `prog.build.cpuArgs`,
+</span>   405    <span class="xdoc">     *                      - `prog.build.target`
+</span>   406    <span class="xdoc">     *                  <b>@p</b>
+</span>   407    <span class="xdoc">     *  <b>@a(returns)</b>     Returns a path string to a template file or `null`.  If
+</span>   408    <span class="xdoc">     *                  `null`, no linker command file is generated; otherwise
+</span>   409    <span class="xdoc">     *                  this path is relative to the package path.
+</span>   410    <span class="xdoc">     *                  
+</span>   411    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors.
+</span>   412    <span class="xdoc">     */</span>
+   413        <span class=key>function</span> getLinkTemplate(prog);
+   414    <span class=comment>//    string getLinkTemplate(prog);</span>
+   415    }
+   416    <span class="comment">/*
+</span>   417    <span class="comment"> *  @(#) xdc.platform; 1, 0, 1, 0,237; 2-22-2010 10:33:24; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   418    <span class="comment"> */</span>
+   419    
+</pre>
+</body></html>

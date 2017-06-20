@@ -1,0 +1,28 @@
+!IF "$(_TGTPLAT)"!="DAVINCI"
+SKIPBUILD=1
+!ENDIF
+
+TARGETNAME=cmemk
+TARGETTYPE=DYNLINK
+RELEASETYPE=LOCAL
+SYNCHRONIZE_DRAIN=1
+WINCEOEM=1
+
+!IF "$(WINCEDEBUG)" == "debug"
+CDEFINES=$(CDEFINES) -D__DEBUG 
+!ENDIF
+
+CDEFINES=$(CDEFINES) -DCEDDK_USEDDKMACRO 
+
+INCLUDES=\
+    $(_PUBLICROOT)\common\ddk\inc;\
+    $(_PUBLICROOT)\common\sdk\inc;\
+    $(_PUBLICROOT)\common\oak\inc;\
+    ..\..\..\..\..\..
+
+TARGETLIBS= \
+  $(_SYSGENSDKROOT)\lib\$(_CPUINDPATH)\coredll.lib \
+  $(_SYSGENSDKROOT)\lib\$(_CPUINDPATH)\ceddk.lib \
+
+SOURCES= \
+    ..\cmemk.c

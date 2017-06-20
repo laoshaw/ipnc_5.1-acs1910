@@ -1,0 +1,192 @@
+<html>
+<head>
+<title>package xdc.tools.repoman</title>
+<meta name="description" content="Repository Manager tool">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">xdc.tools.repoman</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/tools/repoman/Main.html" title="module Main"><img class="xdocHdrArrow" src="../../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/tools/repoman/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Repository Manager tool</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">USAGE</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">OPTIONS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-3">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-4">EXAMPLES</a></li>
+</ul>
+<div class="xdocBrief">
+This tool creates and manages package repositories.  It displays
+  information about archived packages, extracts archived packages,
+  extracts repositories from bundles and deletes packages from
+  repositories.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../xdc/tools/repoman/package-src.html"><span class="xdocLabelFile">xdc/tools/repoman/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/tools/package.html" title="xdc.tools">xdc.tools</a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/shelf/package.html" title="xdc.shelf">xdc.shelf</a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/services/global/package.html" title="xdc.services.global">xdc.services.global</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">xdc.tools.repoman</span></go> [1, 0, 0, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../xdc/tools/repoman/Main.html' title='xdc.tools.repoman.Main'><span class="xdoc-id">Main</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Command implementation</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">USAGE</div>
+<div class="xdocText"><tt>xs xdc.tools.repoman [--help]<br />&nbsp;&nbsp;&nbsp;&nbsp;-t [-v] [-p pathname] [packagename...|packagefile...]<br />&nbsp;&nbsp;&nbsp;&nbsp;-n [-v] [-p pathname] [packagename...|packagefile...]<br />&nbsp;&nbsp;&nbsp;&nbsp;-x [-v] [-D] [-R] [-F] [-r destrepo] [-p path] packagename...|packagefile...<br />&nbsp;&nbsp;&nbsp;&nbsp;-x [-v] [-D] [-R] [-F] [-r destrepo] [-p path] -b bundlerepository [packagename...] bundleFile<br />&nbsp;&nbsp;&nbsp;&nbsp;-d [-v] [-F] [-r destrepo] packagename...<br />&nbsp;&nbsp;&nbsp;&nbsp;-c [-v] [-F] [--providerId] [-r destrepo] [-p pathname] packagename...<br />&nbsp;&nbsp;&nbsp;&nbsp;--rsave -f file [-p searchpath] repository...<br />&nbsp;&nbsp;&nbsp;&nbsp;--rrestore -f file [-p searchpath] [index-spec]<br />&nbsp;&nbsp;&nbsp;&nbsp;--rcreate -f file [-p searchpath] [index-spec] destrepository...<br />&nbsp;&nbsp;&nbsp;&nbsp;[-F] --providerId providerId [repository...]</tt></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">OPTIONS</div>
+<div class="xdocText"><dl><dt><tt>-t</tt></dt><dd>Display package info</dd><dt><tt>-n</tt></dt><dd>Display package names only</dd><dt><tt>-x</tt></dt><dd>Extract package(s)</dd><dt><tt>-d</tt></dt><dd>Delete package(s)</dd><dt><tt>-p</tt></dt><dd>Path arg</dd><dt><tt>-r</tt></dt><dd>Repository arg</dd><dt><tt>-D</tt></dt><dd>Include package dependencies</dd><dt><tt>-R</tt></dt><dd>Recursive include package dependencies</dd><dt><tt>-a</tt></dt><dd>Return an array of strings</dd><dt><tt>-X</tt></dt><dd>Return a Results struct as XML</dd><dt><tt>-v</tt></dt><dd>Print informative messages during execution</dd><dt><tt>-b</tt></dt><dd>Bundle repository arg</dd><dt><tt>-F</tt></dt><dd>Force incompatible packages</dd><dt><tt>-c</tt></dt><dd>Copy package(s)</dd><dt><tt>-f</tt></dt><dd>file arg to save/restore repository</dd><dt><tt>--rsave</tt></dt><dd>Save a repository's information to file</dd><dt><tt>--rrestore</tt></dt><dd>Restore one or more repositories from information in file</dd><dt><tt>--rcreate</tt></dt><dd>Create one or more repositories from information in file</dd><dt><tt>--providerId</tt></dt><dd>providerId for a repository</dd></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This tool creates and manages package repositories.  It displays
+  information about archived packages, extracts archived packages,
+  extracts repositories from bundles and deletes packages from
+  repositories.</div>
+<div class="xdocText">Information about archived packages can be displayed with
+  the '-t' and '-n' options. The '-p' argument is used to 
+  specify a directory in which to search. If the '-p' arg is omitted,
+  the current directory is searched. Specific packages can searched
+  for by specifying one or more package names, or one or more package
+  archives at the end of the command line.  If no packages are specified,
+  information on all packages found in the search directory will be
+  displayed.</div>
+<div class="xdocText">Archived packages can be extracted to a repository with the '-x' 
+  option. '-x -D' will extract dependent packages, too. '-x -R' will
+  recursively extract dependent packages. If any of the packages in 
+  the specified package list are not compatible, the operation will
+  be aborted. '-F' can be used to force all packages to be extracted,
+  regardles of compatibility. The '-p' arg is used to specify a
+  directory to search in. If not specified, the current directory will
+  be searched. The '-x' option also extracts a repository or packages
+  from a bundle. In this case, the last argument specifies the bundle
+  from which to extract the repository. The repository to be extracted
+  is specified with the '-b' arg. If just packages are to be extracted,
+  one or more package names should follow the name of the repository
+  that they should be extracted from.</div>
+<div class="xdocText">Packages can be deleted from a repository with '-d'. If the package
+  has any subdirectores that contain packages, they will be left intact.
+  After the package is deleted, if the package has no subdirectories
+  with packages, empty directories that are part of the fully qualified
+  package will be deleted, too.</div>
+<div class="xdocText">Packages can be copied between repositories with '-c'. If the package
+  being copied already exists in the destination repository, it will be
+  deleted prior to being replaced.</div>
+<div class="xdocText">The '-r' argument specifies a destination repository. If '-r' is
+  omitted, the repository of the current package is used. If there is
+  no current package, the current directory is used.</div>
+<div class="xdocText">When a package name is given, it can be specified in full, such as
+  'ti.platforms.sim6xxx', or the wildcard characters '*' and '?' may be
+  used, as in 'ti.platforms.*' or 'ti.catalog.c??00'. A version/key can
+  also be attached to a package name in the following manner:
+  'ti.platforms.c6000[1,0,0,0,313835]'.  A prefix of the full version/key
+  may also be used: 'ti.platforms.c6000[1,0]'.</div>
+<div class="xdocText">If a package name has multiple matches either with or without a
+  version/key specified, the most recent will be selected. Wildcards may
+  also be used when naming a package archive file.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">EXAMPLES</div>
+<div class="xdocText">xs xdc.tools.repoman -t</div>
+<div class="xdocText"><DL><DD>  Displays all info on all archived packages in the current directory
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -t -p C:\xdc-o19\exports</div>
+<div class="xdocText"><DL><DD>  Displays all info on all archived packages in C:\xdc-o19\exports
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -t -p C:\xdc-o19\exports ti.platforms.*</div>
+<div class="xdocText"><DL><DD>  Displays all info on archived packages whose names begin with
+  ti.platforms. in C:\xdc-o19\exports
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -t -p C:\xdc-o19\exports ti_platforms*.tar</div>
+<div class="xdocText"><DL><DD>  Displays all info on packages in files that match ti_platforms*.tar
+  in C:\xdc-o19\exports
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -t -p C:\xdc-o19\exports ti.catalog.c6000 ti.catalog.sim6xxx</div>
+<div class="xdocText"><DL><DD>  Displays all info on archived packages ti.catalog.c6000 and
+  ti.catalog.sim6xxx in C:\xdc-o19\exports
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x</div>
+<div class="xdocText"><DL><DD>  Extracts all archived packages in the current directory to the current
+  repository
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x -r C:\myrepo\packages -p C:\exports</div>
+<div class="xdocText"><DL><DD>  Extracts all archived packages in C:\exports to C:\myrepo\packages
+  repository
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x -r C:\myrepo\packages -p C:\exports ti.catalog.*</div>
+<div class="xdocText"><DL><DD>  Extracts packages matching ti.catalog.* from c:\exports to
+  c:\myrepo\packages
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x -r C:\myrepo\packages C:\exports\ti_catalog*.tar</div>
+<div class="xdocText"><DL><DD>  Extracts packages from files matching C:\exports\ti_catalog*.tar 
+  to c:\myrepo\packages
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x -r C:\myrepo\packages C:\exports\ti_catalog*.tar</div>
+<div class="xdocText"><DL><DD>  Extracts packages from files matching C:\exports\ti_catalog*.tar 
+  to c:\myrepo\packages
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x -R -r C:\myrepo -p C:\xdc-o19\exports ti.platforms.sim6xxx</div>
+<div class="xdocText"><DL><DD>  Extracts the package ti.platforms.sim6xxx and all recursively
+  dependent packages from C:\xdc-o19\exports to C:\myrepo
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x -r C:\ -b packages C:\exports\xdc_core.tar.gz</div>
+<div class="xdocText"><DL><DD>  Extracts the repository 'packages' from bundle
+  C:\exports\xdc_core.tar.gz to C:\
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -x -r C:\myrepo -b examples ti.xdais.dm.examples.videnc1_copy 
+  C:\xdais_6_24.tar.gz</div>
+<div class="xdocText"><DL><DD>  Extracts the package ti.xdais.dm.examples.videnc1_copy from repository
+  'examples' in bundle
+  C:\xdais_6_24.tar.gz to C:\myrepo
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman -c -r C:\destdir\packages -p C:\srcdir\packages ti.catalog.c6000</div>
+<div class="xdocText"><DL><DD>  Copies the package ti.catalog.c6000 from C:\srcdir\packages to
+  C:\destdir\packages
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman --rsave -f c:/repoinfo.rmn -p c:/pkgarchives;c:/testpkgs c:/myrepo</div>
+<div class="xdocText"><DL><DD>  Saves package information for repository c:/myrepo to file c:/repoinfo.rmn.
+  Also saves the search path c:/pkgarchives;c:/testpkgs
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman --rrestore -f c:/repoinfo.rmn -p c:/pkgarchives;c:/testpkgs</div>
+<div class="xdocText"><DL><DD>  Restores all of the packages in the repository referenced in
+  c:/repoinfo.rmn. Uses the search path c:/pkgarchives;c:/testpkgs to find
+  and copy packages. Will create the repository if it doesn't exist.
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman --rcreate -f c:/repoinfo.rmn -p
+                       c:/pkgarchives;c:/testpkgs c:/mynewrepo</div>
+<div class="xdocText"><DL><DD>  Creates the new repository c:/mynewrepo from the repository referenced in
+  the file c:/repoinfo.rmn.  Uses the search path c:/pkgarchives;c:/testpkgs
+  to find and copy packages. If successful, the newly created repository
+  will be identical to its predecessor referenced in c:/repoinfo.rmn.
+</DD></DL></div>
+<div class="xdocText">xs xdc.tools.repoman --providerId my_codec_engine c:/codec_engine_2_23/mypackages</div>
+<div class="xdocText"><DL><DD>  Assigns the providerId attribute in  c:/codec_engine_2_23/mypackages/.repo.xml
+  the value my_codec_engine. If c:/codec_engine_2_23/mypackages/.repo.xml does not
+  exist, it will be created.
+</DD></DL></div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:10 GMT</div>
+</div></div></body>
+</html>

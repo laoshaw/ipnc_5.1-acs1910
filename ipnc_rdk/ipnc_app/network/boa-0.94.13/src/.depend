@@ -1,0 +1,529 @@
+alias.o: alias.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+boa.o: boa.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ApproDrvMsg.h \
+  appro_api.h web_translate.h boa.h onvifH.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  $(PUBLIC_INCLUDE_DIR)/share_mem.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_msg_drv.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  onvif.h
+buffer.o: buffer.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+cgi.o: cgi.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+cgi_header.o: cgi_header.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+config.o: config.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h y.tab.h parse.h
+escape.o: escape.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+get.o: get.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h web_translate.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h
+hash.o: hash.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h parse.h
+ip.o: ip.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+log.o: log.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+mmap_cache.o: mmap_cache.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+pipe.o: pipe.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+queue.o: queue.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+read.o: read.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+request.o: request.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h iface.h tags.h appro_api.h psia.h file_list.h boa.h onvifH.h
+response.o: response.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h
+select.o: select.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h onvif.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h
+signals.o: signals.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+util.o: util.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+sublog.o: sublog.c
+appro_api.o: appro_api.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h \
+  config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h appro_api.h net_config.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  file_list.h para_list.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h
+net_config.o: net_config.c net_config.h
+web_translate.o: web_translate.c file_list.h web_translate.h boa.h \
+  onvifH.h onvifStub.h stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  net_config.h
+file_list.o: file_list.c web_translate.h boa.h onvifH.h onvifStub.h \
+  stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  net_config.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  file_list.h
+auth.o: auth.c boa.h onvifH.h onvifStub.h stdsoap2.h compat.h config.h \
+  defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h
+para_list.o: para_list.c web_translate.h boa.h onvifH.h onvifStub.h \
+  stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  net_config.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  file_list.h para_list.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h
+syslog_list.o: syslog_list.c web_translate.h boa.h onvifH.h onvifStub.h \
+  stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  net_config.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  file_list.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h \
+  psia.h boa.h onvifH.h
+accesslog_list.o: accesslog_list.c web_translate.h boa.h onvifH.h \
+  onvifStub.h stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  net_config.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  file_list.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h
+actvcon_list.o: actvcon_list.c web_translate.h boa.h onvifH.h onvifStub.h \
+  stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/file_msg_drv.h \
+  net_config.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  file_list.h
+tree.o: tree.c psia.h file_list.h boa.h onvifH.h onvifStub.h stdsoap2.h \
+  compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h defines.h
+psia_root.o: psia_root.c psia.h file_list.h boa.h onvifH.h onvifStub.h \
+  stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h iface.h
+index.o: index.c psia.h file_list.h boa.h onvifH.h onvifStub.h stdsoap2.h \
+  compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h tags.h iface.h
+description.o: description.c psia.h file_list.h boa.h onvifH.h \
+  onvifStub.h stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h tags.h iface.h
+xadd.o: xadd.c psia.h file_list.h boa.h onvifH.h onvifStub.h stdsoap2.h \
+  compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+xparse.o: xparse.c psia.h file_list.h boa.h onvifH.h onvifStub.h \
+  stdsoap2.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  escape.h
+iface.o: iface.c \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  net_config.h web_translate.h boa.h onvifH.h onvifStub.h stdsoap2.h \
+  compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h \
+  file_list.h psia.h file_list.h boa.h tags.h iface.h
+onvifC.o: onvif/onvifC.c onvifH.h onvifStub.h stdsoap2.h
+onvifServer.o: onvif/onvifServer.c onvifH.h onvifStub.h stdsoap2.h \
+  onvif.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  onvifH.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h \
+  web_translate.h boa.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  escape.h
+stdsoap2.o: onvif/stdsoap2.c stdsoap2.h
+duration.o: onvif/duration.c onvifH.h onvifStub.h stdsoap2.h
+onvif.o: onvif/onvif.c onvif.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  onvifH.h onvifStub.h stdsoap2.h \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  para_list.h web_translate.h boa.h compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h \
+  file_list.h DeviceBinding.nsmap onvifH.h onvifface.h onvifStub.h
+onvifface.o: onvif/onvifface.c \
+  $(PUBLIC_INCLUDE_DIR)/sys_env_type.h \
+  $(PUBLIC_INCLUDE_DIR)/Dmva_scheduler.h \
+  $(PUBLIC_INCLUDE_DIR)/sem_util.h \
+  $(PUBLIC_INCLUDE_DIR)/sysctrl.h \
+  para_list.h web_translate.h boa.h onvifH.h onvifStub.h stdsoap2.h \
+  compat.h config.h defines.h globals.h \
+  $(PUBLIC_INCLUDE_DIR)/Appro_interface.h \
+  $(PUBLIC_INCLUDE_DIR)/Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Stream_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/File_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Sys_Msg_Def.h \
+  $(PUBLIC_INCLUDE_DIR)/Alarm_Msg_Def.h \
+  escape.h \
+  $(PUBLIC_INCLUDE_DIR)/ipnc_ver.h \
+  $(PUBLIC_INCLUDE_DIR)/system_default.h \
+  file_list.h

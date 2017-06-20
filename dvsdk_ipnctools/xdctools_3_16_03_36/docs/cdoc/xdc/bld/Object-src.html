@@ -1,0 +1,153 @@
+<html><head><title>module xdc.bld.Object</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Object.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== Object ========
+</span>    19    <span class="xdoc"> *  Model of a compiled (or assembled) form of a source file.
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  Instances of this module represent object files.  Instances must be
+</span>    22    <span class="xdoc"> *  created via either the `{<b>@link</b> xdc.bld.Library#addObjects()}` or
+</span>    23    <span class="xdoc"> *  `{<b>@link</b> xdc.bld.Executable#addObjects()}` functions; this ensures that each
+</span>    24    <span class="xdoc"> *  object file created appears in the package's manifest and that it
+</span>    25    <span class="xdoc"> *  properly "inherits" appropriate default attributes from the containing
+</span>    26    <span class="xdoc"> *  library or executable.
+</span>    27    <span class="xdoc"> */</span>
+    28    <span class=key>metaonly</span> <span class=key>module</span> Object {
+    29        <span class="xdoc">/*!
+</span>    30    <span class="xdoc">     *  ======== Attrs ========
+</span>    31    <span class="xdoc">     *  Optional attributes for an Object instance
+</span>    32    <span class="xdoc">     *
+</span>    33    <span class="xdoc">     *  Unspecified attributes are "inherited" from
+</span>    34    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.Executable#Attrs}`
+</span>    35    <span class="xdoc">     *  (`{<b>@link</b> xdc.bld.Library#Attrs}`) if this Object is added to an
+</span>    36    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.Executable}` (`{<b>@link</b> xdc.bld.Library}`); i.e., if one
+</span>    37    <span class="xdoc">     *  of fields in this structure is unspecified *and* this field's name
+</span>    38    <span class="xdoc">     *  matches a field name in `{<b>@link</b> xdc.bld.Executable#attrs}`,
+</span>    39    <span class="xdoc">     *  then this field's value defaults to the value in specified by
+</span>    40    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.Executable#attrs}`.  This mechanism makes it possible
+</span>    41    <span class="xdoc">     *  to establish executable-wide default value for any of the "inherited"
+</span>    42    <span class="xdoc">     *  attributes.
+</span>    43    <span class="xdoc">     *
+</span>    44    <span class="xdoc">     *  Suppose, for example, that you want all object files in this package
+</span>    45    <span class="xdoc">     *  to be build with the '`-o4`' optimization flag, but one particular file
+</span>    46    <span class="xdoc">     *  must be built with '`-o2`' (because the optimizer has a bug that it
+</span>    47    <span class="xdoc">     *  causes it to fail on this file).  The following build script fragment
+</span>    48    <span class="xdoc">     *  shows how this can be accomplished:
+</span>    49    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    50    <span class="xdoc">     *      var exe = Pkg.addExecutable(..., {copts: '-o4'});
+</span>    51    <span class="xdoc">     *      exe.addObjects(['complex'], {copts: '-o2'});
+</span>    52    <span class="xdoc">     *      exe.addObjects(['foo', 'bar', ...]);
+</span>    53    <span class="xdoc">     *  <b>@p</b>
+</span>    54    <span class="xdoc">     *  Since many `Executable.attrs` are "inherited" from
+</span>    55    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.PackageContents#attrs}`, it is also possible to
+</span>    56    <span class="xdoc">     *  establish package-wide default for these attributes.
+</span>    57    <span class="xdoc">     *
+</span>    58    <span class="xdoc">     *  <b>@field(profile)</b>  This string names a profile defined by the
+</span>    59    <span class="xdoc">     *          target used to produce the object file.  The profile
+</span>    60    <span class="xdoc">     *          specifies a set of compiler and assembler options that are
+</span>    61    <span class="xdoc">     *          to be used when producing the object.  Note that these tool
+</span>    62    <span class="xdoc">     *          options are in addition to any options specified via aopts,
+</span>    63    <span class="xdoc">     *          copts, etc.
+</span>    64    <span class="xdoc">     *
+</span>    65    <span class="xdoc">     *  <b>@field(incs)</b>  This string contains include path options used by
+</span>    66    <span class="xdoc">     *          the compiler (or assembler) to locate include files; e.g.,
+</span>    67    <span class="xdoc">     *          "`-I ../../include -I ../c55xx`".  Note that the syntax of 
+</span>    68    <span class="xdoc">     *          this string may be target dependent.
+</span>    69    <span class="xdoc">     *
+</span>    70    <span class="xdoc">     *  <b>@field(defs)</b>  This string contains options used by the
+</span>    71    <span class="xdoc">     *          compiler (or assembler) to define macros; e.g.,
+</span>    72    <span class="xdoc">     *          "`-D_C6xxx -DDEBUG=1`".  Note that the syntax of 
+</span>    73    <span class="xdoc">     *          this string may be target dependent.
+</span>    74    <span class="xdoc">     *
+</span>    75    <span class="xdoc">     *  <b>@field(aopts)</b>  This string contains options used by the assembler
+</span>    76    <span class="xdoc">     *          to produce object files; e.g., "`-mP1`".  Note that the syntax
+</span>    77    <span class="xdoc">     *          of this string may be target dependent.
+</span>    78    <span class="xdoc">     *
+</span>    79    <span class="xdoc">     *  <b>@field(copts)</b>  This string contains options used by the C/C++
+</span>    80    <span class="xdoc">     *          compiler to produce object files; e.g., "`-o3 -mi1`".  Note
+</span>    81    <span class="xdoc">     *          that the syntax of this string may be target dependent.
+</span>    82    <span class="xdoc">     *
+</span>    83    <span class="xdoc">     *  <b>@field(preBuilt)</b> If equal to `true`, this Boolean flag indicates
+</span>    84    <span class="xdoc">     *          that this object does not need to be built from sources; e.g.,
+</span>    85    <span class="xdoc">     *          it has been pre-built and delivered as a binary file without
+</span>    86    <span class="xdoc">     *          sources or some custom rule already built this object file.
+</span>    87    <span class="xdoc">     *          For pre-built objects, no rule will be created to remove the
+</span>    88    <span class="xdoc">     *          file as part of a package clean operation, the relative path
+</span>    89    <span class="xdoc">     *          to the file must be fully specified, and all other Object
+</span>    90    <span class="xdoc">     *          attributes are ignored.
+</span>    91    <span class="xdoc">     *
+</span>    92    <span class="xdoc">     *  <b>@see</b> #attrs
+</span>    93    <span class="xdoc">     *  <b>@see</b> xdc.bld.PackageContents#Attrs
+</span>    94    <span class="xdoc">     *  <b>@see</b> xdc.bld.Library#Attrs
+</span>    95    <span class="xdoc">     *  <b>@see</b> xdc.bld.Executable#Attrs
+</span>    96    <span class="xdoc">     */</span>
+    97        <span class=key>struct</span> Attrs {
+    98            String profile; <span class="xdoc">/*! target options profile */</span>
+    99            String aopts;   <span class="xdoc">/*! asm options for this object */</span>
+   100            String copts;   <span class="xdoc">/*! C/C++ options for this object */</span>
+   101            String defs;    <span class="xdoc">/*! definitions for this object */</span>
+   102            String incs;    <span class="xdoc">/*! include options for this object */</span>
+   103            Bool   preBuilt;<span class="xdoc">/*! don't create a rule to generate this file */</span>
+   104        };
+   105        
+   106    <span class=key>instance</span>:
+   107        <span class="xdoc">/*!
+</span>   108    <span class="xdoc">     *  ======== create ========
+</span>   109    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   110    <span class="xdoc">     *  Instances should only be created via Executable.addObjects()
+</span>   111    <span class="xdoc">     */</span>
+   112        create();
+   113    
+   114        <span class="xdoc">/*!
+</span>   115    <span class="xdoc">     *  ======== name ========
+</span>   116    <span class="xdoc">     *  The base name of the object file.
+</span>   117    <span class="xdoc">     *
+</span>   118    <span class="xdoc">     *  This name is passed as the name field of the
+</span>   119    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.ITarget#CompileGoal}`.  The object file's name is
+</span>   120    <span class="xdoc">     *  composed as follows:
+</span>   121    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   122    <span class="xdoc">     *      &lt;name&gt;.o&lt;target_suffix&gt;
+</span>   123    <span class="xdoc">     *  <b>@p</b>
+</span>   124    <span class="xdoc">     *  where `&lt;name&gt;` is name and `&lt;target_suffix&gt;` is the suffix defined 
+</span>   125    <span class="xdoc">     *  by each target that the file is built for.
+</span>   126    <span class="xdoc">     */</span>
+   127        <span class=key>config</span> String name;
+   128    
+   129        <span class="xdoc">/*!
+</span>   130    <span class="xdoc">     *  ======== attrs ========
+</span>   131    <span class="xdoc">     *  This instance's attributes.
+</span>   132    <span class="xdoc">     *
+</span>   133    <span class="xdoc">     *  These attributes (unless otherwise specified) are "inherited" from
+</span>   134    <span class="xdoc">     *  the container object that contains this instance.
+</span>   135    <span class="xdoc">     *
+</span>   136    <span class="xdoc">     *  <b>@see</b> xdc.bld.PackageContents#Attrs
+</span>   137    <span class="xdoc">     *  <b>@see</b> xdc.bld.Executable#Attrs
+</span>   138    <span class="xdoc">     *  <b>@see</b> xdc.bld.Library#Attrs
+</span>   139    <span class="xdoc">     */</span>
+   140        <span class=key>config</span> Object.Attrs attrs;  
+   141    }
+   142    <span class="comment">/*
+</span>   143    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   144    <span class="comment"> */</span>
+   145    
+</pre>
+</body></html>

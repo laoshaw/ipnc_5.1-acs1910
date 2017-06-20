@@ -1,0 +1,111 @@
+<html><head><title>module ti.catalog.c2800.TMS320C28334</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS320C28334.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    <span class=key>package</span> ti.catalog.c2800;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== TMS320C28334 ========
+</span>    21    <span class="xdoc"> *  The C28334 device data sheet module.
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is used
+</span>    24    <span class="xdoc"> *  by platforms to obtain "data sheet" information about this device.
+</span>    25    <span class="xdoc"> */</span>
+    26    <span class=key>metaonly</span> <span class=key>module</span> TMS320C28334 <span class=key>inherits</span> ITMS320C283xx
+    27    {
+    28    <span class=key>instance</span>:
+    29        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    30    
+    31        <span class="xdoc">/*!
+</span>    32    <span class="xdoc">     *  ======== memMap ========
+</span>    33    <span class="xdoc">     *  The default memory map for this device
+</span>    34    <span class="xdoc">     */</span>
+    35        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    36            [<span class="string">"MSARAM"</span>, {
+    37                comment: <span class="string">"On-Chip RAM Memory"</span>,
+    38                name: <span class="string">"MSARAM"</span>,
+    39                base: 0x0,
+    40                len:  0x800,
+    41                page: 0,
+    42                space: <span class="string">"code/data"</span>
+    43            }],
+    44        
+    45            [<span class="string">"PIEVECT"</span>, {
+    46                comment: <span class="string">"On-Chip PIEVECT RAM Memory"</span>,
+    47                name:    <span class="string">"PIEVECT"</span>,
+    48                base:    0xD00,
+    49                len:     0x100,
+    50                page: 1,
+    51                space:   <span class="string">"data"</span>
+    52            }],
+    53        
+    54            [<span class="string">"L03SARAM"</span>, {
+    55                comment: <span class="string">"On-Chip RAM Memory"</span>,
+    56                name: <span class="string">"L03SARAM"</span>,
+    57                base: 0x8000,
+    58                len:  0x4000,
+    59                page: 0,
+    60                space: <span class="string">"code/data"</span>
+    61            }],
+    62        
+    63            [<span class="string">"L47SARAM"</span>, {
+    64                comment: <span class="string">"On-Chip RAM Memory"</span>,
+    65                name: <span class="string">"L47SARAM"</span>,
+    66                base: 0xC000,
+    67                len:  0x4000,
+    68                page: 0,
+    69                space: <span class="string">"code/data"</span>
+    70            }],
+    71        
+    72            [<span class="string">"OTP"</span>, {
+    73                comment: <span class="string">"1K X 16 OTP memory"</span>,
+    74                name: <span class="string">"OTP"</span>,
+    75                base: 0x380400,
+    76                len:  0x400,
+    77                page: 0,
+    78                space: <span class="string">"code"</span>
+    79            }],
+    80        
+    81            [<span class="string">"FLASH"</span>, {
+    82                comment: <span class="string">"128K X 16 Flash memory"</span>,
+    83                name: <span class="string">"FLASH"</span>,
+    84                base: 0x320000,
+    85                len:  0x20000,
+    86                page: 0,
+    87                space: <span class="string">"code"</span>
+    88            }],
+    89        
+    90            [<span class="string">"BOOTROM"</span>, {
+    91                comment: <span class="string">"On-Chip Boot ROM"</span>,
+    92                name: <span class="string">"BOOTROM"</span>,
+    93                base: 0x3fe000,
+    94                len:  0x1fc0, 
+    95                page: 0,
+    96                space: <span class="string">"code"</span>
+    97            }],
+    98        ];
+    99    };
+   100    <span class="comment">/*
+</span>   101    <span class="comment"> *  @(#) ti.catalog.c2800; 1, 0, 0, 0,227; 2-23-2010 16:58:49; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   102    <span class="comment"> */</span>
+   103    
+</pre>
+</body></html>

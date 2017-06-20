@@ -1,0 +1,8 @@
+SECTIONS
+{
+% if (this.IPRUN.dataSection) { 
+    .rodata  > `this.IPRUN.dataSection`
+    .data  > `this.IPRUN.dataSection`
+    .rodata.str1.4  > `this.IPRUN.dataSection`
+%}
+}

@@ -1,0 +1,241 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XDCscript - xdc.exec - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCscript - xdc.exec&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCscript - xdc.exec" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCscript_Language_Reference/XDCscript_Language_Reference.html#Root_object" title="XDCscript_Language_Reference#Root_object"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">XDCscript - xdc.exec</p><p id="subtitle">Execute external command</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Synopsis"><span class="tocnumber">1</span> <span class="toctext">Synopsis</span></a></li>
+<li class="toclevel-1"><a href="#Parameters"><span class="tocnumber">2</span> <span class="toctext">Parameters</span></a></li>
+<li class="toclevel-1"><a href="#Description"><span class="tocnumber">3</span> <span class="toctext">Description</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Locating_the_Command"><span class="tocnumber">3.1</span> <span class="toctext">Locating the Command</span></a></li>
+<li class="toclevel-2"><a href="#Command_Environment"><span class="tocnumber">3.2</span> <span class="toctext">Command Environment</span></a></li>
+<li class="toclevel-2"><a href="#Command_Working_Directory"><span class="tocnumber">3.3</span> <span class="toctext">Command Working Directory</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Return_Value"><span class="tocnumber">4</span> <span class="toctext">Return Value</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Synopsis"></a><h2> <span class="mw-headline">Synopsis</span></h2>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> exitCode = <span class="re1">xdc.exec</span><span class="br0">&#40;</span>command, attrs, status<span class="br0">&#41;</span>;</pre></td></tr></table>
+<a name="Parameters"></a><h2> <span class="mw-headline">Parameters</span></h2>
+<dl><dt> <tt>command</tt>&nbsp;</dt><dd>   command line to execute. The program name and arguments can be given either as a single string with whitespace delimiters, or else as an array of strings. The array variant is useful in the case that either the program name or the arguments might contain spaces.
+</dd><dt> <tt>attrs</tt>&nbsp;</dt><dd>  optional set of attributes used to control the  environment of the command
+<ul><li><tt>envs</tt> - array of environment variable settings; e.g., <tt>["foo=bar", "toto=baz"]</tt>.
+</li><li><tt>useEnv</tt> - if <tt>false</tt> environment of the calling process is not copied into the environment of the invoked command, only variables in <tt>envs</tt> are available to the command; if <tt>true</tt> the environment of the calling process is copied, but if <tt>envs</tt> contains variables already present in the environment, the values from <tt>envs</tt> are used. The default is <tt>false</tt>.
+</li><li><tt>cwd</tt> - the command's current working directory (defaults to ".")
+</li><li><tt>outName</tt> - if defined, the name of the output file to create; if the file exists, output is appended to the end of the file.
+</li><li><tt>filter</tt>  - if defined, <tt>filter</tt> is a string representation of a regular expression used to filter command output.  Only the stdout lines that match the <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html#sum" class="external text" title="http://java.sun.com/j2se/1.5.0/docs/api/java/util/regex/Pattern.html#sum" rel="nofollow">Java regular expression</a> are included in the output; the command's stderr output is unaffected by this filter.
+</li><li><tt>merge</tt> - if <tt>false</tt> the stdout and stderr output streams are not merged into a single output stream.  The default value of <tt>merge</tt> is <tt>true</tt>.
+</li></ul>
+</dd></dl>
+<dl><dt> <tt>status</tt>&nbsp;</dt><dd>    optional output parameter.  If <tt>status</tt> is non-null, the following fields are set:
+<ul><li><tt>output</tt> - string containing all output from command, unless <tt>attrs.outName</tt> is defined.  If <tt>attrs.outName</tt> is defined the output normally placed in this string is written to the file named by <tt>attrs.outName</tt>.  In addition, if <tt>attrs.merge</tt> is undefined or <tt>true</tt>, <tt>output</tt> contains both the stderr and stdout output of the command.
+</li><li><tt>errors</tt> - if <tt>attrs.merge</tt> is <tt>false</tt>, a string containing only the stderr output; <tt>output</tt> will then contain only the command's stdout output.
+</li><li><tt>exitStatus</tt> - exit status of the command
+</li></ul>
+</dd></dl>
+<a name="Description"></a><h2> <span class="mw-headline">Description</span></h2>
+<p>Execute an arbitrary shell command and optionally put output into a file.  Both stderr and stdout are combined into a single output stream.
+</p>
+<a name="Locating_the_Command"></a><h3> <span class="mw-headline">Locating the Command</span></h3>
+<p>The search algorithm used to find <tt>command</tt> along the search path is similar to the algorithm used in <tt><a href="../XDCscript_-_xdc.findFile/XDCscript_-_xdc.findFile.html" title="XDCscript - xdc.findFile">xdc.findFile()</a></tt>. If the specified command is not an absolute path, the value of the <tt>PATH</tt> environment variable, as specified in the <tt>attrs.envs</tt> array, will be used to locate the command.
+If <tt>attrs.envs</tt> is not specified, the search path is formed as described below for the variable <tt>PATH</tt> in the command environment.
+Unlike "normal" shell command path searches, if the command is a relative path, the <tt>PATH</tt> is still searched: each directory in the <tt>PATH</tt> is perpended to the command in left-to-right order and the first command file that is found to exist is executed.  This allows commands in packages to be executed using the same pattern as that used to find files in packages.
+</p>
+<a name="Command_Environment"></a><h3> <span class="mw-headline">Command Environment</span></h3>
+<p>All commands are run with the environment variables specified by <tt>attrs.envs</tt> and <tt>attrs.useEnv</tt>. However, the following variables are treated specially in cases when <tt>attrs.useEnv</tt> is set to <tt>false</tt>:
+</p>
+<ul><li><tt>HOME</tt> - if not explicitly set in the <tt>attrs.envs</tt> array or if <tt>attrs.envs</tt> is undefined, the value of <tt>HOME</tt> is set to the value of <tt>HOME</tt> in the caller's environment.  If <tt>HOME</tt> is not set in the callers environment, <tt>HOME</tt> will not be set in the command's environment.
+</li><li><tt>SYSTEMROOT</tt> - if not explicitly set in the <tt>attrs.envs</tt> array or if <tt>attrs.envs</tt> is undefined, the value of <tt>SYSTEMROOT</tt> is set to the value of <tt>SYSTEMROOT</tt> in the caller's environment.  If <tt>SYSTEMROOT</tt> is not set in the callers environment, <tt>SYSTEMROOT</tt> will not be set in the command's environment.
+</li><li><tt>PATH</tt> - if the <tt>attrs.envs</tt> array is undefined, the value of <tt>PATH</tt> is set to <tt>".;$XDCROOT;$PATH"</tt>, where <tt>$XDCROOT</tt> is the installation directory of the XDCtools and <tt>$PATH</tt> is the value of the <tt>PATH</tt> variable in the caller's environment.  If <tt>attrs.envs</tt> is not empty, the value of <tt>PATH</tt> in the command's environment is the value supplied in <tt>attrs.envs</tt>.  If <tt>PATH</tt> is not specified in <tt>attrs.envs</tt>, <tt>PATH</tt> is not set in the caller's environment.
+</li></ul>
+<a name="Command_Working_Directory"></a><h3> <span class="mw-headline">Command Working Directory</span></h3>
+<p>The working directory of all commands is specifed by <tt>attrs.cwd</tt>.  If <tt>attrs.cwd</tt> is not defined, the command's working directory is set to the current working directory of the caller (".").
+</p>
+<a name="Return_Value"></a><h2> <span class="mw-headline">Return Value</span></h2>
+<p><tt>xdc.exec</tt> returns the numeric exit code of the command run.  If for any reason the command could not be run, the return value is -1.  In addition to the exit code, the optional output parameter <tt>status</tt> is set as follows:
+</p>
+<ul><li><tt>output</tt> - string containing all output from command, unless <tt>attrs.outName</tt> is defined.  If <tt>attrs.outName</tt> is defined the output normally placed in this string is written to the file named by <tt>attrs.outName</tt>.  In addition, if <tt>attrs.merge</tt> is undefined or <tt>true</tt>, <tt>output</tt> contains both the stderr and stdout output of the command.
+</li><li><tt>errors</tt> - if <tt>attrs.merge</tt> is <tt>false</tt>, a string containing only the command's stderr output, <tt>output</tt> will then contain only the command's stdout output.
+</li><li><tt>exitStatus</tt> - the numeric exit code from the command
+</li></ul>
+<p><span id="XdcFindFile"></span>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCscript - xdc.exec&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCscript - xdc.exec" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCscript_Language_Reference/XDCscript_Language_Reference.html#Root_object" title="XDCscript_Language_Reference#Root_object"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<p><br />
+</p>
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XDCscript_-_xdc.exec.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.227 secs. --></body></html>

@@ -1,0 +1,8 @@
+SECTIONS
+{
+% if (this.AES.dataSection) { 
+    .data  > `this.AES.dataSection`
+    .rodata  > `this.AES.dataSection`
+    .rodata.str1.4  > `this.AES.dataSection`
+%}
+}

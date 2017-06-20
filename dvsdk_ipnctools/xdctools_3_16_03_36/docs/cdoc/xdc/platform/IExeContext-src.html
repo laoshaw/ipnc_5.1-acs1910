@@ -1,0 +1,149 @@
+<html><head><title>interface xdc.platform.IExeContext</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== IExeContext.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.platform;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== IExeContext ========
+</span>    19    <span class="xdoc"> *  Execution environment interface between a platform and an executable
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  This interface describes the execution environment provided by a
+</span>    22    <span class="xdoc"> *  platform as seen by an executable on a particular CPU at the time 
+</span>    23    <span class="xdoc"> *  it is loaded.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  Execution contexts are created by platforms via
+</span>    26    <span class="xdoc"> *  `{<b>@link</b> xdc.platform.IPlatform#getExeContext()}`.  Execution contexts are
+</span>    27    <span class="xdoc"> *  created implicitly just prior to executing a program's configuration
+</span>    28    <span class="xdoc"> *  script.  This execution context is made available to the configuration
+</span>    29    <span class="xdoc"> *  script as the global read-only `Program.cpu` configuration parameter;
+</span>    30    <span class="xdoc"> *  see `{<b>@link</b> xdc.cfg.Program}`.
+</span>    31    <span class="xdoc"> */</span>
+    32    <span class=key>metaonly</span> <span class=key>interface</span> IExeContext
+    33    {
+    34        <span class="xdoc">/*!
+</span>    35    <span class="xdoc">     *  ======== Cpu ========
+</span>    36    <span class="xdoc">     *  CPU attributes necessary to create an execution context.
+</span>    37    <span class="xdoc">     *
+</span>    38    <span class="xdoc">     *  Attributes that uniquely identify the CPU responsible for executing
+</span>    39    <span class="xdoc">     *  an executable image.
+</span>    40    <span class="xdoc">     */</span>
+    41        <span class=key>struct</span> Cpu {
+    42            string      id;             <span class="xdoc">/*! unique id within the platform */</span>
+    43            string      catalogName;    <span class="xdoc">/*! name of catalog package */</span>
+    44            string      deviceName;     <span class="xdoc">/*! module name within catalog package */</span>
+    45            string      revision;       <span class="xdoc">/*! revision of specified device */</span>
+    46            <span class=key>float</span>       clockRate;      <span class="xdoc">/*! clock rate in MHz of CPU on board */</span>
+    47        };
+    48        
+    49    <span class=key>instance</span>:
+    50        <span class="xdoc">/*!
+</span>    51    <span class="xdoc">     *  ======== id ========
+</span>    52    <span class="xdoc">     *  The CPU's unique id within the platform
+</span>    53    <span class="xdoc">     *
+</span>    54    <span class="xdoc">     *  This id is the string used to identify a specific CPU within
+</span>    55    <span class="xdoc">     *  the platform that provides this execution context.
+</span>    56    <span class="xdoc">     *
+</span>    57    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is set by the platform and is readonly 
+</span>    58    <span class="xdoc">     *  for configuration scripts.
+</span>    59    <span class="xdoc">     */</span>
+    60        <span class=key>config</span> string id;
+    61    
+    62        <span class="xdoc">/*!
+</span>    63    <span class="xdoc">     *  ======== catalogName ========
+</span>    64    <span class="xdoc">     *  The name of the package containing the module named by deviceName
+</span>    65    <span class="xdoc">     *
+</span>    66    <span class="xdoc">     *  This string names a package containing one or more modules that
+</span>    67    <span class="xdoc">     *  implements the `{<b>@link</b> xdc.platform.ICpuDataSheet}` interface.
+</span>    68    <span class="xdoc">     *
+</span>    69    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is set by the platform and is readonly for
+</span>    70    <span class="xdoc">     *  configuration scripts.
+</span>    71    <span class="xdoc">     */</span>
+    72        <span class=key>config</span> string catalogName;
+    73    
+    74        <span class="xdoc">/*!
+</span>    75    <span class="xdoc">     *  ======== deviceName ========
+</span>    76    <span class="xdoc">     *  The name of a CPU device within the catalog package catalogName
+</span>    77    <span class="xdoc">     *
+</span>    78    <span class="xdoc">     *  This string names a module in the catalog package, specified by
+</span>    79    <span class="xdoc">     *  catalogName, that represents the CPU that runs the executable; i.e.,
+</span>    80    <span class="xdoc">     *  it implements the `{<b>@link</b> xdc.platform.ICpuDataSheet}` interface.
+</span>    81    <span class="xdoc">     */</span>
+    82        <span class=key>config</span> string deviceName;
+    83    
+    84        <span class="xdoc">/*!
+</span>    85    <span class="xdoc">     *  ======== revision ========
+</span>    86    <span class="xdoc">     *  The revision of the CPU
+</span>    87    <span class="xdoc">     *
+</span>    88    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is set by the platform and is readonly for
+</span>    89    <span class="xdoc">     *  configuration scripts.
+</span>    90    <span class="xdoc">     */</span>
+    91        <span class=key>config</span> string revision = <span class="string">""</span>;
+    92    
+    93        <span class="xdoc">/*!
+</span>    94    <span class="xdoc">     *  ======== clockRate ========
+</span>    95    <span class="xdoc">     *  The clock rate in MHz of the CPU
+</span>    96    <span class="xdoc">     *
+</span>    97    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is set by the platform and is readonly for
+</span>    98    <span class="xdoc">     *  configuration scripts.
+</span>    99    <span class="xdoc">     */</span>
+   100        <span class=key>config</span> <span class=key>float</span> clockRate;
+   101    
+   102        <span class="xdoc">/*!
+</span>   103    <span class="xdoc">     *  ======== board ========
+</span>   104    <span class="xdoc">     *  The board-level attributes
+</span>   105    <span class="xdoc">     *
+</span>   106    <span class="xdoc">     *  This parameter defines the static attributes of the board
+</span>   107    <span class="xdoc">     *  containing the CPU that runs the executable.
+</span>   108    <span class="xdoc">     *
+</span>   109    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is set by the platform and is readonly for
+</span>   110    <span class="xdoc">     *  configuration scripts.
+</span>   111    <span class="xdoc">     */</span>
+   112        <span class=key>readonly</span> <span class=key>config</span> IPlatform.Board board;
+   113        
+   114        <span class="xdoc">/*!
+</span>   115    <span class="xdoc">     *  ======== attrs ========
+</span>   116    <span class="xdoc">     *  The CPU "data-sheet" attributes
+</span>   117    <span class="xdoc">     *
+</span>   118    <span class="xdoc">     *  This "data sheet" allows one to get information about the CPU that
+</span>   119    <span class="xdoc">     *  runs the run the executable associated with this execution context.
+</span>   120    <span class="xdoc">     *
+</span>   121    <span class="xdoc">     *  Multi-CPU platforms provide multiple execution contexts; each
+</span>   122    <span class="xdoc">     *  context is associated with a single CPU on the platform.
+</span>   123    <span class="xdoc">     *
+</span>   124    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is set by the platform and is readonly for
+</span>   125    <span class="xdoc">     *  configuration scripts.
+</span>   126    <span class="xdoc">     */</span>
+   127        <span class=key>config</span> ICpuDataSheet.Instance attrs;
+   128    
+   129        <span class="xdoc">/*!
+</span>   130    <span class="xdoc">     *  ======== memoryMap ========
+</span>   131    <span class="xdoc">     *  The memory map seen by executables at the time they are loaded
+</span>   132    <span class="xdoc">     *
+</span>   133    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is set by the platform and is readonly for
+</span>   134    <span class="xdoc">     *  configuration scripts.
+</span>   135    <span class="xdoc">     */</span>
+   136        <span class=key>config</span> IPlatform.Memory memoryMap[string];
+   137    };
+   138    <span class="comment">/*
+</span>   139    <span class="comment"> *  @(#) xdc.platform; 1, 0, 1, 0,237; 2-22-2010 10:33:24; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   140    <span class="comment"> */</span>
+   141    
+</pre>
+</body></html>

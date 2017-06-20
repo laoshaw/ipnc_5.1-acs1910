@@ -1,0 +1,125 @@
+<html><head><title>interface xdc.runtime.ISystemSupport</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,ESD
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments. All rights reserved. 
+</span>     3    <span class="comment"> *  This program and the accompanying materials are made available under the 
+</span>     4    <span class="comment"> *  terms of the Eclipse Public License v1.0 and Eclipse Distribution License
+</span>     5    <span class="comment"> *  v. 1.0 which accompanies this distribution. The Eclipse Public License is
+</span>     6    <span class="comment"> *  available at http://www.eclipse.org/legal/epl-v10.html and the Eclipse
+</span>     7    <span class="comment"> *  Distribution License is available at 
+</span>     8    <span class="comment"> *  http://www.eclipse.org/org/documents/edl-v10.php.
+</span>     9    <span class="comment"> *
+</span>    10    <span class="comment"> *  Contributors:
+</span>    11    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    12    <span class="comment"> * --/COPYRIGHT--*/</span>
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== ISystemSupport.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> *! Revision History
+</span>    17    <span class="comment"> *! ================
+</span>    18    <span class="comment"> *! 08-Jun-2007 nitya   abort() takes a String
+</span>    19    <span class="comment"> *! 15-May-2007 toddm   Added flush into interface.
+</span>    20    <span class="comment"> *! 28-Nov-2006 toddm   Start revision history
+</span>    21    <span class="comment"> */</span>
+    22    <span class=key>package</span> xdc.runtime;
+    23    
+    24    <span class="xdoc">/*!
+</span>    25    <span class="xdoc"> *  ======== ISystemSupport ========
+</span>    26    <span class="xdoc"> *  Interface to core system functions.
+</span>    27    <span class="xdoc"> *
+</span>    28    <span class="xdoc"> *  Each embedded system requires implementations of these functions but
+</span>    29    <span class="xdoc"> *  the behavior of these functions varies depending on the context of the
+</span>    30    <span class="xdoc"> *  embedded system.  For example, some systems will implement `exit()` as
+</span>    31    <span class="xdoc"> *  an infinite loop because the executable is designed to *never* exit.
+</span>    32    <span class="xdoc"> */</span>
+    33    <span class=key>interface</span> ISystemSupport {
+    34    
+    35        <span class="xdoc">/*!
+</span>    36    <span class="xdoc">     *  ======== abort ========
+</span>    37    <span class="xdoc">     *  Backend for `{<b>@link</b> System#abort()}`
+</span>    38    <span class="xdoc">     *
+</span>    39    <span class="xdoc">     *  This function is called by `{<b>@link</b> System#abort()}` prior to calling
+</span>    40    <span class="xdoc">     *  the ANSI C Standard library function `abort()`.  So, to ensure the
+</span>    41    <span class="xdoc">     *  abort processing of the system's ANSI C Standard library completes,
+</span>    42    <span class="xdoc">     *  this function should return to its caller.
+</span>    43    <span class="xdoc">     *
+</span>    44    <span class="xdoc">     *  <b>@param(str)</b>  message to output just prior to aborting
+</span>    45    <span class="xdoc">     *
+</span>    46    <span class="xdoc">     *      If non-`NULL`, this string should be output just prior to
+</span>    47    <span class="xdoc">     *      terminating. 
+</span>    48    <span class="xdoc">     */</span>
+    49        Void abort(String str);
+    50    
+    51        <span class="xdoc">/*!
+</span>    52    <span class="xdoc">     *  ======== exit ========
+</span>    53    <span class="xdoc">     *  Backend for `{<b>@link</b> System#exit()}`
+</span>    54    <span class="xdoc">     *
+</span>    55    <span class="xdoc">     *  This function is called as part the normal "atexit" processing
+</span>    56    <span class="xdoc">     *  performed by the ANSI C Standard Library's `exit()` function;
+</span>    57    <span class="xdoc">     *  `{<b>@link</b> System#exit()}` directly calls ANSI `exit()`.
+</span>    58    <span class="xdoc">     *
+</span>    59    <span class="xdoc">     *  This function is called after all "atexit" handlers bound via
+</span>    60    <span class="xdoc">     *  `{<b>@link</b> System#atexit()}` are run and it
+</span>    61    <span class="xdoc">     *  is always called while "inside" the the `System` gate.
+</span>    62    <span class="xdoc">     *
+</span>    63    <span class="xdoc">     *  To ensure that all exit processing of the system's ANSI C
+</span>    64    <span class="xdoc">     *  Standard Library completes, this function should return to its caller.
+</span>    65    <span class="xdoc">     *  Exit handlers bound using the ANSI C Standard Library `atexit()`
+</span>    66    <span class="xdoc">     *  function may run before or after this function.
+</span>    67    <span class="xdoc">     *
+</span>    68    <span class="xdoc">     *  <b>@param(stat)</b>    status value passed to all "atexit" handlers
+</span>    69    <span class="xdoc">     *
+</span>    70    <span class="xdoc">     *      This value is passed to all "atexit" handles bound via
+</span>    71    <span class="xdoc">     *      `{<b>@link</b> System#atexit()}`.  If the application exits via the
+</span>    72    <span class="xdoc">     *      ANSI C Standard `exit()` function rather than via System_exit(),
+</span>    73    <span class="xdoc">     *      `stat` will be equal to `{<b>@link</b> System#STATUS_UNKNOWN}`.
+</span>    74    <span class="xdoc">     *
+</span>    75    <span class="xdoc">     *  <b>@see</b> System#atexit
+</span>    76    <span class="xdoc">     */</span>
+    77        Void exit(Int stat);
+    78    
+    79        <span class="xdoc">/*!
+</span>    80    <span class="xdoc">     *  ======== flush ========
+</span>    81    <span class="xdoc">     *  Backend for `{<b>@link</b> System#flush()}`
+</span>    82    <span class="xdoc">     *
+</span>    83    <span class="xdoc">     *  This function is simply called by `{<b>@link</b> System#flush System_flush}`
+</span>    84    <span class="xdoc">     *  to output any characters buffered by the underlying `SystemSupport`
+</span>    85    <span class="xdoc">     *  module to an output device.
+</span>    86    <span class="xdoc">     */</span>
+    87        Void flush();
+    88        
+    89        <span class="xdoc">/*!
+</span>    90    <span class="xdoc">     *  ======== putch ========
+</span>    91    <span class="xdoc">     *  Backend for `{<b>@link</b> System#printf()}` and `{<b>@link</b> System#putch()}`
+</span>    92    <span class="xdoc">     *
+</span>    93    <span class="xdoc">     *  Output a single character.  This function is called by
+</span>    94    <span class="xdoc">     *  `{<b>@link</b> System#printf System_printf()}` to write each character
+</span>    95    <span class="xdoc">     *  of formated output specified by its arguments.
+</span>    96    <span class="xdoc">
+</span>    97    <span class="xdoc">     *
+</span>    98    <span class="xdoc">     *  <b>@param(ch)</b>  character to output
+</span>    99    <span class="xdoc">     */</span>
+   100        Void putch(Char ch);
+   101    
+   102        <span class="xdoc">/*!
+</span>   103    <span class="xdoc">     *  ======== ready ========
+</span>   104    <span class="xdoc">     *  Test if character output can proceed
+</span>   105    <span class="xdoc">     *
+</span>   106    <span class="xdoc">     *  This function is called by `{<b>@link</b> System}` prior to performing
+</span>   107    <span class="xdoc">     *  any character output .  If this function returns `FALSE`, the `System`
+</span>   108    <span class="xdoc">     *  functions that would normally call `putch()` simply return
+</span>   109    <span class="xdoc">     *  (with an appropriate error status) without ever calling
+</span>   110    <span class="xdoc">     *  `{<b>@link</b> #putch}`.
+</span>   111    <span class="xdoc">     */</span>
+   112        Bool ready();
+   113    }
+   114    <span class="comment">/*
+</span>   115    <span class="comment"> *  @(#) xdc.runtime; 2, 0, 0, 0,237; 2-22-2010 10:33:58; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   116    <span class="comment"> */</span>
+   117    
+</pre>
+</body></html>

@@ -1,0 +1,71 @@
+<html><head><title>module ti.targets.arm.Arm11_big_endian</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2009 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Arm11_big_endian.xdc ========
+</span>    14    <span class="comment"> *
+</span>    15    <span class="comment"> */</span>
+    16    
+    17    import ti.targets.ITarget;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== Arm11_big_endian.xdc ========
+</span>    21    <span class="xdoc"> *  TI Arm11 big endian target
+</span>    22    <span class="xdoc"> */</span>
+    23    <span class=key>metaonly</span> <span class=key>module</span> Arm11_big_endian <span class=key>inherits</span> ti.targets.arm.IArm {
+    24        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name        =<span class="string">"Arm11_big_endian"</span>; 
+    25        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix      = <span class="string">"11e"</span>;
+    26        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa         = <span class="string">"v6"</span>;    
+    27        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts         = <span class="string">"ti.targets.arm.rtsarm"</span>;
+    28        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model = {
+    29            endian: <span class="string">"big"</span>
+    30        };
+    31        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Module base = ti.targets.arm.Arm11;
+    32    
+    33        <span class="comment">/*
+</span>    34    <span class="comment">     *  ======== compatibleSuffixes ========
+</span>    35    <span class="comment">     */</span>
+    36        <span class=key>override</span> <span class=key>config</span> String compatibleSuffixes[] = [<span class="string">"470e"</span>, <span class="string">"7e"</span>, <span class="string">"9e"</span>];
+    37    
+    38        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command cc = {
+    39            cmd:  <span class="string">"cl470 -c"</span>,
+    40            opts: <span class="string">"-mv6 --abi=ti_arm9_abi"</span>
+    41        };
+    42    
+    43        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command asm = {
+    44            cmd:  <span class="string">"cl470 -c"</span>,
+    45            opts: <span class="string">"-mv6 --abi=ti_arm9_abi"</span>
+    46        };
+    47    
+    48        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command lnk = {
+    49            cmd:  <span class="string">"lnk470"</span>,
+    50            opts: <span class="string">"--silicon_version=6 --strict_compatibility=on"</span>
+    51        };
+    52    
+    53        <span class="xdoc">/*!
+</span>    54    <span class="xdoc">     *  ======== linkLib ========
+</span>    55    <span class="xdoc">     *  Default Arm7 cgtools runtime library to link with 
+</span>    56    <span class="xdoc">     *  (options: rts16.lib, rts32.lib)
+</span>    57    <span class="xdoc">     */</span>
+    58        <span class=key>config</span> string linkLib = <span class="string">"rtsv5_A_be_tiarm9.lib"</span>;
+    59    }
+    60    <span class="comment">/*
+</span>    61    <span class="comment"> *  @(#) ti.targets.arm; 2, 0, 1, 0,202; 2-24-2010 16:24:12; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>    62    <span class="comment"> */</span>
+    63    
+</pre>
+</body></html>

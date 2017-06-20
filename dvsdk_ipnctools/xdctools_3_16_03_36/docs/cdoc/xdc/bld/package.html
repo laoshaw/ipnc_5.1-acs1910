@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>package xdc.bld</title>
+<meta name="description" content="The XDC Build Model">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">xdc.bld</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITarget.html" title="interface ITarget"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/package.html">index URL</a></div>
+<p class="xdocHdrSummary">The XDC Build Model</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">NOTE</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-3">THROWS</a></li>
+</ul>
+<div class="xdocBrief">
+This package contains the XDC Build Model and the interfaces necessary
+  to extend the Build Model to handle new compiler tool chains.  The
+  modules in this package (and the instances managed by these modules)
+  form the Build Object Model (BOM).
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/package-src.html"><span class="xdocLabelFile">xdc/bld/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../xdc/services/global/package.html" title="xdc.services.global">xdc.services.global</a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../xdc/services/intern/cmd/package.html" title="xdc.services.intern.cmd">xdc.services.intern.cmd</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">xdc.bld</span></go> [1, 0, 2] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../xdc/bld/ITarget.html' title='xdc.bld.ITarget'><span class="xdoc-id">ITarget</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The interface between code generation tool-chains and the XDC Build
+  Engine</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../xdc/bld/ITarget2.html' title='xdc.bld.ITarget2'><span class="xdoc-id">ITarget2</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Extension of the interface <a class="xdoc-link" href="../../xdc/bld/ITarget.html" title="xdc.bld.ITarget">xdc.bld.ITarget</a></div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../xdc/bld/ITargetFilter.html' title='xdc.bld.ITargetFilter'><span class="xdoc-id">ITargetFilter</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;User-supplied filter of a target's command set</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/BuildEnvironment.html' title='xdc.bld.BuildEnvironment'><span class="xdoc-id">BuildEnvironment</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Global build environment</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Executable.html' title='xdc.bld.Executable'><span class="xdoc-id">Executable</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Model of a file that can be loaded and executed on a platform</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Library.html' title='xdc.bld.Library'><span class="xdoc-id">Library</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Model of a searchable collection of object files</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Manifest.html' title='xdc.bld.Manifest'><span class="xdoc-id">Manifest</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The manifest object for the release file post-processing model</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Object.html' title='xdc.bld.Object'><span class="xdoc-id">Object</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Model of a compiled (or assembled) form of a source file</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/PackageContents.html' title='xdc.bld.PackageContents'><span class="xdoc-id">PackageContents</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Package container populated by a build script</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Release.html' title='xdc.bld.Release'><span class="xdoc-id">Release</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Model of an archive of all files that are part of a release</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Repository.html' title='xdc.bld.Repository'><span class="xdoc-id">Repository</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Model of a package repository</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Script.html' title='xdc.bld.Script'><span class="xdoc-id">Script</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Model of a script</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Test.html' title='xdc.bld.Test'><span class="xdoc-id">Test</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Model of a test</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../xdc/bld/Utils.html' title='xdc.bld.Utils'><span class="xdoc-id">Utils</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Utility functions to simplify creation of targets and platforms</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This package contains the XDC Build Model and the interfaces necessary
+  to extend the Build Model to handle new compiler tool chains.  The
+  modules in this package (and the instances managed by these modules)
+  form the Build Object Model (BOM).</div>
+<div class="xdocText">This model enables build scripts to declare the contents of each release
+  of a package.  Based on these manifests, the Build Engine generates
+  makefiles that build the specified object files, libraries, and
+  executables, and archive these files into specified release files.  In
+  addition, the generated makefiles are also capable of running collections
+  of executables with command line arguments (provided that the platforms
+  support this); e.g., regression tests.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">User supplied file names of source files, generated libraries and
+           executables must be limited to portable POSIX file names. That
+           means that only alphanumeric charaters, and '_', '.', and '-'
+           are allowed.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal errors. The following error
+  codes are reported in the exception message:</div>
+<div class="xdocText"><DL><DT>  <tt>xdc.bld.TARGET_CONFIG_ERROR</tt></DT><DD>
+           This error is reported whenever there is an  error in
+           the target configuration file. Check the configuration script
+           for errors. 
+</DD><DT>  <tt>xdc.bld.ROOTDIR_NOT_SET</tt></DT><DD>
+           This error is reported when the <tt>rootDir</tt> property for a target
+           has not been set in the target configuration script. Ensure
+           that this property is set correctly in the configuration
+           script.   
+</DD><DT>  <tt>xdc.bld.PLATFORM_NOT_SET</tt></DT><DD>
+           This error is reported when either 1) the <tt>platform</tt> property for
+           a target has not been set in the target specification or the 
+           target configuration script (config.bld) or 2) the build script
+           (package.bld) is setting the platform for a program to an
+           invalid value.
+</DD><DT>  <tt>xdc.bld.DUPLICATE_TARGET_ERROR</tt></DT><DD>
+           This error is reported when a same target is listed twice in 
+           <tt>Bld.targets</tt>. Check <tt><a class="xdoc-link" href="../../xdc/bld/BuildEnvironment.html#targets" title="xdc.bld.BuildEnvironment.targets">xdc.bld.BuildEnvironment.targets</a></tt>
+	     to find out how <tt>Bld.targets</tt> is constructed. 
+ 
+</DD></DL></div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:18 GMT</div>
+</div></div></body>
+</html>

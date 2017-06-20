@@ -1,0 +1,86 @@
+<html><head><title>module ti.catalog.c5500.TMS320C5504</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS320C5504.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class=key>package</span> ti.catalog.c5500;
+    19    
+    20    <span class="xdoc">/*!
+</span>    21    <span class="xdoc"> *  ======== TMS320C5504 ========
+</span>    22    <span class="xdoc"> *  The C5504 device data sheet module.
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is 
+</span>    25    <span class="xdoc"> *  used by platforms to obtain "data sheet" information about this device.
+</span>    26    <span class="xdoc"> */</span>
+    27    <span class=key>metaonly</span> <span class=key>module</span> TMS320C5504 <span class=key>inherits</span> ITMS320C55xx
+    28    {
+    29    <span class=key>instance</span>:
+    30    
+    31        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    32    
+    33        <span class="xdoc">/*!
+</span>    34    <span class="xdoc">     *  ======== memMap ========
+</span>    35    <span class="xdoc">     *  The default memory map for this device
+</span>    36    <span class="xdoc">     */</span>
+    37        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    38            [<span class="string">"MMR"</span>, {
+    39                comment: <span class="string">"Memory Mapped Registers"</span>,
+    40                name: <span class="string">"MMR"</span>,
+    41                base: 0x000000,
+    42                len:  0x0000c0,
+    43                space: <span class="string">"code/data"</span>,
+    44                access: <span class="string">"RWX"</span>
+    45            }],
+    46    
+    47            [<span class="string">"DARAM"</span>, {
+    48                comment: <span class="string">"8 blocks of 8K bytes"</span>,
+    49                name: <span class="string">"DARAM"</span>,
+    50                base: 0x0000c0,
+    51                len:  0x00ff40,
+    52                space: <span class="string">"code/data"</span>,
+    53                access: <span class="string">"RWX"</span>
+    54            }],
+    55        
+    56            [<span class="string">"SARAM"</span>, {
+    57                comment: <span class="string">"24 blocks of 8K bytes"</span>,
+    58                name: <span class="string">"SARAM"</span>,
+    59                base: 0x010000,
+    60                len:  0x030000,
+    61                space: <span class="string">"code/data"</span>,
+    62                access: <span class="string">"RWX"</span>
+    63            }],
+    64        
+    65            [<span class="string">"ROM"</span>, {
+    66                comment: <span class="string">"128K bytes One-Wait-State On-Chip ROM"</span>,
+    67                name: <span class="string">"ROM"</span>,
+    68                base: 0xfe0000,
+    69                len:  0x020000,
+    70                space: <span class="string">"code/data"</span>,
+    71                access: <span class="string">"RX"</span>
+    72            }],
+    73        ];
+    74    };
+    75    <span class="comment">/*
+</span>    76    <span class="comment"> *  @(#) ti.catalog.c5500; 1, 0, 0, 0,226; 2-23-2010 16:53:06; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    77    <span class="comment"> */</span>
+    78    
+</pre>
+</body></html>

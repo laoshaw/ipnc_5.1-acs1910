@@ -1,0 +1,322 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Consuming Configurable Content - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Consuming Configurable Content&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Consuming Configurable Content" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Consuming_Configurable_Content__makefiles.html" title="makefiles"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Consuming Configurable Content</p><p id="subtitle">Introduction to the RTSC configuration process</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#A_configuration_example"><span class="tocnumber">2</span> <span class="toctext">A configuration example</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_C_code"><span class="tocnumber">2.1</span> <span class="toctext">The C code</span></a></li>
+<li class="toclevel-2"><a href="#The_configuration_code"><span class="tocnumber">2.2</span> <span class="toctext">The configuration code</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Integrating_configuration_into_your_build_flow"><span class="tocnumber">3</span> <span class="toctext">Integrating configuration into your build flow</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Choosing_a_target"><span class="tocnumber">3.1</span> <span class="toctext">Choosing a target</span></a></li>
+<li class="toclevel-2"><a href="#Choosing_a_platform"><span class="tocnumber">3.2</span> <span class="toctext">Choosing a platform</span></a></li>
+<li class="toclevel-2"><a href="#Running_xdc.tools.configuro"><span class="tocnumber">3.3</span> <span class="toctext">Running xdc.tools.configuro</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Example_build_integrations"><span class="tocnumber">4</span> <span class="toctext">Example build integrations</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>Any application that uses a <a href="../Glossary/Glossary.html#Package" title="Glossary">RTSC package</a> needs a configuration file. This file contains statements that configure the contents of the packages used by the application and is read by a hosted configuration tool, <tt><a href="../../cdoc/xdc/tools/configuro/package.html" class="cdoc"><tt>xdc.tools.configuro</tt></a></tt>, which generates static C data structures that must be linked into your application.  Your C/C++ program code can do additional dynamic configuration, but this generated static data defines the starting point.
+</p><p>The configuration file uses simple <a href="../Glossary/Glossary.html#JavaScript" title="Glossary">JavaScript</a> (EcmaScript) syntax to set properties and call methods provided by objects provided by <tt>XDCtools</tt>.  The combination of JavaScript and the script objects provided by <tt>XDCtools</tt> is referred to as <a href="../Glossary/Glossary.html#XDCscript" title="Glossary">XDCscript</a>. For more information about the language used for configuration, see <a href="../The_XDCscript_Language/The_XDCscript_Language.html" title="The XDCscript Language">The XDCscript Language</a>.
+</p><p>RTSC configuration serves the following purposes:
+</p>
+<ul><li>Specifies the modules and packages to use and static objects to create.
+</li><li>Performs integrity checks between specified and dependent packages; see <a href="../Compatibility_Keys/Compatibility_Keys.html" title="Compatibility Keys">Compatibility Keys</a> for a description of these checks.
+</li><li>Sets configuration variables (options) for modules and objects to change their default runtime behavior.
+</li></ul>
+<p>The RTSC configuration framework enables packages to customize their content based on your hardware platform and your application's requirements. Configuration scripts specify your application's requirements, and the RTSC configuration framework uses these scripts to generate files that must be integrated into your normal application build:
+The following figure shows how these files fit into the typical build process. RTSC provides tools to simplify the integration of these files into your build environment.
+</p><p><a href="images/Config_flow_60.png" class="image" title="Image:Config_flow_60.png"><img alt="Image:Config_flow_60.png" src="images/Config_flow_60.png" width="482" height="399" border="0" /></a>
+</p><p>The RTSC configuration file is a .cfg file. When you process the .cfg file, the files shown in the "Config Output" block are generated. This is a simplified diagram. Actually, processing the .cfg file generates several other files that, while useful, are not required for the examples shown in this document.
+</p><p>As a consumer of RTSC-based content, you don't need to know about all of the generated files. Two files of particular interest are:
+</p>
+<ul><li><tt><i>appcfg</i>.obj</tt>&#151;An object file created by compiling a generated <tt><i>appcfg</i>.c</tt> file that contains static data structures and functions referenced by the packages named (directly or indirectly) by the configuration script. During single-step debugging of your application, you may step into <tt><i>appcfg</i>.c</tt>.
+</li><li><tt><i>appcfg.cmd</i></tt>&#151;A linker command file, also generated by the configuration process, that contains the list of libraries supplied by the packages referenced by the configuration script as well as platform-specific memory definition and placement information.
+</li></ul>
+<p>When you are learning to use XDC, you will likely use the <tt><a href="../../cdoc/xdc/tools/configuro/package.html" class="cdoc"><tt>xdc.tools.configuro</tt></a></tt> utility described later in this article to process your configuration file. That utility generates the following additional important files from your configuration file:
+</p>
+<ul><li><tt>compiler.opt</tt>&#151;Contains compiler command-line options for your target and platform. This file allows you to easily compile your application's sources using the same options used to create <tt><i>appcfg</i>.obj</tt>. You can thus avoid bugs that would result from linking together files compiled with mismatched runtime assumptions.
+</li><li><tt>linker.cmd</tt>&#151;Corresponds to the <tt><i>appcfg</i>.cmd</tt> file. Contains the linker options required to use the content from the packages required by the application.
+</li></ul>
+<p>It is these two files that are commonly integrated into your build flow. As you develop and troubleshoot your application, you may want to review the figure earlier in this section to see which files need to use and reference others.
+</p>
+<a name="A_configuration_example"></a><h2> <span class="mw-headline">A configuration example</span></h2>
+<p>In this section we illustrate configuration with a simple "Hello World" application that uses the <tt>xdc.runtime.System</tt> module from the <tt>xdc.runtime</tt> package.
+</p>
+<a name="The_C_code"></a><h6> <span class="mw-headline">The C code</span></h6>
+<p><span class="Leader">The C code</span>.&nbsp;  The following statements comprise the entire "Hello World" application:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>hello.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+&nbsp;
+<span class="kw2">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;Hello World!<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The first <tt>#include</tt> statement is required in all C code that uses RTSC modules and defines a set of portable "base types" used by all modules. The second <tt>#include</tt> statement allows the C code to use the <tt><a href="../../cdoc/xdc/runtime/System.html#printf" class="cdoc"><tt>System_printf()</tt></a></tt> function is provided by the <tt><a href="../../cdoc/index.html#xdc/runtime/System.html" class="cdoc"><tt>xdc.runtime.System</tt></a></tt> module.  Notice how the package name "<tt>xdc.runtime</tt>" is part of the <tt>#include</tt> statement; the same pattern of using the package name, with dots replaced with slashes, is used for <i>all</i> modules.  For more examples and information about using and creating modules, see the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>.
+</p>
+<a name="The_configuration_code"></a><h6> <span class="mw-headline">The configuration code</span></h6>
+<p><span class="Leader">The configuration code</span>.&nbsp;  In order to build and run the "Hello World" application above, you must first create a configuration file called, say, <tt>hello.cfg</tt>.  For this example, the following JavaScript statement must be in this file:
+<span id="hello_cfg">
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>hello.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table></span>
+<p>The <tt><a href="../XDCscript_Language_Reference/XDCscript_Language_Reference.html#Declare_that_Specified_Module_is_Used_in_a_Configuration_-_xdc.useModule" title="XDCscript Language Reference">xdc.useModule()</a></tt> method enables the application to use the <tt>xdc.runtime.System</tt> module.  Notice that, like the <tt>#include</tt> statement in the C source, the <tt>xdc.useModule()</tt> statement names both the module and the package.  As a general rule, if your application directly references a module, your application's configuration script should have a corresponding <tt>xdc.useModule()</tt> statement naming the module referenced.
+</p>
+<div class="Info"><p class="Info">If you don't explicitly request one of the <tt>xdc.runtime</tt> modules (via <tt>xdc.useModule()</tt>) and no other module requested uses any of the modules in this package, a direct reference to any of the <tt>xdc.runtime</tt> modules from your application's sources may result in link-time errors.</p></div>
+<p>In more complex applications, you will add additional configuration statements to this file to use various modules, set properties of modules, and create and configure instances of the objects managed by these modules. Some modules of the <tt>xdc.runtime</tt> package, for example, support a rich set of configuration parameters that can have a significant affect on the performance and footprint of your application.  In the case of the <tt><a href="../../cdoc/xdc/runtime/System.html" class="cdoc"><tt>System</tt></a></tt> module , for example, there is a configuration parameter named <tt><a href="../../cdoc/index.html#xdc/runtime/System.html#max.Atexit.Handlers" class="cdoc"><tt>maxAtexitHandlers</tt></a></tt>.  This parameter sets the maximum number of "atexit handlers" that can be bound at runtime; a static table of size <tt>maxAtexitHandlers</tt> is statically allocated to hold these handlers.  If your application never calls <tt><a href="../../cdoc/index.html#xdc/runtime/System.html#atexit" class="cdoc"><tt>System_atexit()</tt></a></tt>, you can save precious application data space by setting <tt>maxAtexitHandlers</tt> to zero.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+System.maxAtexitHandlers = <span class="nu0">0</span>;    <span class="coMULTI">/* don't reserve any space for System_atexit() */</span></pre></td></tr></table>
+<p>For a complete list of all configuration parameters supported by the modules you use, see the module's reference documentation.  Beyond any supplied by the package containing these modules, a module's reference documentation is always available via the cdoc tool.  See <a href="../Using_XDCtools_Commands/Using_XDCtools_Commands.html#Using_the_CDOC_reference_help_system" title="Using XDCtools Commands">Using the CDOC reference help system</a>.
+</p><p>As you develop applications, the configuration step is one you are likely to revisit as you add functionality to your C code or tune the performance of the modules it uses.
+</p>
+<a name="Integrating_configuration_into_your_build_flow"></a><h2> <span class="mw-headline">Integrating configuration into your build flow</span></h2>
+<p>In this section, you use the <tt><a href="../../cdoc/xdc/tools/configuro/package.html" class="cdoc"><tt>xdc.tools.configuro</tt></a></tt> tool provided with XDCtools to process the <tt>hello.cfg</tt> configuration file above. Processing the file generates a <tt>compiler.opt</tt> file to be used when you compile the application and a <tt>linker.cmd</tt> file to be used when you link the application. The <tt>compiler.opt</tt> file allows you to easily compile your application's sources using the same options used to create <tt><i>hellocfg</i>.obj</tt>. To simplify your link step, the <tt>linker.cmd</tt> file is the <tt><i>hellocfg</i>.cmd</tt> file with an added reference to <tt><i>hellocfg</i>.obj</tt>.
+</p><p>Before a configuration script can be processed, however, you need to specify the "target" compiler and the hardware "platform" required to run your application. In general terms:
+</p>
+<ul><li>A <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> identifies a specific compiler and an ISA and runtime model supported by the compiler. For example, the TI C6000 compiler for the C64+ ISA running in big endian mode.
+</li><li>A <a href="../Glossary/Glossary.html#Platform" title="Glossary">platform</a> identifies the hardware execution environment as seen by your application. For example, a DM6446 EVM with 64 MB of DDR2 external memory.
+</li></ul>
+<p>The configuration tool uses simple string names to identify targets and platforms.  For detailed information about targets and platforms see <a href="../Using_Targets_and_Platforms/Using_Targets_and_Platforms.html" title="Using Targets and Platforms">Introduction to Targets and Platforms</a>.
+</p>
+<a name="Choosing_a_target"></a><h3> <span class="mw-headline">Choosing a target</span></h3>
+<p>The "target" identifies a specific compiler, ISA, and runtime model supported by the compiler. It is used during the configuration process to compile the generated C file with the right compiler options.
+Some example target strings are:
+</p>
+<ul><li><tt>ti.targets.C64</tt>, <tt>ti.targets.C64_big_endian</tt>, <tt>ti.targets.C64P</tt>, <tt>ti.targets.C64P_big_endian</tt>
+</li><li><tt>gnu.targets.Linux86</tt>, <tt>gnu.targets.Mingw</tt>
+</li><li><tt>microsoft.targets.Net32</tt>, <tt>microsoft.targets.Win32</tt>
+</li></ul>
+<p>To see the latest list of targets, open the CDOC online documentation (see <a href="../Using_XDCtools_Commands/Using_XDCtools_Commands.html#Using_the_CDOC_reference_help_system" title="Using XDCtools Commands">Using the CDOC reference help system</a>). You can expand the <a href="../../cdoc/ti/targets/package.html" class="cdoc"><tt>ti.targets</tt></a>, <a href="../../cdoc/index.html#microsoft/targets/package.html" class="cdoc"><tt>microsoft.targets</tt></a>, and <a href="../../cdoc/index.html#gnu/targets/package.html" class="cdoc"><tt>gnu.targets</tt></a> packages to see a list of currently supported targets as well as details about compiler options required by these targets.  For a snapshot of the targets available see <a href="../Existing_Targets/Existing_Targets.html" title="Existing Targets">Existing Targets</a>.
+</p>
+<a name="Choosing_a_platform"></a><h3> <span class="mw-headline">Choosing a platform</span></h3>
+<p>The "platform" is a name that identifies a specific board and its settings. It specifies a particular device and memory map on which an application will run. It is used during the configuration process by packages that require platform-specific information, such as the memory map, the initial CPU clock speed, or the revision of the device running the application.
+</p><p>The full list of platform packages available is visible in the CDOC online documentation in the list of packages under ti.platforms.  See <a href="../Using_XDCtools_Commands/Using_XDCtools_Commands.html#Using_the_CDOC_reference_help_system" title="Using XDCtools Commands">Using the CDOC reference help system</a> for information about using CDOC.  Examples include:
+</p>
+<ul><li> <tt>ti.platforms.sim6xxx</tt>
+</li><li> <tt>ti.platforms.dsk5510</tt>
+</li><li> <tt>ti.platforms.evmDM6437</tt>
+</li></ul>
+<p>If you are developing for a platform that is not listed in the online documentation, you may be able to use the <tt>ti.platforms.generic</tt> platform. For more information about how to define a platform instance using this platform package, see the CDOC online documentation for the <a href="../../cdoc/ti/platforms/generic/package.html" class="cdoc"><tt>ti.platforms.generic</tt></a> package.
+</p>
+<a name="Running_xdc.tools.configuro"></a><h3> <span class="mw-headline">Running xdc.tools.configuro</span></h3>
+<p>The <tt><a href="../../cdoc/xdc/tools/configuro/package.html" class="cdoc"><tt>xdc.tools.configuro</tt></a></tt> tool processes configuration files and produces output files that are required to link your application and compile sources that reference values defined by the configuration files.  For example, to generate files from the <tt>hello.cfg</tt> configuration shown <a href="#hello_cfg" title="">above</a>, use the following command line:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xs xdc.tools.configuro -t &lt;target&gt; -p &lt;platform&gt; -c &lt;compiler_location&gt; hello.cfg</pre></td></tr></table>
+<ul><li>The <tt>-t</tt> option specifies the target.
+</li><li>The <tt>-p</tt> option specifies the platform.
+</li><li>The <tt>-c</tt> option specifies the location of the compiler you want to use.
+</li></ul>
+<p>For example:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xs xdc.tools.configuro -t ti.targets.C64 -p ti.platforms.sim6xxx -c c:/CCStudio_v3.3/C6000/cgtools hello.cfg</pre></td></tr></table>
+<p>This command generates two output files, <tt>hello/compiler.opt</tt> and <tt>hello/linker.cmd</tt>, which must be integrated into the build of this application.
+</p>
+<dl><dt><tt>hello/linker.cmd</tt> 
+</dt><dd>this linker command file names all libraries that must be passed to the linker to link your applciation
+</dd><dt><tt>hello/compiler.opt</tt> 
+</dt><dd>this text file contains compiler options required to build C source that reference vales defined by <tt>hello.cfg</tt>
+</dd></dl>
+<p>Since every build environment is different, it's best to look at specific examples of how these files are used to create a complete application.  See <a href="Consuming_Configurable_Content__makefiles.html" title="Consuming Configurable Content/makefiles">Consuming Configurable Content/makefiles</a> for simple makefile integration.
+</p>
+<a name="Example_build_integrations"></a><h2> <span class="mw-headline">Example build integrations</span></h2>
+<p>You can integrate the step of running <tt>configuro</tt> into your makefile or Code Composer Studio project file as described in the following topics.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="Consuming_Configurable_Content__makefiles.html" title="Consuming Configurable Content/makefiles">makefiles</a>
+</td><td class="DocListSubTitle1">RTSC configuration with makefiles
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="Consuming_Configurable_Content__CCStudio.html" title="Consuming Configurable Content/CCStudio">CCStudio</a>
+</td><td class="DocListSubTitle">Using configuro within <i>Code Composer Studio</i> 3.x
+</td></tr></table>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Consuming Configurable Content&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Consuming Configurable Content" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Consuming_Configurable_Content__makefiles.html" title="makefiles"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2597 bytes
+Post-expand include size: 1470 bytes
+Template argument size: 199 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Consuming_Configurable_Content.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.228 secs. --></body></html>

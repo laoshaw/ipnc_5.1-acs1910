@@ -1,0 +1,93 @@
+<html>
+<head>
+<title>package ti.catalog.msp430</title>
+<meta name="description" content="Package of devices for the msp430 family">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">ti.catalog.msp430</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../ti/catalog/msp430/IMSP430.html" title="interface IMSP430"><img class="xdocHdrArrow" src="../../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#ti/catalog/msp430/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Package of devices for the msp430 family</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+</ul>
+<div class="xdocBrief">
+Each module in this package implements the xdc.platform.ICpuDataSheet
+  interface. This interface is used by platforms (modules that implement
+  xdc.platform.IPlatform) to obtain the memory map supported by each CPU.
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../ti/catalog/msp430/package-src.html"><span class="xdocLabelFile">ti/catalog/msp430/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/platform/package.html" title="xdc.platform">xdc.platform</a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../ti/catalog/package.html" title="ti.catalog">ti.catalog</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">ti.catalog.msp430</span></go> [1, 0, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/IMSP430.html' title='ti.catalog.msp430.IMSP430'><span class="xdoc-id">IMSP430</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;An interface implemented by all MSP430 devices</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/IMSP430F54xx.html' title='ti.catalog.msp430.IMSP430F54xx'><span class="xdoc-id">IMSP430F54xx</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/IMSP430x22xx.html' title='ti.catalog.msp430.IMSP430x22xx'><span class="xdoc-id">IMSP430x22xx</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Common definition for MSP430x22xx devices</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F223x.html' title='ti.catalog.msp430.MSP430F223x'><span class="xdoc-id">MSP430F223x</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F223x Cpu definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F225x.html' title='ti.catalog.msp430.MSP430F225x'><span class="xdoc-id">MSP430F225x</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F225x Cpu definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F227x.html' title='ti.catalog.msp430.MSP430F227x'><span class="xdoc-id">MSP430F227x</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F227x Cpu definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F5418.html' title='ti.catalog.msp430.MSP430F5418'><span class="xdoc-id">MSP430F5418</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F5418 CPU definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F5419.html' title='ti.catalog.msp430.MSP430F5419'><span class="xdoc-id">MSP430F5419</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F5419 CPU definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F5435.html' title='ti.catalog.msp430.MSP430F5435'><span class="xdoc-id">MSP430F5435</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F5435 CPU definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F5436.html' title='ti.catalog.msp430.MSP430F5436'><span class="xdoc-id">MSP430F5436</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F5436 CPU definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F5437.html' title='ti.catalog.msp430.MSP430F5437'><span class="xdoc-id">MSP430F5437</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F5437 CPU definition</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/msp430/MSP430F5438.html' title='ti.catalog.msp430.MSP430F5438'><span class="xdoc-id">MSP430F5438</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;MSP430F5438 CPU definition</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:26:16 GMT</div>
+</div></div></body>
+</html>

@@ -1,0 +1,66 @@
+<html>
+<head>
+<title>package xdc.tools.configuro.ccs</title>
+<meta name="description" content="Command-line configuration tool adapter for Code Composer Studio">
+<link rel="stylesheet" type="text/css" href="../../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">xdc.tools.configuro.ccs</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../../xdc/tools/configuro/ccs/Main.html" title="module Main"><img class="xdocHdrArrow" src="../../../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../../index.html#xdc/tools/configuro/ccs/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Command-line configuration tool adapter for Code Composer Studio</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../../xdc/tools/configuro/ccs/package-src.html"><span class="xdocLabelFile">xdc/tools/configuro/ccs/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../../xdc/tools/configuro/package.html" title="xdc.tools.configuro">xdc.tools.configuro</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">xdc.tools.configuro.ccs</span></go> [1, 0, 0, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../../xdc/tools/configuro/ccs/Main.html' title='xdc.tools.configuro.ccs.Main'><span class="xdoc-id">Main</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Command-line configuration tool adapter for Code Composer Studio</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">INSTALLING_ON_WINDOWS</div>
+<div class="xdocText"></div>
+<div class="xdocText">The XDC interface to Code Composer Studio requires some Windows registry
+  entries for correct operation. By default the XDC product Windows installer
+  takes care of this transparently to the user. You need only read this
+  section if you have installed or upgraded the XDC product on Windows without
+  having used the installer, for example if you are accessing XDC from a
+  shared network drive.</div>
+<div class="xdocText">To update the required registry entries, do the following steps:</div>
+<div class="xdocText"><OL><LI> open a Windows command window, for example by typing <tt>cmd</tt> from the
+    "Run..." menu item located in the Windows "Start" menu.
+</LI><LI> type <tt>cd %XDCROOT%</tt>
+</LI><LI> type <tt>cd packages\xdc\tools\configuro\ccs</tt>
+</LI><LI> type <tt>regsvr32 btiXdc</tt>
+</LI><LI> click OK on the dialog box:
+</LI></OL></div>
+<div class="xdocText"><div style="text-align: center;">
+       <img src="./doc-files/RegSvr32.png"/>
+     </div></div>
+<div class="xdocText">If you have not installed XDC using the installer, it is possible that you
+  also do not have an <tt>%XDCROOT%</tt> environment variable. In this case in step
+  2 above, cd to your own XDC product installation directory.</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:10 GMT</div>
+</div></div></body>
+</html>

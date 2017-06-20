@@ -1,0 +1,374 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Command - xdc.tools.repoman - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Command - xdc.tools.repoman&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Command - xdc.tools.repoman" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Command_Line_Tools/Command_Line_Tools.html" title="Command_Line_Tools"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Command - xdc.tools.repoman</p><p id="subtitle">Repository management tool</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Synopsis"><span class="tocnumber">1</span> <span class="toctext">Synopsis</span></a></li>
+<li class="toclevel-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Additional_command-line_options"><span class="tocnumber">3</span> <span class="toctext">Additional command-line options</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Synopsis"></a><h2> <span class="mw-headline"> Synopsis </span></h2>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xs xdc.tools.repoman [options ...]</pre></td></tr></table>
+<p>For a complete description of this tool's options, see its Cdoc reference page <a href="../../cdoc/xdc/tools/repoman/package.html" class="cdoc"><tt>xdc.tools.repoman</tt></a>.
+</p>
+<a name="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<p>The repoman tool creates and manages package repositories. It displays
+information about archived packages, extracts archived packages, extracts
+repositories from bundles and deletes packages from repositories. Both
+textual and graphical versions of this tool are provided. The textual tool is
+xdc.tools.repoman and the graphical tool is xdc.tools.repoman.sg.
+</p>
+<p><div class="Notice-red"><p class="Notice-red">The repoman tool, especially its current command-line
+option set, is preliminary and subject to change in a future release. See the online documentation for the <tt><a href="../../cdoc/xdc/tools/repoman/package.html" class="cdoc"><tt>xdc.tools.repoman</tt></a></tt> and <tt><a href="../../cdoc/index.html#xdc/tools/repoman/sg/package.html" class="cdoc"><tt>xdc.tools.repoman.sg</tt></a></tt> packages to get the most recent information about this tool.</p></div></p>
+<p>For the command-line tool, the main options are:
+</p>
+<dl><dt>-t
+</dt><dd>Display package info for an archive directory or tar file.
+</dd></dl>
+<dl><dt>-n
+</dt><dd>Display package names only.
+</dd></dl>
+<dl><dt>-x
+</dt><dd>Extract packages from an archive directory or tar file.
+</dd></dl>
+<dl><dt>-d
+</dt><dd>Delete packages from a repository.
+</dd></dl>
+<dl><dt>-c
+</dt><dd>Copy packages to a repository.
+</dd></dl>
+<dl><dt>-o
+</dt><dd>Save repository information to a file.
+</dd></dl>
+<dl><dt>--rrestore
+</dt><dd>Restore one or more repositories from information in a file.
+</dd></dl>
+<dl><dt>--rcreate
+</dt><dd>Create one or more repositories from information in a file.
+</dd></dl>
+<p>Several of these options require the specification of a <tt>packagename</tt> or <tt>packagearchive</tt>.
+</p>
+<dl><dt><tt>packagename</tt>
+</dt><dd>A package name to use. May contain wildcards. For example, <tt>ti.platforms.sim6xxx</tt> or <tt>ti.catalog.c??00</tt> or <tt>ti.platforms.*</tt>. 
+</dd></dl>
+<dl><dd>A version/key can also be attached to a package name as follows: <tt>ti.platforms.c6000[1,0,0,0,313835]</tt>. A prefix of the full version/key may also be used as follows: <tt>ti.platforms.c6000[1,0]</tt>. If a package name has multiple matches either with or without a version/key specified, the most recent is selected.
+</dd></dl>
+<dl><dt><tt>packagearchive</tt>
+</dt><dd>The name of a package archive to use. May contain wildcards. For example, <tt>ti_platforms_sim6xxx.zip</tt> or <tt>./depot/*.zip</tt>.
+</dd></dl>
+<p>There are a number of other options that can be used in conjunction with
+these options, but one of these options is required on the command line to tell
+repoman what action it is supposed to take. This document describes the main
+functions first and gives the syntax for each. Later, it lists the various extra
+options you can use in combination with the main options.
+</p><p><b>The -t and -n options</b> display information. The -t option displays the file,
+release name, label, version, category, buildable, required packages,
+references, and description. The -n option displays only the name. The
+syntax for these informational functions is:
+</p>
+<pre>
+xs xdc.tools.repoman -t [-v] [-p path ] [ packagename... | packagearchive... ]
+xs xdc.tools.repoman -n [-v] [-p path ] [ packagename... | packagearchive... ]
+</pre>
+<p><b>The -x option </b>can extract packages from an archived directory or tar file
+to a destination repository. If any of the packages in the specified package
+list are not compatible, the operation is not performed. The syntax is:
+</p>
+<pre>
+xs xdc.tools.repoman -x [-v] [-D] [-R] [-f] [-r destrepo ]
+                     [-p path ][-b [ bundlerepository... ]]
+                     [ packagename... | packagearchive... ]
+</pre>
+<p>The following example extracts the package ti.platforms.sim6xxx from an
+archive in /db/trees/app-a01 to c:/xdc/packages:
+</p>
+<pre>xs xdc.tools.repoman -x -r c:/xdc/packages -p /db/trees/app-a01 ti.platforms.sim6xxx
+</pre>
+<p>The following example extracts the examples repository from
+c:/xdc-Win32.tar.gz to c:/myexamples:
+</p>
+<pre>xs xdc.tools.repoman -x -r c:/myexamples -b examples c:/xdc-Win32.tar.gz
+</pre>
+<p><b>The -d option</b> deletes a package from a repository. If the package has any
+subdirectories that contain packages, they will be left intact. After the
+package is deleted, if the package has no subdirectories with packages,
+empty directories that are part of the fully qualified package are deleted, too.
+</p><p>The syntax is:
+</p>
+<pre>
+ xs xdc.tools.repoman -d [-v] [-r destrepo ] packagename...
+</pre>
+<p>The following example deletes the package ti.platforms.sim6xxx from
+c:/xdc/packages:
+</p>
+<pre>xs xdc.tools.repoman -d -r c:/xdc/packages ti.platforms.sim6xxx
+</pre>
+<p><b>The -c option</b> copies packages to a destination repository. The syntax is:
+</p>
+<pre>xs xdc.tools.repoman -c [-v] [-r destrepo] [-p path]
+packagename...
+</pre>
+<p>The following example copies the package ti.catalog.c6000 from
+c:\srcdir\packages to c:\destdir\packages:
+</p>
+<pre>xs xdc.tools.repoman -c -r c:\destdir\packages -p c:\srcdir\packages ti.catalog.c6000
+</pre>
+<p><b>The -o option</b> saves repository information to the "outfile" file to be used in a subsequent restore or create operation. The syntax is:
+</p>
+<pre>xs xdc.tools.repoman -o outfile [-p searchpath] repository ...
+</pre>
+<p>The following example saves package information for repository c:/myrepo to
+the c:/myrepo.rmn file. It also saves the c:/pkgarchives;c:/testpkgs search
+path:
+</p>
+<pre>xs xdc.tools.repoman -o c:/myrepo.rmn -p "c:/pkgarchives;c:/testpkgs" c:/myrepo
+</pre>
+<p><b>The --rrestore option</b> restores one or more repositories from information in
+the "infile" file. The syntax is:
+</p>
+<pre>
+xs xdc.tools.repoman --rrestore -i infile [-p searchpath] [infile_repo_indicies]
+</pre>
+<p>The following example restores all the packages in c:/myrepo from
+information that was saved to the file c:/myrepo.rmn. It uses the search path
+c:/pkgarchives;c:/testpkgs to find and copy the packages. The example
+creates c:/myrepo if it doesn't exist.
+</p>
+<pre>xs xdc.tools.repoman -rrestore -i c:/myrepo.rmn -p "c:/pkgarchives;c:/testpkgs"
+</pre>
+<p><b>The --rcreate option</b> creates one or more repositories from information in the
+"infile" file. The syntax is:
+</p>
+<pre>
+xs xdc.tools.repoman --rcreate -i infile [-p searchpath]
+                     [infile_repo_indicies] dest_repo0 ...
+</pre>
+<p>The following example creates the new repository c:/mynewrepo from
+information that was saved to the file c:/myrepo.rmn for the repository
+c:/myrepo. It uses the search path c:/pkgarchives;c:/testpkgs to find and copy
+the packages. When created, c:/mynewrepo will be identical to c:/myrepo
+when its package information was saved with the -o option.
+</p>
+<pre>xs xdc.tools.repoman -rcreate -i c:/myrepo.rmn -p "c:/pkgarchives;c:/testpkgs" c:/mynewrepo
+</pre>
+<a name="Additional_command-line_options"></a><h2> <span class="mw-headline"> Additional command-line options </span></h2>
+<p>The other options that can be used on the repoman command line with the
+main options described in the previous section are as follows:
+</p>
+<dl><dt>-b
+</dt><dd>The repositories to be extracted when -x is used to extract repositories from a bundle. In this case, the last argument specifies the bundle file to extract from. If omitted, use "packages". Use with: -x.
+</dd></dl>
+<dl><dt>-D
+</dt><dd>Also extracts dependent packages. Use with: -x.
+</dd></dl>
+<dl><dt>-f
+</dt><dd>Force all packages to be extracted, regardless of incompatibilities. Use with: -x.
+</dd></dl>
+<dl><dt>-p path
+</dt><dd>Search the specified directory. If the -p option is omitted, the current directory is searched. Use with: -t, -n, -x, -c.
+</dd></dl>
+<dl><dt>-r destrepo
+</dt><dd>Use specified destination repository. If omitted, use the repository for the current package. If there is no current package, use the current working directory. Use with: -x, -d, -c.
+</dd></dl>
+<dl><dt>-R
+</dt><dd>Also recursively extracts dependent packages. Use with: -x.
+</dd></dl>
+<dl><dt>-v
+</dt><dd>Print informative messages during execution. Use with: all.
+</dd></dl>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Command_-_xdc.tools.repoman.sg/Command_-_xdc.tools.repoman.sg.html" title="Command - xdc.tools.repoman.sg">Command - xdc.tools.repoman.sg</a>
+</td><td class="DocListSubTitle1">Interactive repository management tool
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../../cdoc/xdc/tools/repoman/package.html" class="cdoc"><tt>xdc.tools.repoman</tt></a>
+</td><td class="DocListSubTitle">Client documentation for <tt>xdc.tools.repoman</tt>
+</td></tr></table>
+<p></p>
+<p><br />
+</p><!-- 
+Pre-expand include size: 1298 bytes
+Post-expand include size: 557 bytes
+Template argument size: 82 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Command_-_xdc.tools.repoman.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.281 secs. --></body></html>

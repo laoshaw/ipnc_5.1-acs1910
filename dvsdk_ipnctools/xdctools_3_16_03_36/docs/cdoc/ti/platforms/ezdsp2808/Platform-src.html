@@ -1,0 +1,67 @@
+<html><head><title>module ti.platforms.ezdsp2808.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *  This module implements xdc.IPlatform and defines configuration
+</span>    16    <span class="comment"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    17    <span class="comment"> *
+</span>    18    <span class="comment"> *  The configuration parameters are initialized in this package's
+</span>    19    <span class="comment"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    20    <span class="comment"> *  model.  Once they are part of the model, these parameters are
+</span>    21    <span class="comment"> *  queried by a program's configuration script.
+</span>    22    <span class="comment"> *
+</span>    23    <span class="comment"> *  This particular platform has a single Cpu, and therefore, only
+</span>    24    <span class="comment"> *  declares a single CPU configuration object.  Multi-CPU platforms
+</span>    25    <span class="comment"> *  would declare multiple Cpu configuration parameters (one per
+</span>    26    <span class="comment"> *  platform CPU).
+</span>    27    <span class="comment"> */</span>
+    28    
+    29    <span class=key>package</span> ti.platforms.ezdsp2808;
+    30    
+    31    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    32    {
+    33        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {
+    34            id:             <span class="string">"0"</span>,
+    35            boardName:      <span class="string">"ezdsp2808"</span>,
+    36            boardFamily:    <span class="string">"ezdsp2808"</span>,
+    37            boardRevision:  <span class=key>null</span>
+    38        };
+    39    
+    40        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu   CPU = {      
+    41            id:             <span class="string">"0"</span>,
+    42            clockRate:      100.0,
+    43            catalogName:    <span class="string">"ti.catalog.c2800"</span>,
+    44            deviceName:     <span class="string">"TMS320C2808"</span>,
+    45            revision:       <span class=key>null</span>
+    46        };
+    47        
+    48    <span class=key>instance</span>:
+    49    
+    50        <span class=key>override</span> <span class=key>config</span> string codeMemory = <span class="string">"H0SARAM"</span>;
+    51        
+    52        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"LSARAM"</span>;
+    53    
+    54        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"MSARAM"</span>;
+    55    };
+    56    <span class="comment">/*
+</span>    57    <span class="comment"> *  @(#) ti.platforms.ezdsp2808; 1, 0, 0,278; 2-23-2010 17:00:57; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    58    <span class="comment"> */</span>
+    59    
+</pre>
+</body></html>

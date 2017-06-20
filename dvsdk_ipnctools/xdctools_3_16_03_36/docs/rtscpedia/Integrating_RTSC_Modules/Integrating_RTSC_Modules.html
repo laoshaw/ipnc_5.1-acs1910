@@ -1,0 +1,521 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Integrating RTSC Modules - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Integrating RTSC Modules&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Integrating RTSC Modules" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Integrating RTSC Modules</p><p id="subtitle">Integrating RTSC modules into existing C/C++ environments</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Compiling"><span class="tocnumber">2</span> <span class="toctext">Compiling</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Required_-D_Options"><span class="tocnumber">2.1</span> <span class="toctext">Required -D Options</span></a></li>
+<li class="toclevel-2"><a href="#Required_-I_Options"><span class="tocnumber">2.2</span> <span class="toctext">Required -I Options</span></a></li>
+<li class="toclevel-2"><a href="#A_Complete_GNU_make_Example"><span class="tocnumber">2.3</span> <span class="toctext">A Complete GNU make Example</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Additional_Compiler_Options"><span class="tocnumber">3</span> <span class="toctext">Additional Compiler Options</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Portable_Inclusion_of_Configuration_Constants"><span class="tocnumber">3.1</span> <span class="toctext">Portable Inclusion of Configuration Constants</span></a></li>
+<li class="toclevel-2"><a href="#Eliminating_Identifier_Conflicts"><span class="tocnumber">3.2</span> <span class="toctext">Eliminating Identifier Conflicts</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Disabling_Short_Names_Defined_By_Modules"><span class="tocnumber">3.2.1</span> <span class="toctext">Disabling Short Names Defined By Modules</span></a></li>
+<li class="toclevel-3"><a href="#Disabling_Short_Names_Defined_By_xdc.2Fstd.h"><span class="tocnumber">3.2.2</span> <span class="toctext">Disabling Short Names Defined By xdc/std.h</span></a></li>
+<li class="toclevel-3"><a href="#Disabling_Deprecated_Definitions"><span class="tocnumber">3.2.3</span> <span class="toctext">Disabling Deprecated Definitions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Eliminating_File_Name_Strings"><span class="tocnumber">3.3</span> <span class="toctext">Eliminating File Name Strings</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Linking"><span class="tocnumber">4</span> <span class="toctext">Linking</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Symbol_Names"><span class="tocnumber">4.1</span> <span class="toctext">Symbol Names</span></a></li>
+<li class="toclevel-2"><a href="#Linker_Command_Files"><span class="tocnumber">4.2</span> <span class="toctext">Linker Command Files</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Debugging"><span class="tocnumber">5</span> <span class="toctext">Debugging</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>RTSC modules are designed to be portable to virtually any C/C++ environment - from host workstation applications to deeply embedded MCU or DSP applications.  To enable this degree of portability, RTSC requires modules to conform to some simple physical design constraints and it defines an abstraction called a <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> whose attributes are used to compile sources.  The physical design constraints enable modules from multiple suppliers to be installed without conflicts and the target enables the C headers from these suppliers to be compiled without conflicts.
+</p><p>As you'll see below, both the physical design constraints and the target, enables you to easily <i>and</i> uniformly build any code that references a RTSC module.  In effect, once you've integrated one RTSC module into your code base, you can use <i>any</i> other RTSC module without making <i>any</i> changes to your build system.
+</p><p>Before using a RTSC module in an executable, the module must be configured; i.e., a RTSC configuration tool must be run and the output of this tool must be used in the application linking process.  To simplify build integration, in addition to linker control files, the RTSC configuration tool generates a set of <i>required</i> compiler options that can be directly passed to the compiler when building the application's sources.  However, if you are simply building a library that references a RTSC module, you only need to specify a few <tt>-D</tt> and <tt>-I</tt> compiler options "by hand".
+</p>
+<a name="Compiling"></a><h2> <span class="mw-headline">Compiling</span></h2>
+<p>When compiling a C/C++ source file that references a RTSC module, there are two required <tt>-D</tt> options and a set of required <tt>-I</tt> options that correspond one-to-one with the <a href="../Glossary/Glossary.html#Repository" title="Glossary">repositories</a> on the <a href="../Glossary/Glossary.html#PackagePath" title="Glossary">package path</a>.  All of these required options are independent of the module and the package containing the module.
+</p><p>In addition to these required options, RTSC headers support additional features that assist in integration with other code bases.  These options are described in <a href="#AdditionalCompilerOptions" title="">Additional Compiler Options</a> below.
+</p>
+<a name="Required_-D_Options"></a><h3> <span class="mw-headline">Required <tt>-D</tt> Options</span></h3>
+<p>Source files that reference a RTSC module <i>must</i> be compiled with pre-defined macros that identify the <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> being used to compile the source.  Each target has a globally unique name (the module that implements the <tt><a href="../../cdoc/xdc/bld/ITarget.html" class="cdoc"><tt>xdc.bld.ITarget</tt></a></tt> interface) and is responsible for defining a set of standard types and constants that enables source code to be portable among all targets.
+</p><p>To compile sources that use a RTSC module, two symbols must be defined before including its header:
+</p>
+<ul><li><tt>xdc_target_types__</tt> - the package qualified path of the target's standard types header; e.g., <tt>ti/targets/std.h</tt>. This value is specified in the target's <tt>stdInclude</tt> config parameter; see <a href="../../cdoc/xdc/bld/ITarget.html#std.Include" class="cdoc"><tt>xdc.bld.ITarget.stdInclude</tt></a>
+</li><li><tt>xdc_target_name__</tt> - the target's module name without the package prefix; e.g., <tt>C64</tt> rather than <tt>ti.targets.C64</tt>. 
+</li></ul>
+<p>If your source files use the <tt>xdc/cfg/global.h</tt> header to reference global objects created during configuration, you must also define the following symbol:
+</p>
+<ul><li><tt>xdc_cfg__header__</tt> - the package qualified name of the executable-specific C/C++ header generated by the program configuration tool.  See <a href="Integrating_RTSC_Modules.html#Portable_Inclusion_of_Configuration_Constants" title="Integrating RTSC Modules">Portable Inclusion of Configuration Constants</a> for more information.
+</li></ul>
+<p>For example, to compile sources with the <tt>ti.targets.C64</tt> target, the following command line is sufficient:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>cl6x -Dxdc_target_types__=ti/targets/std.h -Dxdc_target_name__=C64 ...</pre></td></tr></table>
+<p>Where, <tt>cl6x</tt> is the name of the TI compiler, <tt>ti/targets/std.h</tt> is the value of the <tt><a href="../../cdoc/ti/targets/C64.html#std.Include" class="cdoc"><tt>stdInclude</tt></a></tt> attribute of the <tt><a href="../../cdoc/index.html#ti/targets/C64.html" class="cdoc"><tt>ti.targets.C64</tt></a></tt> target, and <tt>C64</tt> is the module name of the target within the <tt>ti.targets</tt> package.
+</p>
+<p><div class="Notice"><p class="Notice">To maximize portability, code should never directly include the <tt>stdInclude</tt> header specified by a target.  Instead, the definitions from this header should always be included using the target-independent header <tt>xdc/std.h</tt>.  See the <tt><a href="../../cdoc/xdc/package.html" class="cdoc"><tt>xdc</tt></a></tt> package reference documentation for more information about this header.</p></div></p>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>   <span class="coMULTI">/* define portable types; e.g., String, Bool, ... */</span>
+   &nbsp;:</pre></td></tr></table>
+<p></p>
+<a name="Required_-I_Options"></a><h3> <span class="mw-headline">Required <tt>-I</tt> Options</span></h3>
+<p>RTSC packages can be installed in any directory, called a <a href="../Glossary/Glossary.html#Repository" title="Glossary">repository</a>, and RTSC package names match the name of the sub-directory within the repository containing the package.  For example, if the package <tt>xdc.runtime</tt> is installed in the repository <tt>/home/me/packages</tt>, the absolute path to the <tt>xdc.runtime</tt> package is <tt>/home/me/packages/xdc/runtime</tt>.  
+</p><p>By convention, all code that references a module's interface, must <tt>#include</tt> the module's header using the module's package name as well as the module's name.  For example, to use the <tt>xdc.runtime.Memory</tt> module, C files will contain the following statement.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Memory.h&gt;</span></pre></td></tr></table>
+<p>Following this pattern implies that the compiler's command line need only include <tt>-I</tt> options for each repository named on the <a href="../Glossary/Glossary.html#PackagePath" title="Glossary">package path</a>.  Recall the package path is simply a list of all repositories containing packages that are required by your code.  This has the advantage that the <tt>-I</tt> options are completely independent of the package names; adding a new package to your project <i>does not require any change to your build system's files</i>.
+</p><p>The following GNU make file converts a package path, defined by the <tt>PACKAGE_PATH</tt> variable, to the required <tt>-I</tt> options.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>PACKAGE_PATH = $(XDCPATH);$(XDCROOT)/packages
+CCINCS = -I$(strip $(subst&nbsp;;, -I,$(PACKAGE_PATH))</pre></td></tr></table>
+<p></p>
+<a name="A_Complete_GNU_make_Example"></a><h3> <span class="mw-headline">A Complete GNU make Example</span></h3>
+<p>Suppose you want to build sources using the target defined by <tt>ti.targets.C64</tt>.  You must first examine the <tt>ti.targets.C64.stdInclude</tt> attribute - either by reading the <tt>ti/targets/C64.xdc</tt> file or reading the generated reference documentation for this module (<tt><a href="../../cdoc/ti/targets/C64.html" class="cdoc"><tt>ti.targets.C64</tt></a></tt>).  Using just this one value, it is possible to build the required compiler command line options.
+</p><p>The following GNU makefile illustrates how this information might by used in a make-based build system.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>PACKAGE_PATH = $(XDCPATH);$(XDCROOT)/packages
+&nbsp;
+CC_INCS  = -I$(strip $(subst&nbsp;;, -I,$(PACKAGE_PATH))
+&nbsp;
+CC6x     = /home/tools/ti/c6x/6.1.0/bin/cl6x
+&nbsp;
+C64_DEFS = -Dxdc_target_types__=ti/targets/std.h -Dxdc_target_name__=C64
+&nbsp;
+%.o:%.c
+    $(CC6x) -c $(CC_INCS) (C64_DEFS) $*.c -o $@</pre></td></tr></table>
+<p>Notice that 
+</p>
+<ol><li>the package path is easily converted into the list of <tt>-I</tt> options required by the compiler, and 
+</li><li>the include path settings are independent of the target (so porting to a new target does not affect the <tt>-I</tt> options).
+</li></ol>
+<p>To illustrate how this pattern scales to other targets, suppose you want to support two different targets: one for native execution on, say, Linux running on a PC and one for an embedded C64P device.  A simple GNU makefile for this is shown below.  In this case, we need to choose different object file suffixes to allow side-by-side compilation of both the embedded target and the native target.  But, as we noted above, the <tt>-I</tt> options don't change.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>PACKAGE_PATH = $(XDCPATH);$(XDCROOT)/packages
+&nbsp;
+CC_INCS  = -I$(strip $(subst&nbsp;;, -I,$(PACKAGE_PATH))
+&nbsp;
+CC6x     = /home/tools/ti/c6x/6.1.0/bin/cl6x
+CCHOST   = /home/tools/gnu/gcc-4.1.0-glibc-2.3.2/i686-unknown-linux-gnu/bin/gcc
+&nbsp;
+C64P_DEFS = -Dxdc_target_types__=ti/targets/std.h -Dxdc_target_name__=C64P
+HOST_DEFS = -Dxdc_target_types__=gnu/targets/std.h -Dxdc_target_name__=Linux86
+&nbsp;
+%.o86U:%.c
+    $(CCHOST) -c $(CC_INCS) (HOST_DEFS) $*.c -o $@
+&nbsp;
+%.o64P:%.c
+    $(CC6x) -c $(CC_INCS) (C64_DEFS) $*.c -o $@</pre></td></tr></table>
+<p><span id="AdditionalCompilerOptions">
+</p>
+<a name="Additional_Compiler_Options"></a><h2> <span class="mw-headline">Additional Compiler Options</span></h2>
+<p></span>
+In addition to the required <tt>-D</tt> options, RTSC headers use two other <tt>-D</tt> options to facilitate the creation of portable code and minimize the chance of identifier conflicts with existing code bases.
+</p>
+<a name="Portable_Inclusion_of_Configuration_Constants"></a><h3> <span class="mw-headline">Portable Inclusion of Configuration Constants</span></h3>
+<p>C/C++ source code that is dependent on values specified in a configuration script can portably reference these values by adding the following <tt>#include</tt> statement to the top of the referencing source file.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> &lt;xdc/cfg/global.h&gt; <span class="coMULTI">/* include definitions appearing in an executable's config script */</span>
+   &nbsp;:</pre></td></tr></table>
+<p>For more information about how to specify values that can be referenced using this header, see the reference documentation for the <tt><a href="../../cdoc/xdc/cfg/Program.html#global" class="cdoc"><tt>xdc.cfg.Program.global</tt></a></tt> configuration parameter.
+</p><p>In order to support multiple side-by-side configurations, the <tt>xdc/cfg/global.h</tt> header requires the name of the header that is generated as part of configuration.  So, to compile sources that include <tt>xdc/cfg/global.h</tt>, one symbol must be defined before including this header:
+</p>
+<ul><li><tt>xdc_cfg__header__</tt> - the package qualified name of the executable-specific C/C++ header generated by the program configuration tool; e.g., <tt>local/examples/package/cfg/mycfg_x62.h</tt>. 
+</li></ul>
+<p>For example, to compile sources that reference the values declared in global for a TI C6x target with a generated configuration header named <tt>package/cfg/mycfg_x62.h</tt> in a package named <tt>local.examples</tt> the following command line is sufficient: 
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>cl6x -Dxdc_cfg__header__=local/examples/package/cfg/mycfg_x62.h ...</pre></td></tr></table>
+<p>The <tt>xdc_cfg__header__</tt> symbol is automatically defined when you use the the RTSC Build Engine,  <tt><a href="../../cdoc/xdc/bld/package.html" class="cdoc"><tt>xdc.bld</tt></a></tt>, to create executables; see <tt><a href="../../cdoc/index.html#xdc/bld/Executable.html#add/.Objects" class="cdoc"><tt>xdc.bld.Executable.addObjects</tt></a></tt>
+</p>
+<a name="Eliminating_Identifier_Conflicts"></a><h3> <span class="mw-headline">Eliminating Identifier Conflicts</span></h3>
+<p>RTSC module headers are designed to enable developers to handle identifier conflicts that may arise when integrating RTSC modules or RTSC standard types with existing C source code bases.  All RTSC headers allow you to control, to some extent, the names defined by the header via <tt>-D</tt> compiler options. 
+</p><p>Every identifier <tt>ident</tt> defined by a RTSC module <i>Mod</i> (names of functions, constants, config params, typedefs, structs, etc.) contained in package <tt>pkg</tt> has at least two names:
+</p>
+<ol><li>the fully qualified (or "long") name: <tt><i>pkg_Mod</i>_ident</tt>, and 
+</li><li>short names: <tt><i>Mod</i>_ident</tt> and, if <tt><a href="../XDCspec_-_%40GlobalNames/XDCspec_-_%40GlobalNames.html" title="XDCspec - @GlobalNames">@GlobalNames</a></tt> is specified in the <tt>pkg/Mod.xdc</tt> specification, <tt>ident</tt>.
+</li></ol>
+<p>Why are there multiple names for the same thing?  Long names are guaranteed to be globally unique (assuming the package name is globally unique) and will not, therefore, conflict with any identifier from another part of the code base.  On the other hand, the long name is <i>ugly</i>; it's onerous to type and makes sources difficult to read.  Since conflicts are relatively rare, RTSC headers also define an <i>optional</i> short names for each identifier that is enabled by default.  In those rare situations where short names conflict and it is not practical (or desirable) to modify existing code, it is possible to disable the definitions of these short names on a per module basis.
+</p>
+<a name="Disabling_Short_Names_Defined_By_Modules"></a><h4> <span class="mw-headline">Disabling Short Names Defined By Modules</span></h4>
+<p>To disable the definition of short names for the module <tt><i>Mod</i></tt> in the package <tt><i>pkg</i></tt>, you must define the symbol <tt><i>pkg_Mod</i>__nolocalnames</tt> before including the module's header.  Suppose, for example, that you need to disable the short names for the <tt>xdc.runtime.Memory</tt> module.  You can simply add a <tt>#define</tt> of the symbol <tt>xdc_runtime_Memory__nolocalnames</tt> <i>prior</i> to including <tt>xdc/runtime/Memory.h</tt> for the first in your source file.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#define</span> xdc_runtime_Memory__nolocalnames  <span class="coMULTI">/* disable short name definitions of identifiers */</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Memory.h&gt;</span></pre></td></tr></table>
+<p>Alternatively, you can add this definition on the compile line used to build the file.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>gcc -Dxdc_runtime_Memory__nolocalnames -Dxdc_target_types__=... -Dxdc_target_name__=...</pre></td></tr></table>
+<p></p>
+<a name="Disabling_Short_Names_Defined_By_xdc.2Fstd.h"></a><h4> <span class="mw-headline">Disabling Short Names Defined By <tt>xdc/std.h</tt></span></h4>
+<p>As with module headers, each identifier defined by <tt>xdc/std.h</tt> - the header that defines the target's standard types - has both a "short name" and a "long name".  The short name is often a single word, such as <tt>Bool</tt>, whereas the long name is the short name with the prefix <tt>"xdc_"</tt>; for example, the long name of <tt>Bool</tt> is just <tt>xdc_Bool</tt>.  
+</p><p>To disable the definition of short names, you must define the symbol <tt>xdc__nolocalnames</tt> before including any header that includes <tt>xdc/std.h</tt>.  You can add the definition directly to the files affected by the collision. 
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#define</span> xdc__nolocalnames    <span class="coMULTI">/* disable short name definitions of standard types */</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span></pre></td></tr></table>
+<p>Alternatively, you can add this definition on the compile line used to build the file.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>cl6x -Dxdc__nolocalnames -Dxdc_target_types__=ti/targets/std.h -Dxdc_target_name__=C64 ...</pre></td></tr></table>
+<p>Of course, either way, you must reference the identifiers defined by the target using their (somewhat ugly but unique) long names.
+</p>
+<a name="Disabling_Deprecated_Definitions"></a><h4> <span class="mw-headline">Disabling Deprecated Definitions</span></h4>
+<p>As modules and interfaces evolve over time it is common practice to keep definitions and declarations that should not be used in any new code; they exist solely to support backward compatibility with existing code bases.  In order to verify that a code base does not leverage any of these deprecated definitions, you can disable them by defining the <tt>xdc__strict</tt> symbol prior to including any headers.
+</p><p>As above, you can do this either on the compiler's command line or within selected files.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#define</span> xdc__strict    <span class="coMULTI">/* disable short name definitions of standard types */</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span></pre></td></tr></table>
+<p>Alternatively, you can add this definition on the compile line used to build the file.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>cl6x -Dxdc__strict -Dxdc_target_types__=ti/targets/std.h -Dxdc_target_name__=C64 ...</pre></td></tr></table>
+<p></p>
+<a name="Eliminating_File_Name_Strings"></a><h3> <span class="mw-headline">Eliminating File Name Strings</span></h3>
+<p>Both the <tt><a href="../../cdoc/xdc/runtime/Error.html" class="cdoc"><tt>xdc.runtime.Error</tt></a></tt> and the <tt><a href="../../cdoc/index.html#xdc/runtime/Assert.html" class="cdoc"><tt>xdc.runtime.Assert</tt></a></tt> modules use the symbol <tt>xdc_FILE</tt> to obtain the current file name when raising errors.  By default this symbol is defined to be <tt>__FILE__</tt>, a compiler generated string whose value is the name of the current translation unit.  While these file names are valuable when tracking the source of errors, they also consume a considerable amount of data space.  
+</p><p>It is possible to eliminate the string space overhead associated with errors by re-defining <tt>xdc_FILE</tt> to be <tt>NULL</tt>. 
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#define</span> xdc_FILE <span class="kw2">NULL</span>    <span class="coMULTI">/* eliminate use of __FILE__ in Assert and Error macros */</span></pre></td></tr></table>
+<p>Alternatively, you can add the equivalent <tt>-D</tt> option to your compiler's command line.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>cl -Dxdc_FILE=NULL ...</pre></td></tr></table>
+<p>For more information see <a href="../Using_xdc.runtime_Errors/Using_xdc.runtime_Errors.html#Eliminating_File_Name_Strings" title="Using xdc.runtime Errors">Eliminating File Name Strings</a> in <a href="../Using_xdc.runtime_Errors/Using_xdc.runtime_Errors.html" title="Using xdc.runtime Errors">Using xdc.runtime Errors</a>.
+</p>
+<a name="Linking"></a><h2> <span class="mw-headline">Linking</span></h2>
+<p>When linking an executable that references a RTSC module, you must include an object file and a linker command file produced by a separate "configuration step".  This configuration step allows you to specify additional information about the executable that allows the RTSC modules to optionally supply alternative implementations that are "optimal" for your particular situation.  For details about how to integrate configuration into your build system, start with <a href="../Consuming_Configurable_Content/Consuming_Configurable_Content.html" title="Consuming Configurable Content">Configuration Basics</a>.
+</p><p>While this configuration step may seem unnecessary, it allows producers to completely change their underlying libraries without requiring you to make any changes to your build system's project files.  In addition, since the configuration step is independent of any specific package, it is possible to add or remove modules from a project without changing the link steps required by your executable.  In other words, the configuration step provides additional flexibility to the producer while at the same time insulating you from variations among different producers as well as future changes made by any of these producers.  So, like the compilation requirements above, once you're integrated configuration into your build system for one module or package, you'll never have to change this to support new modules from any RTSC package.
+</p><p>Linking with RTSC modules has been designed to be modular and easy; new modules can be created at any time by third parties and added to a project <i>without making any changes to linking process</i>.  To make this possible all symbols defined in the new modules must not clash with any existing symbols and the linking process must be independent of the ad hoc library names chosen by the module/package producer.
+</p>
+<a name="Symbol_Names"></a><h3> <span class="mw-headline">Symbol Names</span></h3>
+<p>To ensure symbol names do not clash, all RTSC module functions, types, and constants are given names that include both their package and module names.  Assuming package names are globally unique, the C/C++ linker will never see a symbol conflict between two modules in different packages no matter who created the modules, when they were created, or what <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> you're using.  
+</p><p>The table below describes the symbol references and definitions, as seen by the linker, that are created by a RTSC module named <tt>ModA</tt> delivered in a package whose name is <tt>pkg</tt>.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> Kind
+</th><th align="center"> Client Reference [Producer Ref/Def]
+</th><th align="center"> External Symbol, Example
+</th><th align="center"> Type
+</th></tr>
+<tr>
+<td align="left"> client-visible function REF (or DEF if <a href="../XDCspec_-_%40DirectCall/XDCspec_-_%40DirectCall.html" title="XDCspec - @DirectCall">@DirectCall</a>)
+</td><td align="left"> ModA_fxn()
+</td><td align="left"> pkg_ModA_fxn__E, xdc_runtime_System_printf__E
+</td><td align="left"> T
+</td></tr>
+<tr>
+<td align="left">client-visible function DEF
+</td><td align="left">ModA_fxn()
+</td><td align="left">pkg_ModA_fxn__F, xdc_runtime_System_printf__F
+</td><td align="left"> T
+</td></tr>
+<tr>
+<td align="left">internal function DEF or REF (spec'd in <tt>internal:</tt> section)
+</td><td align="left">pkg_ModA_fxn()  [ModA_fxn()]
+</td><td align="left">pkg_ModA_fxn__I, xdc_runtime_Core_createObject__I
+</td><td align="left"> T
+</td></tr>
+<tr>
+<td align="left">module-wide config param REF
+</td><td align="left">ModA_cfg
+</td><td align="left">pkg_ModA_cfg__C, xdc_runtime_System_A_cannotFitIntoArg__C
+</td><td align="left">D,A
+</td></tr>
+<tr>
+<td align="left">per-instance config params default REF
+</td><td align="left"> struct ModA_Params
+</td><td align="left"> pkg_ModA_Object__PARAMS__C, xdc_runtime_HeapStd_Object__PARAMS__C
+</td><td align="left"> D,A
+</td></tr>
+<tr>
+<td align="left">module-wide system function REF (spec’d in <a href="../../cdoc/xdc/runtime/IModule.html" class="cdoc"><tt>IModule</tt></a>)
+</td><td align="left">ModA_startupDone()
+</td><td align="left"> pkg_ModA_Module__*__S, xdc_runtime_HeapStd_Module__startupDone__S
+</td><td align="left"> T
+</td></tr>
+<tr>
+<td align="left">per-instance system function REF (spec’d in <a href="../../cdoc/xdc/runtime/IModule.html" class="cdoc"><tt>IModule</tt></a>)
+</td><td align="left">HeapStd_create()
+</td><td align="left"> pkg_ModA_Object__*__S, xdc_runtime_HeapStd_Object__create__S
+</td><td align="left"> T
+</td></tr>
+<tr>
+<td align="left">proxy module system function REF (spec’d in <a href="../../cdoc/xdc/runtime/IModule.html" class="cdoc"><tt>IModule</tt></a>)
+</td><td align="left">-
+</td><td align="left"> pkg_ModA_pxy_Proxy__delegate__S, xdc_runtime_Memory_HeapProxy_Proxy__delegate__S
+</td><td align="left">T
+</td></tr>
+<tr>
+<td align="left">module internal state structure REF
+</td><td align="left">[ModA_module]
+</td><td align="left"> pkg_ModA_Module__state__V, xdc_runtime_HeapStd_Module__state__V
+</td><td align="left">B
+</td></tr>
+<tr>
+<td align="left">inheriting module virtual function table REF
+</td><td align="left"> ModA_Module_upCast()
+</td><td align="left"> pkg_ModA_Module__FXNS__C, xdc_runtime_HeapStd_Module__FXNS__C
+</td><td align="left"> D,A
+</td></tr>
+<tr>
+<td align="left">interface run-time type identifier REF
+</td><td align="left">-
+</td><td align="left"> pkg_IMod_Interface__BASE__C, xdc_runtime_IHeap_Interface__BASE__C
+</td><td align="left">D,A
+</td></tr>
+</table>
+<p><span class="todo"><b>TODO:</b>&nbsp;&nbsp;review consumer/producer reference for both VFT and RTTI</span>
+</p><p>The type codes in the table below are described in the following table.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> Type
+</th><th align="center"> Description
+</th></tr>
+<tr>
+<td>T
+</td><td> read-only code section (often called Text)
+</td></tr>
+<tr>
+<td>B
+</td><td> read-write data (sometimes called BSS)
+</td></tr>
+<tr>
+<td>D
+</td><td> initialized read-only data, requires storage space
+</td></tr>
+<tr>
+<td>A
+</td><td> absolute symbol, does not require storage space
+</td></tr>
+</table>
+<p></p>
+<a name="Linker_Command_Files"></a><h3> <span class="mw-headline">Linker Command Files</span></h3>
+<p>To ensure that users of a package are insulated from having to make changes to their project's build files because of changes to physical library names provided by a package or the addition of a new package, the RTSC configuration step produces a linker command file that contains an ordered list of all libraries that need to be linked with to produce the application.  The user never needs to consider the names or the order of libraries required to satisfy references to RTSC modules.
+</p>
+<a name="Debugging"></a><h2> <span class="mw-headline">Debugging</span></h2>
+<p>Unless you are using a debugger that understands the symbol name mapping that occurs with RTSC modules and interfaces, you will need to use the linker symbol names, described <a href="#Symbol_Names" title="">above</a>, to set breakpoints and view static data structures.  Future releases of XDCtools will include Eclipse CDT support to make this easier.
+</p><p>The definitions of the key RTSC module data structures, shown below in pseudo-C, can help when navigating in-memory data structures.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c">struct pkg_ModA_Module__State <span class="br0">&#123;</span>        <span class="coMULTI">/* typeof pkg_ModA_Module__state__V */</span>
+    fieldDecl;                         <span class="coMULTI">/* field of pkg.ModA.Module__State */</span>
+<span class="br0">&#125;</span>;
+&nbsp;
+struct pkg_ModA_Object <span class="br0">&#123;</span>
+    pkg_ModA_Fxns__ *__fxns;           <span class="coMULTI">/* inheriting modules only */</span>
+    xdc_runtime_Types_Label __label;   <span class="coMULTI">/* 32-bit coded name, unless common$.namedInstance == false */</span>
+    fieldDecl;                         <span class="coMULTI">/* field of pkg.ModA.Instance__State */</span>
+<span class="br0">&#125;</span>;
+&nbsp;
+struct pkg_ModA_Handle__;                   <span class="coMULTI">/* intentionally incomplete struct definition */</span>
+typedef pkg_ModA_Handle__ *pkg_ModA_Handle; <span class="coMULTI">/* convertible to/from pkg_ModA_Object* */</span>
+&nbsp;
+struct pkg_ModA_Params <span class="br0">&#123;</span>                    <span class="coMULTI">/* typeof pkg_ModA_PARAMS */</span>
+    xdc_SizeT   __size;                     <span class="coMULTI">/* sizeof this struct */</span>
+    const void *__self;
+    void       *__fxns;
+    xdc_runtime_IInstance_Params *instance; <span class="coMULTI">/* common per-instance params */</span>
+    fieldDecl;                              <span class="coMULTI">/* per-instance param of pkg.ModA */</span>
+<span class="br0">&#125;</span>;
+&nbsp;
+struct pkg_ModA_Fxns__ <span class="br0">&#123;</span>               <span class="coMULTI">/* typeof pkg_ModA_Module__FXNS__C */</span>
+    xdc_runtime_Types_Base *__base;    <span class="coMULTI">/* inherited interface’s id */</span>
+    <span class="br0">&#40;</span>*__create<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;                     <span class="coMULTI">/* system create function (or NULL) */</span>
+    <span class="br0">&#40;</span>*__delete<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;                     <span class="coMULTI">/* system delete function (or NULL) */</span>
+    <span class="br0">&#40;</span>*fxnDecl<span class="br0">&#41;</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;                      <span class="coMULTI">/* inherited function of pkg.ModA */</span>
+<span class="br0">&#125;</span>;
+&nbsp;
+struct xdc_runtime_Types_Base <span class="br0">&#123;</span>
+    xdc_runtime_Types_Base* base;      <span class="coMULTI">/* inherited interface’s id (or NULL) */</span>
+<span class="br0">&#125;</span>;
+&nbsp;
+struct xdc_runtime_IInstance_Params <span class="br0">&#123;</span>  <span class="coMULTI">/* common parameters for all instances */</span>
+    size_t     __size;                 <span class="coMULTI">/* sizeof this struct */</span>
+    xdc_String name;                   <span class="coMULTI">/* name of this instance */</span>
+<span class="br0">&#125;</span>;
+&nbsp;
+&nbsp;</pre></td></tr></table>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Integrating RTSC Modules&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Integrating RTSC Modules" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2617 bytes
+Post-expand include size: 1522 bytes
+Template argument size: 203 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Integrating_RTSC_Modules.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.252 secs. --></body></html>

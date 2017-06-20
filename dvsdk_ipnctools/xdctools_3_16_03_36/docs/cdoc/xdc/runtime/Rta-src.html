@@ -1,0 +1,153 @@
+<html><head><title>module xdc.runtime.Rta</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  ======== Rta.xdc ========
+</span>     3    <span class="comment"> *
+</span>     4    <span class="comment"> *! Revision History
+</span>     5    <span class="comment"> *! ================
+</span>     6    <span class="comment"> *! 08-Sep-2009 cmcc    Created
+</span>     7    <span class="comment"> */</span>
+     8     
+     9    <span class=key>package</span> xdc.runtime;
+    10    
+    11    <span class="xdoc">/*!
+</span>    12    <span class="xdoc"> *  ======== Rta ========
+</span>    13    <span class="xdoc"> *  The Rta module contains target and configuration code for providing RTA
+</span>    14    <span class="xdoc"> *  support.
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  The 'Command' enum defines the available control commands, and the
+</span>    17    <span class="xdoc"> *  'CommandPacket' structure defines the format of commands received from
+</span>    18    <span class="xdoc"> *  the host. 
+</span>    19    <span class="xdoc"> *
+</span>    20    <span class="xdoc"> *  All commands should send back a response, even if only to acknowledge
+</span>    21    <span class="xdoc"> *  receipt and completion of the command. The format of the response
+</span>    22    <span class="xdoc"> *  is defined by the 'ResponsePacket' structure.
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  The Rta_processCommand can be used to process commands received from a
+</span>    25    <span class="xdoc"> *  host to call the appropriate API. Alternatively, the individual APIs can
+</span>    26    <span class="xdoc"> *  be called if not all of the defined commands are used.
+</span>    27    <span class="xdoc"> */</span>
+    28    <span class=key>module</span> Rta {
+    29    
+    30        <span class="xdoc">/*! Logged when the Agent receives a command */</span>
+    31        <span class=key>config</span> Log.Event LD_cmdRcvd = {
+    32            mask: Diags.USER2,
+    33            msg: <span class="string">"LD_cmdRcvd: Received command: %d, arg0: 0x%x, arg1: 0x%x"</span>
+    34        };
+    35    
+    36        <span class="xdoc">/*! Logged when a diags mask is changed */</span>
+    37        <span class=key>config</span> Log.Event LD_writeMask = {
+    38            mask: Diags.USER2,
+    39            msg: <span class="string">"LD_writeMask: Mask addres: 0x%x, New mask value: 0x%x"</span>
+    40        };
+    41        
+    42        <span class="xdoc">/*! Assert if logger id in control command is invalid. */</span>
+    43        <span class=key>config</span> Assert.Id A_invalidLogger = {
+    44            msg: <span class="string">"A_invalidLogger: The logger id %d is invalid."</span>
+    45        };
+    46        
+    47        <span class="xdoc">/*! Error raised if Agent receives an invalid command. */</span>
+    48        <span class=key>config</span> Error.Id E_badCommand  = {
+    49            msg: <span class="string">"E_badCommand: Received invalid command, id: %d."</span>
+    50        };
+    51    
+    52        <span class="xdoc">/*! Command ids */</span>
+    53        <span class=key>enum</span> Command : Int {
+    54            Command_READ_MASK = 0,  
+    55            Command_WRITE_MASK = 1, 
+    56            Command_LOGGER_OFF = 2,
+    57            Command_LOGGER_ON = 3,
+    58            Command_GET_CPU_SPEED = 4,
+    59            Command_RESET_LOGGER = 5,
+    60            Command_CHANGE_PERIOD = 6
+    61        };
+    62        
+    63        <span class="xdoc">/*! 
+</span>    64    <span class="xdoc">     * Structure of command received from host 
+</span>    65    <span class="xdoc">     * TODO - Either the types should be changed to 32-bits, or the packet
+</span>    66    <span class="xdoc">     * size information should be added to the RTA XML file.
+</span>    67    <span class="xdoc">     */</span>
+    68        <span class=key>struct</span> CommandPacket {
+    69            Command  cmdId;
+    70            UArg     arg0;
+    71            UArg     arg1;
+    72        }
+    73    
+    74        <span class="xdoc">/*! Structure of response packet sent back to host */</span>
+    75        <span class=key>struct</span> ResponsePacket {
+    76            Command  cmdId;
+    77            UArg     resp0;
+    78            UArg     resp1;
+    79        }
+    80        
+    81        <span class="xdoc">/*!
+</span>    82    <span class="xdoc">     *  ======== processCommand ========
+</span>    83    <span class="xdoc">     *  Executes a command packet and prepares the response packet.
+</span>    84    <span class="xdoc">     *  
+</span>    85    <span class="xdoc">     *  This API will execute the command specified by the command packet
+</span>    86    <span class="xdoc">     *  argument, and will store the response information in the response
+</span>    87    <span class="xdoc">     *  packet argument.
+</span>    88    <span class="xdoc">     *
+</span>    89    <span class="xdoc">     *  <b>@param(cmd)</b>    The CommandPacket to execute.
+</span>    90    <span class="xdoc">     *  <b>@param(resp)</b>   The ResponsePacket to populate with the response.
+</span>    91    <span class="xdoc">     */</span>
+    92        Void processCommand(CommandPacket *cmd, ResponsePacket *resp);
+    93        
+    94        <span class="xdoc">/*!
+</span>    95    <span class="xdoc">     *  ======== acknowledgeCmd ========
+</span>    96    <span class="xdoc">     */</span>
+    97        Void acknowledgeCmd(ResponsePacket *resp);
+    98    
+    99        <span class="xdoc">/*!
+</span>   100    <span class="xdoc">     *  ======== readMask ========
+</span>   101    <span class="xdoc">     */</span>
+   102        Void readMask(ResponsePacket *resp, UArg addr);
+   103        
+   104        <span class="xdoc">/*!
+</span>   105    <span class="xdoc">     *  ======== writeMask ========
+</span>   106    <span class="xdoc">     */</span>   
+   107        Void writeMask(ResponsePacket *resp, UArg addr, UArg val);
+   108        
+   109        <span class="xdoc">/*!
+</span>   110    <span class="xdoc">     *  ======== enableLog ========
+</span>   111    <span class="xdoc">     */</span>
+   112        Void enableLog(ResponsePacket *resp, UArg log);
+   113        
+   114        <span class="xdoc">/*!
+</span>   115    <span class="xdoc">     *  ======== disableLog ========
+</span>   116    <span class="xdoc">     */</span>
+   117        Void disableLog(ResponsePacket *resp, UArg log);
+   118        
+   119        <span class="xdoc">/*!
+</span>   120    <span class="xdoc">     *  ======== getCpuSpeed ========
+</span>   121    <span class="xdoc">     */</span>
+   122        Void getCpuSpeed(ResponsePacket *resp);
+   123        
+   124        <span class="xdoc">/*!
+</span>   125    <span class="xdoc">     *  ======== resetLog ========
+</span>   126    <span class="xdoc">     */</span>
+   127        Void resetLog(ResponsePacket *resp, UArg log);
+   128        
+   129        <span class="xdoc">/*!
+</span>   130    <span class="xdoc">     *  ======== changePeriod ========
+</span>   131    <span class="xdoc">     */</span>
+   132        Void changePeriod(ResponsePacket *resp, UArg period);
+   133    
+   134        <span class="xdoc">/*!
+</span>   135    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   136    <span class="xdoc">     *  ======== genRta ========
+</span>   137    <span class="xdoc">     *  Generates the Rta XML file.
+</span>   138    <span class="xdoc">     */</span>
+   139        <span class=key>function</span> genRta(outputFileName);
+   140    
+   141    }
+   142    <span class="comment">/*
+</span>   143    <span class="comment"> *  @(#) xdc.runtime; 2, 0, 0, 0,237; 2-22-2010 10:33:58; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   144    <span class="comment"> */</span>
+   145    
+</pre>
+</body></html>

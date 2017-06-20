@@ -1,0 +1,241 @@
+<html><head><title>module xdc.services.global.Trace</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== Trace ========
+</span>    14    <span class="xdoc"> *  Trace support
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  This module allows system integrators to selectively enable trace
+</span>    17    <span class="xdoc"> *  statements, from within XDCscripts. Trace statements can be selected
+</span>    18    <span class="xdoc"> *  based on the file (capsule) and the package in which they are located.
+</span>    19    <span class="xdoc"> *  For example, trace statements from file `Mod.xs` in package `myPkgs.pkgA'
+</span>    20    <span class="xdoc"> *  can be enabled either with `Trace.capsuleEnable(["myPkgs/pkgA/Mod"])` or
+</span>    21    <span class="xdoc"> *  with `Trace.packageEnable(["myPkgs.pkgA"])`.
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  Trace statements can also belong to groups, strings defined by package
+</span>    24    <span class="xdoc"> *  producers when they need to group related trace statements, distributed
+</span>    25    <span class="xdoc"> *  across different modules and packages, into trace units that can be
+</span>    26    <span class="xdoc"> *  disabled or enabled as a whole. If some of the trace statements from file
+</span>    27    <span class="xdoc"> *  `Mod.xs` are tagged to belong to a group "init", the following will
+</span>    28    <span class="xdoc"> *  activate them:
+</span>    29    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    30    <span class="xdoc"> *  Trace.groupEnable(["init"]);
+</span>    31    <span class="xdoc"> *  <b>@p</b>
+</span>    32    <span class="xdoc"> *
+</span>    33    <span class="xdoc"> *  Each trace statement by default belongs to the group "all". To activate
+</span>    34    <span class="xdoc"> *  all trace statements:
+</span>    35    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    36    <span class="xdoc"> *  Trace.setLevel(2);
+</span>    37    <span class="xdoc"> *  Trace.groupEnable(["all"]);
+</span>    38    <span class="xdoc"> *  <b>@p</b>
+</span>    39    <span class="xdoc"> * 
+</span>    40    <span class="xdoc"> */</span>
+    41    <span class=key>metaonly</span> <span class=key>module</span> Trace {
+    42    
+    43        <span class=key>typedef</span> String StringArray[];
+    44        
+    45        <span class="xdoc">/*!
+</span>    46    <span class="xdoc">     *  ======== level ========
+</span>    47    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>    48    <span class="xdoc">     *  Select the amount of printed messages
+</span>    49    <span class="xdoc">     */</span>
+    50        <span class=key>config</span> Int level = 0;
+    51    
+    52        <span class="xdoc">/*!
+</span>    53    <span class="xdoc">     *  ======== capsules ========
+</span>    54    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>    55    <span class="xdoc">     *  Array of regular expressions enabling trace in capsules 
+</span>    56    <span class="xdoc">     */</span>
+    57        <span class=key>config</span> StringArray capsules = [];
+    58    
+    59        <span class="xdoc">/*!
+</span>    60    <span class="xdoc">     *  ======== packages ========
+</span>    61    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>    62    <span class="xdoc">     *  Array of regular expressions enabling trace in packages 
+</span>    63    <span class="xdoc">     */</span>
+    64        <span class=key>config</span> StringArray packages = [];
+    65    
+    66        <span class="xdoc">/*!
+</span>    67    <span class="xdoc">     *  ======== groups ========
+</span>    68    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>    69    <span class="xdoc">     *  Array of regular expressions enabling trace in groups 
+</span>    70    <span class="xdoc">     */</span>
+    71        <span class=key>config</span> StringArray groups = [];
+    72    
+    73        <span class="xdoc">/*!
+</span>    74    <span class="xdoc">     *  ======== packageLoad ========
+</span>    75    <span class="xdoc">     *  Enable trace of loaded packages
+</span>    76    <span class="xdoc">     *
+</span>    77    <span class="xdoc">     *  This setting enables the messages related to loading packages.
+</span>    78    <span class="xdoc">     *  If `true`, whenever a package is loaded, the following info is
+</span>    79    <span class="xdoc">     *  displayed:
+</span>    80    <span class="xdoc">     *  <b>@p(blist)</b>
+</span>    81    <span class="xdoc">     *  - name of a package loading another package
+</span>    82    <span class="xdoc">     *  - name of the loaded package
+</span>    83    <span class="xdoc">     *  - repository from which the package is being loaded 
+</span>    84    <span class="xdoc">     *  <b>@p</b> 
+</span>    85    <span class="xdoc">     */</span>
+    86        <span class=key>config</span> Bool packageLoad = <span class=key>false</span>;
+    87    
+    88        <span class="xdoc">/*!
+</span>    89    <span class="xdoc">     *  ======== moduleUse ========
+</span>    90    <span class="xdoc">     *  Enable trace of used modules
+</span>    91    <span class="xdoc">     *
+</span>    92    <span class="xdoc">     *  This setting enables the messages that inform when the function
+</span>    93    <span class="xdoc">     *  `xdc.useModule()` is invoked on a module, and when a module's
+</span>    94    <span class="xdoc">     *  `module$use` function is invoked.
+</span>    95    <span class="xdoc">     */</span>
+    96        <span class=key>config</span> Bool moduleUse = <span class=key>false</span>;
+    97    
+    98        <span class="xdoc">/*!
+</span>    99    <span class="xdoc">     *  ======== addSupergroup ========
+</span>   100    <span class="xdoc">     *  Add a group that contains other groups
+</span>   101    <span class="xdoc">     *
+</span>   102    <span class="xdoc">     *  This function allows giving a name to an array of existing 
+</span>   103    <span class="xdoc">     *  trace groups.
+</span>   104    <span class="xdoc">     *
+</span>   105    <span class="xdoc">     *  <b>@param</b> supergroup       name of the new group
+</span>   106    <span class="xdoc">     *
+</span>   107    <span class="xdoc">     *  <b>@param</b> subgroups        array of the existing trace groups
+</span>   108    <span class="xdoc">     */</span>
+   109        Void addSupergroup(String supergroup, StringArray subgroups);
+   110    
+   111        <span class="xdoc">/*!
+</span>   112    <span class="xdoc">     *  ======== capsuleEnable ========
+</span>   113    <span class="xdoc">     *  Enable trace output from selected capsules
+</span>   114    <span class="xdoc">     *
+</span>   115    <span class="xdoc">     *  Capsules are either XDCscript files or Java source files. The
+</span>   116    <span class="xdoc">     *  function parameter is treated as an array of JavaScript
+</span>   117    <span class="xdoc">     *  regular expressions, therefore it can contain partial capsule
+</span>   118    <span class="xdoc">     *  names.
+</span>   119    <span class="xdoc">     *
+</span>   120    <span class="xdoc">     *  If this function is invoked repeatedly, each new call replaces
+</span>   121    <span class="xdoc">     *  the array of currently enabled capsules with the array supplied
+</span>   122    <span class="xdoc">     *  as the parameter. The array of the currently enabled capsules is
+</span>   123    <span class="xdoc">     *  returned. If the function is invoked with a zero-length array, it
+</span>   124    <span class="xdoc">     *  returns the currently enabled capsules, but it also leaves them
+</span>   125    <span class="xdoc">     *  active. Therefore, the sequence of calls that would add new 
+</span>   126    <span class="xdoc">     *  capsules instead of replacing the current ones is:
+</span>   127    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   128    <span class="xdoc">     *  var current = Trace.capsuleEnable([]);
+</span>   129    <span class="xdoc">     *  current[current.length++] = "pkg/ModA.xs";
+</span>   130    <span class="xdoc">     *  current[current.length++] = "pkg/ModB.xs";
+</span>   131    <span class="xdoc">     *  Trace.capsuleEnable(current);
+</span>   132    <span class="xdoc">     *  <b>@p</b>
+</span>   133    <span class="xdoc">     *
+</span>   134    <span class="xdoc">     *  To disable trace for all capsules, the function must be invoked
+</span>   135    <span class="xdoc">     *  with an empty string as the only element of the array.
+</span>   136    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   137    <span class="xdoc">     *  Trace.capsuleEnable([""]);
+</span>   138    <span class="xdoc">     *  <b>@p</b>
+</span>   139    <span class="xdoc">     *
+</span>   140    <span class="xdoc">     *  <b>@params</b> capsules        array of capsule names
+</span>   141    <span class="xdoc">     *
+</span>   142    <span class="xdoc">     *  <b>@a(return)</b>              array of currently enabled capsule names
+</span>   143    <span class="xdoc">     */</span>
+   144        StringArray capsuleEnable(StringArray capsules);
+   145    
+   146        <span class="xdoc">/*!
+</span>   147    <span class="xdoc">     *  ======== groupEnable ========
+</span>   148    <span class="xdoc">     *  Enable trace output from selected groups
+</span>   149    <span class="xdoc">     *
+</span>   150    <span class="xdoc">     *  A group is a string defined by package producers when they need to
+</span>   151    <span class="xdoc">     *  group related trace statements, distributed across different
+</span>   152    <span class="xdoc">     *  modules and packages, into trace units that can be disabled or
+</span>   153    <span class="xdoc">     *  enabled as a whole. The function parameter is treated as an array
+</span>   154    <span class="xdoc">     *  of JavaScript regular expressions, therefore it can contain partial
+</span>   155    <span class="xdoc">     *  group names.
+</span>   156    <span class="xdoc">     *
+</span>   157    <span class="xdoc">     *  If this function is invoked repeatedly, each new call replaces
+</span>   158    <span class="xdoc">     *  the array of currently enabled groups with the array supplied
+</span>   159    <span class="xdoc">     *  as the parameter. The array of the currently enabled groups is
+</span>   160    <span class="xdoc">     *  returned. If the function is invoked with a zero-length array, it
+</span>   161    <span class="xdoc">     *  returns the currently enabled groups, but it also leaves them
+</span>   162    <span class="xdoc">     *  active. Therefore, the sequence of calls that would add new groups 
+</span>   163    <span class="xdoc">     *  instead of replacing the current ones is:
+</span>   164    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   165    <span class="xdoc">     *  var current = Trace.groupEnable([]);
+</span>   166    <span class="xdoc">     *  current[current.length++] = "libPkgs";
+</span>   167    <span class="xdoc">     *  Trace.groupEnable(current);
+</span>   168    <span class="xdoc">     *  <b>@p</b>
+</span>   169    <span class="xdoc">     *
+</span>   170    <span class="xdoc">     *  To disable trace for all groups, the function must be invoked
+</span>   171    <span class="xdoc">     *  with an empty string as the only element of the array.
+</span>   172    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   173    <span class="xdoc">     *  Trace.groupEnable([""]);
+</span>   174    <span class="xdoc">     *  <b>@p</b>
+</span>   175    <span class="xdoc">     *
+</span>   176    <span class="xdoc">     *  <b>@params</b> groups  array of groups
+</span>   177    <span class="xdoc">     *
+</span>   178    <span class="xdoc">     *  <b>@a(return)</b>      array of currently enabled groups
+</span>   179    <span class="xdoc">     */</span>
+   180        StringArray groupEnable(StringArray groups);
+   181    
+   182        <span class="xdoc">/*!
+</span>   183    <span class="xdoc">     *  ======== packageEnable ========
+</span>   184    <span class="xdoc">     *  Enable trace output from selected packages
+</span>   185    <span class="xdoc">     *
+</span>   186    <span class="xdoc">     *  Packages that can be enabled through this function are RTSC
+</span>   187    <span class="xdoc">     *  packages and Java packages. The function parameter is treated as
+</span>   188    <span class="xdoc">     *  an array of JavaScript regular expressions, therefore it can
+</span>   189    <span class="xdoc">     *  contain partial package names.
+</span>   190    <span class="xdoc">     *
+</span>   191    <span class="xdoc">     *  If this function is invoked repeatedly, each new call replaces
+</span>   192    <span class="xdoc">     *  the array of currently enabled packages with the array supplied
+</span>   193    <span class="xdoc">     *  as the parameter. The array of the currently enabled packages is
+</span>   194    <span class="xdoc">     *  returned. If the function is invoked with a zero-length array, it
+</span>   195    <span class="xdoc">     *  returns the currently enabled packages, but it also leaves them
+</span>   196    <span class="xdoc">     *  active. Therefore, the sequence of calls that would add new 
+</span>   197    <span class="xdoc">     *  packages instead of replacing the current ones is:
+</span>   198    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   199    <span class="xdoc">     *  var current = Trace.packageEnable([]);
+</span>   200    <span class="xdoc">     *  current[current.length++] = "ti.targets";
+</span>   201    <span class="xdoc">     *  Trace.packageEnable(current);
+</span>   202    <span class="xdoc">     *  <b>@p</b>
+</span>   203    <span class="xdoc">     *
+</span>   204    <span class="xdoc">     *  To disable trace for all packages, the function must be invoked
+</span>   205    <span class="xdoc">     *  with an empty string as the only element of the array.
+</span>   206    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   207    <span class="xdoc">     *  Trace.packageEnable([""]);
+</span>   208    <span class="xdoc">     *  <b>@p</b>
+</span>   209    <span class="xdoc">     *
+</span>   210    <span class="xdoc">     *  <b>@params</b> capsules        array of package names
+</span>   211    <span class="xdoc">     *
+</span>   212    <span class="xdoc">     *  <b>@a(return)</b>              array of currently enabled package names
+</span>   213    <span class="xdoc">     */</span>
+   214        StringArray packageEnable(StringArray packages);
+   215    
+   216        <span class="xdoc">/*!
+</span>   217    <span class="xdoc">     *  ======== setLevel ========
+</span>   218    <span class="xdoc">     *  Set the verbosity level
+</span>   219    <span class="xdoc">     *
+</span>   220    <span class="xdoc">     *  This function limits trace output to trace statement tagged with
+</span>   221    <span class="xdoc">     *  level equal or lower than this function's parameter. By default,
+</span>   222    <span class="xdoc">     *  the verbosity level is set to 0, which is the least verbose level.
+</span>   223    <span class="xdoc">     *  The most verbose level is 2.
+</span>   224    <span class="xdoc">     */</span>
+   225        Int setLevel(Int level);
+   226    
+   227        <span class="xdoc">/*!
+</span>   228    <span class="xdoc">     *  ======== start ========
+</span>   229    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   230    <span class="xdoc">     *  Activate trace
+</span>   231    <span class="xdoc">     */</span>
+   232        Void start();
+   233    }
+</pre>
+</body></html>

@@ -1,0 +1,114 @@
+<html><head><title>interface ti.targets.elf.ITarget</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== ITarget.xdc ========
+</span>    14    <span class="comment"> *
+</span>    15    <span class="comment"> */</span>
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== ITarget ========
+</span>    19    <span class="xdoc"> *  An ELF extension to the `ti.targets.ITarget` interface.
+</span>    20    <span class="xdoc"> */</span>
+    21    <span class=key>metaonly</span> <span class=key>interface</span> ITarget <span class=key>inherits</span> ti.targets.ITarget {
+    22    
+    23        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model = {
+    24            shortEnums: <span class=key>true</span>
+    25        };
+    26    
+    27        <span class=key>override</span> <span class=key>config</span> xdc.bld.ITarget.OptionSet profiles[string] = [
+    28            [<span class="string">"debug"</span>, {
+    29                compileOpts: {
+    30                    copts: <span class="string">"--symdebug:dwarf"</span>,
+    31                    defs:  <span class="string">"-D_DEBUG_=1"</span>,
+    32                }
+    33            }],
+    34            [<span class="string">"release"</span>, {
+    35                compileOpts: {
+    36                    copts: <span class="string">"-O2"</span>,
+    37                },
+    38            }],
+    39            [<span class="string">"profile"</span>, {
+    40                compileOpts: {
+    41                    copts: <span class="string">"--gen_profile_info"</span>,
+    42                },
+    43            }],
+    44            [<span class="string">"coverage"</span>, {
+    45                compileOpts: {
+    46                    copts: <span class="string">"--gen_profile_info"</span>,
+    47                },
+    48            }],
+    49            [<span class="string">"whole_program"</span>, {
+    50                compileOpts: {
+    51                    copts: <span class="string">"-oe -O2 -mo"</span>,
+    52                },
+    53            }],
+    54            [<span class="string">"whole_program_debug"</span>, {
+    55                compileOpts: {
+    56                    copts: <span class="string">"-oe --symdebug:dwarf -mo"</span>,
+    57                },
+    58            }],
+    59        ];
+    60    
+    61        <span class=key>final</span> <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string sectMap[string] = [
+    62            [<span class="string">".text"</span>, <span class="string">"code"</span>],
+    63            [<span class="string">".ti.decompress"</span>, <span class="string">"code"</span>],
+    64            [<span class="string">".stack"</span>, <span class="string">"stack"</span>],
+    65            [<span class="string">".bss"</span>, <span class="string">"data"</span>],
+    66            [<span class="string">".cinit"</span>, <span class="string">"data"</span>],
+    67            [<span class="string">".pinit"</span>, <span class="string">"data"</span>],
+    68            [<span class="string">".const"</span>, <span class="string">"data"</span>],
+    69            [<span class="string">".data"</span>, <span class="string">"data"</span>],
+    70            [<span class="string">".rodata"</span>, <span class="string">"data"</span>],
+    71            [<span class="string">".neardata"</span>, <span class="string">"data"</span>],
+    72            [<span class="string">".fardata"</span>, <span class="string">"data"</span>],
+    73            [<span class="string">".switch"</span>, <span class="string">"data"</span>],
+    74            [<span class="string">".sysmem"</span>, <span class="string">"data"</span>],
+    75            [<span class="string">".far"</span>, <span class="string">"data"</span>],
+    76            [<span class="string">".args"</span>, <span class="string">"data"</span>],
+    77            [<span class="string">".cio"</span>, <span class="string">"data"</span>],
+    78            [<span class="string">".ti.handler_table"</span>, <span class="string">"data"</span>],
+    79        ];
+    80    
+    81        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.StdTypes stdTypes = {
+    82            t_IArg          : { size: 4, align: 4 },
+    83            t_Char          : { size: 1, align: 1 },
+    84            t_Double        : { size: 8, align: 8 },
+    85            t_Float         : { size: 4, align: 4 },
+    86            t_Fxn           : { size: 4, align: 4 },
+    87            t_Int           : { size: 4, align: 4 },
+    88            t_Int8          : { size: 1, align: 1 },
+    89            t_Int16         : { size: 2, align: 2 },
+    90            t_Int32         : { size: 4, align: 4 },
+    91            t_Int64         : { size: 8, align: 8 },
+    92            t_Long          : { size: 4, align: 4 },
+    93            t_LDouble       : { size: 8, align: 8 },
+    94            t_LLong         : { size: 8, align: 8 },
+    95            t_Ptr           : { size: 4, align: 4 },
+    96            t_Short         : { size: 2, align: 2 },
+    97        };
+    98        
+    99        <span class=key>override</span> <span class=key>config</span> String stdInclude = <span class="string">"ti/targets/elf/std.h"</span>;
+   100    
+   101        <span class=key>override</span> <span class=key>config</span> String binaryParser = <span class="string">"ti.targets.omf.elf.Elf32"</span>;
+   102    }
+   103    <span class="comment">/*
+</span>   104    <span class="comment"> *  @(#) ti.targets.elf; 1, 0, 0,152; 2-24-2010 16:24:19; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>   105    <span class="comment"> */</span>
+   106    
+</pre>
+</body></html>

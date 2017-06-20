@@ -1,0 +1,202 @@
+<html><head><title>module xdc.tools.cdoc.Main</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class=key>package</span> xdc.tools.cdoc;
+    13    
+    14    <span class="xdoc">/*!
+</span>    15    <span class="xdoc"> *  ======== xdc.tools.cdoc.Main ========
+</span>    16    <span class="xdoc"> *  RTSC documentation generator
+</span>    17    <span class="xdoc"> *
+</span>    18    <span class="xdoc"> *  cdoc is a package documentation generation utility. It builds a
+</span>    19    <span class="xdoc"> *  directory of browsable HTML documentation using the meta-
+</span>    20    <span class="xdoc"> *  information stored in RTSC packages. 
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This utility is invoked via the XDCtools `xs` command.  In the
+</span>    23    <span class="xdoc"> *  examples below we assume that the alias `cdoc` is defined as
+</span>    24    <span class="xdoc"> *  follows:
+</span>    25    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    26    <span class="xdoc"> *      $(XDCROOT)/xs xdc.tools.cdoc
+</span>    27    <span class="xdoc"> *  <b>@p</b>
+</span>    28    <span class="xdoc"> *  where $(XDCROOT) is the installation directory of the XDCtools toolset.
+</span>    29    <span class="xdoc"> *
+</span>    30    <span class="xdoc"> *  <b>@a(Examples)</b>
+</span>    31    <span class="xdoc"> *  In the examples below we assume that the alias `cdoc` is defined as
+</span>    32    <span class="xdoc"> *  `$(XDCROOT)/xs xdc.tools.cdoc`, where `$(XDCROOT)` is the installation
+</span>    33    <span class="xdoc"> *  directory of the XDCtools toolset.
+</span>    34    <span class="xdoc"> *
+</span>    35    <span class="xdoc"> *  1. To generate documentation for the package in the current working
+</span>    36    <span class="xdoc"> *  directory:
+</span>    37    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    38    <span class="xdoc"> *      cdoc
+</span>    39    <span class="xdoc"> *  <b>@p</b>
+</span>    40    <span class="xdoc"> *  Since no package is specified and no output directory is specified,
+</span>    41    <span class="xdoc"> *  documentation is generated for the package in the current working
+</span>    42    <span class="xdoc"> *  directory and the output is placed in the package's `./package/cdoc`
+</span>    43    <span class="xdoc"> *  sub-directory.
+</span>    44    <span class="xdoc"> *
+</span>    45    <span class="xdoc"> *  2. To generate documentation with the title "My Packages" for all
+</span>    46    <span class="xdoc"> *  packages installed in the `myPackages` repository:
+</span>    47    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    48    <span class="xdoc"> *      cdoc -title "My Packages" -Pr myPackages
+</span>    49    <span class="xdoc"> *  <b>@p</b>
+</span>    50    <span class="xdoc"> *  Since no output directory was specified and documentation will be for
+</span>    51    <span class="xdoc"> *  more than one package, the generated files are placed in the directory
+</span>    52    <span class="xdoc"> *  `./cdoc`.
+</span>    53    <span class="xdoc"> *
+</span>    54    <span class="xdoc"> *  3. To generate documentation for the package located in `./ti/bios` and 
+</span>    55    <span class="xdoc"> *  put results in the directory `./html`.
+</span>    56    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    57    <span class="xdoc"> *      cdoc -od:html -P ti/bios
+</span>    58    <span class="xdoc"> *  <b>@p</b>
+</span>    59    <span class="xdoc"> *
+</span>    60    <span class="xdoc"> *  <b>@a(Note)</b>
+</span>    61    <span class="xdoc"> *  `cdoc` processes the XML files that are generated *after* a package
+</span>    62    <span class="xdoc"> *  is built (actually after the `.interfaces` goal is built).  One must first
+</span>    63    <span class="xdoc"> *  build a package before generating its documentation.  If you change a
+</span>    64    <span class="xdoc"> *  `.xdc` file and re-run `cdoc` without rebuilding the package, the change 
+</span>    65    <span class="xdoc"> *  in the `.xdc` file will not show up in the generated docs.
+</span>    66    <span class="xdoc"> *
+</span>    67    <span class="xdoc"> *  When interatively updating a package's .xdc files and examining the
+</span>    68    <span class="xdoc"> *  generated documentation, it is useful to define a command alias that
+</span>    69    <span class="xdoc"> *  first "compiles" the package's .xdc files and then runs the cdoc tool.
+</span>    70    <span class="xdoc"> *  For example, if your shell is Korn shell compatible, the following
+</span>    71    <span class="xdoc"> *  command alias ensures that any changes in .xdc files will show up in the
+</span>    72    <span class="xdoc"> *  generated documents:
+</span>    73    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    74    <span class="xdoc"> *      function cdoc {
+</span>    75    <span class="xdoc"> *          $XDCROOT/xdc .interfaces
+</span>    76    <span class="xdoc"> *          $XDCROOT/xs xdc.tools.cdoc $*
+</span>    77    <span class="xdoc"> *      }
+</span>    78    <span class="xdoc"> *  <b>@p</b>
+</span>    79    <span class="xdoc"> */</span>
+    80    
+    81    <span class=key>metaonly</span> <span class=key>module</span> Main <span class=key>inherits</span> xdc.tools.ICmd {
+    82        <span class=key>override</span> <span class=key>config</span> String usage[] = [
+    83            <span class="string">'[-od:dir] [-title text] [--start package] [--indexonly] [-h] [-n] [-b] [-s] [-P pkg-dir...|-Pr repo-dir...|-A]'</span>
+    84        ];
+    85    
+    86    <span class=key>instance</span>:
+    87    
+    88        <span class="xdoc">/*!
+</span>    89    <span class="xdoc">     * Place the generated files in the named directory.
+</span>    90    <span class="xdoc">     */</span>
+    91        @CommandOption(<span class="string">"-od"</span>)
+    92        <span class=key>config</span> String outdir = <span class=key>null</span>;
+    93    
+    94        <span class="xdoc">/*!
+</span>    95    <span class="xdoc">     *  Generated HTML pages will show the string in the page title
+</span>    96    <span class="xdoc">     */</span>
+    97        @CommandOption(<span class="string">"-title"</span>)
+    98        <span class=key>config</span> String title = <span class=key>null</span>;
+    99    
+   100        <span class="xdoc">/*!
+</span>   101    <span class="xdoc">     *  Set start page to specified package
+</span>   102    <span class="xdoc">     *
+</span>   103    <span class="xdoc">     *  The opening page is, by default, the documentation for the
+</span>   104    <span class="xdoc">     *  alphabetically first package processed.  This option allows
+</span>   105    <span class="xdoc">     *  you to explicitly specify the package used.
+</span>   106    <span class="xdoc">     *
+</span>   107    <span class="xdoc">     *  If "" is specified, the start page will be blank.
+</span>   108    <span class="xdoc">     *
+</span>   109    <span class="xdoc">     *  If the package specified is not processed, no warning or error
+</span>   110    <span class="xdoc">     *  results; it is assumed that when the documentation is used the
+</span>   111    <span class="xdoc">     *  specified package documentation will exist.
+</span>   112    <span class="xdoc">     */</span>
+   113        @CommandOption(<span class="string">"--start"</span>)
+   114        <span class=key>config</span> String start = <span class=key>null</span>;
+   115    
+   116        <span class="xdoc">/*!
+</span>   117    <span class="xdoc">     *  Include .xdc file sources
+</span>   118    <span class="xdoc">     *
+</span>   119    <span class="xdoc">     *  In the generated documentation for each .xdc file, link
+</span>   120    <span class="xdoc">     *  to a pretty-printed view of the .xdc file source text.
+</span>   121    <span class="xdoc">     */</span>
+   122        @CommandOption(<span class="string">"s"</span>)
+   123        <span class=key>config</span> Bool sopt = <span class=key>false</span>;
+   124    
+   125        <span class="xdoc">/*!
+</span>   126    <span class="xdoc">     * The subsequent directories are package directories.
+</span>   127    <span class="xdoc">     *
+</span>   128    <span class="xdoc">     * Generates documentation for each of the specified packages.
+</span>   129    <span class="xdoc">     */</span>
+   130        @CommandOption(<span class="string">"P"</span>)
+   131        <span class=key>config</span> Bool popt = <span class=key>false</span>;
+   132    
+   133        <span class="xdoc">/*!
+</span>   134    <span class="xdoc">     * The subsequent directories are repositories of packages.
+</span>   135    <span class="xdoc">     *
+</span>   136    <span class="xdoc">     * Generates documentation for all packages rooted in each of
+</span>   137    <span class="xdoc">     * the specified repositories.
+</span>   138    <span class="xdoc">     */</span>
+   139        @CommandOption(<span class="string">"-Pr"</span>)
+   140        <span class=key>config</span> Bool ropt = <span class=key>false</span>;
+   141    
+   142        <span class="xdoc">/*!
+</span>   143    <span class="xdoc">     * Generate documentation for all packages on the package path.
+</span>   144    <span class="xdoc">     */</span>
+   145        @CommandOption(<span class="string">"A"</span>)
+   146        <span class=key>config</span> Bool aopt = <span class=key>false</span>;
+   147    
+   148        <span class="xdoc">/*!
+</span>   149    <span class="xdoc">     *  Generate a single "big" output
+</span>   150    <span class="xdoc">     */</span>
+   151        @CommandOption(<span class="string">"b"</span>)
+   152        <span class=key>config</span> Bool bopt = <span class=key>false</span>;
+   153    
+   154        <span class="xdoc">/*!
+</span>   155    <span class="xdoc">     *  Generate html pages only, not table of contents or index
+</span>   156    <span class="xdoc">     */</span>
+   157        @CommandOption(<span class="string">"h"</span>)
+   158        <span class=key>config</span> Bool hopt = <span class=key>false</span>;
+   159    
+   160        <span class="xdoc">/*!
+</span>   161    <span class="xdoc">     *  Generate nodoc'd docs
+</span>   162    <span class="xdoc">     */</span>
+   163        @CommandOption(<span class="string">"n"</span>)
+   164        <span class=key>config</span> Bool nopt = <span class=key>false</span>;
+   165    
+   166        <span class="xdoc">/*!
+</span>   167    <span class="xdoc">     *  Quiet mode
+</span>   168    <span class="xdoc">     */</span>
+   169        @CommandOption(<span class="string">"--quiet"</span>)
+   170        <span class=key>config</span> Bool qopt = <span class=key>false</span>;
+   171    
+   172        <span class="xdoc">/*!
+</span>   173    <span class="xdoc">     *  Generate index and table of contents only 
+</span>   174    <span class="xdoc">     */</span>
+   175        @CommandOption(<span class="string">"--indexonly"</span>)
+   176        <span class=key>config</span> Bool iopt = <span class=key>false</span>;
+   177    
+   178        <span class="xdoc">/*!
+</span>   179    <span class="xdoc">     *
+</span>   180    <span class="xdoc">     *  Language to document. Deprecated.
+</span>   181    <span class="xdoc">     */</span>
+   182        @CommandOption(<span class="string">"l"</span>)
+   183        <span class=key>config</span> String language = <span class=key>null</span>;
+   184    
+   185        <span class="xdoc">/*!
+</span>   186    <span class="xdoc">     *  Don't include dependent packages. Deprecated.
+</span>   187    <span class="xdoc">     *
+</span>   188    <span class="xdoc">     */</span>
+   189        @CommandOption(<span class="string">"L"</span>)
+   190        <span class=key>config</span> Bool lopt = <span class=key>false</span>;
+   191    
+   192    }
+   193    
+   194    
+</pre>
+</body></html>

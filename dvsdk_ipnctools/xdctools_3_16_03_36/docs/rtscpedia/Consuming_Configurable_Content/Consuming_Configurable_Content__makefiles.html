@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Consuming Configurable Content/makefiles - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Consuming Configurable Content/makefiles&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Consuming_Configurable_Content.html#TOC" title="Consuming Configurable Content"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Consuming_Configurable_Content__CCStudio.html" title="CCStudio"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Consuming Configurable Content/makefiles</p><p id="subtitle">RTSC configuration with makefiles</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Integrating_with_TI_Code_Gen_Tools"><span class="tocnumber">1</span> <span class="toctext">Integrating with TI Code Gen Tools</span></a></li>
+<li class="toclevel-1"><a href="#Integrating_with_Microsoft_C.2FC.2B.2B_Tools"><span class="tocnumber">2</span> <span class="toctext">Integrating with Microsoft C/C++ Tools</span></a></li>
+<li class="toclevel-1"><a href="#Integrating_with_GNU_gcc_Tools"><span class="tocnumber">3</span> <span class="toctext">Integrating with GNU gcc Tools</span></a></li>
+<li class="toclevel-1"><a href="#Integrating_with_make"><span class="tocnumber">4</span> <span class="toctext">Integrating with make</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p>Since the compile and link syntax you use to build a C/C++ application is toolchain-dependent, we show how to leverage the <tt>compiler.opt</tt> and <tt>linker.cmd</tt> files generated by <tt>configuro</tt> using the C/C++ compilers and linkers supplied with three very different toolchains: the toolchains from TI, GNU, and Microsoft.  For details about the compiler options placed in <tt>compiler.opt</tt> for various targets supporting these toolchains, see <a href="../Existing_Targets/Existing_Targets.html" title="Existing Targets">Existing Targets</a>.  
+</p><p>The example make files in the following sections all use GNU make, which is delivered with the <tt>XDCtools</tt> product as <tt>XDCROOT/gmake</tt>. Each of these make files builds the <a href="Consuming_Configurable_Content.html#A_configuration_example" title="Consuming Configurable Content">"Hello World" application</a> shown in <a href="Consuming_Configurable_Content.html" title="Consuming Configurable Content">Consuming Configurable Content</a> and defines a build goal named "test". To build the application type "gmake all" and to build <i>and</i> run the application type "gmake test". When you run "gmake test", the last line displayed is the output of the application:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>Hello World!</pre></td></tr></table>
+<p>When the <tt>configuro</tt> tool runs, you see messages similar to the following:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>making package.mak (because of package.bld) ...
+generating interfaces for package hello (because ...
+configuring hello.x64 from package/cfg/hello_x64.cfg ...
+cl64 package/cfg/hello_x64.c ...</pre></td></tr></table>
+<p>Although the make files shown below are short and serve to illustrate the use of <tt>configuro</tt> in virtually <i>any</i> command line build environment, there are a number of subtleties that you should be aware of when integrating the <tt>configuro</tt> tool into a production GNU make based development environment.  The <a href="#Integrating_with_make" title="">Integrating with make</a> section provides additional details about integration within make-based environments. 
+</p>
+<a name="Integrating_with_TI_Code_Gen_Tools"></a><h3> <span class="mw-headline">Integrating with TI Code Gen Tools</span></h3>
+<p>The following example makefile illustrates how to integrate RTSC configuration with the TI Code Gen Tools compiler and linker. The makefile runs configuro and uses the <tt>compiler.opt</tt> and <tt>linker.cmd</tt> files generated by configuro as part of the compile and link steps. 
+</p>
+<div id="cl-1:>"></div><div id="cl-TI:>"></div><div id="cl-1:>"></div><div id="cl-TI:>"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>CGTOOLS = C:/CCStudio_v3.3/C6000/cgtools
+CC = $(CGTOOLS)/bin/cl6x
+LNK = $(CGTOOLS)/bin/lnk6x
+RTS = $(CGTOOLS)/lib/rts6400.lib
+CONFIG = hello
+XDCTARGET = ti.targets.C64
+XDCPLATFORM = ti.platforms.sim6xxx:TMS320C6416
+&nbsp;
+.PRECIOUS:&nbsp;%/compiler.opt&nbsp;%/linker.cmd
+&nbsp;
+%/linker.cmd&nbsp;%/compiler.opt&nbsp;:&nbsp;%.cfg
+        xs xdc.tools.configuro -c $(CGTOOLS) -t $(XDCTARGET) -p $(XDCPLATFORM) $&lt;
+&nbsp;
+%.obj&nbsp;:&nbsp;%.c $(CONFIG)/compiler.opt
+        $(CC) -@$(CONFIG)/compiler.opt -c $&lt;
+&nbsp;
+hello.out&nbsp;: hello.obj $(CONFIG)/linker.cmd
+        $(LNK) -o hello.out -c hello.obj $(CONFIG)/linker.cmd $(RTS)
+&nbsp;
+test: hello.out
+        @$(CGTOOLS)/bin/load6x $&lt;</pre></td></tr></table>
+<p>The lines marked with <a class="codexLink" href="#cl-TI:&gt;"><span class="codexLink">&gt;</span></a> above show how to run configuro and how to use its output with the compiler and linker to build an application.  In this example, we could have omitted the platform specification because the default platform for the <a href="../../cdoc/ti/targets/C64/package.html" class="cdoc"><tt>ti.targets.C64</tt></a> target is already <tt>ti.platforms.sim6xxx:TMS320C6416</tt>.  You can check this by looking at the <a href="../../cdoc/index.html#ti/targets/C64.html#platform" class="cdoc"><tt>C64.platform</tt></a> configuration parameter.  While this would have simplified the makefile above, we explicitly set it here to illustrate how to build for a particular device.
+</p>
+<a name="Integrating_with_Microsoft_C.2FC.2B.2B_Tools"></a><h3> <span class="mw-headline">Integrating with Microsoft C/C++ Tools</span></h3>
+<p>The following example makefile illustrates how to integrate RTSC configuration with the Microsoft Visual Studio compiler and linker. The makefile runs <tt>configuro</tt> and uses the <tt>compiler.opt</tt> and <tt>linker.cmd</tt> files generated by <tt>configuro</tt> as part of the compile and link steps. 
+</p>
+<div id="cl-2:>"></div><div id="cl-microsoft:>"></div><div id="cl-2:>"></div><div id="cl-microsoft:>"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>CGTOOLS = &quot;C:/Program Files/Microsoft Visual Studio 8&quot;
+CC = $(CGTOOLS)/vc/bin/cl
+LNK = $(CGTOOLS)/vc/bin/link
+RTS = -nodefaultlib -libpath:$(CGTOOLS)/vc/lib kernel32.lib msvcrt.lib
+CONFIG = hello
+XDCTARGET = microsoft.targets.Win32
+&nbsp;
+.PRECIOUS:&nbsp;%/compiler.opt&nbsp;%/linker.cmd
+&nbsp;
+%/linker.cmd&nbsp;%/compiler.opt&nbsp;:&nbsp;%.cfg
+        xs xdc.tools.configuro -c $(CGTOOLS) -t $(XDCTARGET) $&lt;
+&nbsp;
+%.obj&nbsp;:&nbsp;%.c $(CONFIG)/compiler.opt
+        $(CC) @$(CONFIG)/compiler.opt -c $&lt;
+&nbsp;
+hello.exe&nbsp;: hello.obj $(CONFIG)/linker.cmd
+        $(LNK) -out:$@ hello.obj @$(CONFIG)/linker.cmd $(RTS)
+&nbsp;
+test: hello.exe
+        @$&lt;</pre></td></tr></table>
+<p>The lines marked with <a class="codexLink" href="#cl-microsoft:&gt;"><span class="codexLink">&gt;</span></a> above show how to run <tt>configuro</tt> and how to use its output with the compiler and linker to build an application.  No platform specification is needed because the default platform for each target in <a href="../../cdoc/microsoft/targets/package.html" class="cdoc"><tt>microsoft.targets</tt></a> is the one required for native execution on an x86 PC (<a href="../../cdoc/index.html#host/platforms/PC/package.html" class="cdoc"><tt>host.platforms.PC</tt></a>).
+</p>
+<a name="Integrating_with_GNU_gcc_Tools"></a><h3> <span class="mw-headline">Integrating with GNU gcc Tools</span></h3>
+<p>The following example illustrates how to integrate RTSC configuration with the GNU <tt>gcc</tt> compiler and linker. The makefile runs <tt>configuro</tt> and uses the <tt>compiler.opt</tt> and <tt>linker.cmd</tt> files generated by <tt>configuro</tt> as part of the compile and link steps. 
+</p>
+<div id="cl-3:>"></div><div id="cl-gnu:>"></div><div id="cl-3:>"></div><div id="cl-gnu:>"></div><div id="cl-3:*"></div><div id="cl-gnu:*"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">*</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>CGTOOLS = $(TOOLS)/gcc/3.2.1/Linux
+CC = $(CGTOOLS)/bin/gcc
+LNK = $(CGTOOLS)/bin/gcc
+RTS = -lstdc++
+CONFIG = hello
+XDCTARGET = gnu.targets.Linux86
+&nbsp;
+.PRECIOUS:&nbsp;%/compiler.opt&nbsp;%/linker.cmd
+%.o&nbsp;:&nbsp;%.c # forget built-in rule to create .o files from .c sources
+&nbsp;
+%/linker.cmd&nbsp;%/compiler.opt&nbsp;:&nbsp;%.cfg
+        xs xdc.tools.configuro -c $(CGTOOLS) -t $(XDCTARGET) $&lt;
+&nbsp;
+%.o&nbsp;:&nbsp;%.c $(CONFIG)/compiler.opt
+        $(CC) $(shell cat $(CONFIG)/compiler.opt) -c $&lt;
+&nbsp;
+hello.exe: hello.o $(CONFIG)/linker.cmd
+        $(LNK) -o $@ hello.o $(CONFIG)/linker.cmd $(RTS)
+&nbsp;
+test: hello.exe
+        @$&lt;</pre></td></tr></table>
+<p>The lines marked with <a class="codexLink" href="#cl-gnu:&gt;"><span class="codexLink">&gt;</span></a> above highlight how to run <tt>configuro</tt> and how to use its output with the compiler and linker to build an application.  No platform specification is needed because the default platform for the <a href="../../cdoc/gnu/targets/Linux86.html" class="cdoc"><tt>gnu.targets.Linux86</tt></a> target is the one required for native execution on an x86 PC (<a href="../../cdoc/index.html#host/platforms/PC/package.html" class="cdoc"><tt>host.platforms.PC</tt></a>).
+</p><p>The <tt>gcc</tt> compiler does not directly support an option to include other command line options from a file. However, this example accomplishes this by using GNU make's <tt>$(shell ...)</tt> function and the Linux <tt>cat</tt> command to copy the options to the compiler's command line before calling <tt>gcc</tt>; see the line marked by <a class="codexLink" href="#cl-gnu:*"><span class="codexLink">*</span></a>.
+</p>
+<a name="Integrating_with_make"></a><h3> <span class="mw-headline"> Integrating with make </span></h3>
+<p>When integrating the configuration process into a make-based development environment there are a number of issues to be aware of.  These issues fall into roughly three categories:
+</p>
+<ul><li> make file syntax,
+</li><li> rule definitions and proper dependency definitions, and
+</li><li> GNU make specifics
+</li></ul>
+<p><span class="Leader">Make file syntax</span>.&nbsp;  In GNU make files, you <i>must</i> always use a tab character to indent commands, not spaces. Much to the chagrin of every new makefile author, the tab character is how make determines the difference between commands to run and other makefile statements (variable definitions, goal dependencies, etc.)  Also, you can split a command across two lines by terminating each line with the '\' character but you must be certain to not have <i>any</i> white space characters after the '\'.  
+</p><p>Variable definitions that contain spaces (for example, product installation directories on Windows hosts) must be surrounded by quotes when passed to commands; otherwise, the command will see two arguments rather than a single argument with an embedded space. For more information about the syntax of makefiles and the operation of GNU make see the online GNU make manual (<a href="http://www.gnu.org/software/make/manual/make.html" class="external free" title="http://www.gnu.org/software/make/manual/make.html" rel="nofollow">http://www.gnu.org/software/make/manual/make.html</a>).
+</p><p><span class="Leader">Rule definitions</span>.&nbsp;  When designing a make file, it's important to carefully specify when to run each command; otherwise, commands may be unnecessarily run or worse they may not run when they should be.  In the case of <tt>configuro</tt>, you should re-run it whenever you do any of the following:
+</p>
+<ul><li>Change the CFG file
+</li><li>Change the target or platform
+</li><li>Update a package used by your application
+</li></ul>
+<p>The <tt>configuro</tt> command uses specially generated make files to avoid running any unnecessary steps when you make the changes above. So, if you are not sure whether to run <tt>configuro</tt>, go ahead and run it; if nothing needs to be done, <tt>configuro</tt> quickly detects this and does nothing.
+</p><p><span class="Leader">GNU make specifics</span>.&nbsp;  Over the years GNU make has evolved a number of capabilities that enable it to robustly manage even the most complex build requirements with minimal syntax.  The short, seemly simple, makefile shown below belies several subtitles that can make the difference between a toy example and a robust integration with your build environment.  In the remainder of this section, we review the subtitles embedded in this makefile.
+</p>
+<div id="cl-4:1"></div><div id="cl-gnu_specifics:1"></div><div id="cl-4:2"></div><div id="cl-gnu_specifics:2"></div><div id="cl-4:3"></div><div id="cl-gnu_specifics:3"></div><div id="cl-4:4"></div><div id="cl-gnu_specifics:4"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>CGTOOLS = $(TOOLS)/gcc/3.2.1/Linux
+CC = $(CGTOOLS)/bin/gcc
+LNK = $(CGTOOLS)/bin/gcc
+RTS = -lstdc++
+CONFIG = hello
+XDCTARGET = gnu.targets.Linux86
+&nbsp;
+.PRECIOUS:&nbsp;%/compiler.opt&nbsp;%/linker.cmd
+%.o&nbsp;:&nbsp;%.c # forget built-in rule to create .o files from .c sources
+&nbsp;
+%/linker.cmd&nbsp;%/compiler.opt&nbsp;:&nbsp;%.cfg
+        xs xdc.tools.configuro -c $(CGTOOLS) -t $(XDCTARGET) $&lt;
+&nbsp;
+%.o&nbsp;:&nbsp;%.c $(CONFIG)/compiler.opt
+        $(CC) $(shell cat $(CONFIG)/compiler.opt) -c $&lt;
+&nbsp;
+hello.exe: hello.o $(CONFIG)/linker.cmd
+        $(LNK) -o $@ hello.o $(CONFIG)/linker.cmd $(RTS)
+&nbsp;
+test: hello.exe
+        @$&lt;</pre></td></tr></table>
+<p>Line <a class="codexLink" href="#cl-gnu_specifics:1"><span class="codexLink">1</span></a> tells GNU make that, even though GNU make considers them to be <i>intermediate</i> files, <tt>compiler.opt</tt> and <tt>linker.cmd</tt> files should not be automatically deleted after they are no longer needed.  When you start from a clean project, GNU make knows that to build <tt>hello.exe</tt> it must first build <tt>hello.o</tt> and, since no explicit rule is defined for <tt>hello.o</tt>, it infers that if it builds <tt>compiler.opt</tt> then it can apply the implicit rule on line <a class="codexLink" href="#cl-gnu_specifics:4"><span class="codexLink">4</span></a>.  This "inference" causes GNU make to consider <tt>compiler.opt</tt> to be an <i>intermediate</i> file which it normally deletes when it is no longer needed; i.e., after <tt>hello.o</tt> is created.  Without line <a class="codexLink" href="#cl-gnu_specifics:1"><span class="codexLink">1</span></a>, <tt>compiler.opt</tt> will not exist after <tt>hello.o</tt> is created and GNU make will re-run <tt>configuro</tt> every time you change <tt>hello.c</tt>!
+</p><p>Line <a class="codexLink" href="#cl-gnu_specifics:2"><span class="codexLink">2</span></a> tells GNU make to ignore its built-in rules for converting C source (<tt>.c</tt>) files to object (<tt>.o</tt>) files.  If you don't add this line GNU make will use its built-in rule in lieu of the rule defined on line <a class="codexLink" href="#cl-gnu_specifics:4"><span class="codexLink">4</span></a> whenever <tt>compiler.opt</tt> does not exist.  By removing the recipe for converting <tt>.c</tt> files into <tt>.o</tt> files without any prerequisites, GNU make is forced to ensure that <tt>$(CONFIG)/compiler.opt</tt> exists before any compilation of <tt>.c</tt> files to <tt>.o</tt> files.
+</p><p>Line <a class="codexLink" href="#cl-gnu_specifics:3"><span class="codexLink">3</span></a> is a pattern rule that tells GNU make that <tt>configururo</tt> generates <i>two</i> output files from the one input <tt>.cfg</tt> file.  This is critically important if you want to want to use GNU make's parallel build feature (e.g., <tt>--jobs=4</tt>).  If, for example, you did not specify a pattern rule for <tt>configuro</tt> and you use parallel build, GNU make will spawn <i>two</i> separate <tt>configuro</tt> jobs to create both <tt>linker.cmd</tt> and <tt>compiler.opt</tt>.  Not only will this waste valuable CPU cycles but the two jobs will overwrite each other's files and undoubtedly fail to produce valid output.
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Consuming Configurable Content/makefiles&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Consuming_Configurable_Content.html#TOC" title="Consuming Configurable Content"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Consuming_Configurable_Content__CCStudio.html" title="CCStudio"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1790 bytes
+Post-expand include size: 1256 bytes
+Template argument size: 136 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Consuming_Configurable_Content.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.228 secs. --></body></html>

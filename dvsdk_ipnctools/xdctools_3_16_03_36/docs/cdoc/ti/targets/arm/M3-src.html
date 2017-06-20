@@ -1,0 +1,49 @@
+<html><head><title>module ti.targets.arm.M3</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== M3.xdc ========
+</span>    14    <span class="xdoc"> *  Cortex M3 little endian thumb2 target
+</span>    15    <span class="xdoc"> */</span>
+    16    <span class=key>metaonly</span> <span class=key>module</span> M3 <span class=key>inherits</span> ti.targets.arm.IM3 {
+    17        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name        = <span class="string">"M3"</span>;
+    18        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix      = <span class="string">"m3"</span>;
+    19        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts         = <span class="string">"ti.targets.arm.rtsarm"</span>;
+    20    
+    21        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command cc = {
+    22            cmd:  <span class="string">"cl470 -c"</span>,
+    23            opts: <span class="string">"--endian=little -mv7M3 --abi=ti_arm9_abi"</span>
+    24        };
+    25    
+    26        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command asm = {
+    27            cmd:  <span class="string">"cl470 -c"</span>,
+    28            opts: <span class="string">"--endian=little -mv7M3 --abi=ti_arm9_abi"</span>
+    29        };
+    30    
+    31        <span class="xdoc">/*!
+</span>    32    <span class="xdoc">     *  ======== linkLib ========
+</span>    33    <span class="xdoc">     *  Default TMS470 cgtools runtime library to link with executable
+</span>    34    <span class="xdoc">     *  (comes from $rootDir/lib)
+</span>    35    <span class="xdoc">     */</span>
+    36        <span class=key>config</span> string linkLib = <span class="string">"rtsv7M3_T_le_tiarm9.lib"</span>;
+    37    }
+    38    <span class="comment">/*
+</span>    39    <span class="comment"> *  @(#) ti.targets.arm; 2, 0, 1, 0,202; 2-24-2010 16:24:12; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>    40    <span class="comment"> */</span>
+    41    
+</pre>
+</body></html>

@@ -1,0 +1,114 @@
+<html><head><title>module ti.platforms.qtPrimus.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class=key>package</span> ti.platforms.qtPrimus;
+    19    
+    20    <span class="xdoc">/*!
+</span>    21    <span class="xdoc"> *  ======== Platform ========
+</span>    22    <span class="xdoc"> *  Platform support for the qtPrimus
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    25    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    26    <span class="xdoc"> *
+</span>    27    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    28    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    29    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    30    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    31    <span class="xdoc"> */</span>
+    32    
+    33    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    34    {
+    35        <span class=key>enum</span> RuntimeEnv {
+    36            STDIO,
+    37            POSIX,
+    38            BIOS
+    39        };
+    40        
+    41        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    42            id:             <span class="string">"0"</span>,
+    43            boardName:      <span class="string">"qtPrimus"</span>,
+    44            boardFamily:    <span class="string">"qtPrimus"</span>,
+    45            boardRevision:  <span class=key>null</span>,
+    46        };
+    47            
+    48        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu DSP = {        
+    49            id:             <span class="string">"0"</span>,
+    50            clockRate:      300.0,
+    51            catalogName:    <span class="string">"ti.catalog.c6000"</span>,
+    52            deviceName:     <span class="string">"TMS320DA830"</span>,
+    53            revision:       <span class="string">"1.0"</span>,
+    54        };
+    55        
+    56        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu GPP = {
+    57            id:             <span class="string">"1"</span>,
+    58            clockRate:      300.0,
+    59            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    60            deviceName:     <span class="string">"TMS320DA830"</span>,
+    61            revision:       <span class="string">"1.0"</span>,
+    62        };
+    63    
+    64    <span class=key>instance</span>:
+    65    
+    66        <span class="comment">/*
+</span>    67    <span class="comment">     *  ======== l1PMode ========
+</span>    68    <span class="comment">     *  Define the amount of L1P RAM used for L1 Program Cache.
+</span>    69    <span class="comment">     *
+</span>    70    <span class="comment">     *  Check the device documentation for valid values.
+</span>    71    <span class="comment">     */</span>
+    72        <span class=key>config</span> String l1PMode;
+    73        
+    74        <span class="comment">/*
+</span>    75    <span class="comment">     *  ======== l1DMode ========
+</span>    76    <span class="comment">     *  Define the amount of L1D RAM used for L1 Data Cache.
+</span>    77    <span class="comment">     *
+</span>    78    <span class="comment">     *  Check the device documentation for valid values.
+</span>    79    <span class="comment">     */</span>
+    80        <span class=key>config</span> String l1DMode;
+    81        
+    82        <span class="comment">/*
+</span>    83    <span class="comment">     *  ======== l2Mode ========
+</span>    84    <span class="comment">     *  Define the amount of L2 RAM used for L2 Cache.
+</span>    85    <span class="comment">     *
+</span>    86    <span class="comment">     *  Check the device documentation for valid values.
+</span>    87    <span class="comment">     */</span>
+    88        <span class=key>config</span> String l2Mode;
+    89    
+    90        <span class="xdoc">/*!
+</span>    91    <span class="xdoc">     *  ======== runTime ========
+</span>    92    <span class="xdoc">     *  The runtime environment available to executables
+</span>    93    <span class="xdoc">     */</span>
+    94        <span class=key>config</span> RuntimeEnv runTime = STDIO;
+    95    
+    96        <span class="xdoc">/*!
+</span>    97    <span class="xdoc">     *  ======== singleCore ========
+</span>    98    <span class="xdoc">     *  no longer used!
+</span>    99    <span class="xdoc">     * <b>@_nodoc</b>
+</span>   100    <span class="xdoc">     */</span>
+   101        <span class=key>config</span> Bool singleCore = <span class=key>true</span>;
+   102    }
+   103    <span class="comment">/*
+</span>   104    <span class="comment"> *  @(#) ti.platforms.qtPrimus; 1, 0, 0, 0,105; 2-23-2010 17:01:24; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   105    <span class="comment"> */</span>
+   106    
+</pre>
+</body></html>

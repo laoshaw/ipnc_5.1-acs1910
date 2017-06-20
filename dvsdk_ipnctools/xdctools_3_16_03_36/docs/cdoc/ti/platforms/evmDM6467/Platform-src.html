@@ -1,0 +1,108 @@
+<html><head><title>module ti.platforms.evmDM6467.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Platform ========
+</span>    20    <span class="xdoc"> *  Platform support for the evmDM6467
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    23    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    26    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    27    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    28    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    29    <span class="xdoc"> *
+</span>    30    <span class="xdoc"> *  This particular platform has a single Cpu, and therefore, only
+</span>    31    <span class="xdoc"> *  declares a single CPU configuration object.  Multi-CPU platforms
+</span>    32    <span class="xdoc"> *  would declare multiple Cpu configuration parameters (one per
+</span>    33    <span class="xdoc"> *  platform CPU).
+</span>    34    <span class="xdoc"> */</span>
+    35    
+    36    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    37    {
+    38        <span class=key>enum</span> RuntimeEnv {
+    39            STDIO,
+    40            POSIX,
+    41            BIOS
+    42        };
+    43        
+    44        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    45            id:             <span class="string">"0"</span>,
+    46            boardName:      <span class="string">"evmDM6467"</span>,
+    47            boardFamily:    <span class="string">"evmDM6467"</span>,
+    48            boardRevision:  <span class=key>null</span>,
+    49        };
+    50            
+    51        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu DSP = {        
+    52            id:             <span class="string">"0"</span>,
+    53            clockRate:      594.0,
+    54            catalogName:    <span class="string">"ti.catalog.c6000"</span>,
+    55            deviceName:     <span class="string">"TMS320CDM6467"</span>,
+    56            revision:       <span class="string">"1.0"</span>,
+    57        };
+    58        
+    59        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu GPP = {
+    60            id:             <span class="string">"1"</span>,
+    61            clockRate:      297.0,
+    62            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    63            deviceName:     <span class="string">"TMS320CDM6467"</span>,
+    64            revision:       <span class="string">"1.0"</span>,
+    65        };
+    66    
+    67    <span class=key>instance</span>:
+    68    
+    69        <span class="comment">/*
+</span>    70    <span class="comment">     *  ======== memTab ========
+</span>    71    <span class="comment">     *  Define the evmDaVinci memory map
+</span>    72    <span class="comment">     */</span>
+    73        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Memory
+    74            externalMemoryMap[string] = [
+    75                [<span class="string">"DDR2"</span>, {name: <span class="string">"DDR2"</span>, base: 0x80000000, len: 0x10000000}],
+    76            ];
+    77    
+    78        <span class="comment">/* default segment for data sections */</span>
+    79        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"DDR2"</span>;
+    80    
+    81        <span class="comment">/* default segment for stack sections */</span>
+    82        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"DDR2"</span>;
+    83    
+    84        <span class="xdoc">/*!
+</span>    85    <span class="xdoc">     *  ======== runTime ========
+</span>    86    <span class="xdoc">     *  The runtime environment available to executables
+</span>    87    <span class="xdoc">     */</span>
+    88        <span class=key>config</span> RuntimeEnv runTime = STDIO;
+    89    
+    90        <span class="xdoc">/*!
+</span>    91    <span class="xdoc">     *  ======== singleCore ========
+</span>    92    <span class="xdoc">     *  no longer used!
+</span>    93    <span class="xdoc">     * <b>@_nodoc</b>
+</span>    94    <span class="xdoc">     */</span>
+    95        <span class=key>config</span> Bool singleCore = <span class=key>true</span>;
+    96    }
+    97    <span class="comment">/*
+</span>    98    <span class="comment"> *  @(#) ti.platforms.evmDM6467; 1, 0, 0, 0,237; 2-23-2010 16:52:33; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    99    <span class="comment"> */</span>
+   100    
+</pre>
+</body></html>

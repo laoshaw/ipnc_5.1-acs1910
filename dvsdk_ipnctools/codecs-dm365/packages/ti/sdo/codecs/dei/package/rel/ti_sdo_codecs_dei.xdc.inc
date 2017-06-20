@@ -1,0 +1,15 @@
+link.xdt
+package.bld
+package.xs
+DEI.version..wizardversion.0.5.3
+idei.h
+DEI.xdc
+package.xdc
+lib\libdei.a
+lib\libimx.a
+package/build.cfg
+package/package.cfg.xdc.inc
+package/package.ext.xml
+package/package.xdc.inc
+package/package.bld.xml
+package/package.rel.dot

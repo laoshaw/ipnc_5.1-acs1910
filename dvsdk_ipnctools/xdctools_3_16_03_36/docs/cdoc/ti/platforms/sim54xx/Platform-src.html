@@ -1,0 +1,106 @@
+<html><head><title>module ti.platforms.sim54xx.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Platform.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    
+    16    <span class=key>package</span> ti.platforms.sim54xx;
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Platform ========
+</span>    20    <span class="xdoc"> *  Simulation-based Platform support for 54xx platforms
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    23    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    26    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    27    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    28    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    29    <span class="xdoc"> *
+</span>    30    <span class="xdoc"> *  This particular platform has a single Cpu, and therefore, only
+</span>    31    <span class="xdoc"> *  declares a single CPU configuration object.  Multi-CPU platforms
+</span>    32    <span class="xdoc"> *  would declare multiple Cpu configuration parameters (one per
+</span>    33    <span class="xdoc"> *  platform CPU).
+</span>    34    <span class="xdoc"> */</span>
+    35    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    36    {
+    37        <span class="xdoc">/*!
+</span>    38    <span class="xdoc">     *  ======== BOARD ========
+</span>    39    <span class="xdoc">     *  This platform's board attributes
+</span>    40    <span class="xdoc">     */</span>
+    41        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {
+    42            id:             <span class="string">"0"</span>,
+    43            boardName:      <span class="string">"sim54xx"</span>,
+    44            boardFamily:    <span class="string">"sim54xx"</span>,
+    45            boardRevision:  <span class=key>null</span>
+    46        };
+    47    
+    48        <span class="xdoc">/*!
+</span>    49    <span class="xdoc">     *  ======== CPU ========
+</span>    50    <span class="xdoc">     *  The CPU simulated by this platform.
+</span>    51    <span class="xdoc">     *
+</span>    52    <span class="xdoc">     *  The device simulated is determined by the platform instance name
+</span>    53    <span class="xdoc">     *  or if this does not name a ti.catalog.c5400 module, then we 
+</span>    54    <span class="xdoc">     *  simulate a TMS320C5416.
+</span>    55    <span class="xdoc">     */</span>
+    56        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu   CPU = {      
+    57            id:             <span class="string">"0"</span>,
+    58            clockRate:      100.0,
+    59            catalogName:    <span class="string">"ti.catalog.c5400"</span>,
+    60            deviceName:     <span class="string">"TMS320C5416"</span>,
+    61            revision:       <span class="string">""</span>,
+    62        };
+    63    
+    64    <span class=key>instance</span>:
+    65    
+    66        <span class="xdoc">/*!
+</span>    67    <span class="xdoc">     *  ======== deviceName ========
+</span>    68    <span class="xdoc">     *  The CPU simulated by this simulator platform.
+</span>    69    <span class="xdoc">     *
+</span>    70    <span class="xdoc">     *  This parameter is optional. If it's not set, then the Platform module
+</span>    71    <span class="xdoc">     *  parameter CPU.deviceName is used.
+</span>    72    <span class="xdoc">     */</span>
+    73        <span class=key>config</span> string deviceName;
+    74    
+    75        <span class=key>override</span> <span class=key>config</span> string codeMemory = <span class="string">"EPROG0"</span>;
+    76        
+    77        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"D_DARAM03"</span>;
+    78    
+    79        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"D_DARAM03"</span>;
+    80        
+    81        <span class="xdoc">/*!
+</span>    82    <span class="xdoc">     *  ======== pmst ========
+</span>    83    <span class="xdoc">     *  The value of the register PMST.
+</span>    84    <span class="xdoc">     *
+</span>    85    <span class="xdoc">     *  This parameter determines memory map. If the configuration parameters
+</span>    86    <span class="xdoc">     *  `{<b>@link</b> ti.platforms.sim54xx.Platform#externalMemoryMap}` or
+</span>    87    <span class="xdoc">     *  `{<b>@link</b> ti.platforms.sim54xx.Platform#customMemoryMap}` are set, the
+</span>    88    <span class="xdoc">     *  memory addresses and sizes must fit within address spaces defined by
+</span>    89    <span class="xdoc">     *  `pmst`. Complete description of the PMST register and the memory maps
+</span>    90    <span class="xdoc">     *  for 54xx based devices and platforms is available in datasheets for
+</span>    91    <span class="xdoc">     *  54xx devices.
+</span>    92    <span class="xdoc">     */</span>
+    93        <span class=key>config</span> Bits32 pmst = 0xffe0;
+    94    };
+    95    <span class="comment">/*
+</span>    96    <span class="comment"> *  @(#) ti.platforms.sim54xx; 1, 0, 1, 1,25; 2-23-2010 17:01:46; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    97    <span class="comment"> */</span>
+    98    
+</pre>
+</body></html>

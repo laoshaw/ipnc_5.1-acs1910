@@ -1,0 +1,18 @@
+MT9M031
+
+
+==================
+First version
+1>hardware:
+           Leopardboard V1.5 + IPNC LEOPARD ADAPTER BOARD V1.1 + MT9M031 V1.3
+
+2>software:
+           u-boot1.3.4-svn1,432MHz,from RDK3.0 UBL
+
+3> For DM368IPNC,just need change IMGS_RESET_GPIO from GIO31 to GIO36,current GIO31 is for Leopardboard V1.5
+ 
+4>Status:
+
+         Basic version,720p@60fps,Need Tuning.
+
+08/09/2012

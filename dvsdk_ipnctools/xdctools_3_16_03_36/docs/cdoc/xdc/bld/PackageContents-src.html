@@ -1,0 +1,787 @@
+<html><head><title>module xdc.bld.PackageContents</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== PackageContents.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== PackageContents ========
+</span>    19    <span class="xdoc"> *  Package container populated by a build script.
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  This module defines the `PackageContents` object (aliased as `Pkg` in 
+</span>    22    <span class="xdoc"> *  build scripts) which represents the contents of a package.  Build scripts
+</span>    23    <span class="xdoc"> *  add to this package using the add* methods defined below.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  In addition to the items added by the build script, every package has at
+</span>    26    <span class="xdoc"> *  least one release, the default release.  If the {<b>@link</b> #defaultRelease}
+</span>    27    <span class="xdoc"> *  configuration parameter is not set, a default release will be
+</span>    28    <span class="xdoc"> *  implicitly created.
+</span>    29    <span class="xdoc"> *
+</span>    30    <span class="xdoc"> *  Every library, executable, and repository added to the package is
+</span>    31    <span class="xdoc"> *  automatically added to the default release.
+</span>    32    <span class="xdoc"> *
+</span>    33    <span class="xdoc"> */</span>
+    34    <span class=key>metaonly</span> <span class=key>module</span> PackageContents {
+    35        <span class="xdoc">/*!
+</span>    36    <span class="xdoc">     *  ======== Attrs ========
+</span>    37    <span class="xdoc">     *  Package-level attributes.
+</span>    38    <span class="xdoc">     *
+</span>    39    <span class="xdoc">     *  These attributes provide package-level defaults for attributes that
+</span>    40    <span class="xdoc">     *  provide control over the code generation tools, the configuration
+</span>    41    <span class="xdoc">     *  tool, and release options.
+</span>    42    <span class="xdoc">     *
+</span>    43    <span class="xdoc">     *  <b>@field(profile)</b>  This string names a profile defined by the
+</span>    44    <span class="xdoc">     *          executable's target.  A profile specifies a set of compiler,
+</span>    45    <span class="xdoc">     *          linker, and archiver options that are to be used when 
+</span>    46    <span class="xdoc">     *          compiling and linking code.  Note that these tool options are
+</span>    47    <span class="xdoc">     *          in addition to any options specified via `aopts`, `copts`,
+</span>    48    <span class="xdoc">     *          etc.
+</span>    49    <span class="xdoc">     *
+</span>    50    <span class="xdoc">     *          If this field is not specified or set to `null`, the
+</span>    51    <span class="xdoc">     *          `"release"` profile will be used.
+</span>    52    <span class="xdoc">     *
+</span>    53    <span class="xdoc">     *  <b>@field(incs)</b>  This string contains include path options used by
+</span>    54    <span class="xdoc">     *          the compiler (or assembler) to locate include files; e.g.,
+</span>    55    <span class="xdoc">     *          "`-I ../../include -I ../c55xx`".  Note that the syntax of 
+</span>    56    <span class="xdoc">     *          this string may be target dependent.
+</span>    57    <span class="xdoc">     *
+</span>    58    <span class="xdoc">     *  <b>@field(defs)</b>  This string contains options used by the
+</span>    59    <span class="xdoc">     *          compiler (or assembler) to define macros; e.g.,
+</span>    60    <span class="xdoc">     *          "`-D_C6xxx -DDEBUG=1`".  Note that the syntax of 
+</span>    61    <span class="xdoc">     *          this string may be target dependent.
+</span>    62    <span class="xdoc">     *
+</span>    63    <span class="xdoc">     *  <b>@field(aopts)</b>  This string contains options used by the assembler
+</span>    64    <span class="xdoc">     *          to produce object files; e.g., "`-mP1`".  Note that the syntax
+</span>    65    <span class="xdoc">     *          of this string may be target dependent.
+</span>    66    <span class="xdoc">     *
+</span>    67    <span class="xdoc">     *  <b>@field(copts)</b>  This string contains options used by the C/C++
+</span>    68    <span class="xdoc">     *          compiler to produce object files; e.g., "`-o3 -mi1`".  Note
+</span>    69    <span class="xdoc">     *          that the syntax of this string may be target dependent.
+</span>    70    <span class="xdoc">     *
+</span>    71    <span class="xdoc">     *  <b>@field(cfgcopts)</b>  This string contains options used by the C/C++
+</span>    72    <span class="xdoc">     *          compiler to compile the generated C config file. If `cfgopts`
+</span>    73    <span class="xdoc">     *          is not specified, the options specified in `copts` are
+</span>    74    <span class="xdoc">     *          used instead. 
+</span>    75    <span class="xdoc">     *
+</span>    76    <span class="xdoc">     *  <b>@field(lopts)</b>  This string contains options used by the linker
+</span>    77    <span class="xdoc">     *          produce object files; e.g., "`-l mylib.lib`".  Note
+</span>    78    <span class="xdoc">     *          that the syntax of this string may be target dependent.
+</span>    79    <span class="xdoc">     *
+</span>    80    <span class="xdoc">     *  <b>@field(tcopts)</b>  This string contains options passed to `tconf`
+</span>    81    <span class="xdoc">     *          Deprecated, use `xsopts` instead.
+</span>    82    <span class="xdoc">     *
+</span>    83    <span class="xdoc">     *  <b>@field(xsopts)</b>  This string contains options passed to `xs`
+</span>    84    <span class="xdoc">     *          when running configuration scripts; e.g., to turn on the
+</span>    85    <span class="xdoc">     *          reporting of warnings this string can be set to "`-js -w`",
+</span>    86    <span class="xdoc">     *          or to define the name-value pair "`FOO=bar`" available via
+</span>    87    <span class="xdoc">     *          the environment hash-table `xsopts` should be set to
+</span>    88    <span class="xdoc">     *          "`-DFOO=bar`".
+</span>    89    <span class="xdoc">     *
+</span>    90    <span class="xdoc">     *  <b>@field(exportCfg)</b>  If this field is set to `true`,  configuration
+</span>    91    <span class="xdoc">     *          scripts will, by default, be part of the releases created
+</span>    92    <span class="xdoc">     *          by this package.  
+</span>    93    <span class="xdoc">     *
+</span>    94    <span class="xdoc">     *  <b>@field(exportDoc)</b>  If this field is set to `true`,  generated
+</span>    95    <span class="xdoc">     *          documentation will, by default, be part of the releases 
+</span>    96    <span class="xdoc">     *          created by this package.  
+</span>    97    <span class="xdoc">     *
+</span>    98    <span class="xdoc">     *  <b>@field(exportSrc)</b>  If this field is set to `true`, the sources
+</span>    99    <span class="xdoc">     *          used to build this package will, by default, be part of the
+</span>   100    <span class="xdoc">     *          releases created by this package.
+</span>   101    <span class="xdoc">     *
+</span>   102    <span class="xdoc">     *  <b>@field(exportExe)</b>  If this field is set to `true`, the executables
+</span>   103    <span class="xdoc">     *          created in this package will, by default, be part of the
+</span>   104    <span class="xdoc">     *          releases created by this package.
+</span>   105    <span class="xdoc">     *
+</span>   106    <span class="xdoc">     *  <b>@field(exportAll)</b>  If this field is set to true, all files
+</span>   107    <span class="xdoc">     *          in this package that are not known to be generated are in
+</span>   108    <span class="xdoc">     *          the release.  If it is unspecified (or set to `null`) these
+</span>   109    <span class="xdoc">     *          files will not be added to this release. See
+</span>   110    <span class="xdoc">     *          `{<b>@link</b> xdc.bld.Release#Attrs}` for more information about
+</span>   111    <span class="xdoc">     *          this option.
+</span>   112    <span class="xdoc">     *
+</span>   113    <span class="xdoc">     *  <b>@field(relScript)</b>  If this field is non-`null`, the string names a
+</span>   114    <span class="xdoc">     *          "release script" that is run to post-process the
+</span>   115    <span class="xdoc">     *          files that are part of a release.  Like configuration scripts,
+</span>   116    <span class="xdoc">     *          the string names a script file that is searched for first in
+</span>   117    <span class="xdoc">     *          the in package's base directory, and then along the package
+</span>   118    <span class="xdoc">     *          path.
+</span>   119    <span class="xdoc">     *
+</span>   120    <span class="xdoc">     *  <b>@field(compress)</b> If this field is set to `true`, the package release
+</span>   121    <span class="xdoc">     *          archive files will be, by default, compressed; otherwise, the
+</span>   122    <span class="xdoc">     *          archives will not be compressed
+</span>   123    <span class="xdoc">     *
+</span>   124    <span class="xdoc">     *  <b>@field(archiver)</b> This field names the archiver to use when creating a
+</span>   125    <span class="xdoc">     *          release.  Two archivers are currently supported:
+</span>   126    <span class="xdoc">     *          "tar" and "zip".  If the archiver is set to "zip"
+</span>   127    <span class="xdoc">     *          the `{<b>@link</b> #Attrs.compress}` field is implicitly set to
+</span>   128    <span class="xdoc">     *          `true`.
+</span>   129    <span class="xdoc">     *
+</span>   130    <span class="xdoc">     *  <b>@see</b> #attrs
+</span>   131    <span class="xdoc">     */</span>
+   132        <span class=key>struct</span> Attrs {
+   133            String  profile;    <span class="xdoc">/*! select appropriate `ITarget.OptionSet` */</span>
+   134            String  aopts;      <span class="xdoc">/*! assembly language options */</span>
+   135            String  copts;      <span class="xdoc">/*! C/C++ compiler options */</span>
+   136            String  cfgcopts;   <span class="xdoc">/*! C/C++ compiler options for the C config file */</span>
+   137            String  defs;       <span class="xdoc">/*! -D options common to C/C++/asm */</span>
+   138            String  incs;       <span class="xdoc">/*! -I options common to C/C++/asm */</span>
+   139            String  tcopts;     <span class="xdoc">/*! tconf options, deprecated */</span>
+   140            String  xsopts;     <span class="xdoc">/*! xs options */</span>
+   141            String  lopts;      <span class="xdoc">/*! linker options */</span>
+   142            Bool    exportDoc;  <span class="xdoc">/*! if `true`, export generated docs */</span>
+   143            Bool    exportExe;  <span class="xdoc">/*! if `true`, export executables */</span>
+   144            Bool    exportCfg;  <span class="xdoc">/*! if `true`, export program cfg scripts */</span>
+   145            Bool    exportSrc;  <span class="xdoc">/*! if `true`, export all package sources */</span>
+   146            Bool    exportAll;  <span class="xdoc">/*! if `true`, export all non-gen'd files */</span>
+   147            String  relScript;  <span class="xdoc">/*! release files post-processing script */</span>
+   148            Bool    compress;   <span class="xdoc">/*! if `true`, compress package release archives */</span>
+   149            String  archiver;   <span class="xdoc">/*! "tar" or "zip"; defaults to "tar" */</span>
+   150        };
+   151        
+   152        <span class="xdoc">/*!
+</span>   153    <span class="xdoc">     *  ======== attrs ========
+</span>   154    <span class="xdoc">     *  Package attributes.
+</span>   155    <span class="xdoc">     *
+</span>   156    <span class="xdoc">     *  These attributes are "inherited" by all executables and libraries
+</span>   157    <span class="xdoc">     *  added to this package set.
+</span>   158    <span class="xdoc">     *
+</span>   159    <span class="xdoc">     *  <b>@see</b> xdc.bld.Executable#attrs
+</span>   160    <span class="xdoc">     *  <b>@see</b> xdc.bld.Library#attrs
+</span>   161    <span class="xdoc">     */</span>
+   162        <span class=key>config</span> PackageContents.Attrs attrs; 
+   163    
+   164        <span class="xdoc">/*!
+</span>   165    <span class="xdoc">     *  ======== cfgDir ========
+</span>   166    <span class="xdoc">     *  The directory where all intermediate program files are placed.
+</span>   167    <span class="xdoc">     *
+</span>   168    <span class="xdoc">     *  During configuration, several files are generated (a C++ source file,
+</span>   169    <span class="xdoc">     *  a linker command file, etc.)  these generated files are placed in
+</span>   170    <span class="xdoc">     *  the directory specified by this parameter.
+</span>   171    <span class="xdoc">     */</span>
+   172        <span class=key>config</span> String cfgDir = <span class="string">"package/cfg/"</span>;
+   173    
+   174        <span class="xdoc">/*!
+</span>   175    <span class="xdoc">     *  ======== docDir ========
+</span>   176    <span class="xdoc">     *  The directory where generated docs are placed.
+</span>   177    <span class="xdoc">     *
+</span>   178    <span class="xdoc">     *  If set to a non-`null` value, package documentation will be
+</span>   179    <span class="xdoc">     *  automatically generated and placed in this directory.  If
+</span>   180    <span class="xdoc">     *  it is not set or set to `null`, no docs will be generated for
+</span>   181    <span class="xdoc">     *  this package.
+</span>   182    <span class="xdoc">     *
+</span>   183    <span class="xdoc">     *  If you set `{<b>@link</b> #Attrs exportDoc}` or `{<b>@link</b> #Attrs exportAll}`
+</span>   184    <span class="xdoc">     *  to `true` the generated docs will be included in the appropriate
+</span>   185    <span class="xdoc">     *  releases of the package.
+</span>   186    <span class="xdoc">     */</span>
+   187        <span class=key>config</span> String docDir;
+   188        
+   189        <span class="xdoc">/*!
+</span>   190    <span class="xdoc">     *  ======== imports ========
+</span>   191    <span class="xdoc">     *  An array of required packages (and their version) for this package
+</span>   192    <span class="xdoc">     *
+</span>   193    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is an array of all prerequisite packages
+</span>   194    <span class="xdoc">     *  required by this package.  Each string is of the form:
+</span>   195    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   196    <span class="xdoc">     *          &lt;packageName&gt;{&lt;packageCompatibilityKey&gt;
+</span>   197    <span class="xdoc">     *      <b>@p</b>
+</span>   198    <span class="xdoc">     *  where `&lt;packageName&gt;` is the name of the required package and
+</span>   199    <span class="xdoc">     *  `&lt;packageCompatibilityKey&gt;` is the compatibility key specified in the
+</span>   200    <span class="xdoc">     *  `requires` statement of this package.  If no compatibility key is
+</span>   201    <span class="xdoc">     *  specified in `package.xdc`, `&lt;packageCompatibilityKey&gt;` is "".
+</span>   202    <span class="xdoc">     *
+</span>   203    <span class="xdoc">     *  If the package specifies that a requirement is "internal", the
+</span>   204    <span class="xdoc">     *  package name is prefixed with a '*' character.  In other words, the
+</span>   205    <span class="xdoc">     *  string is of the form:
+</span>   206    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   207    <span class="xdoc">     *          *&lt;packageName&gt;{&lt;packageCompatibilityKey&gt;
+</span>   208    <span class="xdoc">     *      <b>@p</b>
+</span>   209    <span class="xdoc">     */</span>
+   210        <span class=key>config</span> String imports[];
+   211    
+   212        <span class="xdoc">/*!
+</span>   213    <span class="xdoc">     *  ======== libDir ========
+</span>   214    <span class="xdoc">     *  The directory where all intermediate library directories are placed.
+</span>   215    <span class="xdoc">     *
+</span>   216    <span class="xdoc">     *  Each object file for a library is placed in a sub-directory of this
+</span>   217    <span class="xdoc">     *  directory that has a name that matches the name specified in the
+</span>   218    <span class="xdoc">     *  `{<b>@link</b> #addLibrary()}` function.
+</span>   219    <span class="xdoc">     */</span>
+   220        <span class=key>config</span> String libDir = <span class="string">"package/lib/"</span>;
+   221    
+   222        <span class="xdoc">/*!
+</span>   223    <span class="xdoc">     *  ======== libTemplate ========
+</span>   224    <span class="xdoc">     *  Template of a common C-file archived into every library
+</span>   225    <span class="xdoc">     *
+</span>   226    <span class="xdoc">     *  This template can be used to embed package-specific meta-information
+</span>   227    <span class="xdoc">     *  into each library produced by the package.  For example, it can be
+</span>   228    <span class="xdoc">     *  used to add package version infomation to each library.
+</span>   229    <span class="xdoc">     *
+</span>   230    <span class="xdoc">     *  This template is expanded just once in the Build model during
+</span>   231    <span class="xdoc">     *  makefile generation.  Thus, the contents of the resulting C-file can
+</span>   232    <span class="xdoc">     *  not be library specific.
+</span>   233    <span class="xdoc">     *
+</span>   234    <span class="xdoc">     *  The template is found using `xdc.findFile()` and, as a result,
+</span>   235    <span class="xdoc">     *  `libTemplate` may refer to a template in either the current package
+</span>   236    <span class="xdoc">     *  or even in another package.
+</span>   237    <span class="xdoc">     *
+</span>   238    <span class="xdoc">     *  During expansion of the template, the `this` pointer is the
+</span>   239    <span class="xdoc">     *  `PackageContents` module object; i.e., the object that the global
+</span>   240    <span class="xdoc">     *  variable `Pkg` references.
+</span>   241    <span class="xdoc">     *
+</span>   242    <span class="xdoc">     *  The expanded template may refer to the following pre-defined macros:
+</span>   243    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   244    <span class="xdoc">     *      - `__xdc_PKGVERS`
+</span>   245    <span class="xdoc">     *          the package compatibility key declared in package.xdc; e.g.
+</span>   246    <span class="xdoc">     *          "`1, 2, 3`"
+</span>   247    <span class="xdoc">     *      - `__xdc_PKGNAME`
+</span>   248    <span class="xdoc">     *          the package's name; e.g., `xdc.bld`
+</span>   249    <span class="xdoc">     *      - `__xdc_PKGPREFIX`
+</span>   250    <span class="xdoc">     *          the package's prefix; e.g., for the package `xdc.bld` the
+</span>   251    <span class="xdoc">     *          prefix would be `xdc_bld_`
+</span>   252    <span class="xdoc">     *  <b>@p</b>
+</span>   253    <span class="xdoc">     */</span>
+   254        <span class=key>config</span> String libTemplate = <span class=key>null</span>;
+   255    
+   256        <span class="xdoc">/*!
+</span>   257    <span class="xdoc">     *  ======== relDir ========
+</span>   258    <span class="xdoc">     *  The directory where all intermediate release files are placed.
+</span>   259    <span class="xdoc">     *
+</span>   260    <span class="xdoc">     *  Release specific files for a release are placed in a sub-directory of
+</span>   261    <span class="xdoc">     *  this directory that has a name that matches the name specified in the
+</span>   262    <span class="xdoc">     *  `{<b>@link</b> #addRelease()}` function.
+</span>   263    <span class="xdoc">     */</span>
+   264        <span class=key>config</span> String relDir = <span class="string">"package/rel/"</span>;
+   265    
+   266        <span class="xdoc">/*!
+</span>   267    <span class="xdoc">     *  ======== producerId ========
+</span>   268    <span class="xdoc">     *  Producer ID string
+</span>   269    <span class="xdoc">     *
+</span>   270    <span class="xdoc">     *  The value of this string is embedded in every release of this
+</span>   271    <span class="xdoc">     *  package and can serve as a way to identify a single version
+</span>   272    <span class="xdoc">     *  ID for a collection of related packages.
+</span>   273    <span class="xdoc">     *
+</span>   274    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   275    <span class="xdoc">     */</span>
+   276        <span class=key>config</span> String producerId;
+   277    
+   278        <span class="xdoc">/*!
+</span>   279    <span class="xdoc">     *  ======== version ========
+</span>   280    <span class="xdoc">     *  The package version string.
+</span>   281    <span class="xdoc">     *
+</span>   282    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is a version string that comes from the
+</span>   283    <span class="xdoc">     *  `package.xdc` specification.
+</span>   284    <span class="xdoc">     */</span>
+   285        <span class=key>config</span> String version;
+   286    
+   287        <span class="xdoc">/*!
+</span>   288    <span class="xdoc">     *  ======== interfaces ========
+</span>   289    <span class="xdoc">     *  An array of interface names provided by this package.
+</span>   290    <span class="xdoc">     *
+</span>   291    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is an array of all interface names
+</span>   292    <span class="xdoc">     *  defined by this package.
+</span>   293    <span class="xdoc">     */</span>
+   294        <span class=key>config</span> String interfaces[];
+   295    
+   296        <span class="xdoc">/*!
+</span>   297    <span class="xdoc">     *  ======== makePrologue ========
+</span>   298    <span class="xdoc">     *  String to add to the beginning of the generated makefile.
+</span>   299    <span class="xdoc">     *
+</span>   300    <span class="xdoc">     *  This string is placed at the very beginning of the package's
+</span>   301    <span class="xdoc">     *  generated makefile.  This allows one to extend the build
+</span>   302    <span class="xdoc">     *  environment using any facility available to GNU make.
+</span>   303    <span class="xdoc">     */</span>
+   304        <span class=key>config</span> String makePrologue = <span class="string">""</span>;
+   305    
+   306        <span class="xdoc">/*!
+</span>   307    <span class="xdoc">     *  ======== makeEpilogue ========
+</span>   308    <span class="xdoc">     *  String to add to the end of the generated makefile.
+</span>   309    <span class="xdoc">     *
+</span>   310    <span class="xdoc">     *  Similar to makePrologue except that this string is placed at
+</span>   311    <span class="xdoc">     *  the very end of the generated makefile.
+</span>   312    <span class="xdoc">     */</span>
+   313        <span class=key>config</span> String makeEpilogue = <span class="string">""</span>;
+   314    
+   315        <span class="xdoc">/*!
+</span>   316    <span class="xdoc">     *  ======== defaultRelease ========
+</span>   317    <span class="xdoc">     *  The default release for this package.
+</span>   318    <span class="xdoc">     *
+</span>   319    <span class="xdoc">     *  If this configuration parameter is defined, it is taken to be the
+</span>   320    <span class="xdoc">     *  default release instance; otherwise a default instance is created
+</span>   321    <span class="xdoc">     *  with the appropriate defaults.
+</span>   322    <span class="xdoc">     *
+</span>   323    <span class="xdoc">     *  If this release's `label` attribute is `undefined` or `null`, it is
+</span>   324    <span class="xdoc">     *  set to `"default"` before the release is generated; otherwise the
+</span>   325    <span class="xdoc">     *  label attribute is unchanged from what the user specified for this
+</span>   326    <span class="xdoc">     *  instance.
+</span>   327    <span class="xdoc">     *
+</span>   328    <span class="xdoc">     *  The implicitly created default release is created as follows:
+</span>   329    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   330    <span class="xdoc">     *      PackageContents.addRelease(name, {label: "default"})
+</span>   331    <span class="xdoc">     *  <b>@p</b>
+</span>   332    <span class="xdoc">     *  where `name` is the package's name with all '.'s replaced with '_'.
+</span>   333    <span class="xdoc">     */</span>
+   334        <span class=key>config</span> Release.Instance defaultRelease;
+   335    
+   336        <span class="xdoc">/*!
+</span>   337    <span class="xdoc">     *  ======== releasePrefix ========
+</span>   338    <span class="xdoc">     *  A prefix appended to the name of each release archive.
+</span>   339    <span class="xdoc">     *
+</span>   340    <span class="xdoc">     *  This configuration parameter allows one to generate release archives
+</span>   341    <span class="xdoc">     *  somewhere other than inside the package being built.  `releasePrefix`
+</span>   342    <span class="xdoc">     *  is prepended to the name of the release name to form the name of the
+</span>   343    <span class="xdoc">     *  release archive.
+</span>   344    <span class="xdoc">     *
+</span>   345    <span class="xdoc">     *  For example, setting `releasePrefix` to `"../"` implies that a 
+</span>   346    <span class="xdoc">     *  release named `"exports/foo"` generates an archive file named
+</span>   347    <span class="xdoc">     *  `foo.tar` in the directory `"../exports"`.
+</span>   348    <span class="xdoc">     *
+</span>   349    <span class="xdoc">     * `releasePrefix` must either begin with the '^' character or be a
+</span>   350    <span class="xdoc">     *  relative path that is relative to the package's "base" directory;
+</span>   351    <span class="xdoc">     *  i.e., the directory containing the package's specification file
+</span>   352    <span class="xdoc">     *  `package.xdc`.
+</span>   353    <span class="xdoc">     *
+</span>   354    <span class="xdoc">     *  If `releasePrefix` begins with the '^' character, the remainder of
+</span>   355    <span class="xdoc">     *  the string is treated as though it is relative to the package's
+</span>   356    <span class="xdoc">     *  repository.  In effect, the '^' character is replaced with an
+</span>   357    <span class="xdoc">     *  appropriate number of '../' sequences to sufficient to navigate to
+</span>   358    <span class="xdoc">     *  the package's repository.
+</span>   359    <span class="xdoc">     *
+</span>   360    <span class="xdoc">     *  For example, suppose your packages are in a repository named `"src"`.
+</span>   361    <span class="xdoc">     *  Setting `releasePrefix` to `"^/../exports"` implies that a release
+</span>   362    <span class="xdoc">     *  named `"foo"` generates an archive file named `foo.tar` in the
+</span>   363    <span class="xdoc">     *  directory named `"exports"` which is a sibiling of `"src"` - the
+</span>   364    <span class="xdoc">     *  package's repository.
+</span>   365    <span class="xdoc">     *
+</span>   366    <span class="xdoc">     *  This prefix can be overridden on a per release basis; see
+</span>   367    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.Release#Attrs}`.
+</span>   368    <span class="xdoc">     *
+</span>   369    <span class="xdoc">     *  <b>@a(note)</b> If this parameter starts with `".."` or `"^"`, the resulting
+</span>   370    <span class="xdoc">     *  archive file will not be removed as part of a package clean.
+</span>   371    <span class="xdoc">     */</span>
+   372        <span class=key>config</span> String releasePrefix = <span class="string">""</span>;
+   373        
+   374        <span class="xdoc">/*!
+</span>   375    <span class="xdoc">     *  ======== modules ========
+</span>   376    <span class="xdoc">     *  An array of module names provided by this package.
+</span>   377    <span class="xdoc">     *
+</span>   378    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is an array of all module names
+</span>   379    <span class="xdoc">     *  implemented in this package.
+</span>   380    <span class="xdoc">     */</span>
+   381        <span class=key>config</span> String modules[];
+   382    
+   383        <span class="xdoc">/*!
+</span>   384    <span class="xdoc">     *  ======== name ========
+</span>   385    <span class="xdoc">     *  Name of this package
+</span>   386    <span class="xdoc">     *
+</span>   387    <span class="xdoc">     *  <b>@a(readonly)</b> This parameter is the name of this package as
+</span>   388    <span class="xdoc">     *  specified by the `package.xdc` package specification file
+</span>   389    <span class="xdoc">     */</span>
+   390        <span class=key>config</span> String name;
+   391    
+   392        <span class="xdoc">/*!
+</span>   393    <span class="xdoc">     *  ======== otherFiles ========
+</span>   394    <span class="xdoc">     *  Array of files to include this package.
+</span>   395    <span class="xdoc">     *
+</span>   396    <span class="xdoc">     *  This is an array of arbitrary file names that are to be included
+</span>   397    <span class="xdoc">     *  in the package.
+</span>   398    <span class="xdoc">     *
+</span>   399    <span class="xdoc">     *  Only those files that are not already directly (or indirectly)
+</span>   400    <span class="xdoc">     *  named by adding executables or libraries to this package set need
+</span>   401    <span class="xdoc">     *  to appear in this array.
+</span>   402    <span class="xdoc">     */</span>
+   403        <span class=key>config</span> String otherFiles[];
+   404    
+   405        <span class="xdoc">/*!
+</span>   406    <span class="xdoc">     *  ======== generatedFiles ========
+</span>   407    <span class="xdoc">     *  Array of generated files
+</span>   408    <span class="xdoc">     *
+</span>   409    <span class="xdoc">     *  This is an array of arbitrary file names that are to be removed
+</span>   410    <span class="xdoc">     *  during a clean of this package.  File names that end with the `'/'`
+</span>   411    <span class="xdoc">     *  character are assumed to be directories; in this case, the directory
+</span>   412    <span class="xdoc">     *  and all of its contents are removed during the clean.
+</span>   413    <span class="xdoc">     *
+</span>   414    <span class="xdoc">     *  Only those files that are not already directly (or indirectly)
+</span>   415    <span class="xdoc">     *  named by adding executables or libraries to this package set need
+</span>   416    <span class="xdoc">     *  to appear in this array.
+</span>   417    <span class="xdoc">     */</span>
+   418        <span class=key>config</span> String generatedFiles[];
+   419    
+   420        <span class="xdoc">/*!
+</span>   421    <span class="xdoc">     *  ======== otherSrcs ========
+</span>   422    <span class="xdoc">     *  Array of source files to include this package.
+</span>   423    <span class="xdoc">     *
+</span>   424    <span class="xdoc">     *  Like otherFiles except that the file names listed here are to be
+</span>   425    <span class="xdoc">     *  post-processed by the xdc document preparation tools.  This array
+</span>   426    <span class="xdoc">     *  only needs to specify files that are not implicitly specidied via
+</span>   427    <span class="xdoc">     *  any of the addObjects function; e.g., script files, hand-creafted
+</span>   428    <span class="xdoc">     *  headers, etc.  
+</span>   429    <span class="xdoc">     */</span>
+   430        <span class=key>config</span> String otherSrcs[];
+   431        
+   432        <span class="xdoc">/*!
+</span>   433    <span class="xdoc">     *  ======== packagePath ========
+</span>   434    <span class="xdoc">     *  This configuration parameter allows one to set the package
+</span>   435    <span class="xdoc">     *  path from within the build script.  This setting overrides
+</span>   436    <span class="xdoc">     *  the setting of `XDCPATH` either in the environment or on the
+</span>   437    <span class="xdoc">     *  command line.
+</span>   438    <span class="xdoc">     *
+</span>   439    <span class="xdoc">     *  <b>@b(deprecated)</b>  `XDCPATH` should be set on the command line or in
+</span>   440    <span class="xdoc">     *  the environment.  This avoids the confusion that will result from
+</span>   441    <span class="xdoc">     *  different package paths being used to generate the makefiles from
+</span>   442    <span class="xdoc">     *  the package path used to build other package contents.
+</span>   443    <span class="xdoc">     *
+</span>   444    <span class="xdoc">     *  <b>@_nodoc</b> this parameter should not be used!!!!!!
+</span>   445    <span class="xdoc">     */</span>
+   446        <span class=key>config</span> String packagePath = <span class=key>null</span>;
+   447    
+   448        <span class="xdoc">/*!
+</span>   449    <span class="xdoc">     *  ======== uses ========
+</span>   450    <span class="xdoc">     *  Array of directory suffixes used to locate files.
+</span>   451    <span class="xdoc">     *
+</span>   452    <span class="xdoc">     *  This array of directory suffixes is used to locate package files 
+</span>   453    <span class="xdoc">     *  that are referenced (e.g., via #include) without the package name.
+</span>   454    <span class="xdoc">     *
+</span>   455    <span class="xdoc">     *  This array names package directory suffixes (found along the
+</span>   456    <span class="xdoc">     *  package path) that:
+</span>   457    <span class="xdoc">     *  <b>@p(nlist)</b>
+</span>   458    <span class="xdoc">     *      -  contain headers included by this package's sources which
+</span>   459    <span class="xdoc">     *         are included *without* using the package name, or
+</span>   460    <span class="xdoc">     *      -  contain JavaScript "import" files which are included (via
+</span>   461    <span class="xdoc">     *         `utils.importFile()`) *without* using the package name.
+</span>   462    <span class="xdoc">     *  <b>@p</b>
+</span>   463    <span class="xdoc">     *  This mechanism is used to support legacy code that does not
+</span>   464    <span class="xdoc">     *  explicitly name the package in the #include statements, and *only*
+</span>   465    <span class="xdoc">     *  affects the compiler's -I options (not the package path) and the
+</span>   466    <span class="xdoc">     *  configuration tool's import path (`config.importPath`).
+</span>   467    <span class="xdoc">     *
+</span>   468    <span class="xdoc">     *  Strings in the Pkg.uses array must not be absolute paths.  Each string
+</span>   469    <span class="xdoc">     *  in the Pkg.uses array must point to an existing directory that can be
+</span>   470    <span class="xdoc">     *  located along the package path.  The generated makefiles create an
+</span>   471    <span class="xdoc">     *  absolute path by simply appending the string from `uses[]` to each
+</span>   472    <span class="xdoc">     *  directory name in the package path until an existing directory is
+</span>   473    <span class="xdoc">     *  found.  The resulting absolute path is then passed to the compiler in
+</span>   474    <span class="xdoc">     *  a -I option, for example.
+</span>   475    <span class="xdoc">     *
+</span>   476    <span class="xdoc">     *  The directories named in this array may include sub-directories of
+</span>   477    <span class="xdoc">     *  any package in the package path.
+</span>   478    <span class="xdoc">     *
+</span>   479    <span class="xdoc">     *  The strings in this array should use '/' to separate directories;
+</span>   480    <span class="xdoc">     *  even on Windows systems.  Since Windows supports '/' as a directory
+</span>   481    <span class="xdoc">     *  separator, the use of '/' ensures host platform independence.
+</span>   482    <span class="xdoc">     *
+</span>   483    <span class="xdoc">     *  <b>@a(Example)</b>
+</span>   484    <span class="xdoc">     *      The following example allows sources in the current package to
+</span>   485    <span class="xdoc">     *      "`#include &lt;tsk.h&gt;`" and have the compiler find `tsk.h` in the
+</span>   486    <span class="xdoc">     *      sub-directory ti/bios/include which is contained in some repository
+</span>   487    <span class="xdoc">     *      named in the package path (`XDCPATH`):
+</span>   488    <span class="xdoc">     *      <b>@p(code)</b>
+</span>   489    <span class="xdoc">     *          var Pkg = xdc.useModule('xdc.bld.PackageContents');
+</span>   490    <span class="xdoc">     *          Pkg.uses = ["ti/bios/include", "ti/xdais/legacy"];
+</span>   491    <span class="xdoc">     *      <b>@p</b>
+</span>   492    <span class="xdoc">     */</span>
+   493        <span class=key>config</span> String uses[];
+   494    
+   495        <span class="xdoc">/*!
+</span>   496    <span class="xdoc">     *  ======== addLibrary ========
+</span>   497    <span class="xdoc">     *  Add specified library to this package
+</span>   498    <span class="xdoc">     *
+</span>   499    <span class="xdoc">     *  The name of the library archive file is `&lt;name&gt;.a&lt;target_suffix&gt;`,
+</span>   500    <span class="xdoc">     *  where `&lt;name&gt;` is the name parameter (which may contain a directory
+</span>   501    <span class="xdoc">     *  prefix) and `&lt;target_suffix&gt;` is the suffix specified by the target
+</span>   502    <span class="xdoc">     *  parameter (`{<b>@link</b> xdc.bld.ITarget#suffix}`).
+</span>   503    <span class="xdoc">     *
+</span>   504    <span class="xdoc">     *  The individual objects of each library are located in the directory
+</span>   505    <span class="xdoc">     *  `&lt;libDir&gt;/&lt;name&gt;`, where `&lt;name&gt;` is the name parameter and `&lt;libDir&gt;`
+</span>   506    <span class="xdoc">     *  is the configurable parameter `{<b>@link</b> xdc.bld.PackageContents#libDir}`.
+</span>   507    <span class="xdoc">     *  Thus, the name parameter names *both* an archive file and a
+</span>   508    <span class="xdoc">     *  sub-directory (in `PackageContents.libDir`) that contains the objects
+</span>   509    <span class="xdoc">     *  in the archive.
+</span>   510    <span class="xdoc">     *
+</span>   511    <span class="xdoc">     *  <b>@param(name)</b>     library base name; this name is used to create
+</span>   512    <span class="xdoc">     *                   *both* an archive and a sub-directory in the
+</span>   513    <span class="xdoc">     *                   package's "libDir" directory which
+</span>   514    <span class="xdoc">     *                   will contain the target-specific object files.
+</span>   515    <span class="xdoc">     *                   See NOTE in `{<b>@link</b> xdc.bld}` for filename rules.
+</span>   516    <span class="xdoc">     *
+</span>   517    <span class="xdoc">     *  <b>@param(target)</b>   target (a module implementing the
+</span>   518    <span class="xdoc">     *                   `{<b>@link</b> xdc.bld.ITarget}` interface) for each built 
+</span>   519    <span class="xdoc">     *                   object in the library
+</span>   520    <span class="xdoc">     *
+</span>   521    <span class="xdoc">     *  <b>@param(libAttrs)</b> optional `library` attributes object
+</span>   522    <span class="xdoc">     *                   (`{<b>@link</b> xdc.bld.Library#Attrs}`)
+</span>   523    <span class="xdoc">     *
+</span>   524    <span class="xdoc">     *  <b>@a(returns)</b>      Returns the `{<b>@link</b> xdc.bld.Library}` instance
+</span>   525    <span class="xdoc">     *                   object created.
+</span>   526    <span class="xdoc">     *  <b>@a(throws)</b>       `XDCException` exceptions are thrown for fatal
+</span>   527    <span class="xdoc">     *                    errors. The following error codes are
+</span>   528    <span class="xdoc">     *                    reported in the exception message:
+</span>   529    <span class="xdoc">     *                    <b>@p(dlist)</b>
+</span>   530    <span class="xdoc">     *                    -  `xdc.bld.INVALID_TARGET`
+</span>   531    <span class="xdoc">     *                       This error is reported when a package is being
+</span>   532    <span class="xdoc">     *                       built for an unknown target. Ensure that the
+</span>   533    <span class="xdoc">     *                       correct targets are mentioned in the package's
+</span>   534    <span class="xdoc">     *                       build script.
+</span>   535    <span class="xdoc">     *                    -  `xdc.bld.LIBRARY_EXISTS`               
+</span>   536    <span class="xdoc">     *                        This error is reported when a package's build
+</span>   537    <span class="xdoc">     *                        script specifies multiple libraries with the
+</span>   538    <span class="xdoc">     *                        same name. Ensure that the names of the
+</span>   539    <span class="xdoc">     *                        libraries to be built are unique.
+</span>   540    <span class="xdoc">     *                    -  `xdc.bld.PARAMETER_MISMATCH`
+</span>   541    <span class="xdoc">     *                        This error is reported whenever parameters with
+</span>   542    <span class="xdoc">     *                        the wrong type  are passed to the method. Ensure
+</span>   543    <span class="xdoc">     *                        that the parameters passed have the right type.
+</span>   544    <span class="xdoc">     *
+</span>   545    <span class="xdoc">     *  <b>@see</b> xdc.bld.PackageContents#libDir
+</span>   546    <span class="xdoc">     *  <b>@see</b> xdc.bld.ITarget#suffix
+</span>   547    <span class="xdoc">     */</span>
+   548        Library.Instance addLibrary(String name, ITarget.Module target,
+   549                                    Library.Attrs libAttrs = {});
+   550    
+   551        <span class="xdoc">/*!
+</span>   552    <span class="xdoc">     *  ======== addExecutable ========
+</span>   553    <span class="xdoc">     *  Add specified executable to this package.
+</span>   554    <span class="xdoc">     *
+</span>   555    <span class="xdoc">     *  The name of the executable file is `&lt;name&gt;.x&lt;target_suffix&gt;`,
+</span>   556    <span class="xdoc">     *  where `&lt;name&gt;` is the name parameter (which may contain a directory
+</span>   557    <span class="xdoc">     *  prefix) and `&lt;target_suffix&gt;` is the suffix specified by the target
+</span>   558    <span class="xdoc">     *  parameter (`{<b>@link</b> xdc.bld.ITarget#suffix}`).
+</span>   559    <span class="xdoc">     *
+</span>   560    <span class="xdoc">     *  This name is also used to create a sub-directory in the package's
+</span>   561    <span class="xdoc">     *  "cfgDir" directory (`{<b>@link</b> xdc.bld.PackageContents#cfgDir}`) to
+</span>   562    <span class="xdoc">     *  contain files generated for the benefit of creating the executable.
+</span>   563    <span class="xdoc">     *  Thus, the name parameter names *both* an executable file and a
+</span>   564    <span class="xdoc">     *  sub-directory (in `PackageContents.cfgDir`) that contains the objects
+</span>   565    <span class="xdoc">     *  linked into the executable.
+</span>   566    <span class="xdoc">     *
+</span>   567    <span class="xdoc">     *  When the executable is added to the package, a `{<b>@link</b> xdc.bld.Test}`
+</span>   568    <span class="xdoc">     *  is implicitly added to the executable; thus, every executable has at
+</span>   569    <span class="xdoc">     *  least one `Test`.  Attributes for this test can be specified via
+</span>   570    <span class="xdoc">     *  `exeAttrs`.
+</span>   571    <span class="xdoc">     *
+</span>   572    <span class="xdoc">     *  <b>@param(name)</b>     executable base name; this name is used to create
+</span>   573    <span class="xdoc">     *                   the file name of the output executable and has the
+</span>   574    <span class="xdoc">     *                   form:
+</span>   575    <span class="xdoc">     *                   <b>@p(code)</b>
+</span>   576    <span class="xdoc">     *                       &lt;name&gt;.x&lt;suffix&gt;
+</span>   577    <span class="xdoc">     *                   <b>@p</b>
+</span>   578    <span class="xdoc">     *                   where `&lt;suffix&gt;` is the suffix specified by
+</span>   579    <span class="xdoc">     *                   the target argument below.  
+</span>   580    <span class="xdoc">     *                   See NOTE in `{<b>@link</b> xdc.bld}` for filename rules.
+</span>   581    <span class="xdoc">     *
+</span>   582    <span class="xdoc">     *  <b>@param(target)</b>   target (`{<b>@link</b> xdc.bld.ITarget}`) for each built
+</span>   583    <span class="xdoc">     *                   object linked into the executable.
+</span>   584    <span class="xdoc">     *
+</span>   585    <span class="xdoc">     *  <b>@param(platform)</b> string name of the platform; this is the name of a
+</span>   586    <span class="xdoc">     *                   platform package
+</span>   587    <span class="xdoc">     *
+</span>   588    <span class="xdoc">     *  <b>@param(exeAttrs)</b> optional executable attrs object
+</span>   589    <span class="xdoc">     *                   (`{<b>@link</b> xdc.bld.Executable#Attrs}`)
+</span>   590    <span class="xdoc">     *
+</span>   591    <span class="xdoc">     *  <b>@a(returns)</b>      Returns the `{<b>@link</b> xdc.bld.Executable}` instance 
+</span>   592    <span class="xdoc">     *                   object created.
+</span>   593    <span class="xdoc">     *
+</span>   594    <span class="xdoc">     *  <b>@a(throws)</b>       `XDCException` exceptions are thrown for fatal
+</span>   595    <span class="xdoc">     *                    errors. The following error codes are
+</span>   596    <span class="xdoc">     *                    reported in the exception message:
+</span>   597    <span class="xdoc">     *                    <b>@p(dlist)</b>
+</span>   598    <span class="xdoc">     *                    -  `xdc.bld.INVALID_TARGET`
+</span>   599    <span class="xdoc">     *                       This error is reported when a package is being
+</span>   600    <span class="xdoc">     *                       built for an unknown target. Ensure that the
+</span>   601    <span class="xdoc">     *                       correct targets are mentioned in the package's
+</span>   602    <span class="xdoc">     *                       build script.
+</span>   603    <span class="xdoc">     *                    -  `xdc.bld.EXECUTABLE_EXISTS`               
+</span>   604    <span class="xdoc">     *                       This error is reported when a package's build
+</span>   605    <span class="xdoc">     *                       script specifies multiple executables with the
+</span>   606    <span class="xdoc">     *                       same name. Ensure that the names of the
+</span>   607    <span class="xdoc">     *                       executables to be built are unique. 
+</span>   608    <span class="xdoc">     *                    -  `xdc.bld.PARAMETER_MISMATCH`
+</span>   609    <span class="xdoc">     *                       This error is reported whenever parameters with
+</span>   610    <span class="xdoc">     *                       the wrong type  are passed to the method. Ensure
+</span>   611    <span class="xdoc">     *                       that the parameters passed have the right type.
+</span>   612    <span class="xdoc">     *           
+</span>   613    <span class="xdoc">     */</span>
+   614        Executable.Instance addExecutable(String name, ITarget.Module target,
+   615                            String platform, Executable.Attrs exeAttrs = {});
+   616    
+   617        <span class="xdoc">/*!
+</span>   618    <span class="xdoc">     *  ======== addRepository ========
+</span>   619    <span class="xdoc">     *  Add a repository to this package
+</span>   620    <span class="xdoc">     *
+</span>   621    <span class="xdoc">     *  A repository is a directory that contains packages.  Repositories are
+</span>   622    <span class="xdoc">     *  typically named in the user's XDCPATH environment variable and contain
+</span>   623    <span class="xdoc">     *  a set of packages that are managed as a group.
+</span>   624    <span class="xdoc">     *
+</span>   625    <span class="xdoc">     *  This method allows one to bundle several packages together into a
+</span>   626    <span class="xdoc">     *  single release (of the package that contains this repository).
+</span>   627    <span class="xdoc">     *
+</span>   628    <span class="xdoc">     *  <b>@param(repositoryName)</b>  name of a directory (relative to this
+</span>   629    <span class="xdoc">     *                          package's base) that will contain the packages
+</span>   630    <span class="xdoc">     *                          added via
+</span>   631    <span class="xdoc">     *                          `{<b>@link</b> xdc.bld.Repository#addPackages()}`
+</span>   632    <span class="xdoc">     *                          See NOTE in `{<b>@link</b> xdc.bld}` for filename
+</span>   633    <span class="xdoc">     *                          rules.
+</span>   634    <span class="xdoc">     *
+</span>   635    <span class="xdoc">     *  <b>@param(repAttrs)</b>        optional `Repository` attributes associated 
+</span>   636    <span class="xdoc">     *                          with this repository (see
+</span>   637    <span class="xdoc">     *                          `{<b>@link</b> xdc.bld.Repository#Attrs}`)
+</span>   638    <span class="xdoc">     *
+</span>   639    <span class="xdoc">     *  <b>@a(returns)</b>             Returns the `{<b>@link</b> xdc.bld.Repository}` 
+</span>   640    <span class="xdoc">     *                          instance object created.
+</span>   641    <span class="xdoc">     *
+</span>   642    <span class="xdoc">     *  <b>@a(throws)</b>       `XDCException` exceptions are thrown for fatal
+</span>   643    <span class="xdoc">     *                    errors. The following error codes are
+</span>   644    <span class="xdoc">     *                    reported in the exception message:
+</span>   645    <span class="xdoc">     *                    <b>@p(dlist)</b>
+</span>   646    <span class="xdoc">     *                    - `xdc.bld.REPOSITORY_EXISTS`
+</span>   647    <span class="xdoc">     *                      This error is reported whenever a package's build
+</span>   648    <span class="xdoc">     *                      script specifies multiple repositories with the
+</span>   649    <span class="xdoc">     *                      same name.  Ensure that the names of the
+</span>   650    <span class="xdoc">     *                      repositories specified in the build script are
+</span>   651    <span class="xdoc">     *                      unique.
+</span>   652    <span class="xdoc">     */</span>
+   653        Repository.Instance addRepository(String repositoryName,
+   654                                          Repository.Attrs repAttrs = {});
+   655         
+   656        <span class="xdoc">/*!
+</span>   657    <span class="xdoc">     *  ======== addRelease ========
+</span>   658    <span class="xdoc">     *  Add specified release to this package
+</span>   659    <span class="xdoc">     *
+</span>   660    <span class="xdoc">     *  <b>@param(name)</b>    release base name; this name is used to create
+</span>   661    <span class="xdoc">     *                  the file name of the output file and has the
+</span>   662    <span class="xdoc">     *                  form:
+</span>   663    <span class="xdoc">     *                      &lt;name&gt;.tar
+</span>   664    <span class="xdoc">     *                  See NOTE in `{<b>@link</b> xdc.bld}` for filename rules.
+</span>   665    <span class="xdoc">     *
+</span>   666    <span class="xdoc">     *  <b>@param(relAttrs)</b> optional release attributes object
+</span>   667    <span class="xdoc">     *                   (`{<b>@link</b> xdc.bld.Release#Attrs}`)
+</span>   668    <span class="xdoc">     *
+</span>   669    <span class="xdoc">     *  <b>@a(returns)</b>     Returns the `{<b>@link</b> xdc.bld.Release}` instance object
+</span>   670    <span class="xdoc">     *                  created.
+</span>   671    <span class="xdoc">     *
+</span>   672    <span class="xdoc">     *  <b>@a(throws)</b>       `XDCException` exceptions are thrown for fatal
+</span>   673    <span class="xdoc">     *                    errors. The following error codes are
+</span>   674    <span class="xdoc">     *                    reported in the exception message:
+</span>   675    <span class="xdoc">     *                    <b>@p(dlist)</b>
+</span>   676    <span class="xdoc">     *                    - `xdc.bld.RELEASE_EXISTS`
+</span>   677    <span class="xdoc">     *                      This error is reported whenever a package's build
+</span>   678    <span class="xdoc">     *                      script specifies multiple releases with the same
+</span>   679    <span class="xdoc">     *                      name.  Ensure that the names of the releases
+</span>   680    <span class="xdoc">     *                      specified in the build script are unique.
+</span>   681    <span class="xdoc">     *                    - `xdc.bld.INVALID_RELEASE_PREFIX`
+</span>   682    <span class="xdoc">     *                      This error is reported whenever a release prefix
+</span>   683    <span class="xdoc">     *                      is specified by its absolute path in the package's
+</span>   684    <span class="xdoc">     *                      build script.  The release prefix has to be
+</span>   685    <span class="xdoc">     *                      relative to the package's base directory.
+</span>   686    <span class="xdoc">     *                    - `xdc.bld.INVALID_RELEASE_NAME`
+</span>   687    <span class="xdoc">     *                      This error is reported whenever a release name is
+</span>   688    <span class="xdoc">     *                      specified by its absolute path in the package's
+</span>   689    <span class="xdoc">     *                      build script. The release name has to be relative
+</span>   690    <span class="xdoc">     *                      to the package's base directory.
+</span>   691    <span class="xdoc">     */</span>
+   692        Release.Instance addRelease(String name, Release.Attrs relAttrs = {});
+   693    
+   694        <span class="xdoc">/*!
+</span>   695    <span class="xdoc">     *  ======== addScript ========
+</span>   696    <span class="xdoc">     *  Add a script to this package
+</span>   697    <span class="xdoc">     *
+</span>   698    <span class="xdoc">     *  Both XDCscript and Korn shell scripts can be added to package.  This
+</span>   699    <span class="xdoc">     *  not only allows one to add script utilities to a package, it
+</span>   700    <span class="xdoc">     *  also makes it easy to create scripted regression tests.  As with
+</span>   701    <span class="xdoc">     *  `Executable`s, it is possible to add `{<b>@link</b> xdc.bld.Test}`s to a
+</span>   702    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.Script Script}`; see `{<b>@link</b> xdc.bld.Script#addTest}`.
+</span>   703    <span class="xdoc">     *
+</span>   704    <span class="xdoc">     *  <b>@param(name)</b>    name of the script to add to this package.  Script
+</span>   705    <span class="xdoc">     *                  names are simply the script's filename relative to
+</span>   706    <span class="xdoc">     *                  the package's base directory.  Scripts can have any
+</span>   707    <span class="xdoc">     *                  extension, but if the extension is "`.sh`" or "`.ksh`"
+</span>   708    <span class="xdoc">     *                  a Korn shell compatible shell is used to run the
+</span>   709    <span class="xdoc">     *                  script's tests; otherwise it is assumed to be an
+</span>   710    <span class="xdoc">     *                  XDCscript file and any tests will be run by the
+</span>   711    <span class="xdoc">     *                  XDCscript interpreter `xs`.
+</span>   712    <span class="xdoc">     *
+</span>   713    <span class="xdoc">     *  <b>@param(scriptAttrs)</b> optional script attributes object
+</span>   714    <span class="xdoc">     *                   (`{<b>@link</b> xdc.bld.Script#Attrs}`)
+</span>   715    <span class="xdoc">     *
+</span>   716    <span class="xdoc">     *  <b>@a(returns)</b>      Returns the `{<b>@link</b> xdc.bld.Script}` instance
+</span>   717    <span class="xdoc">     *                   object created.
+</span>   718    <span class="xdoc">     *
+</span>   719    <span class="xdoc">     *  <b>@a(throws)</b>       `XDCException` exceptions are thrown for fatal
+</span>   720    <span class="xdoc">     *                    errors. The following error codes are
+</span>   721    <span class="xdoc">     *                    reported in the exception message:
+</span>   722    <span class="xdoc">     *                      <b>@p(dlist)</b>
+</span>   723    <span class="xdoc">     *                      - `xdc.bld.SCRIPT_EXISTS`
+</span>   724    <span class="xdoc">     *                        This error is reported whenever a package's build
+</span>   725    <span class="xdoc">     *                        script specifies multiple user scripts with the
+</span>   726    <span class="xdoc">     *                        same name. Ensure that the names of the user
+</span>   727    <span class="xdoc">     *                        scripts are unique.
+</span>   728    <span class="xdoc">     */</span>
+   729        Script.Instance addScript(String name, Script.Attrs scriptAttrs = {});
+   730        
+   731        <span class="xdoc">/*!
+</span>   732    <span class="xdoc">     *  ======== addAssembly ========
+</span>   733    <span class="xdoc">     *  <b>@_nodoc</b> assemblies are experimental not fully qualified/tested
+</span>   734    <span class="xdoc">     *          entities
+</span>   735    <span class="xdoc">     *  <b>@a(returns)</b>      Returns the `{<b>@link</b> xdc.bld.Assembly}` instance
+</span>   736    <span class="xdoc">     *                   object created.
+</span>   737    <span class="xdoc">     *
+</span>   738    <span class="xdoc">     *  <b>@a(throws)</b>       `XDCException` exceptions are thrown for fatal
+</span>   739    <span class="xdoc">     *                    errors. The following error codes are
+</span>   740    <span class="xdoc">     *                    reported in the exception message:
+</span>   741    <span class="xdoc">     *                    <b>@p(dlist)</b>
+</span>   742    <span class="xdoc">     *                    - `xdc.bld.INVALID_TARGET`
+</span>   743    <span class="xdoc">     *                      This error is reported when a package is being
+</span>   744    <span class="xdoc">     *                      built for an unknown target. Ensure that the
+</span>   745    <span class="xdoc">     *                      correct targets are mentioned in the package's
+</span>   746    <span class="xdoc">     *                      build script.
+</span>   747    <span class="xdoc">     */</span>
+   748        Assembly.Instance addAssembly(String name, ITarget.Module target,
+   749            String platform, Executable.Attrs exeAttrs = {});
+   750    
+   751        <span class="xdoc">/*!
+</span>   752    <span class="xdoc">     *  ======== onInit ========
+</span>   753    <span class="xdoc">     *  <b>@_nodoc</b> this function is called from the bld package's 
+</span>   754    <span class="xdoc">     *          initialization function to initialize this module.
+</span>   755    <span class="xdoc">     *
+</span>   756    <span class="xdoc">     *  <b>@a(throws)</b>       `XDCException` exceptions are thrown for fatal
+</span>   757    <span class="xdoc">     *                    errors. The following error codes are
+</span>   758    <span class="xdoc">     *                    reported in the exception message:
+</span>   759    <span class="xdoc">     *                    <b>@p(dlist)</b>
+</span>   760    <span class="xdoc">     *                    - `xdc.bld.INCORRECT_PACKAGE_NAME`
+</span>   761    <span class="xdoc">     *                      This error is reported whenever package name does
+</span>   762    <span class="xdoc">     *                      not match the directory name. Package names should
+</span>   763    <span class="xdoc">     *                      match the directory layout. For example the
+</span>   764    <span class="xdoc">     *                      package `ti.sdo.ce.osal` should be created in the
+</span>   765    <span class="xdoc">     *                      directory `ti\sdo\ce\osal`. 
+</span>   766    <span class="xdoc">     *                    - `xdc.bld.CREATE_DIR_ERROR`
+</span>   767    <span class="xdoc">     *                      This error is reported whenever there is an error
+</span>   768    <span class="xdoc">     *                      in creating package directories. This maybe
+</span>   769    <span class="xdoc">     *                      related with issues with the host filesystem.
+</span>   770    <span class="xdoc">     *                      Check whether directories
+</span>   771    <span class="xdoc">     *                      can be created manually in the `package`
+</span>   772    <span class="xdoc">     *                      sub-directory.
+</span>   773    <span class="xdoc">     */</span>
+   774        <span class=key>function</span> onInit();
+   775    }
+   776    <span class="comment">/*
+</span>   777    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   778    <span class="comment"> */</span>
+   779    
+</pre>
+</body></html>

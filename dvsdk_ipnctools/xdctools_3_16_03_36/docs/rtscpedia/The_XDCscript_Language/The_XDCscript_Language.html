@@ -1,0 +1,570 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>The XDCscript Language - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=The XDCscript Language&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/The XDCscript Language" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../XDCscript_Debugging/XDCscript_Debugging.html" title="XDCscript Debugging"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">The XDCscript Language</p><p id="subtitle">XDCscript overview</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#JavaScript_language_overview"><span class="tocnumber">2</span> <span class="toctext">JavaScript language overview</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Common_misconceptions_about_javaScript"><span class="tocnumber">2.1</span> <span class="toctext">Common misconceptions about javaScript</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#The_print.28.29_method"><span class="tocnumber">3</span> <span class="toctext">The print() method</span></a></li>
+<li class="toclevel-1"><a href="#The_java_object"><span class="tocnumber">4</span> <span class="toctext">The java object</span></a>
+<ul>
+<li class="toclevel-2"><a href="#File_manipulation_with_Java"><span class="tocnumber">4.1</span> <span class="toctext">File manipulation with Java</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Reading_files"><span class="tocnumber">4.1.1</span> <span class="toctext">Reading files</span></a></li>
+<li class="toclevel-3"><a href="#Writing_files"><span class="tocnumber">4.1.2</span> <span class="toctext">Writing files</span></a></li>
+<li class="toclevel-3"><a href="#Deleting_files"><span class="tocnumber">4.1.3</span> <span class="toctext">Deleting files</span></a></li>
+<li class="toclevel-3"><a href="#Copying_files"><span class="tocnumber">4.1.4</span> <span class="toctext">Copying files</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#JavaScript_verses_Java_strings"><span class="tocnumber">5</span> <span class="toctext">JavaScript verses Java strings</span></a></li>
+<li class="toclevel-1"><a href="#The_environment__and_arguments_objects"><span class="tocnumber">6</span> <span class="toctext">The environment  and arguments objects</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_environment_object"><span class="tocnumber">6.1</span> <span class="toctext">The environment object</span></a></li>
+<li class="toclevel-2"><a href="#The_arguments_object"><span class="tocnumber">6.2</span> <span class="toctext">The arguments object</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#The_xdc_object"><span class="tocnumber">7</span> <span class="toctext">The xdc object</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Methods_for_loading_other_files"><span class="tocnumber">7.1</span> <span class="toctext">Methods for loading other files</span></a></li>
+<li class="toclevel-2"><a href="#Methods_for_generating_other_files"><span class="tocnumber">7.2</span> <span class="toctext">Methods for generating other files</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Running_scripts"><span class="tocnumber">8</span> <span class="toctext">Running scripts</span></a></li>
+<li class="toclevel-1"><a href="#JavaScript_and_Java_references"><span class="tocnumber">9</span> <span class="toctext">JavaScript and Java references</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">10</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>XDCscripts, such as configuration scripts, are written in the JavaScript language. This document does not provide details on the syntax of the JavaScript language. However, several concepts are important when using JavaScript within XDCscripts. This section provides an overview of such concepts.  See <a href="#JavaScriptReferences" title="">"JavaScript and Java References"</a> below for JavaScript reference sources.
+</p>
+<a name="JavaScript_language_overview"></a><h2> <span class="mw-headline">JavaScript language overview</span></h2>
+<p>JavaScript syntax, operators, and flow-control statements are similar to those in the C language. It includes if, else, switch, break, for, while, do, and return statements which behave almost identically to their C counter-parts.  As a result, C programmers can easily read and modify most JavaScript scripts. 
+</p><p>JavaScript is a loosely-typed language. Variables in JavaScript are more flexible than variables in C or Java. Variables do not need to be explicitly declared, and the same variable can store different data types at different points within a script.
+These types are number, string, Boolean value, array, object, function (which is actually an object itself), and <tt>null</tt>. Operators automatically convert values between data types as necessary.
+</p><p>Variables can be local to a function or global to the entire JavaScript environment. Variable and object names may not contain spaces or punctuation other than "_" or "$". In addition, variable and object names can include numbers but must not begin with a number.
+</p><p>JavaScript does not have pointers and does not deal with memory addresses.
+</p>
+<a name="Common_misconceptions_about_javaScript"></a><h3> <span class="mw-headline">Common misconceptions about javaScript</span></h3>
+<p>If you've used JavaScript before, you have probably added scripts to a web page. It's important to clear up misconceptions some programmers may have about JavaScript when used outside the context of web pages:
+</p>
+<ul><li>JavaScript is a general-purpose, cross-platform programming language. While it was developed for use in web-browsers, it has a number of features that make it useful for application configuration. It is easy to learn and use, the syntax is similar to C, it is object oriented, and it is widely documented.
+</li><li>JavaScript is standardized. The language is also called ECMAScript, and the ECMA-262 standard defines the language (see <a href="http://www.ecma.ch/ecma1/STAND/ECMA-262.HTM" class="external free" title="http://www.ecma.ch/ecma1/STAND/ECMA-262.HTM" rel="nofollow">http://www.ecma.ch/ecma1/STAND/ECMA-262.HTM</a>). The basic syntax and semantics of the language are stable and standardized.
+</li><li>When you use JavaScript in a web page, the objects you use are defined by the Document Object Model (DOM). These objects include window, document, form, and image. The DOM is not part of the JavaScript standard; nor is the DOM part of <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>.
+</li><li>Other object models can be defined for use with JavaScript. Instead of the DOM, <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> often runs in the context of an "object model" containing one or more global objects; for example, configuration scripts are run in a context in which the global variable <tt>Program</tt> is defined.
+</li><li>JavaScript is not a part of Java. These are two different languages that have similar names for historical marketing reasons. However, <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> does allow scripts to call arbitrary Java functions, including any method provided by the the standard Java Runtime Environment.  
+</li><li>For security reasons within web browsers, JavaScript does not provide built-in support for file services.  However, by virtue of providing access to the Java Runtime Environment, <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> has full access to a complete (and standard) set of file-system services.
+</li><li>RTSC Modules run JavaScript only on the host PC, UNIX, or Linux machine. JavaScript code is not run on the embedded target (yet).
+</li></ul>
+<a name="The_print.28.29_method"></a><h2> <span class="mw-headline">The <tt>print()</tt> method</span></h2>
+<p>The <tt>print()</tt> method is an extension to JavaScript that sends the result of the expression passed to the method to stdout. When running the a script via <tt>xs</tt> at the command line, for example, the <tt>print()</tt> statement is displayed in the command shell's window.
+</p><p>In this example, if <tt>obj</tt> is an array, these statements print a list of the objects in the array.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i = <span class="nu0">0</span>; i &lt; obj.length; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span><span class="st0">&quot;obj[&quot;</span> + i + <span class="st0">&quot;] = &quot;</span> + obj<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The following statements display the names of all public properties of the object <tt>obj</tt> and their values.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> p <span class="kw1">in</span> obj<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span><span class="st0">&quot;obj.&quot;</span> + p + <span class="st0">&quot; = &quot;</span> + obj<span class="br0">&#91;</span>p<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="The_java_object"></a><h2> <span class="mw-headline">The <tt>java</tt> object</span></h2>
+<p>For security reasons, the JavaScript language does not provide any built-in file services. In a web browser, the lack of file services prevents most forms of file access on your computer. <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>, however, builds atop the <a href="http://www.mozilla.org/rhino" class="external text" title="http://www.mozilla.org/rhino" rel="nofollow">Rhino</a> JavaScript interpreter and, via <a href="http://developer.mozilla.org/en/docs/LiveConnect" class="external text" title="http://developer.mozilla.org/en/docs/LiveConnect" rel="nofollow">LiveConnect</a>, this interpreter provides unrestricted to <i>any</i> Java class.  As a result, all of the classes in the standard Java Runtime Environment, such as the <tt>java.io</tt> classes, can be used from <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>.
+</p>
+<a name="File_manipulation_with_Java"></a><h3> <span class="mw-headline">File manipulation with Java</span></h3>
+<p>Calls to the <tt>java.io</tt> classes from a script look just like JavaScript function calls.  For example, these statements display the path to a file if it exists:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> file = <span class="kw1">new</span> java.io.File<span class="br0">&#40;</span>fileName<span class="br0">&#41;</span>;
+<span class="kw1">if</span> <span class="br0">&#40;</span>file.exists<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span>file.getPath<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<a name="Reading_files"></a><h6> <span class="mw-headline">Reading files</span></h6>
+<p><span class="Leader">Reading files</span>.&nbsp;  It's even possible to read and write files.  For example, it is possible to display the contents of a file with the following few lines:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> line;
+<span class="kw1">var</span> file = <span class="kw1">new</span> java.io.BufferedReader<span class="br0">&#40;</span><span class="kw1">new</span> java.io.FileReader<span class="br0">&#40;</span><span class="st0">&quot;/etc/motd&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw1">while</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>line = file.readLine<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>&nbsp;!= <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span>line<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<a name="Writing_files"></a><h6> <span class="mw-headline">Writing files</span></h6>
+<p><span class="Leader">Writing files</span>.&nbsp;  The next example illustrates how to create a new file, named <tt>"foo.txt"</tt>, and write to it.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> file = <span class="kw1">new</span> java.io.FileWriter<span class="br0">&#40;</span><span class="st0">&quot;foo.txt&quot;</span><span class="br0">&#41;</span>;
+file.write<span class="br0">&#40;</span><span class="st0">&quot;this is a test&quot;</span><span class="br0">&#41;</span>;
+file.flush<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p></p>
+<a name="Deleting_files"></a><h6> <span class="mw-headline">Deleting files</span></h6>
+<p><span class="Leader">Deleting files</span>.&nbsp;  The <tt>java.io.File</tt> class also allows you to delete files via a <tt>delete()</tt> method.  However, since <tt>delete</tt> is a JavaScript keyword it is not possible to directly call this method.  Fortunately, because all JavaScript objects are associative arrays, any method or property of an object can be accessed using "array notation".
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> file = <span class="kw1">new</span> java.io.File<span class="br0">&#40;</span><span class="st0">&quot;tmp.dat&quot;</span><span class="br0">&#41;</span>;
+file.<span class="kw1">delete</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;     <span class="coMULTI">/* WRONG: this will cause a JavaScript parser error */</span>
+file<span class="br0">&#91;</span><span class="st0">&quot;delete&quot;</span><span class="br0">&#93;</span><span class="br0">&#40;</span><span class="br0">&#41;</span>;  <span class="coMULTI">/* RIGHT: same as above but avoids conflict with 'delete' keyword */</span></pre></td></tr></table>
+<a name="Copying_files"></a><h6> <span class="mw-headline">Copying files</span></h6>
+<p><span class="Leader">Copying files</span>.&nbsp;  There are times when you may need to copy a file.  Rather than loop over each line of the input file, Java provides a method that can transfer the entire contents of a file into another.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> copy<span class="br0">&#40;</span>src, dst<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* open input and output channels */</span>
+    <span class="kw1">var</span> ins = <span class="kw1">new</span> java.io.FileInputStream<span class="br0">&#40;</span>src<span class="br0">&#41;</span>;
+    <span class="kw1">var</span> outs = <span class="kw1">new</span> java.io.FileOutputStream<span class="br0">&#40;</span>dst, <span class="kw2">true</span><span class="br0">&#41;</span>;
+    <span class="kw1">var</span> inc = ins.getChannel<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="kw1">var</span> outc = outs.getChannel<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+    inc.transferTo<span class="br0">&#40;</span><span class="nu0">0</span>, inc.size<span class="br0">&#40;</span><span class="br0">&#41;</span>, outc<span class="br0">&#41;</span>;    <span class="coMULTI">/* transfer entire src to dst */</span>
+&nbsp;
+    <span class="coMULTI">/* close all streams and channels */</span>
+    inc.close<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    outc.close<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    ins.close<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    outs.close<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>For documentation of the <tt>java.io</tt> package, see the <a href="http://java.sun.com/j2se/1.3/docs" class="external text" title="http://java.sun.com/j2se/1.3/docs" rel="nofollow">Java 2 SDK documentation</a>. In particular, see the reference documentation for the <a href="http://java.sun.com/j2se/1.3/docs/api/java/io/package-summary.html" class="external text" title="http://java.sun.com/j2se/1.3/docs/api/java/io/package-summary.html" rel="nofollow"><tt>java.io</tt></a> package classes <a href="http://java.sun.com/j2se/1.3/docs/api/java/io/File.html" class="external text" title="http://java.sun.com/j2se/1.3/docs/api/java/io/File.html" rel="nofollow">File</a>, <a href="http://java.sun.com/j2se/1.3/docs/api/java/io/FileReader.html" class="external text" title="http://java.sun.com/j2se/1.3/docs/api/java/io/FileReader.html" rel="nofollow">FileReader</a>, <a href="http://java.sun.com/j2se/1.3/docs/api/java/io/BufferedReader.html" class="external text" title="http://java.sun.com/j2se/1.3/docs/api/java/io/BufferedReader.html" rel="nofollow">BufferedReader</a>, <a href="http://java.sun.com/j2se/1.3/docs/api/java/io/FileWriter.html" class="external text" title="http://java.sun.com/j2se/1.3/docs/api/java/io/FileWriter.html" rel="nofollow">FileWriter</a>, and <a href="http://java.sun.com/j2se/1.3/docs/api/java/io/BufferedWriter.html" class="external text" title="http://java.sun.com/j2se/1.3/docs/api/java/io/BufferedWriter.html" rel="nofollow">BufferedWriter</a>.
+</p>
+<a name="JavaScript_verses_Java_strings"></a><h2> <span class="mw-headline">JavaScript verses Java strings</span></h2>
+<p>The Rhino JavaScript interpreter does its best to enable seamless use of underlying Java classes and objects.  Unfortunately, this integration sometimes causes confusion when manipulating strings; both Java and JavaScript define a number of methods that operate on strings and not all of them are the same.  
+</p><p>As a result, there are some situations where you must explicitly convert strings returned by Java methods into JavaScript strings.  Fortunately, this is simple: either cast the Java string to a JavaScript string using JavaScript's <tt>String</tt> object or simply append an empty string to the Java string (Rhino automatically converts the Java string to a JavaScript to allow the concatenation).
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* cwd is a Java string */</span>
+<span class="kw1">var</span> cwd = <span class="br0">&#40;</span><span class="kw1">new</span> java.io.File<span class="br0">&#40;</span><span class="st0">&quot;foo/bar&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>.getName<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* the following will print &quot;true&quot; because cwd ends with &quot;bar&quot; */</span>
+print<span class="br0">&#40;</span>cwd.endsWith<span class="br0">&#40;</span><span class="st0">&quot;bar&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;  
+&nbsp;
+<span class="coMULTI">/* convert cwd to a JavaScript string */</span>
+cwd = <span class="st0">&quot;&quot;</span> + cwd; <span class="coMULTI">/* could also convert via &quot;cwd = String(cwd)&quot; */</span>
+&nbsp;
+<span class="coMULTI">/* the following triggers a &quot;TypeError&quot;: endsWith() isn't a JavaScript string method */</span>
+print<span class="br0">&#40;</span>cwd.endsWith<span class="br0">&#40;</span><span class="st0">&quot;bar&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<a name="The_environment__and_arguments_objects"></a><h2> <span class="mw-headline">The <tt>environment</tt>  and <tt>arguments</tt> objects</span></h2>
+<p>The Rhino interpreter also defines two other global objects, <tt>environment</tt> and <tt>arguments</tt>, that make it possible to create highly reusable scripts.
+</p>
+<a name="The_environment_object"></a><h6> <span class="mw-headline">The <tt>environment</tt> object</span></h6>
+<p><span class="Leader">The <tt>environment</tt> object</span>.&nbsp;  This object is a hash table that maps strings naming Java Runtime Environment (JRE) <i>system properties</i> to their values.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xs -i</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>js&gt; print(environment[&quot;user.dir&quot;])
+/home/dr
+js&gt;</pre></td></tr></table>
+<p></p>
+<p><div class="Notice"><p class="Notice">Don't confuse values defined in the <tt>environment[]</tt> with command shell environment variables.  JRE properties, while similar to shell environment variables, are not the same as the environment variables passed to processes by the host operating system.  If you need to access command line environment variables, you should use the <tt><a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/System.html#getenv(java.lang.String)" class="external text" title="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/System.html#getenv(java.lang.String)" rel="nofollow">java.lang.System.getenv()</a></tt> method.</p></div></p>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xs -i</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>js&gt; print(java.lang.System.getenv(&quot;USER&quot;))
+dr
+js&gt;</pre></td></tr></table>
+<p>In addition to the properties provided by the JRE, the <tt>xs</tt> command adds the following properties to the Java environment.
+</p>
+<dl><dt><tt>xdc.path</tt>
+</dt><dd> the full <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a>
+</dd><dt><tt>xdc.rootDir</tt>
+</dt><dd>the full path to the XDCtools installation directory
+</dd><dt><tt>xdc.scriptName</tt>
+</dt><dd>the name of the script passed on the <tt>xs</tt> command line.  If a module or a package is specified on the command line rather than a script file, <tt>environment["xdc.scriptName"]</tt> is set to the name of the module containing the code to run.  For example, the commands "<tt>xs xdc.tools.cdoc</tt>" and "<tt>xs -m xdc.tools.cdoc.Main</tt>" both run the <tt>main()</tt> method defined in the module <tt>xdc.tools.cdoc.Main</tt> and in both cases <tt>environment["xdc.scriptName"]</tt> is equal to <tt>"xdc.tools.cdoc.Main"</tt>.
+</dd></dl>
+<p>Finally, it is possible to add new name value pairs to <tt>environment</tt> via the <tt>-D</tt> command line option of the <tt>xs</tt> command.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xs -Dfoo=bar -i</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>js&gt; print(environment[&quot;foo&quot;])
+bar
+js&gt;</pre></td></tr></table>
+<p>For a complete list of properties provided by the JRE see the Java reference documentation for the <a href="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/System.html#getProperties()" class="external text" title="http://java.sun.com/j2se/1.5.0/docs/api/java/lang/System.html#getProperties()" rel="nofollow">java.lang.System.getProperties()</a> method.  To see the list of properties provided in your environment, you can use the JavaScript ability to loop over the elements of a hash table and display them using the <tt>print()</tt> method described above.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xs -i</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>js&gt; for (var p in environment) print('environment[&quot;' + p + '&quot;] = ' + environment[p])
+environment[&quot;java.runtime.name&quot;] = Java(TM) 2 Runtime Environment, Standard Edition
+environment[&quot;user.dir&quot;] = /home/dr
+  &nbsp;:
+js&gt;</pre></td></tr></table>
+<a name="The_arguments_object"></a><h6> <span class="mw-headline">The <tt>arguments</tt> object</span></h6>
+<p><span class="Leader">The <tt>arguments</tt> object</span>.&nbsp;  When scripts are run via the <tt>xs</tt> command, all arguments passed after the name of the script (or package containing a <tt>Main.xs</tt> script) are passed to the script in the <tt>arguments</tt> array.  This <tt>arguments</tt> object is an ordinary JavaScript array of strings, one element per argument passed on the command line.
+</p>
+<table>
+<tr>
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xs -f args.xs this is 'a test'</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>arguments[0] = this
+arguments[1] = is
+arguments[2] = a test</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>args.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i = <span class="nu0">0</span>; i &lt; arguments.length; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span><span class="st1">'arguments['</span> + i + <span class="st1">'] = '</span> + arguments<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<a name="The_xdc_object"></a><h2> <span class="mw-headline">The <tt>xdc</tt> object</span></h2>
+<p>In addition to the global objects added by Rhino to the JavaScript environment, <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> has an additional global object named <tt>xdc</tt>.  This object servers as a "container" for a collection of methods and state common to all of <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>.  This section summarizes some of the more commonly used methods.  For a complete list of methods available see <a href="../XDCscript_Language_Reference/XDCscript_Language_Reference.html" title="XDCscript Language Reference">XDCscript Language Reference</a>.
+</p>
+<a name="Methods_for_loading_other_files"></a><h3> <span class="mw-headline">Methods for loading other files</span></h3>
+<p><tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> can load another script file. When a script file is loaded, any statements that are outside any function are executed.  The functions and variables defined in the loaded script are available to the script that loaded the file.
+</p><p>On Windows-based hosts, directory paths specified in JavaScript statements can use either "\\" or "/" as a directory separator. However, UNIX-based hosts require you to use "/" to separate directory names within a file name.  To ensure portability, you should always use "/" to separate directory names.
+</p><p><tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> provides the following methods for finding and loading files contained in packages:
+</p>
+<ul><li><tt><a href="../XDCscript_-_xdc.loadCapsule/XDCscript_-_xdc.loadCapsule.html" title="XDCscript - xdc.loadCapsule">xdc.loadCapsule()</a></tt> - An extension to JavaScript that runs JavaScript statements in any file and returns an object containing the variable and functions defined within the file. 
+</li><li><tt><a href="../XDCscript_-_xdc.findFile/XDCscript_-_xdc.findFile.html" title="XDCscript - xdc.findFile">xdc.findFile()</a></tt> - The method used to locate files based on either a package path relative name, an absolute path name or a current working directory relative name.  
+</li><li><tt><a href="../XDCscript_-_xdc.loadXML/XDCscript_-_xdc.loadXML.html" title="XDCscript - xdc.loadXML">xdc.loadXML()</a></tt> - An extension to JavaScript that parses the specified XML file and returns an <a href="../Glossary/Glossary.html#E4X" title="Glossary">E4X</a> object representing the contents of the file. 
+</li></ul>
+<p>Suppose you find that you have some common code in a number of different configuration scripts.  You can factor out and parameterize this common code by placing it in a separate script file, say <tt>bios_utils.xs</tt>, and place it in a package, say <tt>common.scripts</tt>, that appears on your package path.  Now any script that would otherwise duplicate the code contained in <tt>bios_utils.xs</tt> can simply load it via <tt>xdc.loadCapsule()</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> bios_utils = <span class="re1">xdc.loadCapsule</span><span class="br0">&#40;</span><span class="st0">&quot;common/scripts/bios_utils.xs&quot;</span><span class="br0">&#41;</span>;
+bios_utils.doSomethingUseful<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>Suppose you adopt a convention that every package has contains contains a file named <tt>version.txt</tt> containing package version information.  The script below uses <tt>xdc.findFile()</tt> to locate the <tt>version.txt</tt> file in the package named <tt>my.pkg</tt> and prints its contents.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* locate my.pkg's version.txt file */</span>
+<span class="kw1">var</span> path = <span class="re1">xdc.findFile</span><span class="br0">&#40;</span><span class="st0">&quot;my/pkg/version.txt&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* print its contents */</span>
+<span class="kw1">var</span> file = <span class="kw1">new</span> java.io.BufferedReader<span class="br0">&#40;</span><span class="kw1">new</span> java.io.FileReader<span class="br0">&#40;</span>path<span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> line;
+<span class="kw1">while</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>line = file.readLine<span class="br0">&#40;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>&nbsp;!= <span class="kw2">null</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span>line<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Finally, the next example illustrates how to use <tt>xdc.loadXML()</tt> and E4X to display all of a package's external references.  Every package contains a <tt>./package</tt> subdirectory with several XML files that describe the package.  One file, <tt>package.rel.xml</tt>, contained in all released packages contains a list of all external references.  The example below displays this list for the <tt>xdc.runtime</tt> package.  Note that like <tt>xdc.loadCapsule()</tt>, <tt>xdc.loadXML()</tt> searches the package path.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* load the xdc.runtime package's release XML file */</span>
+<span class="kw1">var</span> ext = <span class="re1">xdc.loadXML</span><span class="br0">&#40;</span><span class="st0">&quot;xdc/runtime/package/package.rel.xml&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* use E4X extensions to get and display information from this file */</span>
+<span class="kw1">var</span> references = ext.references<span class="br0">&#91;</span><span class="st0">&quot;package&quot;</span><span class="br0">&#93;</span>;
+print<span class="br0">&#40;</span><span class="st0">&quot;package &quot;</span> + ext<span class="br0">&#91;</span><span class="st0">&quot;package&quot;</span><span class="br0">&#93;</span>.@name + <span class="st0">&quot; references the following packages:&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i <span class="kw1">in</span> references<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span><span class="st0">&quot;    &quot;</span> + references<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.@name + <span class="st0">&quot; [&quot;</span> + references<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.@version + <span class="st0">&quot;]&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<a name="Methods_for_generating_other_files"></a><h3> <span class="mw-headline">Methods for generating other files</span></h3>
+<p>While it is relatively easy to use the ability to write files (shown above) to create any text file, it is sometimes easier to use and maintain a "template" that is used to create a new file.  For example, suppose you need to generate a C file whose contents are almost always the same except for a few computed data tables.  Using a template allows you to easily adjust the output rather than wading through long sequences of <tt>'file.write("   \n");'</tt> statements.
+</p><p>The XDCscript provides a few methods to simplify the generation of files based on templates.
+</p>
+<ul><li> <tt>var tplt = <a href="../XDCscript_-_xdc.loadTemplate/XDCscript_-_xdc.loadTemplate.html" title="XDCscript - xdc.loadTemplate">xdc.loadTemplate(template)</a></tt><br />read <tt>template</tt> into memory and return an object that can be used to "expand" the template into an output stream or into a new file.
+</li><li> <i>tplt</i><tt>.genFile(fileName, thisObj, args, clobber)</tt><br />generate output to <tt>fileName</tt>, which is created if necessary. Unless <tt>clobber</tt> is <tt>true</tt>, an existing file is overwritten only when its content has truly changed. 
+</li><li> <i>tplt</i><tt>.genStream(outStream, thisObj, args)</tt><br />  generate output to <tt>outStream</tt>, an instance of class <tt>java.io.PrintStream</tt>. All three parameters are passed to the underlying template generation function.
+</li></ul>
+<p>Template files contain lines of text that <tt>genFile()</tt> and <tt>genStream()</tt> automatically output when invoked. Templates also contain lines of XDCscript that are executed during expansion and can reference any object in the current environment – with <tt>$out</tt>, <tt>this</tt>, and <tt>$args</tt> bound to parameters of <tt>genStream()</tt>.
+</p><p>The syntax of templates is quite simple.  Lines that begin with the '%' character are treated as XDCscript and are not output.  Line that don't begin with '%' are simply output without change unless they contain tokens within between back quotes (`...`).  In this case the characters between the back quotes are evaluated as XDCscript expression and the resulting value replaces the expression in the output line.
+</p><p>The following examples summarize the statements that can appear in templates.
+</p>
+<dl><dd><pre>
+</dd><dd>text`script expression`text …
+</dd><dd></pre>
+</dd><dd>A line of text to be output at this point. All expressions between `s are replaced with their (textual) value in the current context.
+</dd></dl>
+<dl><dd><pre>
+</dd><dd>% script …
+</dd><dd></pre>
+</dd><dd>A single line of script to be executed at this point during expansion.
+</dd></dl>
+<dl><dd><pre>
+</dd><dd>%%{
+</dd><dd>   stmt …
+</dd><dd>   stmt …
+</dd><dd>%%}
+</dd><dd></pre>
+</dd><dd> Multiple lines of script to be evaluated at this point during expansion.  Variable and functions defined in such a block can be used in other lines, blocks, or expressions.
+</dd></dl>
+<p><span class="Leader">Example (generating copyrights from a template)</span>.&nbsp;  The following script and template illustrate many of the capabilities of templates.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>gen.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> template = <span class="re1">xdc.loadTemplate</span><span class="br0">&#40;</span><span class="st0">&quot;copyright.xdt&quot;</span><span class="br0">&#41;</span>;
+template.genStream<span class="br0">&#40;</span>java.lang.System.out, <span class="kw2">this</span>, 
+    <span class="br0">&#91;</span><span class="st0">&quot;TI&quot;</span>, arguments<span class="br0">&#93;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>copyright.xdt</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>%%{
+    var NAME = $args[0];
+    var CTRB = $args[1];
+    var DATE = new Date().getFullYear();
+%%}
+/*  Copyright `DATE` by `NAME`.
+ *  All rights reserved. Property of `NAME`.
+ *  Contributions from:
+%for (var i = 0; i &lt; CTRB.length; i++) {
+ *      `CTRB[i]`
+%}
+ */</pre></td></tr></table>
+</td></tr></table>
+<p>Running this script produces the following output.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>xs -f gen.xs bob carol ted alice</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>/*  Copyright 2008 by TI.
+ *  All rights reserved. Property of TI.
+ *  Contributions from:
+ *      bob
+ *      carol
+ *      ted
+ *      alice
+ */</pre></td></tr></table>
+<a name="Running_scripts"></a><h2> <span class="mw-headline">Running scripts</span></h2>
+<p><span class="todo"><b>TODO:</b>&nbsp;&nbsp; move to beginning or remove reference to xs above</span>
+</p><p>In addition to using JavaScript and the extensions described above for configuration and build scripts, XDCtools provides a command line utility, <a href="../Command_-_xs/Command_-_xs.html" title="Command - xs">xs</a>, that allows you to run arbitrary scripts.  This allows you to easily experiment with XDCscript and create powerful utilities that don't require any additional tools.  For example, it is possible to use the <tt>xs</tt> command to start an interactive session that allows you to repeatedly enter XDCscript statements and see their results.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xs -i</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>js&gt; print(&quot;hello&quot;);
+hello
+js&gt; &quot;this.is.a.test&quot;.replace(/\./g, '/')
+this/is/a/test
+js&gt; quit
+%</pre></td></tr></table>
+<p>It is also quite easy to create and run arbitrary scripts.  For example, we can encapsulate the E4X example above to create a reusable script that displays any package's external references.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>refs.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> main<span class="br0">&#40;</span>args<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="coMULTI">/* convert package name to release XML file name */</span>
+    <span class="kw1">var</span> file = args<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>.replace<span class="br0">&#40;</span>/\./g, <span class="st1">'/'</span><span class="br0">&#41;</span> + <span class="st0">&quot;/package/package.rel.xml&quot;</span>;
+    print<span class="br0">&#40;</span><span class="st0">&quot;loading &quot;</span> + file + <span class="st0">&quot; ...&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* load the specified package's release XML file */</span>
+    <span class="kw1">var</span> ext = <span class="re1">xdc.loadXML</span><span class="br0">&#40;</span>file<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* use E4X extensions to get and display information from this file */</span>
+    <span class="kw1">var</span> references = ext.references<span class="br0">&#91;</span><span class="st0">&quot;package&quot;</span><span class="br0">&#93;</span>;
+    print<span class="br0">&#40;</span><span class="st0">&quot;package &quot;</span> + ext<span class="br0">&#91;</span><span class="st0">&quot;package&quot;</span><span class="br0">&#93;</span>.@name + <span class="st0">&quot; references the following packages:&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i <span class="kw1">in</span> references<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        print<span class="br0">&#40;</span><span class="st0">&quot;    &quot;</span> + references<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.@name + <span class="st0">&quot; [&quot;</span> + references<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.@version + <span class="st0">&quot;]&quot;</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>This script can be run using the <tt>-c</tt> option of the <tt>xs</tt> command.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xs -c refs.xs xdc.runtime</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>    loading xdc/runtime/package/package.rel.xml ...
+    package xdc.runtime references the following packages:
+        xdc.utils.tconf [1, 0, 0, 0]
+        xdc.services.global [1, 0, 0]
+        xdc.services.spec [1, 0, 0, 0]
+        xdc.corevers [16, 0, 1, 0]
+        xdc.bld [1, 0, 0, 0]
+        xdc.services.intern.cmd [1, 0, 0, 0]
+        xdc.services.intern.xsr [1, 0, 0]
+        xdc [1, 1, 0, 0]
+        xdc.shelf [1, 0, 0, 0]
+        xdc.services.intern.gen [1, 0, 0, 0]
+%</pre></td></tr></table>
+<p>For more information about running <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>, see the <a href="../Command_-_xs/Command_-_xs.html" title="Command - xs"><tt>xs</tt> Command Reference</a> and for help debugging scripts see <a href="../XDCscript_Debugging/XDCscript_Debugging.html" title="XDCscript Debugging">XDCscript Debugging</a>.
+</p>
+<a name="JavaScript_and_Java_references"></a><h2> <span class="mw-headline">JavaScript and Java references</span></h2>
+<p><span id="JavaScriptReferences"></span>
+This document does not provide details on the syntax of the JavaScript language or on the Java packages that can be used. For reference information, we recommend the following sources:
+</p>
+<ul><li>JavaScript, The Definitive Guide, 3rd Edition, David Flanagan; O'Reilly 1998
+</li><li>ECMA-262 standard: <a href="http://www.ecma.ch/ecma1/STAND/ECMA-262.HTM" class="external free" title="http://www.ecma.ch/ecma1/STAND/ECMA-262.HTM" rel="nofollow">http://www.ecma.ch/ecma1/STAND/ECMA-262.HTM</a>
+</li><li>Rhino JavaScript interpreter: <a href="http://www.mozilla.org/rhino" class="external free" title="http://www.mozilla.org/rhino" rel="nofollow">http://www.mozilla.org/rhino</a>
+</li><li>LiveConnect: <a href="http://developer.mozilla.org/en/docs/LiveConnect" class="external free" title="http://developer.mozilla.org/en/docs/LiveConnect" rel="nofollow">http://developer.mozilla.org/en/docs/LiveConnect</a>
+</li><li>Java 2 SDK: <a href="http://java.sun.com/j2se/1.3/docs" class="external free" title="http://java.sun.com/j2se/1.3/docs" rel="nofollow">http://java.sun.com/j2se/1.3/docs</a>
+</li><li>java.io package: <a href="http://java.sun.com/j2se/1.3/docs/api/java/io/package-summary.html" class="external free" title="http://java.sun.com/j2se/1.3/docs/api/java/io/package-summary.html" rel="nofollow">http://java.sun.com/j2se/1.3/docs/api/java/io/package-summary.html</a>
+</li></ul>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Command_-_xs/Command_-_xs.html" title="Command - xs">Command - xs</a>
+</td><td class="DocListSubTitle1">XDCscript interpreter
+</td></tr>
+<tr>
+<td class="DocListSpacer">&nbsp;
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_Debugging/XDCscript_Debugging.html" title="XDCscript Debugging">XDCscript Debugging</a>
+</td><td class="DocListSubTitle">Overview of script debugging techniques
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.traceEnable/XDCscript_-_xdc.traceEnable.html" title="XDCscript - xdc.traceEnable">XDCscript - xdc.traceEnable</a>
+</td><td class="DocListSubTitle">Enable debug trace output
+</td></tr>
+<tr>
+<td class="DocListSpacer">&nbsp;
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.loadCapsule/XDCscript_-_xdc.loadCapsule.html" title="XDCscript - xdc.loadCapsule">XDCscript - xdc.loadCapsule</a>
+</td><td class="DocListSubTitle">Load specified capsule
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.findFile/XDCscript_-_xdc.findFile.html" title="XDCscript - xdc.findFile">XDCscript - xdc.findFile</a>
+</td><td class="DocListSubTitle">Find file along the package path
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.loadXML/XDCscript_-_xdc.loadXML.html" title="XDCscript - xdc.loadXML">XDCscript - xdc.loadXML</a>
+</td><td class="DocListSubTitle">Load an XML file
+</td></tr>
+<tr>
+<td class="DocListSpacer">&nbsp;
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.loadTemplate/XDCscript_-_xdc.loadTemplate.html" title="XDCscript - xdc.loadTemplate">XDCscript - xdc.loadTemplate</a>
+</td><td class="DocListSubTitle">Create a template from a template file
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=The XDCscript Language&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/The XDCscript Language" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../XDCscript_Debugging/XDCscript_Debugging.html" title="XDCscript Debugging"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 4429 bytes
+Post-expand include size: 2206 bytes
+Template argument size: 411 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__The_XDCscript_Language.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.313 secs. --></body></html>

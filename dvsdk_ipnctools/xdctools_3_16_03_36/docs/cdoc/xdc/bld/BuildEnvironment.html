@@ -1,0 +1,605 @@
+<html>
+<head>
+<title>module xdc.bld.BuildEnvironment</title>
+<meta name="description" content="Global build environment">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">BuildEnvironment</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/ITargetFilter.html" title="interface ITargetFilter"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Executable.html" title="module Executable"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html">index URL</a></div>
+<p class="xdocHdrSummary">Global build environment</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+This module defines a global object (aliased as '<tt>Build</tt>' in build scripts)
+  which is configured by a build "startup" script and read by package build
+  scripts.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/BuildEnvironment-src.html"><span class="xdocLabelFile">xdc/bld/BuildEnvironment.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">BuildEnvironment</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> BuildEnvironment = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.BuildEnvironment'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i>values of type <a class="xdocSynGo" href="#.Host.O.S">BuildEnvironment.<span class="xdoc-id">HostOS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An enumeration of all supported development hosts</span></span></a></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> <a class="xdocSynGo" href="#.Host.O.S">BuildEnvironment.<span class="xdoc-id">WINDOWS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Win32 Intel development host</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> <a class="xdocSynGo" href="#.Host.O.S">BuildEnvironment.<span class="xdoc-id">SOLARIS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;SUN OS 5.x development host</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> <a class="xdocSynGo" href="#.Host.O.S">BuildEnvironment.<span class="xdoc-id">LINUX</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Linux development host</span></span></a>;
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">const</span> <a class="xdocSynGo" href="#host.O.S">BuildEnvironment.<span class="xdoc-id">hostOS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enumerated constant that identifies the host OS that is executing
+  the build script</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/BuildEnvironment.html#.Host.O.S" title="xdc.bld.BuildEnvironment.HostOS">BuildEnvironment.HostOS</a></i> <i>computed value</i>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">const</span> <a class="xdocSynGo" href="#host.O.S.Name">BuildEnvironment.<span class="xdoc-id">hostOSName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the development host</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <i>computed value</i>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#exclude.Targets">BuildEnvironment.<span class="xdoc-id">excludeTargets</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A set of targets to exclude from the set specified by
+  <tt><span class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</span></tt></span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#native.Target">BuildEnvironment.<span class="xdoc-id">nativeTarget</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A target that defines the "native" target</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#platform.Table">BuildEnvironment.<span class="xdoc-id">platformTable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A map of platform instance names to the parameters used to
+  create them</span></span></a> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw1">string</span>]</i> [ ];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#targets">BuildEnvironment.<span class="xdoc-id">targets</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of all targets that are supported for the current build</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#use.Targets">BuildEnvironment.<span class="xdoc-id">useTargets</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The set of targets to use if the <tt><span class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</span></tt> array
+  is empty</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Release.Descs">BuildEnvironment.<span class="xdoc-id">getReleaseDescs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Return a description of all releases for the specified package</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">pname</span></go> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Desc" title="xdc.bld.Release.Desc">Release.Desc</a>[<span class="xdoc-kw2"></span>]</i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/BuildEnvironment-src.html"><span class="xdocLabelFile">xdc/bld/BuildEnvironment.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">BuildEnvironment</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">enum</span> <a class="xdocSynGo" href="#.Host.O.S"><span class="xdoc-id">HostOS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An enumeration of all supported development hosts</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Host.O.S"><span class="xdoc-id">WINDOWS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Win32 Intel development host</span></span></a>, 
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Host.O.S"><span class="xdoc-id">SOLARIS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;SUN OS 5.x development host</span></span></a>, 
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Host.O.S"><span class="xdoc-id">LINUX</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Linux development host</span></span></a>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">readonly </span><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/BuildEnvironment.html#.Host.O.S" title="xdc.bld.BuildEnvironment.HostOS">BuildEnvironment.HostOS</a>&nbsp;<a class="xdocSynGo" href="#host.O.S"><span class="xdoc-id">hostOS</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enumerated constant that identifies the host OS that is executing
+  the build script</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">readonly </span><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#host.O.S.Name"><span class="xdoc-id">hostOSName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the development host</span></span></a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#exclude.Targets"><span class="xdoc-id">excludeTargets</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A set of targets to exclude from the set specified by
+  <tt><span class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</span></tt></span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>&nbsp;<a class="xdocSynGo" href="#native.Target"><span class="xdoc-id">nativeTarget</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A target that defines the "native" target</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#platform.Table"><span class="xdoc-id">platformTable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A map of platform instance names to the parameters used to
+  create them</span></span></a>[<span class="xdoc-kw1">string</span>] = [ ];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>&nbsp;<a class="xdocSynGo" href="#targets"><span class="xdoc-id">targets</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of all targets that are supported for the current build</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#use.Targets"><span class="xdoc-id">useTargets</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The set of targets to use if the <tt><span class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</span></tt> array
+  is empty</span></span></a>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Desc.Array" title="xdc.bld.Release.DescArray">Release.DescArray</a>&nbsp;<a class="xdocSynGo" href="#get.Release.Descs"><span class="xdoc-id">getReleaseDescs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Return a description of all releases for the specified package</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">pname</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This module defines a global object (aliased as '<tt>Build</tt>' in build scripts)
+  which is configured by a build "startup" script and read by package build
+  scripts.</div>
+<div class="xdocText">This module's configuration parameters are initialized by
+  a "startup" script that is run prior to running a package's build
+  script (<tt>package.bld</tt>).  This script (often named "<tt>config.bld</tt>") is
+  responsible for specifying the the <tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#root.Dir" title="xdc.bld.ITarget.rootDir">xdc.bld.ITarget.rootDir</a></tt>
+  configuration parameter of all targets that appear in the
+  <tt><a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> array; the <tt>rootDir</tt> configuration parameter specifies 
+  the absolute path to the installation directory of the compiler used to 
+  build for the specified target.  Typically one startup script is used to
+  establish an environment for multiple packages.</div>
+<div class="xdocText">Note: it does not matter if you do not have tools for all the targets 
+  mentioned in the startup script; if you do not build for a target,
+  its setting in the startup script is irrelevant.</div>
+<div class="xdocText">The startup script may configure this module as a function of the
+  following global variables that exist before this script runs:</div>
+<div class="xdocText"><DL><DT> <tt>environment</tt></DT><DD>
+          a hash table of environment strings
+</DD><DT> <tt>arguments</tt></DT><DD>
+          an array of string arguments to the <tt>config.bld</tt> script
+          initialized as follows:
+              <tt>arguments[0]</tt> - the file name of the <tt>config.bld</tt> script;
+              <tt>arguments[1]</tt> - the first argument specified in <tt>XDCARGS</tt>;
+                  ...;
+              <tt>arguments[n]</tt> - the nth argument in <tt>XDCARGS</tt>.
+</DD><DT> <tt>Build</tt></DT><DD>
+          an alias for this module (<tt>xdc.bld.BuildEnvironment</tt>).
+          The following parameters of this object are initialized
+          before the startup script runs:
+              <tt>hostOS</tt>     - <tt><a class="xdoc-link" href="BuildEnvironment.html#.Host.O.S" title="HostOS">HostOS</a></tt> enumeration identifier;
+              <tt>hostOSName</tt> - "Windows", "Linux", or "Solaris"
+</DD><DT> <tt>Pkg</tt></DT><DD>
+          an alias for this module (<tt>xdc.bld.PackageContents</tt>).
+          The following parameters of this object are initialized
+          before the startup script runs:
+              <tt><a class="xdoc-link" href="PackageContents.html#name" title="PackageContents.name">PackageContents.name</a></tt> - the name of the current
+              package;
+              <tt><a class="xdoc-link" href="PackageContents.html#modules" title="PackageContents.modules">PackageContents.modules</a></tt> - array of module names
+              supplied by this package; and
+              <tt><a class="xdoc-link" href="PackageContents.html#interfaces" title="PackageContents.interfaces">PackageContents.interfaces</a></tt> - array of interface
+              names supplied by this package
+</DD></DL></div>
+<div class="xdocText">When you build a package, the <tt>xdc</tt> command looks for the startup file
+  using the following algorithm:</div>
+<div class="xdocText"><OL><LI>   if <tt>XDCBUILDCFG</tt> is defined on the <tt>xdc</tt> command line, its value is
+          used;
+</LI><LI>   if <tt>config.bld</tt> exists in the current directory, this file is used;
+</LI><LI>   if <tt>XDCBUILDCFG</tt> is defined as an environment variable, its value
+          is used;
+</LI><LI>   if <tt>config.bld</tt> exists along the package path (i.e. in <tt>$XDCPATH</tt>
+          followed by the current package's repository), the first such
+          file is used;
+</LI><LI>   if <tt>$XDCROOT/config.bld</tt> exists this file is used;
+</LI><LI>   if <tt>$XDCROOT/etc/config.bld</tt> exists, this file is used; and
+          finally
+</LI><LI>   if no "startup file" can be found above, a fatal error is 
+          reported and the <tt>xdc</tt> command terminates with a non-zero exit
+          status.
+ 
+</LI></OL></div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Host.O.S"></a>
+<a class="xdocAnchor" id=".W.I.N.D.O.W.S"></a>
+<a class="xdocAnchor" id=".S.O.L.A.R.I.S"></a>
+<a class="xdocAnchor" id=".L.I.N.U.X"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">enum</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">HostOS</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#.Host.O.S">index URL</a></div>
+<p class="xdocHdrSummary">An enumeration of all supported development hosts</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i>values of type BuildEnvironment.<span class="xdoc-id">HostOS</span></i>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> BuildEnvironment.<span class="xdoc-id">WINDOWS</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Win32 Intel development host</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> BuildEnvironment.<span class="xdoc-id">SOLARIS</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;SUN OS 5.x development host</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> BuildEnvironment.<span class="xdoc-id">LINUX</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Linux development host</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="BuildEnvironment.html#host.O.S" title="hostOS">hostOS</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="host.O.S"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">hostOS</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#host.O.S">index URL</a></div>
+<p class="xdocHdrSummary">Enumerated constant that identifies the host OS that is executing
+  the build script</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">const</span> BuildEnvironment.<span class="xdoc-id">hostOS</span> = <i><a class="xdoc-link" href="../../xdc/bld/BuildEnvironment.html#.Host.O.S" title="xdc.bld.BuildEnvironment.HostOS">BuildEnvironment.HostOS</a></i> <i>computed value</i>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Note that host OS at the time the makefiles are created may be
+  different from the host OS at the time sources are compiled!</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="host.O.S.Name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">hostOSName</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#host.O.S.Name">index URL</a></div>
+<p class="xdocHdrSummary">The name of the development host</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">const</span> BuildEnvironment.<span class="xdoc-id">hostOSName</span> = <i><span class="xdoc-kw2">String</span></i> <i>computed value</i>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">One of the strings: "Windows", "Solaris", "Linux".  This name is
+  name of the host OS that is executing the package's build script.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="exclude.Targets"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">excludeTargets</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#exclude.Targets">index URL</a></div>
+<p class="xdocHdrSummary">A set of targets to exclude from the set specified by
+  <tt><a class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</a></tt></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>BuildEnvironment.<span class="xdoc-id">excludeTargets</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string parameter is a single regular expression used to exclude
+  targets from the set specified by <tt>useTargets</tt> (or <tt>XDCTARGETS</tt>).</div>
+<div class="xdocText">If <tt><a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> is initialized by the build model's
+  configuration script (i.e., has length &gt; 0) this parameter is
+  ignored.</div>
+<div class="xdocText">If this string is <tt>null</tt> or <tt>undefined</tt>, nothing is excluded from 
+  list specified by <tt><a class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</a></tt> or the environment variable
+  <tt>XDCTARGETS</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</a>, <a class="xdoc-link" href="BuildEnvironment.html#native.Target" title="nativeTarget">nativeTarget</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="native.Target"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">nativeTarget</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#native.Target">index URL</a></div>
+<p class="xdocHdrSummary">A target that defines the "native" target</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>BuildEnvironment.<span class="xdoc-id">nativeTarget</span> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter allows build scripts to refer to the "native"
+  target without explicitly naming the target.</div>
+<div class="xdocText">For example, a <tt>package.bld</tt> script may add a library via:</div>
+<div class="xdocText"><PRE class="Example">      Pkg.addLibrary("lib", Build.nativeTarget);
+</PRE></div>
+<div class="xdocText">In addition, it is possible to use <tt>"native"</tt> in <tt>XDCTARGETS</tt> or
+  <tt><a class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</a></tt> to specify that
+  <tt><a class="xdoc-link" href="BuildEnvironment.html#native.Target" title="nativeTarget">nativeTarget</a></tt> be added to the <tt><a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> array.
+  Thus, it is possible to use the following command on *any* host to
+  build for that host:</div>
+<div class="xdocText"><PRE class="Example">      xdc XDCTARGETS=native
+</PRE></div>
+<div class="xdocText">If this parameter is not set by the build model's configuration
+  script, it is initialized to an appropriate default native target:</div>
+<div class="xdocText"><UL><LI> <tt><a class="xdoc-link" href="../../microsoft/targets/Win32.html" title="microsoft.targets.Win32">microsoft.targets.Win32</a></tt> for Windows hosts;
+</LI><LI> <tt><a class="xdoc-link" href="../../gnu/targets/Sparc.html" title="gnu.targets.Sparc">gnu.targets.Sparc</a></tt> for Solaris hosts; and
+</LI><LI> <tt><a class="xdoc-link" href="../../gnu/targets/Linux86.html" title="gnu.targets.Linux86">gnu.targets.Linux86</a></tt> for Linux hosts.
+</LI></UL></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="platform.Table"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">platformTable</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#platform.Table">index URL</a></div>
+<p class="xdocHdrSummary">A map of platform instance names to the parameters used to
+  create them</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>BuildEnvironment.<span class="xdoc-id">platformTable</span> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw1">string</span>]</i> [ ];
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This map allows one to define platform instances that require
+  non-default parameter settings.  It also provides a way to
+  publish a set of platforms to be shared among multiple build
+  scripts.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">EXAMPLES</div>
+<div class="xdocText">The following fragment defines a platform instance named
+  <tt>"ti.platforms.sim6xxx:big"</tt> that corresponds to a platform instance
+  created by the <tt>ti.platforms.sim6xxx.Platform</tt> module with the
+  parameters <tt>{endian: "big"}</tt>:</div>
+<div class="xdocText"><PRE class="Example">    Build.platformTable["ti.platforms.sim6xxx:big"] = {endian: "big"};
+</PRE></div>
+<div class="xdocText">The following fragment redefines the default platform instance for
+  the platform package <tt>ti.platforms.sim6xxx</tt> by specifying alternative
+  instance creation parameters.</div>
+<div class="xdocText"><PRE class="Example">    Build.platformTable["ti.platforms.sim6xxx"] = {
+        endian: "little", verbose: false, ftpath: "c:/ftsuite_1_5",
+    };
+</PRE></div>
+<div class="xdocText">Some platforms are "software abastractions" that can emulate a large
+  number different physical platforms.  In the example below, the
+  <tt>ti.platforms.sim6xxx</tt> platform package is capable of simulating
+  any TMS320C6xxx device.  This particular platform package uses the
+  name of the instance to determine the specific device that it should
+  emulate.  So, the fragment below specifies a platform instance named
+  <tt>"ti.platforms.sim6xxx:TMS320C6416"</tt> that emulates the <tt>TMS320C6416</tt>
+  device, in little endian mode.</div>
+<div class="xdocText"><PRE class="Example">    Build.platformTable["ti.platforms.sim6xxx:TMS320C6416"] = {
+        endian: "little"
+    };
+</PRE></div>
+<div class="xdocText">Software platform packages, such as the <tt>ti.platforms.generic</tt>, can
+  even go as far as emulating any device from any "catalog" of
+  devices.  In this example, we use the <tt>ti.platforms.generic</tt>
+  platform package to define an instance named
+  <tt>ti.platforms.generic:c6416</tt> that corresponds to a platform
+  containing the TMS320C6416 device specified in the <tt>ti.catalog.c6000</tt>
+  package of devices.</div>
+<div class="xdocText"><PRE class="Example">    Build.platformTable["ti.platforms.generic:c6416"] = {
+        deviceName: "TMS320C6416",
+        catalogName: "ti.catalog.c6000",
+    };
+</PRE></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../ti/catalog/c6000/package.html" title="ti.catalog.c6000">ti.catalog.c6000</a>, <a class="xdoc-link" href="../../ti/platforms/generic/package.html" title="ti.platforms.generic">ti.platforms.generic</a>, <a class="xdoc-link" href="../../ti/platforms/sim6xxx/package.html" title="ti.platforms.sim6xxx">ti.platforms.sim6xxx</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="targets"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">targets</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#targets">index URL</a></div>
+<p class="xdocHdrSummary">Array of all targets that are supported for the current build</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>BuildEnvironment.<span class="xdoc-id">targets</span> = <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This array may be explicitly initialized by the build model's
+  initial configuration script (by default, "<tt>config.bld</tt>").  For
+  example, the following fragment specifies that just the
+  <tt>ti.targets.C64</tt> target should be used:</div>
+<div class="xdocText"><PRE class="Example">      // get the ti.targets.C64 module
+      var C64 = xdc.module('ti.targets.C64');
+
+      // add the ti.target.C64 module to BuildEnvironment.targets array
+      Build.targets[Build.targets.length++] = C64;
+</PRE></div>
+<div class="xdocText">Alternatively, this array can be implicitly initialized via the
+  <tt>XDCTARGETS</tt> environment variable or the <tt><a class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</a></tt>
+  and <tt><a class="xdoc-link" href="BuildEnvironment.html#exclude.Targets" title="excludeTargets">excludeTargets</a></tt> strings.  The <tt><a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> array
+  is implicitly initialized if and only if the length of this array is
+  0 after the build model's configuration script completes.</div>
+<div class="xdocText">All targets that are in this array *must* have their
+  <tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#root.Dir" title="xdc.bld.ITarget.rootDir">xdc.bld.ITarget.rootDir</a></tt> property set.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="BuildEnvironment.html#exclude.Targets" title="excludeTargets">excludeTargets</a>, <a class="xdoc-link" href="BuildEnvironment.html#use.Targets" title="useTargets">useTargets</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="use.Targets"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">useTargets</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#use.Targets">index URL</a></div>
+<p class="xdocHdrSummary">The set of targets to use if the <tt><a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> array
+  is empty</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>BuildEnvironment.<span class="xdoc-id">useTargets</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText"><tt>useTargets</tt> is a string of white space separated target names 
+  (i.e., names of modules that implement <tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html" title="xdc.bld.ITarget">xdc.bld.ITarget</a></tt>) or
+  regular expression patterns matching target names.</div>
+<div class="xdocText">If the <tt>Build.<a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> array is empty at the end of the
+  build model's configuration script, targets specified by this string
+  are added to the build model's <tt><a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> array.</div>
+<div class="xdocText">In addition to module names, the distinguished string
+  <tt>"native"</tt> is interpreted as an alias for the target
+  specified by the <tt><a class="xdoc-link" href="BuildEnvironment.html#native.Target" title="nativeTarget">nativeTarget</a></tt> configuration
+  parameter.</div>
+<div class="xdocText">Special values:</div>
+<div class="xdocText"><DL><DT><tt>undefined</tt></DT><DD>
+          use the environment variable <tt>XDCTARGETS</tt>;
+</DD><DT><tt>null</tt></DT><DD>
+          initialize the <tt><a class="xdoc-link" href="BuildEnvironment.html#targets" title="targets">targets</a></tt> array to be empty; and
+</DD><DT><tt>""</tt></DT><DD>
+          use all TI targets (i.e., "<tt>ti.targets\..*</tt>").
+
+</DD></DL></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="BuildEnvironment.html#exclude.Targets" title="excludeTargets">excludeTargets</a>, <a class="xdoc-link" href="BuildEnvironment.html#native.Target" title="nativeTarget">nativeTarget</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Release.Descs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">BuildEnvironment.</span><span class="xdoc-id">getReleaseDescs</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/BuildEnvironment.html" title="module BuildEnvironment"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/BuildEnvironment.html#get.Release.Descs">index URL</a></div>
+<p class="xdocHdrSummary">Return a description of all releases for the specified package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>BuildEnvironment.<span class="xdoc-id">getReleaseDescs</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">pname</span> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Desc" title="xdc.bld.Release.Desc">Release.Desc</a>[<span class="xdoc-kw2"></span>]</i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">pname</span>
+<span class="xdocChildSum">&#151;&nbsp;name of the package to get the release 
+                  information from</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function allows a "package of packages" to select appropriate
+  releases from another package based on information provided by that
+  package.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">array of <tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Desc" title="xdc.bld.Release.Desc">xdc.bld.Release.Desc</a></tt>
+                  structures that describe the releases specified
+                  by <tt>pname</tt>'s build script</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal
+                   errors. The following error codes are
+                   reported in the exception message:</div>
+<div class="xdocText"><DL><DT> <tt>xdc.bld.PACKAGE_NOT_BUILT</tt></DT><DD>
+                      This error is reported when a consumer tries to
+                      use a package that has not been built. Ensure that
+                      the required package has been built by the <tt>xdc</tt>
+                      tool.
+</DD><DT>  <tt>xdc.bld.INVALID_PACKAGE</tt></DT><DD>
+                      This error is reported when a consumer tries to
+                      use a corrupted package. Try rebuilding the
+                      package causing the problem.
+
+</DD></DL></div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/Release.html#.Desc" title="xdc.bld.Release.Desc">xdc.bld.Release.Desc</a></div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:17 GMT</div>
+</div></div></body>
+</html>

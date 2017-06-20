@@ -1,0 +1,548 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XDCspec Language Reference - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCspec Language Reference&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCspec Language Reference" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html" title="XDCtools Reference Manual"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">XDCspec Language Reference</p><p id="subtitle">Elements of the RTSC specification language</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Grammar"><span class="tocnumber">1</span> <span class="toctext">Grammar</span></a></li>
+<li class="toclevel-1"><a href="#Attributes"><span class="tocnumber">2</span> <span class="toctext">Attributes</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Module_Attributes"><span class="tocnumber">2.1</span> <span class="toctext">Module Attributes</span></a></li>
+<li class="toclevel-2"><a href="#Method_Attributes"><span class="tocnumber">2.2</span> <span class="toctext">Method Attributes</span></a></li>
+<li class="toclevel-2"><a href="#Type_Attributes"><span class="tocnumber">2.3</span> <span class="toctext">Type Attributes</span></a></li>
+<li class="toclevel-2"><a href="#Configuration_Attributes"><span class="tocnumber">2.4</span> <span class="toctext">Configuration Attributes</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#XDoc_tags"><span class="tocnumber">3</span> <span class="toctext">XDoc tags</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p></p>
+<a name="Grammar"></a><h2> <span class="mw-headline">Grammar</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_-_config-specification/XDCspec_-_config-specification.html" title="XDCspec - config-specification">XDCspec - config-specification</a>
+</td><td class="DocListSubTitle1">configuration specification syntax
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_const-specification/XDCspec_-_const-specification.html" title="XDCspec - const-specification">XDCspec - const-specification</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_enum-specification/XDCspec_-_enum-specification.html" title="XDCspec - enum-specification">XDCspec - enum-specification</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_extern-specification/XDCspec_-_extern-specification.html" title="XDCspec - extern-specification">XDCspec - extern-specification</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_function-specification/XDCspec_-_function-specification.html" title="XDCspec - function-specification">XDCspec - function-specification</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_package-specification/XDCspec_-_package-specification.html" title="XDCspec - package-specification">XDCspec - package-specification</a>
+</td><td class="DocListSubTitle">Package specification syntax
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_proxy-specification/XDCspec_-_proxy-specification.html" title="XDCspec - proxy-specification">XDCspec - proxy-specification</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_struct-specification/XDCspec_-_struct-specification.html" title="XDCspec - struct-specification">XDCspec - struct-specification</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_typedef-specification/XDCspec_-_typedef-specification.html" title="XDCspec - typedef-specification">XDCspec - typedef-specification</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_unit-specification/XDCspec_-_unit-specification.html" title="XDCspec - unit-specification">XDCspec - unit-specification</a>
+</td><td class="DocListSubTitle">Module and interface specification syntax
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_declaration/XDCspec_-_declaration.html" title="XDCspec - declaration">XDCspec - declaration</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_initializer/XDCspec_-_initializer.html" title="XDCspec - initializer">XDCspec - initializer</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr></table>
+<a name="Attributes"></a><h2> <span class="mw-headline">Attributes</span></h2>
+<p>Attributes are additional properties that can be associated with elements of the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> language.  Attributes are always prefixed with '@' and must appear immediately before the element to which they apply.
+</p><p>For example, it is possible to declare that a module is "gated" by adding the <tt>@Gated</tt> attribute just before the <tt>module</tt> statement in the module's spec file.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="re1">@Gated</span>
+<span class="kw1">module</span> System <span class="br0">&#123;</span> ...<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<p>The following list enumerates the complete set of currently supported attributes.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_-_%40Annex/XDCspec_-_%40Annex.html" title="XDCspec - @Annex">XDCspec - @Annex</a>
+</td><td class="DocListSubTitle1">This parameter or method has been added
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40CommandOption/XDCspec_-_%40CommandOption.html" title="XDCspec - @CommandOption">XDCspec - @CommandOption</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40CustomHeader/XDCspec_-_%40CustomHeader.html" title="XDCspec - @CustomHeader">XDCspec - @CustomHeader</a>
+</td><td class="DocListSubTitle">This module's header includes handcrafted headers
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40DirectCall/XDCspec_-_%40DirectCall.html" title="XDCspec - @DirectCall">XDCspec - @DirectCall</a>
+</td><td class="DocListSubTitle">Always generate a direct call to this function
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Encoded/XDCspec_-_%40Encoded.html" title="XDCspec - @Encoded">XDCspec - @Encoded</a>
+</td><td class="DocListSubTitle">This type has custom encoding
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Facet/XDCspec_-_%40Facet.html" title="XDCspec - @Facet">XDCspec - @Facet</a>
+</td><td class="DocListSubTitle">This meta-only unit or config parameter is a facet
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Factory/XDCspec_-_%40Factory.html" title="XDCspec - @Factory">XDCspec - @Factory</a>
+</td><td class="DocListSubTitle">This proxy is a factory
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Gated/XDCspec_-_%40Gated.html" title="XDCspec - @Gated">XDCspec - @Gated</a>
+</td><td class="DocListSubTitle">This module has a gate
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40GlobalNames/XDCspec_-_%40GlobalNames.html" title="XDCspec - @GlobalNames">XDCspec - @GlobalNames</a>
+</td><td class="DocListSubTitle">This module defines "unprefixed" identifiers
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40InstanceFinalize/XDCspec_-_%40InstanceFinalize.html" title="XDCspec - @InstanceFinalize">XDCspec - @InstanceFinalize</a>
+</td><td class="DocListSubTitle">This module's instances require finalization
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40InstanceInitError/XDCspec_-_%40InstanceInitError.html" title="XDCspec - @InstanceInitError">XDCspec - @InstanceInitError</a>
+</td><td class="DocListSubTitle">This module's instance initialization can fail
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Macro/XDCspec_-_%40Macro.html" title="XDCspec - @Macro">XDCspec - @Macro</a>
+</td><td class="DocListSubTitle">This function is a macro
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40ModuleStartup/XDCspec_-_%40ModuleStartup.html" title="XDCspec - @ModuleStartup">XDCspec - @ModuleStartup</a>
+</td><td class="DocListSubTitle">This module has a startup initialization function
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40NoRuntime/XDCspec_-_%40NoRuntime.html" title="XDCspec - @NoRuntime">XDCspec - @NoRuntime</a>
+</td><td class="DocListSubTitle">This module does not use xdc.runtime
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Opaque/XDCspec_-_%40Opaque.html" title="XDCspec - @Opaque">XDCspec - @Opaque</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Prefix/XDCspec_-_%40Prefix.html" title="XDCspec - @Prefix">XDCspec - @Prefix</a>
+</td><td class="DocListSubTitle">This module defines a custom prefix
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Proxy/XDCspec_-_%40Proxy.html" title="XDCspec - @Proxy">XDCspec - @Proxy</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40System/XDCspec_-_%40System.html" title="XDCspec - @System">XDCspec - @System</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40TargetHeader/XDCspec_-_%40TargetHeader.html" title="XDCspec - @TargetHeader">XDCspec - @TargetHeader</a>
+</td><td class="DocListSubTitle">This metaonly module generates a header
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Template/XDCspec_-_%40Template.html" title="XDCspec - @Template">XDCspec - @Template</a>
+</td><td class="DocListSubTitle">This module contributes configuration C code
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40XmlDtd/XDCspec_-_%40XmlDtd.html" title="XDCspec - @XmlDtd">XDCspec - @XmlDtd</a>
+</td><td class="DocListSubTitle">This structure can be serialized as XML
+</td></tr></table>
+<a name="Module_Attributes"></a><h6> <span class="mw-headline">Module Attributes</span></h6>
+<p><span class="Leader">Module Attributes</span>.&nbsp;  The following list enumerates the attributes applicable to modules and interfaces.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_-_%40CustomHeader/XDCspec_-_%40CustomHeader.html" title="XDCspec - @CustomHeader">XDCspec - @CustomHeader</a>
+</td><td class="DocListSubTitle1">This module's header includes handcrafted headers
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Facet/XDCspec_-_%40Facet.html" title="XDCspec - @Facet">XDCspec - @Facet</a>
+</td><td class="DocListSubTitle">This meta-only unit or config parameter is a facet
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Gated/XDCspec_-_%40Gated.html" title="XDCspec - @Gated">XDCspec - @Gated</a>
+</td><td class="DocListSubTitle">This module has a gate
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40GlobalNames/XDCspec_-_%40GlobalNames.html" title="XDCspec - @GlobalNames">XDCspec - @GlobalNames</a>
+</td><td class="DocListSubTitle">This module defines "unprefixed" identifiers
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40InstanceFinalize/XDCspec_-_%40InstanceFinalize.html" title="XDCspec - @InstanceFinalize">XDCspec - @InstanceFinalize</a>
+</td><td class="DocListSubTitle">This module's instances require finalization
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40InstanceInitError/XDCspec_-_%40InstanceInitError.html" title="XDCspec - @InstanceInitError">XDCspec - @InstanceInitError</a>
+</td><td class="DocListSubTitle">This module's instance initialization can fail
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40ModuleStartup/XDCspec_-_%40ModuleStartup.html" title="XDCspec - @ModuleStartup">XDCspec - @ModuleStartup</a>
+</td><td class="DocListSubTitle">This module has a startup initialization function
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40NoRuntime/XDCspec_-_%40NoRuntime.html" title="XDCspec - @NoRuntime">XDCspec - @NoRuntime</a>
+</td><td class="DocListSubTitle">This module does not use xdc.runtime
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Prefix/XDCspec_-_%40Prefix.html" title="XDCspec - @Prefix">XDCspec - @Prefix</a>
+</td><td class="DocListSubTitle">This module defines a custom prefix
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40TargetHeader/XDCspec_-_%40TargetHeader.html" title="XDCspec - @TargetHeader">XDCspec - @TargetHeader</a>
+</td><td class="DocListSubTitle">This metaonly module generates a header
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Template/XDCspec_-_%40Template.html" title="XDCspec - @Template">XDCspec - @Template</a>
+</td><td class="DocListSubTitle">This module contributes configuration C code
+</td></tr></table>
+<a name="Method_Attributes"></a><h6> <span class="mw-headline">Method Attributes</span></h6>
+<p><span class="Leader">Method Attributes</span>.&nbsp;  The following list enumerates the attributes applicable to methods.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_-_%40Annex/XDCspec_-_%40Annex.html" title="XDCspec - @Annex">XDCspec - @Annex</a>
+</td><td class="DocListSubTitle1">This parameter or method has been added
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40DirectCall/XDCspec_-_%40DirectCall.html" title="XDCspec - @DirectCall">XDCspec - @DirectCall</a>
+</td><td class="DocListSubTitle">Always generate a direct call to this function
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Macro/XDCspec_-_%40Macro.html" title="XDCspec - @Macro">XDCspec - @Macro</a>
+</td><td class="DocListSubTitle">This function is a macro
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40System/XDCspec_-_%40System.html" title="XDCspec - @System">XDCspec - @System</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr></table>
+<a name="Type_Attributes"></a><h6> <span class="mw-headline">Type Attributes</span></h6>
+<p><span class="Leader">Type Attributes</span>.&nbsp; The following list enumerates the attributes applicable to types defined in a module or interface.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_-_%40Encoded/XDCspec_-_%40Encoded.html" title="XDCspec - @Encoded">XDCspec - @Encoded</a>
+</td><td class="DocListSubTitle1">This type has custom encoding
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40XmlDtd/XDCspec_-_%40XmlDtd.html" title="XDCspec - @XmlDtd">XDCspec - @XmlDtd</a>
+</td><td class="DocListSubTitle">This structure can be serialized as XML
+</td></tr></table>
+<a name="Configuration_Attributes"></a><h6> <span class="mw-headline">Configuration Attributes</span></h6>
+<p><span class="Leader">Configuration Attributes</span>.&nbsp; The following list enumerates the attributes applicable to configuration parameters defined in a module or interface.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_-_%40CommandOption/XDCspec_-_%40CommandOption.html" title="XDCspec - @CommandOption">XDCspec - @CommandOption</a>
+</td><td class="DocListSubTitle1"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Facet/XDCspec_-_%40Facet.html" title="XDCspec - @Facet">XDCspec - @Facet</a>
+</td><td class="DocListSubTitle">This meta-only unit or config parameter is a facet
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Factory/XDCspec_-_%40Factory.html" title="XDCspec - @Factory">XDCspec - @Factory</a>
+</td><td class="DocListSubTitle">This proxy is a factory
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40Proxy/XDCspec_-_%40Proxy.html" title="XDCspec - @Proxy">XDCspec - @Proxy</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr></table>
+<p></p>
+<a name="XDoc_tags"></a><h2> <span class="mw-headline">XDoc tags</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_-_%40_nodoc/XDCspec_-_%40_nodoc.html" title="XDCspec - @ nodoc">XDCspec - @_nodoc</a>
+</td><td class="DocListSubTitle1"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40a/XDCspec_-_%40a.html" title="XDCspec - @a">XDCspec - @a</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40b/XDCspec_-_%40b.html" title="XDCspec - @b">XDCspec - @b</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40c/XDCspec_-_%40c.html" title="XDCspec - @c">XDCspec - @c</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40details/XDCspec_-_%40details.html" title="XDCspec - @details">XDCspec - @details</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40field/XDCspec_-_%40field.html" title="XDCspec - @field">XDCspec - @field</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40link/XDCspec_-_%40link.html" title="XDCspec - @link">XDCspec - @link</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40param/XDCspec_-_%40param.html" title="XDCspec - @param">XDCspec - @param</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40p/XDCspec_-_%40p.html" title="XDCspec - @p">XDCspec - @p</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40p%28blist%29/XDCspec_-_%40p%28blist%29.html" title="XDCspec - @p(blist)">XDCspec - @p(blist)</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40p%28code%29/XDCspec_-_%40p%28code%29.html" title="XDCspec - @p(code)">XDCspec - @p(code)</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40p%28dlist%29/XDCspec_-_%40p%28dlist%29.html" title="XDCspec - @p(dlist)">XDCspec - @p(dlist)</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40p%28html%29/XDCspec_-_%40p%28html%29.html" title="XDCspec - @p(html)">XDCspec - @p(html)</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40p%28nlist%29/XDCspec_-_%40p%28nlist%29.html" title="XDCspec - @p(nlist)">XDCspec - @p(nlist)</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40p%28text%29/XDCspec_-_%40p%28text%29.html" title="XDCspec - @p(text)">XDCspec - @p(text)</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40see/XDCspec_-_%40see.html" title="XDCspec - @see">XDCspec - @see</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40summary/XDCspec_-_%40summary.html" title="XDCspec - @summary">XDCspec - @summary</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCspec_-_%40value/XDCspec_-_%40value.html" title="XDCspec - @value">XDCspec - @value</a>
+</td><td class="DocListSubTitle"><i>under construction</i>
+</td></tr></table>
+<p></p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../../cdoc/xdc/services/spec/package.html" class="cdoc"><tt>xdc.services.spec</tt></a>
+</td><td class="DocListSubTitle1">Client documentation for <tt>xdc.services.spec</tt>
+</td></tr></table>
+<p></p>
+<p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;The following documents are obsolete but contain information that has yet to be moved to the current document</span>
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCspec_Language_Summary/XDCspec_Language_Summary.html" title="XDCspec Language Summary">XDCspec Language Summary</a>
+</td><td class="DocListSubTitle1">XDCspec language quick reference
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCspec Language Reference&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCspec Language Reference" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html" title="XDCtools Reference Manual"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<p><br />
+</p><!-- 
+Pre-expand include size: 3771 bytes
+Post-expand include size: 1367 bytes
+Template argument size: 269 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XDCspec_Language_Reference.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.254 secs. --></body></html>

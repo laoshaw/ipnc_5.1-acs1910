@@ -1,0 +1,11 @@
+package.xdc
+DEI.xdc
+DEI.xs
+package/ti.sdo.codecs.dei.ce.ccs
+package/.vers_g104
+package/.vers_r108
+package/.vers_b102
+package/ti.sdo.codecs.dei.ce.sch
+package/package_ti.sdo.codecs.dei.ce.c
+package/package.defs.h
+package/package.doc.xml

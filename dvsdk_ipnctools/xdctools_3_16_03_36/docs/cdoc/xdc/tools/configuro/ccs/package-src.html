@@ -1,0 +1,58 @@
+<html><head><title>package xdc.tools.configuro.ccs</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright 2007 by Texas Instruments Incorporated.
+</span>     3    <span class="comment"> *
+</span>     4    <span class="comment"> *  All rights reserved. Property of Texas Instruments Incorporated.
+</span>     5    <span class="comment"> *  Restricted rights to use, duplicate or disclose this code are
+</span>     6    <span class="comment"> *  granted through contract.
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> */</span>
+     9    
+    10    <span class=key>requires</span> xdc.tools.configuro;
+    11    
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== xdc.tools.configuro.ccs ========
+</span>    14    <span class="xdoc"> *  Command-line configuration tool adapter for Code Composer Studio
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  <b>@a(INSTALLING_ON_WINDOWS)</b>
+</span>    17    <span class="xdoc"> *
+</span>    18    <span class="xdoc"> *  The XDC interface to Code Composer Studio requires some Windows registry
+</span>    19    <span class="xdoc"> *  entries for correct operation. By default the XDC product Windows installer
+</span>    20    <span class="xdoc"> *  takes care of this transparently to the user. You need only read this
+</span>    21    <span class="xdoc"> *  section if you have installed or upgraded the XDC product on Windows without
+</span>    22    <span class="xdoc"> *  having used the installer, for example if you are accessing XDC from a
+</span>    23    <span class="xdoc"> *  shared network drive.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  To update the required registry entries, do the following steps:
+</span>    26    <span class="xdoc"> *  <b>@p(nlist)</b>
+</span>    27    <span class="xdoc"> *  - open a Windows command window, for example by typing `cmd` from the
+</span>    28    <span class="xdoc"> *    "Run..." menu item located in the Windows "Start" menu.
+</span>    29    <span class="xdoc"> *  - type `cd %XDCROOT%`
+</span>    30    <span class="xdoc"> *  - type `cd packages\xdc\tools\configuro\ccs`
+</span>    31    <span class="xdoc"> *  - type `regsvr32 btiXdc`
+</span>    32    <span class="xdoc"> *  - click OK on the dialog box:
+</span>    33    <span class="xdoc"> *  <b>@p</b>
+</span>    34    <span class="xdoc"> *  <b>@p(html)</b>
+</span>    35    <span class="xdoc"> *     &lt;div style="text-align: center;"&gt;
+</span>    36    <span class="xdoc"> *       &lt;img src="./doc-files/RegSvr32.png"/&gt;
+</span>    37    <span class="xdoc"> *     &lt;/div&gt;
+</span>    38    <span class="xdoc"> *  <b>@p</b>
+</span>    39    <span class="xdoc"> * 
+</span>    40    <span class="xdoc"> *  If you have not installed XDC using the installer, it is possible that you
+</span>    41    <span class="xdoc"> *  also do not have an `%XDCROOT%` environment variable. In this case in step
+</span>    42    <span class="xdoc"> *  2 above, cd to your own XDC product installation directory.
+</span>    43    <span class="xdoc"> */</span>
+    44    <span class=key>package</span> xdc.tools.configuro.ccs [1, 0, 0, 0] {
+    45        <span class=key>module</span> Main;
+    46    }
+    47    <span class="comment">/*
+</span>    48    <span class="comment"> *  @(#) xdc.tools.configuro.ccs; 1, 0, 0, 0,34; 12-15-2007 18:23:21; /db/ztree/library/trees/bti-a52x/src/
+</span>    49    <span class="comment"> */</span>
+    50    
+</pre>
+</body></html>

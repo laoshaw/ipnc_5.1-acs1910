@@ -1,0 +1,10 @@
+x264 configure script
+
+checking whether gcc works... yes
+checking for -std=gnu99... yes
+checking whether yasm supports lzcnt eax, eax... no
+Failed commandline was:
+--------------------------------------------------
+yasm conftest.asm  -O2 -f elf  -o conftest.o
+./configure: line 81: yasm: command not found
+--------------------------------------------------

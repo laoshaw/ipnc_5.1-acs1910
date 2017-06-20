@@ -1,0 +1,606 @@
+<html><head><title>interface ti.catalog.msp430.IMSP430F54xx</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== IMSP430F54xx.xdc ========
+</span>    15    <span class="comment"> *  Common definitions for MSP430F54xx devices
+</span>    16    <span class="comment"> *
+</span>    17    <span class="comment"> */</span>
+    18    
+    19    <span class=key>metaonly</span> <span class=key>interface</span> IMSP430F54xx <span class=key>inherits</span> IMSP430
+    20    {
+    21        <span class=key>struct</span> Timer {
+    22            string  name;
+    23            UInt    baseAddr;
+    24            UInt    intNum;
+    25        };
+    26    
+    27    <span class=key>instance</span>:
+    28    
+    29        <span class="xdoc">/*!
+</span>    30    <span class="xdoc">     *  ======== commonMap ========
+</span>    31    <span class="xdoc">     *  Memory map elements shared by all MSP430F54xx devices
+</span>    32    <span class="xdoc">     */</span>
+    33        <span class=key>config</span> xdc.platform.IPlatform.Memory commonMap[string]  = [
+    34    
+    35            [<span class="string">"PERIPHERALS"</span>, {
+    36                comment:    <span class="string">"Memory mapped peripherals"</span>,
+    37                name:       <span class="string">"PERIPHERALS"</span>,
+    38                base:       0x0,
+    39                len:        0x1000,
+    40                space:      <span class="string">"io"</span>,
+    41                access:     <span class="string">"RW"</span>
+    42            }],
+    43    
+    44            [<span class="string">"BSL"</span>, {
+    45                comment:    <span class="string">"Bootstrap loader (flash)"</span>,
+    46                name:       <span class="string">"BSL"</span>,
+    47                base:       0x1000,
+    48                len:        0x800,
+    49                space:      <span class="string">"code"</span>,
+    50                access:     <span class="string">"RW"</span>
+    51            }],
+    52    
+    53            [<span class="string">"INFO"</span>, {
+    54                comment:    <span class="string">"Information memory (flash)"</span>,
+    55                name:       <span class="string">"INFO"</span>,
+    56                base:       0x1800,
+    57                len:        0x200,
+    58                space:      <span class="string">"data"</span>,
+    59                access:     <span class="string">"RW"</span>
+    60            }],
+    61    
+    62            [<span class="string">"INT00"</span>, {
+    63                comment: <span class="string">"Reserved Vector"</span>,
+    64                name: <span class="string">"INT00"</span>,
+    65                base: 0xFF80,
+    66                len: 0x2,
+    67                space: <span class="string">"data"</span>
+    68            }],
+    69    
+    70            [<span class="string">"INT01"</span>, {
+    71                comment: <span class="string">"Reserved Vector"</span>,
+    72                name: <span class="string">"INT01"</span>,
+    73                base: 0xFF82,
+    74                len: 0x2,
+    75                space: <span class="string">"data"</span>
+    76            }],
+    77    
+    78            [<span class="string">"INT02"</span>, {
+    79                comment: <span class="string">"Reserved Vector"</span>,
+    80                name: <span class="string">"INT02"</span>,
+    81                base: 0xFF84,
+    82                len: 0x2,
+    83                space: <span class="string">"data"</span>
+    84            }],
+    85    
+    86            [<span class="string">"INT03"</span>, {
+    87                comment: <span class="string">"Reserved Vector"</span>,
+    88                name: <span class="string">"INT03"</span>,
+    89                base: 0xFF86,
+    90                len: 0x2,
+    91                space: <span class="string">"data"</span>
+    92            }],
+    93    
+    94            [<span class="string">"INT04"</span>, {
+    95                comment: <span class="string">"Reserved Vector"</span>,
+    96                name: <span class="string">"INT04"</span>,
+    97                base: 0xFF88,
+    98                len: 0x2,
+    99                space: <span class="string">"data"</span>
+   100            }],
+   101    
+   102            [<span class="string">"INT05"</span>, {
+   103                comment: <span class="string">"Reserved Vector"</span>,
+   104                name: <span class="string">"INT05"</span>,
+   105                base: 0xFF8A,
+   106                len: 0x2,
+   107                space: <span class="string">"data"</span>
+   108            }],
+   109    
+   110            [<span class="string">"INT06"</span>, {
+   111                comment: <span class="string">"Reserved Vector"</span>,
+   112                name: <span class="string">"INT06"</span>,
+   113                base: 0xFF8C,
+   114                len: 0x2,
+   115                space: <span class="string">"data"</span>
+   116            }],
+   117    
+   118            [<span class="string">"INT07"</span>, {
+   119                comment: <span class="string">"Reserved Vector"</span>,
+   120                name: <span class="string">"INT07"</span>,
+   121                base: 0xFF8E,
+   122                len: 0x2,
+   123                space: <span class="string">"data"</span>
+   124            }],
+   125    
+   126            [<span class="string">"INT08"</span>, {
+   127                comment: <span class="string">"Reserved Vector"</span>,
+   128                name: <span class="string">"INT08"</span>,
+   129                base: 0xFF90,
+   130                len: 0x2,
+   131                space: <span class="string">"data"</span>
+   132            }],
+   133    
+   134            [<span class="string">"INT09"</span>, {
+   135                comment: <span class="string">"Reserved Vector"</span>,
+   136                name: <span class="string">"INT09"</span>,
+   137                base: 0xFF92,
+   138                len: 0x2,
+   139                space: <span class="string">"data"</span>
+   140            }],
+   141    
+   142            [<span class="string">"INT10"</span>, {
+   143                comment: <span class="string">"Reserved Vector"</span>,
+   144                name: <span class="string">"INT10"</span>,
+   145                base: 0xFF94,
+   146                len: 0x2,
+   147                space: <span class="string">"data"</span>
+   148            }],
+   149    
+   150            [<span class="string">"INT11"</span>, {
+   151                comment: <span class="string">"Reserved Vector"</span>,
+   152                name: <span class="string">"INT11"</span>,
+   153                base: 0xFF96,
+   154                len: 0x2,
+   155                space: <span class="string">"data"</span>
+   156            }],
+   157    
+   158            [<span class="string">"INT12"</span>, {
+   159                comment: <span class="string">"Reserved Vector"</span>,
+   160                name: <span class="string">"INT12"</span>,
+   161                base: 0xFF98,
+   162                len: 0x2,
+   163                space: <span class="string">"data"</span>
+   164            }],
+   165    
+   166            [<span class="string">"INT13"</span>, {
+   167                comment: <span class="string">"Reserved Vector"</span>,
+   168                name: <span class="string">"INT13"</span>,
+   169                base: 0xFF9A,
+   170                len: 0x2,
+   171                space: <span class="string">"data"</span>
+   172            }],
+   173    
+   174            [<span class="string">"INT14"</span>, {
+   175                comment: <span class="string">"Reserved Vector"</span>,
+   176                name: <span class="string">"INT14"</span>,
+   177                base: 0xFF9C,
+   178                len: 0x2,
+   179                space: <span class="string">"data"</span>
+   180            }],
+   181    
+   182            [<span class="string">"INT15"</span>, {
+   183                comment: <span class="string">"Reserved Vector"</span>,
+   184                name: <span class="string">"INT15"</span>,
+   185                base: 0xFF9E,
+   186                len: 0x2,
+   187                space: <span class="string">"data"</span>
+   188            }],
+   189    
+   190            [<span class="string">"INT16"</span>, {
+   191                comment: <span class="string">"Reserved Vector"</span>,
+   192                name: <span class="string">"INT16"</span>,
+   193                base: 0xFFA0,
+   194                len: 0x2,
+   195                space: <span class="string">"data"</span>
+   196            }],
+   197    
+   198            [<span class="string">"INT17"</span>, {
+   199                comment: <span class="string">"Reserved Vector"</span>,
+   200                name: <span class="string">"INT17"</span>,
+   201                base: 0xFFA2,
+   202                len: 0x2,
+   203                space: <span class="string">"data"</span>
+   204            }],
+   205    
+   206            [<span class="string">"INT18"</span>, {
+   207                comment: <span class="string">"Reserved Vector"</span>,
+   208                name: <span class="string">"INT18"</span>,
+   209                base: 0xFFA4,
+   210                len: 0x2,
+   211                space: <span class="string">"data"</span>
+   212            }],
+   213    
+   214            [<span class="string">"INT19"</span>, {
+   215                comment: <span class="string">"Reserved Vector"</span>,
+   216                name: <span class="string">"INT19"</span>,
+   217                base: 0xFFA6,
+   218                len: 0x2,
+   219                space: <span class="string">"data"</span>
+   220            }],
+   221    
+   222            [<span class="string">"INT20"</span>, {
+   223                comment: <span class="string">"Reserved Vector"</span>,
+   224                name: <span class="string">"INT20"</span>,
+   225                base: 0xFFA8,
+   226                len: 0x2,
+   227                space: <span class="string">"data"</span>
+   228            }],
+   229    
+   230            [<span class="string">"INT21"</span>, {
+   231                comment: <span class="string">"Reserved Vector"</span>,
+   232                name: <span class="string">"INT21"</span>,
+   233                base: 0xFFAA,
+   234                len: 0x2,
+   235                space: <span class="string">"data"</span>
+   236            }],
+   237    
+   238            [<span class="string">"INT22"</span>, {
+   239                comment: <span class="string">"Reserved Vector"</span>,
+   240                name: <span class="string">"INT22"</span>,
+   241                base: 0xFFAC,
+   242                len: 0x2,
+   243                space: <span class="string">"data"</span>
+   244            }],
+   245    
+   246            [<span class="string">"INT23"</span>, {
+   247                comment: <span class="string">"Reserved Vector"</span>,
+   248                name: <span class="string">"INT23"</span>,
+   249                base: 0xFFAE,
+   250                len: 0x2,
+   251                space: <span class="string">"data"</span>
+   252            }],
+   253    
+   254            [<span class="string">"INT24"</span>, {
+   255                comment: <span class="string">"Reserved Vector"</span>,
+   256                name: <span class="string">"INT24"</span>,
+   257                base: 0xFFB0,
+   258                len: 0x2,
+   259                space: <span class="string">"data"</span>
+   260            }],
+   261    
+   262            [<span class="string">"INT25"</span>, {
+   263                comment: <span class="string">"Reserved Vector"</span>,
+   264                name: <span class="string">"INT25"</span>,
+   265                base: 0xFFB2,
+   266                len: 0x2,
+   267                space: <span class="string">"data"</span>
+   268            }],
+   269    
+   270            [<span class="string">"INT26"</span>, {
+   271                comment: <span class="string">"Reserved Vector"</span>,
+   272                name: <span class="string">"INT26"</span>,
+   273                base: 0xFFB4,
+   274                len: 0x2,
+   275                space: <span class="string">"data"</span>
+   276            }],
+   277    
+   278            [<span class="string">"INT27"</span>, {
+   279                comment: <span class="string">"Reserved Vector"</span>,
+   280                name: <span class="string">"INT27"</span>,
+   281                base: 0xFFB6,
+   282                len: 0x2,
+   283                space: <span class="string">"data"</span>
+   284            }],
+   285    
+   286            [<span class="string">"INT28"</span>, {
+   287                comment: <span class="string">"Reserved Vector"</span>,
+   288                name: <span class="string">"INT28"</span>,
+   289                base: 0xFFB8,
+   290                len: 0x2,
+   291                space: <span class="string">"data"</span>
+   292            }],
+   293    
+   294            [<span class="string">"INT29"</span>, {
+   295                comment: <span class="string">"Reserved Vector"</span>,
+   296                name: <span class="string">"INT29"</span>,
+   297                base: 0xFFBA,
+   298                len: 0x2,
+   299                space: <span class="string">"data"</span>
+   300            }],
+   301    
+   302            [<span class="string">"INT30"</span>, {
+   303                comment: <span class="string">"Reserved Vector"</span>,
+   304                name: <span class="string">"INT30"</span>,
+   305                base: 0xFFBC,
+   306                len: 0x2,
+   307                space: <span class="string">"data"</span>
+   308            }],
+   309    
+   310            [<span class="string">"INT31"</span>, {
+   311                comment: <span class="string">"Reserved Vector"</span>,
+   312                name: <span class="string">"INT31"</span>,
+   313                base: 0xFFBE,
+   314                len: 0x2,
+   315                space: <span class="string">"data"</span>
+   316            }],
+   317    
+   318            [<span class="string">"INT32"</span>, {
+   319                comment: <span class="string">"Reserved Vector"</span>,
+   320                name: <span class="string">"INT32"</span>,
+   321                base: 0xFFC0,
+   322                len: 0x2,
+   323                space: <span class="string">"data"</span>
+   324            }],
+   325    
+   326            [<span class="string">"INT33"</span>, {
+   327                comment: <span class="string">"Reserved Vector"</span>,
+   328                name: <span class="string">"INT33"</span>,
+   329                base: 0xFFC2,
+   330                len: 0x2,
+   331                space: <span class="string">"data"</span>
+   332            }],
+   333    
+   334            [<span class="string">"INT34"</span>, {
+   335                comment: <span class="string">"Reserved Vector"</span>,
+   336                name: <span class="string">"INT34"</span>,
+   337                base: 0xFFC4,
+   338                len: 0x2,
+   339                space: <span class="string">"data"</span>
+   340            }],
+   341    
+   342            [<span class="string">"INT35"</span>, {
+   343                comment: <span class="string">"Reserved Vector"</span>,
+   344                name: <span class="string">"INT35"</span>,
+   345                base: 0xFFC6,
+   346                len: 0x2,
+   347                space: <span class="string">"data"</span>
+   348            }],
+   349    
+   350            [<span class="string">"INT36"</span>, {
+   351                comment: <span class="string">"Reserved Vector"</span>,
+   352                name: <span class="string">"INT36"</span>,
+   353                base: 0xFFC8,
+   354                len: 0x2,
+   355                space: <span class="string">"data"</span>
+   356            }],
+   357    
+   358            [<span class="string">"INT37"</span>, {
+   359                comment: <span class="string">"Reserved Vector"</span>,
+   360                name: <span class="string">"INT37"</span>,
+   361                base: 0xFFCA,
+   362                len: 0x2,
+   363                space: <span class="string">"data"</span>
+   364            }],
+   365    
+   366            [<span class="string">"INT38"</span>, {
+   367                comment: <span class="string">"Reserved Vector"</span>,
+   368                name: <span class="string">"INT38"</span>,
+   369                base: 0xFFCC,
+   370                len: 0x2,
+   371                space: <span class="string">"data"</span>
+   372            }],
+   373    
+   374            [<span class="string">"INT39"</span>, {
+   375                comment: <span class="string">"Reserved Vector"</span>,
+   376                name: <span class="string">"INT39"</span>,
+   377                base: 0xFFCE,
+   378                len: 0x2,
+   379                space: <span class="string">"data"</span>
+   380            }],
+   381    
+   382            [<span class="string">"INT40"</span>, {
+   383                comment: <span class="string">"Reserved Vector"</span>,
+   384                name: <span class="string">"INT40"</span>,
+   385                base: 0xFFD0,
+   386                len: 0x2,
+   387                space: <span class="string">"data"</span>
+   388            }],
+   389    
+   390            [<span class="string">"INT41"</span>, {
+   391                comment: <span class="string">"RTC_A Vector"</span>,
+   392                name: <span class="string">"INT41"</span>,
+   393                base: 0xFFD2,
+   394                len: 0x2,
+   395                space: <span class="string">"data"</span>
+   396            }],
+   397    
+   398            [<span class="string">"INT42"</span>, {
+   399                comment: <span class="string">"I/O Port P2 Vector"</span>,
+   400                name: <span class="string">"INT42"</span>,
+   401                base: 0xFFD4,
+   402                len: 0x2,
+   403                space: <span class="string">"data"</span>
+   404            }],
+   405    
+   406            [<span class="string">"INT43"</span>, {
+   407                comment: <span class="string">"USCI_B3 Receive/Transmit Vector"</span>,
+   408                name: <span class="string">"INT43"</span>,
+   409                base: 0xFFD6,
+   410                len: 0x2,
+   411                space: <span class="string">"data"</span>
+   412            }],
+   413    
+   414            [<span class="string">"INT44"</span>, {
+   415                comment: <span class="string">"USCI_A3 Receive/Transmit Vector"</span>,
+   416                name: <span class="string">"INT44"</span>,
+   417                base: 0xFFD8,
+   418                len: 0x2,
+   419                space: <span class="string">"data"</span>
+   420            }],
+   421    
+   422            [<span class="string">"INT45"</span>, {
+   423                comment: <span class="string">"USCI_B1 Receive/Transmit Vector"</span>,
+   424                name: <span class="string">"INT45"</span>,
+   425                base: 0xFFDA,
+   426                len: 0x2,
+   427                space: <span class="string">"data"</span>
+   428            }],
+   429    
+   430            [<span class="string">"INT46"</span>, {
+   431                comment: <span class="string">"USCI_A1 Receive/Transmit Vector"</span>,
+   432                name: <span class="string">"INT46"</span>,
+   433                base: 0xFFDC,
+   434                len: 0x2,
+   435                space: <span class="string">"data"</span>
+   436            }],
+   437    
+   438            [<span class="string">"INT47"</span>, {
+   439                comment: <span class="string">"I/O Port P1 Vector"</span>,
+   440                name: <span class="string">"INT47"</span>,
+   441                base: 0xFFDE,
+   442                len: 0x2,
+   443                space: <span class="string">"data"</span>
+   444            }],
+   445    
+   446            [<span class="string">"INT48"</span>, {
+   447                comment: <span class="string">"TA1 CCR1-CCR2 Vector"</span>,
+   448                name: <span class="string">"INT48"</span>,
+   449                base: 0xFFE0,
+   450                len: 0x2,
+   451                space: <span class="string">"data"</span>
+   452            }],
+   453    
+   454            [<span class="string">"INT49"</span>, {
+   455                comment: <span class="string">"TA1 CCR0 Vector"</span>,
+   456                name: <span class="string">"INT49"</span>,
+   457                base: 0xFFE2,
+   458                len: 0x2,
+   459                space: <span class="string">"data"</span>
+   460            }],
+   461    
+   462            [<span class="string">"INT50"</span>, {
+   463                comment: <span class="string">"DMA Vector"</span>,
+   464                name: <span class="string">"INT50"</span>,
+   465                base: 0xFFE4,
+   466                len: 0x2,
+   467                space: <span class="string">"data"</span>
+   468            }],
+   469    
+   470            [<span class="string">"INT51"</span>, {
+   471                comment: <span class="string">"USCI_B2 Receive/Transmit Vector"</span>,
+   472                name: <span class="string">"INT51"</span>,
+   473                base: 0xFFE6,
+   474                len: 0x2,
+   475                space: <span class="string">"data"</span>
+   476            }],
+   477    
+   478            [<span class="string">"INT52"</span>, {
+   479                comment: <span class="string">"USCI_A2 Receive/Transmit Vector"</span>,
+   480                name: <span class="string">"INT52"</span>,
+   481                base: 0xFFE8,
+   482                len: 0x2,
+   483                space: <span class="string">"data"</span>
+   484            }],
+   485    
+   486            [<span class="string">"INT53"</span>, {
+   487                comment: <span class="string">"TA0 CCR1-CCR4 Vector"</span>,
+   488                name: <span class="string">"INT53"</span>,
+   489                base: 0xFFEA,
+   490                len: 0x2,
+   491                space: <span class="string">"data"</span>
+   492            }],
+   493    
+   494            [<span class="string">"INT54"</span>, {
+   495                comment: <span class="string">"TA0 CCR0 Vector"</span>,
+   496                name: <span class="string">"INT54"</span>,
+   497                base: 0xFFEC,
+   498                len: 0x2,
+   499                space: <span class="string">"data"</span>
+   500            }],
+   501    
+   502            [<span class="string">"INT55"</span>, {
+   503                comment: <span class="string">"ADC12_A Vector"</span>,
+   504                name: <span class="string">"INT55"</span>,
+   505                base: 0xFFEE,
+   506                len: 0x2,
+   507                space: <span class="string">"data"</span>
+   508            }],
+   509    
+   510            [<span class="string">"INT56"</span>, {
+   511                comment: <span class="string">"USCI_B0 Receive/Transmit Vector"</span>,
+   512                name: <span class="string">"INT56"</span>,
+   513                base: 0xFFF0,
+   514                len: 0x2,
+   515                space: <span class="string">"data"</span>
+   516            }],
+   517    
+   518            [<span class="string">"INT57"</span>, {
+   519                comment: <span class="string">"USCI_A0 Receive/Transmit Vector"</span>,
+   520                name: <span class="string">"INT57"</span>,
+   521                base: 0xFFF2,
+   522                len: 0x2,
+   523                space: <span class="string">"data"</span>
+   524            }],
+   525    
+   526            [<span class="string">"INT58"</span>, {
+   527                comment: <span class="string">"Watchdog Timer_A Interval Timer Mode Vector"</span>,
+   528                name: <span class="string">"INT58"</span>,
+   529                base: 0xFFF4,
+   530                len: 0x2,
+   531                space: <span class="string">"data"</span>
+   532            }],
+   533    
+   534            [<span class="string">"INT59"</span>, {
+   535                comment: <span class="string">"TB0 CCR1-CCR6 Vector"</span>,
+   536                name: <span class="string">"INT59"</span>,
+   537                base: 0xFFF6,
+   538                len: 0x2,
+   539                space: <span class="string">"data"</span>
+   540            }],
+   541    
+   542            [<span class="string">"INT60"</span>, {
+   543                comment: <span class="string">"TB0 CCR0 Vector"</span>,
+   544                name: <span class="string">"INT60"</span>,
+   545                base: 0xFFF8,
+   546                len: 0x2,
+   547                space: <span class="string">"data"</span>
+   548            }],
+   549    
+   550            [<span class="string">"INT61"</span>, {
+   551                comment: <span class="string">"User NMI Vector"</span>,
+   552                name: <span class="string">"INT61"</span>,
+   553                base: 0xFFFA,
+   554                len: 0x2,
+   555                space: <span class="string">"data"</span>
+   556            }],
+   557    
+   558            [<span class="string">"INT62"</span>, {
+   559                comment: <span class="string">"System NMI Vector"</span>,
+   560                name: <span class="string">"INT62"</span>,
+   561                base: 0xFFFC,
+   562                len: 0x2,
+   563                space: <span class="string">"data"</span>
+   564            }],
+   565    
+   566            [<span class="string">"RESET"</span>, {
+   567                comment: <span class="string">"Reset Vector"</span>,
+   568                name: <span class="string">"RESET"</span>,
+   569                base: 0xFFFE,
+   570                len:  0x2,
+   571                space: <span class="string">"data"</span>
+   572            }],
+   573        ];
+   574    
+   575        <span class=key>config</span> Timer timers[3] = [
+   576            {
+   577                name: <span class="string">"Timer0_A5"</span>,
+   578                baseAddr: 0x340,
+   579                intNum: 54 
+   580            },
+   581    
+   582            {
+   583                name: <span class="string">"Timer1_A3"</span>,
+   584                baseAddr: 0x380,
+   585                intNum: 49 
+   586            },
+   587    
+   588            {
+   589                name: <span class="string">"Timer0_B7"</span>,
+   590                baseAddr: 0x3C0,
+   591                intNum: 60 
+   592            },
+   593        ];
+   594    };
+   595    <span class="comment">/*
+</span>   596    <span class="comment"> *  @(#) ti.catalog.msp430; 1, 0, 0,17; 2-23-2010 16:52:59; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   597    <span class="comment"> */</span>
+   598    
+</pre>
+</body></html>

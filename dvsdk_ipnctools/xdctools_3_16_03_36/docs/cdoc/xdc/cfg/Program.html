@@ -1,0 +1,1147 @@
+<html>
+<head>
+<title>module xdc.cfg.Program</title>
+<meta name="description" content="The Program object for the configuration object model">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.cfg.</span><span class="xdoc-id">Program</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/package.html" title="package xdc.cfg"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html">index URL</a></div>
+<p class="xdocHdrSummary">The Program object for the configuration object model</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+This module defines the "root" of the configuration object model; all
+  configuration settings are for the executable represented by this
+  object. Program configuration scripts reference this module via the
+  global variable <tt>Program</tt>; i.e., <tt>Program</tt> implicitly initialized as
+  follows:
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/cfg/Program-src.html"><span class="xdocLabelFile">xdc/cfg/Program.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Program</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Program = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.cfg.Program'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Generation.Options">Program.<span class="xdoc-id">GenerationOptions</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Options that control the files generated as part of program
+  configuration</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Generation.Options"><span class="xdoc-id">debuggerFiles</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, generate debugger "project" files</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Section.Spec">Program.<span class="xdoc-id">SectionSpec</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Map that instructs the linker where to place output sections</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">runSegment</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;segment where section contents are run</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">loadSegment</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;segment where section contents are loaded</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">runAddress</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;start address of section when run</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">loadAddress</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;start address of section when loaded</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">runAlign</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;alignment of section within runSegment</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">loadAlign</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;alignment of section within loadSegment</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">type</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;target-specific flags</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">fill</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;fill value</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#arg.Size">Program.<span class="xdoc-id">argSize</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size allocated for command line args to the executable</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i> 0x200;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#build">Program.<span class="xdoc-id">build</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This program's build attributes</span></span></a> = <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#build.Package">Program.<span class="xdoc-id">buildPackage</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the executable's package</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#code.Model">Program.<span class="xdoc-id">codeModel</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The memory model for code</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#cpu">Program.<span class="xdoc-id">cpu</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The execution context "seen" by the executable</span></span></a> = <i><a class="xdoc-link" href="../../xdc/platform/IExeContext.html#.Instance" title="xdc.platform.IExeContext.Instance">IExeContext.Instance</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#data.Model">Program.<span class="xdoc-id">dataModel</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The memory model for data</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#endian">Program.<span class="xdoc-id">endian</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The endianess of the executable</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#exec.Cmd">Program.<span class="xdoc-id">execCmd</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The command used to run this executable</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#gen">Program.<span class="xdoc-id">gen</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Generation options for this executable</span></span></a> = <i><a class="xdoc-link" href="../../xdc/cfg/Program.html#.Generation.Options" title="xdc.cfg.Program.GenerationOptions">Program.GenerationOptions</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#global">Program.<span class="xdoc-id">global</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Global variable declarations</span></span></a> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw1">string</span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#heap">Program.<span class="xdoc-id">heap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size of the executable's initial heap</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i> 0x1000;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#link.Template">Program.<span class="xdoc-id">linkTemplate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The template for the Program's linker command file</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#main">Program.<span class="xdoc-id">main</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The main entry point for the program</span></span></a> = <i><span class="xdoc-kw2">Int</span>(*)(<span class="xdoc-kw2">Int</span>,<span class="xdoc-kw2">Char</span>*[<span class="xdoc-kw2"></span>])</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#name">Program.<span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the executable file</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#platform">Program.<span class="xdoc-id">platform</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The executable's platform instance object</span></span></a> = <i><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Instance" title="xdc.platform.IPlatform.Instance">IPlatform.Instance</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#platform.Name">Program.<span class="xdoc-id">platformName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the executable's platform</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#sect.Map">Program.<span class="xdoc-id">sectMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A section name to SectionSpec mapping</span></span></a> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw1">string</span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#stack">Program.<span class="xdoc-id">stack</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size of the executable's initial stack</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i> 0x1000;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#sys.Stack">Program.<span class="xdoc-id">sysStack</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size of the executable's initial system stack</span></span></a> = <i><span class="xdoc-kw2">UInt</span></i> 0x1000;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#export.Module">Program.<span class="xdoc-id">exportModule</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Force all the symbols of a module to be part of a configuration</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">modName</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Sect.Map">Program.<span class="xdoc-id">getSectMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Return the complete mapping of section names to <tt><span class="xdoc-link" href="Program.html#.Section.Spec" title="SectionSpec">SectionSpec</span></tt>
+  entries</span></span></a>(  ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/cfg/Program-src.html"><span class="xdocLabelFile">xdc/cfg/Program.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/cfg/package.html" title="xdc.cfg">xdc.cfg</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Program</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Generation.Options"><span class="xdoc-id">GenerationOptions</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Options that control the files generated as part of program
+  configuration</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Generation.Options"><span class="xdoc-id">debuggerFiles</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, generate debugger "project" files</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">SectionSpec</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Map that instructs the linker where to place output sections</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">runSegment</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;segment where section contents are run</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">loadSegment</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;segment where section contents are loaded</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">runAddress</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;start address of section when run</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">loadAddress</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;start address of section when loaded</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">runAlign</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;alignment of section within runSegment</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">loadAlign</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;alignment of section within loadSegment</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">type</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;target-specific flags</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#.Section.Spec"><span class="xdoc-id">fill</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;fill value</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#arg.Size"><span class="xdoc-id">argSize</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size allocated for command line args to the executable</span></span></a> = 0x200;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#build"><span class="xdoc-id">build</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This program's build attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#build.Package"><span class="xdoc-id">buildPackage</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the executable's package</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#code.Model"><span class="xdoc-id">codeModel</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The memory model for code</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/IExeContext.html#.Instance" title="xdc.platform.IExeContext.Instance">IExeContext.Instance</a>&nbsp;<a class="xdocSynGo" href="#cpu"><span class="xdoc-id">cpu</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The execution context "seen" by the executable</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#data.Model"><span class="xdoc-id">dataModel</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The memory model for data</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#endian"><span class="xdoc-id">endian</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The endianess of the executable</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#exec.Cmd"><span class="xdoc-id">execCmd</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The command used to run this executable</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/cfg/Program.html#.Generation.Options" title="xdc.cfg.Program.GenerationOptions">Program.GenerationOptions</a>&nbsp;<a class="xdocSynGo" href="#gen"><span class="xdoc-id">gen</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Generation options for this executable</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#global"><span class="xdoc-id">global</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Global variable declarations</span></span></a>[<span class="xdoc-kw1">string</span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#heap"><span class="xdoc-id">heap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size of the executable's initial heap</span></span></a> = 0x1000;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#link.Template"><span class="xdoc-id">linkTemplate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The template for the Program's linker command file</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Int</span>&nbsp;(*<a class="xdocSynGo" href="#main"><span class="xdoc-id">main</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The main entry point for the program</span></span></a>)(<span class="xdoc-kw2">Int</span>,<span class="xdoc-kw2">Char</span>*[<span class="xdoc-kw2"></span>]);
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the executable file</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Instance" title="xdc.platform.IPlatform.Instance">IPlatform.Instance</a>&nbsp;<a class="xdocSynGo" href="#platform"><span class="xdoc-id">platform</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The executable's platform instance object</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#platform.Name"><span class="xdoc-id">platformName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the executable's platform</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#sect.Map"><span class="xdoc-id">sectMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A section name to SectionSpec mapping</span></span></a>[<span class="xdoc-kw1">string</span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#stack"><span class="xdoc-id">stack</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size of the executable's initial stack</span></span></a> = 0x1000;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">UInt</span>&nbsp;<a class="xdocSynGo" href="#sys.Stack"><span class="xdoc-id">sysStack</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The size of the executable's initial system stack</span></span></a> = 0x1000;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#export.Module"><span class="xdoc-id">exportModule</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Force all the symbols of a module to be part of a configuration</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">modName</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Sect.Map"><span class="xdoc-kw1">function </span><span class="xdoc-id">getSectMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Return the complete mapping of section names to <tt><span class="xdoc-link" href="Program.html#.Section.Spec" title="SectionSpec">SectionSpec</span></tt>
+  entries</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This module defines the "root" of the configuration object model; all
+  configuration settings are for the executable represented by this
+  object. Program configuration scripts reference this module via the
+  global variable <tt>Program</tt>; i.e., <tt>Program</tt> implicitly initialized as
+  follows:</div>
+<div class="xdocText"><PRE class="Example">      var Program = xdc.useModule('xdc.cfg.Program');
+</PRE></div>
+<div class="xdocText">After a configuration script completes successfully, the XDC runtime
+  generates the following files:</div>
+<div class="xdocText"><OL><LI> package/cfg/&lt;exe_name&gt;.c
+</LI><LI> package/cfg/&lt;exe_name&gt;.xdl
+</LI></OL></div>
+<div class="xdocText">where <tt>&lt;exe_name&gt;</tt> is the name of the executable with the final '.'
+  character replaced with an '_'.</div>
+<div class="xdocText">The generated C file contains code and data from each module used by the
+  program and must be compiled and linked with the other sources to
+  produce the final executable.</div>
+<div class="xdocText">The generated linker command file must also be used during this final
+  link step.  This linker command file is produced by expanding a template
+  specified by <tt><a class="xdoc-link" href="../../xdc/cfg/Program.html#link.Template" title="xdc.cfg.Program.linkTemplate">xdc.cfg.Program.linkTemplate</a></tt>.
+  Each template is responsible for expanding templates specified by each
+  imported package's <tt>getSects</tt> method (see <tt><a class="xdoc-link" href="../../xdc/IPackage.html#get.Sects" title="xdc.IPackage.getSects">xdc.IPackage.getSects</a></tt>).
+  This allows each package participating in the configuration of an
+  executable to contribute a portion of the executable's linker command file.</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Generation.Options"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">GenerationOptions</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#.Generation.Options">index URL</a></div>
+<p class="xdocHdrSummary">Options that control the files generated as part of program
+  configuration</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> Program.<span class="xdoc-id">GenerationOptions</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">debuggerFiles</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if <tt>true</tt>, generate debugger "project" files</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">debuggerFiles</span>
+<span class="xdocChildSum">&#151;&nbsp;If set to <tt>true</tt> in a configuration script,
+		debugger project files will be generated as part of the
+		configuration step.  If set to <tt>false</tt>, these files will not 
+		be generated.</span>
+</div>
+<div class="xdocChildText">If it is not set (or set to undefined) and the environment
+		variable <tt>environment["xdc.cfg.gen.debuggerFiles"]</tt> is
+		non-<tt>null</tt>, then the default value of this parameter is taken
+		to be the value	of the following expression:</div>
+<div class="xdocChildText"><PRE class="Example">		    environment["xdc.cfg.gen.debuggerFiles"] == "true"
+</PRE></div>
+<div class="xdocChildText">This makes it is possible to enable the generation of
+		debugger project files from build scripts by passing
+		the option <tt>-Dxdc.cfg.gen.debuggerFiles=true</tt> to the
+		configuration tool (see
+		<tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">xdc.bld.Executable.Attrs.xsopts</a></tt> or
+          <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">xdc.bld.PackageContents.Attrs.xsopts</a></tt>).</div>
+<div class="xdocChildText">Finally, if <tt>debuggerFiles</tt> is not set (or set to <tt>undefined</tt>)
+		and the environment variable above is not defined,
+		the generation of debugger project files occurs only if
+		<tt><a class="xdoc-link" href="../../xdc/cfg/Program.html#build" title="xdc.cfg.Program.build">xdc.cfg.Program.build.profile</a></tt> contains
+          the string <tt>"debug"</tt>.  So, unless otherwise specified, debug
+		profiles result in debugger project files being generated.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Section.Spec"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">SectionSpec</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#.Section.Spec">index URL</a></div>
+<p class="xdocHdrSummary">Map that instructs the linker where to place output sections</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> Program.<span class="xdoc-id">SectionSpec</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">runSegment</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;segment where section contents are run</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">loadSegment</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;segment where section contents are loaded</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">runAddress</span> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;start address of section when run</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">loadAddress</span> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;start address of section when loaded</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">runAlign</span> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;alignment of section within runSegment</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">loadAlign</span> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;alignment of section within loadSegment</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">type</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;target-specific flags</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">fill</span> = <i><span class="xdoc-kw2">UInt</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;fill value</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">runSegment</span>
+<span class="xdocChildSum">&#151;&nbsp;Defines the memory segment where the section is
+		to be run.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">loadSegment</span>
+<span class="xdocChildSum">&#151;&nbsp;Defines the memory segment where the section is
+		to be loaded. If 'runSegment' or 'loadSegment' is defined,
+          but not both, the linker is instructed to use the defined
+          field as the load and run allocation for the section.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">runAddress</span>
+<span class="xdocChildSum">&#151;&nbsp;Defines the memory address where the section is
+		to be run. It is an error if both 'runSegment' and 'runAddress'
+		are specified.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">loadAddress</span>
+<span class="xdocChildSum">&#151;&nbsp;Defines the memory address where the section is
+		to be loaded. It is an error if both 'loadSegment' and
+		'loadAddress' are specified. If 'runAddress' or 'loadAddress'
+          is defined, but not both, the linker is instructed to use the
+          defined field as the load and run address for the section.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">runAlign</span>
+<span class="xdocChildSum">&#151;&nbsp;If runSegment is specified, runAlign determines the
+		alignment. It is an error if both 'runAlign' and 'runAddress'
+		are specified.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">loadAlign</span>
+<span class="xdocChildSum">&#151;&nbsp;If runSegment is specified, runAlign determins the
+		alignment. It is an error if both 'loadAlign' and 'loadAddress'
+		are specified.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">type</span>
+<span class="xdocChildSum">&#151;&nbsp;Defines flags for special section types (COPY, DSECT,
+		NOLOAD).</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">fill</span>
+<span class="xdocChildSum">&#151;&nbsp;Defines the value to initialize an uninitialized
+  section.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This structure contains some fields that are specific to TI targets.
+  On non-TI targets, such fields are ignored.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="arg.Size"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">argSize</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#arg.Size">index URL</a></div>
+<p class="xdocHdrSummary">The size allocated for command line args to the executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">argSize</span> = <i><span class="xdoc-kw2">UInt</span></i> 0x200;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">On platforms that require static allocation of space to hold
+  command line arguments, this parameter specifies its maximum size
+  (in units of chars).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="build"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">build</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#build">index URL</a></div>
+<p class="xdocHdrSummary">This program's build attributes</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">build</span> = <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter allows arbitrary build attributes to be carried
+  forward from the Build Object Model (BOM) into the configuration
+  model for program configuration scripts to read.</div>
+<div class="xdocText">Conceptually, this config parameter should be declared as follows:</div>
+<div class="xdocText"><PRE class="Example">      struct BuildAttrs inherits xdc.bld.Executable.Attrs {
+          config xdc.bld.ITarget.Module target;
+      };
+</PRE></div>
+<div class="xdocText">All parameters of the target associated with the executable being
+  configured are available through '<tt>Program.build.target</tt>'. Any config
+  parameter set in the BOM's <tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#attrs" title="xdc.bld.Executable.attrs">xdc.bld.Executable.attrs</a></tt> is also
+  available through <tt><a class="xdoc-link" href="Program.html#build" title="build">build</a></tt>.  For example, the name of the
+  target is <tt>Program.build.target.name</tt> and the name of the
+  executable's configuration script is <tt>Program.build.cfgScript</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="build.Package"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">buildPackage</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#build.Package">index URL</a></div>
+<p class="xdocHdrSummary">The name of the executable's package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">buildPackage</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This is the full package name (relative to the package's repository)
+  of the package that contains the executable being configured.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="code.Model"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">codeModel</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#code.Model">index URL</a></div>
+<p class="xdocHdrSummary">The memory model for code</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">codeModel</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter is an alias for <tt>build.target.model.codeModel</tt> and is
+  set to one of the following target-specific values: <tt>"near"</tt>, <tt>"far"</tt>,
+  <tt>"large"</tt>, or <tt>null</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="cpu"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">cpu</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#cpu">index URL</a></div>
+<p class="xdocHdrSummary">The execution context "seen" by the executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">cpu</span> = <i><a class="xdoc-link" href="../../xdc/platform/IExeContext.html#.Instance" title="xdc.platform.IExeContext.Instance">IExeContext.Instance</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Since the execution context is largely determined by the CPU that
+  runs the executable, this configuration parameter allows scripts with
+  access to the program object to conditionally configure based on CPU
+  characteristics (e.g., ISA or revision of a chip).</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform's implementation of
+  <tt>xdc.IPackage</tt> (i.e., <tt>package.xs</tt>).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="data.Model"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">dataModel</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#data.Model">index URL</a></div>
+<p class="xdocHdrSummary">The memory model for data</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">dataModel</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter is an alias for <tt>build.target.model.dataModel</tt> and is
+  set to one of the following target-specific values: <tt>"near"</tt>, <tt>"far"</tt>,
+  <tt>"large"</tt>, or <tt>null</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="endian"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">endian</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#endian">index URL</a></div>
+<p class="xdocHdrSummary">The endianess of the executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">endian</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter is an alias for <tt>build.target.model.dataModel</tt> and is
+  set to one of the following values: <tt>"big"</tt>, <tt>"little"</tt>, or <tt>null</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="exec.Cmd"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">execCmd</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#exec.Cmd">index URL</a></div>
+<p class="xdocHdrSummary">The command used to run this executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">execCmd</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">If it is not set by the configuration script, it is set by the
+  program's platform package (during program configuration).</div>
+<div class="xdocText">This command is run as follows:</div>
+<div class="xdocText"><PRE class="Example">      execCmd &lt;prog&gt; &lt;args&gt;
+</PRE></div>
+<div class="xdocText">where, <tt>&lt;prog&gt;</tt> is the name of the executable</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">This parameter is ignored if the exec command is specified as part
+  of the test; see <tt><a class="xdoc-link" href="../../xdc/bld/Test.html#.Attrs" title="xdc.bld.Test.Attrs">xdc.bld.Test.Attrs</a></tt>.
+  and <tt>&lt;args&gt;</tt> are the arguments specified in the test (if any).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="gen"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">gen</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#gen">index URL</a></div>
+<p class="xdocHdrSummary">Generation options for this executable</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">gen</span> = <i><a class="xdoc-link" href="../../xdc/cfg/Program.html#.Generation.Options" title="xdc.cfg.Program.GenerationOptions">Program.GenerationOptions</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This configuration parameter allows the program configuration script
+  to control (to some extent) what files are generated as part of the
+  configuration process.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="global"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">global</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#global">index URL</a></div>
+<p class="xdocHdrSummary">Global variable declarations</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">global</span> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw1">string</span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Assignments to this hash table become global symbols that can be
+  used to directly reference objects.  These objects are declared
+  in a generated header that is indirectly included by the header
+  <tt>xdc/cfg/global.h</tt>.</div>
+<div class="xdocText">Configuration scripts define symbols by adding new properties to
+  <tt>global</tt>.</div>
+<div class="xdocText"><PRE class="Example">      Program.global.myInstance = Mod.create();
+      Program.global.myString = "hello world";
+</PRE></div>
+<div class="xdocText">Programs can reference the symbols defined in <tt>global</tt> by including
+  the C/C++ header <tt>xdc/cfg/global.h</tt> as follows:</div>
+<div class="xdocText"><PRE class="Example">      #include &lt;pkg/Mod.h&gt;
+      #include &lt;xdc/cfg/global.h&gt;
+         :
+      Mod_fxn(myInstance, ...);
+      printf("greetings: %s\n", myString);
+</PRE></div>
+<div class="xdocText">To compile sources that include <tt>xdc/cfg/global.h</tt>, one symbol must be
+  defined before including this header:</div>
+<div class="xdocText"><DL><DT> <tt>xdc_cfg__header__</tt></DT><DD>
+          the package qualified name of the executable-specific C/C++
+          header generated by the program configuration tool; e.g.,
+          <tt>local/examples/package/cfg/mycfg_x62.h</tt>.
+</DD></DL></div>
+<div class="xdocText">For example, to compile sources that reference the values declared in
+  <tt><a class="xdoc-link" href="Program.html#global" title="global">global</a></tt> for a TI C6x target with a generated
+  configuration header named <tt>package/cfg/mycfg_x62.h</tt> in a package
+  named <tt>local.examples</tt> the following command line is sufficient:</div>
+<div class="xdocText"><PRE class="Example">      cl6x -Dxdc_cfg__header__=local/examples/package/cfg/mycfg_x62.h ...
+</PRE></div>
+<div class="xdocText">The <tt>xdc_cfg__header__</tt> symbol is automatically defined when you use
+  the the XDC Build Engine (<tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt>) to create executables; see
+  <tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#add.Objects" title="xdc.bld.Executable.addObjects">xdc.bld.Executable.addObjects</a></tt></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/Executable.html#add.Objects" title="xdc.bld.Executable.addObjects">xdc.bld.Executable.addObjects</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="heap"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">heap</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#heap">index URL</a></div>
+<p class="xdocHdrSummary">The size of the executable's initial heap</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">heap</span> = <i><span class="xdoc-kw2">UInt</span></i> 0x1000;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">On platforms that enable control of the size of the heap managed by
+  the run-time support function malloc(), this parameter specifies
+  its initial size (in units of chars).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="link.Template"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">linkTemplate</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#link.Template">index URL</a></div>
+<p class="xdocHdrSummary">The template for the Program's linker command file</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">linkTemplate</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">A template is used to create the linker command file for each
+  program.  It can be optionally specified by setting this
+  configuration parameter in the program's configuration script.  If
+  <tt>linkTemplate</tt> it is not set or set to <tt>null</tt>, the template is
+  obtained from the platform associated with this program (i.e., the
+  platform named by the <tt><a class="xdoc-link" href="Program.html#platform" title="platform">platform</a></tt> config in this module).
+  See <tt><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#get.Link.Template" title="xdc.platform.IPlatform.getLinkTemplate">IPlatform.getLinkTemplate</a></tt>.</div>
+<div class="xdocText">The <tt>linkTemplate</tt> string names a package path relative path; e.g.,
+  if the linker template you want to specify is
+  <tt>"templates/big_n_hairy.xdt"</tt> in the package <tt>myCompany.myPackage</tt>,
+  <tt>linkTemplate</tt> should be set to:</div>
+<div class="xdocText"><PRE class="Example">      "myCompany/myPackage/templates/big_n_hairy.xdt"
+</PRE></div>
+<div class="xdocText">If <tt>linkTemplate</tt> begins with the string <tt>"./"</tt>, the file is NOT
+  searched for along the package path; instead the file name is taken
+  to specify a file relative to the current working directory.</div>
+<div class="xdocText">In any case, if <tt>linkTemplate</tt> is non-<tt>null</tt>, the file must exist; 
+  otherwise, the configuration step will fail.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="main"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">main</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#main">index URL</a></div>
+<p class="xdocHdrSummary">The main entry point for the program</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">main</span> = <i><span class="xdoc-kw2">Int</span>(*)(<span class="xdoc-kw2">Int</span>,<span class="xdoc-kw2">Char</span>*[<span class="xdoc-kw2"></span>])</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter is optionally set by the user's program
+  configuration script.  If it is not set, then a "legacy" <tt>main()</tt>
+  function is assumed to be linked into the program; otherwise,
+  the value of <tt>main</tt> is used as the "main" entry point to the
+  program.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">name</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#name">index URL</a></div>
+<p class="xdocHdrSummary">The name of the executable file</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This is the full file name (relative to the package's base) of the
+  executable that results from this configuration.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="platform"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">platform</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#platform">index URL</a></div>
+<p class="xdocHdrSummary">The executable's platform instance object</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">platform</span> = <i><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Instance" title="xdc.platform.IPlatform.Instance">IPlatform.Instance</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The platform instance that provided an execution context for the
+  executable being configured.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="platform.Name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">platformName</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#platform.Name">index URL</a></div>
+<p class="xdocHdrSummary">The name of the executable's platform</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">platformName</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This field is the name of the platform instance used to create the
+  executable; e.g., <tt>"ti.platforms.sim55xx"</tt>, or
+  <tt>"ti.platforms.sim6xxx:TMS320C6416"</tt>.</div>
+<div class="xdocText">Platform instance names have the form:</div>
+<div class="xdocText"><PRE class="Example">      &lt;platform_pkg&gt;:&lt;instance_id&gt;
+</PRE></div>
+<div class="xdocText">where <tt>&lt;platform_pkg&gt;</tt> is the name of the platform package 
+  responsible for creating the platform instance and the optional
+  "<tt>:&lt;instance_id&gt;</tt>" is a suffix that uniquely identifies the creation
+  parameters for this instance.</div>
+<div class="xdocText">The creation parameters are the values specified by the map
+  <tt><a class="xdoc-link" href="../../xdc/bld/BuildEnvironment.html#platform.Table" title="xdc.bld.BuildEnvironment.platformTable">xdc.bld.BuildEnvironment.platformTable</a></tt>;
+  if this map does not contain the platform instance name, the
+  instance is created with default values that are specific to the
+  platform.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the generated program configuration script
+  and must not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="sect.Map"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">sectMap</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#sect.Map">index URL</a></div>
+<p class="xdocHdrSummary">A section name to SectionSpec mapping</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">sectMap</span> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw1">string</span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This is a program specific mapping of output section names to
+  <a class="xdoc-link" href="Program.html#.Section.Spec" title="SectionSpec">SectionSpec</a> objects. The map supports mapping of section
+  names to memory names; see <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#sect.Map" title="xdc.platform.IPlatform.sectMap">xdc.platform.IPlatform.sectMap</a>.</div>
+<div class="xdocText">This parameter enables program configurations to place named
+  sections in platform specific memory regions.  During generation of
+  the linker command file, sections are mapped to named memories by
+  first consulting this table; if the table does not contain a mapping,
+  the target classifies each section as either "code", "data" or
+  "stack" <a class="xdoc-link" href="../../xdc/bld/ITarget.html#sect.Map" title="xdc.bld.ITarget.sectMap">xdc.bld.ITarget.sectMap</a> and the platform defines a
+  memory region for each of these section types
+  (<a class="xdoc-link" href="../../xdc/platform/IPlatform.html#code.Memory" title="xdc.platform.IPlatform.codeMemory">xdc.platform.IPlatform.codeMemory</a>/
+  <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#data.Memory" title="xdc.platform.IPlatform.dataMemory">xdc.platform.IPlatform.dataMemory</a>).  If
+  this does not produce a result, an error is generated.
+  It is important to note that <tt>sectMap</tt> does not contain the complete
+  section allocation for the program. It only contains the entries
+  explicitly added to <tt>sectMap</tt>. To get the complete section
+  allocation, a user should call <a class="xdoc-link" href="Program.html#get.Sect.Map" title="getSectMap">getSectMap</a>.</div>
+<div class="xdocText">Suppose for example that the platform defines a memory segment
+  named "DDR2".  The following configuration statement places
+  everything from the ".text" section into the "DDR2" segment.</div>
+<div class="xdocText"><PRE class="Example">      Program.sectMap[".text"] = new prog.SectionSpec();
+      Program.sectMap[".text"].runSegment = "DDR2";
+</PRE></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">If BIOS 5 configuration script (Tconf script) is executed, the
+  section allocations configured in the Tconf script take precedence
+  over any settings for the same sections in this parameter.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Program.html#.Section.Spec" title="SectionSpec">SectionSpec</a>, <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#sect.Map" title="xdc.platform.IPlatform.sectMap">xdc.platform.IPlatform.sectMap</a>, <a class="xdoc-link" href="../../xdc/bld/ITarget.html#sect.Map" title="xdc.bld.ITarget.sectMap">xdc.bld.ITarget.sectMap</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="stack"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">stack</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#stack">index URL</a></div>
+<p class="xdocHdrSummary">The size of the executable's initial stack</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">stack</span> = <i><span class="xdoc-kw2">UInt</span></i> 0x1000;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">On platforms that enable control of the initial stack size (the
+  stack that exists immediately after reset), this parameter specifies
+  its initial size (in units of chars).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="sys.Stack"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Program.</span><span class="xdoc-id">sysStack</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#sys.Stack">index URL</a></div>
+<p class="xdocHdrSummary">The size of the executable's initial system stack</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">sysStack</span> = <i><span class="xdoc-kw2">UInt</span></i> 0x1000;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">On platforms that support a separate "system stack", this
+  parameter sets its initial size (in units of chars).</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="export.Module"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Program.</span><span class="xdoc-id">exportModule</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#export.Module">index URL</a></div>
+<p class="xdocHdrSummary">Force all the symbols of a module to be part of a configuration</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">exportModule</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">modName</span> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Although a call xdc.useModule() will force some of a module's methods
+  to be part of a configuration, the linker is still free to omit any
+  symbols that are not referenced.  Use of exportModule will force all
+  methods of the specified module to be available.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Sect.Map"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Program.</span><span class="xdoc-id">getSectMap</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/cfg/Program.html" title="module Program"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/cfg/Program.html#get.Sect.Map">index URL</a></div>
+<p class="xdocHdrSummary">Return the complete mapping of section names to <tt><a class="xdoc-link" href="Program.html#.Section.Spec" title="SectionSpec">SectionSpec</a></tt>
+  entries</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Program.<span class="xdoc-id">getSectMap</span>(  ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The returned map is assembled from <tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#sect.Map" title="xdc.bld.ITarget.sectMap">xdc.bld.ITarget.sectMap</a></tt>,
+  <tt><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#sect.Map" title="xdc.platform.IPlatform.sectMap">xdc.platform.IPlatform.sectMap</a></tt>,
+  <tt><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#code.Memory" title="xdc.platform.IPlatform.codeMemory">xdc.platform.IPlatform.codeMemory</a></tt>,
+  <tt><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#data.Memory" title="xdc.platform.IPlatform.dataMemory">xdc.platform.IPlatform.dataMemory</a></tt>,
+  <tt><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#stack.Memory" title="xdc.platform.IPlatform.stackMemory">xdc.platform.IPlatform.stackMemory</a></tt> and <tt><a class="xdoc-link" href="Program.html#sect.Map" title="sectMap">sectMap</a></tt>.
+  The function can be called at any time during configuration, but if
+  it is called before all packages had a chance to change <tt>sectMap</tt>,
+  the returned map may not correspond to the actual section
+  allocation as configured in the linker command file.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText"><tt>getSectMap</tt> returns a map with section names as keys and
+	<tt><a class="xdoc-link" href="Program.html#.Section.Spec" title="SectionSpec">SectionSpec</a></tt> entries as values.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">If BIOS 5 configuration script (Tconf script) is executed, the
+  section allocations configured in the Tconf script are also being
+  returned.</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:27 GMT</div>
+</div></div></body>
+</html>

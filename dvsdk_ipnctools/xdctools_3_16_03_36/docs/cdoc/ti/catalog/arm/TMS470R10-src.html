@@ -1,0 +1,67 @@
+<html><head><title>module ti.catalog.arm.TMS470R10</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS470R10.xdc ========
+</span>    15    <span class="comment"> */</span>
+    16    <span class=key>package</span> ti.catalog.arm;
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== TMS470R10 ========
+</span>    20    <span class="xdoc"> *  The C470 device data sheet module.
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is 
+</span>    23    <span class="xdoc"> *  used by platforms to obtain "data sheet" information about this device.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  Warning: The data for this module comes from the linker command file 
+</span>    26    <span class="xdoc"> *  shipped with the TI 470 tools and does NOT come from any published data
+</span>    27    <span class="xdoc"> *  sheet.
+</span>    28    <span class="xdoc"> */</span>
+    29    <span class=key>metaonly</span> <span class=key>module</span> TMS470R10 <span class=key>inherits</span> TMS470xx
+    30    {
+    31    <span class=key>instance</span>:
+    32        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    33    
+    34        <span class="xdoc">/*!
+</span>    35    <span class="xdoc">     *  ======== memMap ========
+</span>    36    <span class="xdoc">     *  The default memory map for this device
+</span>    37    <span class="xdoc">     */</span>
+    38        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    39            [<span class="string">"P_MEM"</span>, {
+    40                comment: <span class="string">"Program Memory (ROM)"</span>,
+    41                name: <span class="string">"P_MEM"</span>,
+    42                base: 0x00000000,
+    43                len: 0x00030000,
+    44                space: <span class="string">"code"</span>
+    45            }],
+    46    
+    47            [<span class="string">"D_MEM"</span>, {
+    48                comment: <span class="string">"Data Memory (RAM)"</span>,
+    49                name: <span class="string">"D_MEM"</span>, 
+    50                base: 0x00030000,
+    51                len: 0x00050000,
+    52                space: <span class="string">"data"</span>
+    53            }],
+    54        ];
+    55    };
+    56    <span class="comment">/*
+</span>    57    <span class="comment"> *  @(#) ti.catalog.arm; 1, 0, 1, 0,116; 2-23-2010 16:50:34; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    58    <span class="comment"> */</span>
+    59    
+</pre>
+</body></html>

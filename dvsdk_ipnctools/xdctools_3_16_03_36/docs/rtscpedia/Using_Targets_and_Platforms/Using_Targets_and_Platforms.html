@@ -1,0 +1,413 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using Targets and Platforms - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using Targets and Platforms&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using Targets and Platforms" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Using Targets and Platforms</p><p id="subtitle">Introduction to targets and platforms</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Targets"><span class="tocnumber">2</span> <span class="toctext">Targets</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Target_Names"><span class="tocnumber">2.1</span> <span class="toctext">Target Names</span></a></li>
+<li class="toclevel-2"><a href="#Configuring_Targets"><span class="tocnumber">2.2</span> <span class="toctext">Configuring Targets</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Generic_targets"><span class="tocnumber">2.2.1</span> <span class="toctext">Generic targets</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Target_Runtime_Support_Packages"><span class="tocnumber">2.3</span> <span class="toctext">Target Runtime Support Packages</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Platforms"><span class="tocnumber">3</span> <span class="toctext">Platforms</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Platform_Names"><span class="tocnumber">3.1</span> <span class="toctext">Platform Names</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Defining_Platform_Instances_via_config.bld"><span class="tocnumber">3.1.1</span> <span class="toctext">Defining Platform Instances via config.bld</span></a></li>
+<li class="toclevel-3"><a href="#Defining_Platform_Instances_via_a_RTSC_Module_Configuration_Parameter"><span class="tocnumber">3.1.2</span> <span class="toctext">Defining Platform Instances via a RTSC Module Configuration Parameter</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Using_the_Generic_Platform"><span class="tocnumber">3.2</span> <span class="toctext">Using the Generic Platform</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Creating_New_Targets_and_Platforms"><span class="tocnumber">4</span> <span class="toctext">Creating New Targets and Platforms</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>Before using target content produced by a third party, application developers must specify certain aspects of their development environment:
+</p>
+<ol><li>the compiler and a runtime model supported by the compiler used to build the application, and
+</li><li>the hardware platform used to run the application
+</li></ol>
+<p>In RTSC, a <a href="../Glossary/Glossary.html#Target" title="Glossary"><i>target</i></a> "encapsulates" the compiler and runtime model information as a single named entity.  Similarly, a <a href="../Glossary/Glossary.html#Platform" title="Glossary"><i>platform</i></a> is a named entity that encapsulates the hardware platform information.  Informally, targets contain the information necessary to create a library that can be linked into an end-application and platforms contain all the information necessary to link and run an application on specific hardware.
+</p><p>Both targets and platforms are RTSC objects that are specified by the end-user via a string name.  These names uniquely identify an appropriate object and allow tools that run at different times in the application's lifecycle (development, testing, and deployment) to access this object's attributes by simply using the object's name.  For example, in <a href="../Consuming_Configurable_Content/Consuming_Configurable_Content__makefiles.html" title="Consuming Configurable Content/makefiles">Consuming Configurable Content</a>, target and platform names are passed to the <tt><a href="../../cdoc/xdc/tools/configuro/package.html" class="cdoc"><tt>xdc.tools.configuro</tt></a></tt> configuration tool to initialize the associated configuration Domain Object Model (<a href="../Glossary/Glossary.html#DomainObjectModel" title="Glossary">DOM</a>) prior to running an application's configuration script.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xs xdc.tools.configuro -t ti.targets.C64 -p ti.platforms.sim6xxx:TMS320C6416 app.cfg</pre></td></tr></table>
+<p>This allows both the application's configuration script and any imported packages to conditionally select appropriate options, libraries, or prerequisite packages necessary to support the current configuration.  Similarly, the RTSC Build Engine uses target names to initialize the build DOM prior to running package build scripts.  Since both the target and platform names start with a name from the RTSC module or package namespace, target and platform specifications can be shared not just among local developers but also with developers in separate companies worldwide.
+</p>
+<p><div class="Notice"><p class="Notice">Application configuration scripts read but <i>never</i> modify target or platform attributes.  It's important that targets and platforms remain unaltered since all models, including the build model and the runtime time model, rely on the fact that <i>all models see the exactly the same target and platform information</i>.</p></div></p>
+<div class="Info"><p class="Info">The need to specify compilers, runtime models, and hardware platforms is certainly not unique to RTSC or embedded software.  For example, virtually all GNU Open Source packages include a <tt>configure</tt> shell script (created by the package producer via the <tt><a href="http://www.gnu.org/software/autoconf/autoconf.html" class="external text" title="http://www.gnu.org/software/autoconf/autoconf.html" rel="nofollow">Autoconf</a></tt> tool) that determines the compiler, runtime, and hardware platform from a combination of command line options to <tt>configure</tt> and the user's environment.  Although this technique makes it very easy to rebuild and install GNU packages in workstation environments, it requires the end-user to have a fairly large set of UNIX-based tools including a "unixy" shell, it presumes that the packages are delivered in source form, and the information associated with the arguments to <tt>configure</tt> can not be accessed after the package's installation except via ad hoc package-specific mechanisms.</p></div>
+<a name="Targets"></a><h2> <span class="mw-headline">Targets</span></h2>
+<p>Targets are implemented as any <a href="../Glossary/Glossary.html#Module" title="Glossary">RTSC module</a> that implements the <tt><a href="../../cdoc/xdc/bld/ITarget.html" class="cdoc"><tt>xdc.bld.ITarget</tt></a></tt> interface.  While most users do not need to create new targets, the fact that they are represented as modules that implement a specific interface implies that
+</p>
+<ol><li>anyone <i>can</i> add new targets <i>without</i> updating the <tt>XDCtools</tt> product
+</li><li>target-specific extensions and detailed documentation is provided in the target module's <tt>*.xdc</tt> file 
+</li><li>tools can easily identify the entire set of available targets, and finally
+</li><li>the information provided by all targets is formally specified by the <tt>xdc.bld.ITarget</tt> interface.
+</li></ol>
+<p>See <a href="../Existing_Targets/Existing_Targets.html" title="Existing Targets">Existing Targets</a> for a list of targets and the compiler options that define these targets.
+</p>
+<a name="Target_Names"></a><h3> <span class="mw-headline">Target Names</span></h3>
+<p>Target names are simply the full name of the module that implements the <tt>ITarget</tt> interface.  Since fully qualified module names (i.e., module names that include their package's name) are globally unique, this name can be used to uniquely identify a target.  For example, the string <tt>"ti.targets.C64"</tt> uniquely identifies the module (<a href="../../cdoc/ti/targets/C64.html" class="cdoc"><tt>ti.targets.C64</tt></a>) that contains all the information necessary to build a library of object files for a TMS320C64x processor running in little endian mode using TI's code generation tools.
+</p>
+<a name="Configuring_Targets"></a><h3> <span class="mw-headline">Configuring Targets</span></h3>
+<p>Before a target can be used, it must be "configured".  In particular, for each target you use, you must specify the installation directory of the toolchain that it encapsulates.  Since targets are implemented as RTSC modules, the specification of the installation directory for a target is naturally expressed as a configuration parameter of the module.  While this may seem odd at first, there are several advantages:
+</p>
+<ul><li> the same language used to configure target modules, <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>, is used to configure your build environment (one less language to learn);
+</li><li> this language, being a full programming language, makes it easy to integrate into existing build environments and support complex development environments with multiple versions of multiple toolchains;
+</li><li> since anyone can create new modules, anyone can create and publish new targets effectively extending <tt>XDCtools</tt> to support their favorite toolchain; and
+</li><li> each target can support a variety of compiler-specific configuration parameters to make use of the toolchain easier for the user.
+</li></ul>
+<p>Targets are always configured via a <tt>config.bld</tt> script and, for simple cases, this script quite straightforward; the only configuration parameter that you must set is the target's <tt><a href="../../cdoc/xdc/bld/ITarget.html#root.Dir" class="cdoc"><tt>rootDir</tt></a></tt> parameter.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> C64P = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;ti.targets.C64P&quot;</span><span class="br0">&#41;</span>;  <span class="coMULTI">/* get the target module */</span>
+C64P.rootDir = <span class="st0">&quot;/user/local/ti/c64/6.1.2&quot;</span>;    <span class="coMULTI">/* specify the target compiler's install directory */</span></pre></td></tr></table>
+<p>For these simple cases, tools such as <tt>xdc.tools.configuro</tt> can implicitly create and use a <tt>config.bld</tt> based on command line parameters.  However, unless you're happy to rely on the default compiler options and you use a single target, you'll find it easier to create and manage this file by hand.  For more information about <tt>config.bld</tt> scripts, see <a href="../Managing_Compiler_Toolchains/Managing_Compiler_Toolchains.html" title="Managing Compiler Toolchains">Managing Compiler Toolchains</a>.
+</p>
+<p></p>
+<a name="Generic_targets"></a><h6> <span class="mw-headline">Generic targets</span></h6>
+<p><span class="Leader">Generic targets</span>.&nbsp;  A target is usually created for a specific toolchain, where the names of commands and relative paths within in installation do not change. However, some targets are meant to represent a whole family of toolchains that generate compatible code but have different physical organization. The target modules in the package <tt><a href="../../cdoc/gnu/targets/arm/package.html" class="cdoc"><tt>gnu.targets.arm</tt></a></tt> are examples of such targets. A target from this package supports multiple Gnu Arm compilers, but the target is not preconfigured to use any of them by default. To use these targets, you must set the required parameter <tt><a href="../../cdoc/index.html#gnu/targets/ITarget.html#.L.O.N.G.N.A.M.E" class="cdoc"><tt>LONGNAME</tt></a></tt> in a <tt>config.bld</tt> script, in addition to setting <tt>rootDir</tt> for the target. 
+</p><p>For example, if version <tt>2007q3</tt> of the CodeSourcery GNU toolchain for Arm is installed in <tt>C:/CodeSourcery/arm-2007q3</tt>, the following settings in <tt>config.bld</tt> configure the <tt><a href="../../cdoc/gnu/targets/arm/GCArmv6.html" class="cdoc"><tt>gnu.targets.arm.GCArmv6</tt></a></tt> target to use that toolchain:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> GCArmv6 = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;gnu.targets.arm.GCArmv6&quot;</span><span class="br0">&#41;</span>;
+GCArmv6.rootDir = <span class="st0">&quot;C:/CodeSourcery/arm-2007q3&quot;</span>; 
+GCArmv6.LONGNAME = <span class="st0">&quot;bin/arm-none-linux-gnueabi-gcc&quot;</span>;</pre></td></tr></table>
+<a name="Target_Runtime_Support_Packages"></a><h3> <span class="mw-headline">Target Runtime Support Packages</span></h3>
+<p>All targets name a package containing pre-built versions of the modules in the <tt>xdc.runtime</tt> package; see <a href="../../cdoc/xdc/bld/ITarget.html#rts" class="cdoc"><tt>xdc.bld.ITarget.rts</tt></a>.  This is done for several reasons:
+</p>
+<ol><li>new targets can be added by <i>anyone at any time</i> without making <i>any</i> changes to the <tt>xdc.runtime</tt> package,
+</li><li>all modules can assume the base set of services supplied by <tt>xdc.runtime</tt> without ever directly referring to any target-specific packages, and
+</li><li>the end-user does not need to rebuild <tt>xdc.runtime</tt> modules when using a new target - she simply installs the target packages and associated runtime support packages like any other package.
+</li></ol>
+<p>However, there are two situations where the end-user must re-build the runtime support package identified by a target:
+</p>
+<ol><li>when a new version of the <tt>xdc.runtime</tt> package is released, and
+</li><li>if the version of the compiler used to produce the runtime support package is incompatible with the compiler version being used for the application; e.g., if the runtime support package was built using a <i>newer</i> version of the compiler than the end-user's compiler - compilers usually handle older object-file formats (because they are known) but new object file formats can easily break older compilers. 
+</li></ol>
+<p>Runtime support packages are re-buildable by the end-user.  You can either rebuild the package in-place or copy the package to a new <a href="../Glossary/Glossary.html#Repository" title="Glossary">repository</a> that appears on your <a href="../Glossary/Glossary.html#PackagePath" title="Glossary">package path</a> <i>ahead</i> of the original.  For more information about how to rebuild a runtime support package see <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html#Re-building_xdc.runtime_Support_Packages" title="Working with xdc.runtime">Re-building xdc.runtime Support Packages</a>.
+</p>
+<a name="Platforms"></a><h2> <span class="mw-headline">Platforms</span></h2>
+<p>Platforms are implemented as named instances from a <a href="../Glossary/Glossary.html#Module" title="Glossary">RTSC module</a> named <tt>"Platform"</tt> (contained in any package) that implements the <tt><a href="../../cdoc/xdc/platform/IPlatform.html" class="cdoc"><tt>xdc.platform.IPlatform</tt></a></tt> interface.  Packages containing a <tt>Platform</tt> module are called <a href="../Glossary/Glossary.html#PlatformPackage" title="Glossary">platform packages</a>.  While most users don't create new platform packages, the fact that platforms are instances of a module that implement a specific interface implies that
+</p>
+<ul><li>anyone <i>can</i> add new platforms <i>without</i> updating the <tt>XDCtools</tt> product
+</li><li>platform-specific extensions and detailed documentation is provided in the <tt>Platform</tt> module's <tt>*.xdc</tt> file 
+</li><li>tools can identify the entire set of available platforms, and finally
+</li><li>the information provided by all platforms is formally specified by the <tt>xdc.platform.IPlatform</tt> interface.
+</li></ul>
+<div class="Info"><p class="Info">Platforms are not implemented as modules because, unlike targets, there is little or no standardization among different end-applications.  Virtually every embedded hardware platform is unique, where as it is common for each C6x platform to support one of a very small set of "standard" targets, for example.</p></div>
+<a name="Platform_Names"></a><h3> <span class="mw-headline">Platform Names</span></h3>
+<p>Since platforms are implemented as instance objects rather than as a module, we can't simply use the RTSC module namespace to identify platforms.  Unlike modules, which are pre-existing singleton objects with globally unique names, instance objects are generally anonymous objects created <i>with parameters</i> on an as needed basis.  Platform instance names must uniquely identify <i>both</i> a module as well as the parameters used to create the instance.
+</p><p>Although end-users don't often create platform packages, they do need to define <i>named</i> platform instances.  There are two ways to define named platform instances:
+</p>
+<ol><li>add an entry to <tt><a href="../../cdoc/xdc/bld/BuildEnvironment.html#platform/.Table" class="cdoc"><tt>xdc.bld.BuildEnvironment.platformTable</tt></a></tt> inside a <tt>config.bld</tt> script, or
+</li><li>create a RTSC module with a configuration parameter of type <tt>xdc.platform.IPlatform.Instance</tt>.
+</li></ol>
+<p>In either case, both arguments of the <tt><a href="../../cdoc/xdc/platform/IPlatform.html#per-instance_creation" class="cdoc"><tt>xdc.platform.IPlatform.create()</tt></a></tt> method are specified: a name string and a "structure" of platform-specific arguments.
+</p><p>Platform instance names reflect the two ways of defining named platform instances:
+</p>
+<ol><li><tt>"<i>platform_pkg_name</i>:<i>instance_name_arg</i>"</tt> refers to instances defined in <tt>config.bld</tt>, where <tt><i>platform_pkg_name</i></tt> is the name of the platform package containing the <tt>Platform</tt> module used to create the instance, <tt><i>instance_name_arg</i></tt> is the name argument, and the value of <tt>xdc.bld.BuildEnvironment.platformTable["<i>platform_pkg_name</i>:<i>instance_name_arg</i>"]</tt> is the platform-specific argument structure, and
+</li><li><tt>"<i>module_name</i>.<i>config_param</i>"</tt> refers to an instance specified by initializing a configuration parameter of type <tt>xdc.platform.IPlatform.Instance</tt> named <tt><i>config_param</i></tt> within the module named <tt><i>module_name</i></tt>.  In this case, the name argument is <tt>"<i>config_param</i>"</tt> and the platform-specific argument structure is the initializer declared for this config parameter.
+</li></ol>
+<a name="Defining_Platform_Instances_via_config.bld"></a><h4> <span class="mw-headline">Defining Platform Instances via <tt>config.bld</tt></span></h4>
+<p>Defining platform instances within <tt>config.bld</tt> is the easiest way to define new platform instances.  But, while this method is sufficient for most situations, it is better to define platform instances as a configuration parameter of a RTSC module (described <a href="#Defining_Platform_Instances_via_a_RTSC_Module_Configuration_Parameter" title="">below</a>).
+</p><p>To define a platform instance in <tt>config.bld</tt>, simply add a new entry to the <tt><a href="../../cdoc/xdc/bld/BuildEnvironment.html#platform/.Table" class="cdoc"><tt>xdc.bld.BuildEnvironment.platformTable</tt></a></tt> map.  For example, to add the platform instance named <tt>"ti.platforms.sim6xxx:C6416"</tt> that corresponds to an instance of the <tt><a href="../../cdoc/index.html#ti/platforms/sim6xxx/Platform.html" class="cdoc"><tt>ti.platforms.sim6xxx.Platform</tt></a></tt> module created with the <tt>deviceName</tt> parameter set to <tt>"TMS320C6416"</tt>
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>Build.platformTable[&quot;ti.platforms.sim6xxx:C6416&quot;] = {deviceName: &quot;TMS320C6416&quot;};</pre></td></tr></table>
+<p><img src="../common/extensions/rtsc/images/TIP.png" /> You can define a "default" platform instance for a platform package by omitting the <tt>":<i>instance_name</i>"</tt> suffix.  In this case, the name of the platform instance is the same as the name of the platform package itself.  While this is a convenient and concise way to name platform instances, it is important to not conflate platform instances with the package's used to create them.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Build.platformTable<span class="br0">&#91;</span><span class="st0">&quot;ti.platforms.sim6xxx&quot;</span><span class="br0">&#93;</span> = <span class="br0">&#123;</span>
+    deviceName: <span class="st0">&quot;TMS320C6416&quot;</span>, verbose: <span class="kw2">true</span>
+<span class="br0">&#125;</span>;</pre></td></tr></table>
+<p></p>
+<a name="Defining_Platform_Instances_via_a_RTSC_Module_Configuration_Parameter"></a><h4> <span class="mw-headline">Defining Platform Instances via a RTSC Module Configuration Parameter</span></h4>
+<p>Although this technique of defining named platform instances requires the creation of a few simple files, it has several advantages: these platform instance definitions
+</p>
+<ol><li>are available to any tool (not just the RTSC build and configuration tools)
+</li><li>can be shared with external groups using the same techniques used to share any RTSC module
+</li><li>will be automatically documented via the <tt><a href="../../cdoc/xdc/tools/cdoc/package.html" class="cdoc"><tt>xdc.tools.cdoc</tt></a></tt> tool (or any other documentation tool that reflects on RTSC IDL files).
+</li></ol>
+<p>Suppose you want to add a platform instance named <tt>"local.platforms.Sim6x.C6416"</tt> that corresponds to an instance of the <tt><a href="../../cdoc/ti/platforms/sim6xxx/Platform.html" class="cdoc"><tt>ti.platforms.sim6xxx.Platform</tt></a></tt> module created with the <tt>deviceName</tt> parameter set to <tt>"TMS320C6416"</tt>.  In this case, you must create a package named <tt>local.platforms</tt> with a module named <tt>Sim6x</tt> containing a configuration parameter named <tt>C6416</tt> which is initialized with the <tt>deviceName</tt> parameter set to <tt>"TMS320C6416"</tt>.  While this is certainly a mouthful and enough to scare anyone away, it's really quite easy.
+</p><p>Simply create a directory named <tt>local/platforms</tt> in any <a href="../Glossary/Glossary.html#Repository" title="Glossary">repository</a> in your <a href="../Glossary/Glossary.html#PackagePath" title="Glossary">package path</a> with the following files and run the <tt><a href="../Command_-_xdc/Command_-_xdc.html" title="Command - xdc">xdc</a></tt> command from this directory. This "compiles" the <tt>Sim6x</tt> module, making sure the <tt>deviceName</tt> parameter is a parameter of this platform, and makes the <tt>local.platforms.Sim6x</tt> module available to all scripts. 
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">package</span> local.platforms <span class="br0">&#123;</span> 
+    <span class="kw1">module</span> Sim6x; 
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* intentionally empty */</span></pre></td></tr></table>
+</td><td><div id="cl-1:s1"></div><div id="cl-Sim6x_spec:s1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Sim6x.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">s1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> ti.platforms.sim6xxx.Platform;
+<span class="kw1">metaonly</span> <span class="kw1">module</span> Sim6x <span class="br0">&#123;</span>
+    <span class="kw1">config</span> Platform.Instance C6416 = 
+        Platform.<span class="kw2">create</span><span class="br0">&#40;</span><span class="st0">&quot;C6416&quot;</span>, <span class="br0">&#123;</span>
+            deviceName: <span class="st0">&quot;TMS320C6416&quot;</span>
+        <span class="br0">&#125;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<p>There are times when you need to pass parameters that are "computed" based on the value of environment variables or the contents of certain files.  Although you can't run script code inside a <tt>*.xdc</tt> file, you <i>can</i> initialize the configuration parameter using a script called from your package's initialization method.  The following example illustrates how you can use the value from an environment variable to initialize a platform-specific parameter.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">package</span> local.platforms <span class="br0">&#123;</span> 
+    <span class="kw1">module</span> Sim6x; 
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* intentionally empty */</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Sim6x.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> ti.platforms.sim6xxx.Platform;
+<span class="kw1">metaonly</span> <span class="kw1">module</span> Sim6x <span class="br0">&#123;</span>
+    <span class="kw1">config</span> Platform.Instance C6416;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<p>Since <tt>Sim6x.xdc</tt> no longer declares a static instance to be created.  We must create the platform instance from within the <tt>Sim6x</tt> module's <a href="../Glossary/Glossary.html#Meta-Domain" title="Glossary">meta-domain</a> implementation, <tt>Sim6x.xs</tt>.
+</p>
+<div id="cl-2:x1"></div><div id="cl-Sim6x_xs:x1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Sim6x.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">x1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Platform = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;ti.platforms.sim6xxx.Platform&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">function</span> module$meta$init<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* initialize instances with params that are computed */</span>
+    <span class="kw2">this</span>.C6416= Platform.create<span class="br0">&#40;</span><span class="st0">&quot;C6416&quot;</span>, <span class="br0">&#123;</span>
+        deviceName: <span class="st0">&quot;TMS320C6416&quot;</span>,
+        ftpath: java.lang.System.getenv<span class="br0">&#40;</span><span class="st0">&quot;TOOLS&quot;</span><span class="br0">&#41;</span> + <span class="st0">&quot;/ti/fts/1.05/&quot;</span>
+     <span class="br0">&#125;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Notice that the syntax of the expression used to initialize the <tt>C6416</tt> config parameter in the previous example's <tt>Sim64.xdc</tt> <a class="codexLink" href="#cl-Sim6x_spec:s1"><span class="codexLink">s1</span></a> is the same as that used to create an instance in the <tt>Sim64.xs</tt> file <a class="codexLink" href="#cl-Sim6x_xs:x1"><span class="codexLink">x1</span></a> .
+</p>
+<a name="Using_the_Generic_Platform"></a><h3> <span class="mw-headline">Using the Generic Platform</span></h3>
+<p>While it is always possible to create a custom platform package for your hardware, it's not always necessary.  The <tt><a href="../../cdoc/ti/platforms/generic/package.html" class="cdoc"><tt>ti.platforms.generic</tt></a></tt> platform package can be used to define platform instances for almost any hardware platform based on a TI device.  The <tt>ti.platforms.generic.Platform</tt> module's instance <tt>create()</tt> method accepts parameters that specify the device, clock speed, and memory map for each instance.  Thus, it's often possible to define a named platform instance using this platform package for your custom hardware without having to create a new platform package.
+</p><p>Suppose for example, that your application's platform uses a TMS320C6416 running at 600MHz with a block of external memory starting at 0x80000000 with 0x800000 bytes of memory for code or data.  You can define an appropriate platform instance inside your <tt>config.bld</tt> script as follows:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld (fragment)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Build.platformTable<span class="br0">&#91;</span><span class="st0">&quot;ti.platforms.generic:C64&quot;</span><span class="br0">&#93;</span> = <span class="br0">&#123;</span>
+    deviceName: <span class="st0">&quot;TMS320C6416&quot;</span>,
+    catalogName: <span class="st0">&quot;ti.catalog.c6000&quot;</span>,
+    clockRate: <span class="nu0">600</span>,
+    externalMemoryMap: <span class="br0">&#91;</span>
+        <span class="br0">&#91;</span><span class="st0">&quot;EXTMEM&quot;</span>, <span class="br0">&#123;</span>
+            name: <span class="st0">&quot;EXTMEM&quot;</span>,
+            base: 0x80000000,
+            len:  0x00800000,
+            space: <span class="st0">&quot;code/data&quot;</span><span class="br0">&#125;</span>
+        <span class="br0">&#93;</span>,
+    <span class="br0">&#93;</span>
+<span class="br0">&#125;</span>;</pre></td></tr></table>
+<p>Although the <tt>ti.platforms.generic</tt> platform can be used for a broad category of platforms, it's almost always better to use a platform package specifically created for your hardware (if one exists).  Hardware specific platform packages 
+</p>
+<ul><li> define the correct clock speed(s) and memory map for the device running your application;
+</li><li> enable all developers to create executables with consistent (and correct) definition of the hardware;
+</li><li> augment the device information with additional information that enables target-content packages to better select appropriate default settings; and
+</li><li> supply functions that allow you to more easily run executables built for the platform.
+</li></ul>
+<p>Use of the <tt>ti.platforms.generic</tt> platform generally means that there will be more configuration parameters that you'll have to explicitly specify (because platform information beyond the device can't be provided to contributing packages) and there is greater chance of using the wrong memory map, clock speed, etc.
+</p>
+<a name="Creating_New_Targets_and_Platforms"></a><h2> <span class="mw-headline">Creating New Targets and Platforms</span></h2>
+<p>Although it is technically quite easy to define how to create a new target or platform package, as a practical matter, most developers either copy existing implementations or inherit from these implementations.  
+</p><p>Alternately, you can use the RTSC Platform Wizard provided in CCSv4 as part of XDCtools to create platform packages. You can <a href="../Demo_of_the_RTSC_Platform_Wizard_in_CCSv4/Demo_of_the_RTSC_Platform_Wizard_in_CCSv4.html" title="Demo of the RTSC Platform Wizard in CCSv4">watch a demo</a> that shows how to use this wizard.
+</p><p>The sections listed below provide concrete examples of both techniques as well are guidance to know which is best for your needs.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Creating_Targets/Creating_Targets.html" title="Creating Targets">Creating Targets</a>
+</td><td class="DocListSubTitle1">How to create a new target
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Creating_Platform_Packages/Creating_Platform_Packages.html" title="Creating Platform Packages">Creating Platform Packages</a>
+</td><td class="DocListSubTitle">How to create a new platform package
+</td></tr></table>
+<p><br />
+Again, in many cases it is unnecessary to create a new target and platform.  In fact, it's best to use an existing target or platform whenever possible.
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Existing_Targets/Existing_Targets.html" title="Existing Targets">Existing Targets</a>
+</td><td class="DocListSubTitle1">Targets suppled with XDCtools
+</td></tr></table>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using Targets and Platforms&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using Targets and Platforms" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 4597 bytes
+Post-expand include size: 2038 bytes
+Template argument size: 137 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_Targets_and_Platforms.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.237 secs. --></body></html>

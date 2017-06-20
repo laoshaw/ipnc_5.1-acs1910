@@ -1,0 +1,125 @@
+<html><head><title>module xdc.platform.Utils</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Utils.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    
+    16    <span class=key>package</span> xdc.platform;
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Utils ========
+</span>    20    <span class="xdoc"> *  Misc platform utilities
+</span>    21    <span class="xdoc"> */</span>
+    22    <span class=key>metaonly</span> <span class=key>module</span> Utils
+    23    {
+    24        <span class="xdoc">/*!
+</span>    25    <span class="xdoc">     *  ======== assembleMemoryMap ========
+</span>    26    <span class="xdoc">     *  Combine the device and the external memory map into a platform map
+</span>    27    <span class="xdoc">     *
+</span>    28    <span class="xdoc">     *  This function combines memory maps and also applies memory map name
+</span>    29    <span class="xdoc">     *  changes requested through renameMap.
+</span>    30    <span class="xdoc">     *
+</span>    31    <span class="xdoc">     *  <b>@param(cpu)</b>     an `xdc.platform.IExeContext` object
+</span>    32    <span class="xdoc">     *
+</span>    33    <span class="xdoc">     *  <b>@param(plat)</b>    a platform instance
+</span>    34    <span class="xdoc">     *
+</span>    35    <span class="xdoc">     *  <b>@param(noCheck)</b> if true, and a custom memory map is defined, the
+</span>    36    <span class="xdoc">     *                  function does not check if the custom memory map fits
+</span>    37    <span class="xdoc">     *                  into the available physical memory
+</span>    38    <span class="xdoc">     *
+</span>    39    <span class="xdoc">     *  <b>@a(returns)</b>     platform memory map
+</span>    40    <span class="xdoc">     */</span>
+    41        <span class=key>function</span> assembleMemoryMap(cpu, plat, noCheck);
+    42    
+    43        <span class="xdoc">/*!
+</span>    44    <span class="xdoc">     *  ======== checkDefaults ========
+</span>    45    <span class="xdoc">     *  Check if dataMemory, codeMemory and stackMemory are set correctly
+</span>    46    <span class="xdoc">     *
+</span>    47    <span class="xdoc">     *  The `xdc.platform.IPlatform` instance parameters 'dataMemory',
+</span>    48    <span class="xdoc">     *  'codeMemory', and 'stackMemory' are strings. This function verifies
+</span>    49    <span class="xdoc">     *  that those strings correspond to names of the memory objects in the
+</span>    50    <span class="xdoc">     *  supplied memory map.
+</span>    51    <span class="xdoc">     *
+</span>    52    <span class="xdoc">     *  <b>@param(inst)</b>    an `xdc.platform.IPlatform` instance
+</span>    53    <span class="xdoc">     *
+</span>    54    <span class="xdoc">     *  <b>@param(memMap)</b>  a map of `xdc.platform.IPlatform.Memory` objects
+</span>    55    <span class="xdoc">     *
+</span>    56    <span class="xdoc">     *  <b>@a(returns)</b>     'true' if checked parameters are valid, 'false'
+</span>    57    <span class="xdoc">     *                  otherwise
+</span>    58    <span class="xdoc">     */</span>
+    59        <span class=key>function</span> checkDefaults(inst, memMap);
+    60    
+    61        <span class="xdoc">/*!
+</span>    62    <span class="xdoc">     *  ======== checkFit ========
+</span>    63    <span class="xdoc">     *  Check if a memory map fits into available physical memory
+</span>    64    <span class="xdoc">     *
+</span>    65    <span class="xdoc">     *  A custom memory map segment can be spread over multiple physical
+</span>    66    <span class="xdoc">     *  memories or multiple custom memory map segments can be located in
+</span>    67    <span class="xdoc">     *  one physical memory. However, code/data restrictions must be followed.
+</span>    68    <span class="xdoc">     *  A custom memory segment with the parameter 'space' set to "code/data",
+</span>    69    <span class="xdoc">     *  which is the default value if the parameter was not specified, can fit
+</span>    70    <span class="xdoc">     *  only into "code/data" physical memories. Custom memory segments with
+</span>    71    <span class="xdoc">     *  'space' set to "code" can fit into "code" and "code/data" memories, and
+</span>    72    <span class="xdoc">     *  custom memory segments with 'space' set to "data" can fit into "data"
+</span>    73    <span class="xdoc">     *  and "code/data" physical memories. 
+</span>    74    <span class="xdoc">     *
+</span>    75    <span class="xdoc">     *  <b>@param(realMemMap)</b>      a map of `xdc.platform.IPlatform.Memory`
+</span>    76    <span class="xdoc">     *                          objects containing physical memory map as
+</span>    77    <span class="xdoc">     *                          defined in datasheets for the device and the
+</span>    78    <span class="xdoc">     *                          platform
+</span>    79    <span class="xdoc">     *
+</span>    80    <span class="xdoc">     *  <b>@param(customMemMap)</b>    a map of `xdc.platform.IPlatform.Memory`
+</span>    81    <span class="xdoc">     *                          objects containing user defined memory map,
+</span>    82    <span class="xdoc">     *                          which must fit within boundaries of 'realMemMap'
+</span>    83    <span class="xdoc">     *
+</span>    84    <span class="xdoc">     *  <b>@a(returns)</b>             'true', if customMemMap fits within realMemMap,
+</span>    85    <span class="xdoc">     *                          and 'false' otherwise
+</span>    86    <span class="xdoc">     */</span>
+    87        <span class=key>function</span> checkFit(realMemMap, customMemMap);
+    88    
+    89        <span class="xdoc">/*!
+</span>    90    <span class="xdoc">     *  ======== checkOverlap ========
+</span>    91    <span class="xdoc">     *  Check if there is an overlap among memory objects in a memory map
+</span>    92    <span class="xdoc">     *
+</span>    93    <span class="xdoc">     *  <b>@param(memMap)</b>  a map of `xdc.platform.IPlatform.Memory` objects
+</span>    94    <span class="xdoc">     *
+</span>    95    <span class="xdoc">     *  <b>@a(returns)</b>     a string with names of Memory objects that overlap
+</span>    96    <span class="xdoc">     */</span>
+    97        <span class=key>function</span> checkOverlap(memMap);
+    98    
+    99        <span class="xdoc">/*!
+</span>   100    <span class="xdoc">     *  ======== getCpuDataSheet ========
+</span>   101    <span class="xdoc">     *  Get the specified cpu data sheet object
+</span>   102    <span class="xdoc">     *
+</span>   103    <span class="xdoc">     *  <b>@param(cpuDesc)</b> an `xdc.platform.IExeContext.Cpu` object identifying 
+</span>   104    <span class="xdoc">     *                  the CPU device
+</span>   105    <span class="xdoc">     *
+</span>   106    <span class="xdoc">     *  <b>@a(returns)</b>     an `xdc.platform.ICpuDataSheet.Instance` object that
+</span>   107    <span class="xdoc">     *                  corresponds to the specified cpuDesc
+</span>   108    <span class="xdoc">     *
+</span>   109    <span class="xdoc">     *  <b>@a(throws)</b>      `Error` exceptions are thrown for fatal errors
+</span>   110    <span class="xdoc">     */</span>
+   111        <span class=key>function</span> getCpuDataSheet(cpuDesc);
+   112    }
+   113    
+   114    <span class="comment">/*
+</span>   115    <span class="comment"> *  @(#) xdc.platform; 1, 0, 1, 0,237; 2-22-2010 10:33:24; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   116    <span class="comment"> */</span>
+   117    
+</pre>
+</body></html>

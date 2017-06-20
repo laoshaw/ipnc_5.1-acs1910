@@ -1,0 +1,444 @@
+<html><head><title>interface xdc.IPackage</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== IPackage.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== IPackage ========
+</span>    19    <span class="xdoc"> *  Base interface implemented by all packages.
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  If a package does not specify a function declared in
+</span>    22    <span class="xdoc"> *  `IPackage`, the default defined in this package is used.
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  Packages must implement `IPackage` functions in the package's `package.xs`
+</span>    25    <span class="xdoc"> *  file.  This file simply defines a function with the same name as that
+</span>    26    <span class="xdoc"> *  declared in the the this specification.  For example, to implement the
+</span>    27    <span class="xdoc"> *  `{<b>@link</b> #getLibs()}` function the following must appear in the package's
+</span>    28    <span class="xdoc"> *  `package.xs` file:
+</span>    29    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    30    <span class="xdoc"> *      function getLibs(prog)
+</span>    31    <span class="xdoc"> *      {
+</span>    32    <span class="xdoc"> *           ...
+</span>    33    <span class="xdoc"> *      }
+</span>    34    <span class="xdoc"> *  <b>@p</b>
+</span>    35    <span class="xdoc"> *
+</span>    36    <span class="xdoc"> *  <b>@a(Note)</b>
+</span>    37    <span class="xdoc"> *  Since most `IPackage` functions can be called in any model, any access to
+</span>    38    <span class="xdoc"> *  global variables specific to a particular object model should happen only
+</span>    39    <span class="xdoc"> *  if the function is called in the context of that model. For example, the
+</span>    40    <span class="xdoc"> *  variable `Program` is a global variable in the Configuration Model
+</span>    41    <span class="xdoc"> *  (`{<b>@link</b> xdc.cfg.Program}`). Any access to it should happen after a check
+</span>    42    <span class="xdoc"> *  that the current model is the Configuration Model:
+</span>    43    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    44    <span class="xdoc"> *      if (xdc.om.$name == "cfg") {
+</span>    45    <span class="xdoc"> *          print(Program.build.target.name);
+</span>    46    <span class="xdoc"> *      }
+</span>    47    <span class="xdoc"> *  <b>@p</b>
+</span>    48    <span class="xdoc"> *  For additional information about `xdc.om`, see
+</span>    49    <span class="xdoc"> *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om xdc.om} in the
+</span>    50    <span class="xdoc"> *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference XDCscript Language Reference}.
+</span>    51    <span class="xdoc"> */</span>
+    52    <span class=key>metaonly</span> <span class=key>interface</span> IPackage {
+    53        <span class="xdoc">/*!
+</span>    54    <span class="xdoc">     *  ======== LibDesc ========
+</span>    55    <span class="xdoc">     *  Library properties from the Build Object Model (BOM)
+</span>    56    <span class="xdoc">     *
+</span>    57    <span class="xdoc">     *  This structure defines library properties that are
+</span>    58    <span class="xdoc">     *  carried forward from the Build Model into the Configuration Model.
+</span>    59    <span class="xdoc">     *
+</span>    60    <span class="xdoc">     *  <b>@field(target)</b>    target for which the library was built.
+</span>    61    <span class="xdoc">     *  <b>@field(suffix)</b>    the suffix associated with the named target.
+</span>    62    <span class="xdoc">     *
+</span>    63    <span class="xdoc">     */</span>
+    64        <span class=key>struct</span> LibDesc {
+    65            String target;  <span class="xdoc">/*! target name */</span>
+    66            String suffix;  <span class="xdoc">/*! suffix property of the named target */</span>
+    67        }
+    68    
+    69        <span class="xdoc">/*!
+</span>    70    <span class="xdoc">     *  ======== BuildAttrs ========
+</span>    71    <span class="xdoc">     *  Package-level attributes from the Build Object Model (BOM)
+</span>    72    <span class="xdoc">     *
+</span>    73    <span class="xdoc">     *  This structure defines a set of package-level attributes that are
+</span>    74    <span class="xdoc">     *  carried forward from the Build Model into the Configuration Model.
+</span>    75    <span class="xdoc">     *
+</span>    76    <span class="xdoc">     *  <b>@field(getLibs)</b>   the JavaScript function that should be used when
+</span>    77    <span class="xdoc">     *                    the package participates in a program configuration
+</span>    78    <span class="xdoc">     *                    script.  This field contains the function specified
+</span>    79    <span class="xdoc">     *                    by a package's build script
+</span>    80    <span class="xdoc">     *  <b>@field(libraries)</b> an array of archive names created by this package.
+</span>    81    <span class="xdoc">     *                    Each name is a package-relative file name of an
+</span>    82    <span class="xdoc">     *                    archive within the package.
+</span>    83    <span class="xdoc">     *  <b>@field(libDesc)</b>   a map of library descriptors.  This map is indexed
+</span>    84    <span class="xdoc">     *                    by names that appear in the `libraries` array.
+</span>    85    <span class="xdoc">     */</span>
+    86        <span class=key>struct</span> BuildAttrs {
+    87            String  libraries[]; <span class="xdoc">/*! array of archive names produced by this pkg */</span>
+    88            LibDesc libDesc[string]; <span class="xdoc">/*! desriptors for elements in `libraries` */</span>
+    89            any     getLibs;     <span class="xdoc">/*! `getLibs` function defined by build script */</span>
+    90        };
+    91        
+    92        <span class="xdoc">/*!
+</span>    93    <span class="xdoc">     *  ======== packageBase ========
+</span>    94    <span class="xdoc">     *  The absolute path to the package's "base" directory
+</span>    95    <span class="xdoc">     *
+</span>    96    <span class="xdoc">     *  This parameter contains an absolute path to the directory
+</span>    97    <span class="xdoc">     *  containing the package's build script (`package.bld`). For example,
+</span>    98    <span class="xdoc">     *  if the package `ti.bios` is located in `c:/packages/ti/bios`, then
+</span>    99    <span class="xdoc">     *  `packageBase` equals `c:/packages/ti/bios/`.
+</span>   100    <span class="xdoc">     *
+</span>   101    <span class="xdoc">     *  To be robust, clients should not assume that this string ends with a
+</span>   102    <span class="xdoc">     *  directory separator.
+</span>   103    <span class="xdoc">     *
+</span>   104    <span class="xdoc">     *  <b>@a(readonly)</b>  This parameter is set when the package is first loaded
+</span>   105    <span class="xdoc">     *  and should not be modified by any other script.
+</span>   106    <span class="xdoc">     */</span>
+   107        <span class=key>config</span> string packageBase;
+   108        
+   109        <span class="xdoc">/*!
+</span>   110    <span class="xdoc">     *  ======== packageRepository ========
+</span>   111    <span class="xdoc">     *  The absolute path to the repository containing the package
+</span>   112    <span class="xdoc">     *
+</span>   113    <span class="xdoc">     *  This parameter contains an absolute path to the directory
+</span>   114    <span class="xdoc">     *  containing the full directory namespace of the package.  For
+</span>   115    <span class="xdoc">     *  example, if the package `ti.bios` is located in `c:/packages/ti/bios`,
+</span>   116    <span class="xdoc">     *  then `packageRepository` equals `c:/packages/`.
+</span>   117    <span class="xdoc">     *
+</span>   118    <span class="xdoc">     *  To be robust, clients should not assume that this string ends with a
+</span>   119    <span class="xdoc">     *  directory separator.
+</span>   120    <span class="xdoc">     *
+</span>   121    <span class="xdoc">     *  <b>@a(readonly)</b>  This parameter is set when the package is first loaded
+</span>   122    <span class="xdoc">     *  and should not be modified by any other script.
+</span>   123    <span class="xdoc">     */</span>
+   124        <span class=key>config</span> string packageRepository;
+   125        
+   126        <span class="xdoc">/*!
+</span>   127    <span class="xdoc">     *  ======== build ========
+</span>   128    <span class="xdoc">     *  The package information from the Build Object Model (BOM)
+</span>   129    <span class="xdoc">     *
+</span>   130    <span class="xdoc">     *  <b>@a(readonly)</b>  This parameter is set when the package is first loaded
+</span>   131    <span class="xdoc">     *  and should not be modified by any other script.
+</span>   132    <span class="xdoc">     */</span>
+   133        <span class=key>config</span> BuildAttrs build;
+   134        
+   135        <span class="xdoc">/*!
+</span>   136    <span class="xdoc">     *  ======== profile ========
+</span>   137    <span class="xdoc">     *  The profile requested by a configuration script.
+</span>   138    <span class="xdoc">     *
+</span>   139    <span class="xdoc">     *  This parameter is set by configuration scripts to convey additional
+</span>   140    <span class="xdoc">     *  information to the package about the libraries being requested from
+</span>   141    <span class="xdoc">     *  this package; in particular, it names a specific profile supported by
+</span>   142    <span class="xdoc">     *  this package (see {<b>@link</b> xdc.bld.ITarget#profiles}).
+</span>   143    <span class="xdoc">     *
+</span>   144    <span class="xdoc">     *  Package `{<b>@link</b> #getLibs()}` functions should refer to this parameter
+</span>   145    <span class="xdoc">     *  in lieu of the program's `build.profile`.  This allows configuration
+</span>   146    <span class="xdoc">     *  scripts to selectively request debug or release libraries on a per
+</span>   147    <span class="xdoc">     *  package basis, for example.
+</span>   148    <span class="xdoc">     *
+</span>   149    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   150    <span class="xdoc">     *  function getLibs(prog)
+</span>   151    <span class="xdoc">     *  {
+</span>   152    <span class="xdoc">     *      if (this.profile == "debug") {
+</span>   153    <span class="xdoc">     *          ...
+</span>   154    <span class="xdoc">     *      }
+</span>   155    <span class="xdoc">     *  }
+</span>   156    <span class="xdoc">     *  <b>@p</b>
+</span>   157    <span class="xdoc">     *
+</span>   158    <span class="xdoc">     *  If this parameter is not set by the configuration script, it is
+</span>   159    <span class="xdoc">     *  initialized to `{<b>@link</b> xdc.cfg.Program#build.profile}` prior to
+</span>   160    <span class="xdoc">     *  generating and configuration files; i.e., the package's
+</span>   161    <span class="xdoc">     *  `{<b>@link</b> #getLibs()}` function can assume that this field is always
+</span>   162    <span class="xdoc">     *  set and defaults to the profile used to build the executable.
+</span>   163    <span class="xdoc">     */</span>
+   164        <span class=key>config</span> string profile;
+   165        
+   166        <span class="xdoc">/*!
+</span>   167    <span class="xdoc">     *  ======== init ========
+</span>   168    <span class="xdoc">     *  Initialize this package when first imported
+</span>   169    <span class="xdoc">     *
+</span>   170    <span class="xdoc">     *  This function is called to initialize the package within any 
+</span>   171    <span class="xdoc">     *  model.  It is called just once (when the package is first imported)
+</span>   172    <span class="xdoc">     *  so there is no need to explicitly check for prior invocation.
+</span>   173    <span class="xdoc">     *
+</span>   174    <span class="xdoc">     *  The default implementation of this function is a nop.
+</span>   175    <span class="xdoc">     *
+</span>   176    <span class="xdoc">     *  <b>@a(context)</b>
+</span>   177    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   178    <span class="xdoc">     *    - `this`
+</span>   179    <span class="xdoc">     *          The current package's `xdc.IPackage.Module` object
+</span>   180    <span class="xdoc">     *          before any model-specific user script runs (e.g. a program's
+</span>   181    <span class="xdoc">     *          configuration script),
+</span>   182    <span class="xdoc">     *          after the package's `package.xs` script is run and all
+</span>   183    <span class="xdoc">     *          the package's modules are created, and before the
+</span>   184    <span class="xdoc">     *          package is added to `xdc.om.$packages` (the Object Model's
+</span>   185    <span class="xdoc">     *          package array)
+</span>   186    <span class="xdoc">     *
+</span>   187    <span class="xdoc">     *  <b>@a(returns)</b> Returns nothing.
+</span>   188    <span class="xdoc">     *
+</span>   189    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   190    <span class="xdoc">     *
+</span>   191    <span class="xdoc">     *  <b>@a(Note)</b>
+</span>   192    <span class="xdoc">     *  This function can be called in any model, so any access to
+</span>   193    <span class="xdoc">     *  global variables specific to a particular object model should happen
+</span>   194    <span class="xdoc">     *  only if the function is called in the context of that model. For
+</span>   195    <span class="xdoc">     *  example, the variable `Program` is a global variable in the
+</span>   196    <span class="xdoc">     *  Configuration Model (`{<b>@link</b> xdc.cfg.Program}`). Any access to it
+</span>   197    <span class="xdoc">     *  should happen after a check that the current model is the
+</span>   198    <span class="xdoc">     *  Configuration Model:
+</span>   199    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   200    <span class="xdoc">     *      if (xdc.om.$name == "cfg") {
+</span>   201    <span class="xdoc">     *          print(Program.build.target.name);
+</span>   202    <span class="xdoc">     *      }
+</span>   203    <span class="xdoc">     *  <b>@p</b>
+</span>   204    <span class="xdoc">     *  For additional information about `xdc.om`, see
+</span>   205    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om xdc.om}
+</span>   206    <span class="xdoc">     *  in the
+</span>   207    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference XDCscript Language Reference}.
+</span>   208    <span class="xdoc">     */</span>
+   209        <span class=key>function</span> init();
+   210    
+   211        <span class="xdoc">/*!
+</span>   212    <span class="xdoc">     *  ======== close ========
+</span>   213    <span class="xdoc">     *  Close this package after user scripts complete.
+</span>   214    <span class="xdoc">     *
+</span>   215    <span class="xdoc">     *  This function is called to allow the package to modify its state
+</span>   216    <span class="xdoc">     *  based on the results of the user's script.  It can optionally 
+</span>   217    <span class="xdoc">     *  redefine configuration parameters or even throw exceptions to
+</span>   218    <span class="xdoc">     *  prevent the configuration step from completing, for example.
+</span>   219    <span class="xdoc">     *
+</span>   220    <span class="xdoc">     *  Other packages and modules, including the modules in the package, can
+</span>   221    <span class="xdoc">     *  change the configuration parameters of any module in the package, after
+</span>   222    <span class="xdoc">     *  this function was called. Therefore, this function cannot be used to
+</span>   223    <span class="xdoc">     *  validate state of the package and of the whole configuration.
+</span>   224    <span class="xdoc">     *  Validation should be done in `{<b>@link</b> #validate()}`.
+</span>   225    <span class="xdoc">     *
+</span>   226    <span class="xdoc">     *  For all packages A and B, if A requires B, then package A is 
+</span>   227    <span class="xdoc">     *  closed before package B. 
+</span>   228    <span class="xdoc">     *
+</span>   229    <span class="xdoc">     *  The default implementation of this function is a nop.
+</span>   230    <span class="xdoc">     *
+</span>   231    <span class="xdoc">     *  <b>@a(context)</b>
+</span>   232    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   233    <span class="xdoc">     *    - `this`
+</span>   234    <span class="xdoc">     *          The current package's `xdc.IPackage.Module` object
+</span>   235    <span class="xdoc">     *          immediately after the program's configuration script
+</span>   236    <span class="xdoc">     *          has completed and before validation is started.
+</span>   237    <span class="xdoc">     *
+</span>   238    <span class="xdoc">     *  <b>@a(returns)</b> Returns nothing.
+</span>   239    <span class="xdoc">     *
+</span>   240    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   241    <span class="xdoc">     *
+</span>   242    <span class="xdoc">     *  <b>@a(Note)</b>
+</span>   243    <span class="xdoc">     *  This function can be called in any model, so any access to
+</span>   244    <span class="xdoc">     *  global variables specific to a particular object model should happen
+</span>   245    <span class="xdoc">     *  only if the function is called in the context of that model. For
+</span>   246    <span class="xdoc">     *  example, the variable `Program` is a global variable in the
+</span>   247    <span class="xdoc">     *  Configuration Model (`{<b>@link</b> xdc.cfg.Program}`). Any access to it
+</span>   248    <span class="xdoc">     *  should happen after a check that the current model is the
+</span>   249    <span class="xdoc">     *  Configuration Model:
+</span>   250    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   251    <span class="xdoc">     *      if (xdc.om.$name == "cfg") {
+</span>   252    <span class="xdoc">     *          print(Program.build.target.name);
+</span>   253    <span class="xdoc">     *      }
+</span>   254    <span class="xdoc">     *  <b>@p</b>
+</span>   255    <span class="xdoc">     *  For additional information about `xdc.om`, see
+</span>   256    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om xdc.om}
+</span>   257    <span class="xdoc">     *  in the
+</span>   258    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference XDCscript Language Reference}.
+</span>   259    <span class="xdoc">     */</span>
+   260        <span class=key>function</span> close();
+   261    
+   262        <span class="xdoc">/*!
+</span>   263    <span class="xdoc">     *  ======== validate ========
+</span>   264    <span class="xdoc">     *  Validate this package after the model's state is "sealed".
+</span>   265    <span class="xdoc">     *
+</span>   266    <span class="xdoc">     *  This function is called to validate the package's state in the 
+</span>   267    <span class="xdoc">     *  curent model.  It can verify semantic constraints and optionally 
+</span>   268    <span class="xdoc">     *  throw exceptions to prevent the configuration step from completing.
+</span>   269    <span class="xdoc">     *
+</span>   270    <span class="xdoc">     *  For example, a package that needs to assert incompatibility with
+</span>   271    <span class="xdoc">     *  certain versions of prerequisite packages can check the versions in
+</span>   272    <span class="xdoc">     *  this function and throw an exception if they are known to be
+</span>   273    <span class="xdoc">     *  incompatible with the current package.
+</span>   274    <span class="xdoc">     *
+</span>   275    <span class="xdoc">     *  This method must not modify the model.
+</span>   276    <span class="xdoc">     *
+</span>   277    <span class="xdoc">     *  The default implementation of this function is a nop.
+</span>   278    <span class="xdoc">     *
+</span>   279    <span class="xdoc">     *  <b>@a(context)</b>
+</span>   280    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   281    <span class="xdoc">     *    - `this`
+</span>   282    <span class="xdoc">     *          The current package's `xdc.IPackage.Module` object
+</span>   283    <span class="xdoc">     *          immediately after the program's configuration script
+</span>   284    <span class="xdoc">     *          has completed and before generation started.
+</span>   285    <span class="xdoc">     *
+</span>   286    <span class="xdoc">     *  <b>@a(returns)</b> Returns nothing.
+</span>   287    <span class="xdoc">     *
+</span>   288    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   289    <span class="xdoc">     *
+</span>   290    <span class="xdoc">     *  <b>@a(Note)</b>
+</span>   291    <span class="xdoc">     *  This function can be called in any model, so any access to
+</span>   292    <span class="xdoc">     *  global variables specific to a particular object model should happen
+</span>   293    <span class="xdoc">     *  only if the function is called in the context of that model. For
+</span>   294    <span class="xdoc">     *  example, the variable `Program` is a global variable in the
+</span>   295    <span class="xdoc">     *  Configuration Model (`{<b>@link</b> xdc.cfg.Program}`). Any access to it
+</span>   296    <span class="xdoc">     *  should happen after a check that the current model is the
+</span>   297    <span class="xdoc">     *  Configuration Model:
+</span>   298    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   299    <span class="xdoc">     *      if (xdc.om.$name == "cfg") {
+</span>   300    <span class="xdoc">     *          print(Program.build.target.name);
+</span>   301    <span class="xdoc">     *      }
+</span>   302    <span class="xdoc">     *  <b>@p</b>
+</span>   303    <span class="xdoc">     *  For additional information about `xdc.om`, see
+</span>   304    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om xdc.om}
+</span>   305    <span class="xdoc">     *  in the
+</span>   306    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference XDCscript Language Reference}.
+</span>   307    <span class="xdoc">     */</span>
+   308        <span class=key>function</span> validate();
+   309    
+   310        <span class="xdoc">/*!
+</span>   311    <span class="xdoc">     *  ======== exit ========
+</span>   312    <span class="xdoc">     *  Exit this package after the model has been successfully validated.
+</span>   313    <span class="xdoc">     *
+</span>   314    <span class="xdoc">     *  The default implementation of this function is a nop.
+</span>   315    <span class="xdoc">     *
+</span>   316    <span class="xdoc">     *  <b>@a(context)</b>
+</span>   317    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   318    <span class="xdoc">     *    - `this`
+</span>   319    <span class="xdoc">     *          The current package's `xdc.IPackage.Module` object
+</span>   320    <span class="xdoc">     *          immediately after the program's configuration script
+</span>   321    <span class="xdoc">     *          has completed and after generation has completed.
+</span>   322    <span class="xdoc">     *
+</span>   323    <span class="xdoc">     *  <b>@a(returns)</b> Returns nothing.
+</span>   324    <span class="xdoc">     *
+</span>   325    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   326    <span class="xdoc">     *
+</span>   327    <span class="xdoc">     *  <b>@a(Note)</b>
+</span>   328    <span class="xdoc">     *  This function can be called in any model, so any access to
+</span>   329    <span class="xdoc">     *  global variables specific to a particular object model should happen
+</span>   330    <span class="xdoc">     *  only if the function is called in the context of that model. For
+</span>   331    <span class="xdoc">     *  example, the variable `Program` is a global variable in the
+</span>   332    <span class="xdoc">     *  Configuration Model (`{<b>@link</b> xdc.cfg.Program}`). Any access to it
+</span>   333    <span class="xdoc">     *  should happen after a check that the current model is the
+</span>   334    <span class="xdoc">     *  Configuration Model:
+</span>   335    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   336    <span class="xdoc">     *      if (xdc.om.$name == "cfg") {
+</span>   337    <span class="xdoc">     *          print(Program.build.target.name);
+</span>   338    <span class="xdoc">     *      }
+</span>   339    <span class="xdoc">     *  <b>@p</b>
+</span>   340    <span class="xdoc">     *  For additional information about `xdc.om`, see
+</span>   341    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om xdc.om}
+</span>   342    <span class="xdoc">     *  in the
+</span>   343    <span class="xdoc">     *  {<b>@link</b> http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference XDCscript Language Reference}.
+</span>   344    <span class="xdoc">     */</span>
+   345        <span class=key>function</span> exit();
+   346    
+   347        <span class="xdoc">/*!
+</span>   348    <span class="xdoc">     *  ======== getLibs ========
+</span>   349    <span class="xdoc">     *  Get the libraries necessary to use this package
+</span>   350    <span class="xdoc">     *
+</span>   351    <span class="xdoc">     *  This function is called during the configuration model's generation
+</span>   352    <span class="xdoc">     *  phase (after a program's configuration script completes and all
+</span>   353    <span class="xdoc">     *  imported packages are closed) and is responsible for returning a list
+</span>   354    <span class="xdoc">     *  of libraries (or object files) that are needed to link the program
+</span>   355    <span class="xdoc">     *  being configured.
+</span>   356    <span class="xdoc">     *
+</span>   357    <span class="xdoc">     *  If the package produces one (or no) library for the target for which
+</span>   358    <span class="xdoc">     *  the executable is being built, the default implementation of this
+</span>   359    <span class="xdoc">     *  function simply returns the name of this library (or `null`).
+</span>   360    <span class="xdoc">     *
+</span>   361    <span class="xdoc">     *  If the package produces more than one library for the given target, the
+</span>   362    <span class="xdoc">     *  default implementation of this function returns the following library
+</span>   363    <span class="xdoc">     *  name:
+</span>   364    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   365    <span class="xdoc">     *          lib/&lt;package_name&gt;.a&lt;target_suffix&gt;
+</span>   366    <span class="xdoc">     *  <b>@p</b>
+</span>   367    <span class="xdoc">     *  where `&lt;package_name&gt;` is the name of the package (e.g., "ti.bios")
+</span>   368    <span class="xdoc">     *  and `&lt;target_suffix&gt;` is the  {<b>@link</b> xdc.bld.ITarget#suffix} property
+</span>   369    <span class="xdoc">     *  of the target used to build the executable.
+</span>   370    <span class="xdoc">     *
+</span>   371    <span class="xdoc">     *  <b>@param(prog)</b> the configuration model program object
+</span>   372    <span class="xdoc">     *              (`{<b>@link</b> xdc.cfg.Program}`) after the program's
+</span>   373    <span class="xdoc">     *              configuration script has completed.
+</span>   374    <span class="xdoc">     *
+</span>   375    <span class="xdoc">     *  <b>@a(context)</b>
+</span>   376    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   377    <span class="xdoc">     *    - `this`
+</span>   378    <span class="xdoc">     *          The current package's `xdc.IPackage.Module` object
+</span>   379    <span class="xdoc">     *          after the program's configuration script has completed.
+</span>   380    <span class="xdoc">     *    - `Program`
+</span>   381    <span class="xdoc">     *          The Configuration model program object
+</span>   382    <span class="xdoc">     *          (`{<b>@link</b> xdc.cfg.Program}`) after the program's configuration
+</span>   383    <span class="xdoc">     *          script has completed.
+</span>   384    <span class="xdoc">     *
+</span>   385    <span class="xdoc">     *  <b>@a(returns)</b> Returns a string of ';' delimited object (or library) file
+</span>   386    <span class="xdoc">     *              names that are added to the list of things to link to
+</span>   387    <span class="xdoc">     *              create the program.  The file names are absolute or
+</span>   388    <span class="xdoc">     *              relative to the package's base.  All white space is
+</span>   389    <span class="xdoc">     *              treated as part of the file name.  If the files named do
+</span>   390    <span class="xdoc">     *              not exist, a fatal error occurs and configuration
+</span>   391    <span class="xdoc">     *              terminates.
+</span>   392    <span class="xdoc">     *
+</span>   393    <span class="xdoc">     *              If `null` or empty (""), then no libraries or objects are
+</span>   394    <span class="xdoc">     *              required for this package.
+</span>   395    <span class="xdoc">     *
+</span>   396    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   397    <span class="xdoc">     */</span>
+   398        <span class=key>function</span> getLibs(prog);
+   399    
+   400        <span class="xdoc">/*!
+</span>   401    <span class="xdoc">     *  ======== getSects ========
+</span>   402    <span class="xdoc">     *  Get package-specific linker section data.
+</span>   403    <span class="xdoc">     *
+</span>   404    <span class="xdoc">     *  This function is called during the configuration model's  generation
+</span>   405    <span class="xdoc">     *  phase (after a program's configuration script completes) and is
+</span>   406    <span class="xdoc">     *  responsible for returning a template file name that is used to
+</span>   407    <span class="xdoc">     *  generate package-specific linker command file statements.
+</span>   408    <span class="xdoc">     *
+</span>   409    <span class="xdoc">     *  <b>@a(context)</b>
+</span>   410    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   411    <span class="xdoc">     *    - `this`
+</span>   412    <span class="xdoc">     *          The current package's `xdc.IPackage.Module` object
+</span>   413    <span class="xdoc">     *          after the program's configuration script has completed.
+</span>   414    <span class="xdoc">     *
+</span>   415    <span class="xdoc">     *    - `Program`
+</span>   416    <span class="xdoc">     *          The Configuration model program object
+</span>   417    <span class="xdoc">     *          (`{<b>@link</b> xdc.cfg.Program}`) after program's configuration
+</span>   418    <span class="xdoc">     *          script has completed and all packages have validated the
+</span>   419    <span class="xdoc">     *          correctness of the configuration.
+</span>   420    <span class="xdoc">     *
+</span>   421    <span class="xdoc">     *  <b>@a(returns)</b> Returns the path name of template file.  The path name
+</span>   422    <span class="xdoc">     *              must relative to the package path or an absolute path.
+</span>   423    <span class="xdoc">     *
+</span>   424    <span class="xdoc">     *              If `null` is returned, no data is generated.
+</span>   425    <span class="xdoc">     *
+</span>   426    <span class="xdoc">     *              The template is evaluated in a context where the `this`
+</span>   427    <span class="xdoc">     *              pointer is the package object.
+</span>   428    <span class="xdoc">     *
+</span>   429    <span class="xdoc">     *  <b>@a(throws)</b>  `Error` exceptions are thrown for fatal errors.
+</span>   430    <span class="xdoc">     */</span>
+   431        <span class=key>function</span> getSects();
+   432    }
+   433    <span class="comment">/*
+</span>   434    <span class="comment"> *  @(#) xdc; 1, 1, 1,239; 2-22-2010 10:32:53; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   435    <span class="comment"> */</span>
+   436    
+</pre>
+</body></html>

@@ -1,0 +1,18 @@
+/*
+ *  Copyright 2010 by Texas Instruments Incorporated.
+ *
+ */
+
+/*  This file is necessary because we need to avoid including
+ *  gnu.targets because this is the gnu.targets package and after an
+ *  'xdc clean' this package does not exist!
+*/ 
+
+var GCArmv5T = xdc.module("gnu.targets.arm.GCArmv5T");
+GCArmv5T.rootDir = java.lang.System.getenv("CSTOOL_DIR");
+GCArmv5T.LONGNAME = "bin/arm-arago-linux-gnueabi-gcc";
+
+/*
+ *  @(#) gnu.targets.arm; 1, 0, 0, 0,216; 2-24-2010 16:24:01; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+ */
+

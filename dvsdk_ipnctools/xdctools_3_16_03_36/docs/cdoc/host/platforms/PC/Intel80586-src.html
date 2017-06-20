@@ -1,0 +1,51 @@
+<html><head><title>module host.platforms.PC.Intel80586</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Intel80586.xdc. ========
+</span>    14    <span class="comment"> */</span>
+    15    
+    16    <span class=key>package</span> host.platforms.PC;
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Intel80586 ========
+</span>    20    <span class="xdoc"> *  Pentium device data sheet module.
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module provides basic data suitable for Intel Pentium based
+</span>    23    <span class="xdoc"> *  native builds.
+</span>    24    <span class="xdoc"> */</span>
+    25    <span class=key>metaonly</span> <span class=key>module</span> Intel80586 <span class=key>inherits</span> xdc.platform.ICpuDataSheet
+    26    {
+    27    <span class=key>instance</span>:    
+    28        <span class=key>override</span> <span class=key>config</span> string cpuCore          = <span class="string">"586"</span>;
+    29        <span class=key>override</span> <span class=key>config</span> string cpuCoreRevision   = <span class="string">"1.0"</span>;
+    30        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minProgUnitSize   = 1;
+    31        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minDataUnitSize   = 1;
+    32        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    dataWordSize     = 4;
+    33    
+    34        <span class="xdoc">/*!
+</span>    35    <span class="xdoc">     *  ======== memMap ========
+</span>    36    <span class="xdoc">     *  The memory map returned be getMemeoryMap().
+</span>    37    <span class="xdoc">     */</span>
+    38        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string] = [];
+    39    }
+    40    <span class="comment">/*
+</span>    41    <span class="comment"> *  @(#) host.platforms.PC; 1, 0, 0,240; 2-22-2010 10:32:41; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>    42    <span class="comment"> */</span>
+    43    
+</pre>
+</body></html>

@@ -1,0 +1,62 @@
+<html><head><title>interface ti.catalog.arm.ITMS320DA8xx</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== ITMS320DA8xx.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class=key>metaonly</span> <span class=key>interface</span> ITMS320DA8xx <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    19    {
+    20    <span class=key>instance</span>:
+    21        <span class=key>override</span> <span class=key>config</span> string cpuCore           = <span class="string">"v5T"</span>;
+    22        <span class=key>override</span> <span class=key>config</span> string isa               = <span class="string">"v5T"</span>;
+    23        <span class=key>override</span> <span class=key>config</span> string cpuCoreRevision   = <span class="string">"1.0"</span>;
+    24        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minProgUnitSize   = 1;
+    25        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minDataUnitSize   = 1;
+    26        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    dataWordSize      = 4;
+    27    
+    28        <span class="xdoc">/*!
+</span>    29    <span class="xdoc">     *  ======== memMap ========
+</span>    30    <span class="xdoc">     *  The memory map returned be getMemoryMap().
+</span>    31    <span class="xdoc">     */</span>
+    32        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    33            [<span class="string">"IRAM"</span>, {
+    34                comment:    <span class="string">"8KB ARM local RAM"</span>,
+    35                name:       <span class="string">"IRAM"</span>,
+    36                base:       0xFFFF0000,
+    37                len:        0x00002000,
+    38                space:      <span class="string">"code/data"</span>,
+    39                access:     <span class="string">"RWX"</span>
+    40            }],
+    41            [<span class="string">"L3_CBA_RAM"</span>, {
+    42                comment:    <span class="string">"128KB ARM/DSP local shared RAM"</span>,
+    43                name:       <span class="string">"L3_CBA_RAM"</span>,
+    44                base:       0x80000000,
+    45                len:        0x00020000,
+    46                space:      <span class="string">"code/data"</span>,
+    47                access:     <span class="string">"RWX"</span>
+    48            }],
+    49        ];
+    50    }
+    51    <span class="comment">/*
+</span>    52    <span class="comment"> *  @(#) ti.catalog.arm; 1, 0, 1, 0,116; 2-23-2010 16:50:33; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    53    <span class="comment"> */</span>
+    54    
+</pre>
+</body></html>

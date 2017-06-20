@@ -1,0 +1,454 @@
+<html>
+<head>
+<title>module xdc.bld.Manifest</title>
+<meta name="description" content="The manifest object for the release file post-processing model">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">Manifest</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Library.html" title="module Library"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Object.html" title="module Object"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html">index URL</a></div>
+<p class="xdocHdrSummary">The manifest object for the release file post-processing model</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+Each package release corresponds to an archive of a subset of the
+  developent package's contents.  The contents of each release are
+  specified by an instance of the <tt><a class="xdoc-link" href="Release.html" title="Release">Release</a></tt> module.  Each instance
+  of the <tt>Release</tt> module can optionally specify a "release script" that
+  can modify each file prior to it being added to the archive.  This script
+  runs in the context of the "release file post-processing" model.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Manifest-src.html"><span class="xdocLabelFile">xdc/bld/Manifest.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Manifest</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Manifest = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.Manifest'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Filter">Manifest.<span class="xdoc-id">Filter</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A file filter descriptor</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">operation</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;the JavaScript function to run</span></span></a> = <i><span class="xdoc-kw2">Any</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">args</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;additional arguments for operation</span></span></a> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">newFileName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;the new file name</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">newFileMode</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;either "r" or "rw"</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#build.Count">Manifest.<span class="xdoc-id">buildCount</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A unique build count for the released package</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#compatibility.Key">Manifest.<span class="xdoc-id">compatibilityKey</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The released package's compatibility key</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#files">Manifest.<span class="xdoc-id">files</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of all files in the release</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#filter.Map">Manifest.<span class="xdoc-id">filterMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A map of filters for each file in the release</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Manifest.html#.Filter" title="xdc.bld.Manifest.Filter">Manifest.Filter</a>[<span class="xdoc-kw1">string</span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#package.Name">Manifest.<span class="xdoc-id">packageName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The released package's name</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#release.Name">Manifest.<span class="xdoc-id">releaseName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The release's name</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Manifest-src.html"><span class="xdocLabelFile">xdc/bld/Manifest.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Manifest</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">Filter</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A file filter descriptor</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">operation</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;the JavaScript function to run</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">args</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;additional arguments for operation</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">newFileName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;the new file name</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Filter"><span class="xdoc-id">newFileMode</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;either "r" or "rw"</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#build.Count"><span class="xdoc-id">buildCount</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A unique build count for the released package</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#compatibility.Key"><span class="xdoc-id">compatibilityKey</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The released package's compatibility key</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#files"><span class="xdoc-id">files</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of all files in the release</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/Manifest.html#.Filter" title="xdc.bld.Manifest.Filter">Manifest.Filter</a>&nbsp;<a class="xdocSynGo" href="#filter.Map"><span class="xdoc-id">filterMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A map of filters for each file in the release</span></span></a>[<span class="xdoc-kw1">string</span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#package.Name"><span class="xdoc-id">packageName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The released package's name</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#release.Name"><span class="xdoc-id">releaseName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The release's name</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Each package release corresponds to an archive of a subset of the
+  developent package's contents.  The contents of each release are
+  specified by an instance of the <tt><a class="xdoc-link" href="Release.html" title="Release">Release</a></tt> module.  Each instance
+  of the <tt>Release</tt> module can optionally specify a "release script" that
+  can modify each file prior to it being added to the archive.  This script
+  runs in the context of the "release file post-processing" model.</div>
+<div class="xdocText">This module is the root of the "release file post-processing" model.
+  Each file in a release may be optionally post-processed by a filter
+  specified in <tt><a class="xdoc-link" href="Manifest.html#filter.Map" title="filterMap">filterMap</a>.</tt>  Other fields of this module provide
+  a release-specific "context" for the operation of the filters.  For
+  example, a filter may use <tt><a class="xdoc-link" href="Manifest.html#package.Name" title="packageName">packageName</a></tt>, <tt><a class="xdoc-link" href="Manifest.html#release.Name" title="releaseName">releaseName</a></tt>,
+  and <tt><a class="xdoc-link" href="Manifest.html#build.Count" title="buildCount">buildCount</a></tt> to prefix all C sources with comments that
+  identify where they originated.</div>
+<div class="xdocText">All the fields of this module (except <tt><a class="xdoc-link" href="Manifest.html#filter.Map" title="filterMap">filterMap</a></tt>) are initialized
+  before a "release script" is run.  After the release script completes,
+  the release archive is created according to the filters specifed in
+  <tt><a class="xdoc-link" href="Manifest.html#filter.Map" title="filterMap">filterMap</a></tt>.  Files that have no filter are copied without
+  modification into the release.</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Filter"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Manifest.</span><span class="xdoc-id">Filter</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html#.Filter">index URL</a></div>
+<p class="xdocHdrSummary">A file filter descriptor</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> Manifest.<span class="xdoc-id">Filter</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">operation</span> = <i><span class="xdoc-kw2">Any</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;the JavaScript function to run</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">args</span> = <i><span class="xdoc-kw2">Any</span>[<span class="xdoc-kw2"></span>]</i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;additional arguments for operation</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">newFileName</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;the new file name</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">newFileMode</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;either "r" or "rw"</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">operation</span>
+<span class="xdocChildSum">&#151;&nbsp;a JavaScript function that filters the specified
+	    input file and puts the results in specified output file; it is
+	    the output file that is archived as part of the release (not the
+	    input file).</span>
+</div>
+<div class="xdocChildText">The operation is called as follows:</div>
+<div class="xdocChildText"><PRE class="Example">		operation(filter, src, dst, base)
+</PRE></div>
+<div class="xdocChildText">where:</div>
+<div class="xdocChildText"><DL><DT><tt>filter</tt></DT><DD>
+		    the filter object associated with the file being
+		    processed (which specified <tt>operation</tt> as the function
+		    to call)
+</DD><DT><tt>src</tt></DT><DD>
+		    input file name (relative to the current working
+		    directory)
+</DD><DT><tt>dst</tt></DT><DD>
+		    output file name (relative to the current working
+		    directory)
+</DD><DT><tt>base</tt></DT><DD>
+		    string name of the file as it appears in the array
+		    <tt>Manifest.files</tt>; unlike <tt>dst</tt>, it does not contain a
+		    temporary directory name prefix.
+
+</DD></DL></div>
+<div class="xdocChild"><span class="xdocChildId">args</span>
+<span class="xdocChildSum">&#151;&nbsp;array of arbitrary arguments passed to <tt>operation</tt>
+	    (as a field of the filter object passed as the first argument to
+	    <tt>operation</tt>)</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">newFileName</span>
+<span class="xdocChildSum">&#151;&nbsp;the new name of the output file relative to the
+	    top of the archive.  Normally this name should include the
+	    package's name but, in situations where a release must support a
+	    non-RTSC conformant physical design, <tt>newFileName</tt> can be anything.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">newFileMode</span>
+<span class="xdocChildSum">&#151;&nbsp;the access permissions of the output file.
+	    Normally the file will have the access permissions that exist at
+	    the time archive is created.  However, there may be times when
+	    the developer wants/needs to make a file readonly that is (for
+	    development purposes) writable.  Only two modes are supported "r"
+	    (readonly) and "rw" (readable and writable).</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Manifest.html#filter.Map" title="filterMap">filterMap</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="build.Count"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Manifest.</span><span class="xdoc-id">buildCount</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html#build.Count">index URL</a></div>
+<p class="xdocHdrSummary">A unique build count for the released package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Manifest.<span class="xdoc-id">buildCount</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string contains is a decimal number that increments at least
+  once every time the package is released.  This string together with
+  the compatibility key forms a unique version number for the package.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This value is initialized before the release script or
+		      any of its filters are run and should not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="compatibility.Key"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Manifest.</span><span class="xdoc-id">compatibilityKey</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html#compatibility.Key">index URL</a></div>
+<p class="xdocHdrSummary">The released package's compatibility key</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Manifest.<span class="xdoc-id">compatibilityKey</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string contains the value declared in the package's <tt>package.xdc</tt>
+  specification file.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This value is initialized before the release script or
+		      any of its filters are run and should not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="files"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Manifest.</span><span class="xdoc-id">files</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html#files">index URL</a></div>
+<p class="xdocHdrSummary">An array of all files in the release</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Manifest.<span class="xdoc-id">files</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The file names in this array include the package's name; i.e.,
+  these names are relative to the package's repository rather than 
+  the package's build directory.</div>
+<div class="xdocText">This value is initialized before the release script or any of its
+  filters are run.  It contains the files specified directly or
+  indirectly by the package's build script.</div>
+<div class="xdocText">It is possible to remove files from a release by removing it from
+  this array; only files in this array will appear in the release.</div>
+<div class="xdocText">It is also possible to add files to a release by adding files to
+  this array.  In fact, files added to the release can be generated
+  by the filter operation specified for the file in
+  <tt><a class="xdoc-link" href="Manifest.html#filter.Map" title="filterMap">filterMap</a></tt>.  However, since these files are only present
+  in releases of a  package (they are not built as part of the normal
+  build of all files and only appear in installed release of a package),
+  other packages should not refer to these files.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="filter.Map"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Manifest.</span><span class="xdoc-id">filterMap</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html#filter.Map">index URL</a></div>
+<p class="xdocHdrSummary">A map of filters for each file in the release</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Manifest.<span class="xdoc-id">filterMap</span> = <i><a class="xdoc-link" href="../../xdc/bld/Manifest.html#.Filter" title="xdc.bld.Manifest.Filter">Manifest.Filter</a>[<span class="xdoc-kw1">string</span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This map is indexed by the name of the file (as it appears in the
+  <tt><a class="xdoc-link" href="Manifest.html#files" title="files">files</a></tt> array) in the release and defines for each file a
+  filter that is applied to the file before it is archived in a
+  release.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">EXAMPLE</div>
+<div class="xdocText">The following script fragment illustrates how one can
+	filter all *.c files in a release through a custom JavaScript
+  function named <tt>copyright</tt>.</div>
+<div class="xdocText"><PRE class="Example">      function copyright(args, ...) { ...}
+
+      for (var i = 0; i &lt; Manifest.files.length; i++) {
+          var fileName = Manifest.files[i];
+          if (fileName.match(/\.c$/) != null) {
+              Manifest.filterMap[fileName] = {operation: copyright};
+          }
+      }
+</PRE></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Manifest.html#files" title="files">files</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="package.Name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Manifest.</span><span class="xdoc-id">packageName</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html#package.Name">index URL</a></div>
+<p class="xdocHdrSummary">The released package's name</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Manifest.<span class="xdoc-id">packageName</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string contains the value declared in the package's <tt>package.xdc</tt>
+  specification file.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This value is initialized before the release script or
+		      any of its filters are run and should not be modified.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="release.Name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">Manifest.</span><span class="xdoc-id">releaseName</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Manifest.html" title="module Manifest"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Manifest.html#release.Name">index URL</a></div>
+<p class="xdocHdrSummary">The release's name</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Manifest.<span class="xdoc-id">releaseName</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string contains the value declared in the package's <tt>package.bld</tt>
+  build script; it is the name of the output archive without the
+  "<tt>.tar</tt>" extension.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This value is initialized before the release script or
+		      any of its filters are run and should not be modified.</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:17 GMT</div>
+</div></div></body>
+</html>

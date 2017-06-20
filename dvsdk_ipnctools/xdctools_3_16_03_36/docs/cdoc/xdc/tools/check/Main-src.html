@@ -1,0 +1,158 @@
+<html><head><title>module xdc.tools.check.Main</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== Main.xdc ========
+</span>    14    <span class="xdoc"> *  Check compatibility of specified packages
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  This tools scans the specified repositories looking for package
+</span>    17    <span class="xdoc"> *  incompatibilities.
+</span>    18    <span class="xdoc"> *
+</span>    19    <span class="xdoc"> *  By default, if a package appears in more than one repository, only the
+</span>    20    <span class="xdoc"> *  package in the first repository is added to the set of packages to check.
+</span>    21    <span class="xdoc"> *  This allows one to check the consistency of all packages that can be found
+</span>    22    <span class="xdoc"> *  along a specified package path by simply listing the package path
+</span>    23    <span class="xdoc"> *  repositories on the command line.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  This tool performs the following checks:
+</span>    26    <span class="xdoc"> *  <b>@p(blist)</b>
+</span>    27    <span class="xdoc"> *      - the latest version of each target used by any package is compatible
+</span>    28    <span class="xdoc"> *        with all other versions used; and
+</span>    29    <span class="xdoc"> *      - the "built-with" versions of all packages are compatible with the
+</span>    30    <span class="xdoc"> *        versions of the packages contained in the specified repositories
+</span>    31    <span class="xdoc"> *  <b>@p</b>
+</span>    32    <span class="xdoc"> *
+</span>    33    <span class="xdoc"> *  If no repositories are specified, the repositories named in the current
+</span>    34    <span class="xdoc"> *  package path are checked.
+</span>    35    <span class="xdoc"> */</span>
+    36    <span class=key>metaonly</span> <span class=key>module</span> Main <span class=key>inherits</span> xdc.tools.ICmd {
+    37    
+    38        <span class="xdoc">/*!
+</span>    39    <span class="xdoc">     *  ======== usage ========
+</span>    40    <span class="xdoc">     *  Usage message
+</span>    41    <span class="xdoc">     */</span>
+    42        <span class=key>override</span> <span class=key>config</span> String usage[] = [
+    43            <span class="string">'[-[ax]] [-v] [-t target] [-e exclude_pattern] [-H header] [repository ...]'</span>,
+    44        ];
+    45    
+    46        <span class="xdoc">/*!
+</span>    47    <span class="xdoc">     *  ======== Results ========
+</span>    48    <span class="xdoc">     *  XML output format
+</span>    49    <span class="xdoc">     *
+</span>    50    <span class="xdoc">     *  This structure defines the "schema" for the XML output.
+</span>    51    <span class="xdoc">     */</span>
+    52        @XmlDtd
+    53        <span class=key>struct</span> Results {
+    54            String header;      <span class="xdoc">/*! user specified header */</span>
+    55            String errors[];    <span class="xdoc">/*! array of all errors detected */</span>
+    56            String warnings[];  <span class="xdoc">/*! array of all warnings detected */</span>
+    57            Target targets[];
+    58        }
+    59        <span class=key>struct</span> Target {
+    60            String name;            <span class="xdoc">/*! target name */</span>
+    61            <span class=key>struct</span> {
+    62                String key;         <span class="xdoc">/*! target compatibility key used */</span>
+    63                String packages[];  <span class="xdoc">/*! all packages using target with this key */</span>
+    64            } keys[];
+    65        }
+    66    
+    67    <span class=key>instance</span>:
+    68    
+    69        <span class="xdoc">/*!
+</span>    70    <span class="xdoc">     *  ======== arrFlag ========
+</span>    71    <span class="xdoc">     *  Return an array of strings
+</span>    72    <span class="xdoc">     */</span>
+    73        @CommandOption(<span class="string">'a'</span>)
+    74        <span class=key>config</span> Bool arrFlag = <span class=key>false</span>;
+    75    
+    76        <span class="xdoc">/*!
+</span>    77    <span class="xdoc">     *  ======== verboseFlag ========
+</span>    78    <span class="xdoc">     *  Print informative messages during execution
+</span>    79    <span class="xdoc">     */</span>
+    80        @CommandOption(<span class="string">'v'</span>)
+    81        <span class=key>config</span> Bool verboseFlag = <span class=key>false</span>;
+    82    
+    83        <span class="xdoc">/*!
+</span>    84    <span class="xdoc">     *  ======== xmlFlag ========
+</span>    85    <span class="xdoc">     *  Return a Results struct as XML
+</span>    86    <span class="xdoc">     */</span>
+    87        @CommandOption(<span class="string">'x'</span>)
+    88        <span class=key>config</span> Bool xmlFlag = <span class=key>false</span>;
+    89    
+    90        <span class="xdoc">/*!
+</span>    91    <span class="xdoc">     *  ======== header ========
+</span>    92    <span class="xdoc">     *  Prepend Header label to output
+</span>    93    <span class="xdoc">     */</span>
+    94        @CommandOption(<span class="string">'H'</span>)
+    95        <span class=key>config</span> String header = <span class=key>null</span>;
+    96    
+    97        <span class="xdoc">/*!
+</span>    98    <span class="xdoc">     *  ======== exclude ========
+</span>    99    <span class="xdoc">     *  Exclude packages or targets from checks
+</span>   100    <span class="xdoc">     *
+</span>   101    <span class="xdoc">     *  Do not check compatibility of packages or targets whose names match
+</span>   102    <span class="xdoc">     *  the regular expression `exclude`.
+</span>   103    <span class="xdoc">     */</span>
+   104        @CommandOption(<span class="string">'e'</span>)
+   105        <span class=key>config</span> String exclude = <span class=key>null</span>;
+   106    
+   107        <span class="xdoc">/*!
+</span>   108    <span class="xdoc">     *  ======== multipleFlag ========
+</span>   109    <span class="xdoc">     *  Allow checking multiple versions of the same package
+</span>   110    <span class="xdoc">     *
+</span>   111    <span class="xdoc">     *  By default, when a package appears in more than repository named on
+</span>   112    <span class="xdoc">     *  the command line, this tool only checks the first occurance
+</span>   113    <span class="xdoc">     *  of the package.  Setting this option forces all versions of all
+</span>   114    <span class="xdoc">     *  packages in the specified repositories to be included in the checks.
+</span>   115    <span class="xdoc">     */</span>
+   116        @CommandOption(<span class="string">'m'</span>)
+   117        <span class=key>config</span> Bool multipleFlag = <span class=key>false</span>;
+   118    
+   119        <span class="xdoc">/*!
+</span>   120    <span class="xdoc">     *  ======== target ========
+</span>   121    <span class="xdoc">     *  Target to check
+</span>   122    <span class="xdoc">     *
+</span>   123    <span class="xdoc">     *  During the compatibility checks this tool ensures that for all
+</span>   124    <span class="xdoc">     *  targets used by all packages are compatible with the latest target
+</span>   125    <span class="xdoc">     *  referenced by any package.  If this option is set, the check tool
+</span>   126    <span class="xdoc">     *  will only validate compatibility for the specified target.  In
+</span>   127    <span class="xdoc">     *  addition, if the target string contains a target compatibility key,
+</span>   128    <span class="xdoc">     *  all packages that reference the target will be checked for
+</span>   129    <span class="xdoc">     *  compatibility with the specified key.
+</span>   130    <span class="xdoc">     *
+</span>   131    <span class="xdoc">     *  The format of this string is either
+</span>   132    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   133    <span class="xdoc">     *      &lt;target_name&gt;:&lt;target_key&gt;
+</span>   134    <span class="xdoc">     *  <b>@p</b>
+</span>   135    <span class="xdoc">     *  or 
+</span>   136    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   137    <span class="xdoc">     *      &lt;target_name&gt;
+</span>   138    <span class="xdoc">     *  <b>@p</b>
+</span>   139    <span class="xdoc">     *  where `&lt;target_name&gt;` is the full name of a target and `&lt;target_key&gt;`
+</span>   140    <span class="xdoc">     *  is an optional target-specific compatibility key.  The optional
+</span>   141    <span class="xdoc">     *  target compatibility key can be used to validate the set of packages
+</span>   142    <span class="xdoc">     *  against a specific compiler tool chain.
+</span>   143    <span class="xdoc">     */</span>
+   144        @CommandOption(<span class="string">'t'</span>)
+   145        <span class=key>config</span> String target = <span class=key>null</span>;
+   146    }
+   147    <span class="comment">/*
+</span>   148    <span class="comment"> *  @(#) xdc.tools.check; 1, 0, 0,153; 11-20-2009 13:25:57; /db/ztree/library/trees/xdctools/xdctools-d08x/src/
+</span>   149    <span class="comment"> */</span>
+   150    
+</pre>
+</body></html>

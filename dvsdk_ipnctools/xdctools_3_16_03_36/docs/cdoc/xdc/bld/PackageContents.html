@@ -1,0 +1,1470 @@
+<html>
+<head>
+<title>module xdc.bld.PackageContents</title>
+<meta name="description" content="Package container populated by a build script">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">PackageContents</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Object.html" title="module Object"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Release.html" title="module Release"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html">index URL</a></div>
+<p class="xdocHdrSummary">Package container populated by a build script</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+This module defines the <tt>PackageContents</tt> object (aliased as <tt>Pkg</tt> in 
+  build scripts) which represents the contents of a package.  Build scripts
+  add to this package using the add* methods defined below.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/PackageContents-src.html"><span class="xdocLabelFile">xdc/bld/PackageContents.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">PackageContents</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> PackageContents = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.PackageContents'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Attrs">PackageContents.<span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Package-level attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">profile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;select appropriate <tt>ITarget.OptionSet</tt></span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;assembly language options</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">copts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ compiler options</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ compiler options for the C config file</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">defs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;-D options common to C/C++/asm</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">incs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;-I options common to C/C++/asm</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">tcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;tconf options, deprecated</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">xsopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;xs options</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">lopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;linker options</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportDoc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export generated docs</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportExe</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export executables</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportCfg</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export program cfg scripts</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportSrc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export all package sources</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportAll</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export all non-gen'd files</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">relScript</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;release files post-processing script</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">compress</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, compress package release archives</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">archiver</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;"tar" or "zip"; defaults to "tar"</span></span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#attrs">PackageContents.<span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Package attributes</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">PackageContents.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#cfg.Dir">PackageContents.<span class="xdoc-id">cfgDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where all intermediate program files are placed</span></span></a> = <i><span class="xdoc-kw2">String</span></i> "package/cfg/";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#default.Release">PackageContents.<span class="xdoc-id">defaultRelease</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The default release for this package</span></span></a> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#doc.Dir">PackageContents.<span class="xdoc-id">docDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where generated docs are placed</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#generated.Files">PackageContents.<span class="xdoc-id">generatedFiles</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of generated files</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#imports">PackageContents.<span class="xdoc-id">imports</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of required packages (and their version) for this package</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#interfaces">PackageContents.<span class="xdoc-id">interfaces</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of interface names provided by this package</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#lib.Dir">PackageContents.<span class="xdoc-id">libDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where all intermediate library directories are placed</span></span></a> = <i><span class="xdoc-kw2">String</span></i> "package/lib/";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#lib.Template">PackageContents.<span class="xdoc-id">libTemplate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Template of a common C-file archived into every library</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#make.Epilogue">PackageContents.<span class="xdoc-id">makeEpilogue</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;String to add to the end of the generated makefile</span></span></a> = <i><span class="xdoc-kw2">String</span></i> "";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#make.Prologue">PackageContents.<span class="xdoc-id">makePrologue</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;String to add to the beginning of the generated makefile</span></span></a> = <i><span class="xdoc-kw2">String</span></i> "";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#modules">PackageContents.<span class="xdoc-id">modules</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of module names provided by this package</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#name">PackageContents.<span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Name of this package</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#other.Files">PackageContents.<span class="xdoc-id">otherFiles</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of files to include this package</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#other.Srcs">PackageContents.<span class="xdoc-id">otherSrcs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of source files to include this package</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#rel.Dir">PackageContents.<span class="xdoc-id">relDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where all intermediate release files are placed</span></span></a> = <i><span class="xdoc-kw2">String</span></i> "package/rel/";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#release.Prefix">PackageContents.<span class="xdoc-id">releasePrefix</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A prefix appended to the name of each release archive</span></span></a> = <i><span class="xdoc-kw2">String</span></i> "";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#uses">PackageContents.<span class="xdoc-id">uses</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of directory suffixes used to locate files</span></span></a> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#version">PackageContents.<span class="xdoc-id">version</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The package version string</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Executable">PackageContents.<span class="xdoc-id">addExecutable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified executable to this package</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">name</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <go><span class="xdoc-id">target</span></go>, <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">platform</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">Executable.Attrs</a></i> <go><span class="xdoc-id">exeAttrs</span></go> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Instance" title="xdc.bld.Executable.Instance">Executable.Instance</a></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Library">PackageContents.<span class="xdoc-id">addLibrary</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified library to this package</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">name</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <go><span class="xdoc-id">target</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">Library.Attrs</a></i> <go><span class="xdoc-id">libAttrs</span></go> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Library.html#.Instance" title="xdc.bld.Library.Instance">Library.Instance</a></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Release">PackageContents.<span class="xdoc-id">addRelease</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified release to this package</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">name</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Attrs" title="xdc.bld.Release.Attrs">Release.Attrs</a></i> <go><span class="xdoc-id">relAttrs</span></go> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Repository">PackageContents.<span class="xdoc-id">addRepository</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add a repository to this package</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">repositoryName</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">Repository.Attrs</a></i> <go><span class="xdoc-id">repAttrs</span></go> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Instance" title="xdc.bld.Repository.Instance">Repository.Instance</a></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#add.Script">PackageContents.<span class="xdoc-id">addScript</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add a script to this package</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">name</span></go>, <i><a class="xdoc-link" href="../../xdc/bld/Script.html#.Attrs" title="xdc.bld.Script.Attrs">Script.Attrs</a></i> <go><span class="xdoc-id">scriptAttrs</span></go> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Script.html#.Instance" title="xdc.bld.Script.Instance">Script.Instance</a></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/PackageContents-src.html"><span class="xdocLabelFile">xdc/bld/PackageContents.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">PackageContents</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">Attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Package-level attributes</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">profile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;select appropriate <tt>ITarget.OptionSet</tt></span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">aopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;assembly language options</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">copts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ compiler options</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">cfgcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;C/C++ compiler options for the C config file</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">defs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;-D options common to C/C++/asm</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">incs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;-I options common to C/C++/asm</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">tcopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;tconf options, deprecated</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">xsopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;xs options</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">lopts</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;linker options</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportDoc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export generated docs</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportExe</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export executables</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportCfg</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export program cfg scripts</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportSrc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export all package sources</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">exportAll</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, export all non-gen'd files</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">relScript</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;release files post-processing script</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">compress</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;if <tt>true</tt>, compress package release archives</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Attrs"><span class="xdoc-id">archiver</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;"tar" or "zip"; defaults to "tar"</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">PackageContents.Attrs</a>&nbsp;<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Package attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#cfg.Dir"><span class="xdoc-id">cfgDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where all intermediate program files are placed</span></span></a> = "package/cfg/";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>&nbsp;<a class="xdocSynGo" href="#default.Release"><span class="xdoc-id">defaultRelease</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The default release for this package</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#doc.Dir"><span class="xdoc-id">docDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where generated docs are placed</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#generated.Files"><span class="xdoc-id">generatedFiles</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of generated files</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#imports"><span class="xdoc-id">imports</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of required packages (and their version) for this package</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#interfaces"><span class="xdoc-id">interfaces</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of interface names provided by this package</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#lib.Dir"><span class="xdoc-id">libDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where all intermediate library directories are placed</span></span></a> = "package/lib/";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#lib.Template"><span class="xdoc-id">libTemplate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Template of a common C-file archived into every library</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#make.Epilogue"><span class="xdoc-id">makeEpilogue</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;String to add to the end of the generated makefile</span></span></a> = "";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#make.Prologue"><span class="xdoc-id">makePrologue</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;String to add to the beginning of the generated makefile</span></span></a> = "";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#modules"><span class="xdoc-id">modules</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;An array of module names provided by this package</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#name"><span class="xdoc-id">name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Name of this package</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#other.Files"><span class="xdoc-id">otherFiles</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of files to include this package</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#other.Srcs"><span class="xdoc-id">otherSrcs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of source files to include this package</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#rel.Dir"><span class="xdoc-id">relDir</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The directory where all intermediate release files are placed</span></span></a> = "package/rel/";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#release.Prefix"><span class="xdoc-id">releasePrefix</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;A prefix appended to the name of each release archive</span></span></a> = "";
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#uses"><span class="xdoc-id">uses</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Array of directory suffixes used to locate files</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#version"><span class="xdoc-id">version</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The package version string</span></span></a>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Instance" title="xdc.bld.Executable.Instance">Executable.Instance</a>&nbsp;<a class="xdocSynGo" href="#add.Executable"><span class="xdoc-id">addExecutable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified executable to this package</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">name</span></go>, <a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>&nbsp;<go><span class="xdoc-id">target</span></go>, <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">platform</span></go>, <a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">Executable.Attrs</a>&nbsp;<go><span class="xdoc-id">exeAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/bld/Library.html#.Instance" title="xdc.bld.Library.Instance">Library.Instance</a>&nbsp;<a class="xdocSynGo" href="#add.Library"><span class="xdoc-id">addLibrary</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified library to this package</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">name</span></go>, <a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a>&nbsp;<go><span class="xdoc-id">target</span></go>, <a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">Library.Attrs</a>&nbsp;<go><span class="xdoc-id">libAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a>&nbsp;<a class="xdocSynGo" href="#add.Release"><span class="xdoc-id">addRelease</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add specified release to this package</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">name</span></go>, <a class="xdoc-link" href="../../xdc/bld/Release.html#.Attrs" title="xdc.bld.Release.Attrs">Release.Attrs</a>&nbsp;<go><span class="xdoc-id">relAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Instance" title="xdc.bld.Repository.Instance">Repository.Instance</a>&nbsp;<a class="xdocSynGo" href="#add.Repository"><span class="xdoc-id">addRepository</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add a repository to this package</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">repositoryName</span></go>, <a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">Repository.Attrs</a>&nbsp;<go><span class="xdoc-id">repAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/bld/Script.html#.Instance" title="xdc.bld.Script.Instance">Script.Instance</a>&nbsp;<a class="xdocSynGo" href="#add.Script"><span class="xdoc-id">addScript</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Add a script to this package</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">name</span></go>, <a class="xdoc-link" href="../../xdc/bld/Script.html#.Attrs" title="xdc.bld.Script.Attrs">Script.Attrs</a>&nbsp;<go><span class="xdoc-id">scriptAttrs</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This module defines the <tt>PackageContents</tt> object (aliased as <tt>Pkg</tt> in 
+  build scripts) which represents the contents of a package.  Build scripts
+  add to this package using the add* methods defined below.</div>
+<div class="xdocText">In addition to the items added by the build script, every package has at
+  least one release, the default release.  If the <a class="xdoc-link" href="PackageContents.html#default.Release" title="defaultRelease">defaultRelease</a>
+  configuration parameter is not set, a default release will be
+  implicitly created.</div>
+<div class="xdocText">Every library, executable, and repository added to the package is
+  automatically added to the default release.</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">Attrs</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#.Attrs">index URL</a></div>
+<p class="xdocHdrSummary">Package-level attributes</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> PackageContents.<span class="xdoc-id">Attrs</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">profile</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;select appropriate <tt>ITarget.OptionSet</tt></div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">aopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;assembly language options</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">copts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;C/C++ compiler options</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">cfgcopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;C/C++ compiler options for the C config file</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">defs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;-D options common to C/C++/asm</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">incs</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;-I options common to C/C++/asm</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">tcopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;tconf options, deprecated</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">xsopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;xs options</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">lopts</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;linker options</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportDoc</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if <tt>true</tt>, export generated docs</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportExe</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if <tt>true</tt>, export executables</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportCfg</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if <tt>true</tt>, export program cfg scripts</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportSrc</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if <tt>true</tt>, export all package sources</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">exportAll</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if <tt>true</tt>, export all non-gen'd files</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">relScript</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;release files post-processing script</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">compress</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;if <tt>true</tt>, compress package release archives</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">archiver</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;"tar" or "zip"; defaults to "tar"</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">profile</span>
+<span class="xdocChildSum">&#151;&nbsp;This string names a profile defined by the
+          executable's target.  A profile specifies a set of compiler,
+          linker, and archiver options that are to be used when 
+          compiling and linking code.  Note that these tool options are
+          in addition to any options specified via <tt>aopts</tt>, <tt>copts</tt>,
+		etc.</span>
+</div>
+<div class="xdocChildText">If this field is not specified or set to <tt>null</tt>, the
+          <tt>"release"</tt> profile will be used.</div>
+<div class="xdocChild"><span class="xdocChildId">incs</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains include path options used by
+          the compiler (or assembler) to locate include files; e.g.,
+          "<tt>-I ../../include -I ../c55xx</tt>".  Note that the syntax of 
+          this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">defs</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the
+          compiler (or assembler) to define macros; e.g.,
+          "<tt>-D_C6xxx -DDEBUG=1</tt>".  Note that the syntax of 
+          this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">aopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the assembler
+          to produce object files; e.g., "<tt>-mP1</tt>".  Note that the syntax
+          of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">copts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the C/C++
+          compiler to produce object files; e.g., "<tt>-o3 -mi1</tt>".  Note
+          that the syntax of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">cfgcopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the C/C++
+          compiler to compile the generated C config file. If <tt>cfgopts</tt>
+          is not specified, the options specified in <tt>copts</tt> are
+          used instead.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">lopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options used by the linker
+          produce object files; e.g., "<tt>-l mylib.lib</tt>".  Note
+          that the syntax of this string may be target dependent.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">tcopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options passed to <tt>tconf</tt>
+          Deprecated, use <tt>xsopts</tt> instead.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">xsopts</span>
+<span class="xdocChildSum">&#151;&nbsp;This string contains options passed to <tt>xs</tt>
+          when running configuration scripts; e.g., to turn on the
+          reporting of warnings this string can be set to "<tt>-js -w</tt>",
+          or to define the name-value pair "<tt>FOO=bar</tt>" available via
+          the environment hash-table <tt>xsopts</tt> should be set to
+          "<tt>-DFOO=bar</tt>".</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportCfg</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to <tt>true</tt>,  configuration
+          scripts will, by default, be part of the releases created
+          by this package.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportDoc</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to <tt>true</tt>,  generated
+          documentation will, by default, be part of the releases 
+          created by this package.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportSrc</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to <tt>true</tt>, the sources
+          used to build this package will, by default, be part of the
+          releases created by this package.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportExe</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to <tt>true</tt>, the executables
+          created in this package will, by default, be part of the
+          releases created by this package.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exportAll</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to true, all files
+          in this package that are not known to be generated are in
+		the release.  If it is unspecified (or set to <tt>null</tt>) these
+		files will not be added to this release. See
+          <tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Attrs" title="xdc.bld.Release.Attrs">xdc.bld.Release.Attrs</a></tt> for more information about
+          this option.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">relScript</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is non-<tt>null</tt>, the string names a
+          "release script" that is run to post-process the
+          files that are part of a release.  Like configuration scripts,
+          the string names a script file that is searched for first in
+          the in package's base directory, and then along the package
+          path.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">compress</span>
+<span class="xdocChildSum">&#151;&nbsp;If this field is set to <tt>true</tt>, the package release
+          archive files will be, by default, compressed; otherwise, the
+          archives will not be compressed</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">archiver</span>
+<span class="xdocChildSum">&#151;&nbsp;This field names the archiver to use when creating a
+          release.  Two archivers are currently supported:
+          "tar" and "zip".  If the archiver is set to "zip"
+          the <tt><a class="xdoc-link" href="PackageContents.html#.Attrs" title="Attrs">Attrs.compress</a></tt> field is implicitly set to
+          <tt>true</tt>.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">These attributes provide package-level defaults for attributes that
+  provide control over the code generation tools, the configuration
+  tool, and release options.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="PackageContents.html#attrs" title="attrs">attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">attrs</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#attrs">index URL</a></div>
+<p class="xdocHdrSummary">Package attributes</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#.Attrs" title="xdc.bld.PackageContents.Attrs">PackageContents.Attrs</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">These attributes are "inherited" by all executables and libraries
+  added to this package set.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/Executable.html#attrs" title="xdc.bld.Executable.attrs">xdc.bld.Executable.attrs</a>, <a class="xdoc-link" href="../../xdc/bld/Library.html#attrs" title="xdc.bld.Library.attrs">xdc.bld.Library.attrs</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="cfg.Dir"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">cfgDir</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#cfg.Dir">index URL</a></div>
+<p class="xdocHdrSummary">The directory where all intermediate program files are placed</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">cfgDir</span> = <i><span class="xdoc-kw2">String</span></i> "package/cfg/";
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">During configuration, several files are generated (a C++ source file,
+  a linker command file, etc.)  these generated files are placed in
+  the directory specified by this parameter.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="default.Release"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">defaultRelease</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#default.Release">index URL</a></div>
+<p class="xdocHdrSummary">The default release for this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">defaultRelease</span> = <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">If this configuration parameter is defined, it is taken to be the
+  default release instance; otherwise a default instance is created
+  with the appropriate defaults.</div>
+<div class="xdocText">If this release's <tt>label</tt> attribute is <tt>undefined</tt> or <tt>null</tt>, it is
+  set to <tt>"default"</tt> before the release is generated; otherwise the
+  label attribute is unchanged from what the user specified for this
+  instance.</div>
+<div class="xdocText">The implicitly created default release is created as follows:</div>
+<div class="xdocText"><PRE class="Example">	    PackageContents.addRelease(name, {label: "default"})
+</PRE></div>
+<div class="xdocText">where <tt>name</tt> is the package's name with all '.'s replaced with '_'.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="doc.Dir"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">docDir</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#doc.Dir">index URL</a></div>
+<p class="xdocHdrSummary">The directory where generated docs are placed</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">docDir</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">If set to a non-<tt>null</tt> value, package documentation will be
+  automatically generated and placed in this directory.  If
+  it is not set or set to <tt>null</tt>, no docs will be generated for
+  this package.</div>
+<div class="xdocText">If you set <tt><a class="xdoc-link" href="PackageContents.html#.Attrs" title="Attrs">exportDoc</a></tt> or <tt><a class="xdoc-link" href="PackageContents.html#.Attrs" title="Attrs">exportAll</a></tt>
+  to <tt>true</tt> the generated docs will be included in the appropriate
+  releases of the package.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="generated.Files"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">generatedFiles</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#generated.Files">index URL</a></div>
+<p class="xdocHdrSummary">Array of generated files</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">generatedFiles</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This is an array of arbitrary file names that are to be removed
+  during a clean of this package.  File names that end with the <tt>'/'</tt>
+  character are assumed to be directories; in this case, the directory
+  and all of its contents are removed during the clean.</div>
+<div class="xdocText">Only those files that are not already directly (or indirectly)
+  named by adding executables or libraries to this package set need
+  to appear in this array.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="imports"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">imports</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#imports">index URL</a></div>
+<p class="xdocHdrSummary">An array of required packages (and their version) for this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">imports</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is an array of all prerequisite packages
+  required by this package.  Each string is of the form:</div>
+<div class="xdocText"><PRE class="Example">		&lt;packageName&gt;{&lt;packageCompatibilityKey&gt;
+</PRE></div>
+<div class="xdocText">where <tt>&lt;packageName&gt;</tt> is the name of the required package and
+  <tt>&lt;packageCompatibilityKey&gt;</tt> is the compatibility key specified in the
+  <tt>requires</tt> statement of this package.  If no compatibility key is
+  specified in <tt>package.xdc</tt>, <tt>&lt;packageCompatibilityKey&gt;</tt> is "".</div>
+<div class="xdocText">If the package specifies that a requirement is "internal", the
+  package name is prefixed with a '*' character.  In other words, the
+  string is of the form:</div>
+<div class="xdocText"><PRE class="Example">		*&lt;packageName&gt;{&lt;packageCompatibilityKey&gt;
+</PRE></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="interfaces"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">interfaces</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#interfaces">index URL</a></div>
+<p class="xdocHdrSummary">An array of interface names provided by this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">interfaces</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is an array of all interface names
+  defined by this package.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="lib.Dir"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">libDir</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#lib.Dir">index URL</a></div>
+<p class="xdocHdrSummary">The directory where all intermediate library directories are placed</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">libDir</span> = <i><span class="xdoc-kw2">String</span></i> "package/lib/";
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Each object file for a library is placed in a sub-directory of this
+  directory that has a name that matches the name specified in the
+  <tt><a class="xdoc-link" href="PackageContents.html#add.Library" title="addLibrary">addLibrary()</a></tt> function.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="lib.Template"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">libTemplate</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#lib.Template">index URL</a></div>
+<p class="xdocHdrSummary">Template of a common C-file archived into every library</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">libTemplate</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This template can be used to embed package-specific meta-information
+  into each library produced by the package.  For example, it can be
+  used to add package version infomation to each library.</div>
+<div class="xdocText">This template is expanded just once in the Build model during
+  makefile generation.  Thus, the contents of the resulting C-file can
+  not be library specific.</div>
+<div class="xdocText">The template is found using <tt>xdc.findFile()</tt> and, as a result,
+  <tt>libTemplate</tt> may refer to a template in either the current package
+  or even in another package.</div>
+<div class="xdocText">During expansion of the template, the <tt>this</tt> pointer is the
+  <tt>PackageContents</tt> module object; i.e., the object that the global
+  variable <tt>Pkg</tt> references.</div>
+<div class="xdocText">The expanded template may refer to the following pre-defined macros:</div>
+<div class="xdocText"><DL><DT> <tt>__xdc_PKGVERS</tt></DT><DD>
+          the package compatibility key declared in package.xdc; e.g.
+          "<tt>1, 2, 3</tt>"
+</DD><DT> <tt>__xdc_PKGNAME</tt></DT><DD>
+          the package's name; e.g., <tt>xdc.bld</tt>
+</DD><DT> <tt>__xdc_PKGPREFIX</tt></DT><DD>
+          the package's prefix; e.g., for the package <tt>xdc.bld</tt> the
+          prefix would be <tt>xdc_bld_</tt>
+</DD></DL></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="make.Epilogue"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">makeEpilogue</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#make.Epilogue">index URL</a></div>
+<p class="xdocHdrSummary">String to add to the end of the generated makefile</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">makeEpilogue</span> = <i><span class="xdoc-kw2">String</span></i> "";
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Similar to makePrologue except that this string is placed at
+  the very end of the generated makefile.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="make.Prologue"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">makePrologue</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#make.Prologue">index URL</a></div>
+<p class="xdocHdrSummary">String to add to the beginning of the generated makefile</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">makePrologue</span> = <i><span class="xdoc-kw2">String</span></i> "";
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string is placed at the very beginning of the package's
+  generated makefile.  This allows one to extend the build
+  environment using any facility available to GNU make.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="modules"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">modules</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#modules">index URL</a></div>
+<p class="xdocHdrSummary">An array of module names provided by this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">modules</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is an array of all module names
+  implemented in this package.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">name</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#name">index URL</a></div>
+<p class="xdocHdrSummary">Name of this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">name</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is the name of this package as
+  specified by the <tt>package.xdc</tt> package specification file</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="other.Files"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">otherFiles</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#other.Files">index URL</a></div>
+<p class="xdocHdrSummary">Array of files to include this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">otherFiles</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This is an array of arbitrary file names that are to be included
+  in the package.</div>
+<div class="xdocText">Only those files that are not already directly (or indirectly)
+  named by adding executables or libraries to this package set need
+  to appear in this array.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="other.Srcs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">otherSrcs</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#other.Srcs">index URL</a></div>
+<p class="xdocHdrSummary">Array of source files to include this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">otherSrcs</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Like otherFiles except that the file names listed here are to be
+  post-processed by the xdc document preparation tools.  This array
+  only needs to specify files that are not implicitly specidied via
+  any of the addObjects function; e.g., script files, hand-creafted
+  headers, etc.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="rel.Dir"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">relDir</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#rel.Dir">index URL</a></div>
+<p class="xdocHdrSummary">The directory where all intermediate release files are placed</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">relDir</span> = <i><span class="xdoc-kw2">String</span></i> "package/rel/";
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Release specific files for a release are placed in a sub-directory of
+  this directory that has a name that matches the name specified in the
+  <tt><a class="xdoc-link" href="PackageContents.html#add.Release" title="addRelease">addRelease()</a></tt> function.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="release.Prefix"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">releasePrefix</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#release.Prefix">index URL</a></div>
+<p class="xdocHdrSummary">A prefix appended to the name of each release archive</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">releasePrefix</span> = <i><span class="xdoc-kw2">String</span></i> "";
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This configuration parameter allows one to generate release archives
+  somewhere other than inside the package being built.  <tt>releasePrefix</tt>
+  is prepended to the name of the release name to form the name of the
+  release archive.</div>
+<div class="xdocText">For example, setting <tt>releasePrefix</tt> to <tt>"../"</tt> implies that a 
+  release named <tt>"exports/foo"</tt> generates an archive file named
+  <tt>foo.tar</tt> in the directory <tt>"../exports"</tt>.</div>
+<div class="xdocText"><tt>releasePrefix</tt> must either begin with the '^' character or be a
+  relative path that is relative to the package's "base" directory;
+  i.e., the directory containing the package's specification file
+  <tt>package.xdc</tt>.</div>
+<div class="xdocText">If <tt>releasePrefix</tt> begins with the '^' character, the remainder of
+  the string is treated as though it is relative to the package's
+  repository.  In effect, the '^' character is replaced with an
+  appropriate number of '../' sequences to sufficient to navigate to
+  the package's repository.</div>
+<div class="xdocText">For example, suppose your packages are in a repository named <tt>"src"</tt>.
+  Setting <tt>releasePrefix</tt> to <tt>"^/../exports"</tt> implies that a release
+  named <tt>"foo"</tt> generates an archive file named <tt>foo.tar</tt> in the
+  directory named <tt>"exports"</tt> which is a sibiling of <tt>"src"</tt> - the
+  package's repository.</div>
+<div class="xdocText">This prefix can be overridden on a per release basis; see
+  <tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Attrs" title="xdc.bld.Release.Attrs">xdc.bld.Release.Attrs</a></tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">If this parameter starts with <tt>".."</tt> or <tt>"^"</tt>, the resulting
+  archive file will not be removed as part of a package clean.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="uses"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">uses</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#uses">index URL</a></div>
+<p class="xdocHdrSummary">Array of directory suffixes used to locate files</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">uses</span> = <i><span class="xdoc-kw2">String</span>[<span class="xdoc-kw2"></span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This array of directory suffixes is used to locate package files 
+  that are referenced (e.g., via #include) without the package name.</div>
+<div class="xdocText">This array names package directory suffixes (found along the
+  package path) that:</div>
+<div class="xdocText"><OL><LI>  contain headers included by this package's sources which
+         are included *without* using the package name, or
+</LI><LI>  contain JavaScript "import" files which are included (via
+         <tt>utils.importFile()</tt>) *without* using the package name.
+</LI></OL></div>
+<div class="xdocText">This mechanism is used to support legacy code that does not
+  explicitly name the package in the #include statements, and *only*
+  affects the compiler's -I options (not the package path) and the
+  configuration tool's import path (<tt>config.importPath</tt>).</div>
+<div class="xdocText">Strings in the Pkg.uses array must not be absolute paths.  Each string
+  in the Pkg.uses array must point to an existing directory that can be
+  located along the package path.  The generated makefiles create an
+  absolute path by simply appending the string from <tt>uses[]</tt> to each
+  directory name in the package path until an existing directory is
+  found.  The resulting absolute path is then passed to the compiler in
+  a -I option, for example.</div>
+<div class="xdocText">The directories named in this array may include sub-directories of
+  any package in the package path.</div>
+<div class="xdocText">The strings in this array should use '/' to separate directories;
+  even on Windows systems.  Since Windows supports '/' as a directory
+  separator, the use of '/' ensures host platform independence.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">EXAMPLE</div>
+<div class="xdocText">The following example allows sources in the current package to
+      "<tt>#include &lt;tsk.h&gt;</tt>" and have the compiler find <tt>tsk.h</tt> in the
+      sub-directory ti/bios/include which is contained in some repository
+      named in the package path (<tt>XDCPATH</tt>):</div>
+<div class="xdocText"><PRE class="Example">          var Pkg = xdc.useModule('xdc.bld.PackageContents');
+          Pkg.uses = ["ti/bios/include", "ti/xdais/legacy"];
+</PRE></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="version"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">PackageContents.</span><span class="xdoc-id">version</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#version">index URL</a></div>
+<p class="xdocHdrSummary">The package version string</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">version</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is a version string that comes from the
+  <tt>package.xdc</tt> specification.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Executable"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">PackageContents.</span><span class="xdoc-id">addExecutable</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#add.Executable">index URL</a></div>
+<p class="xdocHdrSummary">Add specified executable to this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">addExecutable</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">name</span>, <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-id">target</span>, <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">platform</span>, <i><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">Executable.Attrs</a></i> <span class="xdoc-id">exeAttrs</span> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Instance" title="xdc.bld.Executable.Instance">Executable.Instance</a></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">name</span>
+<span class="xdocChildSum">&#151;&nbsp;executable base name; this name is used to create
+                   the file name of the output executable and has the
+                   form:</span>
+</div>
+<div class="xdocChildText"><PRE class="Example">                       &lt;name&gt;.x&lt;suffix&gt;
+</PRE></div>
+<div class="xdocChildText">where <tt>&lt;suffix&gt;</tt> is the suffix specified by
+                   the target argument below.  
+			 See NOTE in <tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt> for filename rules.</div>
+<div class="xdocChild"><span class="xdocChildId">target</span>
+<span class="xdocChildSum">&#151;&nbsp;target (<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html" title="xdc.bld.ITarget">xdc.bld.ITarget</a></tt>) for each built
+                   object linked into the executable.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">platform</span>
+<span class="xdocChildSum">&#151;&nbsp;string name of the platform; this is the name of a
+                   platform package</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">exeAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;optional executable attrs object
+                   (<tt><a class="xdoc-link" href="../../xdc/bld/Executable.html#.Attrs" title="xdc.bld.Executable.Attrs">xdc.bld.Executable.Attrs</a></tt>)</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The name of the executable file is <tt>&lt;name&gt;.x&lt;target_suffix&gt;</tt>,
+  where <tt>&lt;name&gt;</tt> is the name parameter (which may contain a directory
+  prefix) and <tt>&lt;target_suffix&gt;</tt> is the suffix specified by the target
+  parameter (<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#suffix" title="xdc.bld.ITarget.suffix">xdc.bld.ITarget.suffix</a></tt>).</div>
+<div class="xdocText">This name is also used to create a sub-directory in the package's
+  "cfgDir" directory (<tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#cfg.Dir" title="xdc.bld.PackageContents.cfgDir">xdc.bld.PackageContents.cfgDir</a></tt>) to
+  contain files generated for the benefit of creating the executable.
+  Thus, the name parameter names *both* an executable file and a
+  sub-directory (in <tt>PackageContents.cfgDir</tt>) that contains the objects
+  linked into the executable.</div>
+<div class="xdocText">When the executable is added to the package, a <tt><a class="xdoc-link" href="../../xdc/bld/Test.html" title="xdc.bld.Test">xdc.bld.Test</a></tt>
+  is implicitly added to the executable; thus, every executable has at
+  least one <tt>Test</tt>.  Attributes for this test can be specified via
+  <tt>exeAttrs</tt>.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns the <tt><a class="xdoc-link" href="../../xdc/bld/Executable.html" title="xdc.bld.Executable">xdc.bld.Executable</a></tt> instance 
+                   object created.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal
+                    errors. The following error codes are
+                    reported in the exception message:</div>
+<div class="xdocText"><DL><DT>  <tt>xdc.bld.INVALID_TARGET</tt></DT><DD>
+                       This error is reported when a package is being
+                       built for an unknown target. Ensure that the
+                       correct targets are mentioned in the package's
+                       build script.
+</DD><DT>  <tt>xdc.bld.EXECUTABLE_EXISTS</tt>               </DT><DD>
+                       This error is reported when a package's build
+                       script specifies multiple executables with the
+                       same name. Ensure that the names of the
+                       executables to be built are unique. 
+</DD><DT>  <tt>xdc.bld.PARAMETER_MISMATCH</tt></DT><DD>
+                       This error is reported whenever parameters with
+                       the wrong type  are passed to the method. Ensure
+                       that the parameters passed have the right type.
+           
+     
+</DD></DL></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Library"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">PackageContents.</span><span class="xdoc-id">addLibrary</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#add.Library">index URL</a></div>
+<p class="xdocHdrSummary">Add specified library to this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">addLibrary</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">name</span>, <i><a class="xdoc-link" href="../../xdc/bld/ITarget.html#.Module" title="xdc.bld.ITarget.Module">ITarget.Module</a></i> <span class="xdoc-id">target</span>, <i><a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">Library.Attrs</a></i> <span class="xdoc-id">libAttrs</span> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Library.html#.Instance" title="xdc.bld.Library.Instance">Library.Instance</a></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">name</span>
+<span class="xdocChildSum">&#151;&nbsp;library base name; this name is used to create
+                   *both* an archive and a sub-directory in the
+                   package's "libDir" directory which
+                   will contain the target-specific object files.
+			 See NOTE in <tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt> for filename rules.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">target</span>
+<span class="xdocChildSum">&#151;&nbsp;target (a module implementing the
+                   <tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html" title="xdc.bld.ITarget">xdc.bld.ITarget</a></tt> interface) for each built 
+                   object in the library</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">libAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;optional <tt>library</tt> attributes object
+			 (<tt><a class="xdoc-link" href="../../xdc/bld/Library.html#.Attrs" title="xdc.bld.Library.Attrs">xdc.bld.Library.Attrs</a></tt>)</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The name of the library archive file is <tt>&lt;name&gt;.a&lt;target_suffix&gt;</tt>,
+  where <tt>&lt;name&gt;</tt> is the name parameter (which may contain a directory
+  prefix) and <tt>&lt;target_suffix&gt;</tt> is the suffix specified by the target
+  parameter (<tt><a class="xdoc-link" href="../../xdc/bld/ITarget.html#suffix" title="xdc.bld.ITarget.suffix">xdc.bld.ITarget.suffix</a></tt>).</div>
+<div class="xdocText">The individual objects of each library are located in the directory
+  <tt>&lt;libDir&gt;/&lt;name&gt;</tt>, where <tt>&lt;name&gt;</tt> is the name parameter and <tt>&lt;libDir&gt;</tt>
+  is the configurable parameter <tt><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#lib.Dir" title="xdc.bld.PackageContents.libDir">xdc.bld.PackageContents.libDir</a></tt>.
+  Thus, the name parameter names *both* an archive file and a
+  sub-directory (in <tt>PackageContents.libDir</tt>) that contains the objects
+  in the archive.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns the <tt><a class="xdoc-link" href="../../xdc/bld/Library.html" title="xdc.bld.Library">xdc.bld.Library</a></tt> instance
+                   object created.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal
+                    errors. The following error codes are
+                    reported in the exception message:</div>
+<div class="xdocText"><DL><DT>  <tt>xdc.bld.INVALID_TARGET</tt></DT><DD>
+                       This error is reported when a package is being
+                       built for an unknown target. Ensure that the
+                       correct targets are mentioned in the package's
+                       build script.
+</DD><DT>  <tt>xdc.bld.LIBRARY_EXISTS</tt>               </DT><DD>
+                        This error is reported when a package's build
+                        script specifies multiple libraries with the
+                        same name. Ensure that the names of the
+                        libraries to be built are unique.
+</DD><DT>  <tt>xdc.bld.PARAMETER_MISMATCH</tt></DT><DD>
+                        This error is reported whenever parameters with
+                        the wrong type  are passed to the method. Ensure
+                        that the parameters passed have the right type.
+
+</DD></DL></div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="../../xdc/bld/PackageContents.html#lib.Dir" title="xdc.bld.PackageContents.libDir">xdc.bld.PackageContents.libDir</a>, <a class="xdoc-link" href="../../xdc/bld/ITarget.html#suffix" title="xdc.bld.ITarget.suffix">xdc.bld.ITarget.suffix</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Release"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">PackageContents.</span><span class="xdoc-id">addRelease</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#add.Release">index URL</a></div>
+<p class="xdocHdrSummary">Add specified release to this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">addRelease</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">name</span>, <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Attrs" title="xdc.bld.Release.Attrs">Release.Attrs</a></i> <span class="xdoc-id">relAttrs</span> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Release.html#.Instance" title="xdc.bld.Release.Instance">Release.Instance</a></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">name</span>
+<span class="xdocChildSum">&#151;&nbsp;release base name; this name is used to create
+                  the file name of the output file and has the
+                  form:
+                      &lt;name&gt;.tar
+			See NOTE in <tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt> for filename rules.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">relAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;optional release attributes object
+			 (<tt><a class="xdoc-link" href="../../xdc/bld/Release.html#.Attrs" title="xdc.bld.Release.Attrs">xdc.bld.Release.Attrs</a></tt>)</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns the <tt><a class="xdoc-link" href="../../xdc/bld/Release.html" title="xdc.bld.Release">xdc.bld.Release</a></tt> instance object
+                  created.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal
+                    errors. The following error codes are
+                    reported in the exception message:</div>
+<div class="xdocText"><DL><DT> <tt>xdc.bld.RELEASE_EXISTS</tt></DT><DD>
+                      This error is reported whenever a package's build
+                      script specifies multiple releases with the same
+                      name.  Ensure that the names of the releases
+                      specified in the build script are unique.
+</DD><DT> <tt>xdc.bld.INVALID_RELEASE_PREFIX</tt></DT><DD>
+                      This error is reported whenever a release prefix
+                      is specified by its absolute path in the package's
+                      build script.  The release prefix has to be
+                      relative to the package's base directory.
+</DD><DT> <tt>xdc.bld.INVALID_RELEASE_NAME</tt></DT><DD>
+                      This error is reported whenever a release name is
+                      specified by its absolute path in the package's
+                      build script. The release name has to be relative
+                      to the package's base directory.
+     
+</DD></DL></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Repository"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">PackageContents.</span><span class="xdoc-id">addRepository</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#add.Repository">index URL</a></div>
+<p class="xdocHdrSummary">Add a repository to this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">addRepository</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">repositoryName</span>, <i><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">Repository.Attrs</a></i> <span class="xdoc-id">repAttrs</span> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Instance" title="xdc.bld.Repository.Instance">Repository.Instance</a></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">repositoryName</span>
+<span class="xdocChildSum">&#151;&nbsp;name of a directory (relative to this
+				package's base) that will contain the packages
+				added via
+                          <tt><a class="xdoc-link" href="../../xdc/bld/Repository.html#add.Packages" title="xdc.bld.Repository.addPackages">xdc.bld.Repository.addPackages()</a></tt>
+			 	See NOTE in <tt><a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a></tt> for filename
+				rules.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">repAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;optional <tt>Repository</tt> attributes associated 
+				with this repository (see
+				<tt><a class="xdoc-link" href="../../xdc/bld/Repository.html#.Attrs" title="xdc.bld.Repository.Attrs">xdc.bld.Repository.Attrs</a></tt>)</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">A repository is a directory that contains packages.  Repositories are
+  typically named in the user's XDCPATH environment variable and contain
+  a set of packages that are managed as a group.</div>
+<div class="xdocText">This method allows one to bundle several packages together into a
+  single release (of the package that contains this repository).</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns the <tt><a class="xdoc-link" href="../../xdc/bld/Repository.html" title="xdc.bld.Repository">xdc.bld.Repository</a></tt> 
+                          instance object created.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal
+                    errors. The following error codes are
+                    reported in the exception message:</div>
+<div class="xdocText"><DL><DT> <tt>xdc.bld.REPOSITORY_EXISTS</tt></DT><DD>
+                      This error is reported whenever a package's build
+                      script specifies multiple repositories with the
+                      same name.  Ensure that the names of the
+                      repositories specified in the build script are
+                      unique.
+     
+</DD></DL></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="add.Script"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">PackageContents.</span><span class="xdoc-id">addScript</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/PackageContents.html" title="module PackageContents"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/PackageContents.html#add.Script">index URL</a></div>
+<p class="xdocHdrSummary">Add a script to this package</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>PackageContents.<span class="xdoc-id">addScript</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">name</span>, <i><a class="xdoc-link" href="../../xdc/bld/Script.html#.Attrs" title="xdc.bld.Script.Attrs">Script.Attrs</a></i> <span class="xdoc-id">scriptAttrs</span> ) <i>returns</i> <i><a class="xdoc-link" href="../../xdc/bld/Script.html#.Instance" title="xdc.bld.Script.Instance">Script.Instance</a></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">name</span>
+<span class="xdocChildSum">&#151;&nbsp;name of the script to add to this package.  Script
+                  names are simply the script's filename relative to
+                  the package's base directory.  Scripts can have any
+                  extension, but if the extension is "<tt>.sh</tt>" or "<tt>.ksh</tt>"
+                  a Korn shell compatible shell is used to run the
+                  script's tests; otherwise it is assumed to be an
+                  XDCscript file and any tests will be run by the
+                  XDCscript interpreter <tt>xs</tt>.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">scriptAttrs</span>
+<span class="xdocChildSum">&#151;&nbsp;optional script attributes object
+			 (<tt><a class="xdoc-link" href="../../xdc/bld/Script.html#.Attrs" title="xdc.bld.Script.Attrs">xdc.bld.Script.Attrs</a></tt>)</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Both XDCscript and Korn shell scripts can be added to package.  This
+  not only allows one to add script utilities to a package, it
+  also makes it easy to create scripted regression tests.  As with
+  <tt>Executable</tt>s, it is possible to add <tt><a class="xdoc-link" href="../../xdc/bld/Test.html" title="xdc.bld.Test">xdc.bld.Test</a></tt>s to a
+  <tt><a class="xdoc-link" href="../../xdc/bld/Script.html" title="xdc.bld.Script">Script</a></tt>; see <tt><a class="xdoc-link" href="../../xdc/bld/Script.html#add.Test" title="xdc.bld.Script.addTest">xdc.bld.Script.addTest</a></tt>.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns the <tt><a class="xdoc-link" href="../../xdc/bld/Script.html" title="xdc.bld.Script">xdc.bld.Script</a></tt> instance
+                   object created.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal
+                    errors. The following error codes are
+                    reported in the exception message:</div>
+<div class="xdocText"><DL><DT> <tt>xdc.bld.SCRIPT_EXISTS</tt></DT><DD>
+                        This error is reported whenever a package's build
+                        script specifies multiple user scripts with the
+                        same name. Ensure that the names of the user
+                        scripts are unique.
+     
+</DD></DL></div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:18 GMT</div>
+</div></div></body>
+</html>

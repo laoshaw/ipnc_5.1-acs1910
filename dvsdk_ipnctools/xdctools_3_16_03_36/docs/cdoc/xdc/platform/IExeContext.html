@@ -1,0 +1,439 @@
+<html>
+<head>
+<title>interface xdc.platform.IExeContext</title>
+<meta name="description" content="Execution environment interface between a platform and an executable">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <span class="xdoc-id">xdc.platform.</span><span class="xdoc-id">IExeContext</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/ICpuDataSheet.html" title="interface ICpuDataSheet"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/package.html" title="package xdc.platform"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IPlatform.html" title="interface IPlatform"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html">index URL</a></div>
+<p class="xdocHdrSummary">Execution environment interface between a platform and an executable</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+</ul>
+<div class="xdocBrief">
+This interface describes the execution environment provided by a
+  platform as seen by an executable on a particular CPU at the time 
+  it is loaded.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <go><span class="xdoc-id">IExeContext</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">instance</span>:<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/platform/package.html" title="xdc.platform">xdc.platform</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <go><span class="xdoc-id">IExeContext</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Cpu"><span class="xdoc-id">Cpu</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;CPU attributes necessary to create an execution context</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Cpu"><span class="xdoc-id">id</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;unique id within the platform</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Cpu"><span class="xdoc-id">catalogName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;name of catalog package</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Cpu"><span class="xdoc-id">deviceName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;module name within catalog package</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Cpu"><span class="xdoc-id">revision</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;revision of specified device</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Float</span>&nbsp;<a class="xdocSynGo" href="#.Cpu"><span class="xdoc-id">clockRate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;clock rate in MHz of CPU on board</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">instance</span>:
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/ICpuDataSheet.html#.Instance" title="xdc.platform.ICpuDataSheet.Instance">ICpuDataSheet.Instance</a>&nbsp;<a class="xdocSynGo" href="#attrs"><span class="xdoc-id">attrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The CPU "data-sheet" attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">readonly </span><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Board" title="xdc.platform.IPlatform.Board">IPlatform.Board</a>&nbsp;<a class="xdocSynGo" href="#board"><span class="xdoc-id">board</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The board-level attributes</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#catalog.Name"><span class="xdoc-id">catalogName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of the package containing the module named by deviceName</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Float</span>&nbsp;<a class="xdocSynGo" href="#clock.Rate"><span class="xdoc-id">clockRate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The clock rate in MHz of the CPU</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#device.Name"><span class="xdoc-id">deviceName</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of a CPU device within the catalog package catalogName</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#id"><span class="xdoc-id">id</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The CPU's unique id within the platform</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Memory" title="xdc.platform.IPlatform.Memory">IPlatform.Memory</a>&nbsp;<a class="xdocSynGo" href="#memory.Map"><span class="xdoc-id">memoryMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The memory map seen by executables at the time they are loaded</span></span></a>[<span class="xdoc-kw1">string</span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#revision"><span class="xdoc-id">revision</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The revision of the CPU</span></span></a> = "";
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This interface describes the execution environment provided by a
+  platform as seen by an executable on a particular CPU at the time 
+  it is loaded.</div>
+<div class="xdocText">Execution contexts are created by platforms via
+  <tt><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#get.Exe.Context" title="xdc.platform.IPlatform.getExeContext">xdc.platform.IPlatform.getExeContext()</a></tt>.  Execution contexts are
+  created implicitly just prior to executing a program's configuration
+  script.  This execution context is made available to the configuration
+  script as the global read-only <tt>Program.cpu</tt> configuration parameter;
+  see <tt><a class="xdoc-link" href="../../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>.</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Cpu"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">Cpu</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#.Cpu">index URL</a></div>
+<p class="xdocHdrSummary">CPU attributes necessary to create an execution context</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">Cpu</span> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">id</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;unique id within the platform</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">catalogName</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;name of catalog package</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">deviceName</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;module name within catalog package</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">revision</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;revision of specified device</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Float</span>&nbsp;<span class="xdoc-id">clockRate</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;clock rate in MHz of CPU on board</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>};
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Attributes that uniquely identify the CPU responsible for executing
+  an executable image.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_config_parameters"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance config parameters</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#per-instance_config_parameters">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> IExeContext.<span class="xdoc-id">Params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params object</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">attrs</span> = <i><a class="xdoc-link" href="../../xdc/platform/ICpuDataSheet.html#.Instance" title="xdc.platform.ICpuDataSheet.Instance">ICpuDataSheet.Instance</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The CPU "data-sheet" attributes</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">board</span> = <i><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Board" title="xdc.platform.IPlatform.Board">IPlatform.Board</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The board-level attributes</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">catalogName</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The name of the package containing the module named by deviceName</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">clockRate</span> = <i><span class="xdoc-kw2">Float</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The clock rate in MHz of the CPU</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">deviceName</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The name of a CPU device within the catalog package catalogName</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">id</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The CPU's unique id within the platform</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">memoryMap</span> = <i><a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Memory" title="xdc.platform.IPlatform.Memory">IPlatform.Memory</a>[<span class="xdoc-kw1">string</span>]</i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The memory map seen by executables at the time they are loaded</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">revision</span> = <i><span class="xdoc-kw2">String</span></i> "";
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The revision of the CPU</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">attrs</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#attrs">index URL</a></div>
+<p class="xdocHdrSummary">The CPU "data-sheet" attributes</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/ICpuDataSheet.html#.Instance" title="xdc.platform.ICpuDataSheet.Instance">ICpuDataSheet.Instance</a>&nbsp;<span class="xdoc-id">attrs</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This "data sheet" allows one to get information about the CPU that
+  runs the run the executable associated with this execution context.</div>
+<div class="xdocText">Multi-CPU platforms provide multiple execution contexts; each
+  context is associated with a single CPU on the platform.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform and is readonly for
+  configuration scripts.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="board"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">board</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#board">index URL</a></div>
+<p class="xdocHdrSummary">The board-level attributes</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">readonly </span><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Board" title="xdc.platform.IPlatform.Board">IPlatform.Board</a>&nbsp;<span class="xdoc-id">board</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter defines the static attributes of the board
+  containing the CPU that runs the executable.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform and is readonly for
+  configuration scripts.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="catalog.Name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">catalogName</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#catalog.Name">index URL</a></div>
+<p class="xdocHdrSummary">The name of the package containing the module named by deviceName</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">catalogName</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string names a package containing one or more modules that
+  implements the <tt><a class="xdoc-link" href="../../xdc/platform/ICpuDataSheet.html" title="xdc.platform.ICpuDataSheet">xdc.platform.ICpuDataSheet</a></tt> interface.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform and is readonly for
+  configuration scripts.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="clock.Rate"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">clockRate</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#clock.Rate">index URL</a></div>
+<p class="xdocHdrSummary">The clock rate in MHz of the CPU</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Float</span>&nbsp;<span class="xdoc-id">clockRate</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform and is readonly for
+  configuration scripts.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="device.Name"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">deviceName</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#device.Name">index URL</a></div>
+<p class="xdocHdrSummary">The name of a CPU device within the catalog package catalogName</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">deviceName</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This string names a module in the catalog package, specified by
+  catalogName, that represents the CPU that runs the executable; i.e.,
+  it implements the <tt><a class="xdoc-link" href="../../xdc/platform/ICpuDataSheet.html" title="xdc.platform.ICpuDataSheet">xdc.platform.ICpuDataSheet</a></tt> interface.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="id"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">id</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#id">index URL</a></div>
+<p class="xdocHdrSummary">The CPU's unique id within the platform</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">id</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This id is the string used to identify a specific CPU within
+  the platform that provides this execution context.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform and is readonly 
+  for configuration scripts.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="memory.Map"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">memoryMap</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#memory.Map">index URL</a></div>
+<p class="xdocHdrSummary">The memory map seen by executables at the time they are loaded</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/platform/IPlatform.html#.Memory" title="xdc.platform.IPlatform.Memory">IPlatform.Memory</a>&nbsp;<span class="xdoc-id">memoryMap</span>[<span class="xdoc-kw1">string</span>];
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform and is readonly for
+  configuration scripts.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="revision"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IExeContext.</span><span class="xdoc-id">revision</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/IExeContext.html" title="interface IExeContext"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/IExeContext.html#revision">index URL</a></div>
+<p class="xdocHdrSummary">The revision of the CPU</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/IExeContext-src.html"><span class="xdocLabelFile">xdc/platform/IExeContext.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">revision</span> = "";
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set by the platform and is readonly for
+  configuration scripts.</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:06 GMT</div>
+</div></div></body>
+</html>

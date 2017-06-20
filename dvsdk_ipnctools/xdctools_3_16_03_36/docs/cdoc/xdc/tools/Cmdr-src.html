@@ -1,0 +1,117 @@
+<html><head><title>module xdc.tools.Cmdr</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== Cmdr ========
+</span>    14    <span class="xdoc"> *  Command line tool context
+</span>    15    <span class="xdoc"> */</span>
+    16    <span class=key>metaonly</span> <span class=key>module</span> Cmdr {
+    17    
+    18        <span class=key>enum</span> Context { SHELL, SCRIPT };
+    19    
+    20    <span class=key>instance</span>:
+    21    
+    22        <span class=key>config</span> Context context = SHELL;
+    23        <span class=key>config</span> Int tid = 0;
+    24        <span class=key>config</span> Any socket = <span class=key>null</span>;
+    25        
+    26        create(Any cmdmod);
+    27        
+    28        <span class=key>function</span> error(msg);
+    29    
+    30        <span class="xdoc">/*!
+</span>    31    <span class="xdoc">     * Parse command-line arguments into config params.
+</span>    32    <span class="xdoc">     *
+</span>    33    <span class="xdoc">     * This function accepts an array of command-line arguments, and
+</span>    34    <span class="xdoc">     * uses them to set the values of config parameters in a module
+</span>    35    <span class="xdoc">     * instance. Parsing is controlled by the XDC declarations of the
+</span>    36    <span class="xdoc">     * instance config params.
+</span>    37    <span class="xdoc">     *
+</span>    38    <span class="xdoc">     * <b>@a(Usage)</b>
+</span>    39    <span class="xdoc">     * The following command-line argument syntaxes are supported,
+</span>    40    <span class="xdoc">     * following the syntax supported by GNU getopt() and getopt_long():
+</span>    41    <span class="xdoc">     *
+</span>    42    <span class="xdoc">     * <b>@p(code)</b>
+</span>    43    <span class="xdoc">     *   -f                a boolean flag with short name
+</span>    44    <span class="xdoc">     *   -f value          a number or string with short name
+</span>    45    <span class="xdoc">     *   -fvalue
+</span>    46    <span class="xdoc">     *   -f=value
+</span>    47    <span class="xdoc">     *   --longname        a boolean flag with long name
+</span>    48    <span class="xdoc">     *   --longname value  a number or string with long name
+</span>    49    <span class="xdoc">     *   --longname=value  a number or string with long name
+</span>    50    <span class="xdoc">     * <b>@p</b>
+</span>    51    <span class="xdoc">     *
+</span>    52    <span class="xdoc">     * In addition the following non-standard syntaxes are supported:
+</span>    53    <span class="xdoc">     * <b>@p(code)</b>
+</span>    54    <span class="xdoc">     *   -f:value
+</span>    55    <span class="xdoc">     *   --longnamevalue
+</span>    56    <span class="xdoc">     *   --longname:value
+</span>    57    <span class="xdoc">     * <b>@p</b>
+</span>    58    <span class="xdoc">     *
+</span>    59    <span class="xdoc">     * <b>@a(Declaration)</b>
+</span>    60    <span class="xdoc">     * The long and short names of the config parameter are declared
+</span>    61    <span class="xdoc">     * by the <b>@CommandOption</b>() attribute of the XDC spec language. For
+</span>    62    <span class="xdoc">     * example to declare a boolean flag with a short name of "-f" and
+</span>    63    <span class="xdoc">     * a long name of "--flag", and a default value of false:
+</span>    64    <span class="xdoc">     * <b>@p(code)</b>
+</span>    65    <span class="xdoc">     *    @ CommandOption("f,flag")
+</span>    66    <span class="xdoc">     *    config Bool myFlag = false;
+</span>    67    <span class="xdoc">     * <b>@p</b>
+</span>    68    <span class="xdoc">     *
+</span>    69    <span class="xdoc">     * Options of type Bool with no argument are assigned the value
+</span>    70    <span class="xdoc">     * "true". The types String and Int can also be used, and always
+</span>    71    <span class="xdoc">     * require an argument to be given on the command line.
+</span>    72    <span class="xdoc">     *
+</span>    73    <span class="xdoc">     * <b>@a(Combining Short Flags)</b>
+</span>    74    <span class="xdoc">     * Short-name options can be combined on the command line where there
+</span>    75    <span class="xdoc">     * is no ambiguity, for example the following usages are equivalent:
+</span>    76    <span class="xdoc">     * <b>@p(code)</b>
+</span>    77    <span class="xdoc">     *   -a -b -c -f filename
+</span>    78    <span class="xdoc">     *   -abcf filename
+</span>    79    <span class="xdoc">     * <b>@p</b>
+</span>    80    <span class="xdoc">     *
+</span>    81    <span class="xdoc">     * <b>@a(Multiple Occurrences)</b>
+</span>    82    <span class="xdoc">     * If the config param is declared as an array, the option may
+</span>    83    <span class="xdoc">     * be used multiple times on the command line and each occurence
+</span>    84    <span class="xdoc">     * will be recorded. For example the following records all -I
+</span>    85    <span class="xdoc">     * options, in order:
+</span>    86    <span class="xdoc">     * <b>@p(code)</b>
+</span>    87    <span class="xdoc">     *   @ CommandOption("I")
+</span>    88    <span class="xdoc">     *   config String includeDirs[] = [];
+</span>    89    <span class="xdoc">     * <b>@p</b>
+</span>    90    <span class="xdoc">     *
+</span>    91    <span class="xdoc">     * <b>@a(Required Options)</b>
+</span>    92    <span class="xdoc">     * If the config param has no default value declared, then it
+</span>    93    <span class="xdoc">     * is required on the command line, and a Javascript exception will
+</span>    94    <span class="xdoc">     * be raised if it is omitted.
+</span>    95    <span class="xdoc">     *
+</span>    96    <span class="xdoc">     * <b>@param(inst)</b>  instance with config parameters to set
+</span>    97    <span class="xdoc">     * <b>@param(args)</b>  an array of command-line arguments
+</span>    98    <span class="xdoc">     */</span>
+    99        <span class=key>function</span> getopts(inst, args);
+   100    
+   101        <span class=key>function</span> info(msg);
+   102        <span class=key>function</span> read();
+   103        <span class=key>function</span> usage();
+   104        <span class=key>function</span> time(msg);
+   105        <span class=key>function</span> verbose(flag);
+   106        <span class=key>function</span> warning(msg);
+   107        <span class=key>function</span> write(s);
+   108    
+   109    }
+</pre>
+</body></html>

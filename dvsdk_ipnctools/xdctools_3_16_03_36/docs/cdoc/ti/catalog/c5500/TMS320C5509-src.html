@@ -1,0 +1,75 @@
+<html><head><title>module ti.catalog.c5500.TMS320C5509</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS320C5509.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    <span class=key>package</span> ti.catalog.c5500;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== TMS320C5509 ========
+</span>    21    <span class="xdoc"> *  The C5509 device data sheet module.
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is 
+</span>    24    <span class="xdoc"> *  used by platforms to obtain "data sheet" information about this device.
+</span>    25    <span class="xdoc"> */</span>
+    26    <span class=key>metaonly</span> <span class=key>module</span> TMS320C5509 <span class=key>inherits</span> ITMS320C55xx
+    27    {
+    28    <span class=key>instance</span>:
+    29        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    30    
+    31        <span class="xdoc">/*!
+</span>    32    <span class="xdoc">     *  ======== memMap ========
+</span>    33    <span class="xdoc">     *  The default memory map for this device
+</span>    34    <span class="xdoc">     */</span>
+    35        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    36            [<span class="string">"DARAM"</span>, {
+    37                comment: <span class="string">"8 blocks of 8K bytes"</span>,
+    38                name: <span class="string">"DARAM"</span>,
+    39                base: 0x000000,
+    40                len:  0x010000,
+    41                space: <span class="string">"code/data"</span>,
+    42                access: <span class="string">"RWX"</span>
+    43            }],
+    44        
+    45            [<span class="string">"SARAM"</span>, {
+    46                comment: <span class="string">"24 blocks of 8K bytes"</span>,
+    47                name: <span class="string">"SARAM"</span>,
+    48                base: 0x10000,
+    49                len:  0x30000,
+    50                space: <span class="string">"code/data"</span>,
+    51                access: <span class="string">"RWX"</span>
+    52            }],
+    53            
+    54            [<span class="string">"ROM"</span>, {
+    55                comment: <span class="string">"64K bytes One-Wait-State On-Chip ROM"</span>,
+    56                name: <span class="string">"ROM"</span>,
+    57                base: 0xff0000,
+    58                len:  0x010000,
+    59                space: <span class="string">"code/data"</span>,
+    60                access: <span class="string">"RX"</span>
+    61            }],
+    62        ];
+    63    };
+    64    <span class="comment">/*
+</span>    65    <span class="comment"> *  @(#) ti.catalog.c5500; 1, 0, 0, 0,226; 2-23-2010 16:53:06; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    66    <span class="comment"> */</span>
+    67    
+</pre>
+</body></html>

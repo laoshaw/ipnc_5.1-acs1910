@@ -1,0 +1,75 @@
+<html><head><title>module ti.platforms.evmDM357.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Platform ========
+</span>    20    <span class="xdoc"> *  Platform support for the evmDM357
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    23    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    24    <span class="xdoc"> */</span>
+    25    
+    26    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    27    {
+    28        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    29            id:             <span class="string">"0"</span>,
+    30            boardName:      <span class="string">"evmDM357"</span>,
+    31            boardFamily:    <span class="string">"evmDM357"</span>,
+    32            boardRevision:  <span class=key>null</span>,
+    33        };
+    34            
+    35        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu DSP = {        
+    36            id:             <span class="string">"0"</span>,
+    37            clockRate:      540.0,
+    38            catalogName:    <span class="string">"ti.catalog.c6000"</span>,
+    39            deviceName:     <span class="string">"TMS320DM357"</span>,
+    40            revision:       <span class="string">"1.0"</span>,
+    41        };
+    42        
+    43        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu GPP = {
+    44            id:             <span class="string">"1"</span>,
+    45            clockRate:      270.0,
+    46            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    47            deviceName:     <span class="string">"TMS320DM357"</span>,
+    48            revision:       <span class="string">"1.0"</span>,
+    49        };
+    50    
+    51    <span class=key>instance</span>:
+    52    
+    53        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Memory
+    54            externalMemoryMap[string] = [
+    55                [<span class="string">"DDR2"</span>, {name: <span class="string">"DDR2"</span>, base: 0x80000000, len: 0x10000000}],
+    56            ];
+    57    
+    58        <span class="comment">/* default segment for data sections */</span>
+    59        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"DDR2"</span>;
+    60    
+    61        <span class="comment">/* default segment for stack sections */</span>
+    62        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"DDR2"</span>;
+    63    }
+    64    <span class="comment">/*
+</span>    65    <span class="comment"> *  @(#) ti.platforms.evmDM357; 1, 0, 0,142; 2-23-2010 16:52:40; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    66    <span class="comment"> */</span>
+    67    
+</pre>
+</body></html>

@@ -1,0 +1,18 @@
+TARGETNAME=cmem_apitest
+TARGETTYPE=PROGRAM
+RELEASETYPE=LOCAL
+
+SOURCES= \
+    apitest.c\
+
+INCLUDES=\
+    $(_PUBLICROOT)\common\oak\inc;\
+    $(_PUBLICROOT)\common\sdk\inc;\
+    ..\..\..\..\..\..;
+
+
+TARGETLIBS=\
+    $(_PROJECTROOT)\cesysgen\sdk\lib\$(_CPUINDPATH)\coredll.lib \
+    ..\..\user\obj\ARMV4I\$(WINCEDEBUG)\cmem.lib
+
+EXEENTRY=main

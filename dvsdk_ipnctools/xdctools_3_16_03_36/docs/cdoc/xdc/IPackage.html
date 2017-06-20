@@ -1,0 +1,746 @@
+<html>
+<head>
+<title>interface xdc.IPackage</title>
+<meta name="description" content="Base interface implemented by all packages">
+<link rel="stylesheet" type="text/css" href="../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <span class="xdoc-id">xdc.</span><span class="xdoc-id">IPackage</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/package.html" title="package xdc"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html">index URL</a></div>
+<p class="xdocHdrSummary">Base interface implemented by all packages</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">NOTE</a></li>
+</ul>
+<div class="xdocBrief">
+If a package does not specify a function declared in
+  <tt>IPackage</tt>, the default defined in this package is used.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <go><span class="xdoc-id">IPackage</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../xdc/package.html" title="xdc">xdc</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">interface</span> <go><span class="xdoc-id">IPackage</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Build.Attrs"><span class="xdoc-id">BuildAttrs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Package-level attributes from the Build Object Model (BOM)</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Build.Attrs"><span class="xdoc-id">libraries</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;array of archive names produced by this pkg</span></span></a>[<span class="xdoc-kw2"></span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../xdc/IPackage.html#.Lib.Desc" title="xdc.IPackage.LibDesc">IPackage.LibDesc</a>&nbsp;<a class="xdocSynGo" href="#.Build.Attrs"><span class="xdoc-id">libDesc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;desriptors for elements in <tt>libraries</tt></span></span></a>[<span class="xdoc-kw1">string</span>];
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Any</span>&nbsp;<a class="xdocSynGo" href="#.Build.Attrs"><span class="xdoc-id">getLibs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;<tt>getLibs</tt> function defined by build script</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Lib.Desc"><span class="xdoc-id">LibDesc</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Library properties from the Build Object Model (BOM)</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Lib.Desc"><span class="xdoc-id">target</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;target name</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Lib.Desc"><span class="xdoc-id">suffix</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;suffix property of the named target</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../xdc/IPackage.html#.Build.Attrs" title="xdc.IPackage.BuildAttrs">IPackage.BuildAttrs</a>&nbsp;<a class="xdocSynGo" href="#build"><span class="xdoc-id">build</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The package information from the Build Object Model (BOM)</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#package.Base"><span class="xdoc-id">packageBase</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The absolute path to the package's "base" directory</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#package.Repository"><span class="xdoc-id">packageRepository</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The absolute path to the repository containing the package</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#profile"><span class="xdoc-id">profile</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The profile requested by a configuration script</span></span></a>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#close"><span class="xdoc-kw1">function </span><span class="xdoc-id">close</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Close this package after user scripts complete</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#exit"><span class="xdoc-kw1">function </span><span class="xdoc-id">exit</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Exit this package after the model has been successfully validated</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Libs"><span class="xdoc-kw1">function </span><span class="xdoc-id">getLibs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Get the libraries necessary to use this package</span></span></a>( <go><span class="xdoc-id">prog</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Sects"><span class="xdoc-kw1">function </span><span class="xdoc-id">getSects</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Get package-specific linker section data</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#init"><span class="xdoc-kw1">function </span><span class="xdoc-id">init</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Initialize this package when first imported</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#validate"><span class="xdoc-kw1">function </span><span class="xdoc-id">validate</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Validate this package after the model's state is "sealed"</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">If a package does not specify a function declared in
+  <tt>IPackage</tt>, the default defined in this package is used.</div>
+<div class="xdocText">Packages must implement <tt>IPackage</tt> functions in the package's <tt>package.xs</tt>
+  file.  This file simply defines a function with the same name as that
+  declared in the the this specification.  For example, to implement the
+  <tt><a class="xdoc-link" href="IPackage.html#get.Libs" title="getLibs">getLibs()</a></tt> function the following must appear in the package's
+  <tt>package.xs</tt> file:</div>
+<div class="xdocText"><PRE class="Example">      function getLibs(prog)
+      {
+           ...
+      }
+</PRE></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">Since most <tt>IPackage</tt> functions can be called in any model, any access to
+  global variables specific to a particular object model should happen only
+  if the function is called in the context of that model. For example, the
+  variable <tt>Program</tt> is a global variable in the Configuration Model
+  (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>). Any access to it should happen after a check
+  that the current model is the Configuration Model:</div>
+<div class="xdocText"><PRE class="Example">      if (xdc.om.$name == "cfg") {
+          print(Program.build.target.name);
+      }
+</PRE></div>
+<div class="xdocText">For additional information about <tt>xdc.om</tt>, see
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om" title="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om">xdc.om</a> in the
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference" title="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference">XDCscript Language Reference</a>.</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Build.Attrs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">IPackage.</span><span class="xdoc-id">BuildAttrs</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#.Build.Attrs">index URL</a></div>
+<p class="xdocHdrSummary">Package-level attributes from the Build Object Model (BOM)</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">BuildAttrs</span> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">libraries</span>[<span class="xdoc-kw2"></span>];
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;array of archive names produced by this pkg</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../xdc/IPackage.html#.Lib.Desc" title="xdc.IPackage.LibDesc">IPackage.LibDesc</a>&nbsp;<span class="xdoc-id">libDesc</span>[<span class="xdoc-kw1">string</span>];
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;desriptors for elements in <tt>libraries</tt></div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Any</span>&nbsp;<span class="xdoc-id">getLibs</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;<tt>getLibs</tt> function defined by build script</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>};
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">getLibs</span>
+<span class="xdocChildSum">&#151;&nbsp;the JavaScript function that should be used when
+                    the package participates in a program configuration
+                    script.  This field contains the function specified
+                    by a package's build script</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">libraries</span>
+<span class="xdocChildSum">&#151;&nbsp;an array of archive names created by this package.
+                    Each name is a package-relative file name of an
+                    archive within the package.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">libDesc</span>
+<span class="xdocChildSum">&#151;&nbsp;a map of library descriptors.  This map is indexed
+                    by names that appear in the <tt>libraries</tt> array.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This structure defines a set of package-level attributes that are
+  carried forward from the Build Model into the Configuration Model.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Lib.Desc"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">struct</span> <span class="xdoc-id">IPackage.</span><span class="xdoc-id">LibDesc</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#.Lib.Desc">index URL</a></div>
+<p class="xdocHdrSummary">Library properties from the Build Object Model (BOM)</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">LibDesc</span> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">target</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;target name</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">suffix</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;suffix property of the named target</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>};
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">FIELDS</div>
+<div class="xdocChild"><span class="xdocChildId">target</span>
+<span class="xdocChildSum">&#151;&nbsp;target for which the library was built.</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">suffix</span>
+<span class="xdocChildSum">&#151;&nbsp;the suffix associated with the named target.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This structure defines library properties that are
+  carried forward from the Build Model into the Configuration Model.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="build"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IPackage.</span><span class="xdoc-id">build</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#build">index URL</a></div>
+<p class="xdocHdrSummary">The package information from the Build Object Model (BOM)</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../xdc/IPackage.html#.Build.Attrs" title="xdc.IPackage.BuildAttrs">IPackage.BuildAttrs</a>&nbsp;<span class="xdoc-id">build</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set when the package is first loaded
+  and should not be modified by any other script.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="package.Base"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IPackage.</span><span class="xdoc-id">packageBase</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#package.Base">index URL</a></div>
+<p class="xdocHdrSummary">The absolute path to the package's "base" directory</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">packageBase</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter contains an absolute path to the directory
+  containing the package's build script (<tt>package.bld</tt>). For example,
+  if the package <tt>ti.bios</tt> is located in <tt>c:/packages/ti/bios</tt>, then
+  <tt>packageBase</tt> equals <tt>c:/packages/ti/bios/</tt>.</div>
+<div class="xdocText">To be robust, clients should not assume that this string ends with a
+  directory separator.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set when the package is first loaded
+  and should not be modified by any other script.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="package.Repository"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IPackage.</span><span class="xdoc-id">packageRepository</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#package.Repository">index URL</a></div>
+<p class="xdocHdrSummary">The absolute path to the repository containing the package</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">packageRepository</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter contains an absolute path to the directory
+  containing the full directory namespace of the package.  For
+  example, if the package <tt>ti.bios</tt> is located in <tt>c:/packages/ti/bios</tt>,
+  then <tt>packageRepository</tt> equals <tt>c:/packages/</tt>.</div>
+<div class="xdocText">To be robust, clients should not assume that this string ends with a
+  directory separator.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">READONLY</div>
+<div class="xdocText">This parameter is set when the package is first loaded
+  and should not be modified by any other script.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="profile"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">IPackage.</span><span class="xdoc-id">profile</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#profile">index URL</a></div>
+<p class="xdocHdrSummary">The profile requested by a configuration script</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<span class="xdoc-id">profile</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This parameter is set by configuration scripts to convey additional
+  information to the package about the libraries being requested from
+  this package; in particular, it names a specific profile supported by
+  this package (see <a class="xdoc-link" href="../xdc/bld/ITarget.html#profiles" title="xdc.bld.ITarget.profiles">xdc.bld.ITarget.profiles</a>).</div>
+<div class="xdocText">Package <tt><a class="xdoc-link" href="IPackage.html#get.Libs" title="getLibs">getLibs()</a></tt> functions should refer to this parameter
+  in lieu of the program's <tt>build.profile</tt>.  This allows configuration
+  scripts to selectively request debug or release libraries on a per
+  package basis, for example.</div>
+<div class="xdocText"><PRE class="Example">  function getLibs(prog)
+  {
+      if (this.profile == "debug") {
+          ...
+      }
+  }
+</PRE></div>
+<div class="xdocText">If this parameter is not set by the configuration script, it is
+  initialized to <tt><a class="xdoc-link" href="../xdc/cfg/Program.html#build" title="xdc.cfg.Program.build">xdc.cfg.Program.build.profile</a></tt> prior to
+  generating and configuration files; i.e., the package's
+  <tt><a class="xdoc-link" href="IPackage.html#get.Libs" title="getLibs">getLibs()</a></tt> function can assume that this field is always
+  set and defaults to the profile used to build the executable.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="close"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">IPackage.</span><span class="xdoc-id">close</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#close">index URL</a></div>
+<p class="xdocHdrSummary">Close this package after user scripts complete</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">close</span>(  );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function is called to allow the package to modify its state
+  based on the results of the user's script.  It can optionally 
+  redefine configuration parameters or even throw exceptions to
+  prevent the configuration step from completing, for example.</div>
+<div class="xdocText">Other packages and modules, including the modules in the package, can
+  change the configuration parameters of any module in the package, after
+  this function was called. Therefore, this function cannot be used to
+  validate state of the package and of the whole configuration.
+  Validation should be done in <tt><a class="xdoc-link" href="IPackage.html#validate" title="validate">validate()</a></tt>.</div>
+<div class="xdocText">For all packages A and B, if A requires B, then package A is 
+  closed before package B.</div>
+<div class="xdocText">The default implementation of this function is a nop.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">CONTEXT</div>
+<div class="xdocText"></div>
+<div class="xdocText"><DL><DT> <tt>this</tt></DT><DD>
+          The current package's <tt>xdc.IPackage.Module</tt> object
+          immediately after the program's configuration script
+          has completed and before validation is started.
+
+</DD></DL></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns nothing.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors.</div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">This function can be called in any model, so any access to
+  global variables specific to a particular object model should happen
+  only if the function is called in the context of that model. For
+  example, the variable <tt>Program</tt> is a global variable in the
+  Configuration Model (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>). Any access to it
+  should happen after a check that the current model is the
+  Configuration Model:</div>
+<div class="xdocText"><PRE class="Example">      if (xdc.om.$name == "cfg") {
+          print(Program.build.target.name);
+      }
+</PRE></div>
+<div class="xdocText">For additional information about <tt>xdc.om</tt>, see
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om" title="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om">xdc.om</a>
+  in the
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference" title="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference">XDCscript Language Reference</a>.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="exit"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">IPackage.</span><span class="xdoc-id">exit</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#exit">index URL</a></div>
+<p class="xdocHdrSummary">Exit this package after the model has been successfully validated</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">exit</span>(  );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The default implementation of this function is a nop.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">CONTEXT</div>
+<div class="xdocText"></div>
+<div class="xdocText"><DL><DT> <tt>this</tt></DT><DD>
+          The current package's <tt>xdc.IPackage.Module</tt> object
+          immediately after the program's configuration script
+          has completed and after generation has completed.
+
+</DD></DL></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns nothing.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors.</div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">This function can be called in any model, so any access to
+  global variables specific to a particular object model should happen
+  only if the function is called in the context of that model. For
+  example, the variable <tt>Program</tt> is a global variable in the
+  Configuration Model (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>). Any access to it
+  should happen after a check that the current model is the
+  Configuration Model:</div>
+<div class="xdocText"><PRE class="Example">      if (xdc.om.$name == "cfg") {
+          print(Program.build.target.name);
+      }
+</PRE></div>
+<div class="xdocText">For additional information about <tt>xdc.om</tt>, see
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om" title="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om">xdc.om</a>
+  in the
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference" title="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference">XDCscript Language Reference</a>.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Libs"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">IPackage.</span><span class="xdoc-id">getLibs</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#get.Libs">index URL</a></div>
+<p class="xdocHdrSummary">Get the libraries necessary to use this package</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">getLibs</span>( <span class="xdoc-id">prog</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">prog</span>
+<span class="xdocChildSum">&#151;&nbsp;the configuration model program object
+              (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>) after the program's
+              configuration script has completed.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function is called during the configuration model's generation
+  phase (after a program's configuration script completes and all
+  imported packages are closed) and is responsible for returning a list
+  of libraries (or object files) that are needed to link the program
+  being configured.</div>
+<div class="xdocText">If the package produces one (or no) library for the target for which
+  the executable is being built, the default implementation of this
+  function simply returns the name of this library (or <tt>null</tt>).</div>
+<div class="xdocText">If the package produces more than one library for the given target, the
+  default implementation of this function returns the following library
+  name:</div>
+<div class="xdocText"><PRE class="Example">          lib/&lt;package_name&gt;.a&lt;target_suffix&gt;
+</PRE></div>
+<div class="xdocText">where <tt>&lt;package_name&gt;</tt> is the name of the package (e.g., "ti.bios")
+  and <tt>&lt;target_suffix&gt;</tt> is the  <a class="xdoc-link" href="../xdc/bld/ITarget.html#suffix" title="xdc.bld.ITarget.suffix">xdc.bld.ITarget.suffix</a> property
+  of the target used to build the executable.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">CONTEXT</div>
+<div class="xdocText"></div>
+<div class="xdocText"><DL><DT> <tt>this</tt></DT><DD>
+          The current package's <tt>xdc.IPackage.Module</tt> object
+          after the program's configuration script has completed.
+</DD><DT> <tt>Program</tt></DT><DD>
+          The Configuration model program object
+          (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>) after the program's configuration
+          script has completed.
+
+</DD></DL></div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns a string of ';' delimited object (or library) file
+              names that are added to the list of things to link to
+              create the program.  The file names are absolute or
+              relative to the package's base.  All white space is
+              treated as part of the file name.  If the files named do
+              not exist, a fatal error occurs and configuration
+              terminates.</div>
+<div class="xdocText">If <tt>null</tt> or empty (""), then no libraries or objects are
+              required for this package.</div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Sects"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">IPackage.</span><span class="xdoc-id">getSects</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#get.Sects">index URL</a></div>
+<p class="xdocHdrSummary">Get package-specific linker section data</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">getSects</span>(  );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function is called during the configuration model's  generation
+  phase (after a program's configuration script completes) and is
+  responsible for returning a template file name that is used to
+  generate package-specific linker command file statements.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">CONTEXT</div>
+<div class="xdocText"></div>
+<div class="xdocText"><DL><DT> <tt>this</tt></DT><DD>
+          The current package's <tt>xdc.IPackage.Module</tt> object
+          after the program's configuration script has completed.
+</DD><DT> <tt>Program</tt></DT><DD>
+          The Configuration model program object
+          (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>) after program's configuration
+          script has completed and all packages have validated the
+          correctness of the configuration.
+
+</DD></DL></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns the path name of template file.  The path name
+              must relative to the package path or an absolute path.</div>
+<div class="xdocText">If <tt>null</tt> is returned, no data is generated.</div>
+<div class="xdocText">The template is evaluated in a context where the <tt>this</tt>
+              pointer is the package object.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="init"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">IPackage.</span><span class="xdoc-id">init</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#init">index URL</a></div>
+<p class="xdocHdrSummary">Initialize this package when first imported</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">init</span>(  );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function is called to initialize the package within any 
+  model.  It is called just once (when the package is first imported)
+  so there is no need to explicitly check for prior invocation.</div>
+<div class="xdocText">The default implementation of this function is a nop.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">CONTEXT</div>
+<div class="xdocText"></div>
+<div class="xdocText"><DL><DT> <tt>this</tt></DT><DD>
+          The current package's <tt>xdc.IPackage.Module</tt> object
+          before any model-specific user script runs (e.g. a program's
+          configuration script),
+          after the package's <tt>package.xs</tt> script is run and all
+          the package's modules are created, and before the
+          package is added to <tt>xdc.om.$packages</tt> (the Object Model's
+          package array)
+
+</DD></DL></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns nothing.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors.</div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">This function can be called in any model, so any access to
+  global variables specific to a particular object model should happen
+  only if the function is called in the context of that model. For
+  example, the variable <tt>Program</tt> is a global variable in the
+  Configuration Model (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>). Any access to it
+  should happen after a check that the current model is the
+  Configuration Model:</div>
+<div class="xdocText"><PRE class="Example">      if (xdc.om.$name == "cfg") {
+          print(Program.build.target.name);
+      }
+</PRE></div>
+<div class="xdocText">For additional information about <tt>xdc.om</tt>, see
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om" title="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om">xdc.om</a>
+  in the
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference" title="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference">XDCscript Language Reference</a>.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="validate"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">IPackage.</span><span class="xdoc-id">validate</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/IPackage.html#validate">index URL</a></div>
+<p class="xdocHdrSummary">Validate this package after the model's state is "sealed"</p>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/IPackage-src.html"><span class="xdocLabelFile">xdc/IPackage.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">function </span><span class="xdoc-id">validate</span>(  );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function is called to validate the package's state in the 
+  curent model.  It can verify semantic constraints and optionally 
+  throw exceptions to prevent the configuration step from completing.</div>
+<div class="xdocText">For example, a package that needs to assert incompatibility with
+  certain versions of prerequisite packages can check the versions in
+  this function and throw an exception if they are known to be
+  incompatible with the current package.</div>
+<div class="xdocText">This method must not modify the model.</div>
+<div class="xdocText">The default implementation of this function is a nop.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">CONTEXT</div>
+<div class="xdocText"></div>
+<div class="xdocText"><DL><DT> <tt>this</tt></DT><DD>
+          The current package's <tt>xdc.IPackage.Module</tt> object
+          immediately after the program's configuration script
+          has completed and before generation started.
+
+</DD></DL></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">Returns nothing.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors.</div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">NOTE</div>
+<div class="xdocText">This function can be called in any model, so any access to
+  global variables specific to a particular object model should happen
+  only if the function is called in the context of that model. For
+  example, the variable <tt>Program</tt> is a global variable in the
+  Configuration Model (<tt><a class="xdoc-link" href="../xdc/cfg/Program.html" title="xdc.cfg.Program">xdc.cfg.Program</a></tt>). Any access to it
+  should happen after a check that the current model is the
+  Configuration Model:</div>
+<div class="xdocText"><PRE class="Example">      if (xdc.om.$name == "cfg") {
+          print(Program.build.target.name);
+      }
+</PRE></div>
+<div class="xdocText">For additional information about <tt>xdc.om</tt>, see
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om" title="http://rtsc.eclipse.org/docs-tip/XDCscript_-_xdc.om">xdc.om</a>
+  in the
+  <a class="xdoc-linkExt" href="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference" title="http://rtsc.eclipse.org/docs-tip/XDCscript_Language_Reference">XDCscript Language Reference</a>.</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:27 GMT</div>
+</div></div></body>
+</html>

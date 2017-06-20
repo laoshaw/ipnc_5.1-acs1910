@@ -1,0 +1,82 @@
+<html><head><title>interface ti.catalog.c5500.IOMAP</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== IOMAP.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    <span class=key>package</span> ti.catalog.c5500;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== IOMAP ========
+</span>    21    <span class="xdoc"> *  An interface implemented by all OMAP devices.
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  This interface is defined to factor common data about this family into
+</span>    24    <span class="xdoc"> *  a single place; all OMAP devices extend this interface.
+</span>    25    <span class="xdoc"> */</span>
+    26    <span class=key>metaonly</span> <span class=key>interface</span> IOMAP <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    27    {
+    28    <span class=key>instance</span>:
+    29        <span class=key>override</span> <span class=key>config</span> string   cpuCore        = <span class="string">"5500"</span>;
+    30        <span class=key>override</span> <span class=key>config</span> string   isa            = <span class="string">"55"</span>;
+    31        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minProgUnitSize = 2;
+    32        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minDataUnitSize = 1;    
+    33        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     dataWordSize    = 2;
+    34    
+    35        <span class="xdoc">/*!
+</span>    36    <span class="xdoc">     *  ======== memMap ========
+</span>    37    <span class="xdoc">     *  The default memory map for OMAP device. For 1510 and like devices,
+</span>    38    <span class="xdoc">     *  this memory map doesn't change, but for 1710, 2420, 594x and some
+</span>    39    <span class="xdoc">     *  others, it needs to be overridden.
+</span>    40    <span class="xdoc">     */</span>
+    41        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    42            [<span class="string">"DARAM"</span>, {
+    43                comment: <span class="string">"8 blocks of 8K bytes"</span>,
+    44                name: <span class="string">"DARAM"</span>,
+    45                base: 0x000000,
+    46                len:  0x010000,
+    47                space: <span class="string">"code/data"</span>,
+    48                access: <span class="string">"RWX"</span>
+    49            }],
+    50        
+    51            [<span class="string">"SARAM"</span>, {
+    52                comment: <span class="string">"12 blocks of 8K bytes"</span>,
+    53                name: <span class="string">"SARAM"</span>,
+    54                base: 0x010000,
+    55                len:  0x018000,
+    56                space: <span class="string">"code/data"</span>,
+    57                access: <span class="string">"RWX"</span>
+    58            }],
+    59    
+    60            [<span class="string">"PDROM"</span>, {
+    61                comment: <span class="string">"32K bytes On-Chip ROM"</span>,
+    62                name: <span class="string">"PDROM"</span>,
+    63                base: 0xff8000,
+    64                len:  0x008000,
+    65                space: <span class="string">"code/data"</span>,
+    66                access: <span class="string">"RX"</span>
+    67            }],
+    68        ];
+    69    
+    70    };
+    71    <span class="comment">/*
+</span>    72    <span class="comment"> *  @(#) ti.catalog.c5500; 1, 0, 0, 0,226; 2-23-2010 16:53:06; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    73    <span class="comment"> */</span>
+    74    
+</pre>
+</body></html>

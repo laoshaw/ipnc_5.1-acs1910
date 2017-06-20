@@ -1,0 +1,101 @@
+<html><head><title>module ti.catalog.msp430.init.Boot</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Boot.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class=key>package</span> ti.catalog.msp430.init;
+    19    
+    20    import xdc.rov.ViewInfo;
+    21    
+    22    @Template(<span class="string">"./Boot.xdt"</span>)
+    23    
+    24    <span class=key>metaonly</span> <span class=key>module</span> Boot
+    25    {
+    26        <span class=key>metaonly</span> <span class=key>struct</span> ModuleView {
+    27            Bool         disableWatchdog;
+    28            UInt         watchdogAddress;
+    29            Bool         configureDCO;
+    30        }
+    31    
+    32        @Facet
+    33        <span class=key>metaonly</span> <span class=key>config</span> ViewInfo.Instance rovViewInfo = 
+    34            ViewInfo.create({
+    35                viewMap: [
+    36                [
+    37                    <span class="string">'Module'</span>,
+    38                    {
+    39                        type: ViewInfo.MODULE,
+    40                        viewInitFxn: <span class="string">'viewInitModule'</span>,
+    41                        structName: <span class="string">'ModuleView'</span>
+    42                    }
+    43                ],
+    44                ]
+    45            });
+    46        
+    47        <span class="xdoc">/*! 
+</span>    48    <span class="xdoc">     *  Watchdog disable flag; default is true.
+</span>    49    <span class="xdoc">     *
+</span>    50    <span class="xdoc">     *  Set to false to not automatically disable the watchdog timer.
+</span>    51    <span class="xdoc">     */</span>
+    52        <span class=key>config</span> Bool disableWatchdog = <span class=key>true</span>;
+    53    
+    54        <span class="xdoc">/*! 
+</span>    55    <span class="xdoc">     *  Watchdog control register address; default for MSP430F54xx.
+</span>    56    <span class="xdoc">     *
+</span>    57    <span class="xdoc">     *  Change for other (non-F54xx) devices.
+</span>    58    <span class="xdoc">     */</span>
+    59        <span class=key>config</span> UInt watchdogAddress = 0x15c;
+    60    
+    61        <span class="xdoc">/*! 
+</span>    62    <span class="xdoc">     *  Configure DCO flag; default is false.
+</span>    63    <span class="xdoc">     *
+</span>    64    <span class="xdoc">     *  Set to true to initialize DCO at boot.
+</span>    65    <span class="xdoc">     */</span>
+    66        <span class=key>config</span> Bool configureDCO = <span class=key>false</span>;
+    67    
+    68        <span class="xdoc">/*! 
+</span>    69    <span class="xdoc">     *  Code section that Boot module code is in.
+</span>    70    <span class="xdoc">     *
+</span>    71    <span class="xdoc">     *  To place this section into a memory segment yourself, add the 
+</span>    72    <span class="xdoc">     *  following to your configuration file: 
+</span>    73    <span class="xdoc">     *
+</span>    74    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    75    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection] = new Program.SectionSpec();
+</span>    76    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection].loadSegment = "yourBootCodeMemorySegment";
+</span>    77    <span class="xdoc">     *  <b>@p</b>
+</span>    78    <span class="xdoc">     *
+</span>    79    <span class="xdoc">     *  or to place the code at a specific address: 
+</span>    80    <span class="xdoc">     *
+</span>    81    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    82    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection] = new Program.SectionSpec();
+</span>    83    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection].loadAdress = yourBootCodeAddress;
+</span>    84    <span class="xdoc">     *  <b>@p</b>
+</span>    85    <span class="xdoc">     *
+</span>    86    <span class="xdoc">     */</span>
+    87        <span class=key>readonly</span> <span class=key>config</span> String bootCodeSection = <span class="string">".bootCodeSection"</span>;
+    88        
+    89    };
+    90    <span class="comment">/*
+</span>    91    <span class="comment"> *  @(#) ti.catalog.msp430.init; 1, 0, 0,17; 2-23-2010 16:50:25; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    92    <span class="comment"> */</span>
+    93    
+</pre>
+</body></html>

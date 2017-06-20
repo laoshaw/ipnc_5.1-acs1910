@@ -1,0 +1,425 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Compatibility Keys - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Compatibility Keys&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Compatibility Keys" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><p id="title">Compatibility Keys</p><p id="subtitle">How inter-package dependencies are managed</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Package_Compatibility_Keys"><span class="tocnumber">2</span> <span class="toctext">Package Compatibility Keys</span></a></li>
+<li class="toclevel-1"><a href="#Target_Compatibility_Keys"><span class="tocnumber">3</span> <span class="toctext">Target Compatibility Keys</span></a></li>
+<li class="toclevel-1"><a href="#Sources_of_Compatibility_Keys"><span class="tocnumber">4</span> <span class="toctext">Sources of Compatibility Keys</span></a></li>
+<li class="toclevel-1"><a href="#Compatibility_Key_Checks"><span class="tocnumber">5</span> <span class="toctext">Compatibility Key Checks</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Installation_Time_Checks"><span class="tocnumber">5.1</span> <span class="toctext">Installation Time Checks</span></a></li>
+<li class="toclevel-2"><a href="#Configuration_Time_Checks"><span class="tocnumber">5.2</span> <span class="toctext">Configuration Time Checks</span></a></li>
+<li class="toclevel-2"><a href="#Package_Release_Time_Checks"><span class="tocnumber">5.3</span> <span class="toctext">Package Release Time Checks</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Managing_.22Built-With.22_Dependencies"><span class="tocnumber">6</span> <span class="toctext">Managing "Built-With" Dependencies</span></a>
+<ul>
+<li class="toclevel-2"><a href="#How_to_view_built-with_dependencies"><span class="tocnumber">6.1</span> <span class="toctext">How to view built-with dependencies</span></a></li>
+<li class="toclevel-2"><a href="#How_to_control_built-with_dependencies"><span class="tocnumber">6.2</span> <span class="toctext">How to control built-with dependencies</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Controlling_Compatibility_Key_Checks"><span class="tocnumber">7</span> <span class="toctext">Controlling Compatibility Key Checks</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Installation_Time_Checks_2"><span class="tocnumber">7.1</span> <span class="toctext">Installation Time Checks</span></a></li>
+<li class="toclevel-2"><a href="#Configuration_Time_Checks_2"><span class="tocnumber">7.2</span> <span class="toctext">Configuration Time Checks</span></a></li>
+<li class="toclevel-2"><a href="#Package_Release_Time_Checks_2"><span class="tocnumber">7.3</span> <span class="toctext">Package Release Time Checks</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>In order to manage different versions of packages being updated at different times by the end-user, it is important that there be some mechanism for ensuring compatibility of a collection of packages. RTSC packages have built-in support for managing dependencies among a set of packages which relies on the RTSC concept of "compatibility keys".  Every package has a compatibility key consisting of an ordered tuple of three or more numbers.
+</p><p>Compatibility Keys are not version numbers; i.e., two different versions of a package may share a common compatibility key. Moreover, because RTSC package tooling interprets these numbers to determine if certain combinations of packages are permissible, it is important that compatibility key numbers be managed very carefully. This is in contrast to "Product Marketing" version numbers, which are often chosen on an ad hoc basis to convey subjective qualities of a product release.  A package's compatibility key combined with its release date and "release name" (an arbitrary name specified by the package producer at the time the release is created) is used by RTSC tooling as a version identifier.
+</p><p>Compatibility among packages is not only affected by different versions of other packages.  Use of different versions of code generation tools can also be the source of incompatibilities.   For example, a client using compiler version 4.0 might get a package of binary content that was built with version 5.0 of the same compiler.  Although compiler vendors are generally very good about maintaining <i>backward</i> compatibility (the ability of new linkers to use objects produced by older compliers), for obvious reasons, code generation tools are usually <i>not</i> forward compatible (the ability of old linkers to use objects produced by new compilers).  As a result, it is important that each package specify a target compatibility key for each compiler used to generate objects it contains.
+</p>
+<a name="Package_Compatibility_Keys"></a><h2> <span class="mw-headline">Package Compatibility Keys</span></h2>
+<p>Each package has a Compatibility Key, of the form [M,S,R,P], that expresses the compatibility of this version of the package with other versions of the same package.  The semantics of each dimension of the compatibility key for a package P is described in the table below.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="left"> <b>Name</b>
+</th><th align="left"> <b>Compatibility</b>
+</th><th align="left"> <b>Consumer Must</b>
+</th><th align="left"> <b>Indicated By</b>
+</th></tr>
+<tr>
+<td align="left"> Major
+</td><td align="left"> incompatible
+</td><td align="left"> re-write sources that reference P, get new versions of all packages that reference P, and ensure that these packages are built with a version of P whose key matches M
+</td><td align="left"> change in M
+</td></tr>
+<tr>
+<td align="left"> Source
+</td><td align="left"> source backward compatible
+</td><td align="left"> re-compile sources that reference P, get new versions of binary packages that reference P, and ensure that these packages are built with a version of P whose key matches both M and S
+</td><td align="left"> same M, change in S
+</td></tr>
+<tr>
+<td align="left"> API Radius
+</td><td align="left"> binary backward compatible
+</td><td align="left"> re-link applications and ensure that all packages that reference P are built with a version of P whose key matches M and S and whose R is less than or equal to the current P's R value
+</td><td align="left"> same [M,S], change in R
+</td></tr>
+<tr>
+<td align="left"> Patch
+</td><td align="left"> binary 100% compatible
+</td><td align="left"> re-link dependent applications with any version
+</td><td align="left"> same [M,S,R], change in P
+</td></tr></table>
+<p><div class="Notice"><p class="Notice">Any change to M, S, R, or P requires re-running the configuration step.  <span class="todo"><b>TODO:</b>&nbsp;&nbsp;is it possible to weaken this requirement?</span></p></div></p>
+<p>To ensure compatibility among a group of packages each package specifies its compatibility with other versions of itself.  Each package also specifies the compatibility key of the packages that it was built and tested against.  Given this information about each package, it is possible to determine if a specified set of packages are expected to work together.
+</p>
+<a name="Target_Compatibility_Keys"></a><h2> <span class="mw-headline">Target Compatibility Keys</span></h2>
+<p>Each <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> has a Compatibility Key, also of the form [M,S,R,P], that expresses the compatibility of pre-compiled object files produced by this version of the target's underlying tool-chain with those produced using other versions of the same tool-chain.  The semantics of each dimension of the compatibility key for a target T is described in the table below.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="left"> <b>Name</b>
+</th><th align="left"> <b>Compatibility</b>
+</th><th align="left"> <b>Consumer Must</b>
+</th><th align="left"> <b>Indicated By</b>
+</th></tr>
+<tr>
+<td align="left"> Major
+</td><td align="left"> incompatible
+</td><td align="left"> re-write sources built with target T, get new versions of all packages built with target T, and ensure that for each of these packages that T's key is M
+</td><td align="left"> change in M
+</td></tr>
+<tr>
+<td align="left"> Source
+</td><td align="left"> source backward compatible
+</td><td align="left"> re-compile dependent source packages, get new dependent binary packages, and ensure that for each of these packages that T's key matches both M and S
+</td><td align="left"> same M, change in S
+</td></tr>
+<tr>
+<td align="left"> API Radius
+</td><td align="left"> binary backward compatible
+</td><td align="left"> re-link applications and ensure that the R digit is greater than or equal to the R digits of the built with target versions
+</td><td align="left"> same [M,S], change in R
+</td></tr>
+<tr>
+<td align="left"> Patch
+</td><td align="left"> binary 100% compatible
+</td><td align="left"> re-link application with any packages built with T which has key with the same M, S, and R digits
+</td><td align="left"> same [M,S,R], change in P
+</td></tr></table>
+<p>Target compatibility keys are typically computed automatically by a target from the version number reported by the underlying compiler tool-chain.  Each compiler tool-chain has a unique way of communicating compatibility via its version numbers but, by first converting these version numbers to a compatibility key, <tt>XDCtools</tt> can uniformly manage some compiler compatibility checks without having to know about any particular tool-chain.  
+</p><p>Although there can be exceptions, most targets map compiler version numbers into compatibility keys by simply using the compiler's major and minor version number as the API Radius.  For example, version <tt>3.4.6</tt> of a compiler might be converted to the compatibility key <tt>[1, 0, 3.4, 6]</tt>.  This simple mapping implies:
+</p>
+<ul><li> it's always possible to use a version of the compiler with the same (or greater) major or minor version number than that used to build any content you are referencing; e.g., you can use a <tt>4.1.0</tt> compiler to consume content built with <tt>3.4.6</tt>.
+</li><li> it's possible to use an earlier version of a compiler provided the major and minor version number match; e.g., you can use <tt>3.4.2</tt> to consume content built with <tt>3.4.6</tt> of the compiler.
+</li><li> a warning (or optionally an error) will be triggered if you try to use an older compiler to consume content built with a compiler that has later major or minor version number; e.g., a warning is generated if you try to use <tt>3.4.6</tt> to consume content built with a <tt>3.6.0</tt>.
+</li></ul>
+<a name="Sources_of_Compatibility_Keys"></a><h2> <span class="mw-headline">Sources of Compatibility Keys</span></h2>
+<p>There are three sources of compatibility key information:
+</p>
+<ol><li>All packages declare at least [M, S, R] in their <tt>package.xdc</tt> package specification file;
+</li><li>All packages specify the compatibility keys of all other packages used in its construction and this specification appears in an XML file named <tt>package/package.rel.xml</tt> which complies with the DTD <tt>release.dtd</tt> supplied in the <tt><a href="../../cdoc/xdc/bld/package.html" class="cdoc"><tt>xdc.bld</tt></a></tt> package; and
+</li><li>All packages specify the <a href="../Glossary/Glossary.html#Target" title="Glossary">target compatibility key</a> for all of the objects it contains and this specification appears in an XML file named <tt>package/package.bld.xml</tt> which complies with the DTD <tt>build.dtd</tt> supplied in the <tt>xdc.bld</tt> package.
+</li></ol>
+<p>So, in addition to a package's declared compatibility key (item 1 above), each package carries with it a set of "built-with" compatibility keys - the keys of the packages and targets used to build the package (items 2 and 3 above).  These "built-with" keys provide the connection to other packages that allows RTSC tooling to detect when a specific combination of packages should not be used together.  
+</p><p>Both files containing "built-with" compatibility keys, <tt>package/package.rel.xml</tt> and <tt>package/package.bld.xml</tt>, are automatically generated by the <tt><a href="../Command_-_xdc/Command_-_xdc.html" title="Command - xdc">xdc</a></tt> command during the package build process.  The "built-with" keys named in the <tt>package/package.rel.xml</tt> file are determined from two sources: the optionally supplied compatibility keys named by <tt>requires</tt> statements in the package's <tt>package.xdc</tt> file and all packages determined by examining the makefile dependencies generated by the RTSC Build Model during the build of the package.  If you do not use the RTSC Build Model to compile your C content, you must manually update the package's <tt>package.xdc</tt> requires statements to ensure the completeness of the package's "built-with" keys.  The "built-with" target keys named in <tt>package/package.bld.xml</tt> are determined by the targets named by the target configuration file (typically <tt><a href="../Glossary/Glossary.html#ConfigBld" title="Glossary">config.bld</a></tt>) used to build the package.
+</p><p>We don't require packages to specify the patch number because this value is not needed by tooling to detect a compatibility failure; if the first three digits of a pair of compatibility keys match the two components are (as far as the key is concerned) 100% interchangeable.  The reason for having a patch digit is to enable compatibility keys optionally to serve as version numbers.
+</p><p>In the rare case that a package does not provide any programmatic interface that can be referenced by another package, the compatibility key for such a package is technically unnecessary.  For example, some products include example applications (in the form of a package) which are never referenced by another package.  We still require a compatibility key to be specified because there is no way for "package checking" tools to reliably recognize this situation.  For these cases the package should simply be given the compatibility key [1, 0, 0].
+</p>
+<a name="Compatibility_Key_Checks"></a><h2> <span class="mw-headline">Compatibility Key Checks</span></h2>
+<p>Package and target compatibility keys are checked only at specific points in the development process: 
+</p>
+<ul><li>during package installation, 
+</li><li>as part of the configuration process when modules are assembled, and 
+</li><li>when the producer creates a release of a package.  
+</li></ul>
+<p>All checks can be controlled on a per package or per target basis and can even be disabled altogether.  
+</p><p>Why is it necessary to control or disable the compatibility checks?  There are times when, strictly speaking, a package <i>as a whole</i> is incompatible with another package but it is still possible to use both packages safely in an application.  Suppose for example, that a package provides a new version of a module in which a C-language macro is reimplemented as a function.  The package's compatibility key should indicate that a re-compile is necessary (a change in the S digit).  On the other hand, clients that never reference this particular macro do not need to be recompiled even though the package compatibility key suggests that it is required.  Since packages have a single compatibility key - rather than a key for each constant, type, and method of each module - and it's not practical to precisely determine what parts of each package are actually used by others, there are times when the compatibility checks will falsely indicate a problem.
+</p><p>The following sub-sections describe what checks are performed.
+</p>
+<a name="Installation_Time_Checks"></a><h3> <span class="mw-headline">Installation Time Checks</span></h3>
+<p>Before a package can be used it must be installed in a repository that appears along your project's <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a>.  If two "incompatible" packages are installed in the same repository and your application references both of these packages, it is difficult (though not impossible) to build your application with compatible versions of these packages.  So, tools that build repositories, such as <tt><a href="../../cdoc/xdc/tools/repoman/package.html" class="cdoc"><tt>xdc.tools.repoman</tt></a></tt>, perform the following checks on each repository:
+</p>
+<ol><li>all versions of each target T used to build a package in the repository are compatible with the "latest" version of T used: if T[M, S, R] is the latest version of T used by any package, and T[M', S', R'] is also used, then we require that M == M', S == S', and R &gt;= R'
+</li><li>for every package P in the repository, the versions of all packages B used to build P are compatible with the versions of B currently contained in the repository: for each "built-with" package B[M, S, R] we compare the version of B in the repository B[M', S', R'] (if it exists) and require that M' == M, S' == S and R' &gt;= R
+</li></ol>
+<p>Packages may be "installed" in any repository either by hand or by using a repository management tool such as <tt>xdc.tools.repoman</tt>.  Installation by hand simply means that you've copied the package contents into a directory.  In this case, of course, no compatibility checks are performed.  You may, however, manually check that the packages in a repository are mutually compatible using the <tt><a href="../../cdoc/xdc/tools/check/package.html" class="cdoc"><tt>xdc.tools.check</tt></a></tt> utility.
+</p>
+<a name="Configuration_Time_Checks"></a><h3> <span class="mw-headline">Configuration Time Checks</span></h3>
+<p>During configuration, three compatibility checks occur
+</p>
+<ol><li>for all imported packages P, P's "built-with" package keys are compared with "actual" keys: for each "built-with" package Q[M, S, R] we compare the "actual" imported Q[M', S', R'] and require that M' == M, S' == S and R' &gt;= R
+</li><li>for all imported packages P, the configuration's target key is compared to P's target key: each package's "built-with" target T[M, S, R] is compared to the configuration's imported target T[M', S', R'] and we require that M' == M, S' == S and R' &gt;= R
+</li><li>for all imported packages P, P may perform custom compatibility checks when P is imported by any script (via <a href="../../cdoc/xdc/IPackage.html#init" class="cdoc"><tt>P.init()</tt></a>)
+</li></ol>
+<p></p>
+<p>As an example of a package-specific compatibility check, consider the following fragment of a package's <tt><a href="../../cdoc/xdc/IPackage.html" class="cdoc"><tt>xdc.IPackage</tt></a></tt> implementation file, <tt>package.xs</tt>.  In this case, <tt>validate()</tt> examines the version of another package (<tt>ti.bios</tt>) and based on the version either succeeds or fails.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> validate<span class="br0">&#40;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> biosVers = <span class="re1">xdc.om</span><span class="br0">&#91;</span><span class="st0">&quot;ti.bios&quot;</span><span class="br0">&#93;</span>.$vers;        <span class="coMULTI">/* get ti.bios key as an array */</span> 
+    <span class="kw1">if</span> <span class="br0">&#40;</span>biosVers.join<span class="br0">&#40;</span><span class="st0">&quot;,&quot;</span><span class="br0">&#41;</span>.indexOf<span class="br0">&#40;</span><span class="st0">&quot;1,2&quot;</span><span class="br0">&#41;</span> == <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>  <span class="coMULTI">/* if its key is 1,2,* ... */</span>
+        <span class="kw1">switch</span> <span class="br0">&#40;</span>biosVers<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">case</span> <span class="nu0">3</span>: <span class="br0">&#123;</span> <span class="coMULTI">/* avoid version 1,2,3,x, where x &lt; 10 or x == 15 */</span>
+                <span class="kw1">if</span> <span class="br0">&#40;</span>biosVers<span class="br0">&#91;</span><span class="nu0">3</span><span class="br0">&#93;</span> &lt; <span class="nu0">10</span> || biosVers<span class="br0">&#91;</span><span class="nu0">3</span><span class="br0">&#93;</span> == <span class="nu0">15</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+		    <span class="kw1">throw</span> <span class="kw1">new</span> Error<span class="br0">&#40;</span><span class="st0">&quot;incompatible version of ti.bios&quot;</span><span class="br0">&#41;</span>;
+                <span class="br0">&#125;</span>
+            <span class="br0">&#125;</span>
+        &nbsp;:</pre></td></tr></table>
+<a name="Package_Release_Time_Checks"></a><h3> <span class="mw-headline">Package Release Time Checks</span></h3>
+<p>During the build of a release of a package P, two compatibility checks occur:
+</p>
+<ol><li>for all "required" packages R, the specified requirement key is "source compatible" with R's actual key (M identical, &gt;= R)
+</li><li>for all "directly required" packages R, if R's key is not prefix of the "built-with" R's key, a remark is displayed
+</li></ol>
+<a name="Managing_.22Built-With.22_Dependencies"></a><h2> <span class="mw-headline">Managing "Built-With" Dependencies</span></h2>
+<p>Before releasing a package for general use it is important to review the package's dependencies.  These dependencies affect whether the package can be used without warnings from the compatibility checks described above.
+</p>
+<a name="How_to_view_built-with_dependencies"></a><h6> <span class="mw-headline">How to view built-with dependencies</span></h6>
+<p><span class="Leader">How to view built-with dependencies</span>.&nbsp;
+The following script can be used to display a <i>released</i> package's external references.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>refs.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> main<span class="br0">&#40;</span>args<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="coMULTI">/* convert package name to release XML file name */</span>
+    <span class="kw1">var</span> file = args<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span>.replace<span class="br0">&#40;</span>/\./g, <span class="st1">'/'</span><span class="br0">&#41;</span> + <span class="st0">&quot;/package/package.rel.xml&quot;</span>;
+&nbsp;
+    <span class="coMULTI">/* load the specified package's release XML file */</span>
+    <span class="kw1">var</span> ext = <span class="re1">xdc.loadXML</span><span class="br0">&#40;</span>file<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* use E4X extensions to get and display information from this file */</span>
+    <span class="kw1">var</span> references = ext.references<span class="br0">&#91;</span><span class="st0">&quot;package&quot;</span><span class="br0">&#93;</span>;
+    print<span class="br0">&#40;</span><span class="st0">&quot;package &quot;</span> + ext<span class="br0">&#91;</span><span class="st0">&quot;package&quot;</span><span class="br0">&#93;</span>.@name + <span class="st0">&quot; references the following packages:&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i <span class="kw1">in</span> references<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        print<span class="br0">&#40;</span><span class="st0">&quot;    &quot;</span> + references<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.@name + <span class="st0">&quot; [&quot;</span> + references<span class="br0">&#91;</span>i<span class="br0">&#93;</span>.@version + <span class="st0">&quot;]&quot;</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>This script can be run using the <tt>-c</tt> option of the <tt>xs</tt> command.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xs -c refs.xs xdc.runtime</span></b>
+    package xdc.runtime references the following packages:
+        xdc.utils.tconf [1, 0, 0, 0]
+        xdc.services.global [1, 0, 0]
+        xdc.services.spec [1, 0, 0, 0]
+        xdc.corevers [16, 0, 1, 0]
+        xdc.bld [1, 0, 0, 0]
+        xdc.services.intern.cmd [1, 0, 0, 0]
+        xdc.services.intern.xsr [1, 0, 0]
+        xdc [1, 1, 0, 0]
+        xdc.shelf [1, 0, 0, 0]
+        xdc.services.intern.gen [1, 0, 0, 0]
+<b><span class="st0">%</span></b></pre></td></tr></table>
+<a name="How_to_control_built-with_dependencies"></a><h6> <span class="mw-headline">How to control built-with dependencies</span></h6>
+<p><span class="Leader">How to control built-with dependencies</span>.&nbsp;  A package's built-with dependencies are automatically computed by the <tt><a href="../Command_-_xdc/Command_-_xdc.html" title="Command - xdc">xdc</a></tt> tool when building the <tt>release</tt> goal; e.g., when running the command "<tt>xdc release</tt>" in a package's <a href="../Glossary/Glossary.html#Base_Directory" title="Glossary">base directory</a>.  The algorithm used to compute these dependencies scans the package's generated makefiles for external pre-requisites, computes the packages containing these pre-requisites, and records both the package name and version information for each such package.
+</p><p>There is currently (7/11/2008) no way to add or remove built-with dependencies to this automatically generated list.
+</p>
+<a name="Controlling_Compatibility_Key_Checks"></a><h2> <span class="mw-headline">Controlling Compatibility Key Checks</span></h2>
+<p>The next few sub-sections describe how to control the compatibility checks described above.
+</p>
+<a name="Installation_Time_Checks_2"></a><h3> <span class="mw-headline">Installation Time Checks</span></h3>
+<p>When extracting package into a repository, the <tt><a href="../../cdoc/xdc/tools/repoman/package.html" class="cdoc"><tt>xdc.tools.repoman</tt></a></tt> tool first checks that the packages are compatibile with the other packages in the repository.  If an incompatibility is detected, the repository is not modified.  You can force the installation of these packages using the <tt>-F</tt> flag, however.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xs xdc.tools.repoman -x -F ...</pre></td></tr></table>
+<a name="Configuration_Time_Checks_2"></a><h3> <span class="mw-headline">Configuration Time Checks</span></h3>
+<p>Configuration time checks are controlled by two "environment" variables:
+</p>
+<ul><li><tt>xdc.cfg.check.exclude</tt> - a regular expression that is used to select packages that should be excluded from the set of packages checked during configuration, and
+</li><li><tt>xdc.cfg.check.fatal</tt> - if set to <tt>false</tt>, force any incompatibilities detected to be treated as warnings only; otherwise incompatibilities are fatal
+</li></ul>
+<p>To define these environment variables you must pass the appropriate <tt>-D</tt> options to the XDCscript shell (<a href="../Command_-_xs/Command_-_xs.html" title="Command - xs">xs</a>). 
+For example, to ignore any incompatibilities triggered by packages whose names start with <tt>ti.targets.rts</tt>,  set <tt>xdc.cfg.check.exclude</tt> to the regular expression <tt>'ti.targets.rts.*'</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xs -Dxdc.cfg.check.exclude='ti.targets.rts.*' xdc.tools.configuro ...</pre></td></tr></table>
+<p>Similarly, to treat any detected package incompatibilities as warnings only, set <tt>xdc.cfg.check.fatal</tt> to <tt>false</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xs -Dxdc.cfg.check.fatal=false xdc.tools.configuro ...</pre></td></tr></table>
+<p>If you are using the <a href="../../cdoc/xdc/bld/package.html" class="cdoc"><tt>RTSC Build Model</tt></a> to build your application, you can pass these options to the the XDCscript shell on a per executable basis via the <tt>xdcopts</tt> attribute of an <tt><a href="../../cdoc/index.html#xdc/bld/Executable.html" class="cdoc"><tt>Executable</tt></a></tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Pkg.addExecutable<span class="br0">&#40;</span><span class="st0">&quot;app&quot;</span>, targ, targ.platform, <span class="br0">&#123;</span>
+    xsopts: <span class="st0">&quot;-Dxdc.cfg.check.exclude='ti.targets.rts.*'&quot;</span>
+<span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>In addition, if you don't want to set <tt>xsopts</tt> for each executable, it is possible to set it for all executables within a package by setting the <tt>xsopts</tt> attribute of the <tt><a href="../../cdoc/xdc/bld/PackageContents.html" class="cdoc"><tt>xdc.bld.PackageContents</tt></a></tt> (<tt>Pkg</tt>) object. For example, to turn all compatibility checks into warnings for all executables in a package, add the following line to the package's build script:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Pkg.attrs.xsopts = <span class="st0">&quot;-Dxdc.cfg.check.fatal=false&quot;</span>;</pre></td></tr></table>
+<a name="Package_Release_Time_Checks_2"></a><h3> <span class="mw-headline">Package Release Time Checks</span></h3>
+<p>To ensure the correctness of the information contained in each package's <tt>package.xdc</tt> file, the release time checks can not be overridden.
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Compatibility Keys&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Compatibility Keys" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2105 bytes
+Post-expand include size: 1401 bytes
+Template argument size: 284 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Compatibility_Keys.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.212 secs. --></body></html>

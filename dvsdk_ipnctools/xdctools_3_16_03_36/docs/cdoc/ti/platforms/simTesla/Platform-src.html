@@ -1,0 +1,74 @@
+<html><head><title>module ti.platforms.simTesla.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Platform ========
+</span>    20    <span class="xdoc"> *  Platform support for the simTesla
+</span>    21    <span class="xdoc"> */</span>
+    22    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    23    {
+    24        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    25            id:             <span class="string">"0"</span>,
+    26            boardName:      <span class="string">"simTesla"</span>,
+    27            boardFamily:    <span class="string">"simTesla"</span>,
+    28            boardRevision:  <span class=key>null</span>,
+    29        };
+    30            
+    31        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu CPU = {        
+    32            id:             <span class="string">"0"</span>,
+    33            clockRate:      466,
+    34            catalogName:    <span class="string">"ti.catalog.c6000.nda"</span>,
+    35            deviceName:     <span class="string">"Tesla"</span>,
+    36            revision:       <span class="string">"1.0"</span>,
+    37        };
+    38        
+    39    <span class=key>instance</span>:
+    40    
+    41        <span class="xdoc">/*!
+</span>    42    <span class="xdoc">     *  ======== externalMemoryMap ========
+</span>    43    <span class="xdoc">     *  Memory regions as defined in the Tesla Functional Specification
+</span>    44    <span class="xdoc">     */</span>
+    45    
+    46        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Memory
+    47            externalMemoryMap[string] = [
+    48    
+    49                [<span class="string">"EXT_RAM"</span>, {
+    50                    comment: <span class="string">"External RAM"</span>,
+    51                    name: <span class="string">"EXT_RAM"</span>,
+    52                    base: 0x20000000, 
+    53                    len:  0x01000000
+    54                }],
+    55    
+    56            ];
+    57    
+    58    
+    59        <span class=key>override</span> <span class=key>config</span> string codeMemory  = <span class="string">"EXT_RAM"</span>;
+    60        <span class=key>override</span> <span class=key>config</span> string dataMemory  = <span class="string">"EXT_RAM"</span>;
+    61        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"EXT_RAM"</span>;
+    62    };
+    63    <span class="comment">/*
+</span>    64    <span class="comment"> *  @(#) ti.platforms.simTesla; 1, 0, 0, 0,50; 2-23-2010 17:02:17; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    65    <span class="comment"> */</span>
+    66    
+</pre>
+</body></html>

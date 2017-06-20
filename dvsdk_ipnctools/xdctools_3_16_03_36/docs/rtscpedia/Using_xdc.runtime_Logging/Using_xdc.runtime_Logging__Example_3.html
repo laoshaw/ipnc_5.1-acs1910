@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using xdc.runtime Logging/Example 3 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Logging/Example 3&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Using_xdc.runtime_Logging__Example_2.html" title="Example 2"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="Using_xdc.runtime_Logging.html#TOC" title="Using xdc.runtime Logging"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_Logging__Example_4.html" title="Example 4"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Using xdc.runtime Logging/Example 3</p><p id="subtitle">Adding logging to existing code bases</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Adding_Logging_to_Existing_Code_Bases"><span class="tocnumber">1</span> <span class="toctext">Adding Logging to Existing Code Bases</span></a></li>
+<li class="toclevel-1"><a href="#Enabling_Custom_ILogger_Configuration"><span class="tocnumber">2</span> <span class="toctext">Enabling Custom ILogger Configuration</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Creating_the_Cool_Module"><span class="tocnumber">2.1</span> <span class="toctext">Creating the Cool Module</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">3</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Adding_Logging_to_Existing_Code_Bases"></a><h2> <span class="mw-headline">Adding Logging to Existing Code Bases</span></h2>
+<p>The simplest way to add logging is to simply <tt>#include</tt> the <tt>xdc.runtime.Log</tt> and <tt>xdc.runtime.Diags</tt> headers and insert appropriate <tt>Log_print</tt> statements into your existing code base.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Log.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Diags.h&gt;</span>
+   &nbsp;:
+Log_print2<span class="br0">&#40;</span>Diags_ENTRY, <span class="st0">&quot;entering myFunc(0x%x,&nbsp;%d)&quot;</span>, <span class="br0">&#40;</span>IArg<span class="br0">&#41;</span>handle, arg2<span class="br0">&#41;</span>;
+   &nbsp;:
+Log_print1<span class="br0">&#40;</span>Diags_EXIT, <span class="st0">&quot;myFunc returned:&nbsp;%d&quot;</span>, result<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>This by itself allows clients of your code to get visibility into their use of your code in real-time, even in deployed systems.  
+</p><p><img src="../common/extensions/rtsc/images/hand.png" />  Why do we have casts around some of the arguments to <tt>Log_print()</tt>?  Unlike <tt>printf(),</tt> the <tt>Log_write()</tt> and <tt>Log_print()</tt> methods are not vararg functions; they are macros - which, prior to C99, are not allowed to take a variable number of arguments - that pass the specified arguments to an <tt>ILogger</tt> function whose arguments are of type <tt>IArg</tt>.  The <tt>IArg</tt> type, while large enough to hold a pointer, is not a pointer type and many compilers emit a warning when passing a pointer argument to either <tt>Log_print()</tt> or <tt>Log_write()</tt>; the cast to <tt>IArg</tt> suppresses these warnings.
+</p><p>Format strings, while very convenient, are a well known source of portability problems: each format specification must precisely match the types of the arguments passed.  Underlying "printf" functions use the format string to determine how far to advance through their argument list.  For targets where pointer types and integers are the same size there are no problems; each argument has the same size after the normal C promotions.
+</p><p><img src="../common/extensions/rtsc/images/warning.png" /> Suppose a target's pointer type is larger than its integer type.  In this case, because integer arguments are widened to be of type <tt>IArg</tt>, a format specification of "%d" causes an underlying <tt>printf()</tt> implementation to read the extended part of the integer argument as part of the <i>next</i> argument(!).  To get around this problem and still allow the use "natural" format specifications (e.g., <tt>%d</tt> and <tt>%x</tt> with optional width specifications), <tt>System_printf()</tt> supports a special format conversion operator that specifies that all subsequent arguments have been widened to be of type <tt>IArg</tt>: all arguments after the sequence <tt>"%$A"</tt> are treated as though they have been widened.
+</p><p><img src="../common/extensions/rtsc/images/TIP.png" /> You may want to allow clients of your code to independently configure and control your <tt>Log</tt> statements independent of other content producers.  If all content producers rely on <tt>xdc.runtime.Main</tt> as the source of their <tt>Log</tt> events, system integrators are not able to easily separate events coming from different parts of their application.   The next section shows how, with very little extra effort, you can enable your users with this level of configurability.
+</p>
+<a name="Enabling_Custom_ILogger_Configuration"></a><h2> <span class="mw-headline">Enabling Custom <tt>ILogger</tt> Configuration</span></h2>
+<p>This section outlines a simple technique that enables content producers make it appear to integrators that their content is, from a logging perspective, composed of one or more RTSC modules.  The "trick" is to create a RTSC module without any types or methods and then <tt>#include</tt> this module's generated header wherever you use the <tt>Log</tt> APIs.    By including the generated header in your existing code base, any <tt>Log</tt> API calls will be associated with this new module rather than <tt>xdc.runtime.Main</tt>.
+</p><p>Suppose, for example, that you name your module <tt>Cool</tt> and it's part of a package named <tt>org.optimal</tt>.  To add logging configurable under the name <tt>org.optimal.Cool</tt>, you modify your existing code base as shown above with only one difference: add a <tt>#include</tt> of the <tt>org.optimal.Cool</tt> module's <i>internal</i> header.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Log.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Diags.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;org/optimal/package/internal/Cool.xdc.h&gt;
+&nbsp;
+   &nbsp;:
+Log_print2<span class="br0">&#40;</span>Diags_ENTRY, <span class="st0">&quot;entering myFunc(0x%x,&nbsp;%d)&quot;</span>, <span class="br0">&#40;</span>IArg<span class="br0">&#41;</span>arg1, arg2<span class="br0">&#41;</span>;
+   &nbsp;:
+Log_print1<span class="br0">&#40;</span>Diags_EXIT, <span class="st0">&quot;myFunc returned:&nbsp;%d&quot;</span>, result<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>Doing this enables system integrators to configure a unique <tt>ILogger</tt> for your code and enable (or disable) events for just your codebase.  In addition, you can even declare <tt>Log</tt> events in the <tt>Cool</tt> module which can be referenced in you code base via <tt>Log_write</tt>; this allows the integrator to minimize the the string space required in her final application.
+</p><p><img src="../common/extensions/rtsc/images/TIP.png" /> You can avoid having to add <tt>Log</tt> statements throughout your code base by simply "wrapping" your selected APIs in a RTSC module.  Since all module methods are automatically instrumented by the configuration tool, you don't need to obfuscate your code with logging statements and users can completely eliminate the runtime overhead of these statements <i>without requiring your sources for recompilation</i>.
+</p>
+<a name="Creating_the_Cool_Module"></a><h3> <span class="mw-headline">Creating the <tt>Cool</tt> Module</span></h3>
+<p>To create the <tt>Cool</tt> module (and its headers) described above:
+</p>
+<ul><li> create a directory named <tt>org/optimal</tt> and add the files <tt>package.xdc</tt>, <tt>package.bld</tt>, and <tt>Cool.xdc</tt> (shown below); and
+</li><li> run the <tt><a href="../Command_-_xdc/Command_-_xdc.html" title="Command - xdc">xdc</a></tt> command from within this directory
+</li></ul>
+<p></p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Cool.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">module</span> Cool <span class="br0">&#123;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">package</span> org.optimal <span class="br0">&#123;</span> 
+    <span class="kw1">module</span> Cool; 
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* intentionally empty */</span></pre></td></tr></table>
+</td></tr></table>
+<p>When you run the <tt>xdc</tt> command, it should complete without error and you should see output similar to the following.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>making package.mak (because of package.bld) ...
+generating interfaces for package org.optimal (because package/package.xdc.xml is older than package.xdc) ...
+    translating Cool
+all files complete.</pre></td></tr></table>
+<p>To use the <tt>Cool</tt> module's headers in your existing code, simply add the directory containing <tt>org/optimal</tt> to your <a href="../Glossary/Glossary.html#PackagePath" title="Glossary">package path</a>.  For more information about integrating RTSC modules into an existing C/C++ code base see <a href="../Integrating_RTSC_Modules/Integrating_RTSC_Modules.html" title="Integrating RTSC Modules">Integrating RTSC Modules</a>.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="Using_xdc.runtime_Logging__Example_1.html" title="Using xdc.runtime Logging/Example 1">Using xdc.runtime Logging/Example 1</a>
+</td><td class="DocListSubTitle1">Classic "hello world" using <tt>Log</tt>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="Using_xdc.runtime_Logging__Example_2.html" title="Using xdc.runtime Logging/Example 2">Using xdc.runtime Logging/Example 2</a>
+</td><td class="DocListSubTitle">Events provided by all RTSC target modules
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="Using_xdc.runtime_Logging__Example_4.html" title="Using xdc.runtime Logging/Example 4">Using xdc.runtime Logging/Example 4</a>
+</td><td class="DocListSubTitle">Adding Logging to RTSC Modules
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Logging/Example 3&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Using_xdc.runtime_Logging__Example_2.html" title="Example 2"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="Using_xdc.runtime_Logging.html#TOC" title="Using xdc.runtime Logging"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_Logging__Example_4.html" title="Example 4"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1096 bytes
+Post-expand include size: 687 bytes
+Template argument size: 104 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_xdc.runtime_Logging.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.318 secs. --></body></html>

@@ -1,0 +1,58 @@
+<html><head><title>module ti.catalog.c6000.nda.Tesla</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Tesla.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    <span class=key>package</span> ti.catalog.c6000.nda;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== Tesla ========
+</span>    21    <span class="xdoc"> *  The C64T device data sheet module.
+</span>    22    <span class="xdoc"> */</span>
+    23    <span class=key>metaonly</span> <span class=key>module</span> Tesla <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    24    {
+    25    
+    26    <span class=key>instance</span>:
+    27        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minProgUnitSize = 1;
+    28        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minDataUnitSize = 1;    
+    29        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     dataWordSize    = 4;
+    30    
+    31        <span class=key>override</span> <span class=key>config</span> string   cpuCore         = <span class="string">"Tesla"</span>;
+    32        <span class=key>override</span> <span class=key>config</span> string   isa             = <span class="string">"64T"</span>;
+    33        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    34    
+    35        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    36            
+    37            [<span class="string">"L2SRAM"</span>, {
+    38                comment:    <span class="string">"Shared 256KB SRAM"</span>,
+    39                name:       <span class="string">"L2SRAM"</span>,
+    40                base:       0x10900000,
+    41                len:        0x00040000,
+    42                space:      <span class="string">"code/data"</span>,
+    43                access:     <span class="string">"RWX"</span>
+    44            }],
+    45        ];
+    46    };
+    47    <span class="comment">/*
+</span>    48    <span class="comment"> *  @(#) ti.catalog.c6000.nda; 1, 0, 0, 0,105; 2-23-2010 16:58:53; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    49    <span class="comment"> */</span>
+    50    
+</pre>
+</body></html>

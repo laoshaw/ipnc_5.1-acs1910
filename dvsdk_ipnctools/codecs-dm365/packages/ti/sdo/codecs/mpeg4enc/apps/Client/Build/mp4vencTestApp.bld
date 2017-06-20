@@ -1,0 +1,72 @@
+/*
+ *  ======== config.bld ========
+ * User note: YOU MUST MODIFY THIS FILE TO SPECIFY THE COMPILER TOOL PATHS.
+ *
+ * Edit this file to specify compiler toolchain paths, and any custom
+ * compiler/linker options.
+ */
+ 
+
+var gnuTargets = xdc.loadPackage('gnu.targets');
+var bos = Build.hostOSName;
+var vendors = environment["TOOLS"] + "/vendors";
+
+var dDefs  = " -D_DBG_ -DDBC_ASSERTS=1 -DGT_ASSERT=0 -DGT_TRACE=0";
+var rDefs  =         " -DDBC_ASSERTS=0 -DGT_ASSERT=0 -DGT_TRACE=0";
+var dTDefs = " -D_DBG_ -DDBC_ASSERTS=1 -DGT_ASSERT=1 -DGT_TRACE=1";
+var rTDefs =         " -DDBC_ASSERTS=0 -DGT_ASSERT=1 -DGT_TRACE=1";
+
+var remarks =  " " +
+   "-pdr "     + // enable remarks
+   "-pden "    + // enumerate remarks
+//   "-pds=880 " + // variable never referenced
+//   "-pds=552 " + // variable set but not used
+//   "-pds=238 " + // controlling expression is constant
+//   "-pds=681 " + // call cannot be inlined
+//   "-pds=452 " + // long long type is not standard
+   "-pds=195 " + // zero used for undefined preprocessing id (setjmp.h)
+   // check for -pds=452 -pds=238 -pds=681
+   "";
+
+/*
+ *  ======== M3 target ========
+ */
+var tiArm = xdc.useModule('ti.targets.arm.Arm9t');
+//tiArm.platform = "ti.platforms.simDM365";
+tiArm.platform = "ti.platforms.evmDM355";
+tiArm.rootDir = "C:/CCStudio_v3.3/tms470/cgtools";
+//tiArm.rootDir = vendors + "/ti/arm/4.1.3/Linux/";
+tiArm.ccOpts.prefix += remarks;
+
+tiArm.profiles["trace"] = tiArm.profiles["release"];
+tiArm.profiles["debug_trace"] = tiArm.profiles["debug"];
+
+tiArm.profiles["debug"].compileOpts.defs += dDefs;
+tiArm.profiles["debug_trace"].compileOpts.defs += dTDefs;
+tiArm.profiles["release"].compileOpts.defs = rDefs;
+tiArm.profiles["trace"].compileOpts.defs = rTDefs;
+
+Build.useTargets = "ti.targets.arm.Arm9t";
+/*
+ *  ======== Build.targets ========
+ *  This array define the list of targets for the build (it overrides any
+ *  XDCTARGETS setting)
+ *  Edit this list to add or remove any targets that you do/do not want to 
+ *  build for. 
+ */
+Build.targets = [
+    tiArm,
+];
+
+/* Adding a generic:DM360 platform to the platformTable */
+Build.platformTable["ti.platforms.generic:DM360"] = {
+    catalogName: "ti.catalog.c470",
+    deviceName: "TMS320DM360",
+    clockRate: 216.0,     //Random clock rate 
+    externalMemoryMap: [
+        ["DDR2", {
+            name: "DDR2",
+            base: 0x80000000, len: 0x1000000, space: "code/data"
+         }],
+    ]
+};

@@ -1,0 +1,999 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Coding Conventions - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Coding Conventions&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/RTSC Coding Conventions" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><p id="title">RTSC Coding Conventions</p><p id="subtitle">Coding conventions used in the XDCtools product</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Naming_Conventions"><span class="tocnumber">2</span> <span class="toctext">Naming Conventions</span></a></li>
+<li class="toclevel-1"><a href="#Data_Types"><span class="tocnumber">3</span> <span class="toctext">Data Types</span></a></li>
+<li class="toclevel-1"><a href="#Physical_Design"><span class="tocnumber">4</span> <span class="toctext">Physical Design</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Rationale"><span class="tocnumber">4.1</span> <span class="toctext">Rationale</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Module_and_Interface_Conventions"><span class="tocnumber">5</span> <span class="toctext">Module and Interface Conventions</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Header_Conventions"><span class="tocnumber">5.1</span> <span class="toctext">Header Conventions</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Doxygen_Conventions"><span class="tocnumber">5.1.1</span> <span class="toctext">Doxygen Conventions</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#XDoc_Comments"><span class="tocnumber">5.2</span> <span class="toctext">XDoc Comments</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Lexical_Conventions"><span class="tocnumber">6</span> <span class="toctext">Lexical Conventions</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Expressions"><span class="tocnumber">6.1</span> <span class="toctext">Expressions</span></a></li>
+<li class="toclevel-2"><a href="#Statements"><span class="tocnumber">6.2</span> <span class="toctext">Statements</span></a></li>
+<li class="toclevel-2"><a href="#Declarations"><span class="tocnumber">6.3</span> <span class="toctext">Declarations</span></a></li>
+<li class="toclevel-2"><a href="#Function_Definitions"><span class="tocnumber">6.4</span> <span class="toctext">Function Definitions</span></a></li>
+<li class="toclevel-2"><a href="#Macro_Definitions"><span class="tocnumber">6.5</span> <span class="toctext">Macro Definitions</span></a></li>
+<li class="toclevel-2"><a href="#Comments"><span class="tocnumber">6.6</span> <span class="toctext">Comments</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Spaces_And_Tabs"><span class="tocnumber">7</span> <span class="toctext">Spaces And Tabs</span></a></li>
+<li class="toclevel-1"><a href="#The_Use_of_goto_Statements"><span class="tocnumber">8</span> <span class="toctext">The Use of goto Statements</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>This coding conventions document contains the standard conventions that are followed by the XDCtools development team and that we recommend that others follow. It covers naming conventions, physical design, declarations, and programming practices.  Code conventions are important to programmers for a number of reasons:
+</p>
+<ul><li>80% of the lifetime cost of a piece of software goes to maintenance.
+</li><li>Hardly any software is maintained for its whole life by the original author.
+</li><li>Code conventions improve the readability of the software, allowing engineers to understand new code more quickly and thoroughly.
+</li></ul>
+<a name="Naming_Conventions"></a><h2> <span class="mw-headline">Naming Conventions</span></h2>
+<p>All of the modules, interfaces, and packages in XDCtools follow a set of naming conventions that improve the readability of the sources and enable common questions about the source to be answered without the aid of a tool (e.g., <tt>etags</tt>). The benefits of these conventions are as follows:
+</p>
+<ol><li>  Package names can be distinguished from module names. For example, <tt>ti.bios.utils</tt> is a package, but <tt>ti.bios.Utils</tt> is a module in the <tt>ti.bios</tt> package.
+</li><li>Modifiable entities can be distinguished from constants. For example, <tt>System.DONE</tt> is a constant, but <tt>System.maxPasses</tt> is a module configuration parameter.
+</li><li> Interfaces can be distinguished from concrete modules. For example, <tt>xdc.IPlatform</tt> is an interface, but <tt>xdc.Platform</tt> is a module.
+</li><li> Types can be distinguished from variables and functions. For example, <tt>String</tt> and <tt>Startup_InitFxn</tt> are types, but <tt>arg</tt> and <tt>Startup_firstFxns</tt> are parameters or variables.
+</li></ol>
+<p><br />
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+<caption><b>Identifier Naming Conventions</b>
+</caption>
+<tr>
+<th align="center"> <b>Convention</b>
+</th><th align="center"> <b>Examples</b>
+</th></tr>
+<tr>
+<td align="left"> Package names are all lowercase.
+</td><td align="left"> <tt>xdc.runtime</tt>
+</td></tr>
+<tr>
+<td align="left"> Packages that are expected to be referenced by content produced by other groups should have globally unique names.
+</td><td align="left"> <tt>ti.targets.arm</tt>
+</td></tr>
+<tr>
+<td align="left"> Module names begin with an uppercase letter.
+</td><td align="left"> <tt>xdc.runtime.Memory</tt>
+</td></tr>
+<tr>
+<td align="left"> Interface names begin with an uppercase "I".
+</td><td align="left"> <tt>IHeap</tt> and <tt>IGateProvider</tt>
+</td></tr>
+<tr>
+<td align="left"> Type names begin with an uppercase letter. The uppercase applies to the first letter after any package or module prefix; for example, "Handle" in <tt>Task_Handle</tt> and <tt>ti_sysbios_knl_Task_Handle</tt>.
+</td><td align="left"> <tt>IArg</tt>, <tt>String</tt>, and <tt>xdc_String</tt>
+</td></tr>
+<tr>
+<td align="left"> Multiple-word identifiers are separated by uppercase letters, not an underscore.
+</td><td align="left"> <tt>Mod_twoWords</tt>
+</td></tr>
+<tr>
+<td align="left"> Constants are in all uppercase after the module or package prefix. If multiple words are required, an underscore delimits the words.
+</td><td align="left"> <tt>Diags_INTERNAL</tt> and <tt>Types_STATIC_POLICY</tt>
+</td></tr>
+<tr>
+<td align="left"> Structure field names and configuration parameters begin with a lowercase letter.
+</td><td align="left"> <tt>attrs.count</tt> and <tt>System_maxAtexitHandlers</tt>
+</td></tr>
+<tr>
+<td align="left"> Functions, variables, and parameter names begin with a lowercase letter after any module prefix. Camel case is used where needed to delimit multiword names.
+</td><td align="left"> <tt>Diags_setMask()</tt> is a function and <tt>Log_system</tt> is a global variable
+</td></tr></table>
+<p>In order to ensure that packages can be created/developed/delivered independently (with no centralized control) it is important that no two packages have the same name; otherwise a client will be forced to use just one of the packages.  This requirement may be relaxed in cases where there is no expectation that a package will be used with other packages (such as self-contained examples).
+</p><p>With the exception that we do not require package names to include the top-level domain names (e.g., com, edu, gov, org, ...) of the company's URL, the naming conventions are consistent with the Java naming conventions specified by SUN (<a href="http://java.sun.com/docs/codeconv/" class="external free" title="http://java.sun.com/docs/codeconv/" rel="nofollow">http://java.sun.com/docs/codeconv/</a>).   However, using a company's URL followed by division, department, and project is a convenient way to ensure globally unique package names.
+</p>
+<a name="Data_Types"></a><h2> <span class="mw-headline">Data Types</span></h2>
+<p>XDCtools defines the following base datatypes for use in C code in <tt>xdc/std.h</tt>. You should use these types in application code that uses RTSC modules or is intended to be portable to multiple targets. Most datatypes have names that are similar to the corresponding C type, but with titleCase used for differentiation and abbreviation of unsigned and long. The underlying sizes may be different on various targets.
+For more information about these types as well as predefined macros that facilitate the creation of portable C modules see the reference documentations for the <tt><a href="../../cdoc/xdc/package.html" class="cdoc"><tt>xdc</tt></a></tt> package.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+<caption><b>Portable Data Types</b>
+</caption>
+<tr>
+<th align="center"> <b>RTSC Type</b>
+</th><th align="center"> <b>C99 Type</b>
+</th><th align="center"> <b>Comments</b>
+</th></tr>
+<tr>
+<td align="left"> <tt>Bits16</tt>
+</td><td align="left"> <tt>uint16_t</tt>
+</td><td align="left"> not supported on some targets; e.g., TI's C30 and C40 targets
+</td></tr>
+<tr>
+<td align="left"> <tt>Bits32</tt>
+</td><td align="left"> <tt>uint32_t</tt>
+</td><td align="left"> may not be supported on some targets
+</td></tr>
+<tr>
+<td align="left"> <tt>Bits8</tt>
+</td><td align="left"> <tt>uint8_t</tt>
+</td><td align="left"> not supported on some targets; e.g., TI's C28, C30, C40, C54, and most C55 targets
+</td></tr>
+<tr>
+<td align="left"> <tt>Bool</tt>
+</td><td align="left"> <tt>unsigned short</tt>
+</td><td align="left"> 1 for true and 0 for false or use <tt>TRUE</tt> and <tt>FALSE</tt>
+</td></tr>
+<tr>
+<td align="left"> <tt>Char</tt>
+</td><td align="left"> <tt>char</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>Double</tt>
+</td><td align="left"> <tt>double</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>Float</tt>
+</td><td align="left"> <tt>float</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>Fxn</tt>
+</td><td align="left"> <tt>int (*)()</tt>
+</td><td align="left"> generic function pointer
+</td></tr>
+<tr>
+<td align="left"> <tt>IArg</tt>
+</td><td align="left"> <tt>intptr_t</tt>
+</td><td align="left"> signed argument large enough to hold an <tt>int</tt> or any pointer type
+</td></tr>
+<tr>
+<td align="left"> <tt>Int</tt>
+</td><td align="left"> <tt>int</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>Int16</tt>
+</td><td align="left"> <tt>int_least16_t</tt> or <tt>int_fast16_t</tt>
+</td><td align="left"> the target may opt to use either the <tt>int_fast</tt> or the <tt>int_least</tt> types for these definitions.
+</td></tr>
+<tr>
+<td align="left"> <tt>Int32</tt>
+</td><td align="left"> <tt>int_least32_t</tt> or <tt>int_fast32_t</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>Int8</tt>
+</td><td align="left"> <tt>int_least8_t</tt> or <tt>int_fast8_t</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>LDouble</tt>
+</td><td align="left"> <tt>long double</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>LLong</tt>
+</td><td align="left"> <tt>long long</tt>
+</td><td align="left"> may be supported only as <tt>long</tt> on some targets
+</td></tr>
+<tr>
+<td align="left"> <tt>Long</tt>
+</td><td align="left"> <tt>long</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>Ptr</tt>
+</td><td align="left"> <tt>void*</tt>
+</td><td align="left"> data pointer
+</td></tr>
+<tr>
+<td align="left"> <tt>Short</tt>
+</td><td align="left"> <tt>short</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>SizeT</tt>
+</td><td align="left"> <tt>size_t</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>String</tt>
+</td><td align="left"> <tt>char*</tt>
+</td><td align="left"> null-terminated string
+</td></tr>
+<tr>
+<td align="left"> <tt>UArg</tt>
+</td><td align="left"> <tt>uintptr_t</tt>
+</td><td align="left"> unsigned argument large enough to hold an <tt>int</tt> or any pointer type
+</td></tr>
+<tr>
+<td align="left"> <tt>UChar</tt>
+</td><td align="left"> <tt>unsigned char</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>UInt</tt>
+</td><td align="left"> <tt>unsigned int</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>UInt16</tt>
+</td><td align="left"> <tt>uint_least16_t</tt> or <tt>unint_fast_16_t</tt>
+</td><td align="left"> the target may opt to use either the <tt>uint_fast</tt> or the <tt>uint_least</tt> types.
+</td></tr>
+<tr>
+<td align="left"> <tt>UInt32</tt>
+</td><td align="left"> <tt>uint_least32_t</tt> or <tt>unint_fast32_t</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>UInt8</tt>
+</td><td align="left"> <tt>uint_least8_t</tt> or <tt>unint_fast_8_t</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>ULLong</tt>
+</td><td align="left"> <tt>unsigned long long</tt>
+</td><td align="left"> may be supported only as <tt>unsigned long</tt> on some targets
+</td></tr>
+<tr>
+<td align="left"> <tt>ULong</tt>
+</td><td align="left"> <tt>unsigned long</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>UShort</tt>
+</td><td align="left"> <tt>unsigned short</tt>
+</td><td align="left">
+</td></tr>
+<tr>
+<td align="left"> <tt>VaList</tt>
+</td><td align="left"> <tt>va_list</tt>
+</td><td align="left">
+</td></tr></table>
+<a name="Physical_Design"></a><h2> <span class="mw-headline">Physical Design</span></h2>
+<ol><li>all package names must match the installation directory of the package; e.g., the package <tt>xdc.runtime</tt> must be in a directory that ends with <tt>xdc/runtime/</tt>.
+</li><li>all module interface headers must be contained in the <a href="../Glossary/Glossary.html#Base_Directory" title="Glossary">package's base</a>.
+</li><li>File names within a package must never have names that differ only in letter-case.
+</li><li>Each "component" of a package name (i.e., sequence of characters between '.'s) must only contain characters allowable in C identifiers and must not be a C/C++ keyword ("if", "then", "switch", ...) or "package".
+</li><li>All references to package and modules must match the case of the package and module names.
+</li></ol>
+<a name="Rationale"></a><h3> <span class="mw-headline">Rationale</span></h3>
+<p>The RTSC package physical design rule is the same as that imposed by Java for Java packages.  While we may not be interested in supporting Java directly, it is clearly a scalable design that is well supported by tools; thousands of Java packages are developed, deployed, and reused by a similar number of separate development groups.
+</p><p>In addition, this simple physical design rule - that a package's name must match the installation directory - allows us to integrate virtually all existing command line tools (e.g., C/C++ compilers, linkers, GNU make, ...) without requiring any change on their part.  Any command line tool that accepts a <tt>'-I'</tt> type of option for locating include files can be seamlessly integrated into a RTSC development environment by simply adding a <tt>-I</tt> option for each element of the RTSC package path to each command line tool.  In this way, we ensure that all files for all tools are always found along the package path.
+</p><p>Constraining all top-level interface headers to be in the package's base enables the client to follow a single simple procedure for using a new module from a new package:  
+</p>
+<ol><li>add a <tt>#include</tt> in any referencing source of the form: <tt>#include &lt;pkg_name/mod_name.h&gt;</tt>
+</li><li>call the module's functions
+</li></ol>
+<p>In addition, during reviews of source, it is easy for the client to quickly identify all external package dependencies and answer the question, "Where is the <tt>xyz</tt> function/constant/type defined?".
+</p><p>Keeping package names in lower-case together with the convention that all modules are title-case makes it easy for the developer to clearly see the difference between a package reference such as "xdc.services.utils" containing a module named "xdc.services.utils.Load" and a module reference such as "xdc.services.Utils".
+</p><p>Since package names are used in C/C++ source to reference include files and appear in module methods names, it is important that only valid C identifiers be used in each component of a package name.  For the same reason, "components" of package names can not be C keywords; e.g., <tt>if</tt>, <tt>while</tt>, <tt>switch</tt>, ...
+</p><p>Although Windows file-systems do not distinguish file name references that differ on in case, Unix file-systems do and most languages do.  To ensure host development system portability, it is important that all references strictly match the case of the referenced file.  In addition, to ensure that packages are host OS independent, it is important that no two files have the same name except for letter-case.  For example, it is not possible to have both "Makefile" and "makefile" in the same directory on a Windows host.  So even though this can be supported on Linux hosts, the requirements above prohibit packages from having two such files.
+</p>
+<a name="Module_and_Interface_Conventions"></a><h2> <span class="mw-headline">Module and Interface Conventions</span></h2>
+<p>This section contains conventions followed when creating a module or an interface.
+</p>
+<a name="Header_Conventions"></a><h3> <span class="mw-headline">Header Conventions</span></h3>
+<p>This section covers conventions required by all "hand crafted" C/C++ header files.
+</p>
+<a name="Doxygen_Conventions"></a><h4> <span class="mw-headline">Doxygen Conventions</span></h4>
+<p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;to be written</span>
+</p>
+<a name="XDoc_Comments"></a><h3> <span class="mw-headline">XDoc Comments</span></h3>
+<ul><li>XDoc comments are introduced using <tt>/*!</tt> and should follow the <a href="#Comments" title="">banner comment conventions</a> in this document
+</li></ul>
+<blockquote><pre>
+
+   /*!
+     *  ====== getFoo ========
+     *  Return the current foo
+     */
+    Foo getFoo();
+
+</pre></blockquote>
+<ul><li>All methods must provide summary XDoc documentation for all parameters, return values, and exceptions.
+</li></ul>
+<ul><li>All summaries should be short and must never be more than one line.
+</li></ul>
+<blockquote><pre>
+
+    /*!
+     *  ======== alloc ========
+     *  A method summary
+     *
+     *  A long description goes here.
+     *
+     *  @param(heap)    summary comments without period at the end of the line
+     *  @param(size)    summary comments
+     *  @param(align)   summary comments
+     *
+     *                  Longer descriptions of parameters are placed here.  Notice
+     *                  the blank line separating the summary and this longer 
+     *                  description.
+     *
+     *  @param(eb)      pointer to error block
+     *
+     *  @a(returns)
+     *  The name of the return section is &quot;returns&quot; and the description consists of
+     *  complete sentences.
+     *
+     *  No returns section is required for methods that do not return a value.
+     *
+     *  @a(throws)
+     *  The name of the exceptions section is &quot;throws&quot; and all possible exceptions 
+     *  should be enumerated here with a brief description how what can cause the exception.
+     *  @p(dlist)
+     *  - CorruptHeap
+     *    Underlying heap data structures have been corrupted.
+     *  @p
+     */
+    Ptr alloc(IHeap.Handle heap, SizeT size, SizeT align, Error.Block *eb);
+
+</pre></blockquote>
+<ul><li>All methods, structures, types, must include a summary XDoc comment.  Summary comments need not be complete sentences.  However, all description sections should consist of complete sentences.
+</li></ul>
+<ul><li>Summary XDoc comments must be less than one line (&lt; 80 characters, including any banner comment prefix characters).  Longer comments should be part of the optional description XDoc comments.
+</li></ul>
+<blockquote>
+<b>Wrong</b>:
+<pre>
+
+    /*!                                                                         
+     *  ======== foo ========                                    
+     *  This assert is thrown when a frabazfoo is not the same as the expected flabazfoo.  If
+     *  this assert occurs call for help.                                       
+     */
+    config Assert.Id foo = ...;
+
+</pre>
+<p><b>Right</b>:
+</p>
+<pre>
+
+    /*!                                                                         
+     *  ======== foo ========                                    
+     *  Assert that the frabazfoo is the same as the flabazfoo      
+     *                                                                          
+     *  This assert is thrown when a frabazfoo is not the same as the expected flabazfoo.  If
+     *  this assert occurs call for help.                                       
+    */
+    config Assert.Id foo = ...;
+
+</pre>
+</blockquote>
+<ul><li>All fields within a structure should have an in-line summary comment.
+</li></ul>
+<blockquote><pre>
+
+    /*!                                                                         
+     *  ======== MyStruct ========                                    
+     *  A useful structure                    
+     */
+    struct MyStruct{
+        Int aField;  /*! a short summary comment */
+    };
+
+</pre></blockquote>
+<ul><li>Fields within a structure that require longer descriptions should include <tt>@filed</tt> tags in the structure's description.
+</li></ul>
+<blockquote><pre>
+
+    /*!                                                                         
+     *  ======== MyStruct ========                                    
+     *  A useful structure
+     *
+     *  @field(aField) This field is so rich that it requires a detailed description
+     */
+    struct MyStruct{
+        Int aField;  /*! a short summary comment */
+    };
+
+</pre></blockquote>
+<a name="Lexical_Conventions"></a><h2> <span class="mw-headline">Lexical Conventions</span></h2>
+<p>The lexical conventions in this section apply to C and C++ sources <i>and</i> (unless otherwise noted) all C-like source languages including Java and JavaScript.
+</p>
+<a name="Expressions"></a><h3> <span class="mw-headline">Expressions</span></h3>
+<ul><li>No space exists between unary operators or between the primary operators <tt>-&gt;</tt>, <tt>.</tt>, <tt>[]</tt>, and <tt>()</tt> and their operands. Note that <tt>sizeof</tt> is a unary operator.
+</li></ul>
+<blockquote>
+Unary operator examples:
+<pre>
+
+    i++
+   &nbsp;!e
+    (Char *)p
+    -17
+    sizeof(Int)
+
+</pre>
+<p>Primary operator examples:
+</p>
+<pre>
+
+    a[i]
+    s.member
+    p-&gt;member
+    f(x, y)
+
+</pre></blockquote>
+<ul><li>There is exactly one space between other operators and their operands. For example, binary operators are used in the following examples:
+</li></ul>
+<blockquote><pre>
+
+    x = f(y) * (z + 2);
+    p&nbsp;!= NULL &amp;&amp; (p-&gt;member == -1)
+
+</pre></blockquote>
+<ul><li>Parentheses are used for clarity, especially in expressions involving several precedence levels. For example:
+</li></ul>
+<blockquote><pre>
+
+    x &lt; y &amp; mask   /* WRONG! */
+    (x &lt; y) &amp; mask /* RIGHT */
+
+</pre></blockquote>
+<ul><li>Unless explicitly defined by the C language, evaluation order is not relied upon.
+</li><li>Expressions with side effects are not used in function calls. This is because the function may be changed to a macro at some point.
+</li></ul>
+<blockquote><pre>
+
+    t = min(x++, y); /* WRONG! */
+    t = min(x, y);   /* RIGHT */
+    x++;
+
+</pre></blockquote>
+<ul><li>When breaking long expressions into more than one line (e.g., to satisfy the 80-character line length limit), the beginning of each new line should begin with an operator.
+</li></ul>
+<blockquote><pre>
+
+    /* WRONG! */
+    if (xdc_runtime_TimestampStd_getFreq(&amp;myVeryDescriptiveNameForFrequency) &lt;
+        32) {
+          &nbsp;:
+    }
+
+    /* RIGHT! */
+    if (xdc_runtime_TimestampStd_getFreq(&amp;myVeryDescriptiveNameForFrequency)
+        &lt; 32) {
+          &nbsp;:
+    }
+
+</pre></blockquote>
+<a name="Statements"></a><h3> <span class="mw-headline">Statements</span></h3>
+<ul><li>All subordinate statements are enclosed in braces and indented four (4) spaces.
+</li><li>There is exactly one statement per line.
+</li><li>Continuation lines are indented eight (8) spaces
+</li></ul>
+<p>The following examples show how certain types of statements should be formatted:
+</p>
+<ul><li>Do statement
+</li></ul>
+<blockquote><pre>
+
+    do {
+        stmt(s);
+    } while (expr);
+
+</pre></blockquote>
+<ul><li>For statement:
+</li></ul>
+<blockquote><pre>
+
+    for (expr; expr; expr) { /* note space after ';' */
+        stmt(s);
+    }
+
+</pre></blockquote>
+<ul><li>If statement:
+</li></ul>
+<blockquote><pre>
+
+    if (expr) {
+        stmt(s);
+    }
+
+</pre></blockquote>
+<ul><li>If-else statement:
+</li></ul>
+<blockquote><pre>
+
+    if (expr) {
+        stmt(s);
+    }
+    else {
+        stmt(s);
+    }
+
+</pre></blockquote>
+<ul><li>If-else if statement:
+</li></ul>
+<blockquote><pre>
+
+    if (expr) {
+        stmt(s);
+    }
+    else if (expr) {
+        stmt(s);
+    }
+    else {
+        stmt(s);
+    }
+
+</pre></blockquote>
+<ul><li>Return statements
+</li></ul>
+<blockquote><pre>
+
+    return (value); /* note space and parens */
+
+</pre></blockquote>
+<ul><li>Switch statement:
+</li></ul>
+<blockquote><pre>
+
+    switch (expr) {
+        case CONST: /* note indentation */
+            break;
+
+        case CONST: /* note space between case arms */
+            break;
+
+        default: {  /* always present, even if null */
+            break;
+        }
+    }
+
+</pre></blockquote>
+<ul><li>While statement:
+</li></ul>
+<blockquote><pre>
+
+    while (expr) {
+        stmt(s);
+    }
+
+</pre></blockquote>
+<ul><li>try-catch blocks
+</li></ul>
+<blockquote><pre>
+
+    try {
+       &nbsp;:
+    } 
+    catch (...) { /* as with if statements, always use {}'s */
+       &nbsp;: 
+    }
+
+</pre></blockquote>
+<a name="Declarations"></a><h3> <span class="mw-headline">Declarations</span></h3>
+<ul><li>Each variable or member is declared on a separate line.
+</li><li>All internal source-file variables and functions are declared as static.
+</li><li>Module-wide declarations appear in the following order:
+<ol><li>constants
+</li><li>types
+</li><li>variables
+</li><li>functions
+</li></ol>
+</li></ul>
+<a name="Function_Definitions"></a><h3> <span class="mw-headline">Function Definitions</span></h3>
+<ul><li>Prototypes must always be specified.
+</li></ul>
+<blockquote><pre>
+
+    Int XXX_open(Char *name, Bool rmFlag) /* RIGHT */
+    Int XXX_open(name, rmFlag)             /* WRONG! */
+        Char * name;
+        Bool rmFlag;
+
+</pre></blockquote>
+<ul><li>Functions should be defined in alphabetical order.
+</li><li>For functions with more than one parameter, there is a space between a comma and the type specifier for the next parameter. There is also a space between a comma and an argument in function calls.
+</li><li>There is one blank line between the last declaration in the function body and the first statement in the function.
+</li><li>Function body braces are aligned with left margin and the body is indented four (4) spaces.  For example:
+</li></ul>
+<blockquote><pre>
+
+    Void foo(Int bar)
+    {
+        Int i;
+
+        for(i = 0; i &lt; 10; i++) { /* note the blank line before this */
+           &nbsp;:
+        }
+    }
+
+</pre></blockquote>
+<a name="Macro_Definitions"></a><h3> <span class="mw-headline">Macro Definitions</span></h3>
+<p>A macro definition must have one of the following forms:
+</p>
+<ul><li>A single token:
+</li></ul>
+<blockquote><pre>
+
+    #define QUE_enqueue QUE_put
+
+</pre></blockquote>
+<ul><li>A function or macro call:
+</li></ul>
+<blockquote><pre>
+
+    #define C62_enableGIE(mask) HWI_restore(mask)
+
+</pre></blockquote>
+<ul><li>Enclosed in parentheses:
+</li></ul>
+<blockquote><pre>
+
+    #define C62_mask(devid) ((Uns)(1 &lt;&lt; (devid)-1))
+
+</pre></blockquote>
+<ul><li>Enclosed in curly braces:
+</li></ul>
+<blockquote><pre>
+
+    #define QUE_remove(elem) {\
+        ((QUE_Elem *)(elem))-&gt;prev-&gt;next = ((QUE_Elem *)(elem))-&gt;next; \
+        ((QUE_Elem *)(elem))-&gt;next-&gt;prev = ((QUE_Elem *)(elem))-&gt;prev; \
+    }
+
+</pre></blockquote>
+<p>In all cases, each use of a macro parameter must be enclosed in parentheses. For example, see
+the uses of "elem" and "devid" above.
+</p>
+<a name="Comments"></a><h3> <span class="mw-headline">Comments</span></h3>
+<ul><li>Border comments begin at column 0 and introduce procedures and major sections. Text for a border comment is indented two spaces and starts on the second line. Border comments appear only between function definitions and never within a function body.
+</li></ul>
+<blockquote><pre>
+
+    /*
+     *  This is a border comment.
+     *  Note the two spaces in from the '*' character.
+     */
+
+</pre></blockquote>
+<ul><li>A source file begins with a border comment. This comment should include a revision section with the format shown below. Note that the continuation of a long revision comment is indented by four (4) spaces.
+</li></ul>
+<blockquote><pre>
+
+     *! Revision History
+     *! ================
+     *! 23-Jan-2001 mf: The entire Revision History section must begin with tokens
+     *!     that end in an exclamation point, so it can be stripped if necessary.
+     *! 24-Dec-2000 mf: Revisions appear in reverse chronological order; that is,
+     *!     newest first. The date format is dd-Mon-yyyy.
+
+</pre></blockquote>
+<ul><li>All functions have the following style of banner:
+</li></ul>
+<blockquote><pre>
+
+    /*
+     * ======== foo ========
+     * A one-line summary of the function is placed here.
+     *
+     * A more complete description optionally follows.  Note the
+     * &quot;empty&quot; line separating the summary from this description.
+     */
+    static Void foo(Int param)
+    {
+        stmt(s);
+    }
+
+</pre></blockquote>
+<p>Note that the name of the function is placed between two strings of eight (8) consecutive "=" characters and a single space. This banner style makes it easy to find all functions declared in a module.
+</p>
+<ul><li>Multi-line comments are formatted as follows. Note that two (2) spaces follow the asterisk.
+</li></ul>
+<blockquote><pre>
+
+    /*
+     * this is a multi-line indented
+     * comment
+     */
+
+</pre></blockquote>
+<ul><li>Indented comments introduce blocks of code.
+</li></ul>
+<blockquote><pre>
+
+    while (expr) {
+        /* this is a simple indented comment */
+        if (expr) {
+            stmt(s);
+        }
+        else {
+            stmt(s);
+        }
+        stmt(s); /* this is an in-line comment */
+     }
+
+</pre></blockquote>
+<ul><li>In-line comments describe individual statements or declarations. All global variables (static or otherwise), configuration variables, #define constants, and structure members should have in-line or possibly multi-line comments giving their meaning.
+</li></ul>
+<blockquote><pre>
+
+    static Int curInit = FALSE; /* XXX_Init was called */
+    #define OUTPORT 0xfc000002 /* output port address */
+    struct TSK_Attrs {
+        Int priority; /* task priority */
+    };
+
+</pre></blockquote>
+<ul><li>C++ style comments must not be used in C sources.  They may be used in C++, Java, or JavaScript sources. 
+</li></ul>
+<blockquote><pre>
+
+    while (expr) {
+        // this is a simple indented C++ comment
+        if (expr) {
+             stmt(s); // this is an in-line C++ comment
+        }
+    }
+
+</pre></blockquote>
+<ul><li>Following Sun's Java conventions, the // comment delimiter can comment out a complete line or only a partial line. It shouldn't be used on consecutive multiple lines for text comments; however, it can be used in consecutive multiple lines for commenting out sections of code. Examples of all three styles follow:
+</li></ul>
+<blockquote><pre>
+
+    if (foo &gt; 1) {
+        // Do a double-flip.
+        ...
+    }
+    else {
+        return false;          // Explain why here.
+    }
+    //if (bar &gt; 1) {
+    //
+    //    // Do a triple-flip.
+    //    ...
+    //}
+    //else {
+    //    return false;
+    //}
+
+</pre></blockquote>
+<a name="Spaces_And_Tabs"></a><h2> <span class="mw-headline">Spaces And Tabs</span></h2>
+<p>As described above, the standard indentation level is four (4) spaces. The tab character (\t) should be treated as eight (8) spaces. Source code may contain a mix of spaces and tabs, where a tab is equivalent to eight spaces.  Released source code should contain only spaces (no tabs).  
+</p><p>Lines should not exceed eighty (80) characters in length. While current editors and UIs allow for much longer lines, most printed material is still eighty characters or less. For publication in manuals, the maximum line length is 74 characters.
+</p>
+<a name="The_Use_of_goto_Statements"></a><h2> <span class="mw-headline">The Use of <tt>goto</tt> Statements</span></h2>
+<p>Do not use the <tt>goto</tt> statement when it is possible to use a structured flow control statement to accomplish the same goal. For example, this function below uses a goto statement unnecessarily.
+</p>
+<pre>
+
+    foo()
+    {
+        ...
+        if ((status = open(&quot;foo&quot;, 0)) &lt; 0) {
+            'clean up';
+            goto exit;
+        }
+        doit(status);
+    exit:
+        return (status);
+    }
+
+</pre>
+<p>This function can be rewritten as
+</p>
+<pre>
+
+    foo()
+    {
+        ...
+        if ((status = open(&quot;foo&quot;, 0)) &lt; 0) {
+            'clean up';
+        }
+        else {
+            doit(status);
+        }
+        return (status);
+    }
+
+</pre>
+<p>This second form has the advantage that it makes it clear that <tt>doit()</tt> is only performed when the <tt>open()</tt> function returns a non-negative result. The undisciplined use of <tt>goto</tt> statements can result in code that is impossible to read or maintain.
+There are, however, situations when the goto statement is appropriate and its use actually improves the readability and efficiency of a function. These cases are rare, but the following code fragment shows an example where the use of a goto simplifies the structure.
+</p>
+<pre>
+
+    {
+        /* acquire a lock that must be released before returning */
+        seize(lock);
+        while (expr) {
+            if (open(&quot;foo&quot;, 0) &lt; 0) {
+                goto exit;
+            }
+            bar();
+        }
+        stmt(s);
+    exit:
+        release(lock); /* release acquired lock */
+        return (status);
+    }
+
+</pre>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Coding Conventions&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/RTSC Coding Conventions" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Coding_Conventions.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.208 secs. --></body></html>

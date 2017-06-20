@@ -1,0 +1,285 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using xdc.runtime Timestamps - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Timestamps&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime Timestamps" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Using xdc.runtime Timestamps</p><p id="subtitle">How to get and use timestamps</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Architecture"><span class="tocnumber">2.1</span> <span class="toctext">Architecture</span></a></li>
+<li class="toclevel-2"><a href="#Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1"><a href="#Built-in_Timestamp_Providers"><span class="tocnumber">4</span> <span class="toctext">Built-in Timestamp Providers</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_TimestampStd_module"><span class="tocnumber">4.1</span> <span class="toctext">The TimestampStd module</span></a></li>
+<li class="toclevel-2"><a href="#The_TimestampNull_module"><span class="tocnumber">4.2</span> <span class="toctext">The TimestampNull module</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>The <tt><a href="../../cdoc/xdc/runtime/Timestamp.html" class="cdoc"><tt>xdc.runtime.Timestamp</tt></a></tt> module, as the name suggests, provides timestamping services. This module can be used for
+benchmarking code, adding timestamps to <tt><a href="../../cdoc/xdc/runtime/Log.html" class="cdoc"><tt>Log</tt></a></tt> events for correlation with other system events, monitoring real-time performance, etc.
+</p>
+<a name="Overview"></a><h2> <span class="mw-headline">Overview</span></h2>
+<p>By definition, real-time systems require some means to track and measure elapsed time.  However, different systems use very different methods.  Some systems leverage platform-specific timer peripherals while others use application-specific data streams that are known to produce data at a fixed rate (i.e., telephony TDM data).  The choice of how to measure time is application and platform specific, so it is important that the timer services provided by <tt>xdc.runtime</tt> enable the system integrator to specify an appropriate time source.
+</p><p>In addition to variations in how time is measured, different applications have very different precision and range requirements.  Applications that only require millisecond precision often don't require more than 32-bits of range (almost 50 days), whereas measurements used to causally relate events in a multi-core system requires near nanosecond precision (yielding less than 5 seconds of range from a 32-bit value).  In fact, it is not unusual for a single application to require more than one timer with different precision and range requirements.
+</p>
+<a name="Architecture"></a><h3> <span class="mw-headline">Architecture </span></h3>
+<p>Although the <tt>Timestamp</tt> module provides two methods for acquiring a timestamp, <tt><a href="../../cdoc/xdc/runtime/Timestamp.html#get32" class="cdoc"><tt>Timestamp_get32()</tt></a></tt> and <tt><a href="../../cdoc/index.html#xdc/runtime/Timestamp.html#get64" class="cdoc"><tt>Timestamp_get64()</tt></a></tt>, 64-bit timestamps may not be supported on all devices. In this case, the upper 32-bits of <tt><a href="../../cdoc/index.html#/package.html" class="cdoc"><tt>Types.Timerstamp</tt></a></tt> are simply set to zero.  The values returned by these methods are in <i>implementation-dependent</i> units called "cycles".
+</p><p>The <tt>Timestamp</tt> module also provides a <tt><a href="../../cdoc//package.html" class="cdoc"><tt>Timestamp_getFreq()</tt></a></tt> method that returns the frequency of the timestamp counter in Hz. This method can be used to convert the numbers returned by <tt>Timestamp_get32()</tt> and <tt>Timestamp_get64()</tt> (cycles) to actual time units (milliseconds).
+</p><p>In order to support multiple timestamp modules, each providing different ranges and precisions, the interface implemented by <tt>Timestamp</tt> is formally specified by (i.e., inherited from) <tt><a href="../../cdoc/xdc/runtime/ITimestampClient.html" class="cdoc"><tt>xdc.runtime.ITimestampClient</tt></a></tt>.  By separately defining the <tt>ITimestampClient</tt> interface from the <tt>Timestamp</tt> module, multiple "timestamp providers" each implementing the same interface (<tt>ITimestampClient</tt>) can be present in an application.
+</p>
+<p><div class="Notice"><p class="Notice">Timestamp values returned by different timestamp providers can not be directly compared.  If you need to compare values between different providers, you must use <tt>Timestamp_getFreq()</tt> to first convert the timestamps to units of time.</p></div></p>
+<p>Since the <tt>xdc.runtime</tt> package can only provide portable C sources and mechanisms for generating timestamps are inherently platform-dependent, the <tt>Timestamp</tt> module can be configured to use a platform or application-specific "timestamp provider".  In effect, the <tt>Timestamp</tt> methods simply call the methods of the timestamp provider specified by the application's configuration script.
+</p>
+<a name="Configuration"></a><h3> <span class="mw-headline">Configuration</span></h3>
+<p>The <tt>Timestamp</tt> module has a single configuration parameter, named <a href="../../cdoc/xdc/runtime/Timestamp.html#.Support.Proxy" class="cdoc"><tt>SupportProxy</tt></a>, of type <tt><a href="../../cdoc/index.html#xdc/runtime/ITimestampProvider.html" class="cdoc"><tt>ITimestampProvider</tt></a></tt>.  Depending on the provider used, the underlying counter may be implemented quite differently; e.g., it may be a software timer, a 64-bit dedicated counter in the CPU's core, or a 32-bit counter that is part of a timer peripheral.  
+</p><p><a href="#Built-in_Timestamp_Providers" title="">Built-in Timestamp Providers</a> describes the timestamp providers included in the <tt>xdc.runtime</tt> package and illustrates their use.  One such provider, <tt><a href="../../cdoc/xdc/runtime/TimestampNull.html" class="cdoc"><tt>xdc.runtime.TimestampNull</tt></a></tt>, can be used when timestamp services are not needed by the application. The <tt>TimestampNull</tt> module always returns a timestamp of <tt>~0</tt>. In this case, any modules that use <tt>xdc.runtime.Timestamp</tt> will see an unchanging timestamp but the overhead of getting the timestamp is negligible.
+</p>
+<p><div class="Notice"><p class="Notice"><tt>TimestampNull</tt> is the default timestamp provider for the <tt>Timestamp</tt> module.  As a result, unless you explicitly configure the <tt>Timestamp.SupportProxy</tt> parameter, all timestamps returned by <tt>Timestamp</tt> will be 0.</p></div></p>
+<p><a href="../Extending_xdc.runtime_Timestamps/Extending_xdc.runtime_Timestamps.html" title="Extending xdc.runtime Timestamps">Extending xdc.runtime Timestamps</a> describes how to create new custom timestamp providers that can, for example, leverage platform-specific timer capabilities.
+</p>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<p>The following configuration script shows how to "bind" an implementation of the underlying timestamp services to the <tt>Timestamp</tt> module.  This configuration script is used for the remainder of the C applications in this section.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Timestamp = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Timestamp&quot;</span><span class="br0">&#41;</span>;
+Timestamp.SupportProxy = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.TimestampStd&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>The following C fragment calculates a time delta based on timestamp values.  Note that the units returned by <tt>Timestamp_get32()</tt> and <tt>Timestamp_get64()</tt> are implementation dependent; timestamp values from different timers can not be compared, even if both timers are on the same CPU.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Timestamp.h&gt;</span>
+&nbsp;
+UInt32 time1, time2, delta;
+&nbsp;
+time1 = Timestamp_get32<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+callLongFunction<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+time2 = Timestamp_get32<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+delta = time2 - time1;</pre></td></tr></table>
+<p>This next C example uses <tt><a href="../../cdoc/xdc/runtime/Timestamp.html#get.Freq" class="cdoc"><tt>Timestamp_getFreq()</tt></a></tt> to print a message every second.  Although this application is impractical, it illustrates the use of <tt>Timestamp_getFreq()</tt> to measure real elapsed time.  <tt>Timestamp_getFreq()</tt> can also be used to convert timestamps from different timers to a common unit (such as milliseconds) so these values can be compared.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Types.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Timestamp.h&gt;</span>
+<span class="re1">#include</span> &lt;assert.h&gt;
+&nbsp;
+main <span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ...
+    Types.FreqHz freq;
+&nbsp;
+    Timestamp_getFreq<span class="br0">&#40;</span>&amp;freq<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* works only for timestamps with 32-bit frequencies */</span>
+    assert<span class="br0">&#40;</span>freq.hi == <span class="nu0">0</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>;;<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        UInt32 start = Timestamp_get32<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+        <span class="kw1">while</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>Timestamp_get32<span class="br0">&#40;</span><span class="br0">&#41;</span> - start<span class="br0">&#41;</span> &lt; freq.lo<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+           &nbsp;; <span class="coMULTI">/* do nothing */</span>
+        <span class="br0">&#125;</span>
+        System_print<span class="br0">&#40;</span><span class="st0">&quot;A second has elapsed&quot;</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    ...
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>This example also illustrates an important point about portability.  Modern processors often supply timestamp registers that track the number of CPU clock cycles since the last reset.  These same processors may require more than 32 bits to represent the number of CPU cycles per second.  As a result, applications should take care when converting from a timestamp value to real time units; don't assume that the timestamp frequency is less than 4294967296 (= 2^32).
+</p>
+<a name="Built-in_Timestamp_Providers"></a><h2> <span class="mw-headline">Built-in Timestamp Providers</span></h2>
+<p>The <tt>xdc.runtime</tt> package includes two built-in timestamp providers:
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/TimestampNull.html" class="cdoc"><tt>TimestampNull</tt></a></tt> - a timestamp provider that always returns a timestamp of 0, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/TimestampStd.html" class="cdoc"><tt>TimestampStd</tt></a></tt> - a timestamp provider that uses the ANSI C Standard Library function <tt>clock()</tt> to obtain timestamps.
+</li></ol>
+<p>These modules are sufficient for early development but, because they are written to be 100% portable, they don't take advantage of any platform-specific features (such as device-specific instruction counters). Fortunately it's easy to create a custom timestamp provider that takes full advantage of your platform's execution environment and can be bound to <tt>Timestamp</tt> as easily as <tt>TimestampNull</tt> or <tt>TimestampStd</tt>. <a href="../Extending_xdc.runtime_Timestamps/Extending_xdc.runtime_Timestamps.html" title="Extending xdc.runtime Timestamps">Extending xdc.runtime Timestamps</a> contains more details about how to create custom timestamp modules and includes a simple example that can easily be extended to leverage unique platform capabilities.
+</p>
+<a name="The_TimestampStd_module"></a><h6> <span class="mw-headline">The <tt>TimestampStd</tt> module</span></h6>
+<p><span class="Leader">The <tt>TimestampStd</tt> module</span>.&nbsp;  During debugging, you may plug <tt>Timestamp.SupportProxy</tt> with <tt>xdc.runtime.TimestampStd</tt>, which simply calls the ANSI Standard C runtime function <tt>clock()</tt>.  For example:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Timestamp = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Timestamp&quot;</span><span class="br0">&#41;</span>;
+Timestamp.SupportProxy = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.TimestampStd&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<a name="The_TimestampNull_module"></a><h6> <span class="mw-headline">The <tt>TimestampNull</tt> module</span></h6>
+<p><span class="Leader">The <tt>TimestampNull</tt> module</span>.&nbsp;  If timestamps are only used during debugging (to embed time values in <tt>Log</tt> events, for example), you can plug <tt>Timestamp.SupportProxy</tt> with <tt>xdc.runtime.TimestampNull</tt> to keep the time and space overhead for the <tt>Timestamp</tt> module to an absolute minimum.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Timestamp = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Timestamp&quot;</span><span class="br0">&#41;</span>;
+Timestamp.SupportProxy = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.TimestampNull&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Timestamps&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime Timestamps" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2233 bytes
+Post-expand include size: 1231 bytes
+Template argument size: 242 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_xdc.runtime_Timestamps.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.217 secs. --></body></html>

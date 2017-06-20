@@ -1,0 +1,371 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Extending xdc.runtime Gates/Example 1 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Extending xdc.runtime Gates/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Extending_xdc.runtime_Gates.html#TOC" title="Extending xdc.runtime Gates"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Extending xdc.runtime Gates/Example 1</p><p id="subtitle">A posix-based <tt>IGateProvider</tt> implementation</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#pthread-based_IGateProvider_Module"><span class="tocnumber">1</span> <span class="toctext">pthread-based IGateProvider Module</span></a></li>
+<li class="toclevel-1"><a href="#The_Lock_Module"><span class="tocnumber">2</span> <span class="toctext">The Lock Module</span></a></li>
+<li class="toclevel-1"><a href="#The_Package_Files"><span class="tocnumber">3</span> <span class="toctext">The Package Files</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="pthread-based_IGateProvider_Module"></a><h2> <span class="mw-headline"><tt>pthread</tt>-based <tt>IGateProvider</tt> Module</span></h2>
+<p>In this example we show the implementation of an <tt>IGateProvider</tt>, named <tt>examples.runtime.gates.Lock</tt> that was used in a previous <a href="../Using_xdc.runtime_Gates/Using_xdc.runtime_Gates.html" title="Using xdc.runtime Gates">example</a> to enable the <tt>xdc.runtime</tt> package to be used in a pthread-based application.
+</p><p>In the following sections we look under the covers to see how <tt>Lock</tt> is implemented.  Finally, we look at all the other files necessary to create a package to build and house the the <tt>Lock</tt> module.
+</p>
+<a name="The_Lock_Module"></a><h2> <span class="mw-headline">The <tt>Lock</tt> Module</span></h2>
+<p>All gate providers must implement the <tt><a href="../../cdoc/xdc/runtime/IGateProvider.html" class="cdoc"><tt>xdc.runtime.IGateProvider</tt></a></tt> interface.  In addition, because gate instances are most often created during configuration, gate providers should also support configuration-time instance creation.  Fortunately, both of these requirements are easily meet.  The <tt>Lock.xdc</tt> file declares that the <tt>Lock</tt> module inherits <tt>xdc.runtime.IGateProvider</tt> and includes an <tt>internal</tt> section that defines the instance object's state structure.  This definition, together with the initialization function <tt>instance$static$init</tt>, defined in <tt>Lock.xs</tt>, is sufficient to enable static instances to be created during configuration.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Lock.xdc (Lock module's Specification)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> xdc.runtime.Assert;
+&nbsp;
+<span class="xdoc">/*!
+ *  ======== Lock ========
+ *  Simple mutex lock
+ */</span>
+<span class="re1">@InstanceFinalize</span>    <span class="coMULTI">/* need to pthread_mutex_destroy() all mutexes */</span>
+<span class="re1">@ModuleStartup</span>       <span class="coMULTI">/* need to pthread_mutex_init() all statically created mutexes */</span>
+<span class="kw1">module</span> Lock <span class="kw1">inherits</span> xdc.runtime.IGateProvider
+<span class="br0">&#123;</span>
+    <span class="xdoc">/*! *  ======== A_bigEnough ======== */</span>
+    <span class="kw1">readonly</span> <span class="kw1">config</span> Assert.Id A_bigEnough = <span class="br0">&#123;</span>
+        msg: <span class="st0">&quot;Lock instance not large enough to hold a pthread_mutex_t&quot;</span>
+    <span class="br0">&#125;</span>;
+&nbsp;
+    <span class="xdoc">/*! *  ======== A_initSucceeded ======== */</span>
+    <span class="kw1">readonly</span> <span class="kw1">config</span> Assert.Id A_initSucceeded = <span class="br0">&#123;</span>
+        msg: <span class="st0">&quot;Initialization of pthread_mutex_t failed&quot;</span>
+    <span class="br0">&#125;</span>;
+&nbsp;
+<span class="kw1">internal</span>:
+    <span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>
+        <span class="kw2">Char</span> mutex_buf<span class="br0">&#91;</span><span class="nu0">32</span><span class="br0">&#93;</span>;   <span class="coMULTI">/* buffer big enough to hold a pthread_mutex_t */</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The <tt>Lock</tt> module works by simply embedding a posix mutex object in the <tt>Lock</tt> module's instance object.  Entering or leaving a gate is simply translated into <tt>pthread_mutex_lock</tt> or <tt>pthread_mutex_lock</tt> as necessary.  But, in order to initialize the posix mutex objects that are created at configuration time, the <tt>Lock.xdc</tt> module specification uses the <tt><a href="../XDCspec_-_%40ModuleStartup/XDCspec_-_%40ModuleStartup.html" title="XDCspec - @ModuleStartup">@ModuleStartup</a></tt> attribute to declare that it has a "startup" method that must be called prior to the application's <tt>main()</tt> entry-point.  This <a href="../C_-_Module_startup/C_-_Module_startup.html" title="C - Module startup">startup method</a>, named <tt>Lock_Module_startup</tt>, is defined in <tt>Lock.c</tt> and uses the standard posix <tt>pthread_mutex_init</tt> function to initialize the statically created <tt>Lock</tt> instance objects.  In this case, the statically created <tt>Lock</tt> instance objects are simply the space necessary to hold a pthread_mutex_t; the real initialization occurs in <tt>Lock_Module_startup</tt> where we loop over all statically created instances and run the <a href="../C_-_Instance_init/C_-_Instance_init.html" title="C - Instance init">instance initializer</a>, <tt>Lock_Instance_init</tt>, on each static instance.
+</p><p>This technique, of only allocating space at configuration time and performing instance initialization in a runtime startup function, can be generally applied to "wrap" most existing runtime content in a RTSC module that provides both static and runtime instance creation.
+</p><p>For completeness we need to delete the posix mutex when we delete a lock.  To ensure this is done, the <tt>Lock.xdc</tt> module specification uses the <tt><a href="../XDCspec_-_%40InstanceFinalize/XDCspec_-_%40InstanceFinalize.html" title="XDCspec - @InstanceFinalize">@InstanceFinalize</a></tt> attribute to declare that this module defines an <a href="../C_-_Instance_finalize/C_-_Instance_finalize.html" title="C - Instance finalize">instance finalizer</a> function, in this case <tt>Lock_Instance_finalize</tt>, that must be called when its instances are deleted.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Lock.c (Lock module's initialization and finalization code)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Assert.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Startup.h&gt;</span>
+&nbsp;
+<span class="re1">#define</span> _XOPEN_SOURCE   <span class="nu0">500</span>
+<span class="re1">#include</span> &lt;pthread.h&gt;
+&nbsp;
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/Lock.xdc.h&quot;</span>
+&nbsp;
+&nbsp;
+<span class="coMULTI">/* ======== Lock_Module_startup ======== */</span>
+<span class="kw2">Int</span> Lock_Module_startup<span class="br0">&#40;</span><span class="kw2">Int</span> state<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i;
+&nbsp;
+    <span class="coMULTI">/* Make sure size is big enough */</span>
+    Assert_isTrue<span class="br0">&#40;</span><span class="kw1">sizeof</span><span class="br0">&#40;</span>Lock_Object<span class="br0">&#41;</span> &gt; <span class="kw1">sizeof</span><span class="br0">&#40;</span>pthread_mutex_t<span class="br0">&#41;</span>,
+        Lock_A_bigEnough<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* initialize all permanent instances */</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; Lock_Object_count<span class="br0">&#40;</span><span class="br0">&#41;</span>; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        Lock_Instance_init<span class="br0">&#40;</span>Lock_Object_get<span class="br0">&#40;</span><span class="kw2">NULL</span>, i<span class="br0">&#41;</span>, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="br0">&#40;</span>Startup_DONE<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== Lock_Instance_init ======== */</span>
+<span class="kw2">Void</span> Lock_Instance_init<span class="br0">&#40;</span>Lock_Object *lock, 
+                            const Lock_Params *params<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> status;
+    pthread_mutexattr_t mattrs;
+&nbsp;
+    pthread_mutexattr_init<span class="br0">&#40;</span>&amp;mattrs<span class="br0">&#41;</span>;
+    pthread_mutexattr_settype<span class="br0">&#40;</span>&amp;mattrs, PTHREAD_MUTEX_RECURSIVE<span class="br0">&#41;</span>;
+    status = pthread_mutex_init<span class="br0">&#40;</span>
+        <span class="br0">&#40;</span>pthread_mutex_t *<span class="br0">&#41;</span>&amp;lock-&gt;mutex_buf, &amp;mattrs<span class="br0">&#41;</span>;
+    Assert_isTrue<span class="br0">&#40;</span>status == <span class="nu0">0</span>, Lock_A_initSucceeded<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== Lock_Instance_finalize ======== */</span>
+<span class="kw2">Void</span> Lock_Instance_finalize<span class="br0">&#40;</span>Lock_Object *lock<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    pthread_mutex_destroy<span class="br0">&#40;</span><span class="br0">&#40;</span>pthread_mutex_t *<span class="br0">&#41;</span>&amp;lock-&gt;mutex_buf<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Lock.xs (Lock module's meta-domain implementation)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* ======== instance$static$init ======== */</span>
+<span class="kw1">function</span> instance$static$init<span class="br0">&#40;</span>obj, params<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* RTSC requires all static data to be initialized */</span>
+    <span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i = <span class="nu0">0</span>; i &lt; obj.mutex_buf.length; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        obj.mutex_buf<span class="br0">&#91;</span>i<span class="br0">&#93;</span> = <span class="nu0">0</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== queryMeta ======== */</span>
+<span class="kw1">function</span> queryMeta<span class="br0">&#40;</span>qual<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* posix mutexes are both blocking and preemptable */</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>qual == IGateProvider.Q_BLOCKING
+        || qual == IGateProvider.Q_PREEMPTING<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">true</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="kw2">false</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>To complete the implementation it is, of course, necessary to define methods that enter and leave the gate (as well as any other methods declared in the <tt>xdc.runtime.IGateProvider</tt> interface).  As shown below, these methods simply use the posix mutex operations <tt>pthread_mutex_lock</tt> and <tt>pthread_mutex_unlock</tt> to enter and exit the gate.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Lock.c (remainder of Lock's target implementation)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/IGateProvider.h&gt;</span>
+&nbsp;
+<span class="coMULTI">/* ======== Lock_enter ======== */</span>
+IArg Lock_enter<span class="br0">&#40;</span>Lock_Object *lock<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    pthread_mutex_lock<span class="br0">&#40;</span><span class="br0">&#40;</span>pthread_mutex_t *<span class="br0">&#41;</span>&amp;lock-&gt;mutex_buf<span class="br0">&#41;</span>;
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== Lock_leave ======== */</span>
+<span class="kw2">Void</span> Lock_leave<span class="br0">&#40;</span>Lock_Object *lock, IArg key<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    pthread_mutex_unlock<span class="br0">&#40;</span><span class="br0">&#40;</span>pthread_mutex_t *<span class="br0">&#41;</span>&amp;lock-&gt;mutex_buf<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== Lock_query ======== */</span>
+<span class="kw2">Bool</span> Lock_query<span class="br0">&#40;</span><span class="kw2">Int</span> qual<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>qual == IGateProvider_Q_BLOCKING
+        || qual == IGateProvider_Q_PREEMPTING<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="br0">&#40;</span>TRUE<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>FALSE<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<p><div class="Notice-red"><p class="Notice-red">To simplify this example, the implementation of <tt>Lock_enter</tt> and <tt>Lock_leave</tt> do not check for possible errors returned by the <tt>pthread_mutex</tt> methods.  This example code should be modified to handle such errors before using this code in production applications.  These methods could, for example, simply assert that the return values from the <tt>pthread_mutex</tt> methods indicate success.  Although seemingly draconian, this would be much better than ignoring the error and potentially failing intermittently because a critical section is not being protected.</p></div></p> 
+<p></p>
+<a name="The_Package_Files"></a><h2> <span class="mw-headline">The Package Files</span></h2>
+<p>Since all modules must live in a package we also need to create a two other files:
+</p>
+<ol><li> <tt>package.xdc</tt> - a file that define the package's name and identifies the modules it contains, and
+</li><li> <tt>package.bld</tt> - a file that specifies which targets should be used to build the sources contained in this package.
+</li></ol>
+<p></p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">package</span> examples.runtime.gates <span class="br0">&#123;</span> 
+    <span class="kw1">module</span> Lock; 
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i = <span class="nu0">0</span>; i &lt; Build.targets.length; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> targ = Build.targets<span class="br0">&#91;</span>i<span class="br0">&#93;</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>targ.os == <span class="st0">&quot;Linux&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">var</span> lib = Pkg.addLibrary<span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + Pkg.name, targ<span class="br0">&#41;</span>;
+        lib.addObjects<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;Lock.c&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<p>The <tt>package.xdc</tt> file is largely self explanatory; it defines the name of the package <tt>examples.runtime.gates</tt> and it specifies the modules contained in the package, <tt>Lock</tt>.  
+</p><p>The <tt>package.bld</tt> file, on the other hand, requires some explanation.  The contents of this <tt>package.bld</tt> file indicate that the package builds a separate library in the <tt>lib/</tt> sub-directory containing the compiled version of <tt>Lock.c</tt> for every <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> supported by the producer's build environment whose operating system is <tt>"Linux"</tt> (and therefore supports pthreads).  Remarkably, this <tt>package.bld</tt> file is sufficient to compile <tt>Lock.c</tt> for every target, archive it into a library, and create a <a href="../Glossary/Glossary.html#Release" title="Glossary">binary release</a> of this package that supports <i>all</i> targets supported by the producer's build environment.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Using_xdc.runtime_Gates/Using_xdc.runtime_Gates__Example_1.html" title="Using xdc.runtime Gates/Example 1">Using xdc.runtime Gates/Example 1</a>
+</td><td class="DocListSubTitle1">Adding concurrency support for pthread-based applications
+</td></tr>
+<tr>
+<td class="DocListSpacer">&nbsp;
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../C_-_Instance_init/C_-_Instance_init.html" title="C - Instance init">C - Instance_init</a>
+</td><td class="DocListSubTitle">Module's instance initialization function
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Body.instance%24static%24init/XDCscript_-_Instance-Body.instance%24static%24init.html" title="XDCscript - Instance-Body.instance$static$init">XDCscript - Instance-Body.instance$static$init</a>
+</td><td class="DocListSubTitle">Statically initialize a target module's instance object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../C_-_Instance_finalize/C_-_Instance_finalize.html" title="C - Instance finalize">C - Instance_finalize</a>
+</td><td class="DocListSubTitle">Module's instance finalization function
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Extending xdc.runtime Gates/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Extending_xdc.runtime_Gates.html#TOC" title="Extending xdc.runtime Gates"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2049 bytes
+Post-expand include size: 702 bytes
+Template argument size: 114 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Extending_xdc.runtime_Gates.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.207 secs. --></body></html>

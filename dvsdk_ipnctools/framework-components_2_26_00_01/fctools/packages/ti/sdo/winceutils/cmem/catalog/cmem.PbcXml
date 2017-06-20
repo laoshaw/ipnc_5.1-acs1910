@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="utf-8"?>
+<CatalogFile xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xmlns:xsd="http://www.w3.org/2001/XMLSchema" RequiredVersion="6.00" xsi:schemaLocation="urn:Microsoft.PlatformBuilder/Catalog PbcXml600.xsd" xmlns="urn:Microsoft.PlatformBuilder/Catalog">
+  <FileInformation Id="FileInformation:DefaultCatalogFile">
+    <Title>CMEM Catalog File</Title>
+    <Vendor>Texas Instruments</Vendor>
+    <OSVersion>6.00</OSVersion>
+    <FileVersion>1.0.0.0</FileVersion>
+  </FileInformation>
+  <Item Id="MMF:TI:CMEM">
+    <Title>MMF:TI:CMEM</Title>
+    <SysgenVariable>SYSGEN_CMEM</SysgenVariable>
+    <SupportedCpuId>Cpu:ARMV4I</SupportedCpuId>
+    <Module>cmemk.dll</Module>
+    <Location></Location>
+  </Item>
+</CatalogFile>

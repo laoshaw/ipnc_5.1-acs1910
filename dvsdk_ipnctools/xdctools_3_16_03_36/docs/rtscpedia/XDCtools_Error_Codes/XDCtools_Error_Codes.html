@@ -1,0 +1,359 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XDCtools Error Codes - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCtools Error Codes&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCtools Error Codes" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html" title="XDCtools Reference Manual"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">XDCtools Error Codes</p><p id="subtitle">Error codes reported by XDCtools</p>
+<p>The sections below replace the previous <a href="images/XDCtools_Error_Codes.pdf" class="internal" title="XDCtools Error Codes.pdf">SPRAAU6</a> Error Codes document.
+</p><p>The command-line programs in XDCtools emit messages with an error code whenever errors are encountered during execution. The following sub-sections summarize the errors defined in the main packages of <tt>XDCtools</tt> that users will encounter.
+</p><p>These error messages should not be confused with the <tt><a href="../../cdoc/xdc/runtime/package.html" class="cdoc"><tt>xdc.runtime</tt></a></tt> package error manager module, for raising and handling runtime errors within your target content.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Errors_defined_by_the_xdc_package"><span class="tocnumber">1</span> <span class="toctext">Errors defined by the xdc package</span></a>
+<ul>
+<li class="toclevel-2"><a href="#xdc.PACKAGE_NOT_FOUND"><span class="tocnumber">1.1</span> <span class="toctext">xdc.PACKAGE_NOT_FOUND</span></a></li>
+<li class="toclevel-2"><a href="#xdc.FILE_NOT_FOUND"><span class="tocnumber">1.2</span> <span class="toctext">xdc.FILE_NOT_FOUND</span></a></li>
+<li class="toclevel-2"><a href="#xdc.MODULE_NOT_FOUND"><span class="tocnumber">1.3</span> <span class="toctext">xdc.MODULE_NOT_FOUND</span></a></li>
+<li class="toclevel-2"><a href="#xdc.TOOL_USAGE_ERROR"><span class="tocnumber">1.4</span> <span class="toctext">xdc.TOOL_USAGE_ERROR</span></a></li>
+<li class="toclevel-2"><a href="#xdc.MODULE_UNDEFINED_MAIN_FUNCTION"><span class="tocnumber">1.5</span> <span class="toctext">xdc.MODULE_UNDEFINED_MAIN_FUNCTION</span></a></li>
+<li class="toclevel-2"><a href="#xdc.SPEC_FILE_ERROR"><span class="tocnumber">1.6</span> <span class="toctext">xdc.SPEC_FILE_ERROR</span></a></li>
+<li class="toclevel-2"><a href="#xdc.DEPRECATED_FUNCTION"><span class="tocnumber">1.7</span> <span class="toctext">xdc.DEPRECATED_FUNCTION</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Errors_defined_by_the_xdc.bld_package"><span class="tocnumber">2</span> <span class="toctext">Errors defined by the xdc.bld package</span></a>
+<ul>
+<li class="toclevel-2"><a href="#xdc.bld.PARAMETER_MISMATCH"><span class="tocnumber">2.1</span> <span class="toctext">xdc.bld.PARAMETER_MISMATCH</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.PACKAGE_NOT_BUILT"><span class="tocnumber">2.2</span> <span class="toctext">xdc.bld.PACKAGE_NOT_BUILT</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.TARGET_CONFIG_ERROR"><span class="tocnumber">2.3</span> <span class="toctext">xdc.bld.TARGET_CONFIG_ERROR</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.ROOTDIR_NOT_SET"><span class="tocnumber">2.4</span> <span class="toctext">xdc.bld.ROOTDIR_NOT_SET</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.INVALID_PACKAGE"><span class="tocnumber">2.5</span> <span class="toctext">xdc.bld.INVALID_PACKAGE</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.INVALID_TARGET"><span class="tocnumber">2.6</span> <span class="toctext">xdc.bld.INVALID_TARGET</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.EXECUTABLE_EXISTS"><span class="tocnumber">2.7</span> <span class="toctext">xdc.bld.EXECUTABLE_EXISTS</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.LIBRARY_EXISTS"><span class="tocnumber">2.8</span> <span class="toctext">xdc.bld.LIBRARY_EXISTS</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.INCORRECT_PACKAGE_NAME"><span class="tocnumber">2.9</span> <span class="toctext">xdc.bld.INCORRECT_PACKAGE_NAME</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.CREATE_DIR_ERROR"><span class="tocnumber">2.10</span> <span class="toctext">xdc.bld.CREATE_DIR_ERROR</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.REPOSITORY_EXISTS"><span class="tocnumber">2.11</span> <span class="toctext">xdc.bld.REPOSITORY_EXISTS</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.RELEASE_EXISTS"><span class="tocnumber">2.12</span> <span class="toctext">xdc.bld.RELEASE_EXISTS</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.INVALID_RELEASE_PREFIX"><span class="tocnumber">2.13</span> <span class="toctext">xdc.bld.INVALID_RELEASE_PREFIX</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.INVALID_RELEASE_NAME"><span class="tocnumber">2.14</span> <span class="toctext">xdc.bld.INVALID_RELEASE_NAME</span></a></li>
+<li class="toclevel-2"><a href="#xdc.bld.SCRIPT_EXISTS"><span class="tocnumber">2.15</span> <span class="toctext">xdc.bld.SCRIPT_EXISTS</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Errors_defined_by_the_xdc.cfg_package"><span class="tocnumber">3</span> <span class="toctext">Errors defined by the xdc.cfg package</span></a>
+<ul>
+<li class="toclevel-2"><a href="#xdc.cfg.CONFIG_ERROR"><span class="tocnumber">3.1</span> <span class="toctext">xdc.cfg.CONFIG_ERROR</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Errors_defined_by_the_xdc_package"></a><h2> <span class="mw-headline"> Errors defined by the <tt>xdc</tt> package </span></h2>
+<a name="xdc.PACKAGE_NOT_FOUND"></a><h6> <span class="mw-headline">xdc.PACKAGE_NOT_FOUND</span></h6>
+<p><span class="Leader">xdc.PACKAGE_NOT_FOUND</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a specified package is not found along the current <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a>. This might happen for the following reasons:
+</dd></dl>
+<dl><dd><ul><li> A simple typo in the package name. If you've just typed in a package's name it's good to double check this first;
+</li><li> your <tt><a href="../Glossary/Glossary.html#XDCPATH" title="Glossary">XDCPATH</a></tt> is not setup properly. Ensure that the <a href="../Glossary/Glossary.html#Repository" title="Glossary">repositories</a> included in your <tt>XDCPATH</tt> setting contains the package being referenced. Again, a common cause is a simple typo in the <tt>XDCPATH</tt> setting.
+</li><li> The package has not been built by the <tt>xdc</tt> tool even though the physical package directory may be on the package path. This case is less common, but can occur during development or when you've been given a package in source code form.
+</li></ul>
+</dd></dl>
+<dl><dd>To quickly review the packages on your package path, you can run the <tt><a href="../Command_-_xdc.tools.path.sg/Command_-_xdc.tools.path.sg.html" title="Command - xdc.tools.path.sg">xdc.tools.path.sg</a></tt> tool from your current working directory.
+</dd></dl>
+<a name="xdc.FILE_NOT_FOUND"></a><h6> <span class="mw-headline">xdc.FILE_NOT_FOUND</span></h6>
+<p><span class="Leader">xdc.FILE_NOT_FOUND</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a specific file is not found, most commonly by the <tt><a href="../XDCscript_Language_Reference/XDCscript_Language_Reference.html#Find_File_Along_Package_Path_-_xdc.findFile" title="XDCscript Language Reference">xdc.findFile()</a></tt> function.
+</dd></dl>
+<dl><dd>If the filename is a relative path then this function will search for it along the package path. In this case a possible cause is that the package path is incorrect or incomplete, and the next steps would be similar to the <tt>xdc.PACKAGE_NOT_FOUND</tt> error.
+</dd></dl>
+<a name="xdc.MODULE_NOT_FOUND"></a><h6> <span class="mw-headline">xdc.MODULE_NOT_FOUND</span></h6>
+<p><span class="Leader">xdc.MODULE_NOT_FOUND</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a specific module is not found. The most common cause of this error is a simple typo in the module name. By the time of this error the tools have already found a package expected to contain this module, otherwise an <tt>xdc.PACKAGE_NOT_FOUND</tt> error would have been thrown instead.
+</dd></dl>
+<dl><dd>A less common cause of this error is that the package found was simply the wrong one, for example too old or too new a version, and the module does not exist.
+</dd></dl>
+<a name="xdc.TOOL_USAGE_ERROR"></a><h6> <span class="mw-headline">xdc.TOOL_USAGE_ERROR</span></h6>
+<p><span class="Leader">xdc.TOOL_USAGE_ERROR</span>.&nbsp;
+</p>
+<dl><dd>This error may happen when the <tt>xs</tt> tool is not passed the expected command line arguments. See the <a href="../Command_-_xs/Command_-_xs.html" title="Command - xs"><tt>xs</tt> man page</a> for usage.
+</dd></dl>
+<a name="xdc.MODULE_UNDEFINED_MAIN_FUNCTION"></a><h6> <span class="mw-headline">xdc.MODULE_UNDEFINED_MAIN_FUNCTION</span></h6>
+<p><span class="Leader">xdc.MODULE_UNDEFINED_MAIN_FUNCTION</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when the xs tool is passed a package or module that does not define a main() function. The likely cause is that this package or module was not intended to be used from the command line. See the <a href="../Command_-_xs/Command_-_xs.html#Running_a_script_contained_in_a_package" title="Command - xs"><tt>xs</tt> man page</a> for requirements on packages that deliver commands.
+</dd></dl>
+<a name="xdc.SPEC_FILE_ERROR"></a><h6> <span class="mw-headline">xdc.SPEC_FILE_ERROR</span></h6>
+<p><span class="Leader">xdc.SPEC_FILE_ERROR</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when there is a parsing error in a specification file. Check the spec. file for syntax errors. 
+</dd></dl>
+<a name="xdc.DEPRECATED_FUNCTION"></a><h6> <span class="mw-headline">xdc.DEPRECATED_FUNCTION</span></h6>
+<p><span class="Leader">xdc.DEPRECATED_FUNCTION</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever a deprecated function is called.
+</dd></dl>
+<a name="Errors_defined_by_the_xdc.bld_package"></a><h2> <span class="mw-headline"> Errors defined by the <tt>xdc.bld</tt> package </span></h2>
+<a name="xdc.bld.PARAMETER_MISMATCH"></a><h6> <span class="mw-headline">xdc.bld.PARAMETER_MISMATCH</span></h6>
+<p><span class="Leader">xdc.bld.PARAMETER_MISMATCH</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever incorrect parameters are passed to the module functions. Ensure that the parameters passed to the function have the right type. This error is reported by the following modules: 
+</dd></dl>
+<dl><dd><ul><li> <tt>xdc.bld.PackageContents</tt>&nbsp;: addLibrary, addAssembly, addExecutable, addRelease, addRepository, addScript 
+</li><li> <tt>xdc.bld.BuildEnvironment</tt>&nbsp;: usePlatform, isInTargetsArray 
+</li></ul>
+</dd></dl>
+<a name="xdc.bld.PACKAGE_NOT_BUILT"></a><h6> <span class="mw-headline">xdc.bld.PACKAGE_NOT_BUILT</span></h6>
+<p><span class="Leader">xdc.bld.PACKAGE_NOT_BUILT</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a consumer tries to use a package that has not been built. Ensure that the required package has been built by the xdc tool. This error is reported by the getReleaseDescs method in the xdc.bld.BuildEnvironment module.
+</dd></dl>
+<a name="xdc.bld.TARGET_CONFIG_ERROR"></a><h6> <span class="mw-headline">xdc.bld.TARGET_CONFIG_ERROR</span></h6>
+<p><span class="Leader">xdc.bld.TARGET_CONFIG_ERROR</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever there is an error in the target configuration file. Check the configuration script for errors. 
+</dd></dl>
+<a name="xdc.bld.ROOTDIR_NOT_SET"></a><h6> <span class="mw-headline">xdc.bld.ROOTDIR_NOT_SET</span></h6>
+<p><span class="Leader">xdc.bld.ROOTDIR_NOT_SET</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when the <tt>rootDir</tt> property for a target has not been set in the target configuration script. Ensure that this property is set correctly in the configuration script. 
+</dd></dl>
+<a name="xdc.bld.INVALID_PACKAGE"></a><h6> <span class="mw-headline">xdc.bld.INVALID_PACKAGE</span></h6>
+<p><span class="Leader">xdc.bld.INVALID_PACKAGE</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a consumer tries to use a corrupted package. Try rebuilding the package causing the problem. This error is reported by the <tt>getReleaseDescs</tt> method in the <tt>xdc.bld.BuildEnvironment</tt> module.
+</dd></dl>
+<a name="xdc.bld.INVALID_TARGET"></a><h6> <span class="mw-headline">xdc.bld.INVALID_TARGET</span></h6>
+<p><span class="Leader">xdc.bld.INVALID_TARGET</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a package is being built for an unspecified target. Ensure that the correct targets are mentioned in the package's build script. This error is reported by the addLibrary, addExecutable and addAssembly methods in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="xdc.bld.EXECUTABLE_EXISTS"></a><h6> <span class="mw-headline">xdc.bld.EXECUTABLE_EXISTS</span></h6>
+<p><span class="Leader">xdc.bld.EXECUTABLE_EXISTS</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a package's build script specifies multiple executables with the same name. Ensure that the names of the executables to be built are unique. This error is reported by the addExecutable method in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="xdc.bld.LIBRARY_EXISTS"></a><h6> <span class="mw-headline">xdc.bld.LIBRARY_EXISTS</span></h6>
+<p><span class="Leader">xdc.bld.LIBRARY_EXISTS</span>.&nbsp;
+</p>
+<dl><dd>This error is reported when a package's build script specifies multiple libraries with the same name. Ensure that the names of the libraries to be built are unique. This error is reported by the addLibrary method in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="xdc.bld.INCORRECT_PACKAGE_NAME"></a><h6> <span class="mw-headline">xdc.bld.INCORRECT_PACKAGE_NAME</span></h6>
+<p><span class="Leader">xdc.bld.INCORRECT_PACKAGE_NAME</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever package name does not match the directory name. Package names should match the directory layout. For example the package <tt>ti.sdo.ce.osal</tt> should be created in the directory <tt>ti/sdo/ce/osal</tt>. 
+</dd></dl>
+<a name="xdc.bld.CREATE_DIR_ERROR"></a><h6> <span class="mw-headline">xdc.bld.CREATE_DIR_ERROR</span></h6>
+<p><span class="Leader">xdc.bld.CREATE_DIR_ERROR</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever there is an error in creating package directories. This maybe related with issues with the host file system. Check whether directories can be created manually in the package sub-directory.
+</dd></dl>
+<a name="xdc.bld.REPOSITORY_EXISTS"></a><h6> <span class="mw-headline">xdc.bld.REPOSITORY_EXISTS</span></h6>
+<p><span class="Leader">xdc.bld.REPOSITORY_EXISTS</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever a package's build script specifies multiple repositories with the same name. Ensure that the names of the repositories specified in the build script are unique. This error is reported by the addRepository method in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="xdc.bld.RELEASE_EXISTS"></a><h6> <span class="mw-headline">xdc.bld.RELEASE_EXISTS</span></h6>
+<p><span class="Leader">xdc.bld.RELEASE_EXISTS</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever a package's build script specifies multiple releases with the same name. Ensure that the names of the releases specified in the build script are unique. This error is reported by the addRelease method in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="xdc.bld.INVALID_RELEASE_PREFIX"></a><h6> <span class="mw-headline">xdc.bld.INVALID_RELEASE_PREFIX</span></h6>
+<p><span class="Leader">xdc.bld.INVALID_RELEASE_PREFIX</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever a release prefix is specified by its absolute path in the package's build script. The release prefix has to be relative to the package's base directory. This error is reported by the addRelease method in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="xdc.bld.INVALID_RELEASE_NAME"></a><h6> <span class="mw-headline">xdc.bld.INVALID_RELEASE_NAME</span></h6>
+<p><span class="Leader">xdc.bld.INVALID_RELEASE_NAME</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever a release name is specified by its absolute path in the package's build script. The release name has to be relative to the package's base directory. This error is reported by the addRelease method in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="xdc.bld.SCRIPT_EXISTS"></a><h6> <span class="mw-headline">xdc.bld.SCRIPT_EXISTS</span></h6>
+<p><span class="Leader">xdc.bld.SCRIPT_EXISTS</span>.&nbsp;
+</p>
+<dl><dd>This error is reported whenever a package's build script specifies multiple user scripts with the same name. Ensure that the names of the user scripts are unique. This error is reported by the addScript method in the <tt>xdc.bld.PackageContents</tt> module.
+</dd></dl>
+<a name="Errors_defined_by_the_xdc.cfg_package"></a><h2> <span class="mw-headline"> Errors defined by the <tt>xdc.cfg</tt> package </span></h2>
+<a name="xdc.cfg.CONFIG_ERROR"></a><h6> <span class="mw-headline">xdc.cfg.CONFIG_ERROR</span></h6>
+<p><span class="Leader">xdc.cfg.CONFIG_ERROR</span>.&nbsp;
+</p>
+<dl><dd>This is a general error reported when the program configuration fails. This error is caused by one or more configuration errors. The list of those specific errors precedes this error.
+</dd></dl>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCtools Error Codes&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCtools Error Codes" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html" title="XDCtools Reference Manual"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 3671 bytes
+Post-expand include size: 2753 bytes
+Template argument size: 1197 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XDCtools_Error_Codes.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.265 secs. --></body></html>

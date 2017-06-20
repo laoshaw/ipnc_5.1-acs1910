@@ -1,0 +1,325 @@
+<html><head><title>module ti.catalog.arm.lm3init.Boot</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Boot.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class=key>package</span> ti.catalog.arm.lm3init;
+    19    
+    20    import xdc.rov.ViewInfo;
+    21    
+    22    @Template(<span class="string">"./Boot.xdt"</span>)
+    23    
+    24    <span class=key>metaonly</span> <span class=key>module</span> Boot
+    25    {
+    26        <span class=key>metaonly</span> <span class=key>struct</span> ModuleView {
+    27            Bool    configureClock;
+    28            Bool    sysClockDivEnable;
+    29            String  sysClockDiv;
+    30            Bool    pwmClockDivEnable;
+    31            String  pwmClockDiv;
+    32            String  xtal;
+    33            String  oscSrc;
+    34            Bool    pllBypass;
+    35            Bool    pllOutEnable;
+    36            Bool    ioscDisable;
+    37            Bool    moscDisable;
+    38            Bool    configureLdo;
+    39            String  ldoOut;
+    40        }
+    41    
+    42        @Facet
+    43        <span class=key>metaonly</span> <span class=key>config</span> ViewInfo.Instance rovViewInfo = 
+    44            ViewInfo.create({
+    45                viewMap: [
+    46                [
+    47                    <span class="string">'Module'</span>,
+    48                    {
+    49                        type: ViewInfo.MODULE,
+    50                        viewInitFxn: <span class="string">'viewInitModule'</span>,
+    51                        structName: <span class="string">'ModuleView'</span>
+    52                    }
+    53                ],
+    54                ]
+    55            });
+    56        
+    57    
+    58        <span class=key>enum</span> SysDiv {
+    59            SYSDIV_1     = 0x07800000,  <span class="comment">/* Processor clock is osc/pll /1 */</span>
+    60            SYSDIV_2     = 0x00C00000,  <span class="comment">/* Processor clock is osc/pll /2 */</span>
+    61            SYSDIV_3     = 0x01400000,  <span class="comment">/* Processor clock is osc/pll /3 */</span>
+    62            SYSDIV_4     = 0x01C00000,  <span class="comment">/* Processor clock is osc/pll /4 */</span>
+    63            SYSDIV_5     = 0x02400000,  <span class="comment">/* Processor clock is osc/pll /5 */</span>
+    64            SYSDIV_6     = 0x02C00000,  <span class="comment">/* Processor clock is osc/pll /6 */</span>
+    65            SYSDIV_7     = 0x03400000,  <span class="comment">/* Processor clock is osc/pll /7 */</span>
+    66            SYSDIV_8     = 0x03C00000,  <span class="comment">/* Processor clock is osc/pll /8 */</span>
+    67            SYSDIV_9     = 0x04400000,  <span class="comment">/* Processor clock is osc/pll /9 */</span>
+    68            SYSDIV_10    = 0x04C00000,  <span class="comment">/* Processor clock is osc/pll /10 */</span>
+    69            SYSDIV_11    = 0x05400000,  <span class="comment">/* Processor clock is osc/pll /11 */</span>
+    70            SYSDIV_12    = 0x05C00000,  <span class="comment">/* Processor clock is osc/pll /12 */</span>
+    71            SYSDIV_13    = 0x06400000,  <span class="comment">/* Processor clock is osc/pll /13 */</span>
+    72            SYSDIV_14    = 0x06C00000,  <span class="comment">/* Processor clock is osc/pll /14 */</span>
+    73            SYSDIV_15    = 0x07400000,  <span class="comment">/* Processor clock is osc/pll /15 */</span>
+    74            SYSDIV_16    = 0x07C00000,  <span class="comment">/* Processor clock is osc/pll /16 */</span>
+    75            SYSDIV_17    = 0x88400000,  <span class="comment">/* Processor clock is osc/pll /17 */</span>
+    76            SYSDIV_18    = 0x88C00000,  <span class="comment">/* Processor clock is osc/pll /18 */</span>
+    77            SYSDIV_19    = 0x89400000,  <span class="comment">/* Processor clock is osc/pll /19 */</span>
+    78            SYSDIV_20    = 0x89C00000,  <span class="comment">/* Processor clock is osc/pll /20 */</span>
+    79            SYSDIV_21    = 0x8A400000,  <span class="comment">/* Processor clock is osc/pll /21 */</span>
+    80            SYSDIV_22    = 0x8AC00000,  <span class="comment">/* Processor clock is osc/pll /22 */</span>
+    81            SYSDIV_23    = 0x8B400000,  <span class="comment">/* Processor clock is osc/pll /23 */</span>
+    82            SYSDIV_24    = 0x8BC00000,  <span class="comment">/* Processor clock is osc/pll /24 */</span>
+    83            SYSDIV_25    = 0x8C400000,  <span class="comment">/* Processor clock is osc/pll /25 */</span>
+    84            SYSDIV_26    = 0x8CC00000,  <span class="comment">/* Processor clock is osc/pll /26 */</span>
+    85            SYSDIV_27    = 0x8D400000,  <span class="comment">/* Processor clock is osc/pll /27 */</span>
+    86            SYSDIV_28    = 0x8DC00000,  <span class="comment">/* Processor clock is osc/pll /28 */</span>
+    87            SYSDIV_29    = 0x8E400000,  <span class="comment">/* Processor clock is osc/pll /29 */</span>
+    88            SYSDIV_30    = 0x8EC00000,  <span class="comment">/* Processor clock is osc/pll /30 */</span>
+    89            SYSDIV_31    = 0x8F400000,  <span class="comment">/* Processor clock is osc/pll /31 */</span>
+    90            SYSDIV_32    = 0x8FC00000,  <span class="comment">/* Processor clock is osc/pll /32 */</span>
+    91            SYSDIV_33    = 0x90400000,  <span class="comment">/* Processor clock is osc/pll /33 */</span>
+    92            SYSDIV_34    = 0x90C00000,  <span class="comment">/* Processor clock is osc/pll /34 */</span>
+    93            SYSDIV_35    = 0x91400000,  <span class="comment">/* Processor clock is osc/pll /35 */</span>
+    94            SYSDIV_36    = 0x91C00000,  <span class="comment">/* Processor clock is osc/pll /36 */</span>
+    95            SYSDIV_37    = 0x92400000,  <span class="comment">/* Processor clock is osc/pll /37 */</span>
+    96            SYSDIV_38    = 0x92C00000,  <span class="comment">/* Processor clock is osc/pll /38 */</span>
+    97            SYSDIV_39    = 0x93400000,  <span class="comment">/* Processor clock is osc/pll /39 */</span>
+    98            SYSDIV_40    = 0x93C00000,  <span class="comment">/* Processor clock is osc/pll /40 */</span>
+    99            SYSDIV_41    = 0x94400000,  <span class="comment">/* Processor clock is osc/pll /41 */</span>
+   100            SYSDIV_42    = 0x94C00000,  <span class="comment">/* Processor clock is osc/pll /42 */</span>
+   101            SYSDIV_43    = 0x95400000,  <span class="comment">/* Processor clock is osc/pll /43 */</span>
+   102            SYSDIV_44    = 0x95C00000,  <span class="comment">/* Processor clock is osc/pll /44 */</span>
+   103            SYSDIV_45    = 0x96400000,  <span class="comment">/* Processor clock is osc/pll /45 */</span>
+   104            SYSDIV_46    = 0x96C00000,  <span class="comment">/* Processor clock is osc/pll /46 */</span>
+   105            SYSDIV_47    = 0x97400000,  <span class="comment">/* Processor clock is osc/pll /47 */</span>
+   106            SYSDIV_48    = 0x97C00000,  <span class="comment">/* Processor clock is osc/pll /48 */</span>
+   107            SYSDIV_49    = 0x98400000,  <span class="comment">/* Processor clock is osc/pll /49 */</span>
+   108            SYSDIV_50    = 0x98C00000,  <span class="comment">/* Processor clock is osc/pll /50 */</span>
+   109            SYSDIV_51    = 0x99400000,  <span class="comment">/* Processor clock is osc/pll /51 */</span>
+   110            SYSDIV_52    = 0x99C00000,  <span class="comment">/* Processor clock is osc/pll /52 */</span>
+   111            SYSDIV_53    = 0x9A400000,  <span class="comment">/* Processor clock is osc/pll /53 */</span>
+   112            SYSDIV_54    = 0x9AC00000,  <span class="comment">/* Processor clock is osc/pll /54 */</span>
+   113            SYSDIV_55    = 0x9B400000,  <span class="comment">/* Processor clock is osc/pll /55 */</span>
+   114            SYSDIV_56    = 0x9BC00000,  <span class="comment">/* Processor clock is osc/pll /56 */</span>
+   115            SYSDIV_57    = 0x9C400000,  <span class="comment">/* Processor clock is osc/pll /57 */</span>
+   116            SYSDIV_58    = 0x9CC00000,  <span class="comment">/* Processor clock is osc/pll /58 */</span>
+   117            SYSDIV_59    = 0x9D400000,  <span class="comment">/* Processor clock is osc/pll /59 */</span>
+   118            SYSDIV_60    = 0x9DC00000,  <span class="comment">/* Processor clock is osc/pll /60 */</span>
+   119            SYSDIV_61    = 0x9E400000,  <span class="comment">/* Processor clock is osc/pll /61 */</span>
+   120            SYSDIV_62    = 0x9EC00000,  <span class="comment">/* Processor clock is osc/pll /62 */</span>
+   121            SYSDIV_63    = 0x9F400000,  <span class="comment">/* Processor clock is osc/pll /63 */</span>
+   122            SYSDIV_64    = 0x9FC00000,  <span class="comment">/* Processor clock is osc/pll /64 */</span>
+   123            SYSDIV_2_5   = 0xC1000000,  <span class="comment">/* Processor clock is pll / 2.5 */</span>
+   124            SYSDIV_3_5   = 0xC1800000,  <span class="comment">/* Processor clock is pll / 3.5 */</span>
+   125            SYSDIV_4_5   = 0xC2000000,  <span class="comment">/* Processor clock is pll / 4.5 */</span>
+   126            SYSDIV_5_5   = 0xC2800000,  <span class="comment">/* Processor clock is pll / 5.5 */</span>
+   127            SYSDIV_6_5   = 0xC3000000,  <span class="comment">/* Processor clock is pll / 6.5 */</span>
+   128            SYSDIV_7_5   = 0xC3800000,  <span class="comment">/* Processor clock is pll / 7.5 */</span>
+   129            SYSDIV_8_5   = 0xC4000000,  <span class="comment">/* Processor clock is pll / 8.5 */</span>
+   130            SYSDIV_9_5   = 0xC4800000,  <span class="comment">/* Processor clock is pll / 9.5 */</span>
+   131            SYSDIV_10_5  = 0xC5000000,  <span class="comment">/* Processor clock is pll / 10.5 */</span>
+   132            SYSDIV_11_5  = 0xC5800000,  <span class="comment">/* Processor clock is pll / 11.5 */</span>
+   133            SYSDIV_12_5  = 0xC6000000,  <span class="comment">/* Processor clock is pll / 12.5 */</span>
+   134            SYSDIV_13_5  = 0xC6800000,  <span class="comment">/* Processor clock is pll / 13.5 */</span>
+   135            SYSDIV_14_5  = 0xC7000000,  <span class="comment">/* Processor clock is pll / 14.5 */</span>
+   136            SYSDIV_15_5  = 0xC7800000,  <span class="comment">/* Processor clock is pll / 15.5 */</span>
+   137            SYSDIV_16_5  = 0xC8000000,  <span class="comment">/* Processor clock is pll / 16.5 */</span>
+   138            SYSDIV_17_5  = 0xC8800000,  <span class="comment">/* Processor clock is pll / 17.5 */</span>
+   139            SYSDIV_18_5  = 0xC9000000,  <span class="comment">/* Processor clock is pll / 18.5 */</span>
+   140            SYSDIV_19_5  = 0xC9800000,  <span class="comment">/* Processor clock is pll / 19.5 */</span>
+   141            SYSDIV_20_5  = 0xCA000000,  <span class="comment">/* Processor clock is pll / 20.5 */</span>
+   142            SYSDIV_21_5  = 0xCA800000,  <span class="comment">/* Processor clock is pll / 21.5 */</span>
+   143            SYSDIV_22_5  = 0xCB000000,  <span class="comment">/* Processor clock is pll / 22.5 */</span>
+   144            SYSDIV_23_5  = 0xCB800000,  <span class="comment">/* Processor clock is pll / 23.5 */</span>
+   145            SYSDIV_24_5  = 0xCC000000,  <span class="comment">/* Processor clock is pll / 24.5 */</span>
+   146            SYSDIV_25_5  = 0xCC800000,  <span class="comment">/* Processor clock is pll / 25.5 */</span>
+   147            SYSDIV_26_5  = 0xCD000000,  <span class="comment">/* Processor clock is pll / 26.5 */</span>
+   148            SYSDIV_27_5  = 0xCD800000,  <span class="comment">/* Processor clock is pll / 27.5 */</span>
+   149            SYSDIV_28_5  = 0xCE000000,  <span class="comment">/* Processor clock is pll / 28.5 */</span>
+   150            SYSDIV_29_5  = 0xCE800000,  <span class="comment">/* Processor clock is pll / 29.5 */</span>
+   151            SYSDIV_30_5  = 0xCF000000,  <span class="comment">/* Processor clock is pll / 30.5 */</span>
+   152            SYSDIV_31_5  = 0xCF800000,  <span class="comment">/* Processor clock is pll / 31.5 */</span>
+   153            SYSDIV_32_5  = 0xD0000000,  <span class="comment">/* Processor clock is pll / 32.5 */</span>
+   154            SYSDIV_33_5  = 0xD0800000,  <span class="comment">/* Processor clock is pll / 33.5 */</span>
+   155            SYSDIV_34_5  = 0xD1000000,  <span class="comment">/* Processor clock is pll / 34.5 */</span>
+   156            SYSDIV_35_5  = 0xD1800000,  <span class="comment">/* Processor clock is pll / 35.5 */</span>
+   157            SYSDIV_36_5  = 0xD2000000,  <span class="comment">/* Processor clock is pll / 36.5 */</span>
+   158            SYSDIV_37_5  = 0xD2800000,  <span class="comment">/* Processor clock is pll / 37.5 */</span>
+   159            SYSDIV_38_5  = 0xD3000000,  <span class="comment">/* Processor clock is pll / 38.5 */</span>
+   160            SYSDIV_39_5  = 0xD3800000,  <span class="comment">/* Processor clock is pll / 39.5 */</span>
+   161            SYSDIV_40_5  = 0xD4000000,  <span class="comment">/* Processor clock is pll / 40.5 */</span>
+   162            SYSDIV_41_5  = 0xD4800000,  <span class="comment">/* Processor clock is pll / 41.5 */</span>
+   163            SYSDIV_42_5  = 0xD5000000,  <span class="comment">/* Processor clock is pll / 42.5 */</span>
+   164            SYSDIV_43_5  = 0xD5800000,  <span class="comment">/* Processor clock is pll / 43.5 */</span>
+   165            SYSDIV_44_5  = 0xD6000000,  <span class="comment">/* Processor clock is pll / 44.5 */</span>
+   166            SYSDIV_45_5  = 0xD6800000,  <span class="comment">/* Processor clock is pll / 45.5 */</span>
+   167            SYSDIV_46_5  = 0xD7000000,  <span class="comment">/* Processor clock is pll / 46.5 */</span>
+   168            SYSDIV_47_5  = 0xD7800000,  <span class="comment">/* Processor clock is pll / 47.5 */</span>
+   169            SYSDIV_48_5  = 0xD8000000,  <span class="comment">/* Processor clock is pll / 48.5 */</span>
+   170            SYSDIV_49_5  = 0xD8800000,  <span class="comment">/* Processor clock is pll / 49.5 */</span>
+   171            SYSDIV_50_5  = 0xD9000000,  <span class="comment">/* Processor clock is pll / 50.5 */</span>
+   172            SYSDIV_51_5  = 0xD9800000,  <span class="comment">/* Processor clock is pll / 51.5 */</span>
+   173            SYSDIV_52_5  = 0xDA000000,  <span class="comment">/* Processor clock is pll / 52.5 */</span>
+   174            SYSDIV_53_5  = 0xDA800000,  <span class="comment">/* Processor clock is pll / 53.5 */</span>
+   175            SYSDIV_54_5  = 0xDB000000,  <span class="comment">/* Processor clock is pll / 54.5 */</span>
+   176            SYSDIV_55_5  = 0xDB800000,  <span class="comment">/* Processor clock is pll / 55.5 */</span>
+   177            SYSDIV_56_5  = 0xDC000000,  <span class="comment">/* Processor clock is pll / 56.5 */</span>
+   178            SYSDIV_57_5  = 0xDC800000,  <span class="comment">/* Processor clock is pll / 57.5 */</span>
+   179            SYSDIV_58_5  = 0xDD000000,  <span class="comment">/* Processor clock is pll / 58.5 */</span>
+   180            SYSDIV_59_5  = 0xDD800000,  <span class="comment">/* Processor clock is pll / 59.5 */</span>
+   181            SYSDIV_60_5  = 0xDE000000,  <span class="comment">/* Processor clock is pll / 60.5 */</span>
+   182            SYSDIV_61_5  = 0xDE800000,  <span class="comment">/* Processor clock is pll / 61.5 */</span>
+   183            SYSDIV_62_5  = 0xDF000000,  <span class="comment">/* Processor clock is pll / 62.5 */</span>
+   184            SYSDIV_63_5  = 0xDF800000   <span class="comment">/* Processor clock is pll / 63.5 */</span>
+   185        }
+   186    
+   187        <span class=key>enum</span> PwmDiv {
+   188            PWMDIV_1     = 0x00000000,  <span class="comment">/* PWM clock /1 */</span>
+   189            PWMDIV_2     = 0x00100000,  <span class="comment">/* PWM clock /2 */</span>
+   190            PWMDIV_4     = 0x00120000,  <span class="comment">/* PWM clock /4 */</span>
+   191            PWMDIV_8     = 0x00140000,  <span class="comment">/* PWM clock /8 */</span>
+   192            PWMDIV_16    = 0x00160000,  <span class="comment">/* PWM clock /16 */</span>
+   193            PWMDIV_32    = 0x00180000,  <span class="comment">/* PWM clock /32 */</span>
+   194            PWMDIV_64    = 0x001A0000   <span class="comment">/* PWM clock /64 */</span>
+   195        }
+   196    
+   197        <span class=key>enum</span> XtalFreq {
+   198            XTAL_1MHZ    = 0x00000000,  <span class="comment">/* Using a 1MHz crystal */</span>
+   199            XTAL_1_84MHZ = 0x00000040,  <span class="comment">/* Using a 1.8432MHz crystal */</span>
+   200            XTAL_2MHZ    = 0x00000080,  <span class="comment">/* Using a 2MHz crystal */</span>
+   201            XTAL_2_45MHZ = 0x000000C0,  <span class="comment">/* Using a 2.4576MHz crystal */</span>
+   202            XTAL_3_57MHZ = 0x00000100,  <span class="comment">/* Using a 3.579545MHz crystal */</span>
+   203            XTAL_3_68MHZ = 0x00000140,  <span class="comment">/* Using a 3.6864MHz crystal */</span>
+   204            XTAL_4MHZ    = 0x00000180,  <span class="comment">/* Using a 4MHz crystal */</span>
+   205            XTAL_4_09MHZ = 0x000001C0,  <span class="comment">/* Using a 4.096MHz crystal */</span>
+   206            XTAL_4_91MHZ = 0x00000200,  <span class="comment">/* Using a 4.9152MHz crystal */</span>
+   207            XTAL_5MHZ    = 0x00000240,  <span class="comment">/* Using a 5MHz crystal */</span>
+   208            XTAL_5_12MHZ = 0x00000280,  <span class="comment">/* Using a 5.12MHz crystal */</span>
+   209            XTAL_6MHZ    = 0x000002C0,  <span class="comment">/* Using a 6MHz crystal */</span>
+   210            XTAL_6_14MHZ = 0x00000300,  <span class="comment">/* Using a 6.144MHz crystal */</span>
+   211            XTAL_7_37MHZ = 0x00000340,  <span class="comment">/* Using a 7.3728MHz crystal */</span>
+   212            XTAL_8MHZ    = 0x00000380,  <span class="comment">/* Using a 8MHz crystal */</span>
+   213            XTAL_8_19MHZ = 0x000003C0,  <span class="comment">/* Using a 8.192MHz crystal */</span>
+   214            XTAL_10MHZ   = 0x00000400,  <span class="comment">/* 10.0 MHz (USB) */</span>
+   215            XTAL_12MHZ   = 0x00000440,  <span class="comment">/* 12.0 MHz (USB) */</span>
+   216            XTAL_12_2MHZ = 0x00000480,  <span class="comment">/* 12.288 MHz */</span>
+   217            XTAL_13_5MHZ = 0x000004C0,  <span class="comment">/* 13.56 MHz */</span>
+   218            XTAL_14_3MHZ = 0x00000500,  <span class="comment">/* 14.31818 MHz */</span>
+   219            XTAL_16MHZ   = 0x00000540,  <span class="comment">/* 16.0 MHz (USB) */</span>
+   220            XTAL_16_3MHZ = 0x00000580   <span class="comment">/* 16.384 MHz */</span>
+   221        }
+   222    
+   223        <span class=key>enum</span> OscSrc {
+   224            OSCSRC_MAIN  = 0x00000000,  <span class="comment">/* Use the main oscillator */</span>
+   225            OSCSRC_INT   = 0x00000010,  <span class="comment">/* Use the internal oscillator */</span>
+   226            OSCSRC_INT4  = 0x00000020,  <span class="comment">/* Use the internal oscillator / 4 */</span>
+   227            OSCSRC_30    = 0x00000030   <span class="comment">/* 30 KHz internal oscillator */</span>
+   228        }
+   229    
+   230        <span class=key>enum</span> LdoOut {
+   231            LDOPCTL_2_55V    = 0x0000001F,  <span class="comment">/* LDO output of 2.55V */</span>
+   232            LDOPCTL_2_60V    = 0x0000001E,  <span class="comment">/* LDO output of 2.60V */</span>
+   233            LDOPCTL_2_65V    = 0x0000001D,  <span class="comment">/* LDO output of 2.65V */</span>
+   234            LDOPCTL_2_70V    = 0x0000001C,  <span class="comment">/* LDO output of 2.70V */</span>
+   235            LDOPCTL_2_75V    = 0x0000001B,  <span class="comment">/* LDO output of 2.75V */</span>
+   236            LDOPCTL_2_25V    = 0x00000005,  <span class="comment">/* LDO output of 2.25V */</span>
+   237            LDOPCTL_2_30V    = 0x00000004,  <span class="comment">/* LDO output of 2.30V */</span>
+   238            LDOPCTL_2_35V    = 0x00000003,  <span class="comment">/* LDO output of 2.35V */</span>
+   239            LDOPCTL_2_40V    = 0x00000002,  <span class="comment">/* LDO output of 2.40V */</span>
+   240            LDOPCTL_2_45V    = 0x00000001,  <span class="comment">/* LDO output of 2.45V */</span>
+   241            LDOPCTL_2_50V    = 0x00000000   <span class="comment">/* LDO output of 2.50V */</span>
+   242        }
+   243    
+   244        <span class="xdoc">/*! 
+</span>   245    <span class="xdoc">     *  Clock configuration flag, default is false.
+</span>   246    <span class="xdoc">     *
+</span>   247    <span class="xdoc">     *  Set to true to automatically configure the Clock.
+</span>   248    <span class="xdoc">     */</span>
+   249        <span class=key>config</span> Bool configureClock = <span class=key>false</span>;
+   250    
+   251        <span class="xdoc">/*! SYS Clock Divisor */</span>
+   252        <span class=key>config</span> SysDiv sysClockDiv = SYSDIV_1;
+   253    
+   254        <span class="xdoc">/*! PWM Clock Divisor */</span>
+   255        <span class=key>config</span> PwmDiv pwmClockDiv = PWMDIV_1;
+   256    
+   257        <span class="xdoc">/*! Crystal Value */</span>
+   258        <span class=key>config</span> XtalFreq xtal = XTAL_1MHZ;
+   259    
+   260        <span class="xdoc">/*! Oscillator Source */</span>
+   261        <span class=key>config</span> OscSrc oscSrc = OSCSRC_MAIN;
+   262    
+   263        <span class="xdoc">/*! PLL Bypass flag */</span>
+   264        <span class=key>config</span> Bool pllBypass = <span class=key>false</span>;
+   265    
+   266        <span class="xdoc">/*! PLL Output Enable flag */</span>
+   267        <span class=key>config</span> Bool pllOutEnable = <span class=key>false</span>;
+   268    
+   269        <span class="xdoc">/*! Internal Oscillator Disable flag */</span>
+   270        <span class=key>config</span> Bool ioscDisable = <span class=key>false</span>;
+   271    
+   272        <span class="xdoc">/*! Main Oscillator Disable flag */</span>
+   273        <span class=key>config</span> Bool moscDisable = <span class=key>false</span>;
+   274    
+   275        <span class="xdoc">/*! 
+</span>   276    <span class="xdoc">     *  LDO configuration flag, default is false.
+</span>   277    <span class="xdoc">     *
+</span>   278    <span class="xdoc">     *  Set to true to automatically configure the LDO.
+</span>   279    <span class="xdoc">     */</span>
+   280        <span class=key>config</span> Bool configureLdo = <span class=key>false</span>;
+   281    
+   282        <span class="xdoc">/*! 
+</span>   283    <span class="xdoc">     *  LDO VADJ setting, default is 2.5V
+</span>   284    <span class="xdoc">     */</span>
+   285        <span class=key>config</span> LdoOut ldoOut = LDOPCTL_2_50V;
+   286    
+   287        <span class="xdoc">/*! 
+</span>   288    <span class="xdoc">     *  Code section that Boot module code is in.
+</span>   289    <span class="xdoc">     *
+</span>   290    <span class="xdoc">     *  To place this section into a memory segment yourself, add the 
+</span>   291    <span class="xdoc">     *  following to you configuration file: 
+</span>   292    <span class="xdoc">     *
+</span>   293    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   294    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection] = new Program.SectionSpec();
+</span>   295    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection].loadSegment = "yourBootCodeMemorySegment";
+</span>   296    <span class="xdoc">     *  <b>@p</b>
+</span>   297    <span class="xdoc">     *
+</span>   298    <span class="xdoc">     *  or to place the code at a specific address: 
+</span>   299    <span class="xdoc">     *
+</span>   300    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   301    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection] = new Program.SectionSpec();
+</span>   302    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection].loadAdress = yourBootCodeAddress;
+</span>   303    <span class="xdoc">     *  <b>@p</b>
+</span>   304    <span class="xdoc">     *
+</span>   305    <span class="xdoc">     */</span>
+   306        <span class=key>readonly</span> <span class=key>config</span> String bootCodeSection = <span class="string">".bootCodeSection"</span>;
+   307    
+   308        <span class="xdoc">/*! 
+</span>   309    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   310    <span class="xdoc">     *  computed RCC value based on settings
+</span>   311    <span class="xdoc">     */</span>
+   312        <span class=key>config</span> UInt ulConfig;
+   313    };
+   314    <span class="comment">/*
+</span>   315    <span class="comment"> *  @(#) ti.catalog.arm.lm3init; 1, 0, 0,40; 2-23-2010 16:50:33; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   316    <span class="comment"> */</span>
+   317    
+</pre>
+</body></html>

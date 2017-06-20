@@ -1,0 +1,388 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using xdc.runtime System - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime System&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime System" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_System__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Using xdc.runtime System</p><p id="subtitle">How to boot, print a message, and shutdown</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Architecture"><span class="tocnumber">2.1</span> <span class="toctext">Architecture</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Startup_and_initialization"><span class="tocnumber">2.1.1</span> <span class="toctext">Startup and initialization</span></a></li>
+<li class="toclevel-3"><a href="#Character_output_and_shutdown"><span class="tocnumber">2.1.2</span> <span class="toctext">Character output and shutdown</span></a></li>
+<li class="toclevel-3"><a href="#Concurrency_support"><span class="tocnumber">2.1.3</span> <span class="toctext">Concurrency support</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Configuration</span></a>
+<ul>
+<li class="toclevel-3"><a href="#System_support_proxy"><span class="tocnumber">2.2.1</span> <span class="toctext">System support proxy</span></a></li>
+<li class="toclevel-3"><a href="#The_System_gate"><span class="tocnumber">2.2.2</span> <span class="toctext">The System gate</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1"><a href="#Built-in_System_Support_Modules"><span class="tocnumber">4</span> <span class="toctext">Built-in System Support Modules</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_SysStd_Module"><span class="tocnumber">4.1</span> <span class="toctext">The SysStd Module</span></a></li>
+<li class="toclevel-2"><a href="#The_SysMin_Module"><span class="tocnumber">4.2</span> <span class="toctext">The SysMin Module</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Performance_Considerations"><span class="tocnumber">5</span> <span class="toctext">Performance Considerations</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Interrupt_latency_and_calling_context"><span class="tocnumber">5.1</span> <span class="toctext">Interrupt latency and calling context</span></a></li>
+<li class="toclevel-2"><a href="#Execution_time"><span class="tocnumber">5.2</span> <span class="toctext">Execution time</span></a></li>
+<li class="toclevel-2"><a href="#Footprint"><span class="tocnumber">5.3</span> <span class="toctext">Footprint</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>The <tt>xdc.runtime</tt> package contains two modules that together provide the minimal set of services necessary to enable modular application startup and shutdown as well as basic message display.  
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/Startup.html" class="cdoc"><tt>Startup</tt></a></tt> - a module that provides a framework for the orderly initialization of modules <i>prior</i> to <tt>main()</tt>, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/System.html" class="cdoc"><tt>System</tt></a></tt> - a module that provides exit handling similar to the ANSI C <tt>atexit()</tt> mechanism as well as basic <tt>printf()</tt> message output.  
+</li></ol>
+<p>Use of these modules is illustrated below by a series of examples that use one of two other distinguished <tt>xdc.runtime</tt> modules that provide the "back end" support functions required by the <tt>System</tt> module:
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/SysMin.html" class="cdoc"><tt>SysMin</tt></a></tt> - a self-contained module appropriate for deeply embedded applications or early system development, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/SysStd.html" class="cdoc"><tt>SysStd</tt></a></tt> - a module that relies on standard ANSI C runtime library functions such as <tt>putchar()</tt> and <tt>fflush()</tt> and is appropriate for systems with an already functional ANSI C Standard I/O library.
+</li></ol>
+<a name="Overview"></a><h2> <span class="mw-headline">Overview</span></h2>
+<p>Each embedded application runs in a unique environment with specific resource requirements and, as a result, adopts application-specific <i>policies</i> for basic character output, application startup, and shutdown.  The <tt>xdc.runtime</tt> package provides an extensible platform-independent framework for application startup (from processor boot), initialization, and shutdown.  In addition, it provides a platform-independent interface for character output which allows for platform-specific implementations that can range from simple memory writes to a circular buffer to flow-controlled output via a platform-specific I/O device.  
+</p><p>The <tt>System</tt> and <tt>Startup</tt> modules provide the foundation for early application "bring up", and continue to serve in deployed applications to manage the initialization of higher-level services and provide simple "fail-safe" diagnostics.  These modules together with, say, the <tt>SysMin</tt> system support module are sufficient to enable complete C-based application development using "printf" debugging.
+</p><p>Because <tt>Startup</tt> and <tt>System</tt> are platform-independent, entire embedded applications can be ported to alternative execution environments (Unix or Windows workstations, for example) without making any change to their sources.  Porting to a different environment involves a simple reconfiguration of the application to replace the <tt>System</tt> support module with an implementation appropriate for the new execution environment; no change to the application's sources are required and, if you're porting between <a href="../Glossary/Glossary.html#PlatformDefinition" title="Glossary">platforms</a> with the same <a href="../Glossary/Glossary.html#TargetDefinition" title="Glossary">target</a>, no recompilation is required.
+</p>
+<a name="Architecture"></a><h3> <span class="mw-headline">Architecture</span></h3>
+<p>Every module in an application can optionally supply a "startup" function that <i>must</i> be run prior to the first use of the module by application code.  This startup function might read memory mapped registers necessary to initialize the module's internal data structures, for example.  Modules specify that they have startup functions via the <tt><a href="../XDCspec_-_%40ModuleStartup/XDCspec_-_%40ModuleStartup.html" title="XDCspec - @ModuleStartup">@ModuleStartup</a></tt> attribute in their module specification file.  The <tt>Startup</tt> module runs these startup functions prior to the application's <tt>main()</tt> entry point and provides numerous configuration parameters to enable the developer to augment the startup process with custom C functions.  
+</p><p>The <tt>System</tt> module, on the other hand, provides mechanisms for modules (initialized under the control of <tt>Startup</tt>) to shutdown.   Between the initialization of the application's modules and shutdown of the application, <tt>System</tt> is also used to perform simple character output via "printf-like" methods.  By not supporting all the format specifications required by a full ANSI C Standard implementation of <tt>printf()</tt>, these methods provide a much smaller and faster implementation that satisfies most uses and can be embedded in very small applications.  
+</p><p>Finally, the <tt>System</tt> module also provides a low-level "gate" that is used to protect global data structures maintained within the <tt>xdc.runtime</tt> package; this gate allows multi-threaded applications to safely use the <tt>xdc.runtime</tt> package's modules concurrently.  This same gate can also be used by application code.
+</p>
+<a name="Startup_and_initialization"></a><h6> <span class="mw-headline">Startup and initialization</span></h6>
+<p><span class="Leader">Startup and initialization</span>.&nbsp; The <tt>Startup</tt> module provides a standard mechanism for the orderly initialization of all modules within an application <i>before</i> <tt>main()</tt> begins.  The <tt>Startup</tt> module defines just two entry points that need to be integrated into the execution environment's startup code.  Once this is done, <tt>Startup</tt> handles the initialization of all other modules in the application - <tt>xdc.runtime</tt> modules as well as any other modules used by the application.
+</p><p><a href="../Using_xdc.runtime_Startup/Using_xdc.runtime_Startup.html" title="Using xdc.runtime Startup">Using xdc.runtime Startup</a> describes the startup (and shutdown) process in detail and provides the information required to port applications from your development environment to your custom hardware.
+</p>
+<a name="Character_output_and_shutdown"></a><h6> <span class="mw-headline">Character output and shutdown</span></h6>
+<p><span class="Leader">Character output and shutdown</span>.&nbsp; The <tt>System</tt> module provides a facade for two key system level areas: character output and program termination. Since application termination and basic character output can be very different depending on the product and stage of development, the <tt>System</tt> module relies on a user supplied module that implements these very basic functions (defined by the <tt><a href="../../cdoc/xdc/runtime/ISystemSupport.html" class="cdoc"><tt>ISystemSupport</tt></a></tt> interface).  Developers specify the module that implements these functions by setting the <tt><a href="../../cdoc/index.html#xdc/runtime/System.html#.Support.Proxy" class="cdoc"><tt>System.SupportProxy</tt></a></tt> configuration parameter.
+</p>
+<center><a href="images/RuntimeSys.PNG" class="image" title="System Support Architecture"><img alt="System Support Architecture" src="images/RuntimeSys.PNG" width="701" height="269" border="0" /></a></center>
+<p>The <tt>xdc.runtime</tt> package includes two system support proxy options: <tt>SysMin</tt> and <tt>SysStd</tt>.  These modules are sufficient for early development but, because they are written to be 100% portable, they don't take advantage of any platform-specific features (such as an embedded UART).  Fortunately it is easy to create a custom system support module that can be bound to <tt>System</tt> as easily as <tt>SyMin</tt> or <tt>SysStd</tt> and takes full advantage advantage of your platform's execution environment.  The <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System.html" title="Extending xdc.runtime System">System Support Section</a> contains more details about how to create system support modules and includes a simple example that can easily be extended to leverage unique platform capabilities.
+</p>
+<a name="Concurrency_support"></a><h6> <span class="mw-headline">Concurrency support</span></h6>
+<p><span class="Leader">Concurrency support</span>.&nbsp;  The System module is a <a href="../Glossary/Glossary.html#GatedModule" title="Glossary">gated module</a>. The gate associated with the <tt>System</tt> module, also called the "<tt>System</tt> gate", is a used for two purposes:
+</p>
+<ol><li>to protect critical regions within the <tt>xdc.runtime</tt> package by serializing concurrent accesses to global data; and
+</li><li>to protect small critical regions within the application via the <tt><a href="../../cdoc/xdc/runtime/Gate.html#enter.System" class="cdoc"><tt>Gate_enterSystem()</tt></a></tt> and <tt><a href="../../cdoc/index.html#xdc/runtime/Gate.html#leave.System" class="cdoc"><tt>Gate_leaveSystem()</tt></a></tt> APIs.
+</li></ol>
+<p></p>
+<center><a href="images/RuntimeGate.png" class="image" title="Concurrency Architecture"><img alt="Concurrency Architecture" src="images/RuntimeGate.png" width="456" height="440" border="0" /></a></center>
+<p>For more information about using the <tt>xdc.runtime</tt> package in multi-threaded applications, see <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html#Multi-Threading_Support" title="Working with xdc.runtime">Multi-Threading Support</a>.  <a href="../Using_xdc.runtime_Gates/Using_xdc.runtime_Gates.html" title="Using xdc.runtime Gates">Using xdc.runtime Gates</a> contains more details about gates, how to protect shared data structures using gates, and how to create new gates.
+</p>
+<a name="Configuration"></a><h3> <span class="mw-headline">Configuration</span></h3>
+<p>Users can configure their application to specify on a per-application basis:
+</p>
+<ul><li>what module provides the output and shutdown services, 
+</li><li>the maximum number of "at exit" handlers can can be dynamically added at runtime,
+</li><li>a custom reset handler called as early as possible during the boot process,
+</li><li>a list of functions to be called prior to any module initialization function, and
+</li><li>a list of functions to be called after all module initialization functions have completed.
+</li></ul>
+<p></p>
+<a name="System_support_proxy"></a><h6> <span class="mw-headline"><tt>System</tt> support proxy</span></h6>
+<p><span class="Leader"><tt>System</tt> support proxy</span>.&nbsp;  The <tt>System</tt> module declares a <tt><a href="../../cdoc/xdc/runtime/System.html#.Support.Proxy" class="cdoc"><tt>SupportProxy</tt></a></tt> configuration parameter that allows the developer to "bind" alternate implementations of low-level functions required for the operation of the <tt>System</tt> module's methods.  The <tt>SupportProxy</tt> configuration parameter is unique in that rather than it being set to a string or numeric value, it must be set to a <i>module</i> that inherits from the <tt>xdc.runtime.ISystemSupport</tt> interface. This module implements the functions (<tt>abort</tt>, <tt>exit</tt>, <tt>flush</tt>, <tt>putch</tt> and <tt>ready</tt>) required by the <tt>System</tt> module to operate.
+</p><p>The <tt>xdc.runtime</tt> package includes two modules that implement the <tt>ISystemSupport</tt> interface:
+</p>
+<ol><li><tt>xdc.runtime.SysStd</tt>: relies on a functioning ANSI C Standard Library, and
+</li><li><tt>xdc.runtime.SysMin</tt>: completely self-contained implementation used for footprint or performance constrained applications or for low-level diagnostic support within larger deployed applications. 
+</li></ol>
+<p>The following configuration script statements set the <tt>System</tt> module's <tt>SupportProxy</tt> to <tt>xdc.runtime.SysStd</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+System.SupportProxy = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.SysStd&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>If you want to minimize your application's memory footprint, you should use <tt>SysMin</tt> as the <tt>SupportProxy</tt> by either omitting the lines above or substituting <tt>SysMin</tt> for <tt>SysStd</tt> above.
+</p>
+<a name="The_System_gate"></a><h6> <span class="mw-headline">The <tt>System</tt> gate</span></h6>
+<p><span class="Leader">The <tt>System</tt> gate</span>.&nbsp;  The <tt>System</tt> gate must be restrictive enough to insure that critical regions protected by this gate are never "entered" by more than one thread at a time. For example, if these regions can be accessed by both interrupt service routines (ISRs) and non-ISR code, the gate must disable interrupts on entering and restore interrupts on leaving.  
+</p>
+<p><div class="Notice-red"><p class="Notice-red">If the <tt>System</tt> gate is not configured by your configuration script or some RTOS package in the system, it will default to an instance of <tt><a href="../../cdoc/xdc/runtime/GateNull.html" class="cdoc"><tt>GateNull</tt></a></tt>. Since <tt>GateNull</tt> provides <i>no</i> synchronization, it is usually a mistake to use <tt>GateNull</tt> to create the <tt>System</tt> gate in multi-threaded applications.</p></div></p>
+<p>Multi-threaded applications must either 
+</p>
+<ol><li>configure the <tt>System</tt> module's gate with a mutex that serializes all threads that access the <tt>xdc.runtime</tt> modules, or
+</li><li>ensure that there are no concurrent accesses to the <tt>xdc.runtime</tt> modules
+</li></ol>
+<p>For example, the following configuration script sets the <tt>System</tt> module's gate to an instance of the <tt>GateHwi</tt> module in the <tt>ti.sysbios.gates</tt> package.  This allows any <tt>xdc.runtime</tt> module to be used from any <tt>ti.sysbios</tt> thread &#151; including hardware interrupt service routines.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">GateHwi = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;ti.sysbios.gates.GateHwi&quot;</span><span class="br0">&#41;</span>;
+System.common$.gate = GateHwi.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<div class="Info"><p class="Info">The <tt>ti.sysbios</tt> package automatically configures the <tt>System</tt> gate as shown above.  So there is no need to add these lines to your configuration scripts.  However, if you are using an RTOS that does not implicitly set <tt>System.common$.gate</tt>, it's critically important that you add RTOS-specific lines to your configuration script similar to those shown above.</p></div>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<p>In the table below, we provide examples that illustrate the key capabilities of the <tt>Startup</tt> and <tt>System</tt> modules.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Example</b>
+</th><th align="center"> <b>Description</b>
+</th><th align="center"> <b>Purpose</b>
+</th></tr>
+<tr>
+<td align="left"> <a href="Using_xdc.runtime_System__Example_1.html" title="Using xdc.runtime System/Example 1">Example 1</a>
+</td><td align="left"> Using <tt>System</tt> to print a message
+</td><td align="left"> a minimal "hello world" example to illustrate using <tt>System</tt> in existing code bases
+</td></tr></table>
+<p>Although it is possible to use one of the <tt>ISystemSupport</tt> modules that are part of the <tt>xdc.runtime</tt> package to complete the implementation of the <tt>System</tt> module (see <a href="#Built-in_System_Support_Modules" title="">below</a>), you may find it necessary to "port" the <tt>System</tt> module to your platform.  The table below lists examples of custom <tt>ISystemSupport</tt> modules that can serve as a basis for platform-specific customization.  See <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System.html" title="Extending xdc.runtime System">Extending xdc.runtime System</a> for more information about customizing <tt>System</tt> for you needs.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Example</b>
+</th><th align="center"> <b>Description</b>
+</th><th align="center"> <b>Purpose</b>
+</th></tr>
+<tr>
+<td align="left"> <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System__Example_1.html" title="Extending xdc.runtime System/Example 1">Example 1</a>
+</td><td align="left"> Creating a new <tt>ISystemSupport</tt> module
+</td><td align="left"> illustrate adding a minimal <tt>System</tt> support module appropriate for deeply embedded devices
+</td></tr></table>
+<a name="Built-in_System_Support_Modules"></a><h2> <span class="mw-headline">Built-in <tt>System</tt> Support Modules</span></h2>
+<p>The <tt>xdc.runtime</tt> package includes two built-in <tt>System</tt> support modules:
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/SysMin.html" class="cdoc"><tt>SysMin</tt></a></tt> - minimal support suitable for deeply embedded systems, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/SysStd.html" class="cdoc"><tt>SysStd</tt></a></tt> - a support module that assumes a thread-safe ANSI C Standard Library.
+</li></ol>
+<p>These modules inherit the <tt>xdc.runtime.ISystemSupport</tt> interface and are used to provide the underlying services required by the <tt>System</tt> module via the <tt>System</tt> module's <tt>SupportProxy</tt> configuration parameter.
+</p><p>The following sections briefly describe these modules and show examples of their use.  <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System.html" title="Extending xdc.runtime System">Extending xdc.runtime System</a> describes how to create additional <tt>System</tt> support modules. 
+</p>
+<a name="The_SysStd_Module"></a><h3> <span class="mw-headline">The <tt>SysStd</tt> Module</span></h3>
+<p><tt>SysStd</tt> directly calls the ANSI Standard C Library runtime functions <tt>putchar</tt> and <tt>fflush</tt>. It does not perform any additional functionality. Both the <tt>SysStd</tt> module's <tt>abort</tt> and <tt>exit</tt> functions flush the standard output via the standard C runtime <tt>fflush</tt> function.
+</p><p>To use this module as the <tt>System</tt> module's support proxy you must explicitly set this in your configuration script; otherwise the <tt>SysMin</tt> module with be used.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+System.SupportProxy = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.SysStd&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<a name="The_SysMin_Module"></a><h3> <span class="mw-headline">The <tt>SysMin</tt> Module</span></h3>
+<p><tt>SysMin</tt> is the <tt>System</tt> module's default Support Proxy; it is intended to be flexible but minimal. When <tt>SysMin</tt> is the Support Proxy, all output&#151;from functions such as <tt>System_printf()</tt> and <tt>System_putch()</tt>&#151;goes into an internally managed buffer. There are several configuration parameters that let you change the features as needed.
+</p>
+<ul><li><tt>bufSize</tt>. The size in MAUs of the internal buffer used for output.
+</li><li><tt>sectionName</tt>. The section in which the internal buffer should be created.
+</li><li><tt>flushAtExit</tt>. If <tt>true</tt>, the internal buffer is flushed via <tt>SysMin_flush()</tt> during a <tt>System_exit()</tt> or <tt>System_abort()</tt>.
+</li></ul>
+<p>If an application wants to minimize the memory footprint, it should use the <tt>SysMin</tt> module as the Support Proxy. If the application needs minimal printing capabilities, the <tt>bufSize</tt> configuration parameter can be set to 0, and <tt>flushAtExit</tt> can be set to <tt>false</tt> to further reduce the footprint.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> SysMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.SysMin&quot;</span><span class="br0">&#41;</span>;
+SysMin.bufSize = <span class="nu0">0</span>;
+SysMin.flushAtExit = <span class="kw2">false</span>;
+System.SupportProxy = SysMin; <span class="coMULTI">/* not really necessary since SysMin is the default */</span></pre></td></tr></table>
+<p>If you want to retain the characters in the <tt>SysMin</tt> character buffer but want to handle their output using your own function, you can use the <a href="../../cdoc/xdc/runtime/SysMin.html#output.Fxn" class="cdoc"><tt>SysMin.outputFxn</tt></a> configuration parameter.
+</p>
+<table>
+
+<tr valign="top">
+<td><div id="cl-1:1"></div><div id="cl-outputFxn_config:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> SysMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.SysMin&quot;</span><span class="br0">&#41;</span>;
+SysMin.outputFxn = <span class="st0">&quot;&amp;myOutputFxn&quot;</span>;
+System.SupportProxy = SysMin;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c (myOutputFxn)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="kw2">Void</span> myOutputFxn<span class="br0">&#40;</span><span class="kw2">Char</span> *buf, <span class="kw2">UInt</span> len<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ...; <span class="coMULTI">/* output len chars starting from buf */</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<p>Notice that the assignment to <tt>outputFxn</tt> <a class="codexLink" href="#cl-outputFxn_config:1"><span class="codexLink">1</span></a> is a string whose first character is "&amp;".  Normally assignment to a configuration parameter requires values to types that match the type of the parameter.  In the case of function pointers, RTSC <i>also</i> allows the assignment of specially formatted strings.  In this case, the string "&amp;myOutputFxn" tells the RTSC to assume that there is an external function named <tt>myOutputFxn</tt> <i>with the right type signature</i> that should be used to output characters.  Of course, any function specified in a module that has the right type signature can also be directly assigned to <tt>SysMin.outputFxn</tt>.
+</p>
+<a name="Performance_Considerations"></a><h2> <span class="mw-headline">Performance Considerations</span></h2>
+<a name="Interrupt_latency_and_calling_context"></a><h6> <span class="mw-headline">Interrupt latency and calling context</span></h6>
+<p><span class="Leader">Interrupt latency and calling context</span>.&nbsp;  The <tt>System</tt> module's functions are intended to be callable from <i>any</i> execution context, including Interrupt Service Routines (ISR).  So it is important that any <tt>ISystemProvider</tt> implementation bound to the <tt>System</tt> module's <tt>SupportProxy</tt> be appropriate for the application as a whole.  
+</p><p>In particular, if <tt>System_printf()</tt> is callable from an ISR, the implementation of <tt>putch()</tt> provided by the <tt>ISystemProvider</tt> must be designed to never suspend the calling thread (otherwise the ISR could block and most operating environments don't support this).  
+</p>
+<p><div class="Notice"><p class="Notice">Although <tt>SysStd</tt> does not explicitly suspend the caller on any function, the underlying implementation of the ANSI C Standard Library functions (that <tt>SysStd</tt> calls) may try to block the caller.  If you're not sure whether or not the <tt>System</tt> module's functions can be called from an ISR, you should use <tt>SysMin</tt> in lieu of <tt>SysStd</tt>.</p></div></p>
+<p>Of course, if you know that <tt>System_printf()</tt> is always called in a context in which, say, the ANSI C Standard I/O functions may be safely called, then use of <tt>SysStd</tt> is safe.
+</p>
+<p><div class="Notice"><p class="Notice">Although <tt>SysMin</tt> never suspends the caller on any function, its implementation of <tt><a href="../../cdoc/xdc/runtime/ISystemSupport.html#flush" class="cdoc"><tt>ISystemSupport.flush()</tt></a></tt> enters and <i>remains in the <tt>System</tt> gate until all characters are "flushed"</i>.  If the <tt>System</tt> gate disables interrupts <i>and</i> you use <tt>System_flush()</tt>, your interrupt latency will be a function of the size the configuration parameter <tt><a href="../../cdoc/index.html#xdc/runtime/SysMin.html#buf.Size" class="cdoc"><tt>SysMin.bufSize</tt></a></tt>.</p></div></p>
+<a name="Execution_time"></a><h6> <span class="mw-headline">Execution time</span></h6>
+<p><span class="Leader">Execution time</span>.&nbsp;  Although the <tt>System</tt> module's <tt>System_printf()</tt> function is much smaller and faster than a full ANSI C compliant implementation of <tt>printf()</tt>,  the <tt>System</tt> module relies on the underlying <tt>ISystemSupport</tt> module to output characters <i>one at a time</i>.  To be thread-safe and callable from any execution context, the <tt>SysMin</tt> module's implementation of <tt>putch()</tt> must acquire the <a href="Using_xdc.runtime_System.html#Concurrency_support" title="Using xdc.runtime System"><tt>System</tt> gate</a>, update the output buffer, and release the <tt>System</tt> gate.  The overhead of acquiring and releasing the system gate on every character can quickly overwhelm the execution time benefit of <tt>System_printf()</tt> over a full <tt>printf()</tt> implementation.
+</p><p>If you're willing to write a small amount of platform-specific code, it is usually easy to write a very efficient function that outputs a single character at a time in a thread-safe manner; e.g., disable interrupts around the instructions that update an output buffer or use platform-specific "atomic" instructions (load-lock/store-conditional, compare-and-swap, etc.).  To use such a function, you must implement a custom <tt>ISystemProvider</tt> module.  For information about how to create your own <tt>ISystemProvider</tt> module, see <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System.html" title="Extending xdc.runtime System">Extending xdc.runtime System</a>.
+</p>
+<a name="Footprint"></a><h6> <span class="mw-headline">Footprint</span></h6>
+<p><span class="Leader">Footprint</span>.&nbsp;  Depending on the implementation of your target's ANSI C Standard Library, the code size footprint of <tt>SysStd</tt> may be significantly larger than the footprint of <tt>SysMin</tt>.  The <tt>SysStd</tt> module minimizes its use of the ANSI C Standard Library functions, so in most cases the footprint difference between <tt>SysMin</tt> and <tt>SysStd</tt> are relatively minor.  But, in situations where code space is tight, it's always good to try both and compare the difference.
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime System&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime System" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_System__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 4673 bytes
+Post-expand include size: 2191 bytes
+Template argument size: 522 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_xdc.runtime_System.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.188 secs. --></body></html>

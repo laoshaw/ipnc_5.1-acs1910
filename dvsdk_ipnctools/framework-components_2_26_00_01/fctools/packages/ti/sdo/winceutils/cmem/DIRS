@@ -1,0 +1,6 @@
+DIRS = \
+    apps \
+    drivers \
+    user \
+    test
+

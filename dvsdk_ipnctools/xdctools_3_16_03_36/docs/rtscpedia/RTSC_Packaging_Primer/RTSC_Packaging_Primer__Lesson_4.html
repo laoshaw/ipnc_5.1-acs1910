@@ -1,0 +1,276 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 4 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 4&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_3.html" title="Lesson 3"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_5.html" title="Lesson 5"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 4</p><p id="subtitle">Elementary Packages &#151; producing <tt>charlie.sqrtlib.samples</tt></p>
+<p></p>
+<p>From this point forward, we'll explore RTSC packaging from the perspective of the <i>producer</i>&#151;a content supplier looking to deliver collections of software artifacts housed within individual RTSC packages, ready for consumption by multiple clients using the tools and techniques illustrated in the last three lessons.  With <tt>charlie.sqrtlib.samples</tt> serving as our first exemplar, we'll mainly focus upon the <b>release</b> phase of the package life-cycle&#151;the process of manufacturing package archive files once the producer has <i>built</i> the package's contents.
+</p>
+<div class="Info"><p class="Info">You'll recall that <tt>charlie.sqrtlib.samples</tt> contains some source files used in the client application presented in <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1a" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a>; from the package producer's perspective, however, "building" the contents of this particular package becomes trivial.</p></div> 
+<p>Despite their overt simplicity, examining elementary packages like <tt>charlie.sqrtlib.samples</tt> reveals structural traits common to <i>all</i> RTSC packages&#151;whether delivered independently or bundled as part of a larger product offering, or whether containing full-fledged RTSC modules built for multiple targets or just a handful of sample source files.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Specifying_the_package"><span class="tocnumber">1</span> <span class="toctext">Specifying the package</span></a></li>
+<li class="toclevel-1"><a href="#Scripting_package_production"><span class="tocnumber">2</span> <span class="toctext">Scripting package production</span></a></li>
+<li class="toclevel-1"><a href="#Using_the_xdc_command"><span class="tocnumber">3</span> <span class="toctext">Using the xdc command</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Specifying_the_package"></a><h2> <span class="mw-headline">Specifying the package</span></h2>
+<p>As shown pictorially back in <a href="RTSC_Packaging_Primer__Lesson_1.html#Fig1" title="RTSC Packaging Primer/Lesson 1">Lesson 1</a>, a RTSC package <i>must</i> contain a distinguished <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file named <tt>package.xdc</tt> within its corresponding package directory.  While other special files and directories described shortly will potentially come and go as the package progresses through its natural life-cycle, both the presence and contents of <tt>package.xdc</tt> remain invariant&#151;a trait shared by all RTSC packages, as they journey from producer to consumer.
+</p><p>In general, <tt>package.xdc</tt> specification files will define a number of high-level, client-visible features of the package at hand&#151;including its mandatory globally-unique name.  In the case of <tt>charlie.sqrtlib.samples</tt>, its <tt>package.xdc</tt> file actually contains very little beyond the bare minimum:
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/samples/package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Sample programs using charlie.sqrtlib */</span>
+<span class="kw1">package</span> charlie.sqrtlib.samples <span class="br0">&#123;</span>
+    <span class="coMULTI">/* no module declarations */</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Before we talk about the all-important <span class="kw1"><tt>package</tt></span> declaration, however, a few words about the comment preceding it at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a>:&nbsp; Most modern programming languages offer direct support for special <b>documentation comments</b> that you can embed within source files&#151;Java offers "JavaDoc", Perl offers "PerlDoc", and so forth; integrated tooling then automatically generates appropriate user (client) documentation that in turn includes these comments.  The <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> language follows suit, enabling content producers to embedded "XDoc" comments within <tt>.xdc</tt> specification files; utilities like <tt><a href="../Command_-_xdc.tools.cdoc.sg/Command_-_xdc.tools.cdoc.sg.html" title="Command - xdc.tools.cdoc.sg">xdc.tools.cdoc.sg</a></tt> in turn synthesize documentation for the content consumer.
+</p>
+<div class="Info"><p class="Info">In general, XDoc comments follow conventions already familiar to users of <tt>doxygen</tt>, a popular tool
+amongst  C programmers for annotating headers files with a similar style of commentary&#151;one coincidently rooted in the look-and-feel of JavaDoc.  But setting syntax aside, don't forget the real purpose behind embedding XDoc comments in <tt>.xdc</tt> source files:&nbsp; to define a <i>programmatic contract</i> between client and supplier, which realistically requires a mixture of <i>formal</i> <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> declarations amplified with <i>informal</i> textual commentary.</p></div>   
+<p>Using a notation suggestive of a C <span class="kw1"><tt>struct</tt></span>, the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> <span class="kw1"><tt>package</tt></span> declaration at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> should remind you that <tt>charlie.sqrtlib.samples</tt> ultimately represents a programmatic <i>namespace</i> that scopes all of the software artifacts contained within this package&#151;just as C structures would scope individually named fields declared therein.  And while this package contains no modules&#151;unlike <tt>charlie.sqrtlib</tt>, which we'll explore in later lessons&#151;the corresponding <tt>charlie/sqrtlib/samples</tt> package directory nevertheless serves as a kind of "protective domain" for the sample files delivered with this package.
+</p>
+<div class="Info"><p class="Info">Clearly, this <span class="kw1"><tt>package</tt></span> declaration tells us nothing about these sample files&#151;their names, how to build them, where to modify them, and so forth.  In practice, more <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> documentation comments could surely help here, yielding a concise yet complete reference page for clients consuming this package.  To see what's possible, fire-up <tt><a href="../Command_-_xdc.tools.cdoc.sg/Command_-_xdc.tools.cdoc.sg.html" title="Command - xdc.tools.cdoc.sg">xdc.tools.cdoc.sg</a></tt> and browse to (say) the <tt><a href="../../cdoc/xdc/runtime/package.html" class="cdoc"><tt>xdc.runtime</tt></a></tt> package; there, you'll find a link to a viewable form of the <tt>xdc/runtime/package.xdc</tt> file that originally sourced this material (click on the text "sourced in <b><tt>xdc/runtime/package.xdc</tt></b>".)</p></div>
+<a name="Scripting_package_production"></a><h2> <span class="mw-headline">Scripting package production</span></h2>
+<p>If we think of <tt>package.xdc</tt> as publicizing the <i>external</i> (client-visible) face of a RTSC package, the other special file depicted in the original figure from <a href="RTSC_Packaging_Primer__Lesson_1.html#Fig1" title="RTSC Packaging Primer/Lesson 1">Lesson 1</a>&#151;namely <tt>package.bld</tt>&#151;generally plays a more <i>internal</i> (supplier-centric) role in orchestrating package production.  Unless suppliers make explicit provisions when releasing packages&#151;that is, when manufacturing package archive files for delivery to clients&#151;the special <tt>package.bld</tt> file generally stays behind.
+</p><p>Another difference between <tt>package.xdc</tt> and <tt>package.bld</tt> mirrors some distinct characteristics of the <b><i>e<span style="font-size:115%;" class="color-green">X</span>pan<span style="font-size:115%;" class="color-red">D</span>ed&nbsp;&nbsp;<span style="font-size:115%;" class="color-blue">C</span></i></b> languages respectively used to source their contents:
+</p>
+<ul><li><tt>package.xdc</tt> files (written in the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> specification language) will seem very declarative in nature, playing a role not unlike a C header file though on a somewhat grander scale; whereas 
+</li></ul>
+<p></p>
+<ul><li><tt>package.bld</tt> files (written in the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> meta-language) will look more like an executable program that "does something", albeit expressed in a somewhat higher-level manner than possible with C.
+</li></ul>
+<p>Illustrating this point with a concrete example, we'll turn to the rather sparse <tt>package.bld</tt> script that actually drives production of the <tt>charlie.sqrtlib.samples</tt> package&#151;which, if you recall, <i>just</i> contains a few sample files.
+</p>
+<div id="cl-2:1"></div><div id="cl-2:2"></div><div id="cl-2:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/samples/package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Pkg = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.PackageContents'</span><span class="br0">&#41;</span>;
+&nbsp;
+Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;
+Pkg.otherFiles = <span class="br0">&#91;</span><span class="st0">&quot;makefile&quot;</span>, <span class="st0">&quot;prog.c&quot;</span>, <span class="st0">&quot;prog.cfg&quot;</span><span class="br0">&#93;</span>;</pre></td></tr></table>
+<p>Details aside, the programming <i>idioms</i> used in this <tt>package.bld</tt> script in fact mimic what you've already seen in the <tt>prog.cfg</tt> meta-program presented in <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1b" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a>&#151;another example of some <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> code that "does something".  Back to <tt>package.bld</tt>, execution of this script effectively assigns some parameters of <tt>xdc.bld.PackageContents</tt>&#151;a special meta-module bundled with <tt>XDCtools</tt>&#151;much as <tt>prog.cfg</tt> assigned <tt>Bench.enable</tt> and <tt>Settings.optimize</tt>.
+</p>
+<div class="Info"><p class="Info">For C programmers unfamiliar with the "object-oriented" syntax of JavaScript&#151;and hence <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>&#151;the <tt><span class="mq">&laquo;</span>object<span class="mq">&raquo;</span>.<span class="mq">&laquo;</span>property<span class="mq">&raquo;</span></tt> idiom at lines <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> or <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> are not unlike accessing a <tt>struct</tt> field in C.  The root object here&#151;held in a (local) variable named <tt>Pkg</tt> for brevity&#151;results from a call to the <tt>useModule</tt> property of a special (global) object named <tt>xdc</tt> on line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>. The <tt><span class="mq">&laquo;</span>object<span class="mq">&raquo;</span>.<span class="mq">&laquo;</span>property<span class="mq">&raquo;</span></tt> idiom is in fact more general than a simple field access, and also subsumes function calls of the form <tt><span class="mq">&laquo;</span>object<span class="mq">&raquo;</span>.<span class="mq">&laquo;</span>function<span class="mq">&raquo;</span>( <span class="mq">&laquo;</span>args<span class="mq">&raquo;</span> )</tt>; object-oriented languages often term functions invoked in this manner as <i>methods</i>.</p></div>
+<p>After importing the <tt>PackageContents</tt> module at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>, the assignment at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> selects which archive <i>format</i> to generate here&#151;overriding the default value of <span class="st0"><tt>"tar"</tt></span>.  The statement at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> then names an array of files (all found in the <tt>charlie/sqrtlib/samples</tt> package directory) to include within the generated package archive.
+</p>
+<p><div class="Notice"><p class="Notice">The array of <tt>otherFiles</tt> assigned at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> can in general name <i>any</i> sort of artifact rooted in the current package directory&#151;source files, binary files, even other directories.  Using the <tt>package.xdc</tt> spec and <tt>package.bld</tt> script listed here as templates&#151;<u><i>any</i></u> collection of legacy content can become an elementary RTSC package....  It's just that simple!!</p></div></p>
+<p>Barring any further assignments to the (many!) parameters of <tt>PackageContents</tt>, the <tt>package.bld</tt> script as it now stands prescribes that the <tt>charlie.sqrtlib.samples</tt> package will release a package archive named (by default) <tt>charlie_sqrtlib_samples.zip</tt>.
+</p>
+<div class="Info"><p class="Info">To appreciate its richness, fire-up <tt>xdc.tools.cdoc.sg</tt> and browse to the <tt>PackageContents</tt> module within the <tt>xdc.bld</tt> package; or alternatively visit <a href="http://rtsc.eclipse.org/cdoc-tip" class="external text" title="http://rtsc.eclipse.org/cdoc-tip" rel="nofollow">rtsc.eclipse.org</a> and browse through the set of statically-generated HTML pages found there&#151;generated, incidentally, using a companion command-line utility know as <tt>xdc.tools.cdoc</tt>.</p></div>
+<a name="Using_the_xdc_command"></a><h2> <span class="mw-headline">Using the <tt>xdc</tt> command</span></h2>
+<p>With the necessary <tt>package.xdc</tt> and <tt>package.bld</tt> files for <tt>charlie.sqrtlib.samples</tt> now in place, we'll proceed to build <i>and</i> release the package using another special command bundled with <tt>XDCtools</tt>.  Appropriately named <tt>xdc</tt>, this command fundamentally performs the following sequence of steps when invoked from within a package directory:
+</p>
+<ul><li>parses the <tt>package.xdc</tt> file, which specifies many top-level features of the package at hand;
+</li><li>executes the <tt>package.bld</tt> script, the final state of which prescribes "what to produce"; and
+</li><li>generates <tt>package.mak</tt>, a standard GNU makefile which then controls the rest of the process.
+</li></ul>
+<div class="Info"><p class="Info">If you're "playing along" and want to try running the <tt>xdc</tt> command, you'll first have to re-define the current package path (say, by setting the <tt>XDCPATH</tt> environment variable) to <i>only</i> contain the <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span></tt> directory created back in <a href="RTSC_Packaging_Primer__Lesson_0.html#Unpacking_the_examples" title="RTSC Packaging Primer/Lesson 0">Lesson 0</a>.  Unlike the <i>released</i> forms of the <tt>charlie.*</tt> packages consumed in the previous lessons, the <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span></tt> repository holds <i>buildable</i> forms of these packages as evidenced by their supplier-centric <tt>package.bld</tt> files&#151;a necessary requirement for using the <tt>xdc</tt> command.</p></div>
+<p>The <tt>xdc</tt> command operates very much like <tt>gmake</tt> used in <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-3:1" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a>, in that both commands take "goals" as their arguments to designate a particular end-result.  For example, invoking <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>clean</tt></span> from within any package directory (in our case, <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/charlie/sqrtlib/samples</tt>) would remove all generated files resulting from any prior use of the <tt>xdc</tt> command&#151;such as <tt>package.mak</tt> as well as the special <tt>package/</tt> sub-directory.
+</p><p>Similarly, invoking <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>release</tt></span> would build and release the contents of the current package according to the prescription laid out in <tt>package.bld</tt>, yielding the following output for this example:
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><div id="cl-3:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xdc release</span></b>
+making package.mak (because of package.bld) ...
+generating interfaces for package charlie.sqrtlib.samples (because ... ) ...
+all files complete.
+generating schema include file list ...
+generating external package references package/package.ext.xml ...
+generating package references graph package/package.rel.dot ...
+making release file charlie_sqrtlib_samples.zip (because ... ) ...</pre></td></tr></table>
+<p>Dissecting the output, line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> confirms generation of the <tt>package.mak</tt> file&#151;which only occurs when necessary, such as after editing <tt>package.bld</tt>.  The output leading up to line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a> then reflects all of the steps actually needed to <i>build</i> the contents of the package&#151;which here boils down to just creating and populating a special <tt>package</tt> sub-directory that holds additional generated files; for packages like <tt>charlie.sqrtlib</tt>, compilation of C source code into function libraries for one or more RTSC targets would happen at this point in the flow.  Invoking <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>all</tt></span> (or just <span class="cmdFrag"><tt>xdc</tt></span> by itself), drives the process to this juncture&#151;yielding a <i>built</i> package.
+</p><p>Once built, the output leading up to line <a class="codexLink" href="#cl-3:3"><span class="codexLink">3</span></a> reflects the <i>release</i> phase of the package life-cycle, culminating here with production of a single package archive file ready for delivery to any prospective client(s).  The archive itself contains many (but by no means all) of the generated files placed in the special <tt>package</tt> sub-directory along the way.  More important, perhaps, the package archive <i>does</i> contain the mandatory <tt>package/package.rel.xml</tt> file&#151;which not only distinguishes a <i>released</i> package, but also contains a wealth of information accessed by hosted utilities such as <tt>xdc.tools.repoman</tt> and <tt>xdc.tools.path</tt>.
+</p>
+<div class="Info"><p class="Info">For all intent and purposes, the <tt>xdc</tt> command <i>is</i> <tt>gmake</tt>&#151;invoking <tt>xdc</tt> will quickly transfer control in a very precise manner to a specific version of <tt>gmake</tt> bundled with the <tt>XDCtools</tt> product.  But unlike our earlier example from <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-3:1" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a> which contained a hand-crafted <tt>makefile</tt>, the <tt>xdc</tt> command instructs <tt>gmake</tt> to operate on the <i>generated</i> <tt>package.mak</tt> file found in all RTSC packages; and through the magic of <tt>gmake</tt> (evidenced by line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> in the earlier output), <tt>package.mak</tt> will itself be (re-)generated from <tt>package.bld</tt> only when absolutely necessary.  The <tt>xdc</tt> command handles (re-)parsing of the <tt>package.xdc</tt> spec file in a similar way.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Command_-_xdc/Command_-_xdc.html" title="Command - xdc">Command - xdc</a>
+</td><td class="DocListSubTitle1">eXpanDed C package build command
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../../cdoc/xdc/bld/PackageContents.html" class="cdoc"><tt>xdc.bld.PackageContents</tt></a>
+</td><td class="DocListSubTitle">Client documentation for <tt>xdc.bld.PackageContents</tt>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../../cdoc/xdc/tools/cdoc/Markup.html" class="cdoc"><tt>xdc.tools.cdoc.Markup</tt></a>
+</td><td class="DocListSubTitle">Client documentation for <tt>xdc.tools.cdoc.Markup</tt>
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 4&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_3.html" title="Lesson 3"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_5.html" title="Lesson 5"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 14597 bytes
+Post-expand include size: 4389 bytes
+Template argument size: 477 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>

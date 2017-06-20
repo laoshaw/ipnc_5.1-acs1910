@@ -1,0 +1,46 @@
+; Code Composer Project File, Version 2.0 (do not modify or remove this line)
+
+[Project Settings]
+ProjectDir="D:\Project\08_23_MPEG4_DTESTING\mpeg4_decoder_TI_archive_2.00.00.03\Client\Build\"
+ProjectType=Executable
+CPUFamily=TMS470R2X
+Tool="Compiler"
+Tool="CustomBuilder"
+Tool="Linker"
+Config="Release"
+
+[Project Dependencies]
+Source="..\..\Src\Build\mp4vdecAlg.pjt"
+
+["..\..\Src\Build\mp4vdecAlg.pjt" Settings]
+MatchConfigName=true
+
+[Source Files]
+Source="..\..\Lib\rts32earm9.lib"
+Source="..\Test\Src\alg_control.c"
+Source="..\Test\Src\alg_create.c"
+Source="..\Test\Src\alg_malloc.c"
+Source="..\Test\Src\buffermanager.c"
+Source="..\Test\Src\ccs\inthandlers.c"
+Source="..\Test\Src\ccs\testapp_arm926intc.c"
+Source="..\Test\Src\ccs\testapp_inthandler.asm"
+Source="..\Test\Src\ccs\testapp_intvecs.asm"
+Source="..\Test\Src\ccs\testapp_mmutable.asm"
+Source="..\Test\Src\ccs\timer.c"
+Source="..\Test\Src\idma3_create.c"
+Source="..\Test\Src\lockmp.c"
+Source="..\Test\Src\mpeg4DecTestApp.c"
+Source="..\Test\Src\mylinuxutils.c"
+Source="..\Test\Src\TestAppConfigParser.c"
+Source="..\Test\Src\vicp_framework.c"
+Source="mp4vdecApp.cmd"
+
+["Compiler" Settings: "Release"]
+Options=-g -fr"$(Proj_dir)\Obj" -i"$(Proj_dir)\..\..\Inc" -i"$(Proj_dir)\..\..\..\imcopcsl\inc" -i"$(Proj_dir)\..\..\..\include" -i"$(Proj_dir)\..\Test\Inc" -i"$(Proj_dir)\..\..\..\imcopcsl\inc\arminc" -i"$(Proj_dir)\..\..\..\imcopcsl\inc\armcsl" -d"ENABLE_IDMA3" -md -me -ml
+
+["Linker" Settings: "Release"]
+Options=-c -m"$(Proj_dir)\Map\mp4vdecApp.map" -o"$(Proj_dir)\Out\mp4vdecApp.out" -w -x --large_model
+
+["mp4vdecApp.cmd" Settings: "Release"]
+LinkOrder=1
+

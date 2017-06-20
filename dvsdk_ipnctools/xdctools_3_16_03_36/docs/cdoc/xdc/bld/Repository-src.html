@@ -1,0 +1,123 @@
+<html><head><title>module xdc.bld.Repository</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Repository.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== Repository ========
+</span>    19    <span class="xdoc"> *  Model of a package repository
+</span>    20    <span class="xdoc"> */</span>
+    21    <span class=key>metaonly</span> <span class=key>module</span> Repository {
+    22    
+    23        <span class="xdoc">/*!
+</span>    24    <span class="xdoc">     *  ======== Attrs ========
+</span>    25    <span class="xdoc">     *  Optional attributes for a repository
+</span>    26    <span class="xdoc">     *
+</span>    27    <span class="xdoc">     *  <b>@field(releases)</b>  This array contains releases that will contain the
+</span>    28    <span class="xdoc">     *          repository.  Thus, a single repository can be part of any set 
+</span>    29    <span class="xdoc">     *          of releases.  Each repository is always added to the 
+</span>    30    <span class="xdoc">     *          package's "default release" in addition to any releases
+</span>    31    <span class="xdoc">     *          specified in the releases array.
+</span>    32    <span class="xdoc">     *
+</span>    33    <span class="xdoc">     *  <b>@see</b> #attrs
+</span>    34    <span class="xdoc">     */</span>
+    35        <span class=key>struct</span> Attrs {
+    36            Release.Instance releases[]; <span class="xdoc">/*! releases that this rep is a part of */</span>
+    37        };
+    38    
+    39    <span class=key>instance</span>:
+    40        <span class="xdoc">/*!
+</span>    41    <span class="xdoc">     *  ======== create ========
+</span>    42    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>    43    <span class="xdoc">     *  Instances should only be created via PackageContents.addRepository()
+</span>    44    <span class="xdoc">     */</span>
+    45        create();
+    46    
+    47        <span class="xdoc">/*!
+</span>    48    <span class="xdoc">     *  ======== name ========
+</span>    49    <span class="xdoc">     *  The repository's directory name
+</span>    50    <span class="xdoc">     */</span>
+    51        <span class=key>config</span> String name;
+    52    
+    53        <span class="xdoc">/*!
+</span>    54    <span class="xdoc">     *  ======== attrs ========
+</span>    55    <span class="xdoc">     *  The repository's attributes
+</span>    56    <span class="xdoc">     */</span>
+    57        <span class=key>config</span> Attrs attrs;
+    58    
+    59        <span class="xdoc">/*!
+</span>    60    <span class="xdoc">     *  ======== addPackages ========
+</span>    61    <span class="xdoc">     *  Add specified package releases to this repository
+</span>    62    <span class="xdoc">     *
+</span>    63    <span class="xdoc">     *  <b>@param(names)</b> An array of strings naming package releases to be added
+</span>    64    <span class="xdoc">     *          to the repository.  Package releases are named as follows:
+</span>    65    <span class="xdoc">     *          <b>@p(code)</b>
+</span>    66    <span class="xdoc">     *              &lt;pkgName&gt;:&lt;releaseName&gt;
+</span>    67    <span class="xdoc">     *          <b>@p</b>
+</span>    68    <span class="xdoc">     *          where `&lt;pkgName&gt;` is the name of the package to add to the
+</span>    69    <span class="xdoc">     *          repository and `&lt;releaseName&gt;` is the name of one of that
+</span>    70    <span class="xdoc">     *          package's releases.  A package release name may be either the
+</span>    71    <span class="xdoc">     *          archive file name (relative to the package's base directory)
+</span>    72    <span class="xdoc">     *          of the release archive or the name used create the release in
+</span>    73    <span class="xdoc">     *          package named `&lt;pkgName&gt;`.
+</span>    74    <span class="xdoc">     *
+</span>    75    <span class="xdoc">     *          For example, if the package `ti.bios` had a release named
+</span>    76    <span class="xdoc">     *          `exports/ti_bios,src`, the following statements would add
+</span>    77    <span class="xdoc">     *          this release to the repository named `packages`:
+</span>    78    <span class="xdoc">     *          <b>@p(code)</b>
+</span>    79    <span class="xdoc">     *              var r = Pkg.addRepository("packages");
+</span>    80    <span class="xdoc">     *              r.addPackages(["ti.bios:exports/ti_bios,src"]);
+</span>    81    <span class="xdoc">     *          <b>@p</b>
+</span>    82    <span class="xdoc">     *
+</span>    83    <span class="xdoc">     *          Alternatively, one can specify the archive file name:
+</span>    84    <span class="xdoc">     *          <b>@p(code)</b>
+</span>    85    <span class="xdoc">     *              var r = Pkg.addRepository("packages");
+</span>    86    <span class="xdoc">     *              r.addPackages(["ti.bios:exports/ti_bios,src.tar"]);
+</span>    87    <span class="xdoc">     *          <b>@p</b>
+</span>    88    <span class="xdoc">     *
+</span>    89    <span class="xdoc">     *          It is possible to get a list of release archive names from a
+</span>    90    <span class="xdoc">     *          package via the
+</span>    91    <span class="xdoc">     *          `{<b>@link</b> xdc.bld.BuildEnvironment#getReleaseDescs()}`
+</span>    92    <span class="xdoc">     *          method.  For example, to get the physical archive name of the
+</span>    93    <span class="xdoc">     *          default release of the `ti.bios` package, the following loop
+</span>    94    <span class="xdoc">     *          can be added to a build script:
+</span>    95    <span class="xdoc">     *          <b>@p(code)</b>
+</span>    96    <span class="xdoc">     *              var archiveName;
+</span>    97    <span class="xdoc">     *              var rels = Build.getReleaseDescs('ti.bios');
+</span>    98    <span class="xdoc">     *              for (var j = 0; j &lt; rels.length; j++) {
+</span>    99    <span class="xdoc">     *                  if (rels[j].label == "default") {
+</span>   100    <span class="xdoc">     *                      archiveName = rels[j].aname;
+</span>   101    <span class="xdoc">     *                      break;
+</span>   102    <span class="xdoc">     *                  }
+</span>   103    <span class="xdoc">     *              }
+</span>   104    <span class="xdoc">     *              // archiveName is now set to the file name of the ti.bios
+</span>   105    <span class="xdoc">     *              // default release archive (or undefined)
+</span>   106    <span class="xdoc">     *          <b>@p</b>
+</span>   107    <span class="xdoc">     *
+</span>   108    <span class="xdoc">     *  <b>@see</b> xdc.bld.BuildEnvironment#getReleaseDescs()
+</span>   109    <span class="xdoc">     */</span>
+   110        Void addPackages(String names[]);
+   111    }
+   112    <span class="comment">/*
+</span>   113    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   114    <span class="comment"> */</span>
+   115    
+</pre>
+</body></html>

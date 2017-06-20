@@ -1,0 +1,44 @@
+<html><head><title>package ti.catalog.msp430</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class=key>requires</span> xdc.platform;
+    14    <span class=key>requires</span> ti.catalog;
+    15    
+    16    <span class="xdoc">/*!
+</span>    17    <span class="xdoc"> *  ======== ti.catalog.msp430 ========
+</span>    18    <span class="xdoc"> *  Package of devices for the msp430 family.
+</span>    19    <span class="xdoc"> *
+</span>    20    <span class="xdoc"> *  Each module in this package implements the xdc.platform.ICpuDataSheet
+</span>    21    <span class="xdoc"> *  interface. This interface is used by platforms (modules that implement
+</span>    22    <span class="xdoc"> *  xdc.platform.IPlatform) to obtain the memory map supported by each CPU.
+</span>    23    <span class="xdoc"> */</span>
+    24    <span class=key>package</span> ti.catalog.msp430 [1,0,0] {
+    25        <span class=key>interface</span> IMSP430;
+    26        <span class=key>interface</span> IMSP430x22xx;
+    27        <span class=key>interface</span> IMSP430F54xx;
+    28        <span class=key>module</span> MSP430F5418, MSP430F5419;
+    29        <span class=key>module</span> MSP430F5435, MSP430F5436;
+    30        <span class=key>module</span> MSP430F5437, MSP430F5438;
+    31        <span class=key>module</span> MSP430F223x, MSP430F225x, MSP430F227x;
+    32    }
+    33    <span class="comment">/*
+</span>    34    <span class="comment"> *  @(#) ti.catalog.msp430; 1, 0, 0,17; 2-23-2010 16:52:59; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    35    <span class="comment"> */</span>
+    36    
+</pre>
+</body></html>

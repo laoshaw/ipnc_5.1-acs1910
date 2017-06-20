@@ -1,0 +1,66 @@
+<html><head><title>package xdc.services.spec</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class=key>requires</span> xdc.shelf;
+    13    
+    14    <span class="xdoc">/*!
+</span>    15    <span class="xdoc"> *  ======== xdc.services.spec ========
+</span>    16    <span class="xdoc"> *
+</span>    17    <span class="xdoc"> *  Java classes to access XDCspec information
+</span>    18    <span class="xdoc"> *
+</span>    19    <span class="xdoc"> *  This package contains several Java classes that enable clients to
+</span>    20    <span class="xdoc"> *  retrieve inforation about modules, interfaces, and packages from their
+</span>    21    <span class="xdoc"> *  specification files (i.e., `*.xdc` files).  Being Java classes, the APIs
+</span>    22    <span class="xdoc"> *  provided are available to both Java applications and XDCscripts (via the
+</span>    23    <span class="xdoc"> *  `$spec` property of the module, interface, or package).
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  <b>@p(dlist)</b>
+</span>    26    <span class="xdoc"> *      - `{<b>@link</b> ./doc-files/javadoc/xdc/services/spec/Pkg.html [Pkg]}`
+</span>    27    <span class="xdoc">  *       Package related information available from a package's `$spec`
+</span>    28    <span class="xdoc"> *        property.
+</span>    29    <span class="xdoc"> *      - `{<b>@link</b> ./doc-files/javadoc/xdc/services/spec/Unit.html [Unit]}`
+</span>    30    <span class="xdoc"> *        Module (or interface) related information available from a
+</span>    31    <span class="xdoc"> *        module's (or interface's) `$spec` property.
+</span>    32    <span class="xdoc"> *  <b>@p</b>
+</span>    33    <span class="xdoc"> *
+</span>    34    <span class="xdoc"> *  <b>@a(Note)</b>
+</span>    35    <span class="xdoc"> *  When accessing the Java methods provided by this package via XDCscript,
+</span>    36    <span class="xdoc"> *  you can either either use their liternames (e.g., `getName()`) or use
+</span>    37    <span class="xdoc"> *  the JavaBeans pattern of getters and setters in which the method
+</span>    38    <span class="xdoc"> *  `getName()` can be accessed via just `name`.  The examples below provide
+</span>    39    <span class="xdoc"> *  examples of how this pattern can be used.
+</span>    40    <span class="xdoc"> *
+</span>    41    <span class="xdoc"> *  <b>@a(XDCscript Examples)</b>
+</span>    42    <span class="xdoc"> *  Get the declared name of a module:
+</span>    43    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    44    <span class="xdoc"> *      var Mod = xdc.module('pkg.Mod');
+</span>    45    <span class="xdoc"> *      print("Module declared as " + Mod.$spec.getName());
+</span>    46    <span class="xdoc"> *  <b>@p</b>
+</span>    47    <span class="xdoc"> *
+</span>    48    <span class="xdoc"> *  This same example can be written using the JavaBean pattern as follows:
+</span>    49    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    50    <span class="xdoc"> *      var Mod = xdc.module('pkg.Mod');
+</span>    51    <span class="xdoc"> *      print("Module declared as " + Mod.$spec.name);
+</span>    52    <span class="xdoc"> *  <b>@p</b>
+</span>    53    <span class="xdoc"> *
+</span>    54    <span class="xdoc"> *  <b>@see</b> ./doc-files/javadoc/index.html Javadoc
+</span>    55    <span class="xdoc"> */</span>
+    56    <span class=key>package</span> xdc.services.spec [1, 0, 0, 0] {
+    57    
+    58    }
+</pre>
+</body></html>

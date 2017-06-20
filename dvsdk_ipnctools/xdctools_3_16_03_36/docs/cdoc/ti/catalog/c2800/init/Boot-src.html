@@ -1,0 +1,120 @@
+<html><head><title>module ti.catalog.c2800.init.Boot</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Boot.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class=key>package</span> ti.catalog.c2800.init;
+    19    
+    20    import xdc.rov.ViewInfo;
+    21    
+    22    @Template(<span class="string">"./Boot.xdt"</span>)
+    23    
+    24    <span class=key>metaonly</span> <span class=key>module</span> Boot
+    25    {
+    26        <span class=key>metaonly</span> <span class=key>struct</span> ModuleView {
+    27            Bool         disableWatchdog;
+    28            Bool         configurePll;
+    29            UInt         pllcrDIV;
+    30            UInt         pllstsDIVSEL;
+    31        }
+    32    
+    33        @Facet
+    34        <span class=key>metaonly</span> <span class=key>config</span> ViewInfo.Instance rovViewInfo = 
+    35            ViewInfo.create({
+    36                viewMap: [
+    37                [
+    38                    <span class="string">'Module'</span>,
+    39                    {
+    40                        type: ViewInfo.MODULE,
+    41                        viewInitFxn: <span class="string">'viewInitModule'</span>,
+    42                        structName: <span class="string">'ModuleView'</span>
+    43                    }
+    44                ],
+    45                ]
+    46            });
+    47        
+    48        <span class="xdoc">/*! 
+</span>    49    <span class="xdoc">     *  Watchdog disable flag, default is false.
+</span>    50    <span class="xdoc">     *
+</span>    51    <span class="xdoc">     *  Set to true to automatically disabled the watchdog timer.
+</span>    52    <span class="xdoc">     */</span>
+    53        <span class=key>config</span> Bool disableWatchdog = <span class=key>false</span>;
+    54    
+    55        <span class="xdoc">/*! 
+</span>    56    <span class="xdoc">     *  PLL configuration flag, default is false.
+</span>    57    <span class="xdoc">     *
+</span>    58    <span class="xdoc">     *  Set to true to automatically configure the PLL.
+</span>    59    <span class="xdoc">     */</span>
+    60        <span class=key>config</span> Bool configurePll = <span class=key>false</span>;
+    61    
+    62        <span class="xdoc">/*! 
+</span>    63    <span class="xdoc">     *  PLLCR[DIV] value. Default is 10.
+</span>    64    <span class="xdoc">     *
+</span>    65    <span class="xdoc">     *  This is the actual value written to the DIV bits in 
+</span>    66    <span class="xdoc">     *  the PLL Control Register (PLLCR)
+</span>    67    <span class="xdoc">     */</span>
+    68        <span class=key>config</span> UInt pllcrDIV = 10;
+    69    
+    70        <span class="xdoc">/*! 
+</span>    71    <span class="xdoc">     *  PLLSTS[DIVSEL] value. Default is 2.
+</span>    72    <span class="xdoc">     *
+</span>    73    <span class="xdoc">     *  This is the actual value written to the DIVSEL bits in 
+</span>    74    <span class="xdoc">     *  the PLL Status Register (PLLSTS)
+</span>    75    <span class="xdoc">     */</span>
+    76        <span class=key>config</span> UInt pllstsDIVSEL = 2;
+    77    
+    78        <span class="xdoc">/*! 
+</span>    79    <span class="xdoc">     *  Code section that Boot module code is in.
+</span>    80    <span class="xdoc">     *
+</span>    81    <span class="xdoc">     *  To place this section into a memory segment yourself, add the 
+</span>    82    <span class="xdoc">     *  following to you configuration file: 
+</span>    83    <span class="xdoc">     *
+</span>    84    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    85    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection] = new Program.SectionSpec();
+</span>    86    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection].loadSegment = "yourBootCodeMemorySegment";
+</span>    87    <span class="xdoc">     *  <b>@p</b>
+</span>    88    <span class="xdoc">     *
+</span>    89    <span class="xdoc">     *  or to place the code at a specific adress: 
+</span>    90    <span class="xdoc">     *
+</span>    91    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    92    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection] = new Program.SectionSpec();
+</span>    93    <span class="xdoc">     *  Program.sectMap[Boot.bootCodeSection].loadAdress = yourBootCodeAddress;
+</span>    94    <span class="xdoc">     *  <b>@p</b>
+</span>    95    <span class="xdoc">     *
+</span>    96    <span class="xdoc">     */</span>
+    97        <span class=key>readonly</span> <span class=key>config</span> String bootCodeSection = <span class="string">".bootCodeSection"</span>;
+    98        
+    99        <span class="xdoc">/*!
+</span>   100    <span class="xdoc">     * <b>@_nodoc</b>
+</span>   101    <span class="xdoc">     * Configure the external memory interface (XINTF) for the eZdsp283xx
+</span>   102    <span class="xdoc">     * devices.
+</span>   103    <span class="xdoc">     *
+</span>   104    <span class="xdoc">     * This will eventually be replaced by a more generic API for configuring
+</span>   105    <span class="xdoc">     * the XINTF on any 28x device.
+</span>   106    <span class="xdoc">     */</span>
+   107        <span class=key>config</span> Bool enableEzdspXintfConfig = <span class=key>false</span>;
+   108    };
+   109    <span class="comment">/*
+</span>   110    <span class="comment"> *  @(#) ti.catalog.c2800.init; 1, 0, 0,77; 2-23-2010 16:50:25; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   111    <span class="comment"> */</span>
+   112    
+</pre>
+</body></html>

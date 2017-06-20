@@ -1,0 +1,9 @@
+
+include $(AVCAPTURE_BUILD_DIR)/COMMON_HEADER.MK
+
+INCLUDE+=$(CSL_INC)
+INCLUDE+=-I../../kermod/inc
+
+include $(AVCAPTURE_BUILD_DIR)/COMMON_FOOTER.MK
+
+

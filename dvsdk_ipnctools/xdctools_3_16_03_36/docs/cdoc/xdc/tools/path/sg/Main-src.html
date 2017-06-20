@@ -1,0 +1,79 @@
+<html><head><title>module xdc.tools.path.sg.Main</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== Main ========
+</span>    14    <span class="xdoc"> *  Graphical interface to path tool
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  This graphical interactive tool displays the packages located along any
+</span>    17    <span class="xdoc"> *  specified package repository path.
+</span>    18    <span class="xdoc"> *
+</span>    19    <span class="xdoc"> *  At startup, this tool shows the packages located along the current package
+</span>    20    <span class="xdoc"> *  path; i.e.,
+</span>    21    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    22    <span class="xdoc"> *      $XDCPATH;$XDCROOT/packages;^
+</span>    23    <span class="xdoc"> *  <b>@p</b>
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  where `$XDCPATH` is the value of the the user settable prefix of the
+</span>    26    <span class="xdoc"> *  package path, `$XDCROOT` is the installation directory of the XDC tools,
+</span>    27    <span class="xdoc"> *  and `^` is the repository of the package in the current working directory
+</span>    28    <span class="xdoc"> *  (if it exists). To specify a package path other than the current package
+</span>    29    <span class="xdoc"> *  path, use the --packagepath option. Only semicolon delimited canonical 
+</span>    30    <span class="xdoc"> *  paths should be specifed as arguments with the --packagepath option.
+</span>    31    <span class="xdoc"> *  Environment variables such as $XDCROOT and special designators such as
+</span>    32    <span class="xdoc"> *  '^' should not be used.
+</span>    33    <span class="xdoc"> * 
+</span>    34    <span class="xdoc"> *  <b>@b(Usage)</b>
+</span>    35    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    36    <span class="xdoc"> *    xs xdc.tools.path.sg [--packagepath PATH]
+</span>    37    <span class="xdoc"> *  <b>@p</b>
+</span>    38    <span class="xdoc"> *
+</span>    39    <span class="xdoc"> *  <b>@a(Bugs)</b>
+</span>    40    <span class="xdoc"> *  
+</span>    41    <span class="xdoc"> *  This tool scans all packages available along the current
+</span>    42    <span class="xdoc"> *  package path before displaying the user interface.  So, a repository in
+</span>    43    <span class="xdoc"> *  the package path that contains a large number of sub-directories, such
+</span>    44    <span class="xdoc"> *  as '/', causes very long delays before the user interface is displayed.
+</span>    45    <span class="xdoc"> *
+</span>    46    <span class="xdoc"> *  While it is easy to see that you should not put '/' in the package path,
+</span>    47    <span class="xdoc"> *  it is less obvious that installing a package at '/' has the same effect.
+</span>    48    <span class="xdoc"> */</span>
+    49    <span class=key>metaonly</span> <span class=key>module</span> Main <span class=key>inherits</span> xdc.tools.ICmd {
+    50    
+    51        <span class=key>override</span> <span class=key>config</span> String usage[] = [
+    52           <span class="string">'[--packagepath PATH]'</span>
+    53        ];
+    54    
+    55        <span class="xdoc">/*!
+</span>    56    <span class="xdoc">     *  ======== createPartControl ========
+</span>    57    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>    58    <span class="xdoc">     */</span>
+    59        <span class=key>function</span> createPartControl(parent);
+    60    
+    61    <span class=key>instance</span>:
+    62    
+    63        <span class=xdoc>//! package path to scan for packages</span>
+    64        @CommandOption(<span class="string">'packagepath'</span>)
+    65        <span class=key>config</span> string pathArg = <span class=key>null</span>;
+    66    
+    67    }
+    68    <span class="comment">/*
+</span>    69    <span class="comment"> *  @(#) xdc.tools.path.sg; 1, 0, 0,148; 11-20-2009 13:27:31; /db/ztree/library/trees/xdctools/xdctools-d08x/src/
+</span>    70    <span class="comment"> */</span>
+    71    
+</pre>
+</body></html>

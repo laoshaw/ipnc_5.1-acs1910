@@ -1,0 +1,63 @@
+<html><head><title>package ti.catalog.arm</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class=key>requires</span> xdc.platform;
+    14    
+    15    <span class="xdoc">/*!
+</span>    16    <span class="xdoc"> *  ======== ti.catalog.arm ========
+</span>    17    <span class="xdoc"> *  Package of devices for the arm family of Arm processors.
+</span>    18    <span class="xdoc"> *
+</span>    19    <span class="xdoc"> *  Each module in this package implements the xdc.platform.ICpuDataSheet
+</span>    20    <span class="xdoc"> *  interface. This interface is used by platforms (modules that implement
+</span>    21    <span class="xdoc"> *  xdc.platform.IPlatform) to obtain the memory map supported by each CPU.
+</span>    22    <span class="xdoc"> */</span>
+    23    <span class=key>package</span> ti.catalog.arm [1,0,1,0] {
+    24        <span class=key>interface</span> TMS470xx;
+    25        <span class=key>interface</span> ILM3Sx7xx;
+    26        <span class=key>module</span> LM3S9792, LM3S9790, LM3S5791, LM3S2793;
+    27        <span class=key>interface</span> ILM3SxBxx;
+    28        <span class=key>module</span> LM3S9B96, LM3S9B95, LM3S9B92, LM3S5B91, LM3S9B90, LM3S2B93;
+    29        <span class=key>interface</span> ILM3Sx9xx;
+    30        <span class=key>module</span> LM3S8962;    
+    31        <span class=key>module</span> TMS470R10;
+    32        <span class=key>module</span> TMS320C5912;
+    33        <span class=key>module</span> TMS320C1030;
+    34        <span class=key>module</span> TMS320CDM6446, TMS320CDM6467;
+    35        <span class=key>module</span> TMS320CDM355, TMS320DM357, TMS320DM365;
+    36        <span class=key>module</span> TMS320CDM510;
+    37        <span class=key>interface</span> IOMAP2x3x;
+    38        <span class=key>module</span> OMAP2430, OMAP2431, OMAP2530, OMAP2531;
+    39        <span class=key>interface</span> IOMAP3xxx;
+    40        <span class=key>module</span> OMAP3403, OMAP3405, OMAP3503, OMAP3505, OMAP3515, OMAP3517;
+    41        <span class=key>module</span> OMAP3425, OMAP3525, TMS320C3430, OMAP3530;
+    42        <span class=key>interface</span> ITMS320DA8xx;
+    43        <span class=key>module</span> TMS320DA828, TMS320DA830;
+    44        <span class=key>module</span> OMAPL137;
+    45        <span class=key>module</span> CortexM3;
+    46        <span class=key>module</span> TMS570PSF762, TMS570LS20216;
+    47        <span class=key>module</span> TMS320DA840, TMS320DA840;
+    48        <span class=key>module</span> OMAPL108, OMAPL118, OMAPL138;
+    49        <span class=key>module</span> TMS320CDM730, TMS320CDM740;
+    50        <span class=key>module</span> TNETV107X;
+    51    }
+    52    <span class="comment">/*
+</span>    53    <span class="comment"> *  @(#) ti.catalog.arm; 1, 0, 1, 0,116; 2-23-2010 16:50:34; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    54    <span class="comment"> */</span>
+    55    
+</pre>
+</body></html>

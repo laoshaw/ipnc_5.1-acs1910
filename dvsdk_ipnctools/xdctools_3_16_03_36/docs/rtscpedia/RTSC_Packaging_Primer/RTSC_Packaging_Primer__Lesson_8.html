@@ -1,0 +1,397 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 8 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 8&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_7.html" title="Lesson 7"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_9.html" title="Lesson 9"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 8</p><p id="subtitle">Package Test &#151; managing a <tt>charlie.sqrtlib</tt> test suite</p>
+<p></p>
+<p>Though not obvious at first, package producers will often become <i>consumers</i> of their own packages&#151;such as when managing a suite of application programs that <i>test</i> the target content delivered in packages like <tt>charlie.sqrtlib</tt>.  Following a simple organizational pattern used frequently amongst package producers, we'll construct a <i>companion</i> package named <tt>charlie.sqrtlib.test</tt>  which builds and executes a collection of test programs that in general would exercise client-visible ("black-box") <i>and</i> supplier-proprietary ("white-box") features of <tt>charlie.sqrtlib</tt> per se.
+</p>
+<div class="Info"><p class="Info">Don't confuse the role of <tt>charlie.sqrtlib.test</tt> with that of <tt>charlie.sqrtlib.samples</tt>, the elementary package produced in <a href="RTSC_Packaging_Primer__Lesson_4.html#cl-2:1" title="RTSC Packaging Primer/Lesson 4">Lesson 4</a> and consumed in <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1a" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a> which contains some source files delivered "as is".  While both packages invoke features of <tt>charlie.sqrtlib</tt>, the test package produced here leverages the full power of the RTSC build flow to help manage the daunting number of combinations and permutations that often arise during software testing&#151;multiple programs, multiple targets, multiple configurations, and multiple inputs.</p></div>    
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Generalized_test_packages"><span class="tocnumber">1</span> <span class="toctext">Generalized test packages</span></a></li>
+<li class="toclevel-1"><a href="#Prescribing_a_set_of_tests"><span class="tocnumber">2</span> <span class="toctext">Prescribing a set of tests</span></a></li>
+<li class="toclevel-1"><a href="#Building_the_programs"><span class="tocnumber">3</span> <span class="toctext">Building the programs</span></a></li>
+<li class="toclevel-1"><a href="#Running_the_tests"><span class="tocnumber">4</span> <span class="toctext">Running the tests</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Generalized_test_packages"></a><h2> <span class="mw-headline">Generalized test packages</span></h2>
+<p>To exercise <tt>charlie.sqrtlib</tt> in a wide-range of potential settings, the <tt>charlie.sqrtlib.test</tt> package and the programs it contains introduce a level of generality not always seen within individual client applications.  To illustrate, we'll study one program named <tt>isqrtTest1</tt> that effectively generalizes the client application from <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1a" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a>&#151;enabling us to invoke the <tt>isqrt</tt> function with different inputs as well as to configure the <tt>Settings.optimize</tt> parameter with different values, all while building and executing the same program across multiple targets. 
+</p><p><span class="Leader">The target-program</span>.&nbsp;  Using <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1a" title="RTSC Packaging Primer/Lesson 3"><tt>prog.c</tt></a> as a starting point, <tt>isqrtTest1.c</tt> allows input values for the <tt>isqrt</tt> function to enter the program via command-line arguments available to <tt>main</tt>&#151;nothing unusual here from the perspective of C.   
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/test/isqrtTest1.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;acme/utils/Bench.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> &lt;charlie/sqrtlib/isqrt.h&gt;
+&nbsp;
+<span class="re1">#include</span> &lt;stdlib.h&gt;
+&nbsp;
+<span class="kw2">int</span> main<span class="br0">&#40;</span><span class="kw2">int</span> argc, <span class="kw2">char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">unsigned</span> <span class="kw2">int</span> x, y;
+&nbsp;
+    x = argc &gt; <span class="nu0">0</span>&nbsp;? atoi<span class="br0">&#40;</span>argv<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span>&nbsp;: <span class="nu0">0</span>;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;==&gt; isqrt(%d)<span class="es0">\n</span>, x&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    Bench_begin<span class="br0">&#40;</span><span class="st0">&quot;cycle count:&quot;</span><span class="br0">&#41;</span>;
+    y = isqrt<span class="br0">&#40;</span>x<span class="br0">&#41;</span>;
+    Bench_end<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;&lt;==&nbsp;%d<span class="es0">\n</span>&quot;</span>, y<span class="br0">&#41;</span>;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Guided by the <tt>argc</tt> and <tt>argv</tt> arguments to <tt>main</tt> declared at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a>, the statement at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> conditionally converts the program's first argument (a string, by definition) into the integer it presumably represents using the built-in <tt>atoi</tt> function declared in the <tt>&lt;stdlib.h</tt>&gt; header included earlier at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a>.  Beyond line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a>, the remainder of this test program mirrors <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1a" title="RTSC Packaging Primer/Lesson 3"><tt>prog.c</tt></a> exactly&#151;echoing the input <tt>x</tt>, benchmarking an <tt>isqrt</tt> call, and then displaying the output <tt>y</tt>.
+</p><p>As you'll see shortly, the <tt>package.bld</tt> script for <tt>charlie.sqrtlib.test</tt> not only prescribes "what to build" when manufacturing the <tt>isqrt</tt> program for multiple targets with alternative configurations, but also defines "what to test" when <i>executing</i> this program on a particular platform.
+</p><p><span class="Leader">The meta-program</span>.&nbsp;  Unlike <tt>isqrtTest1.c</tt>, the corresponding <tt>isqrtTest1.cfg</tt> meta-program represents a more significant departure from the original <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1b" title="RTSC Packaging Primer/Lesson 3"><tt>prog.cfg</tt></a> script covered in Lesson 3.
+</p>
+<div id="cl-2:1"></div><div id="cl-2:2"></div><div id="cl-2:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/test/isqrtTest1.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.cfg.Program'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> Bench = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.utils.Bench'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Settings = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'charlie.sqrtlib.Settings'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.System'</span><span class="br0">&#41;</span>;
+&nbsp;
+Bench.enable = <span class="br0">&#40;</span>Program.build.target.isa&nbsp;!= <span class="st0">&quot;x86&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">switch</span> <span class="br0">&#40;</span>Program.build.cfgArgs.optMode<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">case</span> <span class="st0">&quot;SPACE&quot;</span>:
+        Settings.optimize = Settings.OPTIMIZE_FOR_SPACE;
+        <span class="kw1">break</span>;
+    <span class="kw1">case</span> <span class="st0">&quot;TIME&quot;</span>:
+        Settings.optimize = Settings.OPTIMIZE_FOR_TIME;
+        <span class="kw1">break</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Leveraging the special <tt>xdc.cfg.Program</tt> meta-module imported at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>, the <tt>isqrtTest.cfg</tt> script accesses information originating earlier in the flow, when first running the <tt>package.bld</tt> script for <tt>charlie.sqrtlib.test</tt>.
+</p>
+<dl><dt><a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a>&nbsp; <tt>Program.build.target</tt>
+</dt><dd><small>This property returns an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object whose properties in turn characterize the RTSC target selected for building this program. Here, the target's <tt>isa</tt> property ultimately determines whether we enable the <tt>acme.utils.Bench</tt> module at runtime (which, as it turns out, proves woefully inaccurate when used on an <span class="st0"><tt>"x86"</tt></span> host PC).</small>
+</dd></dl>
+<p></p>
+<dl><dt><a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a>&nbsp; <tt>Program.build.cfgArgs</tt> 
+</dt><dd><small>This property returns an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object defined within the <tt>package.bld</tt> script itself. Here, we've used a string previously assigned to this object's <tt>optMode</tt> property to drive initialization of the <tt>Settings.optimize</tt> configuration parameter with either <tt>OPTIMIZE_FOR_SPACE</tt> or <tt>OPTIMIZE_FOR_TIME</tt>.</small>
+</dd></dl>
+<p>The <tt>package.bld</tt> script introduced momentarily will fill in some important missing details, specifically the idiom used to formulate configuration-time arguments for meta-programs such as <tt>isqrtTest1.cfg</tt>.
+</p>
+<div class="Info"><p class="Info">The <tt>prog</tt> argument passed to the <tt>getLibs</tt> function that we examined back in <a href="RTSC_Packaging_Primer__Lesson_7.html#cl-2:1" title="RTSC Packaging Primer/Lesson 7">Lesson 7</a> in fact references the same <tt>xdc.cfg.Program</tt> meta-module imported here at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>.  In both cases, the <tt>build.target</tt> property of this <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object taps into the same base of information about the current program during its configuration.</p></div>
+<p><span class="Leader">The package specification</span>.&nbsp;  Needless to say, <tt>charlie.sqrtlib.test</tt> requires a <tt>package.xdc</tt> specification file found in the corresponding package directory&#151;just like any other RTSC package.
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/test/package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">requires</span> acme.utils;
+<span class="kw1">requires</span> charlie.sqrtlib;
+&nbsp;
+<span class="xdoc">/*! Companion tests for charlie.sqrtlib */</span>
+<span class="kw1">package</span> charlie.sqrtlib.test <span class="br0">&#123;</span>
+    <span class="coMULTI">/* no module declarations */</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Similar to the specification of <tt>charlie.sqrtlib.samples</tt> from <a href="RTSC_Packaging_Primer__Lesson_4.html#cl-4:1" title="RTSC Packaging Primer/Lesson 4">Lesson 4</a>, the <span class="kw1"><tt>package</tt></span> declaration at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a> introduces no additional programmatic elements into the <tt>charlie.sqrtlib.test</tt> namespace&#151;in contrast with the <tt>charlie.sqrtlib</tt> package from <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-1:1" title="RTSC Packaging Primer/Lesson 5">Lesson 5</a>, which introduces the <tt>Settings</tt> module at this point.
+</p><p>But unlike any of the <tt>package.xdc</tt> files we've already encountered, the specification of <tt>charlie.sqrtlib.test</tt> explicitly declares its dependency on other RTSC packages via some <span class="kw1"><tt>requires</tt></span> statements beginning at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a>.  As a rule, these statements reflect references within the current package's content to programmatic artifacts found in <i>other</i> RTSC packages&#151;such as the reference to <tt>acme/utils/Bench.h</tt> within <tt>isqrtTest1.c</tt> or the reference to <tt>charlie.sqrtlib.Settings</tt> within <tt>isqrtTest1.cfg</tt>.
+</p>
+<div class="Info"><p class="Info">The presence of <span class="kw1"><tt>requires</tt></span> statements enables a powerful feature of the <tt>xdc</tt> command, which we'll illustrate later when we build the <tt>charlie.sqrtlib.test</tt> package.  As a convenience, <tt>package.xdc</tt> specification files can also omit <span class="kw1"><tt>requires</tt></span> statements that reference packages <i>already</i> bundled with the <tt>XDCtools</tt> product&#151;such as the <tt>xdc.runtime</tt> package which houses the <tt>System</tt> module, or the <tt>xdc.cfg</tt> package which houses the <tt>Program</tt> meta-module.</p></div>
+<a name="Prescribing_a_set_of_tests"></a><h2> <span class="mw-headline">Prescribing a set of tests</span></h2>
+<p>In the spirit of the <tt>charlie/sqrtlib/package.bld</tt> script introduced back in <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-3:1" title="RTSC Packaging Primer/Lesson 5">Lesson 5</a>&#151;a portable prescription for building a pair of function libraries across multiple targets, expressed through a single <span class="kw1"><tt>for</tt></span> loop&#151;the <tt>package.bld</tt> script for <tt>charlie.sqrtlib.test</tt> takes this idiom to the next level.  Structured as a series of <i>nested</i> <span class="kw1"><tt>for</tt></span> loops, the script concisely prescribes <i>multiple</i> test programs built for <i>multiple</i> targets, configured in <i>multiple</i> ways, and executed <i>multiple</i> times with different inputs.
+</p>
+<div id="cl-4:1"></div><div id="cl-4:2"></div><div id="cl-4:3"></div><div id="cl-4:4"></div><div id="cl-4:5"></div><div id="cl-4:6"></div><div id="cl-4:7"></div><div id="cl-4:8"></div><div id="cl-4:9"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/test/package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br /><span class="codexLab">6</span><br /><span class="codexLab">7</span><br /><span class="codexLab">8</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">9</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Build = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.BuildEnvironment'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.PackageContents'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> TEST_INFO = <span class="br0">&#91;</span>
+    <span class="br0">&#123;</span>testName: <span class="st0">&quot;isqrtTest1&quot;</span>, testValues: <span class="br0">&#91;</span><span class="st0">&quot;100&quot;</span>, <span class="st0">&quot;1000&quot;</span>, <span class="st0">&quot;65536&quot;</span><span class="br0">&#93;</span><span class="br0">&#125;</span>
+<span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> testInfo <span class="kw1">in</span> TEST_INFO<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> targ <span class="kw1">in</span> Build.targets<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> optMode <span class="kw1">in</span> <span class="br0">&#91;</span><span class="st0">&quot;SPACE&quot;</span>, <span class="st0">&quot;TIME&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+            <span class="kw1">var</span> progName = testInfo.testName + <span class="st0">&quot;-&quot;</span> + optMode;
+            <span class="kw1">var</span> exe = Pkg.addExecutable<span class="br0">&#40;</span>progName, targ, targ.platform<span class="br0">&#41;</span>
+&nbsp;
+            exe.addObjects<span class="br0">&#40;</span><span class="br0">&#91;</span>testInfo.testName + <span class="st0">&quot;.c&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+            exe.attrs.cfgScript = testInfo.testName + <span class="st0">&quot;.cfg&quot;</span>;
+            exe.attrs.cfgArgs = <span class="st0">&quot;{optMode: '&quot;</span> + optMode + <span class="st0">&quot;'}&quot;</span>; 
+&nbsp;
+            <span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> v <span class="kw1">in</span> testInfo.testValues<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+                exe.addTest<span class="br0">&#40;</span><span class="br0">&#123;</span>groupName: optMode, args: v<span class="br0">&#125;</span><span class="br0">&#41;</span>;
+            <span class="br0">&#125;</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The outer <span class="kw1"><tt>for</tt></span> loop beginning at line <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a> successively binds the local variable <tt>testInfo</tt> to each element of the <tt>TEST_INFO</tt> array defined earlier at line <a class="codexLink" href="#cl-4:1"><span class="codexLink">1</span></a>&#151;limited here to just one element in the interest of brevity.  In general, though, each element of the <tt>TEST_INFO</tt> array comprises an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object featuring a <tt>testName</tt> and <tt>testValues</tt> property respectively bound to a string and an array of strings.  Each element of the latter array in turn defines a <i>distinct</i> command-line argument list passed via <tt>argv</tt> to this program&#151;which would run three times using this example.
+</p>
+<div class="Info"><p class="Info">Just as most programming languages support a <i>literal</i> notation for scalar values (the string <span class="st0"><tt>"foo"</tt></span>, the number <tt>3.14</tt>, the boolean <span class="kw2"><tt>true</tt></span>), JavaScript supports a literal form for aggregate values as well:&nbsp; the notation <tt>[</tt>&nbsp;<span class="mq">&laquo;</span><tt>element-value</tt><span class="mq">&raquo;</span><tt>,</tt>&nbsp;...&nbsp;<tt>]</tt> denotes an <i>n</i>-element array; the notation <tt>{</tt>&nbsp;<span class="mq">&laquo;</span><tt>property-name</tt><span class="mq">&raquo;</span><tt>:</tt><span class="mq">&laquo;</span><tt>property-value</tt><span class="mq">&raquo;</span><tt>,</tt>&nbsp;...&nbsp;<tt>}</tt> denotes an compound object with named properties.  Almost second-nature to most programmers regardless of their language background, <i>JavaScript Object Notation</i>&#151;popularly termed <b>JSON</b>&#151;has become a viable alternative to XML as a lightweight data-interchange format; visit <a href="http://www.json.org/" class="external text" title="http://www.json.org/" rel="nofollow">json.org</a> to learn more.</p></div>  
+<p>The next pair of nested <span class="kw1"><tt>for</tt></span> loops first assigns <tt>targ</tt> at line <a class="codexLink" href="#cl-4:3"><span class="codexLink">3</span></a> to each successive element of the <tt>Build.targets</tt> array&#151;initialized in the current <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-2:1" title="RTSC Packaging Primer/Lesson 5"><tt>config.bld</tt></a> script&#151;and then assigns <tt>optMode</tt> at line <a class="codexLink" href="#cl-4:4"><span class="codexLink">4</span></a> to each string in the two-element array defined in place.  Moving forward, we can now repeatedly invoke <tt>addExecutable</tt> at line <a class="codexLink" href="#cl-4:5"><span class="codexLink">5</span></a> with a unique set of arguments that characterize each test program (of many!) configured, compiled, and linked downstream:
+</p>
+<ul><li> the program's <i>name</i>, formed here by mangling <tt>testInfo.testName</tt> with <tt>optName</tt>;
+</li><li> the program's <i>target</i>, an element of the <tt>Build.targets</tt> array currently bound to <tt>targ</tt>; and
+</li><li> the program's <i>platform</i>, taken here from a property of targets often assigned within <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-2:1" title="RTSC Packaging Primer/Lesson 5"><tt>config.bld</tt></a>.
+</li></ul>
+<p>Similar to the <tt>addLibrary</tt> call seen back in <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-3:2" title="RTSC Packaging Primer/Lesson 5">Lesson 5</a>, the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object returned by <tt>addExecutable</tt>&#151;bound here to the local variable <tt>exe</tt>&#151;also supports an <tt>addObject</tt> function whose input at line <a class="codexLink" href="#cl-4:6"><span class="codexLink">6</span></a> consists of an array of C source-file names (eg. <tt>isqrtTest1.c</tt>).  Continuing onward, the assignment at line <a class="codexLink" href="#cl-4:7"><span class="codexLink">7</span></a> names this executable's corresponding meta-program (eg. <tt>isqrtTest1.cfg</tt>); the assignment at line <a class="codexLink" href="#cl-4:8"><span class="codexLink">8</span></a> formulates a string that later becomes an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object with an initialized <tt>optMode</tt> property, available to the meta-program during configuration.
+</p>
+<div class="Info"><p class="Info">The idiom <tt>pkg.addExecutable(<span class="st0">"prog"</span>, targ, targ.platform).addObjects([<span class="st0">"prog.c"</span>])</tt> builds "simple" programs from sources like <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1b" title="RTSC Packaging Primer/Lesson 3"><tt>prog.cfg</tt></a> and <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1a" title="RTSC Packaging Primer/Lesson 3"><tt>prog.c</tt></a>;  we only require the extra attribute assignments here because the name of the executable <i>differs</i> from <tt>isqrtTest1.cfg</tt> [<a class="codexLink" href="#cl-4:7"><span class="codexLink">7</span></a>] and because this configuration script receives an argument object formulated at build-time [<a class="codexLink" href="#cl-4:8"><span class="codexLink">8</span></a>].  To appreciate <tt>addExecutable</tt> in its purest form, take a quick look at this (portable, scalable, and elegant) <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_5.html#cl-1:1" title="RTSC Module Primer/Lesson 5">example</a> from the <i>RTSC Module Primer</i> and then imagine accomplishing the same steps with a <tt>makefile</tt>.</p></div>
+<p>Finally, the <tt>addTest</tt> function call at line <a class="codexLink" href="#cl-4:9"><span class="codexLink">9</span></a>&#151;performed once for each command-line argument list in the current <tt>testInfo.testValues</tt> array&#151;associates a unique <i>test run</i> with this executable program.  The <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object passed to <tt>addTest</tt> defines some attributes of the newly-created test (specifically, its <tt>groupName</tt> and <tt>args</tt>) whose meaning will become clear once we build and execute all of the programs prescribed by this <tt>package.bld</tt> script.
+</p>
+<a name="Building_the_programs"></a><h2> <span class="mw-headline">Building the programs</span></h2>
+<p>Similar to the way we've already built the <tt>charlie.sqrtlib</tt> libraries back in <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-4:1" title="RTSC Packaging Primer/Lesson 5">Lesson 5</a>, we'll now clean-and-rebuild the <tt>charlie.sqrtlib.test</tt> programs by invoking <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>clean</tt></span> followed by <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>all</tt></span> from within the package directory. Output from the latter command (abbreviated to improve readability) traces the configuration, compilation, and linking of four distinct programs&#151;all leveraging the same <tt>isqrtTest1.c</tt> and <tt>isqrtTest1.cfg</tt> source files.
+</p>
+<div id="cl-5:1"></div><div id="cl-5:2"></div><div id="cl-5:3"></div><div id="cl-5:4"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xdc all</span></b>
+making package.mak (because of package.bld) ...
+generating interfaces for package charlie.sqrtlib.test (because ...) ...
+&nbsp;
+configuring isqrtTest1-SPACE.x64P from package/cfg/isqrtTest1-SPACE_x64P.cfg ...
+cl64P package/cfg/isqrtTest1-SPACE_x64P.c ...
+cl64P isqrtTest1.c ...
+lnk64P isqrtTest1-SPACE.x64P ...
+&nbsp;
+configuring isqrtTest1-TIME.x64P from package/cfg/isqrtTest1-TIME_x64P.cfg ...
+    ...
+&nbsp;
+configuring isqrtTest1-SPACE.x86GW from package/cfg/isqrtTest1-SPACE_x86GW.cfg ...
+    ...
+&nbsp;
+configuring isqrtTest1-TIME.x86GW from package/cfg/isqrtTest1-TIME_x86GW.cfg ...
+    ...
+&nbsp;
+all files complete.</pre></td></tr></table>
+<p>Focusing on the steps involved in building <tt>isqrtTest1-SPACE.x64P</tt> at line <a class="codexLink" href="#cl-5:1"><span class="codexLink">1</span></a>&#151;configure, compile, link&#151;these mirror the basic program configuration <a href="RTSC_Packaging_Primer__Lesson_3.html#Configuring_RTSC_Programs" title="RTSC Packaging Primer/Lesson 3">flow</a> introduced back in Lesson 3.  Looking closer, the output before and after line <a class="codexLink" href="#cl-5:1"><span class="codexLink">1</span></a> in fact follows the same pattern also seen in Lesson 3 when we eventually <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-3:1" title="RTSC Packaging Primer/Lesson 3">built</a> our first client application using the <tt>configuro</tt> command from within a GNU <tt>makefile</tt>.
+</p>
+<div class="Info"><p class="Info">Behind the scenes, the <tt>xdc.tools.configuro</tt> utility automatically <i>produces</i> a RTSC package based on its command-line inputs and then fires-off the <tt>xdc</tt> command to <i>build</i> this synthesized package&#151;following the same idioms and leveraging the same mechanisms used by any package producer.  We've already mentioned how package producers can effectively broaden the scope of the <tt>xdc</tt> command by contributing a customized <tt>gmake</tt> prologue/epilogue to the generated <tt>package.mak</tt> file.  At the same time, tools such as <tt>configuro</tt> demonstrate how the <tt>xdc</tt> command can become a more compartmentalized <i>building-block</i> [sic] within a very different client build-flow.</p></div>
+<p>Recalling that the <tt>xdc</tt> command itself generates a special <tt>package.mak</tt> file after first running the <tt>package.bld</tt> script&#151;and then forwards this generated file to <tt>gmake</tt> which actually dispatches the individual build steps&#151;only the minimal amount of re-work takes place when package producers modify sources files like <tt>isqrtTest1.c</tt> and <tt>isqrtTest1.cfg</tt> during development and then invoke <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>all</tt></span>.
+</p><p>In situations where producers find themselves working across a set of inter-dependent packages&#151;simultaneously modifying library sources in <tt>charlie.sqrtlib</tt> as well as test programs in <tt>charlie.sqrtlib.test</tt>&#151;we recommend using an extended form of the <tt>xdc</tt> command that operates on a <i>set</i> of packages designated using the <tt>-P</tt> option and its variants.
+</p>
+<table style="margin-left:5.5em; border:1px solid #ddd; font-size:90%" cellpadding="3" cellspacing="0">
+
+<tr>
+<td style="width:20em;"><tt>xdc [<i>goal</i> ...] -P &nbsp;<i>pkg-dir</i> ...</tt>
+</td><td>build goal(s) in each package directory
+</td></tr>
+<tr style="background:#e8e8e8;">
+<td><tt>xdc [<i>goal</i> ...] -PR <i>dir</i> ...</tt>
+</td><td>build goal(s) in all packages found by recursively searching each directory
+</td></tr>
+<tr>
+<td><tt>xdc [<i>goal</i> ...] -PD <i>pkg-dir</i> ...</tt>
+</td><td>build goal(s) in each package directory along with all dependent packages
+</td></tr></table>
+<div class="Info"><p class="Info">For example, you could invoke a single <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>test</tt>&nbsp;<tt>-PR</tt>&nbsp;<tt>.</tt></span> command from within the <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/charlie/sqrtlib</tt> directory to build both packages before executing all test programs.  Or, better still, sitting inside the <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/charlie/sqrtlib/test</tt> package you can achieve the same results by invoking <span class="cmdFrag"><tt>xdc</tt> <tt>test</tt> <tt>-PD</tt> <tt>.</tt></span> which automatically recognizes <tt>charlie.sqrtlib</tt> as a dependent package (per our <a href="#cl-3:1" title=""><tt>package.xdc</tt> spec</a>).  In the latter case, the <tt>-PD</tt> option will <i>also</i> re-build the <tt>acme.utils</tt> package as needed&#151;just in case you happened to make changes to the <tt>Bench</tt> module.</p></div>
+<p>Finally, the <tt>xdc</tt> command enables you to build for just one target; for example, invoking <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>all,64P</tt></span>&#151;with or without the <tt>-P</tt> option&#151;would only manufacture programs (or libraries) using <tt>ti.targets.C64P</tt>.  For even finer control, simply name the individual program (or library) as the <tt>xdc</tt> command's goal&#151;for example, <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>isqrt1-SPACE.x64P</tt></span> would build only this one program.
+</p>
+<p><div class="Notice"><p class="Notice">Just keeping reminding yourself that the <tt>xdc</tt> command is really nothing more than a <i>facade</i> sitting atop <tt>gmake</tt>.</p></div></p>
+<a name="Running_the_tests"></a><h2> <span class="mw-headline">Running the tests</span></h2>
+<p>Here too, we'll rely upon the <tt>xdc</tt> command to run the test programs contained within the <tt>charlie.sqrtlib.test</tt> package&#151;from executing <i>all</i> programs with <i>all</i> pre-defined inputs to selecting a subset of the package's programs based on test-group name or target.
+</p>
+<dl><dt><span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>test</tt></span>
+</dt><dd><small>execute all programs for all targets, with all inputs</small>
+</dd></dl>
+<dl><dt><span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>test,<span class="mq">&laquo;</span>target-suffix<span class="mq">&raquo;</span></tt></span>
+</dt><dd><small>execute all programs only for the designated target, with all inputs</small>
+</dd></dl>
+<dl><dt><span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt><span class="mq">&laquo;</span>test-group-name<span class="mq">&raquo;</span>.test</tt></span>
+</dt><dd><small>execute all programs in the designated test-group, for all targets and with all inputs</small>
+</dd></dl>
+<dl><dt><span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt><span class="mq">&laquo;</span>test-group-name<span class="mq">&raquo;</span>.test,<span class="mq">&laquo;</span>target-suffix<span class="mq">&raquo;</span></tt></span>
+</dt><dd><small>execute all programs in the designated test-group and only for the designated target, with all inputs</small>
+</dd></dl>
+<p>To illustrate, the following form of the <tt>xdc</tt> command would run all programs in the <tt>TIME</tt> test-group built for the <tt>64P</tt> target, using all pre-defined inputs.  Note that each test run has a distinct command-line input, resulting in distinct output from executing the underlying program.  Recall that line <a class="codexLink" href="#cl-4:9"><span class="codexLink">9</span></a> of the <tt>package.bld</tt> script examined earlier defines both the test-group name and command-line argument list associated with each of the test programs contained within the <tt>charlie.sqrtlib.test</tt> package.
+</p>
+<div id="cl-6:-"></div><div id="cl-6:-"></div><div id="cl-6:-"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">-</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">-</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">-</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xdc TIME.test,64P</span></b>
+running isqrtTest1-TIME.x64P 100 ...
+==&gt; isqrt(100)
+cycle count: [38]
+&lt;== 10
+running isqrtTest1-TIME.x64P 1000 ...
+==&gt; isqrt(1000)
+cycle count: [63]
+&lt;== 31
+running isqrtTest1-TIME.x64P 65536 ...
+==&gt; isqrt(65536)
+cycle count: [172]
+&lt;== 256</pre></td></tr></table>
+<p>While the <tt>xdc</tt> command can run individual programs (<span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>isqrtTest1-TIME.x64P.test</tt></span> exemplifies the pattern), you can't vary the <i>input</i> passed to the program.  For more ad hoc testing of individual programs&#151;composing argument lists from the command-line&#151;consider the <tt>xdc.tools.loader</tt> utility bundled with the <tt>XDCtools</tt> product as an alternative.
+</p>
+<div id="cl-7:-"></div><div id="cl-7:-"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">-</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">-</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.loader isqrtTest1-TIME.x64P 256</span></b>
+==&gt; isqrt(256)
+cycle count: [63]
+&lt;== 16
+<b><span class="st0">%&gt; xs xdc.tools.loader isqrtTest1-SPACE.x64P 256</span></b>
+==&gt; isqrt(256)
+cycle count: [190]
+&lt;== 16</pre></td></tr></table>
+<div class="Info"><p class="Info">The <tt>xdc.bld.Test</tt> module defines other per-test attributes beyond <tt>groupName</tt> and <tt>args</tt>, assigned at line <a class="codexLink" href="#cl-4:9"><span class="codexLink">9</span></a> of the <tt>package.bld</tt> script for <tt>charlie.sqrtlib.test</tt>.  Using the <tt>refOutput</tt> and <tt>refExitCode</tt> attribute, for instance, producers can designate reference results for each test program in a package&#151;what the test <i>should</i> do.  The <tt>package.mak</tt> file generated via the <tt>xdc</tt> command would include logic to compare expected versus actual results when running each test program, and then to output an appropriate message.  In this capacity, the <tt>xdc</tt> command becomes an invaluable engine for driving automated regression testing of entire collections of RTSC packages.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p><span class="todo"><b>TODO:</b>&nbsp;&nbsp;write it</span>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 8&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_7.html" title="Lesson 7"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_9.html" title="Lesson 9"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 17548 bytes
+Post-expand include size: 5599 bytes
+Template argument size: 934 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>

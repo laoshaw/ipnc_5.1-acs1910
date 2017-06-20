@@ -1,0 +1,85 @@
+<html><head><title>module gnu.targets.MVArm9</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== MVArm9.xdc ========
+</span>    14    <span class="xdoc"> *  MonteVista Arm9 little endian embedded Linux target
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  This module defines a embedded target for Linux on Arm9.
+</span>    17    <span class="xdoc"> *
+</span>    18    <span class="xdoc"> *  Arm nomenclature:
+</span>    19    <span class="xdoc"> *  <b>@p(blist)</b>
+</span>    20    <span class="xdoc"> *      Arm7*  devices contain v4 Cores
+</span>    21    <span class="xdoc"> *      Arm9*  devices contain v5 Cores
+</span>    22    <span class="xdoc"> *      Arm11* devices contain v6 thumb2 Cores
+</span>    23    <span class="xdoc"> *  <b>@p</b>
+</span>    24    <span class="xdoc"> */</span>
+    25    <span class=key>metaonly</span> <span class=key>module</span> MVArm9 <span class=key>inherits</span> gnu.targets.ITarget {
+    26        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name                = <span class="string">"MVArm9"</span>;     
+    27        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string os                  = <span class="string">"Linux"</span>;      
+    28        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix              = <span class="string">"470MV"</span>;
+    29        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa                 = <span class="string">"v5T"</span>;
+    30        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model= {
+    31            endian: <span class="string">"little"</span>
+    32        };
+    33    
+    34        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts     = <span class="string">"gnu.targets.rts470MV"</span>;
+    35        <span class=key>override</span> <span class=key>config</span> string platform         = <span class="string">"ti.platforms.evmDM6446"</span>;
+    36        
+    37        <span class=key>override</span> <span class=key>config</span> string LONGNAME         = <span class="string">"bin/arm_v5t_le-gcc"</span>;
+    38    
+    39        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> Bool CYGWIN    = <span class=key>true</span>;
+    40    
+    41        <span class=key>override</span> <span class=key>config</span> ITarget.Options ccOpts = {
+    42            prefix: <span class="string">"-fPIC -Wunused"</span>,
+    43            suffix: <span class="string">"-Dfar= "</span>
+    44        };
+    45    
+    46        <span class=key>override</span> <span class=key>config</span> ITarget.Options lnkOpts = {
+    47            prefix: <span class="string">""</span>,
+    48            suffix: <span class="string">"-lstdc++ -L$(rootDir)/$(GCCTARG)/lib"</span>
+    49        };
+    50            
+    51        <span class="comment">/*
+</span>    52    <span class="comment">     *  ======== compatibleSuffixes ========
+</span>    53    <span class="comment">     */</span>
+    54        <span class=key>override</span> <span class=key>config</span> String compatibleSuffixes[] = [<span class="string">"v5T"</span>, <span class="string">"v5t"</span>];
+    55    
+    56        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.StdTypes stdTypes = {
+    57            t_IArg          : { size: 4, align: 4 },
+    58            t_Char          : { size: 1, align: 1 },
+    59            t_Double        : { size: 8, align: 4 },
+    60            t_Float         : { size: 4, align: 4 },
+    61            t_Fxn           : { size: 4, align: 4 },
+    62            t_Int           : { size: 4, align: 4 },
+    63            t_Int8          : { size: 1, align: 1 },
+    64            t_Int16         : { size: 2, align: 2 },
+    65            t_Int32         : { size: 4, align: 4 },
+    66            t_Int64         : { size: 8, align: 4 },
+    67            t_Long          : { size: 4, align: 4 },
+    68            t_LDouble       : { size: 8, align: 4 },
+    69            t_LLong         : { size: 8, align: 4 },
+    70            t_Ptr           : { size: 4, align: 4 },
+    71            t_Short         : { size: 2, align: 2 },
+    72        };
+    73    }
+    74    <span class="comment">/*
+</span>    75    <span class="comment"> *  @(#) gnu.targets; 1, 0, 1,387; 2-24-2010 16:24:01; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>    76    <span class="comment"> */</span>
+    77    
+</pre>
+</body></html>

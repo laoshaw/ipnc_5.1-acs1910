@@ -1,0 +1,104 @@
+<html><head><title>package xdc.bld</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class=key>requires</span> xdc.services.global;
+    13    <span class=key>requires</span> xdc.services.intern.cmd;
+    14    
+    15    <span class="xdoc">/*!
+</span>    16    <span class="xdoc"> *  ======== xdc.bld ========
+</span>    17    <span class="xdoc"> *  The XDC Build Model
+</span>    18    <span class="xdoc"> *
+</span>    19    <span class="xdoc"> *  This package contains the XDC Build Model and the interfaces necessary
+</span>    20    <span class="xdoc"> *  to extend the Build Model to handle new compiler tool chains.  The
+</span>    21    <span class="xdoc"> *  modules in this package (and the instances managed by these modules)
+</span>    22    <span class="xdoc"> *  form the Build Object Model (BOM).
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  This model enables build scripts to declare the contents of each release
+</span>    25    <span class="xdoc"> *  of a package.  Based on these manifests, the Build Engine generates
+</span>    26    <span class="xdoc"> *  makefiles that build the specified object files, libraries, and
+</span>    27    <span class="xdoc"> *  executables, and archive these files into specified release files.  In
+</span>    28    <span class="xdoc"> *  addition, the generated makefiles are also capable of running collections
+</span>    29    <span class="xdoc"> *  of executables with command line arguments (provided that the platforms
+</span>    30    <span class="xdoc"> *  support this); e.g., regression tests.
+</span>    31    <span class="xdoc"> *
+</span>    32    <span class="xdoc"> *  <b>@a(NOTE)</b> User supplied file names of source files, generated libraries and
+</span>    33    <span class="xdoc"> *           executables must be limited to portable POSIX file names. That
+</span>    34    <span class="xdoc"> *           means that only alphanumeric charaters, and '_', '.', and '-'
+</span>    35    <span class="xdoc"> *           are allowed.
+</span>    36    <span class="xdoc"> *
+</span>    37    <span class="xdoc"> *  <b>@a(throws)</b>
+</span>    38    <span class="xdoc"> *  `XDCException` exceptions are thrown for fatal errors. The following error
+</span>    39    <span class="xdoc"> *  codes are reported in the exception message:
+</span>    40    <span class="xdoc"> *
+</span>    41    <span class="xdoc"> *   <b>@p(dlist)</b>                            
+</span>    42    <span class="xdoc"> *      -  `xdc.bld.TARGET_CONFIG_ERROR`
+</span>    43    <span class="xdoc"> *           This error is reported whenever there is an  error in
+</span>    44    <span class="xdoc"> *           the target configuration file. Check the configuration script
+</span>    45    <span class="xdoc"> *           for errors. 
+</span>    46    <span class="xdoc"> *      -  `xdc.bld.ROOTDIR_NOT_SET`
+</span>    47    <span class="xdoc"> *           This error is reported when the `rootDir` property for a target
+</span>    48    <span class="xdoc"> *           has not been set in the target configuration script. Ensure
+</span>    49    <span class="xdoc"> *           that this property is set correctly in the configuration
+</span>    50    <span class="xdoc"> *           script.   
+</span>    51    <span class="xdoc"> *      -  `xdc.bld.PLATFORM_NOT_SET`
+</span>    52    <span class="xdoc"> *           This error is reported when either 1) the `platform` property for
+</span>    53    <span class="xdoc"> *           a target has not been set in the target specification or the 
+</span>    54    <span class="xdoc"> *           target configuration script (config.bld) or 2) the build script
+</span>    55    <span class="xdoc"> *           (package.bld) is setting the platform for a program to an
+</span>    56    <span class="xdoc"> *           invalid value.
+</span>    57    <span class="xdoc"> *      -  `xdc.bld.DUPLICATE_TARGET_ERROR`
+</span>    58    <span class="xdoc"> *           This error is reported when a same target is listed twice in 
+</span>    59    <span class="xdoc"> *           `Bld.targets`. Check `{<b>@link</b> xdc.bld.BuildEnvironment#targets}`
+</span>    60    <span class="xdoc"> *           to find out how `Bld.targets` is constructed. 
+</span>    61    <span class="xdoc"> */</span>
+    62    <span class=key>package</span> xdc.bld [1,0,2] {
+    63    
+    64        <span class="comment">/* interfaces to code gen tool chains (used by build engine) */</span>
+    65        <span class=key>interface</span> ITarget, ITarget2;
+    66    
+    67        <span class="comment">/* interface to user-supplied extensions that filter target commands */</span>
+    68        <span class=key>interface</span> ITargetFilter;
+    69    
+    70        <span class="comment">/* global build environment read by a build script */</span>
+    71        <span class=key>module</span>    BuildEnvironment;
+    72    
+    73        <span class="comment">/* package contents container populated by a build script */</span>
+    74        <span class=key>module</span>    PackageContents;
+    75    
+    76        <span class="comment">/* objects that can be added to the PackageContents container */</span>
+    77        <span class=key>module</span>    Release;
+    78        <span class=key>module</span>    Library;
+    79        <span class=key>module</span>    Test;
+    80        <span class=key>module</span>    Object;
+    81        <span class=key>module</span>    Executable;
+    82        <span class=key>module</span>    Repository;
+    83        <span class=key>module</span>    Assembly;
+    84        <span class=key>module</span>    Script;
+    85        
+    86        <span class="comment">/* each release has an optional script to post-process files
+</span>    87    <span class="comment">     * listed in a Manifest */</span>
+    88        <span class=key>module</span>    Manifest;
+    89    
+    90        <span class="comment">/* misc utils to simplify target development (ITarget implementations) */</span>
+    91        <span class=key>module</span>    Utils;
+    92    }
+    93    <span class="comment">/*
+</span>    94    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:33; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>    95    <span class="comment"> */</span>
+    96    
+</pre>
+</body></html>

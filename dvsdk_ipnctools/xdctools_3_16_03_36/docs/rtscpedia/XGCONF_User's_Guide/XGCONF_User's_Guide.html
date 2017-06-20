@@ -1,0 +1,363 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XGCONF User's Guide - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XGCONF User's Guide&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XGCONF User's Guide" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_RTSC_with_CCStudio_v4/Using_RTSC_with_CCStudio_v4.html" title="Using RTSC with CCStudio v4"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../Runtime_Object_Viewer/Runtime_Object_Viewer.html" title="Runtime Object Viewer"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">XGCONF User&#39;s Guide</p><p id="subtitle">Using the RTSC Graphical Configuration Tool in CCSv4</p>
+<p><br />
+This page provides instructions for creating and editing a RTSC configuration file within an Eclipse IDE such as CCStudio v4. 
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#What_is_XGCONF.3F"><span class="tocnumber">1</span> <span class="toctext">What is XGCONF?</span></a></li>
+<li class="toclevel-1"><a href="#Opening_a_RTSC_configuration_with_XGCONF"><span class="tocnumber">2</span> <span class="toctext">Opening a RTSC configuration with XGCONF</span></a></li>
+<li class="toclevel-1"><a href="#About_the_XGCONF_views"><span class="tocnumber">3</span> <span class="toctext">About the XGCONF views</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_Available_Packages_view"><span class="tocnumber">3.1</span> <span class="toctext">The Available Packages view</span></a></li>
+<li class="toclevel-2"><a href="#The_Outline_view"><span class="tocnumber">3.2</span> <span class="toctext">The Outline view</span></a></li>
+<li class="toclevel-2"><a href="#The_Properties_tab"><span class="tocnumber">3.3</span> <span class="toctext">The Properties tab</span></a></li>
+<li class="toclevel-2"><a href="#The_Source_tab"><span class="tocnumber">3.4</span> <span class="toctext">The Source tab</span></a></li>
+<li class="toclevel-2"><a href="#The_Problems_view"><span class="tocnumber">3.5</span> <span class="toctext">The Problems view</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Adding_a_module_to_the_configuration"><span class="tocnumber">4</span> <span class="toctext">Adding a module to the configuration</span></a></li>
+<li class="toclevel-1"><a href="#Deleting_a_module"><span class="tocnumber">5</span> <span class="toctext">Deleting a module</span></a></li>
+<li class="toclevel-1"><a href="#Adding_an_instance"><span class="tocnumber">6</span> <span class="toctext">Adding an instance</span></a></li>
+<li class="toclevel-1"><a href="#Deleting_an_instance"><span class="tocnumber">7</span> <span class="toctext">Deleting an instance</span></a></li>
+<li class="toclevel-1"><a href="#Changing_a_property_value"><span class="tocnumber">8</span> <span class="toctext">Changing a property value</span></a></li>
+<li class="toclevel-1"><a href="#Saving_the_configuration"><span class="tocnumber">9</span> <span class="toctext">Saving the configuration</span></a></li>
+<li class="toclevel-1"><a href="#Finding_and_fixing_errors"><span class="tocnumber">10</span> <span class="toctext">Finding and fixing errors</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">11</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p><br />
+You can also <a href="../Demo_of_XGCONF_in_CCSv4/Demo_of_XGCONF_in_CCSv4.html" title="Demo of XGCONF in CCSv4"> watch a demo</a> that shows how to use XGCONF. 
+</p>
+<a name="What_is_XGCONF.3F"></a><h2> <span class="mw-headline">What is XGCONF?</span></h2>
+<p><tt>XDCtools</tt> includes a configuration tool that runs in CCStudio v4 called XGCONF. You can use this tool to graphically create and view <a href="../Glossary/Glossary.html#ConfigurationScript" title="Glossary">RTSC configuration scripts</a>. Such configurations are written in the <a href="../XDCscript_Language_Reference/XDCscript_Language_Reference.html" title="XDCscript Language Reference"><tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt></a> language (a superset of JavaScript), but XGCONF displays them in a visual manner.
+</p><p><a href="images/Xgconf_config_and_outline.png" class="image" title="XGCONF"><img alt="XGCONF" src="images/Xgconf_config_and_outline.png" width="583" height="229" border="0" /></a>
+</p><p>As you might imagine, XGCONF is useful because it gives you an easy way to view the end result of your configuration, without having to read configuration code. <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> lets you specify a "contract" for what you want to accomplish in your configuration; processing that configuration finds all the necessary pieces for realizing that goal. Because a number of modules and instances are activated behind-the-scenes during configuration processing, XGCONF is a useful tool for viewing the result of these internal operations.
+</p>
+<div class="Info"><p class="Info">See the <a href="../RTSC%2BCCStudio_v4_QuickStart/RTSC%2BCCStudio_v4_QuickStart.html" title="RTSC+CCStudio v4 QuickStart">RTSC+CCStudio v4 QuickStart</a> to learn about creating projects that contain RTSC configuration files.</p></div>
+<a name="Opening_a_RTSC_configuration_with_XGCONF"></a><h2> <span class="mw-headline">Opening a RTSC configuration with XGCONF</span></h2>
+<p>To open XGCONF, follow these steps:
+</p>
+<ol><li><div class="floatright"><span><a href="images/Xgconf_switchperspec.png" class="image" title="Change perspective"><img alt="Change perspective" src="images/Xgconf_switchperspec.png" width="166" height="34" border="0" /></a></span></div>Make sure you are in the <b>C/C++</b> perspective of CCStudio 4. If you are not in that perspective, click the <b>C/C++</b> icon to switch back.
+</li><li>Make the project that contains the RTSC configuration file (with a .cfg extension) the "Active" project. You can do this by right-clicking on the project in the "C/C++ Projects" view and selecting <b>Set as Active Project</b>.
+</li><li>Double-click on the RTSC configuration file. It takes a few seconds for XGCONF to open. During this time, the CCStudio status bar shows that the configuration is being processed and validated.
+</li></ol>
+<p><div class="Notice"><p class="Notice"><i>If, after a few seconds, only the text editor has opened, right-click on the .cfg file and choose <b>Open With &gt; XGCONF</b> from the pop-up menu.</i></p></div></p>
+<a name="About_the_XGCONF_views"></a><h2> <span class="mw-headline">About the XGCONF views</span></h2>
+<p>The XGCONF tool is made up of several panes:
+</p>
+<ul><li> <b><a href="#The_Available_Packages_view" title="">Available Packages view</a></b>, which lets you add modules to your configuration. By default, this view appears in the lower-left corner of the window.
+</li><li> <b><a href="#The_Outline_view" title="">Outline view</a></b>, which shows modules used in your current configuration and lets you choose the module to display in the Properties view. By default, this view appears on the right side of the window.
+</li><li> <b>Editor</b>, which has the following tabs:
+<ul><li> <b><a href="#The_Properties_tab" title="">Properties tab</a></b>, which shows the property settings of the selected module or instance in a name/value table, lets you make changes, and displays errors.
+</li><li> <b><a href="#The_Source_tab" title="">Source tab</a></b>, which shows the source configuration script, lets you make changes, and displays errors.
+</li></ul>
+</li><li> <b><a href="#The_Problems_view" title="">Problems view</a></b>, which lists errors and warnings detected in the configuration during validation.
+</li></ul>
+<a name="The_Available_Packages_view"></a><h3> <span class="mw-headline">The Available Packages view</span></h3>
+<p>The Available Packages view lists the RTSC <a href="../Glossary/Glossary.html#Package" title="Glossary">packages</a> available for use in your configuration. It also lets you <a href="#Adding_a_module_to_the_configuration" title="">add modules</a> to your configuration. The list is organized according to functional categories. Modules that you are likely to use in your configuration script are listed in this tree. Modules that are used internally or are implicitly configured by other modules are hidden in this tree.
+</p>
+<div class="center"><div class="floatnone"><span><a href="images/Xgconf_products.png" class="image" title="Group By Products"><img alt="Group By Products" src="images/Xgconf_products.png" width="204" height="347" border="0" /></a></span></div></div>
+<p>When you open a configuration with XGCONF, the <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a> defined in your CCStudio 4 project is scanned for packages and the results are listed here.
+</p><p>You can open online help about a module by right-clicking on the module and selecting <b>Help</b> from the pop-up menu.
+</p>
+<a name="The_Outline_view"></a><h3> <span class="mw-headline">The Outline view</span></h3>
+<p>The Outline view shows modules and instances that are available for configuration in your *.cfg file. You can view the Outline in two ways. To toggle between the two, click the <a href="images/Xgconf_icon_expuse.png" class="image" title="icon"><img alt="icon" src="images/Xgconf_icon_expuse.png" width="23" height="22" border="0" /></a> icon. 
+</p>
+<ul><li> <b>Explicit use mode</b>. This view mode shows a flat list of only those modules directly referenced in the *.cfg file and instances created directly in the *.cfg file. You can use this view to <a href="#Adding_an_instance" title="">add instances of modules</a> and <a href="#Deleting_a_module" title="">delete the use of a module</a> use from the configuration.
+</li><li> <b>Implicit and explicit use mode</b>. This view mode shows a tree view of all the modules and instances that are used both implicitly (behind the scenes) and explicitly (because they are referenced directly in the *.cfg file). This view is useful for understanding the interrelationships between modules that are handled automatically by RTSC. This view is read-only.
+</li></ul>
+<table align="center" cellpadding="2">
+<tr>
+<td><b>Explicit Use</b>
+</td><td><b>Implicit and Explicit Use</b>
+</td></tr>
+<tr valign="top">
+<td><a href="images/Xgconf_outlineflat.png" class="image" title="Flat view"><img alt="Flat view" src="images/Xgconf_outlineflat.png" width="186" height="228" border="0" /></a>
+</td><td><a href="images/Xgconf_outlinetree.png" class="image" title="Tree view"><img alt="Tree view" src="images/Xgconf_outlinetree.png" width="184" height="231" border="0" /></a>
+</td></tr></table>
+<p>Some modules have a red ball <a href="images/Xgconf_redball.png" class="image" title="red ball"><img alt="red ball" src="images/Xgconf_redball.png" width="12" height="16" border="0" /></a> next to them, while others have a blue ball <a href="images/Xgconf_blueball.png" class="image" title="blue ball"><img alt="blue ball" src="images/Xgconf_blueball.png" width="12" height="16" border="0" /></a>. The blue ball indicates that this is a <a href="../Glossary/Glossary.html#Target_Module" title="Glossary">target module</a>, which provides code or data that can be referenced at runtime on the embedded target. The red ball indicates that this is a <a href="../Glossary/Glossary.html#Metaonly_Module" title="Glossary">meta-only module</a>, which exists in the configuration but does not directly exist on the target.
+</p>
+<a name="The_Properties_tab"></a><h3> <span class="mw-headline">The Properties tab</span></h3>
+<p>If you select a module or instance in the Outline view, the <b>Properties</b> tab shows lists of properties for the selected item. You can use the Properties tab to <a href="#Changing_a_property_value" title="">modify the values of properties</a>. 
+</p><p><a href="images/Xgconf_progtabs.png" class="image" title="Properties tab"><img alt="Properties tab" src="images/Xgconf_progtabs.png" width="476" height="181" border="0" /></a>
+</p><p>For some module and instance types, more than one tab is shown in the Properties view. For example, when you select a module, there is a <b>Basic</b> tab that shows the properties for the selected module and an <b>xdc.runtime</b> tab that shows the &lt;<i>Module</i>&gt;.common$ properties and their values for the selected module. Some modules do not have any configuration properties except for the common$ properties.
+</p>
+<div class="Info"><p class="Info"><i>See <a href="http://rtsc.eclipse.org/cdoc-tip/xdc/runtime/Types.html" class="external free" title="http://rtsc.eclipse.org/cdoc-tip/xdc/runtime/Types.html" rel="nofollow">http://rtsc.eclipse.org/cdoc-tip/xdc/runtime/Types.html</a> for more about the common$ properties.</i></p></div>
+<p>You can click the <a href="images/Xgconf_validateicon.png" class="image" title="Validate icon"><img alt="Validate icon" src="images/Xgconf_validateicon.png" width="17" height="18" border="0" /></a> icon to <a href="#Finding_and_fixing_errors" title="">validate any recent changes</a> you have made to the configuration.
+</p><p>You can click the <a href="images/Xgconf_helpicon.png" class="image" title="Help icon"><img alt="Help icon" src="images/Xgconf_helpicon.png" width="18" height="18" border="0" /></a> icon to open online help for the module that is currently selected.
+</p>
+<a name="The_Source_tab"></a><h3> <span class="mw-headline">The Source tab</span></h3>
+<p>If you click the <b>Source</b> tab of the editor page, you can use a text editor to directly edit the configuration script. When you save the file, it is validated and the other panes are refreshed to reflect your changes.
+</p><p><a href="images/Xgconf_srctab.png" class="image" title="Source tab"><img alt="Source tab" src="images/Xgconf_srctab.png" width="543" height="364" border="0" /></a>
+</p><p>This tab shows the actual <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> statements in the *.cfg file. You can use Ctrl+S to save any changes you make. You can right-click on the file and choose <b>Undo</b> to undo the most recent graphical editing operation, or <b>Revert File</b> to return to the most recently saved version of this file.
+</p><p>When you select a module or instance in the Outline view, the Source tab highlights all the lines of the configuration file that are related to that module or instance.
+</p>
+<a name="The_Problems_view"></a><h3> <span class="mw-headline">The Problems view</span></h3>
+<p>The <b>Problems</b> view lists all errors and warnings detected during a build or <a href="#Finding_and_fixing_errors" title="">validation</a> of the configuration script.
+</p><p><a href="images/Xgconf_problemtab.png" class="image" title="Problem view"><img alt="Problem view" src="images/Xgconf_problemtab.png" width="715" height="153" border="0" /></a>
+</p><p>This view is automatically displayed whenever new errors or warnings are detected.
+</p><p>The Outline view shows an <a href="images/Xgconf_erroricon.png" class="image" title="Error icon"><img alt="Error icon" src="images/Xgconf_erroricon.png" width="14" height="15" border="0" /></a> icon next to any modules or instances for which problems were detected. If you select such a module, the Properties view shows an <a href="images/Xgconf_erroricon.png" class="image" title="Error icon"><img alt="Error icon" src="images/Xgconf_erroricon.png" width="14" height="15" border="0" /></a> icon next to the properties that are incorrectly set. 
+</p><p><a href="images/Xgconf_errorproptab.png" class="image" title="Error in Properties tab"><img alt="Error in Properties tab" src="images/Xgconf_errorproptab.png" width="644" height="274" border="0" /></a>
+</p><p>If you double-click on an item in the Problems view while the Source tab is displayed, the Source tab highlights the statement that caused the error or warning, and a line indicator appears in the source code margin to the left of the error. Position indicators for any problems also appear to the right of the scrollbar.
+</p><p><a href="images/Xgconf_errorsrctab.png" class="image" title="Error in Source tab"><img alt="Error in Source tab" src="images/Xgconf_errorsrctab.png" width="715" height="93" border="0" /></a>
+</p><p>Depending on the type of problem, the validation may only report the first item found in the configuration. For example, a syntax error such as an unknown variable in the script may prevent later problems, such as invalid values being assigned to a property, from being reported. Such problems can be detected after you fix the syntax error and re-validate the configuration.
+</p><p>If there is not enough detail available to blame a specific configuration parameter, no problem icon will be shown in the <b>Properties</b> tab. A problem icon will still be shown on the module or instance in the <b>Outline</b> view.
+</p><p>You can sort the problem list by clicking on the headings. You can filter the problem list to display fewer items by clicking the <a href="images/Xgconf_filtericon.png" class="image" title="Filter icon"><img alt="Filter icon" src="images/Xgconf_filtericon.png" width="21" height="19" border="0" /></a> icon to open the Filters dialog.
+</p>
+<a name="Adding_a_module_to_the_configuration"></a><h2> <span class="mw-headline">Adding a module to the configuration</span></h2>
+<p>To make a module available for explicit configuration in your *.cfg file, find that module in the <a href="#The_Available_Packages_view" title="">Available Packages view</a>. Right-click on the module and choose <b>Use Module</b> from the menu. 
+</p><p>Alternately, you can drag a module from the Available Packages view to the <b>Properties</b> tab, <b>Source</b> tab, or <b>Outline</b> view.
+</p>
+<div class="Info"><p class="Info">Adding a module to the configuration causes an <a href="../XDCscript_-_xdc.useModule/XDCscript_-_xdc.useModule.html" title="XDCscript - xdc.useModule">xdc.useModule()</a> statement to be added to the configuration script.</p></div>
+<a name="Deleting_a_module"></a><h2> <span class="mw-headline">Deleting a module</span></h2>
+<p>If you want to delete a module from being explicitly used by the configuration, right-click on that module in the <a href="#The_Outline_view" title="">Outline view</a>, and select <b>Delete Module</b> from the menu. 
+</p>
+<div class="Info"><p class="Info">Deleting a module from the configuration removes the corresponding <a href="../XDCscript_-_xdc.useModule/XDCscript_-_xdc.useModule.html" title="XDCscript - xdc.useModule">xdc.useModule()</a> statement and any instances of the module from the configuration script.</p></div>
+<div class="Info"><p class="Info">If deleting the module would result in an invalid script, an error message is displayed and the module is not deleted. This can happen if a different module or instance refers to it in the script, for example in an assignment to a proxy or a configuration parameter.</p></div>
+<a name="Adding_an_instance"></a><h2> <span class="mw-headline">Adding an instance</span></h2>
+<p>To add a statically-defined module instance to your configuration, right-click on a module in the <a href="#The_Outline_view" title="">Outline view</a> and choose <b>Add Instance</b> from the menu. You see a dialog that lets you specify values you want to use for the properties of that instance. You can type or select values in the <b>Value</b> column.
+</p><p>For example, the following dialog asks you to specify the function a Clock object should run and the length of its timeout. It also allows you to specify various optional properties.
+</p><p><a href="images/Xgconf_instance.png" class="image" title="Clock properties"><img alt="Clock properties" src="images/Xgconf_instance.png" width="500" height="258" border="0" /></a>
+</p>
+<a name="Deleting_an_instance"></a><h2> <span class="mw-headline">Deleting an instance</span></h2>
+<p>If you want to delete an instance from the configuration, right-click on that instance in the <a href="#The_Outline_view" title="">Outline view</a>, and select <b>Delete Instance</b> from the menu. 
+</p><p>Alternately, you can use the <b>Source</b> tab to remove or modify the line that creates the instance. Then save the file. For example, the following line creates a LoggerSys instance called "trace". 
+</p><p><tt>var trace = LoggerSys.create();</tt>
+</p>
+<a name="Changing_a_property_value"></a><h2> <span class="mw-headline">Changing a property value</span></h2>
+<p>To modify a property of a module or instance, follow these steps:
+</p>
+<ol><li>Select the module or instance you want to modify in the <a href="#The_Outline_view" title="">Outline view</a>.
+</li><li>In the <b>Properties</b> tab, select the tab that contains the property you want to modify.
+</li><li>Click in the Value column for that property and type or select a new value.
+</li></ol>
+<p><a href="images/Xgconf_setvar1.png" class="image" title="Selecting a value"><img alt="Selecting a value" src="images/Xgconf_setvar1.png" width="529" height="280" border="0" /></a>
+</p><p>If you want to change the <tt>name</tt> property of an instance, you must do that in the <b>Source</b> tab.
+</p><p>The datatype required for each property is listed in the Type column. When you type a value for a property, XGCONF checks to make sure the type of the value matches the type expected for the property. This is separate from the more extensive validation checks that are performed when you save a configuration. See the <a href="#Error_handling" title="">Error handling</a> section for more about the validation checks.
+</p><p>For most numeric properties, the default is to enter decimal values. To switch between decimal and hexadecimal values, right-click on the property row and choose <b>Set Radix &gt; Hex</b> or <b>Set Radix &gt; Decimal</b> from the menu. 
+</p><p>If you point your mouse cursor at a property without clicking, a short description of the property appears.
+</p><p><a href="images/Xgconf_setvar2.png" class="image" title="Typing a value"><img alt="Typing a value" src="images/Xgconf_setvar2.png" width="518" height="214" border="0" /></a>
+</p><p>For more information about a property, right click on the property row and choose <b>Help</b> from the menu.
+</p>
+<a name="Saving_the_configuration"></a><h2> <span class="mw-headline">Saving the configuration</span></h2>
+<p>If you have modified the configuration, you can press Ctrl+S to save the file. Or, choose <b>File &gt; Save</b> from the CCSv4 menu bar.
+</p><p>In the <b>Source</b> tab of a configuration, you can right-click and choose to <b>Revert File</b> or <b>Save</b>. 
+</p><p>See the <a href="#Error_handling" title="">Error handling</a> section for information about the validation checks performed when you save a configuration with XGCONF.
+</p>
+<a name="Finding_and_fixing_errors"></a><h2> <span class="mw-headline">Finding and fixing errors</span></h2>
+<p>A configuration is automatically <i>validated</i> if you perform any of the following actions:
+</p>
+<ul><li> <a href="#Adding_a_module_to_the_configuration" title="">Add a module</a> to be used in the configuration
+</li><li> <a href="#Deleting_a_module" title="">Delete a module</a> from use by the configuration
+</li><li> <a href="#Adding_an_instance" title="">Add a instance</a> to the configuration
+</li><li> <a href="#Deleting_an_instance" title="">Delete an instance</a> from the configuration
+</li><li> <a href="#Saving_the_configuration" title="">Save the configuration</a>
+</li></ul>
+<p>You can also validate a configuration by clicking the <a href="images/Xgconf_validateicon.png" class="image" title="Validate icon"><img alt="Validate icon" src="images/Xgconf_validateicon.png" width="17" height="18" border="0" /></a> Validate icon.
+</p><p>Validation means that <i>semantic</i> checks are performed to make sure that, for example, objects that are referenced actually exist. These checks also make sure that values are within the valid ranges for a property. Some datatype checking is performed when you set a property in the Properties tab. 
+</p><p>If you are editing the configuration code directly in the Source tab, the configuration is validated only if you save the configuration.
+</p><p>While a configuration is being validated (this takes a few seconds), you see the a progress icon in the lower-right corner of the window.
+</p><p><a href="images/Xgconf_validation.png" class="image" title="Validation progress"><img alt="Validation progress" src="images/Xgconf_validation.png" width="269" height="29" border="0" /></a>
+</p><p>After the configuration has been validated, any errors that were detected in the configuration are shown in the <b>Problems</b> view. For example, if you delete the statement that creates an instance that is referenced by another configuration parameter, you will see an error. 
+</p><p><a href="images/Xgconf_problemtab.png" class="image" title="Problem view"><img alt="Problem view" src="images/Xgconf_problemtab.png" width="715" height="153" border="0" /></a>
+</p><p>See the <a href="#The_Problems_View" title="">Problems view</a> section for more about finding and fixing errors.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../RTSC%2BCCStudio_v4_QuickStart/RTSC%2BCCStudio_v4_QuickStart.html" title="RTSC+CCStudio v4 QuickStart">RTSC+CCStudio v4 QuickStart</a>
+</td><td class="DocListSubTitle1">Using CCStudio v4 to create, build, and debug RTSC projects
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../RTSC%2BEclipse_FAQs/RTSC%2BEclipse_FAQs.html" title="RTSC+Eclipse FAQs">RTSC+Eclipse FAQs</a>
+</td><td class="DocListSubTitle">Using RTSC with Eclipse-Based Tools
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>
+</td><td class="DocListSubTitle">Producing and consuming spec'd modules
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XGCONF User's Guide&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XGCONF User's Guide" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_RTSC_with_CCStudio_v4/Using_RTSC_with_CCStudio_v4.html" title="Using RTSC with CCStudio v4"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="../Runtime_Object_Viewer/Runtime_Object_Viewer.html" title="Runtime Object Viewer"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2594 bytes
+Post-expand include size: 1182 bytes
+Template argument size: 164 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XGCONF_User%27s_Guide.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.244 secs. --></body></html>

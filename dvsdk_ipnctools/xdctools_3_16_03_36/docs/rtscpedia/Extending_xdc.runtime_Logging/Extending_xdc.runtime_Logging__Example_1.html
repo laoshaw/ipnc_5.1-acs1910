@@ -1,0 +1,473 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Extending xdc.runtime Logging/Example 1 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Extending xdc.runtime Logging/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Extending_xdc.runtime_Logging.html#TOC" title="Extending xdc.runtime Logging"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Extending xdc.runtime Logging/Example 1</p><p id="subtitle">A logger that filters <tt>Log</tt> events</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#An_Event_Filter"><span class="tocnumber">1</span> <span class="toctext">An Event Filter</span></a></li>
+<li class="toclevel-1"><a href="#How_to_Use_the_Filter"><span class="tocnumber">2</span> <span class="toctext">How to Use the Filter</span></a></li>
+<li class="toclevel-1"><a href="#How_to_Implement_the_Filter"><span class="tocnumber">3</span> <span class="toctext">How to Implement the Filter</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_ChanEvents_Module"><span class="tocnumber">3.1</span> <span class="toctext">The ChanEvents Module</span></a></li>
+<li class="toclevel-2"><a href="#The_ChanFilter_Module"><span class="tocnumber">3.2</span> <span class="toctext">The ChanFilter Module</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Extending_ChanFilter"><span class="tocnumber">3.2.1</span> <span class="toctext">Extending ChanFilter</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#The_Package_Files"><span class="tocnumber">3.3</span> <span class="toctext">The Package Files</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="An_Event_Filter"></a><h2> <span class="mw-headline">An Event Filter</span></h2>
+<p>In the following sections we develop a simple <tt>ILogger</tt> that illustrates how to create custom event filters.  Suppose, for example, you have a high-density "channel-based" application and you need the ability to display events from just one channel selected at runtime.  Although the <tt>xdc.runtime</tt> package enables you to easily enable (disable) events on a per module basis, what's really needed in this case is the ability to enable (disable) events on a per "channel" basis.  Since the only other control dimension offered by the <tt>Log</tt> interface is an 8-bit user bit-mask, applications with more than 8 channels must use an alternate mechanism to filter events.
+</p><p>In this example there are two separate modules: 
+</p>
+<ul><li><tt>ChanEvents</tt> which defines a set of "channel" events raised by the application, and 
+</li><li><tt>ChanFilter</tt> a module that implements the <tt>ILogger</tt> interface and provides functions that allow the application to dynamically enable and disable events from a selected channel.
+</li></ul>
+<p>Before showing the implementation of these modules we show how client applications might use the them.  Then we look at the implementation of these modules and consider several more advanced capabilities that are easily added.
+</p>
+<a name="How_to_Use_the_Filter"></a><h2> <span class="mw-headline">How to Use the Filter</span></h2>
+<p>We begin by showing how the <tt>ChanFilter</tt> module can be configured atop an existing <tt>ILogger</tt> to filter out unwanted events.  In the example below we show a simple client application that generates events unrelated to "channels".  This example illustrates that adding the <tt>ChanFilter</tt> requires a very small change to an existing configuration file and this filter does not affect those parts of the application unrelated to channels.
+</p>
+<div id="cl-1:1"></div><div id="cl-app_config1:1"></div><div id="cl-1:2"></div><div id="cl-app_config1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Diags = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Diags&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Log = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Log&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* enable runtime control of &quot;entry&quot; events for non-modules */</span>
+<span class="kw1">var</span> Main = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Main&quot;</span><span class="br0">&#41;</span>;
+Main.common$.diags_ENTRY = Diags.RUNTIME_ON;
+&nbsp;
+<span class="coMULTI">/* use ChanFilter ILogger service provider to filter events */</span>
+<span class="kw1">var</span> ChanFilter = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;examples.runtime.logger.ChanFilter&quot;</span><span class="br0">&#41;</span>;
+Main.common$.logger = ChanFilter.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* use LoggerSys ILogger to handle events not filtered by ChanFilter */</span>
+<span class="kw1">var</span> LoggerSys = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.LoggerSys&quot;</span><span class="br0">&#41;</span>;
+ChanFilter.common$.logger = LoggerSys.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>Comparing the configuration file to that in the <a href="../Using_xdc.runtime_Logging/Using_xdc.runtime_Logging__Example_1.html" title="Using xdc.runtime Logging/Example 1">"hello world" example</a>, we see that we only needed to use the <tt>ChanFilter</tt> in lieu of <tt>LoggerSys</tt> <a class="codexLink" href="#cl-app_config1:1"><span class="codexLink">1</span></a> and then configure <tt>ChanFilter</tt> to use the original <tt>LoggerSys</tt> logger <a class="codexLink" href="#cl-app_config1:2"><span class="codexLink">2</span></a>.  This allows <tt>ChanFilter</tt> to see all events first and then optionally pass these events on to its logger (in this case, <tt>LoggerSys</tt>).  
+</p><p>The figure below illustrates the "binding" of <tt>ILogger</tt> instances and clients of the <tt>Log</tt> module that results from this configuration.  Notice that all non-module code references to <tt>Log</tt>, managed by the <tt>xdc.runtime.Main</tt> module, pass events to a <tt>ChanFilter</tt> logger whereas <tt>ChanFilter</tt> itself references <tt>LoggerSys</tt>.  This allows <tt>ChanFilter</tt> to "see" all events produced by the application and conditionally pass them on to a "real" logger, in this case, <tt>LoggerBuf</tt>.
+</p>
+<center><a href="images/RuntimeExtendingLogEx1.png" class="image" title="Image:RuntimeExtendingLogEx1.png"><img alt="Image:RuntimeExtendingLogEx1.png" src="images/RuntimeExtendingLogEx1.png" width="600" height="363" border="0" /></a></center>
+<p>Since <tt>ChanFilter</tt> is designed to work "transparently" with existing applications and loggers, it should come as no surprise that the configuration script above has no affect the output of the <a href="../Using_xdc.runtime_Logging/Using_xdc.runtime_Logging__Example_1.html" title="Using xdc.runtime Logging/Example 1">"hello world" example</a>.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Diags.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Log.h&gt;</span>
+&nbsp;
+<span class="coMULTI">/*
+ *  ======== main ========
+ */</span>
+<span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">String</span> argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    Log_print0<span class="br0">&#40;</span>Diags_ENTRY, <span class="st0">&quot;hello world&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xdc.runtime.Main: hello world</pre></td></tr></table>
+</td></tr></table>
+<p>Now let's look at how the <tt>ChanFilter</tt> behaves when "channel" events are raised and how an application can control <tt>ChanFilter</tt> in real-time to select which channels events should be recorded.  Let's assume that channels can raise some set of predefined events and each time one of these events is raised the first argument passed is a channel ID.  For this example, the set of events is defined in the <tt>ChanEvents</tt> module, which includes <tt>HELLO</tt>, <tt>GOODBYE</tt>, and <tt>ERROR</tt> events.  
+</p><p>Although we could have defined these events in the <tt>ChanFilter</tt> module, we opted to put these event definitions in a separate module, <tt>ChanEvents</tt>, to emphasize the point that these events might be defined by a group separate from the group that is developing this <tt>ILogger</tt>.  Because the application below  directly references values defined by <tt>ChanEvents</tt>, we must add an <tt>xdc.useModule()</tt> of <tt>ChanEvents</tt> to the application's configuration script.  Except for this one line, denoted with <a class="codexLink" href="#cl-app_config2:+"><span class="codexLink">+</span></a> below, the application's configuration script is identical to the one above.
+</p>
+<div id="cl-2:+"></div><div id="cl-app_config2:+"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">+</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Diags = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Diags&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Log = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Log&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* &quot;import&quot; the channel events definitions */</span>
+<span class="kw1">var</span> ChanEvents = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;examples.runtime.logger.ChanEvents&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* enable runtime control of &quot;entry&quot; events only for non-modules */</span>
+<span class="kw1">var</span> Main = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Main&quot;</span><span class="br0">&#41;</span>;
+Main.common$.diags_ENTRY = Diags.RUNTIME_ON;
+&nbsp;
+<span class="coMULTI">/* use ChanFilter ILogger service provider to filter events */</span>
+<span class="kw1">var</span> ChanFilter = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;examples.runtime.logger.ChanFilter&quot;</span><span class="br0">&#41;</span>;
+Main.common$.logger = ChanFilter.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* use LoggerSys ILogger to handle events not filtered by ChanFilter */</span>
+<span class="kw1">var</span> LoggerSys = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.LoggerSys&quot;</span><span class="br0">&#41;</span>;
+ChanFilter.common$.logger = LoggerSys.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>In addition to the methods required by the <tt>ILogger</tt> interface, <tt>ChanFilter</tt> also provides a method, <tt>ChanFilter_setCurChan()</tt> to set the "current channel" ID; <tt>ChanFilter</tt> filters out all events that are not from this current channel.  We use this method in the application (see <a class="codexLink" href="#cl-app_c:c1"><span class="codexLink">c1</span></a> below) to illustrate how it's possible to enable the acquisition of events from selected channels at runtime in real-time.
+</p>
+<div id="cl-3:c1"></div><div id="cl-app_c:c1"></div><div id="cl-3:c2"></div><div id="cl-app_c:c2"></div><div id="cl-3:c3"></div><div id="cl-app_c:c3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">c1</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">c2</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">c3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Diags.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Log.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="re2">&lt;examples/runtime/logger/ChanEvents.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;examples/runtime/logger/ChanFilter.h&gt;</span>
+&nbsp;
+<span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">String</span> argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* generate simple printf event */</span>
+    Log_print0<span class="br0">&#40;</span>Diags_ENTRY, <span class="st0">&quot;hello world&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* generate a channel 0 event */</span>
+    Log_write1<span class="br0">&#40;</span>ChanEvents_HELLO, <span class="nu0">0</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* enable channel 0 events */</span>
+    ChanFilter_setCurChanId<span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>;
+&nbsp;
+    Log_write2<span class="br0">&#40;</span>ChanEvents_ERROR, <span class="nu0">0</span>, <span class="nu0">23</span><span class="br0">&#41;</span>;
+    Log_write1<span class="br0">&#40;</span>ChanEvents_HELLO, <span class="nu0">1</span><span class="br0">&#41;</span>;
+    Log_write1<span class="br0">&#40;</span>ChanEvents_GOODBYE, <span class="nu0">0</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The output of this example is shown below.
+</p>
+<div id="cl-4:1"></div><div id="cl-output:1"></div><div id="cl-4:2"></div><div id="cl-output:2"></div><div id="cl-4:3"></div><div id="cl-output:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre>xdc.runtime.Main: hello world
+xdc.runtime.Main: Channel 0: Error: 0x17
+xdc.runtime.Main: Channel 0: goodbye</pre></td></tr></table>
+<p>In the example above, notice that:
+</p>
+<ol><li>the "hello world" <tt>Log_print</tt> event <a class="codexLink" href="#cl-output:1"><span class="codexLink">1</span></a> was unaffected by the filter,
+</li><li>the first call to <tt>Log_write</tt> with a channel event at <a class="codexLink" href="#cl-app_c:c1"><span class="codexLink">c1</span></a> was dropped; prior to the first call to <tt>ChanFilter_setCurChanId()</tt> at <a class="codexLink" href="#cl-app_c:c2"><span class="codexLink">c2</span></a> the current channel is undefined and all channel events are dropped, and
+</li><li>after the call to <tt>ChanFilter_setCurChanId(0)</tt>, only events from channel 0 are displayed; output from <a class="codexLink" href="#cl-app_c:c3"><span class="codexLink">c3</span></a> does not appear between <a class="codexLink" href="#cl-output:2"><span class="codexLink">2</span></a> and <a class="codexLink" href="#cl-output:3"><span class="codexLink">3</span></a>.
+</li></ol>
+<a name="How_to_Implement_the_Filter"></a><h2> <span class="mw-headline">How to Implement the Filter</span></h2>
+<p>In this section we look under the covers to see how <tt>ChanFilter</tt> and <tt>ChanEvents</tt> are implemented.  Not only is the implementation straight forward, it is easy to see how it can be generalized to handle virtually any target-side filtering you can imagine.
+</p><p>We begin by showing the <tt>ChanEvents</tt> module.  Since <tt>ChanEvents</tt> does not need any runtime code, this module is the easiest to understand.  We then look at the <tt>ChanFilter</tt> module and explore a variety of filtering techniques.  Finally, we look at all the other files necessary to create a package to build and house these modules.
+</p>
+<a name="The_ChanEvents_Module"></a><h3> <span class="mw-headline">The <tt>ChanEvents</tt> Module</span></h3>
+<p>The <tt>ChanEvents</tt> module simply contains definitions of all "channel" events that are raised by the application.  Because we only need to define the events, we only need to create a single <tt>.xdc</tt> file named <tt>ChanEvents.xdc</tt> with definition of all of the necessary <tt>Log</tt> events.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>ChanEvents.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> xdc.runtime.Diags;
+<span class="kw1">import</span> xdc.runtime.Log;
+&nbsp;
+<span class="kw1">module</span> ChanEvents
+<span class="br0">&#123;</span>
+    <span class="xdoc">/*! ======== HELLO ======== */</span>
+    <span class="kw1">config</span> Log.Event HELLO = <span class="br0">&#123;</span>
+        mask: Diags.ENTRY,
+        msg: <span class="st0">&quot;Channel&nbsp;%d: hello&quot;</span>
+    <span class="br0">&#125;</span>;
+&nbsp;
+    <span class="xdoc">/*! ======== ERROR ======== */</span>
+    <span class="kw1">config</span> Log.Event ERROR = <span class="br0">&#123;</span>
+        mask: Diags.ENTRY,
+        msg: <span class="st0">&quot;Channel&nbsp;%d: Error: 0x%x&quot;</span>
+    <span class="br0">&#125;</span>;
+&nbsp;
+    <span class="xdoc">/*! ======== GOODBYE ======== */</span>
+    <span class="kw1">config</span> Log.Event GOODBYE = <span class="br0">&#123;</span>
+        mask: Diags.ENTRY,
+        msg: <span class="st0">&quot;Channel&nbsp;%d: goodbye&quot;</span>
+    <span class="br0">&#125;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="The_ChanFilter_Module"></a><h3> <span class="mw-headline">The <tt>ChanFilter</tt> Module</span></h3>
+<p>The <tt>ChanFilter</tt> module must implement the <tt>ILogger</tt> interface <i>and</i> it must support configuration time instance creation.  While this requires fairly advanced features of the RTSC model, the files required are quite straight forward.  Moreover, once the basics are in place it is very easy to extend or generalize the <tt>ChanFilter</tt> module for virtually any application.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>ChanFilter.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="coMULTI">/* ChanFilter implements ILogger */</span>
+<span class="kw1">module</span> ChanFilter <span class="kw1">inherits</span> xdc.runtime.ILogger <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! Set the channel to allow events from */</span>
+    <span class="kw2">Int</span> setCurChanId<span class="br0">&#40;</span><span class="kw2">Int</span> newChanId<span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">instance</span>: <span class="coMULTI">/* this module manages instances */</span>
+&nbsp;
+    <span class="coMULTI">/* per-instance creation parameter */</span>
+    <span class="kw1">config</span> <span class="kw2">String</span> onError = <span class="kw1">null</span>;  
+&nbsp;
+<span class="kw1">internal</span>: <span class="coMULTI">/* remainder is private internal implementation */</span>
+&nbsp;
+    <span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span> <span class="coMULTI">/* static instances must declare instance state */</span>
+        <span class="kw2">String</span> onError;
+    <span class="br0">&#125;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The implementation of this specification is shown below.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>ChanFilter.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Log.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Types.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;examples/runtime/logger/ChanEvents.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/ChanFilter.xdc.h&quot;</span>
+&nbsp;
+<span class="kw1">static</span> <span class="kw2">Int</span> curChanId = <span class="nu0">-1</span>;
+&nbsp;
+<span class="coMULTI">/* Initialize runtime created instance objects */</span>
+<span class="kw2">Void</span> ChanFilter_Instance_init<span class="br0">&#40;</span>Filter_Object *filter, 
+                              const Filter_Params *params<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    filter-&gt;onError = params-&gt;onError;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== setCurChanId ======== */</span>
+<span class="kw2">Int</span> ChanFilter_setCurChanId<span class="br0">&#40;</span><span class="kw2">Int</span> newChanId<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> oldChanId = curChanId;
+    curChanId = newChanId;
+    <span class="kw1">return</span> <span class="br0">&#40;</span>oldChanId<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== write4 ========= */</span>
+<span class="kw2">Void</span> ChanFilter_write4<span class="br0">&#40;</span>Filter_Object *filter, Types_EventId evt,
+                       IArg a1, IArg a2, IArg a3, IArg a4<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ChanFilter_write8<span class="br0">&#40;</span>filter, evt, a1, a2, a3, a4, <span class="nu0">0</span>, <span class="nu0">0</span>, <span class="nu0">0</span>, <span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== write8 ========= */</span>
+<span class="kw2">Void</span> ChanFilter_write8<span class="br0">&#40;</span>Filter_Object *filter, Types_Event evt,
+                       IArg a1, IArg a2, IArg a3, IArg a4, 
+                       IArg a5, IArg a6, IArg a7, IArg a8<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    Log_EventId eid = Types_getEventId<span class="br0">&#40;</span>evt<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* check event id against range of all channel events */</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>eid &gt;= Log_getEventId<span class="br0">&#40;</span>ChanEvents_HELLO<span class="br0">&#41;</span>
+        &amp;&amp; eid &lt;= Log_getEventId<span class="br0">&#40;</span>ChanEvents_GOODBYE<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>curChanId&nbsp;!= a1<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">return</span>; <span class="coMULTI">/* drop events from channels&nbsp;!= curChanId */</span>
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="coMULTI">/* call underlying logger */</span>
+    Log_raise8<span class="br0">&#40;</span>evt, a1, a2, a3, a4, a5, a6, a7, a8<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The heart of the filtering code is in the implementation of the <tt>ILogger.write8()</tt> method <tt>ChanFilter_write8()</tt>.  In the example above, we first extract the event ID and compare this to the range of event IDs that correspond to the events defined by the <tt>ChanEvent</tt> module.  This check is possible because <tt>Log</tt> event IDs are assigned in order for each module in the order that they are declared in the module specification.  Since all events declared in the <tt>ChanEvents</tt> module require that the first argument is the channel ID of the channel raising the event, we can simply compare this argument against the <tt>curChanId</tt> value set by the application.  
+</p><p>To complete the implementation, we need to add two meta-domain functions: <tt><a href="../XDCscript_-_Instance-Body.instance%24static%24init/XDCscript_-_Instance-Body.instance%24static%24init.html" title="XDCscript - Instance-Body.instance$static$init">instance$static$init</a></tt> and <tt><a href="../XDCscript_-_Module-Body.module%24use/XDCscript_-_Module-Body.module%24use.html" title="XDCscript - Module-Body.module$use">module$use</a></tt>. 
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>ChanFilter.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* Initialize static instance objects */</span>
+<span class="kw1">function</span> instance$static$init<span class="br0">&#40;</span>obj, params<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    obj.onError = params.onError;
+<span class="br0">&#125;</span>
+<span class="coMULTI">/* Declare modules used in ChanFilter.c */</span>
+<span class="kw1">function</span> module$use<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Log&quot;</span><span class="br0">&#41;</span>;
+    <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;examples.runtime.logger.ChanEvents&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The <tt>instance$static$init</tt> function is required to ensure that the static instances created by the <tt>ChanFilter</tt> module (as part of the user's configuration script) have all their fields initialized.  The <tt>module$use</tt> function, on the other hand, ensures that all modules used in the implementation of <tt>ChanFilter</tt> are included in both the configuration process and in the link of the application using <tt>ChanFilter</tt>.  By adding these statements, the user of <tt>ChanFilter</tt> does not need to add <tt>xdc.useModule</tt> statements to their configuration script for modules that are not <i>directly</i> referenced by their application.  After all, the implementation of <tt>ChanFilter</tt> may change to require other modules and we don't want the client of <tt>ChanFilter</tt> to have to change <i>anything</i> to use this new version.
+</p>
+<a name="Extending_ChanFilter"></a><h6> <span class="mw-headline">Extending <tt>ChanFilter</tt></span></h6>
+<p><span class="Leader">Extending <tt>ChanFilter</tt></span>.&nbsp;  Of course much more sophisticated filtering criteria can easily be added to this function.  One can even imagine using the occurrence of certain events to trigger (in real-time) actions that facilitate diagnosis of system problems.  For example, the following code can be added to <tt>ChanFilter_write8()</tt> to enable/disable event generation whenever a <tt>ChanEvent_Error</tt> event occurs.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="coMULTI">/* change diagnostic settings on occurrence of error */</span>
+<span class="kw1">if</span> <span class="br0">&#40;</span>filter-&gt;onError &amp;&amp; <span class="br0">&#40;</span>eid == Log_getEventId<span class="br0">&#40;</span>ChanEvents_ERROR<span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Diags_setMask<span class="br0">&#40;</span>filter-&gt;onError<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>This can be useful when events are buffered locally (to keep event logging fast and deterministic) and space is limited. In order to preserve the state of the event buffers, so they can be analyzed well after the error condition is detected, we need to disable the collection of all events.
+</p><p>Finally one can even generalize the <tt>ChanFilter_write8()</tt> function to simply call a user supplied function.  Rather than saving an <tt>onError</tt> string in each <tt>ChanFilter</tt> instance, we can save a pointer to a user supplied function (<tt>userFxn</tt>) to execute.  This would allow applications to define filtering functions in any part of their code base without having to understand how to implement a RTSC interface or create a RTSC package.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="kw2">Void</span> ChanFilter_write8<span class="br0">&#40;</span>Filter_Object *filter, Types_Event evt,
+                   IArg a1, IArg a2, IArg a3, IArg a4, 
+                   IArg a5, IArg a6, IArg a7, IArg a8<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span>!filter-&gt;userFxn<span class="br0">&#40;</span>evt, a1, a2, a3, a4, a5, a6, a7, a8<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="coMULTI">/* pass event to underlying logger if not handled by userFxn */</span>
+        Log_raise8<span class="br0">&#40;</span>evt, a1, a2, a3, a4, a5, a6, a7, a8<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="The_Package_Files"></a><h3> <span class="mw-headline">The Package Files</span></h3>
+<p>Since all modules must live in a package we also need to create a two other files:
+</p>
+<ol><li><tt>package.xdc</tt> - a file that define the package's name and identifies the modules it contains, and
+</li><li><tt>package.bld</tt> - a file that specifies which targets should be used to build the sources contained in this package.
+</li></ol>
+<p></p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">package</span> examples.runtime.logger <span class="br0">&#123;</span> 
+    <span class="kw1">module</span> ChanEvent; 
+    <span class="kw1">module</span> ChanFilter; 
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i = <span class="nu0">0</span>; i &lt; Build.targets.length; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> targ = Build.targets<span class="br0">&#91;</span>i<span class="br0">&#93;</span>;
+&nbsp;
+    <span class="kw1">var</span> lib = Pkg.addLibrary<span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + Pkg.name, targ<span class="br0">&#41;</span>;
+    lib.addObjects<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;ChanFilter.c&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<p>The <tt>package.xdc</tt> file is largely self explanatory; it defines the name of the package <tt>examples.runtime.logger</tt> and it specifies the modules contained in the package, <tt>ChanEvents</tt> and <tt>ChanFilter</tt>.  
+</p><p>The <tt>package.bld</tt> file, on the other hand, requires some explanation.  The existence of <tt>package.bld</tt> indicates that the package is (re)buildable - unless the end-user is expected to build the package, deployed packages omit this file.  The contents of this <tt>package.bld</tt> file indicate that the package contains a library in the <tt>lib/</tt> sub-directory containing the compiled version of <tt>ChanFilter.c</tt> for every <a href="../Glossary/Glossary.html#Target" title="Glossary">target</a> supported by the producer's build environment.  Remarkably, this <tt>package.bld</tt> file is sufficient to compile <tt>ChanFilter.c</tt> for every target, archive it into a library, and create a <a href="../Glossary/Glossary.html#Release" title="Glossary">binary release</a> of this package that supports <i>all</i> targets supported by the producer's build environment.
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Extending xdc.runtime Logging/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Extending_xdc.runtime_Logging.html#TOC" title="Extending xdc.runtime Logging"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1350 bytes
+Post-expand include size: 1049 bytes
+Template argument size: 152 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Extending_xdc.runtime_Logging.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.205 secs. --></body></html>

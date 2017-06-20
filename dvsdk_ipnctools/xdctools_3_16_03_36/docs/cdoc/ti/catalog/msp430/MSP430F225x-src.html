@@ -1,0 +1,62 @@
+<html><head><title>module ti.catalog.msp430.MSP430F225x</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="xdoc">/*!
+</span>    14    <span class="xdoc"> *  ======== MSP430F225x.xdc ========
+</span>    15    <span class="xdoc"> *  MSP430F225x Cpu definition
+</span>    16    <span class="xdoc"> *
+</span>    17    <span class="xdoc"> *  This device has 16KB + 256B of Flash Memory and 512B RAM.  The
+</span>    18    <span class="xdoc"> *  MSP430F2254 has two op-amps (OA) whereas the MSP430F2252 has none.
+</span>    19    <span class="xdoc"> */</span>
+    20    
+    21    <span class=key>metaonly</span> <span class=key>module</span> MSP430F225x <span class=key>inherits</span> IMSP430x22xx
+    22    {
+    23    <span class=key>instance</span>:
+    24        <span class="xdoc">/*!
+</span>    25    <span class="xdoc">     *  ======== deviceMap ========
+</span>    26    <span class="xdoc">     *  Device specific memory blocks
+</span>    27    <span class="xdoc">     *
+</span>    28    <span class="xdoc">     *  This memory together with the common family memory forms the 
+</span>    29    <span class="xdoc">     *  complete memory map retuned by `getMemoryMap()`.
+</span>    30    <span class="xdoc">     */</span>
+    31        <span class=key>config</span> xdc.platform.IPlatform.Memory deviceMap[string]  = [
+    32            [<span class="string">"RAM"</span>, {
+    33                comment:    <span class="string">"Data RAM"</span>,
+    34                name:       <span class="string">"RAM"</span>,
+    35                base:       0x200,
+    36                len:        0x200,
+    37                space:      <span class="string">"code/data"</span>,
+    38                access:     <span class="string">"RWX"</span>
+    39            }],
+    40    
+    41            [<span class="string">"FLASH"</span>, {
+    42                comment:    <span class="string">"Program FLASH"</span>,
+    43                name:       <span class="string">"FLASH"</span>,
+    44                base:       0xC000,
+    45                len:        0x3FDE,
+    46                space:      <span class="string">"code"</span>,
+    47                access:     <span class="string">"RWX"</span>
+    48            }],
+    49        ];
+    50    }
+    51    <span class="comment">/*
+</span>    52    <span class="comment"> *  @(#) ti.catalog.msp430; 1, 0, 0,17; 2-23-2010 16:52:59; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    53    <span class="comment"> */</span>
+    54    
+</pre>
+</body></html>

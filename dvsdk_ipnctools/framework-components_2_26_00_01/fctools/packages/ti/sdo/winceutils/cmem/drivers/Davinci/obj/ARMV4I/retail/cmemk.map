@@ -1,0 +1,162 @@
+ cmemk
+
+ Timestamp is 4cd9a94c (Tue Nov 09 12:04:28 2010)
+
+ Preferred load address is 10000000
+
+ Start         Length     Name                   Class
+ 0001:00000000 00000004H .CRT$XCA                CODE
+ 0001:00000004 00000004H .CRT$XCZ                CODE
+ 0001:00000008 00000004H .CRT$XIA                CODE
+ 0001:0000000c 00000004H .CRT$XIZ                CODE
+ 0001:00000010 00000004H .CRT$XPA                CODE
+ 0001:00000014 00000004H .CRT$XPZ                CODE
+ 0001:00000018 00000004H .CRT$XTA                CODE
+ 0001:0000001c 00000004H .CRT$XTZ                CODE
+ 0001:00000020 00000190H .rdata                  CODE
+ 0001:000001b0 00000022H .rdata$debug            CODE
+ 0001:000001d4 00001b00H .text                   CODE
+ 0001:00001cd4 00000018H .xdata                  CODE
+ 0001:00001cec 00000028H .idata$2                CODE
+ 0001:00001d14 00000014H .idata$3                CODE
+ 0001:00001d28 00000084H .idata$4                CODE
+ 0001:00001dac 00000016H .idata$6                CODE
+ 0001:00001dd0 00000101H .edata                  CODE
+ 0002:00000000 00000084H .idata$5                DATA
+ 0002:00000084 00000014H .data                   DATA
+ 0002:000000a0 000020d8H .bss                    DATA
+ 0003:00000000 000000e0H .pdata                  DATA
+
+  Address         Publics by Value              Rva+Base       Lib:Object
+
+ 0000:00000000       ___safe_se_handler_table   00000000     <absolute>
+ 0000:00000000       ___safe_se_handler_count   00000000     <absolute>
+ 0001:00000000       __xc_a                     10001000     corelib0:crt0init.obj
+ 0001:00000004       __xc_z                     10001004     corelib0:crt0init.obj
+ 0001:00000008       __xi_a                     10001008     corelib0:crt0init.obj
+ 0001:0000000c       __xi_z                     1000100c     corelib0:crt0init.obj
+ 0001:00000010       __xp_a                     10001010     corelib0:crt0init.obj
+ 0001:00000014       __xp_z                     10001014     corelib0:crt0init.obj
+ 0001:00000018       __xt_a                     10001018     corelib0:crt0init.obj
+ 0001:0000001c       __xt_z                     1000101c     corelib0:crt0init.obj
+ 0001:0000003c       ??_C@_1BM@GDPAOOKP@?$AAP?$AAo?$AAo?$AAl?$AAS?$AAi?$AAz?$AAe?$AA_?$AAP?$AAo?$AAo?$AAl?$AA?$AA@ 1000103c     cmemk.obj
+ 0001:00000058       ??_C@_1CA@JCJOGNFE@?$AAN?$AAu?$AAm?$AAB?$AAu?$AAf?$AAf?$AAe?$AAr?$AAs?$AA_?$AAP?$AAo?$AAo?$AAl?$AA?$AA@ 10001058     cmemk.obj
+ 0001:00000078       ??_C@_1M@PICFELOA@?$AAB?$AAl?$AAo?$AAc?$AAk?$AA?$AA@ 10001078     cmemk.obj
+ 0001:00000084       ??_C@_1BE@DMMEGEFO@?$AA?$CF?$AAs?$AA?$CF?$AAd?$AA_?$AA?$CF?$AAs?$AA?$CF?$AAd?$AA?$AA@ 10001084     cmemk.obj
+ 0001:00000098       ??_C@_1BI@DJKHEDFH@?$AAC?$AAM?$AAE?$AAM?$AAK?$AA_?$AAM?$AAU?$AAT?$AAE?$AAX?$AA?$AA@ 10001098     cmemk.obj
+ 0001:000000b0       ??_C@_1DC@KFACKDPH@?$AAU?$AAs?$AAe?$AAH?$AAe?$AAa?$AAp?$AAI?$AAf?$AAP?$AAo?$AAo?$AAl?$AAU?$AAn?$AAa?$AAv?$AAa?$AAi?$AAl?$AAa?$AAb?$AAl?$AAe?$AA?$AA@ 100010b0     cmemk.obj
+ 0001:000000e4       ??_C@_1BE@NOPHIHDE@?$AAN?$AAu?$AAm?$AAP?$AAo?$AAo?$AAl?$AAs?$AA1?$AA?$AA@ 100010e4     cmemk.obj
+ 0001:000000f8       ??_C@_1BE@GGELOAFB@?$AAN?$AAu?$AAm?$AAP?$AAo?$AAo?$AAl?$AAs?$AA0?$AA?$AA@ 100010f8     cmemk.obj
+ 0001:0000010c       ??_C@_1BK@EEHBOAGL@?$AAP?$AAh?$AAy?$AAs?$AAi?$AAc?$AAa?$AAl?$AAE?$AAn?$AAd?$AA1?$AA?$AA@ 1000110c     cmemk.obj
+ 0001:00000128       ??_C@_1BK@PMMNIHAO@?$AAP?$AAh?$AAy?$AAs?$AAi?$AAc?$AAa?$AAl?$AAE?$AAn?$AAd?$AA0?$AA?$AA@ 10001128     cmemk.obj
+ 0001:00000144       ??_C@_1BO@ODBAMBIC@?$AAP?$AAh?$AAy?$AAs?$AAi?$AAc?$AAa?$AAl?$AAS?$AAt?$AAa?$AAr?$AAt?$AA1?$AA?$AA@ 10001144     cmemk.obj
+ 0001:00000164       ??_C@_1BO@FLKMKGOH@?$AAP?$AAh?$AAy?$AAs?$AAi?$AAc?$AAa?$AAl?$AAS?$AAt?$AAa?$AAr?$AAt?$AA0?$AA?$AA@ 10001164     cmemk.obj
+ 0001:00000184       ??_C@_1CM@BOKDKMGI@?$AAD?$AAr?$AAi?$AAv?$AAe?$AAr?$AAs?$AA?2?$AAB?$AAu?$AAi?$AAl?$AAt?$AAI?$AAn?$AA?2?$AAC?$AAM?$AAE?$AAM?$AAK?$AA?$AA@ 10001184     cmemk.obj
+ 0001:000001d4       HeapMem_alloc              100011d4 f   cmemk.obj
+ 0001:000002bc       HeapMem_free               100012bc f   cmemk.obj
+ 0001:00000630       CMK_Init                   10001630 f   cmemk.obj
+ 0001:00000c30       CMK_Deinit                 10001c30 f   cmemk.obj
+ 0001:00000d44       CMK_Open                   10001d44 f   cmemk.obj
+ 0001:00000d60       CMK_Close                  10001d60 f   cmemk.obj
+ 0001:00000d8c       CMK_Read                   10001d8c f   cmemk.obj
+ 0001:00000d94       CMK_Write                  10001d94 f   cmemk.obj
+ 0001:00000d9c       CMK_Seek                   10001d9c f   cmemk.obj
+ 0001:00000da4       CMK_PowerDown              10001da4 f   cmemk.obj
+ 0001:00000da8       CMK_PowerUp                10001da8 f   cmemk.obj
+ 0001:00000ec0       CMK_IOControl              10001ec0 f   cmemk.obj
+ 0001:00001748       __GetUserKData             10002748 f   coredll:COREDLL.dll
+ 0001:00001758       LockPages                  10002758 f   coredll:COREDLL.dll
+ 0001:00001768       FreePhysMem                10002768 f   coredll:COREDLL.dll
+ 0001:00001778       RegCloseKey                10002778 f   coredll:COREDLL.dll
+ 0001:00001788       StringCchPrintfW           10002788 f   coredll:COREDLL.dll
+ 0001:00001798       AllocPhysMem               10002798 f   coredll:COREDLL.dll
+ 0001:000017a8       GetSystemInfo              100027a8 f   coredll:COREDLL.dll
+ 0001:000017b8       CreateMutexW               100027b8 f   coredll:COREDLL.dll
+ 0001:000017c8       RegQueryValueExW           100027c8 f   coredll:COREDLL.dll
+ 0001:000017d8       RegOpenKeyExW              100027d8 f   coredll:COREDLL.dll
+ 0001:000017e8       CloseHandle                100027e8 f   coredll:COREDLL.dll
+ 0001:000017f8       InterlockedIncrement       100027f8 f   coredll:COREDLL.dll
+ 0001:00001808       InterlockedDecrement       10002808 f   coredll:COREDLL.dll
+ 0001:00001818       VirtualCopyEx              10002818 f   coredll:COREDLL.dll
+ 0001:00001828       VirtualFreeEx              10002828 f   coredll:COREDLL.dll
+ 0001:00001838       VirtualAllocEx             10002838 f   coredll:COREDLL.dll
+ 0001:00001848       CacheRangeFlush            10002848 f   coredll:COREDLL.dll
+ 0001:00001858       ReleaseMutex               10002858 f   coredll:COREDLL.dll
+ 0001:00001868       WaitForSingleObject        10002868 f   coredll:COREDLL.dll
+ 0001:00001878       MmUnmapIoSpace             10002878 f   ceddk:CEDDK.dll
+ 0001:00001888       MmMapIoSpace               10002888 f   ceddk:CEDDK.dll
+ 0001:00001898       DllMain                    10002898 f   corelib0:dllmain.obj
+ 0001:000019b4       _DllMainCRTStartup         100029b4 f   corelib0:pegdmain.obj
+ 0001:000019e4       __GSHandlerCheckCommon     100029e4 f   corelib0:gshandler.obj
+ 0001:00001a20       __GSHandlerCheck           10002a20 f   corelib0:gshandler.obj
+ 0001:00001a44       __security_init_cookie     10002a44 f   corelib0:seccinit.obj
+ 0001:00001aa0       __security_check_cookie    10002aa0 f   corelib0:armsecgs.obj
+ 0001:00001ab4       __gsfailure                10002ab4 f   corelib0:armsecgs.obj
+ 0001:00001bc0       _cexit                     10002bc0 f   corelib0:cexit.obj
+ 0001:00001bdc       _initterm                  10002bdc f   corelib0:crt0dat.obj
+ 0001:00001c10       _cinit                     10002c10 f   corelib0:crt0dat.obj
+ 0001:00001c44       malloc                     10002c44 f   corelib1:COREDLL.dll
+ 0001:00001c54       memset                     10002c54 f   corelib1:COREDLL.dll
+ 0001:00001c64       free                       10002c64 f   corelib1:COREDLL.dll
+ 0001:00001c74       _XcptFilter                10002c74 f   corelib1:COREDLL.dll
+ 0001:00001c84       __C_specific_handler       10002c84 f   corelib1:COREDLL.dll
+ 0001:00001c94       __security_gen_cookie2     10002c94 f   corelib1:COREDLL.dll
+ 0001:00001ca4       __report_gsfailure         10002ca4 f   corelib1:COREDLL.dll
+ 0001:00001cb4       DisableThreadLibraryCalls  10002cb4 f   coredll:COREDLL.dll
+ 0001:00001cc4       TerminateProcess           10002cc4 f   coredll:COREDLL.dll
+ 0001:00001cec       __IMPORT_DESCRIPTOR_COREDLL 10002cec     coredll:COREDLL.dll
+ 0001:00001d00       __IMPORT_DESCRIPTOR_CEDDK  10002d00     ceddk:CEDDK.dll
+ 0001:00001d14       __NULL_IMPORT_DESCRIPTOR   10002d14     coredll:COREDLL.dll
+ 0002:00000000       __imp_MmUnmapIoSpace       10003000     ceddk:CEDDK.dll
+ 0002:00000004       __imp_MmMapIoSpace         10003004     ceddk:CEDDK.dll
+ 0002:00000008       \177CEDDK_NULL_THUNK_DATA  10003008     ceddk:CEDDK.dll
+ 0002:0000000c       __imp_RegCloseKey          1000300c     coredll:COREDLL.dll
+ 0002:00000010       __imp_StringCchPrintfW     10003010     coredll:COREDLL.dll
+ 0002:00000014       __imp_AllocPhysMem         10003014     coredll:COREDLL.dll
+ 0002:00000018       __imp_GetSystemInfo        10003018     coredll:COREDLL.dll
+ 0002:0000001c       __imp_CreateMutexW         1000301c     coredll:COREDLL.dll
+ 0002:00000020       __imp_RegQueryValueExW     10003020     coredll:COREDLL.dll
+ 0002:00000024       __imp_RegOpenKeyExW        10003024     coredll:COREDLL.dll
+ 0002:00000028       __imp_CloseHandle          10003028     coredll:COREDLL.dll
+ 0002:0000002c       __imp_FreePhysMem          1000302c     coredll:COREDLL.dll
+ 0002:00000030       __imp_InterlockedDecrement 10003030     coredll:COREDLL.dll
+ 0002:00000034       __imp_VirtualCopyEx        10003034     coredll:COREDLL.dll
+ 0002:00000038       __imp_VirtualFreeEx        10003038     coredll:COREDLL.dll
+ 0002:0000003c       __imp_VirtualAllocEx       1000303c     coredll:COREDLL.dll
+ 0002:00000040       __imp_CacheRangeFlush      10003040     coredll:COREDLL.dll
+ 0002:00000044       __imp_ReleaseMutex         10003044     coredll:COREDLL.dll
+ 0002:00000048       __imp_WaitForSingleObject  10003048     coredll:COREDLL.dll
+ 0002:0000004c       __imp_LockPages            1000304c     coredll:COREDLL.dll
+ 0002:00000050       __imp_InterlockedIncrement 10003050     coredll:COREDLL.dll
+ 0002:00000054       __imp___GetUserKData       10003054     coredll:COREDLL.dll
+ 0002:00000058       __imp___rt_udiv            10003058     corelib1:COREDLL.dll
+ 0002:0000005c       __imp_malloc               1000305c     corelib1:COREDLL.dll
+ 0002:00000060       __imp_memset               10003060     corelib1:COREDLL.dll
+ 0002:00000064       __imp_free                 10003064     corelib1:COREDLL.dll
+ 0002:00000068       __imp__XcptFilter          10003068     corelib1:COREDLL.dll
+ 0002:0000006c       __imp___C_specific_handler 1000306c     corelib1:COREDLL.dll
+ 0002:00000070       __imp___security_gen_cookie2 10003070     corelib1:COREDLL.dll
+ 0002:00000074       __imp___report_gsfailure   10003074     corelib1:COREDLL.dll
+ 0002:00000078       __imp_DisableThreadLibraryCalls 10003078     coredll:COREDLL.dll
+ 0002:0000007c       __imp_TerminateProcess     1000307c     coredll:COREDLL.dll
+ 0002:00000080       \177COREDLL_NULL_THUNK_DATA 10003080     coredll:COREDLL.dll
+ 0002:00000090       __security_cookie          10003090     corelib0:seccinit.obj
+ 0002:00000094       __security_cookie_complement 10003094     corelib0:seccinit.obj
+ 0002:00000544       _exitflag                  10003544     corelib0:cexit.obj
+ 0002:00000560       p_objs                     10003560     <common>
+ 0002:00002160       CMKDevice                  10005160     <common>
+ 0002:00002168       gdwPageSize                10005168     <common>
+ 0002:0000216c       __onexitend                1000516c     <common>
+ 0002:00002170       __onexitbegin              10005170     <common>
+ 0002:00002174       _pRawDllMain               10005174     <common>
+
+ entry point at        0001:000019b4
+
+ Static symbols
+
+ 0001:00000370       get_phys                   10001370 f   cmemk.obj
+ 0001:0000042c       find_busy_entry            1000142c f   cmemk.obj
+ 0001:00000508       alloc_pool                 10001508 f   cmemk.obj
+ 0001:00000dac       mapAddress                 10001dac f   cmemk.obj
+ 0001:000018b8       _DllMainCRTStartupHelper   100028b8 f   corelib0:pegdmain.obj
+ 0001:00001af8       doexit                     10002af8 f   corelib0:cexit.obj

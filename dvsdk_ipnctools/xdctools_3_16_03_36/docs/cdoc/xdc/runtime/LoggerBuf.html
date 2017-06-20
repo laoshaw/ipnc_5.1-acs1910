@@ -1,0 +1,1731 @@
+<html>
+<head>
+<title>module xdc.runtime.LoggerBuf</title>
+<meta name="description" content="A logger which stores Log events in a buffer">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.runtime.</span><span class="xdoc-id">LoggerBuf</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/Log.html" title="module Log"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/package.html" title="package xdc.runtime"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerSys.html" title="module LoggerSys"><img class="xdocHdrArrow" src="../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html">index URL</a></div>
+<p class="xdocHdrSummary">A logger which stores <tt>Log</tt> events in a buffer</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#targ-synop">C synopsis</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">EXAMPLES</a></li>
+</ul>
+<div class="xdocBrief">
+This module provides a logger which captures <tt><a class="xdoc-link" href="Log.html" title="Log">Log</a></tt> events to a
+  buffer in realtime. The <tt>Log</tt> events stored in the buffer are
+  unformatted; <tt>Log</tt> event formatting is deferred until some client reads
+  the raw event data from the buffer. You can use
+  <tt><a class="xdoc-link" href="LoggerBuf.html#flush" title="flush">LoggerBuf_flush()</a></tt> to process the <tt>Log</tt> events stored
+  in the buffer and stream the formatted output to stdout
+  (via <tt><a class="xdoc-link" href="System.html#printf" title="System.printf">System.printf</a></tt>).  Alternatively, you can read a raw event
+  (via <tt><a class="xdoc-link" href="LoggerBuf.html#get.Next.Entry" title="getNextEntry">getNextEntry</a></tt>) and send it to another client that
+  has the resources to format the event for display.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/runtime/LoggerBuf-src.html"><span class="xdocLabelFile">xdc/runtime/LoggerBuf.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw3">@Gated </span><span class="xdoc-kw3">@ModuleStartup </span>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">LoggerBuf</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt>//&nbsp;inherits <a class="xdoc-link" href="../../xdc/runtime/ILogger.html" title="xdc.runtime.ILogger">xdc.runtime.ILogger</a></div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;inherits <a class="xdoc-link" href="../../xdc/runtime/IModule.html" title="xdc.runtime.IModule">xdc.runtime.IModule</a></div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">instance</span>:<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw3">#include</span> <span class="xdoc-id">&lt;xdc/runtime/LoggerBuf.h&gt;</span>
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">enum</span> <a class="xdocSynGo" href="#.Buf.Type"><span class="xdoc-id">LoggerBuf_BufType</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Type of log buffer</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Buf.Type"><span class="xdoc-id">LoggerBuf_BufType_CIRCULAR</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The log buffer wraps, overwriting old entries</span></span></a>, 
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Buf.Type"><span class="xdoc-id">LoggerBuf_BufType_FIXED</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The log buffer halts collection when full</span></span></a>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>} <a class="xdocSynGo" href="#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType"><span class="xdoc-id">LoggerBuf_BufType</span></a>;
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">extern const</span> <span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#enable.Flush"><span class="xdoc-id">LoggerBuf_enableFlush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush all logs at system exit</span></span></a>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#flush.All"><span class="xdoc-id">LoggerBuf_flushAll</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush logs of all instances of <tt>LoggerBuf</tt></span></span></a>(  );
+</div>
+<div class='xdocSynHdr'>module-wide built-ins</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/Types.html#.Module.Id" title="xdc.runtime.Types.ModuleId">Types_ModuleId</a> <a class="xdocSynGo" href="#module-wide_built-ins"><span class="xdoc-id">LoggerBuf_Module_id</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Get this module's unique id</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Bool</span> <a class="xdocSynGo" href="#module-wide_built-ins"><span class="xdoc-id">LoggerBuf_Module_startupDone</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Test if this module has completed startup</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap_Handle</a> <a class="xdocSynGo" href="#module-wide_built-ins"><span class="xdoc-id">LoggerBuf_Module_heap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The heap from which this module allocates memory</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Bool</span> <a class="xdocSynGo" href="#module-wide_built-ins"><span class="xdoc-id">LoggerBuf_Module_hasMask</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Test whether this module has a diagnostics mask</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Bits16</span> <a class="xdocSynGo" href="#module-wide_built-ins"><span class="xdoc-id">LoggerBuf_Module_getMask</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Returns the diagnostics mask for this module</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span> <a class="xdocSynGo" href="#module-wide_built-ins"><span class="xdoc-id">LoggerBuf_Module_setMask</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Set the diagnostics mask for this module</span></span></a>( <span class="xdoc-kw2">Bits16</span> <span class="xdoc-id">mask</span> );
+</div>
+<div class='xdocSynHdr'>per-instance object types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#per-instance_object_types"><span class="xdoc-id">LoggerBuf_Object</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Opaque internal representation of an instance object</span></span></a> <go><span class="xdoc-id">LoggerBuf_Object</span></go>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">typedef</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Object">LoggerBuf_Object</a> *<a class="xdocSynGo" href="#per-instance_object_types"><span class="xdoc-id">LoggerBuf_Handle</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Client reference to an instance object</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#per-instance_object_types"><span class="xdoc-id">LoggerBuf_Struct</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Opaque client structure large enough to hold an instance object</span></span></a> <go><span class="xdoc-id">LoggerBuf_Struct</span></go>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <a class="xdocSynGo" href="#per-instance_object_types"><span class="xdoc-id">LoggerBuf_handle</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Convert this instance structure pointer into an instance handle</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *structP );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *<a class="xdocSynGo" href="#per-instance_object_types"><span class="xdoc-id">LoggerBuf_struct</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Convert this instance handle into an instance structure pointer</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#per-instance_config_parameters"><span class="xdoc-id">LoggerBuf_Params</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Instance config-params structure</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/IInstance.html#per-instance_config_parameters" title="xdc.runtime.IInstance.Params">IInstance_Params</a> *instance;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap_Handle</a>&nbsp;<a class="xdocSynGo" href="#buf.Heap"><span class="xdoc-id">bufHeap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The heap that contains the <tt>Log</tt> buffer for dynamic instances</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType">LoggerBuf_BufType</a>&nbsp;<a class="xdocSynGo" href="#buf.Type"><span class="xdoc-id">bufType</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Log buffer type</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#exit.Flush"><span class="xdoc-id">exitFlush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush log at system exit</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#num.Entries"><span class="xdoc-id">numEntries</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Number of entries in buffer</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>} <a class="xdocSynGo" href="#per-instance_config_parameters" title="per-instance config parameters"><span class="xdoc-id">LoggerBuf_Params</span></a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span> <a class="xdocSynGo" href="#per-instance_config_parameters"><span class="xdoc-id">LoggerBuf_Params_init</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Initialize this config-params structure with supplier-specified defaults before instance creation</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> *params );
+</div>
+<div class='xdocSynHdr'>per-instance creation</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <a class="xdocSynGo" href="#per-instance_creation"><span class="xdoc-id">LoggerBuf_create</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Allocate and initialize a new instance object and return its handle</span></span></a>( <span class="xdoc-kw1">const</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> *params, <a class="xdoc-link" href="../../xdc/runtime/Error.html#.Block" title="xdc.runtime.Error.Block">Error_Block</a> *eb );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span> <a class="xdocSynGo" href="#per-instance_creation"><span class="xdoc-id">LoggerBuf_construct</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Initialize a new instance object inside the provided structure</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *structP, <span class="xdoc-kw1">const</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> *params, <a class="xdoc-link" href="../../xdc/runtime/Error.html#.Block" title="xdc.runtime.Error.Block">Error_Block</a> *eb );
+</div>
+<div class='xdocSynHdr'>per-instance deletion</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span> <a class="xdocSynGo" href="#per-instance_deletion"><span class="xdoc-id">LoggerBuf_delete</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Finalize and free this previously allocated instance object, setting the referenced handle to NULL</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> *handleP );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span> <a class="xdocSynGo" href="#per-instance_deletion"><span class="xdoc-id">LoggerBuf_destruct</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Finalize the instance object inside the provided structure</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *structP );
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#disable"><span class="xdoc-id">LoggerBuf_disable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Disable a log</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#enable"><span class="xdoc-id">LoggerBuf_enable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable a log</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#flush"><span class="xdoc-id">LoggerBuf_flush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Read, clear, and output the contents of the log</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#get.Next.Entry"><span class="xdoc-id">LoggerBuf_getNextEntry</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Fills the passed <tt><span class="xdoc-link" href="Log.html#.Event.Rec" title="Log.EventRec">Log.EventRec</span></tt> with the next entry in the log</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Log.html#.Event.Rec" title="xdc.runtime.Log.EventRec">Log_EventRec</a>&nbsp;*<go><span class="xdoc-id">evtRec</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#reset"><span class="xdoc-id">LoggerBuf_reset</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Reset a log to empty state and enable it</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#write4"><span class="xdoc-id">LoggerBuf_write4</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Process a log event with up to 4 arguments</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Event" title="xdc.runtime.Types.Event">Types_Event</a>&nbsp;<go><span class="xdoc-id">evt</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a1</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a2</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a3</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a4</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#write8"><span class="xdoc-id">LoggerBuf_write8</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Process a log event with up to 8 arguments</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Event" title="xdc.runtime.Types.Event">Types_Event</a>&nbsp;<go><span class="xdoc-id">evt</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a1</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a2</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a3</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a4</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a5</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a6</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a7</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a8</span></go> );
+</div>
+<div class='xdocSynHdr'>per-instance convertors</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/ILogger.html#per-instance_object_types" title="xdc.runtime.ILogger.Handle">ILogger_Handle</a> <a class="xdocSynGo" href="#per-instance_convertors"><span class="xdoc-id">LoggerBuf_Handle_upCast</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;unconditionally move one level up the inheritance hierarchy</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <a class="xdocSynGo" href="#per-instance_convertors"><span class="xdoc-id">LoggerBuf_Handle_downCast</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;conditionally move one level down the inheritance hierarchy; NULL upon failure</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/ILogger.html#per-instance_object_types" title="xdc.runtime.ILogger.Handle">ILogger_Handle</a> handle );
+</div>
+<div class='xdocSynHdr'>per-instance built-ins</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Int</span> <a class="xdocSynGo" href="#per-instance_built-ins"><span class="xdoc-id">LoggerBuf_Object_count</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The number of statically-created instance objects</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <a class="xdocSynGo" href="#per-instance_built-ins"><span class="xdoc-id">LoggerBuf_Object_get</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The handle of the i-th statically-created instance object (array == NULL)</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Object">LoggerBuf_Object</a> *array, <span class="xdoc-kw2">Int</span> i );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <a class="xdocSynGo" href="#per-instance_built-ins"><span class="xdoc-id">LoggerBuf_Object_first</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The handle of the first dynamically-created instance object, or NULL</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <a class="xdocSynGo" href="#per-instance_built-ins"><span class="xdoc-id">LoggerBuf_Object_next</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The handle of the next dynamically-created instance object, or NULL</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap_Handle</a> <a class="xdocSynGo" href="#per-instance_built-ins"><span class="xdoc-id">LoggerBuf_Object_heap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The heap used to allocate dynamically-created instance objects</span></span></a>( );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/Types.html#.Label" title="xdc.runtime.Types.Label">Types_Label</a> *<a class="xdocSynGo" href="#per-instance_built-ins"><span class="xdoc-id">LoggerBuf_Handle_label</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The label associated with this instance object</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Label" title="xdc.runtime.Types.Label">Types_Label</a> *buf );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">String</span> <a class="xdocSynGo" href="#per-instance_built-ins"><span class="xdoc-id">LoggerBuf_Handle_name</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The name of this instance object</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> LoggerBuf = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.runtime.LoggerBuf'</span>);
+</div>
+<div class='xdocSynHdr'>local proxy modules</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#.Timestamp.Proxy">LoggerBuf.<span class="xdoc-id">TimestampProxy</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;User supplied time-stamp proxy</span></span></a> = <i><a class="xdoc-link" href="../../xdc/runtime/ITimestampClient.html" title="xdc.runtime.ITimestampClient">ITimestampClient</a>.Module</i> <span class="xdoc-kw2">null</span>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Timestamp.Proxy" title="xdc.runtime.LoggerBuf.TimestampProxy">LoggerBuf.<span class="xdoc-id">TimestampProxy</span></a>.delegate$ = <i><a class="xdoc-link" href="../../xdc/runtime/ITimestampClient.html" title="xdc.runtime.ITimestampClient">ITimestampClient</a>.Module</i> <span class="xdoc-kw2">null</span>
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><i>values of type <a class="xdocSynGo" href="#.Buf.Type">LoggerBuf.<span class="xdoc-id">BufType</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Type of log buffer</span></span></a></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> <a class="xdocSynGo" href="#.Buf.Type">LoggerBuf.<span class="xdoc-id">BufType_CIRCULAR</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The log buffer wraps, overwriting old entries</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> <a class="xdocSynGo" href="#.Buf.Type">LoggerBuf.<span class="xdoc-id">BufType_FIXED</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The log buffer halts collection when full</span></span></a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Basic.View">LoggerBuf.<span class="xdoc-id">BasicView</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">label</span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">lastSerial</span></a> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">numEntries</span></a> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">type</span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">enabledFlag</span></a> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Record.View">LoggerBuf.<span class="xdoc-id">RecordView</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">serial</span></a> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">timestampRaw</span></a> = <i><span class="xdoc-kw2">Long</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">modName</span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">text</span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">eventId</span></a> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">eventName</span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg0</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg1</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg2</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg3</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg4</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg5</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg6</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg7</span></a> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> <a class="xdocSynGo" href="#.Stop.Mode.Data">LoggerBuf.<span class="xdoc-id">StopModeData</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This data is added to the RTA MetaData file to support stop mode RTA</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Stop.Mode.Data" title="xdc.runtime.LoggerBuf.StopModeData"><span class="xdoc-id">bufferSymbol</span></a> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<a class="xdocSynGo" href="#.Stop.Mode.Data" title="xdc.runtime.LoggerBuf.StopModeData"><span class="xdoc-id">bufferSize</span></a> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#enable.Flush">LoggerBuf.<span class="xdoc-id">enableFlush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush all logs at system exit</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#common$">LoggerBuf.<span class="xdoc-id">common$</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Common module configuration parameters</span></span></a> = <i><a class="xdoc-link" href="../../xdc/runtime/Types.html#.Common$" title="xdc.runtime.Types.Common$">Types.Common$</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Meta.Args">LoggerBuf.<span class="xdoc-id">getMetaArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Returns any meta data needed to support RTA</span></span></a>( <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">inst</span></go>, <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">instNum</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<a class="xdocSynGo" href="#per-instance_config_parameters"><span class="xdoc-id">Params</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Instance config-params object</span></span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#buf.Heap"><span class="xdoc-id">bufHeap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The heap that contains the <tt>Log</tt> buffer for dynamic instances</span></span></a> = <i><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap.Handle</a></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#buf.Section"><span class="xdoc-id">bufSection</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Section name for the buffer managed by the static instance</span></span></a> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#buf.Type"><span class="xdoc-id">bufType</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Log buffer type</span></span></a> = <i><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType">LoggerBuf.BufType</a></i> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type_.C.I.R.C.U.L.A.R" title="xdc.runtime.LoggerBuf.BufType_CIRCULAR">LoggerBuf.BufType_CIRCULAR</a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#exit.Flush"><span class="xdoc-id">exitFlush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush log at system exit</span></span></a> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<a class="xdocSynGo" href="#num.Entries"><span class="xdoc-id">numEntries</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Number of entries in buffer</span></span></a> = <i><span class="xdoc-kw2">Int</span></i> 64;
+</div>
+<div class='xdocSynHdr'>per-instance creation</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">var</span> inst = LoggerBuf.<a class="xdocSynGo" href="#per-instance_creation"><span class="xdoc-id">create</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Create an instance-object</span></span></a>( params );
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/runtime/LoggerBuf-src.html"><span class="xdocLabelFile">xdc/runtime/LoggerBuf.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/runtime/package.html" title="xdc.runtime">xdc.runtime</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw3">@Gated </span><span class="xdoc-kw3">@ModuleStartup </span>
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">LoggerBuf</span></go><span class="xdoc-kw1"> inherits </span><a class="xdoc-link" href="../../xdc/runtime/ILogger.html" title="xdc.runtime.ILogger">ILogger</a> {
+</div>
+<div class='xdocSynHdr'>local proxy modules</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">proxy</span> TimestampProxy <span class="xdoc-kw1">inherits</span> <a class="xdoc-link" href="../../xdc/runtime/ITimestampClient.html" title="xdc.runtime.ITimestampClient">ITimestampClient</a>;
+</div>
+<div class='xdocSynHdr'>module-wide constants & types</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">enum</span> <a class="xdocSynGo" href="#.Buf.Type"><span class="xdoc-id">BufType</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Type of log buffer</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Buf.Type"><span class="xdoc-id">BufType_CIRCULAR</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The log buffer wraps, overwriting old entries</span></span></a>, 
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdocSynGo" href="#.Buf.Type"><span class="xdoc-id">BufType_FIXED</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The log buffer halts collection when full</span></span></a>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Basic.View"><span class="xdoc-id">BasicView</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">label</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">lastSerial</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">numEntries</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">type</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#.Basic.View" title="xdc.runtime.LoggerBuf.BasicView"><span class="xdoc-id">enabledFlag</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Record.View"><span class="xdoc-id">RecordView</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">serial</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Long</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">timestampRaw</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">modName</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">text</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">eventId</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">eventName</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg0</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg1</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg2</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg3</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg4</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg5</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg6</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">IArg</span>&nbsp;<a class="xdocSynGo" href="#.Record.View" title="xdc.runtime.LoggerBuf.RecordView"><span class="xdoc-id">arg7</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <a class="xdocSynGo" href="#.Stop.Mode.Data"><span class="xdoc-id">StopModeData</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;This data is added to the RTA MetaData file to support stop mode RTA</span></span></a> {
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#.Stop.Mode.Data" title="xdc.runtime.LoggerBuf.StopModeData"><span class="xdoc-id">bufferSymbol</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#.Stop.Mode.Data" title="xdc.runtime.LoggerBuf.StopModeData"><span class="xdoc-id">bufferSize</span></a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt>};
+</div>
+<div class='xdocSynHdr'>module-wide config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#enable.Flush"><span class="xdoc-id">enableFlush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush all logs at system exit</span></span></a> = <span class="xdoc-kw2">false</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Common$" title="xdc.runtime.Types.Common$">Types.Common$</a>&nbsp;<a class="xdocSynGo" href="#common$"><span class="xdoc-id">common$</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Common module configuration parameters</span></span></a>;
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#flush.All"><span class="xdoc-id">flushAll</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush logs of all instances of <tt>LoggerBuf</tt></span></span></a>(  );
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><a class="xdocSynGo" href="#get.Meta.Args"><span class="xdoc-kw1">function </span><span class="xdoc-id">getMetaArgs</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Returns any meta data needed to support RTA</span></span></a>( <go><span class="xdoc-id">inst</span></go>, <go><span class="xdoc-id">instNum</span></go> );
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">instance</span>:
+</div>
+<div class='xdocSynHdr'>per-instance config parameters</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap.Handle</a>&nbsp;<a class="xdocSynGo" href="#buf.Heap"><span class="xdoc-id">bufHeap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;The heap that contains the <tt>Log</tt> buffer for dynamic instances</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType">LoggerBuf.BufType</a>&nbsp;<a class="xdocSynGo" href="#buf.Type"><span class="xdoc-id">bufType</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Log buffer type</span></span></a> = <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type_.C.I.R.C.U.L.A.R" title="xdc.runtime.LoggerBuf.BufType_CIRCULAR">LoggerBuf.BufType_CIRCULAR</a>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#exit.Flush"><span class="xdoc-id">exitFlush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Flush log at system exit</span></span></a> = <span class="xdoc-kw2">false</span>;
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#num.Entries"><span class="xdoc-id">numEntries</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Number of entries in buffer</span></span></a> = 64;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">config</span> <span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#buf.Section"><span class="xdoc-id">bufSection</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Section name for the buffer managed by the static instance</span></span></a> = <span class="xdoc-kw2">null</span>;
+</div>
+<div class='xdocSynHdr'>per-instance creation</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#per-instance_creation"><span class="xdoc-id">create</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Create an instance-object</span></span></a>(  );
+</div>
+<div class='xdocSynHdr'>per-instance functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#disable"><span class="xdoc-id">disable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Disable a log</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Bool</span>&nbsp;<a class="xdocSynGo" href="#enable"><span class="xdoc-id">enable</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Enable a log</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#flush"><span class="xdoc-id">flush</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Read, clear, and output the contents of the log</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Int</span>&nbsp;<a class="xdocSynGo" href="#get.Next.Entry"><span class="xdoc-id">getNextEntry</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Fills the passed <tt><span class="xdoc-link" href="Log.html#.Event.Rec" title="Log.EventRec">Log.EventRec</span></tt> with the next entry in the log</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/Log.html#.Event.Rec" title="xdc.runtime.Log.EventRec">Log.EventRec</a>&nbsp;*<go><span class="xdoc-id">evtRec</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#reset"><span class="xdoc-id">reset</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Reset a log to empty state and enable it</span></span></a>(  );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#write4"><span class="xdoc-id">write4</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Process a log event with up to 4 arguments</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Event" title="xdc.runtime.Types.Event">Types.Event</a>&nbsp;<go><span class="xdoc-id">evt</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a1</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a2</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a3</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a4</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#write8"><span class="xdoc-id">write8</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Process a log event with up to 8 arguments</span></span></a>( <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Event" title="xdc.runtime.Types.Event">Types.Event</a>&nbsp;<go><span class="xdoc-id">evt</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a1</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a2</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a3</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a4</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a5</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a6</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a7</span></go>, <span class="xdoc-kw2">IArg</span>&nbsp;<go><span class="xdoc-id">a8</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This module provides a logger which captures <tt><a class="xdoc-link" href="Log.html" title="Log">Log</a></tt> events to a
+  buffer in realtime. The <tt>Log</tt> events stored in the buffer are
+  unformatted; <tt>Log</tt> event formatting is deferred until some client reads
+  the raw event data from the buffer. You can use
+  <tt><a class="xdoc-link" href="LoggerBuf.html#flush" title="flush">LoggerBuf_flush()</a></tt> to process the <tt>Log</tt> events stored
+  in the buffer and stream the formatted output to stdout
+  (via <tt><a class="xdoc-link" href="System.html#printf" title="System.printf">System.printf</a></tt>).  Alternatively, you can read a raw event
+  (via <tt><a class="xdoc-link" href="LoggerBuf.html#get.Next.Entry" title="getNextEntry">getNextEntry</a></tt>) and send it to another client that
+  has the resources to format the event for display.</div>
+<div class="xdocText">The implementation of this logger is fast with minimal stack usage
+  making it appropriate for a realtime application.
+  This logger writes all <tt>Log</tt> events to a circular buffer.  As a
+  result, the execution time of all <tt>Log</tt> methods bound to this type
+  of logger are deterministic (and quite short) because there are no
+  additional memory allocation calls after the circular buffer was
+  allocated.</div>
+<div class="xdocText">If this logger is used in a preemptive environment, then an appropriate
+  gate must be assigned to the module. For example, if events are generated
+  from an interrupt context, then a gate that disables interrupts
+  must be used.</div>
+<div class="xdocText"><PRE class="Example">  var LoggerBuf = xdc.useModule('xdc.runtime.LoggerBuf');
+  LoggerBuf.common$.gate = ...some gate instance...
+</PRE></div>
+<div class="xdocText">If the buffer type is circular, the log buffer of size
+  <tt><a class="xdoc-link" href="LoggerBuf.html#num.Entries" title="numEntries">numEntries</a></tt> contains the last <tt>numEntries</tt> of <tt>Log</tt> events. If
+  the buffer type is fixed, the log buffer contains the first
+  <tt>numEntries</tt> events.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">EXAMPLES</div>
+<div class="xdocText">Configuration example: The following XDC configuration statements
+  create a logger instance, assign it as the default logger for all
+  modules, and enable <tt>USER1</tt> logging in all modules of the package
+  <tt>my.pkg</tt>. See the <tt><a class="xdoc-link" href="Diags.html#set.Mask.Meta" title="Diags.setMaskMeta">Diags.setMaskMeta()</a></tt> function
+  for details on specifying the module names.</div>
+<div class="xdocText"><PRE class="Example">  var Defaults = xdc.useModule('xdc.runtime.Defaults');
+  var Diags = xdc.useModule('xdc.runtime.Diags');
+  var LoggerBuf = xdc.useModule('xdc.runtime.LoggerBuf');
+
+  LoggerBuf.enableFlush = true;
+  var LoggerBufParams = new LoggerBuf.Params();
+  LoggerBufParams.exitFlush = true;
+  Defaults.common$.logger = LoggerBuf.create(LoggerBufParams);
+  Diags.setMaskMeta("my.pkg.%", Diags.USER1, Diags.RUNTIME_ON);
+</PRE></div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Timestamp.Proxy"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">proxy</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">TimestampProxy</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#.Timestamp.Proxy">index URL</a></div>
+<p class="xdocHdrSummary">User supplied time-stamp proxy</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>LoggerBuf.<span class="xdoc-id">TimestampProxy</span> = <i><a class="xdoc-link" href="../../xdc/runtime/ITimestampClient.html" title="xdc.runtime.ITimestampClient">ITimestampClient</a>.Module</i> <span class="xdoc-kw2">null</span>
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;some delegate module inheriting the <a class="xdoc-link" href="../../xdc/runtime/ITimestampClient.html" title="xdc.runtime.ITimestampClient">ITimestampClient</a> interface</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>LoggerBuf.<span class="xdoc-id">TimestampProxy</span>.delegate$ = <i><a class="xdoc-link" href="../../xdc/runtime/ITimestampClient.html" title="xdc.runtime.ITimestampClient">ITimestampClient</a>.Module</i> <span class="xdoc-kw2">null</span>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;explicit access to the currently bound delegate module</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This proxy allows <tt>LoggerBuf</tt> to use a timestamp server different
+  from the server used by <tt><a class="xdoc-link" href="../../xdc/runtime/Timestamp.html" title="xdc.runtime.Timestamp">xdc.runtime.Timestamp</a></tt>. However, if
+  not supplied by a user, this proxy defaults to whichever timestamp
+  server is used by <tt>Timestamp</tt>.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Buf.Type"></a>
+<a class="xdocAnchor" id=".Buf.Type_.C.I.R.C.U.L.A.R"></a>
+<a class="xdocAnchor" id=".Buf.Type_.F.I.X.E.D"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">enum</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">BufType</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#.Buf.Type">index URL</a></div>
+<p class="xdocHdrSummary">Type of log buffer</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i>values of type LoggerBuf.<span class="xdoc-id">BufType</span></i>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> LoggerBuf.<span class="xdoc-id">BufType_CIRCULAR</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The log buffer wraps, overwriting old entries</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">const</span> LoggerBuf.<span class="xdoc-id">BufType_FIXED</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The log buffer halts collection when full</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">enum</span> <span class="xdoc-id">LoggerBuf_BufType</span> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-id">LoggerBuf_BufType_CIRCULAR</span>, 
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The log buffer wraps, overwriting old entries</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-id">LoggerBuf_BufType_FIXED</span>
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The log buffer halts collection when full</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>} <span class="xdoc-id">LoggerBuf_BufType</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Basic.View"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">BasicView</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#.Basic.View">index URL</a></div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">BasicView</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">label</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">lastSerial</span> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">numEntries</span> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">type</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">enabledFlag</span> = <i><span class="xdoc-kw2">Bool</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Record.View"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">RecordView</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#.Record.View">index URL</a></div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">RecordView</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">serial</span> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">timestampRaw</span> = <i><span class="xdoc-kw2">Long</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">modName</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">text</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">eventId</span> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">eventName</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg0</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg1</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg2</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg3</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg4</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg5</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg6</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">arg7</span> = <i><span class="xdoc-kw2">IArg</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id=".Stop.Mode.Data"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">struct</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">StopModeData</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#.Stop.Mode.Data">index URL</a></div>
+<p class="xdocHdrSummary">This data is added to the RTA MetaData file to support stop mode RTA</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> <i>obj</i> = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">StopModeData</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">bufferSymbol</span> = <i><span class="xdoc-kw2">String</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><i>obj</i>.<span class="xdoc-id">bufferSize</span> = <i><span class="xdoc-kw2">Int</span></i><b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="enable.Flush"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">enableFlush</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#enable.Flush">index URL</a></div>
+<p class="xdocHdrSummary">Flush all logs at system exit</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>LoggerBuf.<span class="xdoc-id">enableFlush</span> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">extern const</span> <span class="xdoc-kw2">Bool</span>&nbsp;<span class="xdoc-id">LoggerBuf_enableFlush</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="common$"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">config</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">common$</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#common$">index URL</a></div>
+<p class="xdocHdrSummary">Common module configuration parameters</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>LoggerBuf.<span class="xdoc-id">common$</span> = <i><a class="xdoc-link" href="../../xdc/runtime/Types.html#.Common$" title="xdc.runtime.Types.Common$">Types.Common$</a></i> <span class="xdoc-kw2">undefined</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">All modules have this configuration parameter.  Its name
+  contains the '$' character to ensure it does not conflict with
+  configuration parameters declared by the module.  This allows
+  new configuration parameters to be added in the future without
+  any chance of breaking existing modules.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="flush.All"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">flushAll</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#flush.All">index URL</a></div>
+<p class="xdocHdrSummary">Flush logs of all instances of <tt>LoggerBuf</tt></p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<span class="xdoc-id">LoggerBuf_flushAll</span>(  );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The user is responsible for making sure that no <tt>LoggerBuf</tt> instances
+  are created or deleted while in this API, by using an appropriate gate.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Meta.Args"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">getMetaArgs</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#get.Meta.Args">index URL</a></div>
+<p class="xdocHdrSummary">Returns any meta data needed to support RTA</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>LoggerBuf.<span class="xdoc-id">getMetaArgs</span>( <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">inst</span>, <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">instNum</span> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This meta data should be returned in the form of a structure which
+  can be converted into XML. This data is added to the RTA XML file
+  during the application's configuration, and can be accessed later
+  through the xdc.rta.MetaData module.</div>
+<div class="xdocText">The MetaData is returned per instance of the ILogger module. The
+  instance object is passed to the function as the first argument.</div>
+<div class="xdocText">The second argument is the index of the instance in the list of 
+  the ILogger's static instances.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="module-wide_built-ins"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">module-wide built-ins</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#module-wide_built-ins">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/Types.html#.Module.Id" title="xdc.runtime.Types.ModuleId">Types_ModuleId</a> <span class="xdoc-id">LoggerBuf_Module_id</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Get this module's unique id</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Bool</span> <span class="xdoc-id">LoggerBuf_Module_startupDone</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Test if this module has completed startup</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap_Handle</a> <span class="xdoc-id">LoggerBuf_Module_heap</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The heap from which this module allocates memory</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Bool</span> <span class="xdoc-id">LoggerBuf_Module_hasMask</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Test whether this module has a diagnostics mask</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Bits16</span> <span class="xdoc-id">LoggerBuf_Module_getMask</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Returns the diagnostics mask for this module</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Void</span> <span class="xdoc-id">LoggerBuf_Module_setMask</span>( <span class="xdoc-kw2">Bits16</span> <span class="xdoc-id">mask</span> );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Set the diagnostics mask for this module</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_object_types"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance object types</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#per-instance_object_types">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">struct</span> <span class="xdoc-id">LoggerBuf_Object</span> <span class="xdoc-id">LoggerBuf_Object</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Opaque internal representation of an instance object</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">typedef</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Object">LoggerBuf_Object</a> *<span class="xdoc-id">LoggerBuf_Handle</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Client reference to an instance object</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">struct</span> <span class="xdoc-id">LoggerBuf_Struct</span> <span class="xdoc-id">LoggerBuf_Struct</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Opaque client structure large enough to hold an instance object</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <span class="xdoc-id">LoggerBuf_handle</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *structP );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Convert this instance structure pointer into an instance handle</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *<span class="xdoc-id">LoggerBuf_struct</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Convert this instance handle into an instance structure pointer</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_config_parameters"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance config parameters</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#per-instance_config_parameters">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">Params</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params object</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">bufHeap</span> = <i><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap.Handle</a></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The heap that contains the <tt>Log</tt> buffer for dynamic instances</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">bufSection</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Section name for the buffer managed by the static instance</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">bufType</span> = <i><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType">LoggerBuf.BufType</a></i> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type_.C.I.R.C.U.L.A.R" title="xdc.runtime.LoggerBuf.BufType_CIRCULAR">LoggerBuf.BufType_CIRCULAR</a>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Log buffer type</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">exitFlush</span> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Flush log at system exit</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>params.<span class="xdoc-id">numEntries</span> = <i><span class="xdoc-kw2">Int</span></i> 64;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Number of entries in buffer</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">typedef</span> <span class="xdoc-kw1">struct</span> <span class="xdoc-id">LoggerBuf_Params</span> {
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Instance config-params structure</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/IInstance.html#per-instance_config_parameters" title="xdc.runtime.IInstance.Params">IInstance_Params</a> *instance;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Common per-instance configs</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap_Handle</a>&nbsp;<span class="xdoc-id">bufHeap</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The heap that contains the <tt>Log</tt> buffer for dynamic instances</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType">LoggerBuf_BufType</a>&nbsp;<span class="xdoc-id">bufType</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Log buffer type</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<span class="xdoc-id">exitFlush</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Flush log at system exit</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<span class="xdoc-id">numEntries</span>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Number of entries in buffer</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>} <span class="xdoc-id">LoggerBuf_Params</span>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Void</span> <span class="xdoc-id">LoggerBuf_Params_init</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> *params );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Initialize this config-params structure with supplier-specified defaults before instance creation</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="buf.Heap"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">bufHeap</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#buf.Heap">index URL</a></div>
+<p class="xdocHdrSummary">The heap that contains the <tt>Log</tt> buffer for dynamic instances</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">bufHeap</span> = <i><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap.Handle</a></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">struct</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap_Handle</a>&nbsp;<span class="xdoc-id">bufHeap</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The default value <tt>null</tt> means the buffer will be allocated from
+  the <tt><a class="xdoc-link" href="Memory.html#default.Heap.Instance" title="Memory.defaultHeapInstance">Memory.defaultHeapInstance</a></tt> heap.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="buf.Type"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">bufType</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#buf.Type">index URL</a></div>
+<p class="xdocHdrSummary">Log buffer type</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">bufType</span> = <i><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType">LoggerBuf.BufType</a></i> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type_.C.I.R.C.U.L.A.R" title="xdc.runtime.LoggerBuf.BufType_CIRCULAR">LoggerBuf.BufType_CIRCULAR</a>;
+</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">struct</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#.Buf.Type" title="xdc.runtime.LoggerBuf.BufType">LoggerBuf_BufType</a>&nbsp;<span class="xdoc-id">bufType</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="exit.Flush"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">exitFlush</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#exit.Flush">index URL</a></div>
+<p class="xdocHdrSummary">Flush log at system exit</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">exitFlush</span> = <i><span class="xdoc-kw2">Bool</span></i> <span class="xdoc-kw2">false</span>;
+</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">struct</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Bool</span>&nbsp;<span class="xdoc-id">exitFlush</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Only used when module parameter <tt><a class="xdoc-link" href="LoggerBuf.html#enable.Flush" title="enableFlush">enableFlush</a></tt> is <tt>true</tt>.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="num.Entries"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">config</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">numEntries</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#num.Entries">index URL</a></div>
+<p class="xdocHdrSummary">Number of entries in buffer</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">numEntries</span> = <i><span class="xdoc-kw2">Int</span></i> 64;
+</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">struct</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> {
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw2">Int</span>&nbsp;<span class="xdoc-id">numEntries</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Each entry is large enough to store one <tt>Log</tt> event containing up to
+  4 optional arguments.  Events containing more than 4 arguments (such
+  as those from <tt><a class="xdoc-link" href="Log.html#write5" title="Log.write5">Log.write5</a></tt>) use 2 entries.</div>
+<div class="xdocText"><tt>numEntries</tt> must be a power of 2.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="buf.Section"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">config</span> <span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">bufSection</span>&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#buf.Section">index URL</a></div>
+<p class="xdocHdrSummary">Section name for the buffer managed by the static instance</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<span class="xdoc-id">Params</span>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><b>&nbsp;&nbsp;...</b>
+</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<span class="xdoc-id">bufSection</span> = <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-kw2">null</span>;
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The default section is the 'dataSection' in the platform.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_creation"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance creation</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#per-instance_creation">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> params = <span class="xdoc-kw1">new</span> LoggerBuf.<a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">Params</a>;
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Allocate instance config-params</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt>params.<i>config</i> = <b>&nbsp;&nbsp;...</b>
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Assign individual configs</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw1">var</span> inst = LoggerBuf.<span class="xdoc-id">create</span>( params );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Create an instance-object</div>
+</div>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <span class="xdoc-id">LoggerBuf_create</span>( <span class="xdoc-kw1">const</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> *params, <a class="xdoc-link" href="../../xdc/runtime/Error.html#.Block" title="xdc.runtime.Error.Block">Error_Block</a> *eb );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Allocate and initialize a new instance object and return its handle</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Void</span> <span class="xdoc-id">LoggerBuf_construct</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *structP, <span class="xdoc-kw1">const</span> <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_config_parameters" title="xdc.runtime.LoggerBuf.Params">LoggerBuf_Params</a> *params, <a class="xdoc-link" href="../../xdc/runtime/Error.html#.Block" title="xdc.runtime.Error.Block">Error_Block</a> *eb );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Initialize a new instance object inside the provided structure</div>
+</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">params</span>
+<span class="xdocChildSum">&#151;&nbsp;per-instance config params, or <tt>NULL</tt> to select default values (target-domain only)</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">eb</span>
+<span class="xdocChildSum">&#151;&nbsp;active error-handling block, or <tt>NULL</tt> to select default policy (target-domain only)</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="LoggerBuf.html#per-instance_config_parameters" title="LoggerBuf.Params">LoggerBuf.Params</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_deletion"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance deletion</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#per-instance_deletion">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Void</span> <span class="xdoc-id">LoggerBuf_delete</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> *handleP );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Finalize and free this previously allocated instance object, setting the referenced handle to NULL</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Void</span> <span class="xdoc-id">LoggerBuf_destruct</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Struct">LoggerBuf_Struct</a> *structP );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;Finalize the instance object inside the provided structure</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="disable"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">disable</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#disable">index URL</a></div>
+<p class="xdocHdrSummary">Disable a log</p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Bool</span>&nbsp;<span class="xdoc-id">LoggerBuf_disable</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">handle</span>
+<span class="xdocChildSum">&#151;&nbsp;handle of a previously-created <tt>LoggerBuf</tt> instance object</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Events written to a disabled log are silently discarded.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">The function returns the state of the log (<tt>TRUE</tt> if enabled,
+  <tt>FALSE</tt> if disabled) before the call. That allow clients to restore
+  the previous state.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="enable"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">enable</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#enable">index URL</a></div>
+<p class="xdocHdrSummary">Enable a log</p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Bool</span>&nbsp;<span class="xdoc-id">LoggerBuf_enable</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">handle</span>
+<span class="xdocChildSum">&#151;&nbsp;handle of a previously-created <tt>LoggerBuf</tt> instance object</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">The function returns the state of the log (<tt>TRUE</tt> if enabled,
+  <tt>FALSE</tt> if disabled) before the call. That allow clients to restore
+  the previous state.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="flush"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">flush</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#flush">index URL</a></div>
+<p class="xdocHdrSummary">Read, clear, and output the contents of the log</p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<span class="xdoc-id">LoggerBuf_flush</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">handle</span>
+<span class="xdocChildSum">&#151;&nbsp;handle of a previously-created <tt>LoggerBuf</tt> instance object</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This method reads, clears, and "prints" each <tt>Log</tt> event (via
+  <tt><a class="xdoc-link" href="System.html#printf" title="System.printf">System.printf</a></tt>) in the log.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Next.Entry"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">getNextEntry</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#get.Next.Entry">index URL</a></div>
+<p class="xdocHdrSummary">Fills the passed <tt><a class="xdoc-link" href="Log.html#.Event.Rec" title="Log.EventRec">Log.EventRec</a></tt> with the next entry in the log</p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Int</span>&nbsp;<span class="xdoc-id">LoggerBuf_getNextEntry</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Log.html#.Event.Rec" title="xdc.runtime.Log.EventRec">Log_EventRec</a>&nbsp;*<span class="xdoc-id">evtRec</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">handle</span>
+<span class="xdocChildSum">&#151;&nbsp;handle of a previously-created <tt>LoggerBuf</tt> instance object</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">evtRec</span>
+<span class="xdocChildSum">&#151;&nbsp;pointer to a supplied <tt>EventRec</tt> object where the next
+                 entry in the log is copied to</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function is used to read and clear <tt>Log</tt> events from the
+  buffer maintained by the <tt>LoggerBuf</tt> instance. The <tt>Log</tt> event can
+  then be transmitted and displayed on a host.</div>
+<div class="xdocText">A read pointer is maintained in the <tt>LoggerBuf</tt> instance and
+  points to the next record to read.  Entries are not necessarily
+  returned in chronological order, since buffers of type
+  <tt><a class="xdoc-link" href="LoggerBuf.html#.Buf.Type_.C.I.R.C.U.L.A.R" title="BufType_CIRCULAR">BufType_CIRCULAR</a></tt> can wrap.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">This function reports the number of entries actually read. The only
+  values that can be returned are:</div>
+<div class="xdocText"><UL><LI> 0   no more entries to read
+</LI><LI> 1 or 2 read a complete entry written by <tt>write4</tt> or <tt>write8</tt>
+</LI><LI> -1  cleared an incomplete/overwritten entry, more entries to read
+     
+</LI></UL></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="reset"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">reset</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#reset">index URL</a></div>
+<p class="xdocHdrSummary">Reset a log to empty state and enable it</p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<span class="xdoc-id">LoggerBuf_reset</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">handle</span>
+<span class="xdocChildSum">&#151;&nbsp;handle of a previously-created <tt>LoggerBuf</tt> instance object</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">WARNING</div>
+<div class="xdocText">This method is not synchronized with other instance
+  methods and, as a result, it must never be called when there is a
+  chance that another instance method is currently in operation or
+  when another method on this instance may preempt this call.</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="write4"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">write4</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#write4">index URL</a></div>
+<p class="xdocHdrSummary">Process a log event with up to 4 arguments</p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<span class="xdoc-id">LoggerBuf_write4</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Event" title="xdc.runtime.Types.Event">Types_Event</a>&nbsp;<span class="xdoc-id">evt</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a1</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a2</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a3</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a4</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">handle</span>
+<span class="xdocChildSum">&#151;&nbsp;handle of a previously-created <tt>LoggerBuf</tt> instance object</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">evt</span>
+<span class="xdocChildSum">&#151;&nbsp;event to be logged</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">a1</span>
+<span class="xdocChildSum">&#151;&nbsp;arbitrary argument passed by caller</span>
+</div>
+<div class="xdocChildText">This parameter, along with <tt>a2</tt>, <tt>a3</tt>, and <tt>a4</tt> are parameters
+      that are to be interpreted according to the message format string
+      associated with <tt>evt</tt>.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">At the time this method is called, <tt>evt</tt> encodes two values: the
+      module ID of the module that "triggered" a <tt><a class="xdoc-link" href="Log.html#.Event" title="Log.Event">Log.Event</a></tt>
+      and the <tt><a class="xdoc-link" href="Log.html#.Event.Id" title="Log.EventId">Log.EventId</a></tt> of the event.  The module ID can
+      be obtained via <tt><a class="xdoc-link" href="Types.html#get.Module.Id" title="Types.getModuleId">Types.getModuleId</a>(evt)</tt>
+      and the event ID can be obtained via
+      <tt><a class="xdoc-link" href="Types.html#get.Event.Id" title="Types.getEventId">Types.getEventId</a>(evt)</tt>.</div>
+<div class="xdocText">The event ID can be used to compare against other known
+      <tt>Log.Event</tt>s.</div>
+<div class="xdocText"><PRE class="Example">          if (Log_getEventId(MY_EVENT) == Types_getEventId(evt)) {
+              :
+          }
+</PRE></div>
+<div class="xdocText">The event ID value of <tt>0</tt> is used to indicate an event triggered
+      by a call to one of the <tt><a class="xdoc-link" href="Log.html#print0" title="Log.print0">Log_print[0-6]</a></tt>
+      methods. These methods take a 
+      format string rather than a <tt>Log_Event</tt> argument and, as a result,
+      the event ID encoded in <tt>evt</tt> is <tt>0</tt> and the parameter <tt>a1</tt> is
+      the format string.</div>
+<div class="xdocText">Non-zero event IDs can also be used to access the <tt>msg</tt> string
+      associated with the <tt><a class="xdoc-link" href="Log.html#.Event.Desc" title="Log.EventDesc">Log.EventDesc</a></tt> that originally
+      defined the <tt>Log</tt> event.</div>
+<div class="xdocText"><PRE class="Example">          Types_EventId id = Types_getEventId(evt));
+          if (id != 0) {
+              String msg = Text_ropeText(id);
+              System_aprintf(msg, a1, a2, a3, a4);
+          }
+</PRE></div>
+<div class="xdocText">This works because an event's ID is simply an offset into a table
+      of characters (maintained by the <tt><a class="xdoc-link" href="Text.html" title="Text">Text</a></tt> module)
+      containing the event's msg string.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Log.html#.Event" title="Log.Event">Log.Event</a>, <a class="xdoc-link" href="Log.html#.Event.Desc" title="Log.EventDesc">Log.EventDesc</a>, <a class="xdoc-link" href="Text.html#rope.Text" title="Text.ropeText">Text.ropeText</a>, <a class="xdoc-link" href="Types.html#get.Event.Id" title="Types.getEventId">Types.getEventId</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="write8"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">LoggerBuf.</span><span class="xdoc-id">write8</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;per-instance</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#write8">index URL</a></div>
+<p class="xdocHdrSummary">Process a log event with up to 8 arguments</p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><i></i><span class="xdoc-kw2">Void</span>&nbsp;<span class="xdoc-id">LoggerBuf_write8</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Event" title="xdc.runtime.Types.Event">Types_Event</a>&nbsp;<span class="xdoc-id">evt</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a1</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a2</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a3</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a4</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a5</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a6</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a7</span>, <span class="xdoc-kw2">IArg</span>&nbsp;<span class="xdoc-id">a8</span> );
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">handle</span>
+<span class="xdocChildSum">&#151;&nbsp;handle of a previously-created <tt>LoggerBuf</tt> instance object</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">Same as <tt>write4</tt> except with 8 arguments rather than 4.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="ILogger.html#write4" title="ILogger.write4">ILogger.write4()</a></div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_convertors"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance convertors</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#per-instance_convertors">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/ILogger.html#per-instance_object_types" title="xdc.runtime.ILogger.Handle">ILogger_Handle</a> <span class="xdoc-id">LoggerBuf_Handle_upCast</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;unconditionally move one level up the inheritance hierarchy</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <span class="xdoc-id">LoggerBuf_Handle_downCast</span>( <a class="xdoc-link" href="../../xdc/runtime/ILogger.html#per-instance_object_types" title="xdc.runtime.ILogger.Handle">ILogger_Handle</a> handle );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;conditionally move one level down the inheritance hierarchy; NULL upon failure</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="per-instance_built-ins"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdocSynSum">per-instance built-ins</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/runtime/LoggerBuf.html" title="module LoggerBuf"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/runtime/LoggerBuf.html#per-instance_built-ins">index URL</a></div>
+<p class="xdocHdrSummary"></p>
+<span id='targ-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-targ2">C</span></tt> synopsis</td>
+<td class="xdocLabelRight">target-domain</td>
+</tr></table>
+<div class="xdocSynT">
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">Int</span> <span class="xdoc-id">LoggerBuf_Object_count</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The number of statically-created instance objects</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <span class="xdoc-id">LoggerBuf_Object_get</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Object">LoggerBuf_Object</a> *array, <span class="xdoc-kw2">Int</span> i );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The handle of the i-th statically-created instance object (array == NULL)</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <span class="xdoc-id">LoggerBuf_Object_first</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The handle of the first dynamically-created instance object, or NULL</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> <span class="xdoc-id">LoggerBuf_Object_next</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The handle of the next dynamically-created instance object, or NULL</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/IHeap.html#per-instance_object_types" title="xdc.runtime.IHeap.Handle">IHeap_Handle</a> <span class="xdoc-id">LoggerBuf_Object_heap</span>( );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The heap used to allocate dynamically-created instance objects</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><a class="xdoc-link" href="../../xdc/runtime/Types.html#.Label" title="xdc.runtime.Types.Label">Types_Label</a> *<span class="xdoc-id">LoggerBuf_Handle_label</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle, <a class="xdoc-link" href="../../xdc/runtime/Types.html#.Label" title="xdc.runtime.Types.Label">Types_Label</a> *buf );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The label associated with this instance object</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><tt></tt><span class="xdoc-kw2">String</span> <span class="xdoc-id">LoggerBuf_Handle_name</span>( <a class="xdoc-link" href="../../xdc/runtime/LoggerBuf.html#per-instance_object_types" title="xdc.runtime.LoggerBuf.Handle">LoggerBuf_Handle</a> handle );
+</div>
+<div class='xdocSynSum'><tt></tt><tt></tt>//&nbsp;The name of this instance object</div>
+</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:25 GMT</div>
+</div></div></body>
+</html>

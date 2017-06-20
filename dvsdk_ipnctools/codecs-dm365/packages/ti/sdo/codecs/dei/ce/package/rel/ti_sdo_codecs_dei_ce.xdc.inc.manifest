@@ -1,0 +1,16 @@
+ti/sdo/codecs/dei/ce/DEI.xdc
+ti/sdo/codecs/dei/ce/DEI.xs
+ti/sdo/codecs/dei/ce/package/.vers_b102
+ti/sdo/codecs/dei/ce/package/.vers_g104
+ti/sdo/codecs/dei/ce/package/.vers_r108
+ti/sdo/codecs/dei/ce/package/build.cfg
+ti/sdo/codecs/dei/ce/package/package.bld.xml
+ti/sdo/codecs/dei/ce/package/package.defs.h
+ti/sdo/codecs/dei/ce/package/package.doc.xml
+ti/sdo/codecs/dei/ce/package/package.ext.xml
+ti/sdo/codecs/dei/ce/package/package.rel.dot
+ti/sdo/codecs/dei/ce/package/package_ti.sdo.codecs.dei.ce.c
+ti/sdo/codecs/dei/ce/package/ti.sdo.codecs.dei.ce.ccs
+ti/sdo/codecs/dei/ce/package/ti.sdo.codecs.dei.ce.sch
+ti/sdo/codecs/dei/ce/package.bld
+ti/sdo/codecs/dei/ce/package.xdc

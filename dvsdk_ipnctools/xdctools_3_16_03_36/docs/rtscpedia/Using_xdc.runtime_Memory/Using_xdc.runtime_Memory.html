@@ -1,0 +1,440 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using xdc.runtime Memory - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Memory&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime Memory" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Using xdc.runtime Memory</p><p id="subtitle">Introduction to memory management</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Architecture"><span class="tocnumber">2.1</span> <span class="toctext">Architecture</span></a></li>
+<li class="toclevel-2"><a href="#Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Using_design-time_heaps"><span class="tocnumber">3.1</span> <span class="toctext">Using design-time heaps</span></a></li>
+<li class="toclevel-2"><a href="#Static_buffer_allocation"><span class="tocnumber">3.2</span> <span class="toctext">Static buffer allocation</span></a></li>
+<li class="toclevel-2"><a href="#Runtime_heap_creation"><span class="tocnumber">3.3</span> <span class="toctext">Runtime heap creation</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Built-in_Heap_Managers"><span class="tocnumber">4</span> <span class="toctext">Built-in Heap Managers</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_HeapMin_Module"><span class="tocnumber">4.1</span> <span class="toctext">The HeapMin Module</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Examples_2"><span class="tocnumber">4.1.1</span> <span class="toctext">Examples</span></a></li>
+</ul>
+</li>
+<li class="toclevel-2"><a href="#The_HeapStd_Module"><span class="tocnumber">4.2</span> <span class="toctext">The HeapStd Module</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Examples_3"><span class="tocnumber">4.2.1</span> <span class="toctext">Examples</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Performance_Considerations"><span class="tocnumber">5</span> <span class="toctext">Performance Considerations</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Execution_Time"><span class="tocnumber">5.1</span> <span class="toctext">Execution Time</span></a></li>
+<li class="toclevel-2"><a href="#Code_Space"><span class="tocnumber">5.2</span> <span class="toctext">Code Space</span></a>
+<ul>
+<li class="toclevel-3"><a href="#Static-only_systems"><span class="tocnumber">5.2.1</span> <span class="toctext">Static-only systems</span></a></li>
+<li class="toclevel-3"><a href="#Create-only_systems"><span class="tocnumber">5.2.2</span> <span class="toctext">Create-only systems</span></a></li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>The <tt>xdc.runtime</tt> package contains several modules that work together to provide modular and extensible memory management support.  This support is centered around the <tt><a href="../../cdoc/xdc/runtime/Memory.html" class="cdoc"><tt>Memory</tt></a></tt> module that enables the application to allocate and free memory.  All memory allocations are eventually "handled" by a module that implements the <tt><a href="../../cdoc/index.html#xdc/runtime/IHeap.html" class="cdoc"><tt>IHeap</tt></a></tt> interface.  These modules are responsible for managing a region of memory in a manner appropriate for the application.  
+</p><p>Two such modules are provided in the <tt>xdc.runtime</tt> package:
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/HeapMin.html" class="cdoc"><tt>HeapMin</tt></a></tt> - a module that simply maintains a "high water" mark for each managed memory block and never frees memory, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/HeapStd.html" class="cdoc"><tt>HeapStd</tt></a></tt> - a module that uses the ANSI C standard library functions <tt>malloc()</tt> and <tt>free()</tt>.
+</li></ol>
+<p>While it is possible to create new implementations of the <tt>IHeap</tt> interface that provide more sophisticated or even application-specific memory management policies, most users will rely on <tt>IHeap</tt> implementations from their preferred RTOS (such as TI's BIOS 6.0).  For information about creating and deploying a custom heap see <a href="../Extending_xdc.runtime_Memory/Extending_xdc.runtime_Memory.html" title="Extending xdc.runtime Memory">Extending xdc.runtime Memory</a>.
+</p>
+<a name="Overview"></a><h2> <span class="mw-headline">Overview</span></h2>
+<p>Memory management within embedded systems often requires
+</p>
+<ul><li> explicit management of distinct memory "classes";
+</li><li> control over alignment of critical buffers;
+</li><li> deterministic memory allocation, support for variable length allocation; and in some cases
+</li><li> the ability to eliminate _all_ runtime allocation and freeing of memory
+</li></ul>
+<p>Explicit use of different "classes" of memory, such as high-speed on-chip memory verses bulk external DRAM, is critical for embedded real-time applications.  For example, careful use and efficient management of precious high-speed on-chip memory often determines whether an application meets its real-time deadlines or not.  Even with different classes of memory, to get full entitlement from modern CPU cores, it is important that critical buffers be allocated on appropriate address boundaries - either for improved cache performance or to take advantage of specialized "zero overhead" looping constructs. 
+</p><p>Different applications have widely differing "policy" requirements.  For example, traditional embedded applications do not need, nor can they afford, extra memory management code to allow the system to automatically free memory from a terminated thread.  On the other hand, some embedded systems allow for the execution of untrusted (but not malicious) code.  In this case, the robustness requirements of the system all but require a memory manager that can track the ownership of every allocated memory block.  Similarly, because real-time applications provide "guaranteed" response times for certain events and variable length memory allocators often have execution times that vary as a function of the number and size of previous allocations, real-time applications generally take one of two approaches to memory management: 
+</p>
+<ol><li>use "fixed size" block allocation algorithms which have deterministic execution times but have poor memory utilization, or
+</li><li>use a distinguished "low priority" thread to perform all functions that require memory allocation so the "real-time" threads never stall waiting to allocate or free memory.  
+</li></ol>
+<p>From these examples, it's clear that embedded systems have unique memory management requirements and that no one memory allocation algorithm is appropriate for all embedded applications.  
+</p><p>The <tt>xdc.runtime</tt> package provides core memory management functions suitable for virtually any embedded application.  In particular, it includes a single module, <tt>Memory</tt>, that supports
+</p>
+<ul><li>multiple heaps and allows each heap to manage its heap in a memory-specific or application-specific manner; 
+</li><li>aligned allocations on any boundary supported by the underlying hardware; 
+</li><li>static placement of buffers required by other modules that create objects at configuration-time; and
+</li><li>zero-space-overhead allocations that do not require "allocation header" information to be retained on each allocation.
+</li></ul>
+<a name="Architecture"></a><h3> <span class="mw-headline">Architecture</span></h3>
+<p>The <tt>Memory</tt> module's methods take a first parameter that identifies the heap from which to allocate memory.  This parameter may be <tt>NULL</tt> and, in this case, a "default heap" will be used.  The "default heap" is specified by the developer by setting the <tt>Memory</tt> module's <tt>defaultHeapInstance</tt> configuration parameter.  If this parameter is not explicitly set by the developer, an instance of <tt><a href="../../cdoc/xdc/runtime/HeapStd.html" class="cdoc"><tt>xdc.runtime.HeapStd</tt></a></tt> (of size <tt><a href="../../cdoc/index.html#xdc/runtime/Memory.html#default.Heap.Size" class="cdoc"><tt>Memory.defaultHeapSize</tt></a></tt>) will be assigned to this parameter.
+</p>
+<center><a href="images/RuntimeMem.png" class="image" title="Memory Architecture"><img alt="Memory Architecture" src="images/RuntimeMem.png" width="697" height="262" border="0" /></a></center>
+<p>The <tt>Memory</tt> module itself does very little work: it simply delegates "real" memory management to the specified heap instance object.  This makes clients of <tt>Memory</tt> portable, but where do the heap instances get created?  If they are created by the application, the code that creates these instances is not portable to other applications; because it contains direct references to specific heap managers.  Of course, applications can factor this "non portable" code into a single place and pass <tt>IHeap</tt> instance handles to other parts of the application that need memory allocation services.  But, an even better solution is to entirely eliminate the runtime creation of <tt>IHeap</tt> instances in favor of static creation.  In this case, not only do we eliminate unnecessary code, but we improve the portability of the code by eliminating direct references to application-specific heap managers.
+</p><p><tt>Memory</tt> simply provides the "glue" between portable clients and underlying modules, heap managers, that actually manage the memory.  But the <tt>xdc.runtime</tt> package only provides two heap managers, <tt>HeapMin</tt> and <tt>HeapStd</tt>, and these modules have limited usefulness; <tt>HeapMin</tt> does not reuse freed memory and <tt>HeapStd</tt> has no advantage over <tt>malloc()</tt> and <tt>free()</tt>.  So where do you get "real" heap managers that realize the benefits promised by the <tt>xdc.runtime</tt> package's memory architecture?  Heap managers are available from RTOS providers (such as TI's DSP/BIOS 6.x) and <a href="../Extending_xdc.runtime_Memory/Extending_xdc.runtime_Memory.html" title="Extending xdc.runtime Memory">Extending xdc.runtime Memory</a> describes how to create new heap managers.
+</p>
+<a name="Configuration"></a><h3> <span class="mw-headline">Configuration</span></h3>
+<p>Users of libraries that reference the <tt>xdc.runtime.Memory</tt> module can configure their application to specify:
+</p>
+<ul><li>on a per-system basis, the default heap instance object to use when "managing" memory;
+</li><li>on a per-module basis, what <tt>IHeap</tt> service providers should be used to "manage" the memory allocated by the module for its instances; and
+</li><li>on a per-module basis, whether instance objects are only statically created, only created but never freed, or are both created and deleted at runtime.
+</li></ul>
+<p>The ability to configure a unique <tt>IHeap</tt> memory manager for each module that supports instances together with the use of <tt>NULL</tt> to represent the distinguished heap instance <tt>xdc.runtime.memory.defaultHeap</tt>, enables the integrator to separately manage memory from all parts of the code base independent of who produced the code.  
+</p><p>These configuration options make it possible for the system integrator to strictly control which parts of the system get precious high-speed memory <i>without making any changes to or even re-compiling</i> the code containing embedded <tt>Memory_alloc</tt> statements.  As a result, it possible to leverage these options and (re)configure even <i>pre-built binary libraries</i> that utilize <tt>xdc.runtime.Memory</tt> methods.
+</p>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<p>This section provides a number of code "fragments" illustrating how to leverage the <tt>xdc.runtime</tt> package's <tt>Memory</tt> module.
+</p>
+<a name="Using_design-time_heaps"></a><h6> <span class="mw-headline">Using design-time heaps</span></h6>
+<p><span class="Leader">Using design-time heaps</span>.&nbsp; To assist in creating portable modules, <i>every</i> module that supports instances has a heap instance that can be set at configuration time and referenced "anonymously" at runtime; see the <tt>instanceHeap</tt> field of <a href="../../cdoc/xdc/runtime/IModule.html#common$" class="cdoc"><tt>IModule.common$</tt></a>.  Modules access their heap instance via <tt><a href="../C_-_Object_heap/C_-_Object_heap.html" title="C - Object heap"><i>Mod</i>_Object_heap()</a></tt>, where <tt><i>Mod</i></tt> is the name of the calling module.  C code that is not part of a module can also use these heap instances.  In addition, the <tt>Memory</tt> module accepts <tt>NULL</tt> as a heap handle; in this case, the <tt>Memory</tt> module will use the design-time heap specified by the <tt><a href="../../cdoc/index.html#xdc/runtime/Memory.html#default.Heap.Instance" class="cdoc"><tt>Memory.defaultHeapInstance</tt></a></tt> configuration parameter.
+</p><p>The following code fragment illustrates how these design-time heaps are used. 
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c (fragment)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Memory.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/LoggerBuf.h&gt;</span>
+&nbsp;
+   &nbsp;:
+<span class="coMULTI">/* allocate from the LoggerBuf module's heap */</span>
+Ptr buf0 = Memory_alloc<span class="br0">&#40;</span>LoggerBuf_Object_heap<span class="br0">&#40;</span><span class="br0">&#41;</span>, ...<span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* allocate from the default heap */</span>
+Ptr buf1 = Memory_alloc<span class="br0">&#40;</span><span class="kw2">NULL</span>, ...<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>The configuration code necessary to create instances for the default heap and the <tt>LoggerBuf</tt> module's heap now contains references to the specific <tt>IHeap</tt> implementations.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg (fragment)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Memory = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Memory&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> LoggerBuf = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.LoggerBuf&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Heap1  = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;...&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Heap2  = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;...&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* define &quot;default&quot; heap for NULL instance allocations */</span>
+Memory.defaultHeapInstance = Heap1.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* define a specific heap for the LoggerBuf module */</span>
+LoggerBuf.common$.heapInstance = Heap2.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p></p>
+<p><div class="Notice"><p class="Notice">If a module's <tt>heapInstance</tt> is not explicitly set, it defaults to <tt>NULL</tt>.  Since calling the <tt>Memory</tt> methods with a <tt>NULL</tt> heap instance is equivalent to using the "default heap" and each module's default heap is <tt>NULL</tt>, setting <a href="../../cdoc/xdc/runtime/Memory.html#default.Heap.Instance" class="cdoc"><tt>Memory.defaultHeapInstance</tt></a> effectively sets the default heap for <i>all</i> modules in the system.</p></div></p>
+<a name="Static_buffer_allocation"></a><h6> <span class="mw-headline">Static buffer allocation</span></h6>
+<p><span class="Leader">Static buffer allocation</span>.&nbsp; In addition to the runtime memory allocation services offered, the <tt>Memory</tt> module also supports placement and alignment of static buffers via the meta-domain function <a href="../../cdoc/xdc/runtime/Memory.html#static.Place" class="cdoc"><tt>Memory.staticPlace()</tt></a>.  This method is typically used when implementing a RTSC module that requires the creation and placement of a static buffer.  
+</p><p>For examples of its use see <tt>acme/filters/Fir.xs</tt> in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#Implementing_the_module_.28meta-domain.29" title="RTSC Module Primer/Lesson 9"> RTSC Module Primer Lesson 9</a> and <tt>SysBuf.xs</tt> in <a href="../Extending_xdc.runtime_System/Extending_xdc.runtime_System__Example_1.html#The_SysBuf_Module" title="Extending xdc.runtime System/Example 1"> Extending xdc.runtime System Example 1</a>.
+</p>
+<a name="Runtime_heap_creation"></a><h6> <span class="mw-headline">Runtime heap creation</span></h6>
+<p><span class="Leader">Runtime heap creation</span>.&nbsp; There are times when it's necessary to create a heap at runtime.  Suppose, for example, that you need to create a single ROM image that must support multiple platforms with differing memory maps.  In this case, the size of the memory managed by the heap can not be known until the application runs.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/HeapMin.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Memory.h&gt;</span>
+   &nbsp;:
+IHeapMin_Handle heap; <span class="coMULTI">/* dynamically sized heap used by app */</span>
+&nbsp;
+<span class="kw2">int</span> main<span class="br0">&#40;</span><span class="kw2">int</span> argc, <span class="kw2">char</span> *argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    HeapMin_Handle heapMin;
+    HeapMin_Params params;
+&nbsp;
+    <span class="coMULTI">/* create a heap from a specific heap manager */</span>
+    HeapMin_Params_init<span class="br0">&#40;</span>&amp;params<span class="br0">&#41;</span>;
+    params.size = ...;
+    heapMin = HeapMin_create<span class="br0">&#40;</span>&amp;params, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+    <span class="coMULTI">/* convert HeapMin handle to abstract IHeap handle */</span>
+    heap = HeapMin_Handle_upCast<span class="br0">&#40;</span>heapMin<span class="br0">&#41;</span>;
+       &nbsp;:
+<span class="br0">&#125;</span>
+    <span class="coMULTI">/* allocate from the new heap */</span>
+    Ptr buf1 = Memory_alloc<span class="br0">&#40;</span>heap, ...<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>The call to <tt>HeapMin_create()</tt> requires allocation of memory from a heap.  In this case it will allocate memory from a heap associated with the <tt>HeapMin</tt> module by the application's configuration script.  You can either create an initial <tt>HeapMin</tt> instance at configuration time large enough to bootstrap the application or you can use <tt>HeapMin</tt> to "construct" a heap instance from a statically allocated structure.  Recall that all modules that support instances also support the initialization of a static structure as a way to create runtime instances (see <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_4.html" title="RTSC Module Primer/Lesson 4">Lesson 4 of the RTSC Module Primer</a>).
+</p><p>The example above can be re-written to avoid <i>all</i> heap allocations prior to the first call to <tt>Memory_alloc()</tt> with the runtime created <tt>heap</tt> instance.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="kw2">int</span> main<span class="br0">&#40;</span><span class="kw2">int</span> argc, <span class="kw2">char</span> *argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    HeapMin_Handle heapMin;
+    HeapMin_Params params;
+    HeapMin_Struct heapStruct;
+&nbsp;
+    <span class="coMULTI">/* create a heap from a specific heap manager */</span>
+    HeapMin_Params_init<span class="br0">&#40;</span>&amp;params<span class="br0">&#41;</span>;
+    params.size = ...;
+    HeapMin_construct<span class="br0">&#40;</span>&amp;heapStruct, &amp;params, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+    <span class="coMULTI">/* convert HeapStruct to a HeapMin_Handle handle */</span>
+    heapMin = HeapMin_handle<span class="br0">&#40;</span>&amp;heapStruct<span class="br0">&#41;</span>;
+    <span class="coMULTI">/* convert HeapMin handle to abstract IHeap handle */</span>
+    heap = HeapMin_Handle_upCast<span class="br0">&#40;</span>heapMin<span class="br0">&#41;</span>;
+       &nbsp;:
+<span class="br0">&#125;</span></pre></td></tr></table>
+<a name="Built-in_Heap_Managers"></a><h2> <span class="mw-headline">Built-in Heap Managers</span></h2>
+<p>The <tt>xdc.runtime</tt> package includes two built-in heap managers:
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/HeapMin.html" class="cdoc"><tt>HeapMin</tt></a></tt> - a module that simply maintains a "high water" mark for each managed memory block and never frees memory, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/HeapStd.html" class="cdoc"><tt>HeapStd</tt></a></tt> - a module that uses the ANSI C standard library functions <tt>malloc()</tt> and <tt>free()</tt>.
+</li></ol>
+<p>The following sections briefly describe these heap managers and show examples of their use.  <a href="../Extending_xdc.runtime_Memory/Extending_xdc.runtime_Memory.html" title="Extending xdc.runtime Memory">Extending xdc.runtime Memory</a> describes how to create additional heap managers. 
+</p>
+<a name="The_HeapMin_Module"></a><h3> <span class="mw-headline">The <tt>HeapMin</tt> Module</span></h3>
+<p>The <tt>HeapMin</tt> module provides a simple "growth-only" heap, meaning that it does not support <tt>Memory_free()</tt>. It is intended as a minimal footprint heap implementation.
+</p><p><tt>HeapMin</tt> services any size allocation request. Attempting to free memory back to a <tt>HeapMin</tt> instance results in an error.
+</p>
+<a name="Examples_2"></a><h6> <span class="mw-headline">Examples</span></h6>
+<p><span class="Leader">Examples</span>.&nbsp;  The following configuration example statically creates a <tt>HeapMin</tt> instance named <tt>myHeap</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> HeapMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.HeapMin&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> params = <span class="kw1">new</span> HeapMin.Params<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+params.size = <span class="nu0">1024</span>;
+&nbsp;
+<span class="coMULTI">/* Create heap as global variable so it can be used in C code */</span>
+Program.global.myHeap = HeapMin.create<span class="br0">&#40;</span>params<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>The following C code fragment dynamically creates a <tt>HeapMin</tt> instance named <tt>myHeap</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/HeapMin.h&gt;</span>
+&nbsp;
+<span class="kw1">static</span> <span class="kw2">char</span> buf<span class="br0">&#91;</span><span class="nu0">1024</span><span class="br0">&#93;</span>;
+HeapMin_Handle myHeap;
+&nbsp;
+HeapMin_Params params;
+HeapMin_Params_init<span class="br0">&#40;</span>&amp;params<span class="br0">&#41;</span>;
+params.size = <span class="nu0">1024</span>;
+params.buf = <span class="br0">&#40;</span>Ptr<span class="br0">&#41;</span>buf;
+myHeap = HeapMin_create<span class="br0">&#40;</span>&amp;params, <span class="kw2">NULL</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p></p>
+<a name="The_HeapStd_Module"></a><h3> <span class="mw-headline"> The <tt>HeapStd</tt> Module</span></h3>
+<p>The <tt>HeapStd</tt> is a wrapper for the ANSI C Standard Library <tt>malloc()</tt> and <tt>free()</tt> functions. As a consequence, allocating from a <tt>HeapStd</tt> instance requires the "align" parameter passed to <tt>Memory_alloc()</tt> to be less than or equal to the value returned from
+<tt><a href="../../cdoc/xdc/runtime/Memory.html#get.Max.Default.Type.Align" class="cdoc"><tt>Memory_getMaxDefaultTypeAlign</tt></a></tt>.
+</p>
+<a name="Examples_3"></a><h6> <span class="mw-headline">Examples</span></h6>
+<p><span class="Leader">Examples</span>.&nbsp;  The following configuration example statically creates a <tt>HeapStd</tt> heap instance named <tt>myHeap</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> HeapStd = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.HeapStd&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="coMULTI">/* Create heap as global variable so it can be used in C code */</span>
+Program.global.myHeap = HeapStd.create<span class="br0">&#40;</span><span class="br0">&#123;</span>size: <span class="nu0">1024</span><span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>The following C code fragment dynamically creates a <tt>HeapStd</tt> instance named <tt>myHeap</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/HeapMin.h&gt;</span>
+&nbsp;
+HeapStd_Params params;
+HeapStd_Handle myHeap;
+&nbsp;
+HeapStd_Params_init<span class="br0">&#40;</span>&amp;params<span class="br0">&#41;</span>;
+params.size = <span class="nu0">1024</span>;
+myHeap = HeapStd_create<span class="br0">&#40;</span>&amp;params, <span class="kw2">NULL</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<a name="Performance_Considerations"></a><h2> <span class="mw-headline">Performance Considerations</span></h2>
+<p>This section provides an overview of the performance overhead you can expect when using the <tt>xdc.runtime</tt> memory facilities. Generally speaking, the configuration capabilities allow developers to minimize the code space footprint by eliminating unnecessary functionality as well as tightly control which memory is used by each part of the system and how each memory region is managed. 
+</p>
+<a name="Execution_Time"></a><h3> <span class="mw-headline">Execution Time</span></h3>
+<p>The execution time of the <tt>xdc.runtime.Memory</tt> methods is almost entirely a function of the underlying <tt>IHeap</tt> module.  For example, the <tt><a href="../../cdoc/xdc/runtime/HeapMin.html" class="cdoc"><tt>xdc.runtime.HeapMin</tt></a></tt> memory manager is extremely fast and deterministic.  However, it does not support freeing of memory.  The <tt><a href="../../cdoc/index.html#xdc/runtime/HeapStd.html" class="cdoc"><tt>xdc.runtime.HeapStd</tt></a></tt> module, on the other hand, has execution times dominated by the underlying ANSI C Standard Library's <tt>malloc()</tt> and <tt>free()</tt> functions.
+</p>
+<a name="Code_Space"></a><h3> <span class="mw-headline">Code Space</span></h3>
+<p>As with execution time, the code space overhead is largely determined by the underlying <tt>IHeap</tt> manager(s) used in the application.  However, there are additional configuration options that can further reduce an application's code space requirements.  Provided that an application does not need to delete any created instances or, even better, never needs to create instances at runtime, it is possible to reduce the code space by setting the <tt>xdc.runtime.Defaults.common$.memoryPolicy</tt> configuration parameter appropriately.  There are two options that can significantly decrease your code space requirements:
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/Types.html#.Create.Policy" class="cdoc"><tt>STATIC_POLICY</tt></a></tt> - for "static-only" systems, where all instance objects managed by the module must be created at configuration time, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/Types.html#.Create.Policy" class="cdoc"><tt>CREATE_POLICY</tt></a></tt> - for "delete-only" systems, where instance objects managed by the module may be created at runtime but are never deleted.
+</li></ol>
+<a name="Static-only_systems"></a><h6> <span class="mw-headline">Static-only systems</span></h6>
+<p><span class="Leader">Static-only systems</span>.&nbsp;  To absolutely minimize the memory management code-space overhead in an application, eliminate all runtime create calls (by replacing them with configuration-time create calls) and set the <tt><a href="../../cdoc/xdc/runtime/Defaults.html#common$" class="cdoc"><tt>memoryPolicy</tt></a></tt> for all modules to be <tt><a href="../../cdoc/index.html#xdc/runtime/Types.html#/.Create/.Policy" class="cdoc"><tt>STATIC_POLICY</tt></a></tt>.  For example, the following lines in a configuration script set the default <tt>memoryPolicy</tt> for all modules to <tt>STATIC_POLICY</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Types = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Types&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Defaults = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Defaults&quot;</span><span class="br0">&#41;</span>;
+Defaults.common$.memoryPolicy = Types.STATIC_POLICY;</pre></td></tr></table>
+<p>Any attempt to call a create operation from a module that has its <tt>memoryPolicy</tt> set to <tt>STATIC_POLICY</tt> will result in a fatal runtime error.  For example, if you use the configuration statements above and any part of your application calls <tt>LoggerBuf_create()</tt>, your application with terminate with the following error messages.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>xdc.runtime.LoggerBuf: generic error: create policy error
+xdc.runtime.Error.raise: terminating execution</pre></td></tr></table>
+<p></p>
+<a name="Create-only_systems"></a><h6> <span class="mw-headline">Create-only systems</span></h6>
+<p><span class="Leader">Create-only systems</span>.&nbsp;  There are times when it is simply more convenient to create instance at runtime during an application initialization phase and never delete the instances; objects are deleted by rebooting the application.  In this case, code for the Memory manager APIs must be present - otherwise it would not be possible to link the application.  However, since memory never needs to be freed, the underlying heap managers can be very simple (and small).
+</p><p>The following lines in a configuration script set the default <tt>memoryPolicy</tt> for all modules to <tt>CREATE_POLICY</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Types = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Types&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Defaults = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Defaults&quot;</span><span class="br0">&#41;</span>;
+Defaults.common$.memoryPolicy = Types.CREATE_POLICY;</pre></td></tr></table>
+<p>Any attempt to call a delete operation from a module that has its <tt>memoryPolicy</tt> set to <tt>CREATE_POLICY</tt> will result in a fatal runtime error.  For example, if you use the configuration statements above and any part of your application calls <tt>LoggerBuf_delete()</tt>, your application with terminate with the following error messages.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>xdc.runtime.LoggerBuf: generic error: delete policy error
+xdc.runtime.Error.raise: terminating execution</pre></td></tr></table>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Memory&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Using xdc.runtime Memory" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Using_This_Package" title="Overview_of_xdc.runtime#Using_This_Package"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 3271 bytes
+Post-expand include size: 1809 bytes
+Template argument size: 364 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_xdc.runtime_Memory.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.235 secs. --></body></html>

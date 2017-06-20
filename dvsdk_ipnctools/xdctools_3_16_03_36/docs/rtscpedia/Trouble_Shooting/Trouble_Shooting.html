@@ -1,0 +1,426 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Trouble Shooting - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Trouble Shooting&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Trouble Shooting" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Trouble Shooting</p><p id="subtitle">Frequently encountered problems and their solutions</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Building_Packages"><span class="tocnumber">1</span> <span class="toctext">Building Packages</span></a>
+<ul>
+<li class="toclevel-2"><a href="#xdc_loops_indefinitely_rebuilding_the_same_file"><span class="tocnumber">1.1</span> <span class="toctext">xdc loops indefinitely rebuilding the same file</span></a></li>
+<li class="toclevel-2"><a href="#xdc_.28or_xs.29_fails_with_an_.22xdc.services.global.XDCException:_....22_error"><span class="tocnumber">1.2</span> <span class="toctext">xdc (or xs) fails with an "xdc.services.global.XDCException: ..." error</span></a></li>
+<li class="toclevel-2"><a href="#xdc_fails_with_an_.22Error:_Can.27t_find_import_file:_.27....27_.28not_found_along_.27....27.29.22_error"><span class="tocnumber">1.3</span> <span class="toctext">xdc fails with an "Error: Can't find import file: '...' (not found along '...')" error</span></a></li>
+<li class="toclevel-2"><a href="#On_Windows.2C_xdc_fails_with_error:__compilation_failed:_can.27t_find_specification_file:_mypkg.mymod.xdc"><span class="tocnumber">1.4</span> <span class="toctext">On Windows, xdc fails with error:  compilation failed: can't find specification file: mypkg.mymod.xdc</span></a></li>
+<li class="toclevel-2"><a href="#The_RTSC_IDL_translator_fails_with_.22can.27t_resolve_name_.28....29.22"><span class="tocnumber">1.5</span> <span class="toctext">The RTSC IDL translator fails with "can't resolve name (...)"</span></a></li>
+<li class="toclevel-2"><a href="#tar_fails_with_.22file_changed_as_we_read_it.22"><span class="tocnumber">1.6</span> <span class="toctext">tar fails with "file changed as we read it"</span></a></li>
+<li class="toclevel-2"><a href="#tar_fails_with_.22gid_t_value_..._too_large_.28max.3D16777215.29.22"><span class="tocnumber">1.7</span> <span class="toctext">tar fails with "gid_t value ... too large (max=16777215)"</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Configuring_Content"><span class="tocnumber">2</span> <span class="toctext">Configuring Content</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Configuration_fails_with_an_.22Error:_Module_Xyz_does_not_support_static_instances.22_error"><span class="tocnumber">2.1</span> <span class="toctext">Configuration fails with an "Error: Module Xyz does not support static instances" error</span></a></li>
+<li class="toclevel-2"><a href="#Configuration_complains_about_.22incompatible_use_of_package_.27x.y.z.27:_imported_x.y.z_.5Bi.2Cj.2Ck.5D.2C_a.b.c_was_built_with_x.y.z_.5B....5D.22"><span class="tocnumber">2.2</span> <span class="toctext">Configuration complains about "incompatible use of package 'x.y.z': imported x.y.z &#91;i,j,k&#93;, a.b.c was built with x.y.z &#91;...&#93;"</span></a></li>
+<li class="toclevel-2"><a href="#Configuration_fails_with_an_.22incompatible_use_of_the_target_....22_error"><span class="tocnumber">2.3</span> <span class="toctext">Configuration fails with an "incompatible use of the target ..." error</span></a></li>
+<li class="toclevel-2"><a href="#Configuration_fails_with_an_.22xdc.services.global.XDCException:_....22_error"><span class="tocnumber">2.4</span> <span class="toctext">Configuration fails with an "xdc.services.global.XDCException: ..." error</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Compiling_and_linking"><span class="tocnumber">3</span> <span class="toctext">Compiling and linking</span></a>
+<ul>
+<li class="toclevel-2"><a href="#The_C_compiler_fails_with_.22error:_package.2Finternal.2FModXyz.xdc.h:_No_such_file_or_directory.22"><span class="tocnumber">3.1</span> <span class="toctext">The C compiler fails with "error: package/internal/ModXyz.xdc.h: No such file or directory"</span></a></li>
+<li class="toclevel-2"><a href="#The_C_compiler_fails_with_a_.22conflicting_types.22_error.3B_e.g..2C_.22error:_conflicting_types_for_.27..._Instance_init__F.27.22"><span class="tocnumber">3.2</span> <span class="toctext">The C compiler fails with a "conflicting types" error; e.g., "error: conflicting types for '..._Instance_init__F'"</span></a></li>
+<li class="toclevel-2"><a href="#The_linker_fails_with_.22undefined_reference_to_..._Object__create.28void.29.22"><span class="tocnumber">3.3</span> <span class="toctext">The linker fails with "undefined reference to ..._Object__create(void)"</span></a></li>
+<li class="toclevel-2"><a href="#The_TI_C6000_linker_fails_with_.22Invalid_intermediate_file:....22_and_.22Compilation_failure.22"><span class="tocnumber">3.4</span> <span class="toctext">The TI C6000 linker fails with "Invalid intermediate file:..." and "Compilation failure"</span></a></li>
+<li class="toclevel-2"><a href="#The_linker_fails_because_there_isn.27t_enough_space_for_.text_or_.bss.2C_or_..."><span class="tocnumber">3.5</span> <span class="toctext">The linker fails because there isn't enough space for .text or .bss, or ...</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Runtime_Issues"><span class="tocnumber">4</span> <span class="toctext">Runtime Issues</span></a>
+<ul>
+<li class="toclevel-2"><a href="#At_runtime.2C_the_application_fails_with_the_error_message_.22ModuleXyz:_generic_error:_create_policy_error.22"><span class="tocnumber">4.1</span> <span class="toctext">At runtime, the application fails with the error message "ModuleXyz: generic error: create policy error"</span></a></li>
+<li class="toclevel-2"><a href="#At_runtime.2C_Log_events_for_xdc.runtime_modules_are_not_being_generated"><span class="tocnumber">4.2</span> <span class="toctext">At runtime, Log events for xdc.runtime modules are not being generated</span></a></li>
+<li class="toclevel-2"><a href="#At_runtime.2C_some_module.27s_startup_functions_are_not_being_called"><span class="tocnumber">4.3</span> <span class="toctext">At runtime, some module's startup functions are not being called</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#XDCscript_Errors"><span class="tocnumber">5</span> <span class="toctext">XDCscript Errors</span></a>
+<ul>
+<li class="toclevel-2"><a href="#An_XDCscript_fails_with_.22TypeError:_Cannot_read_property_.22....22_from_undefined..22"><span class="tocnumber">5.1</span> <span class="toctext">An XDCscript fails with "TypeError: Cannot read property "..." from undefined."</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#CCS4_Problems"><span class="tocnumber">6</span> <span class="toctext">CCS4 Problems</span></a>
+<ul>
+<li class="toclevel-2"><a href="#XGCONF_cannot_open_cfg_files_which_are_NOT_tied_to_CCS4"><span class="tocnumber">6.1</span> <span class="toctext">XGCONF cannot open cfg files which are NOT tied to CCS4</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Building_Packages"></a><h2> <span class="mw-headline">Building Packages</span></h2>
+<a name="xdc_loops_indefinitely_rebuilding_the_same_file"></a><h3> <span class="mw-headline"><tt>xdc</tt> loops indefinitely rebuilding the same file</span></h3>
+<blockquote>The <tt>xdc</tt> command is a relatively simple utility that just invokes GNU make with controlled set of command line options and environment.  Since GNU make exclusively uses file timestamps to determine if a file needs to be rebuilt, you can run into this problem if you have files with bad time-stamps.  Suppose you have a file, say <tt>foo.h</tt>, whose timestamp is set to a future date (or your workstations time setting is in the past) any file that depends on <tt>foo.h</tt> will be rebuilt by GNU make until your workstation's time exceeds the<tt>foo.h</tt> file's date stamp.
+</blockquote>
+<blockquote>
+This problem is often seen when exchanging files between developers located in different time zones.
+</blockquote>
+<a name="xdc_.28or_xs.29_fails_with_an_.22xdc.services.global.XDCException:_....22_error"></a><h3> <span class="mw-headline"><tt>xdc</tt> (or <tt>xs</tt>) fails with an <tt>"xdc.services.global.XDCException: ..."</tt> error</span></h3>
+<blockquote>
+These types of errors are described in <a href="../XDCtools_Error_Codes/XDCtools_Error_Codes.html" title="XDCtools Error Codes">XDCtools Error Codes</a>.
+</blockquote>
+<a name="xdc_fails_with_an_.22Error:_Can.27t_find_import_file:_.27....27_.28not_found_along_.27....27.29.22_error"></a><h3> <span class="mw-headline"><tt>xdc</tt> fails with an <tt>"Error: Can't find import file: '...' (not found along '...')"</tt> error</span></h3>
+<blockquote>
+This error indicates that a required file could not be found in any of the directories listed between the ()'s.  In almost all cases, these directories are just the directories that are defined by your <a href="../Glossary/Glossary.html#Package_path" title="Glossary">package path</a>. 
+</blockquote>
+<blockquote>
+You should review your package path to ensure that the file being searched for does in fact exist in one of the repositories listed on the package path.  If the file being looked for is delivered in a package, the directories that appear in file name will match the packages name; e.g., if the file name is <tt>"ti/bios/bios.tci"</tt>, then you should check that the <tt>ti.bios</tt> package is in one of the repositories listed on your package path.  You can review the packages available on your package path via the <tt><a href="../Command_-_xdc.tools.path.sg/Command_-_xdc.tools.path.sg.html" title="Command - xdc.tools.path.sg">xdc.tools.path.sg</a></tt>.
+</blockquote>
+<a name="On_Windows.2C_xdc_fails_with_error:__compilation_failed:_can.27t_find_specification_file:_mypkg.mymod.xdc"></a><h3> <span class="mw-headline">On Windows, <tt>xdc</tt> fails with <tt>error:  compilation failed: can't find specification file: mypkg.mymod.xdc</tt></span></h3>
+<blockquote>
+This error indicates that a required specification file (i.e., <tt>.xdc</tt> file) could not be found along the package path.  Even on Windows systems, which are have case-insensitive file systems, it is important that the names of your package directories <i>exactly</i> match the names of your packages.  For example, a package name declared to be <tt>myPkg</tt> in your <tt>package.xdc</tt> must be in a directory named <tt>myPkg</tt> and can not be in a directory named <tt>mypkg</tt>, <tt>MYPKG</tt>, or any other name that differs only in letter case.
+</blockquote>
+<a name="The_RTSC_IDL_translator_fails_with_.22can.27t_resolve_name_.28....29.22"></a><h3> <span class="mw-headline">The RTSC IDL translator fails with <tt>"can't resolve name (...)"</tt></span></h3>
+<blockquote>The error indicates that (for some reason) the IDL parser can't figure out whether the name between the ()'s is a package, a module, a configuration parameter of a module, ...  In other words, it can't resolve what this identifier is.
+</blockquote>
+<blockquote>
+Usually this indicates that your <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a> is not correct; the name between ()'s can't be found along the package path.   
+</blockquote>
+<a name="tar_fails_with_.22file_changed_as_we_read_it.22"></a><h3> <span class="mw-headline"><tt>tar</tt> fails with <tt>"file changed as we read it"</tt></span></h3>
+<blockquote>Before <tt>tar</tt> copies a file into an archive it reads the file's time-stamps.  After <tt>tar</tt> copies each file into the archive, it re-reads the file's time-stamps and checks them against the previously read values.  If the time-stamps differ, <tt>tar</tt> (rightly) believes the file was changed and that the contents of the archive are inaccurate; so, it exits with the failure message above.
+</blockquote>
+<blockquote>
+This failure is <i>also</i> caused by poor network file system configurations that report inaccurate file time-stamps.  For example, UNIX-based network file systems that are accessed via a Windows port of <tt>tar</tt> often exhibit problems.  Windows file time-stamps differ from UNIX file time-stamps so network file systems must carefully translate these times.
+</blockquote>
+<blockquote>
+So how do you fix the problem?  The only reliable solution is to fix your network file system to report reliable file time-stamps; otherwise, the time-stamps recorded in the package archive will be inaccurate and, in some cases, result in failures when the packages are used.  For example, GNU <tt>make</tt> may mistakenly believe that the package must be rebuilt.
+</blockquote>
+<blockquote>
+If you can't fix your build environment's filesystem infrastructure, the only solution is to switch to <tt>zip</tt> as the package archiver.   Each package release can specify which "archiver" to use to create the single file containing all of the package's files; currently, there are only two options: <tt>"tar"</tt> or <tt>"zip"</tt>. Since <tt>zip</tt> version 2.3 does not perform the same time-stamp checks that <tt>tar</tt> does, it's possible to reliably create a <tt>zip</tt> package release archive.
+</blockquote>
+<blockquote>
+You can specify which archiver to use on a per-release basis and set the default release archiver for all releases within a package. To set the archive format of a release to be zip, simply set the <a href="../../cdoc/xdc/bld/Release.html#.Attrs" class="cdoc"><tt>Release.attrs.archiver</tt></a> attribute to the string <tt>"zip"</tt>:
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Pkg.addRelease<span class="br0">&#40;</span>..., <span class="br0">&#123;</span>archiver: <span class="st0">&quot;zip&quot;</span><span class="br0">&#125;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</blockquote>
+<blockquote>
+To set the default to be <tt>zip</tt> for all releases in a package, set the <a href="../../cdoc/xdc/bld/PackageContents.html#.Attrs" class="cdoc"><tt>PackageContents.attrs.archiver</tt></a> attribute to the string "zip":
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;</pre></td></tr></table>
+</blockquote>
+<blockquote>
+Rather than change each package's <tt>package.bld</tt> script, you can set the default to be <tt>zip</tt> for all releases of all packages by placing this setting in a <tt>config.bld</tt> file shared by your packages:
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;</pre></td></tr></table>
+</blockquote>
+<a name="tar_fails_with_.22gid_t_value_..._too_large_.28max.3D16777215.29.22"></a><h3> <span class="mw-headline"><tt>tar</tt> fails with <tt>"gid_t value ... too large (max=16777215)"</tt></span></h3>
+<blockquote><tt>tar</tt> attempts to save and restore all file permissions and ownership IDs and assumes a *nix file permission model which includes a notion of a "group ID".  The C type named "<tt>gid_t</tt>" is used to store group IDs and may vary in size from one host to another.  As a result, its maximum value may also vary.  In addition, some hosts use distinguished values, such as -1 or -2, to represent special users or groups.
+</blockquote>
+<blockquote>This error can result by using tar files that were produced on a different host operating system (OS) or by modifying a file on one OS and archiving the file on a different host via a network file system.  Since Windows does not use the same permission ownership model as *nix, any Windows implementation of <tt>tar</tt> will have to heuristically map Windows permissions to *nix permissions and these heuristics may result in this error.
+</blockquote>
+<blockquote>
+If you work in a mixed Windows *nix development environment, it's best to use of <tt>zip</tt> rather than <tt>tar</tt> to create package releases.  For an example of how to do this, see the <a href="#tar_fails_with_.22file_changed_as_we_read_it.22" title="">previous note</a>.
+</blockquote>
+<a name="Configuring_Content"></a><h2> <span class="mw-headline">Configuring Content</span></h2>
+<a name="Configuration_fails_with_an_.22Error:_Module_Xyz_does_not_support_static_instances.22_error"></a><h3> <span class="mw-headline">Configuration fails with an <tt>"Error: Module <i>Xyz</i> does not support static instances"</tt> error</span></h3>
+<blockquote>For a module to support static instance creation it must:
+<ol><li>supply a <tt>*.xs"</tt> file that implements <tt>instance$static$init</tt> to initialize the object
+</li><li>define the instance object state in the module's <tt>"*.xdc"</tt> file in the <tt>internal:</tt> section
+</li></ol>
+</blockquote>
+<blockquote>
+If you continue to get this message you may need to clean and rebuild your package; adding a <tt>*.xs</tt> after you've already gotten the error above is not enough to trigger a rebuild. 
+</blockquote>
+<a name="Configuration_complains_about_.22incompatible_use_of_package_.27x.y.z.27:_imported_x.y.z_.5Bi.2Cj.2Ck.5D.2C_a.b.c_was_built_with_x.y.z_.5B....5D.22"></a><h3> <span class="mw-headline">Configuration complains about <tt>"incompatible use of package 'x.y.z': imported x.y.z &#91;i,j,k&#93;, a.b.c was built with x.y.z &#91;...&#93;"</tt></span></h3>
+<blockquote>The package <tt>a.b.c</tt> was originally produced using a version of <tt>x.y.z</tt> that is incompatible with the version you are using, <tt>[i,j,k]</tt>.  See <a href="../Compatibility_Keys/Compatibility_Keys.html" title="Compatibility Keys">Compatibility Keys</a> for more information about how incompatibilities are detected and controlled.
+</blockquote>
+<blockquote>
+To make this concrete, suppose <tt>x.y.z</tt> and <tt>a.b.c</tt> are <tt>ti.bios.utils</tt> and <tt>ti.rtdx</tt>, respectively.  Your configuration requires both <tt>ti.bios.utils</tt> and <tt>ti.rtdx</tt> but your version of <tt>ti.rtdx</tt> is <tt>[i,j,k]</tt> and <tt>ti.bios.utils</tt> was built with an earlier <i>incompatible</i> release of <tt>ti.rtdx</tt>.  So, either your supplier of <tt>ti.bios.utils</tt> (which could be Codec Engine <i>or</i> DSP/BIOS) needs to update their product to use a more recent version of <tt>ti.rtdx</tt>, or you need to use an earlier release of the product that supplied <tt>ti.rtdx</tt> (DSP/BIOS?)
+</blockquote>
+<blockquote>
+Since a package can be delivered in more than one product bundle, you must locate the repositories containing <tt>ti.rtdx</tt> and <tt>ti.bios.utils</tt> and decide which products you'd like to change.  Locating the repository is quite easy:
+<pre>
+    xs xdc.tools.path.sg
+</pre>
+</blockquote>
+<blockquote>
+For the advanced user: you can also use <tt>xdc.tools.repoman</tt> to build your own repository containing consistent versions of <tt>ti.bios.utils</tt> and <tt>ti.rtdx</tt> and place this at the front of your package path.
+</blockquote>
+<a name="Configuration_fails_with_an_.22incompatible_use_of_the_target_....22_error"></a><h3> <span class="mw-headline">Configuration fails with an <tt>"incompatible use of the target ..."</tt> error</span></h3>
+<blockquote>When the config step runs, it makes sure the version of the compiler used is "compatible" with the version used to build any prerequisites.  This error indicates that you are using a compiler of some version and you are linking libraries built with a version which config believes is incompatible.  See <a href="../Compatibility_Keys/Compatibility_Keys.html" title="Compatibility Keys">Compatibility Keys</a> for more information about what checks are performed.
+</blockquote>
+<blockquote>
+If the version reported in the error message is "[]", this indicates that when the <tt>package.bld</tt> script was run, it was not able to determine the version of the compiler.  <b>Often this is simply because the target's .rootdir parameter, set in <tt>config.bld</tt>, was incorrect and the version check failed because the toolchain couldn't be found.</b>  The configuration tool assumes that unknown versions are incompatible with any known version of the compiler.  
+</blockquote>
+<blockquote>
+The "right way" to fix this is to ensure that the <tt>package.bld</tt> script can run without any warnings.  However, if you know there is not a problem and you just need to get past this error, it is possible to tell the configuration tool to not check compiler versions (and proceed).  For example, to treat compatibility check failures as warnings, you can set the <tt>xdc.cfg.check.fatal</tt> "environment variable" to <tt>false</tt>.  
+</blockquote>
+<blockquote>
+If you use the configuro tool this can be done on the command line.
+<pre>
+    xs xdc.tools.configuro -Dxdc.cfg.check.fatal=false ...
+</pre>
+</blockquote>
+<blockquote>
+If you use the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> build scripts directly (<tt>package.bld</tt>), you can set <tt>xdc.cfg.check.fatal</tt> by defining the <tt>tcopts</tt> attribute when adding an executable to your package.
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>Pkg.addExecutable(&quot;app&quot;,targ,targ.platform,{
+    xcopts: &quot;-Dxdc.cfg.check.fatal=false&quot;
+});</pre></td></tr></table>
+</blockquote>
+<blockquote>
+For more information see the <tt><a href="../../cdoc/xdc/cfg/package.html" class="cdoc"><tt>xdc.cfg</tt></a></tt> package-level documentation.
+</blockquote>
+<a name="Configuration_fails_with_an_.22xdc.services.global.XDCException:_....22_error"></a><h3> <span class="mw-headline">Configuration fails with an <tt>"xdc.services.global.XDCException: ..."</tt> error</span></h3>
+<blockquote>
+These types of errors are described in <a href="../XDCtools_Error_Codes/XDCtools_Error_Codes.html" title="XDCtools Error Codes">XDCtools Error Codes</a>.
+</blockquote>
+<a name="Compiling_and_linking"></a><h2> <span class="mw-headline">Compiling and linking</span></h2>
+<a name="The_C_compiler_fails_with_.22error:_package.2Finternal.2FModXyz.xdc.h:_No_such_file_or_directory.22"></a><h3> <span class="mw-headline">The C compiler fails with <tt>"error: package/internal/<i>ModXyz</i>.xdc.h: No such file or directory"</tt></span></h3>
+<blockquote>Make sure you've added module <i>ModXyz</i> to the <tt>package.xdc</tt> file <i>and</i> recompiled the IDL files.  Internal headers for modules are only generated if the module has a <tt>*.xdc</tt> file <i>and</i> it's named in the <tt>package.xdc</tt> file.
+
+</blockquote>
+<a name="The_C_compiler_fails_with_a_.22conflicting_types.22_error.3B_e.g..2C_.22error:_conflicting_types_for_.27..._Instance_init__F.27.22"></a><h3> <span class="mw-headline">The C compiler fails with a "conflicting types" error; e.g., <tt>"error: conflicting types for '..._Instance_init__F'"</tt></span></h3>
+<blockquote>The type signature of your module's implementation methods do not match the signature defined in the module's generated headers.  Make sure that if you specified the <tt><a href="../XDCspec_-_%40InstanceInitError/XDCspec_-_%40InstanceInitError.html" title="XDCspec - @InstanceInitError">@InstanceInitError</a></tt> attribute that your module's <tt>Instance_init()</tt> function has the proper signature. 
+</blockquote>
+<a name="The_linker_fails_with_.22undefined_reference_to_..._Object__create.28void.29.22"></a><h3> <span class="mw-headline">The linker fails with <tt>"undefined reference to ..._Object__create(void)"</tt></span></h3>
+<blockquote>
+You must add <tt><a href="../XDCscript_-_xdc.useModule/XDCscript_-_xdc.useModule.html" title="XDCscript - xdc.useModule">xdc.useModule("...")</a></tt> statements to your application's configuration script for each module directly referenced by your application.  
+</blockquote>
+<blockquote>
+The undefined reference is to a function that is only generated by the configuration tool if the the specified module is "used".  Unfortunately it is not possible to know what you've referenced in the C code, so you should always add an <tt>xdc.useModule()</tt> statement for each <tt>#include</tt> of a module header in your C sources.
+</blockquote>
+<a name="The_TI_C6000_linker_fails_with_.22Invalid_intermediate_file:....22_and_.22Compilation_failure.22"></a><h3> <span class="mw-headline">The TI C6000 linker fails with <tt>"Invalid intermediate file:..."</tt> and <tt>"Compilation failure"</tt></span></h3>
+<blockquote>
+If you are building with "whole program" optimization (i.e., using the "whole_program" profile), this error indicates that some object files being linked into your application were built with an incompatible version of the C6000 compiler.  Version 6.1 of the C6000 compiler is incompatible with all previous releases, for example.
+</blockquote>
+<blockquote>
+You may be able to work around this issue by rebuilding the C6000 <tt>xdc.runtime</tt> support package <tt>ti.targets.rts6000</tt>.  See <a href="../Working_with_xdc.runtime/Working_with_xdc.runtime.html" title="Working with xdc.runtime">Working with xdc.runtime</a> for more information about how to rebuild this package. 
+</blockquote>
+<a name="The_linker_fails_because_there_isn.27t_enough_space_for_.text_or_.bss.2C_or_..."></a><h3> <span class="mw-headline">The linker fails because there isn't enough space for <tt>.text</tt> or <tt>.bss</tt>, or ...</span></h3>
+<blockquote>
+Your platform does not have sufficient space to hold your program's code (or data).  Either you have completely filled physical memory and you need to look for a way to reduce your program's code or data requirements, or you simply need to "remap" the sections of your program to different physical memory regions.
+</blockquote>
+<blockquote>
+You can perform simple remapping operation using <tt><a href="../../cdoc/xdc/cfg/Program.html#sect.Map" class="cdoc"><tt>xdc.cfg.Program.sectMap</tt></a></tt> from within you program's configuration script.  If on the other hand, adding section placement in your program's configuration file ties it to a particular platform.  To avoid this you can instead create a new platform which partitions the memory as necessary and then change your build to use this new platform.  See <a href="../Using_Targets_and_Platforms/Using_Targets_and_Platforms.html#Platforms" title="Using Targets and Platforms">Using Targets and Platforms</a> for information about creating new platform instances.
+</blockquote>
+<a name="Runtime_Issues"></a><h2> <span class="mw-headline">Runtime Issues</span></h2>
+<a name="At_runtime.2C_the_application_fails_with_the_error_message_.22ModuleXyz:_generic_error:_create_policy_error.22"></a><h3> <span class="mw-headline">At runtime, the application fails with the error message <tt>"<i>ModuleXyz</i>: generic error: create policy error"</tt></span></h3>
+<blockquote>
+Your application tried to create an instance of <tt><i>ModuleXyz</i></tt> at runtime but this module's <a href="../../cdoc/xdc/runtime/Defaults.html#common$" class="cdoc"><tt>memory policy</tt></a> was set to <tt><a href="../../cdoc/index.html#xdc/runtime/Types.html#/.Create/.Policy" class="cdoc"><tt>STATIC_POLICY</tt></a></tt>; i.e., only configuration time instance can be created.
+</blockquote>
+<a name="At_runtime.2C_Log_events_for_xdc.runtime_modules_are_not_being_generated"></a><h3> <span class="mw-headline">At runtime, <tt>Log</tt> events for <tt>xdc.runtime</tt> modules are not being generated</span></h3>
+<blockquote>
+The modules in the <tt>xdc.runtime</tt> package are not affected by settings made to <tt>xdc.runtime.Defaults.common$.logger</tt> or the diagnostics flags <tt>xdc.runtime.Defaults.common$.diags_*</tt>.  In order to enable logging of an <tt>xdc.runtime</tt> module, you <i>must</i> explicitly set its logger and diagnostics flags.  This special treatment is intended to keep the logging overhead of the <tt>xdc.runtime</tt> to an absolute minimum and prevent unintended logging of the <tt>xdc.runtime</tt> loggers, for example.
+</blockquote>
+<blockquote>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> HeapMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.HeapMin&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Diags = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Diags&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Defaults = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Defaults&quot;</span><span class="br0">&#41;</span>;
+Defaults.common$.logger = ...;
+<span class="coMULTI">/* must explicitly set HeapMin settings to get Log events */</span>
+HeapMin.common$.logger = Defaults.common$.logger;
+HeapMin.common$.diags_Entry = Diags_RUNTIME_ON;</pre></td></tr></table>
+</blockquote>
+<a name="At_runtime.2C_some_module.27s_startup_functions_are_not_being_called"></a><h3> <span class="mw-headline">At runtime, some module's startup functions are not being called </span></h3>
+<blockquote>
+Make sure the module's specification (its <tt>.xdc</tt> file) has the <a href="../XDCspec_-_%40ModuleStartup/XDCspec_-_%40ModuleStartup.html" title="XDCspec - @ModuleStartup">@ModuleStartup</a> attribute.  Without this attribute the module's startup function will not be called.
+</blockquote>
+<blockquote>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="re1">@ModuleStartup</span> <span class="coMULTI">/* required to ensure MyMod_Module_startup() is called during startup */</span>
+<span class="kw1">module</span> MyMod <span class="br0">&#123;</span>
+    ...
+<span class="br0">&#125;</span></pre></td></tr></table>
+</blockquote>
+<p></p>
+<a name="XDCscript_Errors"></a><h2> <span class="mw-headline"><tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> Errors</span></h2>
+<a name="An_XDCscript_fails_with_.22TypeError:_Cannot_read_property_.22....22_from_undefined..22"></a><h3> <span class="mw-headline">An <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> fails with "<tt>TypeError: Cannot read property "..." from undefined.</tt>" </span></h3>
+<blockquote>
+This error indicates that the statement on the specified line tried to access the property named "..." from a variable that is undefined.  This can be because your script has not initialized the variable, your script explicitly set the variable to <tt>undefined</tt>, or you've tried to access a global variable that has not been defined.
+</blockquote>
+<blockquote>
+Make sure any global variables you reference are in fact defined.  For example, attempts to reference the configuration script object <tt>Program</tt> from within a build script will result in this kind of error.  Scripts can determine which "<a href="../Glossary/Glossary.html#Domain_Object_Model" title="Glossary">model</a>" they are running within by checking the <tt><a href="../XDCscript_-_xdc.om.%24name/XDCscript_-_xdc.om.%24name.html" title="XDCscript - xdc.om.$name">xdc.om.$name</a></tt> property.  Depending on the model, one or more global variables are pre-defined.
+</blockquote>
+<a name="CCS4_Problems"></a><h2> <span class="mw-headline">CCS4 Problems</span></h2>
+<a name="XGCONF_cannot_open_cfg_files_which_are_NOT_tied_to_CCS4"></a><h3> <span class="mw-headline">XGCONF cannot open cfg files which are NOT tied to CCS4</span></h3>
+<blockquote>
+XGCONF depends on the project properties for launching itself. For opening configuration files which are not a part of a project any text editor can be used. In CCS4 XGCONF is set as a default editor for all files with the 'cfg' extension. This maybe changed in the
+CCS4 preferences. Navigate to <tt>Window-&gt;Preferences-&gt;Editors-&gt;File Associations</tt> and select the <tt>*.cfg</tt> file type. Then associate this file type with a text editor of your choice. Then make it the default editor by clicking on the <tt>Default</tt> button.
+A screenshot is shown below.
+</blockquote>
+<div class="center"><div class="floatnone"><span><a href="images/File_editor_assoc_ccs4.PNG" class="image" title="File editor assoc ccs4.PNG"><img alt="" src="images/File_editor_assoc_ccs4.PNG" width="764" height="562" border="0" /></a></span></div></div>
+<p><br />
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Trouble Shooting&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Trouble Shooting" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1830 bytes
+Post-expand include size: 1040 bytes
+Template argument size: 135 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Trouble_Shooting.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.277 secs. --></body></html>

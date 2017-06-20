@@ -1,0 +1,345 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XDCscript Debugging - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCscript Debugging&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCscript Debugging" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../The_XDCscript_Language/The_XDCscript_Language.html" title="The XDCscript Language"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">XDCscript Debugging</p><p id="subtitle">Overview of script debugging techniques</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Script_debugging"><span class="tocnumber">1</span> <span class="toctext">Script debugging</span></a></li>
+<li class="toclevel-1"><a href="#.22printf.22_Debugging"><span class="tocnumber">2</span> <span class="toctext">"printf" Debugging</span></a></li>
+<li class="toclevel-1"><a href="#Trace_Debugging"><span class="tocnumber">3</span> <span class="toctext">Trace Debugging</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Tracing_package_loads"><span class="tocnumber">3.1</span> <span class="toctext">Tracing package loads</span></a></li>
+<li class="toclevel-2"><a href="#Tracing_the_configuration_process"><span class="tocnumber">3.2</span> <span class="toctext">Tracing the configuration process</span></a></li>
+<li class="toclevel-2"><a href="#Tracing_more_than_one_thing"><span class="tocnumber">3.3</span> <span class="toctext">Tracing more than one thing</span></a></li>
+<li class="toclevel-2"><a href="#Tracing_the_XDCspec_file_re-compilation"><span class="tocnumber">3.4</span> <span class="toctext">Tracing the XDCspec file re-compilation</span></a></li>
+<li class="toclevel-2"><a href="#Enabling_trace_from_within_scripts"><span class="tocnumber">3.5</span> <span class="toctext">Enabling trace from within scripts</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Single-step_Debugging"><span class="tocnumber">4</span> <span class="toctext">Single-step Debugging</span></a>
+<ul>
+<li class="toclevel-2"><a href="#xs_Scripts"><span class="tocnumber">4.1</span> <span class="toctext">xs Scripts</span></a></li>
+<li class="toclevel-2"><a href="#Build_Scripts"><span class="tocnumber">4.2</span> <span class="toctext">Build Scripts</span></a></li>
+<li class="toclevel-2"><a href="#Config_Scripts"><span class="tocnumber">4.3</span> <span class="toctext">Config Scripts</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Script_debugging"></a><h2> <span class="mw-headline">Script debugging</span></h2>
+<p>This topic summarizes a variety of script debugging techniques.
+</p>
+<a name=".22printf.22_Debugging"></a><h2> <span class="mw-headline">"printf" Debugging</span></h2>
+<p>It is possible to easily print scaler and array values via the <tt>print()</tt> method.  For example, 
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Script</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> i = <span class="nu0">3</span>;
+<span class="kw1">var</span> a = <span class="br0">&#91;</span><span class="nu0">1</span>, <span class="nu0">2</span>, <span class="nu0">3</span><span class="br0">&#93;</span>;
+print<span class="br0">&#40;</span><span class="st0">&quot;i = &quot;</span> + i<span class="br0">&#41;</span>;
+print<span class="br0">&#40;</span><span class="st0">&quot;a = [&quot;</span> + a + <span class="st0">&quot;]&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>i = 3
+a = [1,2,3]</pre></td></tr></table>
+</td></tr></table>
+<p>Using JavaScript's reflection capabilities, it is also possible to display objects with named properties.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Script</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> obj = <span class="br0">&#123;</span>foo: <span class="nu0">1</span>, bar: <span class="st0">&quot;a string&quot;</span><span class="br0">&#125;</span>;
+<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i <span class="kw1">in</span> obj<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span><span class="st0">&quot;obj.&quot;</span> + i + <span class="st0">&quot; = &quot;</span> + obj<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>obj.bar = a string
+obj.foo = 1</pre></td></tr></table>
+</td></tr></table>
+<p>The <tt><a href="../../cdoc/xdc/bld/Utils.html" class="cdoc"><tt>xdc.bld.Utils</tt></a></tt> capsule provides a utility function to recursively display the value of an object.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Script</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Utils = <span class="re1">xdc.loadCapsule</span><span class="br0">&#40;</span><span class="st1">'xdc/bld/Utils.xs'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> a = <span class="br0">&#123;</span>afield: <span class="st0">&quot;far&quot;</span><span class="br0">&#125;</span>
+<span class="kw1">var</span> b = <span class="br0">&#123;</span>obj: a, name: <span class="st0">&quot;bee&quot;</span><span class="br0">&#125;</span>;
+&nbsp;
+Utils.display<span class="br0">&#40;</span><span class="st0">&quot;b =  &quot;</span>, b<span class="br0">&#41;</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>b =  [object Object] {
+    obj = [object Object] {
+        afield = far
+    }
+&nbsp;
+    name = bee
+}</pre></td></tr></table>
+</td></tr></table>
+<a name="Trace_Debugging"></a><h2> <span class="mw-headline">Trace Debugging</span></h2>
+<p>Many of the modules and capsules included with <tt>XDCtools</tt> have embedded "trace" statements that may be optionally enabled.  These trace statements are printf-like statements that output informational messages about what a tool is currently doing.
+</p><p>This section outlines how to enable these statements and shows examples of useful traces.
+</p>
+<a name="Tracing_package_loads"></a><h6> <span class="mw-headline">Tracing package loads</span></h6>
+<p><span class="Leader">Tracing package loads</span>.&nbsp;  To enable tracing of package loads, set the <tt>XDC_TRACE_ENABLE</tt> environment variable as follows
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Unix</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>export XDC_TRACE_ENABLE=xdc/xdc.tci</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Windows</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>set XDC_TRACE_ENABLE=xdc/xdc.tci</pre></td></tr></table>
+</td></tr></table>
+<a name="Tracing_the_configuration_process"></a><h6> <span class="mw-headline">Tracing the configuration process</span></h6>
+<p><span class="Leader">Tracing the configuration process</span>.&nbsp; To enable tracing during configuration, set the <tt>XDC_TRACE_ENABLE</tt> environment variable as follows
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Unix</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>export XDC_TRACE_ENABLE=xdc/cfg/Main.xs</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Windows</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>set XDC_TRACE_ENABLE=xdc/cfg/Main.xs</pre></td></tr></table>
+</td></tr></table>
+<a name="Tracing_more_than_one_thing"></a><h6> <span class="mw-headline">Tracing more than one thing</span></h6>
+<p><span class="Leader">Tracing more than one thing</span>.&nbsp;  It's also possible to enable more than one trace at a time.  For example, to trace the configuration process and package loads at the same time, set the <tt>XDC_TRACE_ENABLE</tt> environment variable as follows
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Unix</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>export XDC_TRACE_ENABLE=&quot;xdc/cfg/Main.xs;xdc/xdc.tci&quot;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Windows</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>set XDC_TRACE_ENABLE=xdc/cfg/Main.xs;xdc/xdc.tci</pre></td></tr></table>
+</td></tr></table>
+<p><div class="Notice"><p class="Notice">The use of quotes (") in the definition of <tt>XDC_TRACE_ENABLE</tt> is important on Unix systems because ';' is used to separate commands.  Similarly, it is important to <i>not</i> use quotes on Windows systems because the quotes will be treated as part of the file name to be traced.</p></div></p>
+<a name="Tracing_the_XDCspec_file_re-compilation"></a><h6> <span class="mw-headline">Tracing the XDCspec file re-compilation</span></h6>
+<p><span class="Leader">Tracing the XDCspec file re-compilation</span>.&nbsp;  If <tt>XDC_TRACE_ENABLE</tt> is defined to include <tt>"xdc/services/spec"</tt>, messages indicating the re-compilation of spec files it occurring.  Suppose, for example,  you set <tt>XDC_TRACE_ENABLE</tt> to the <tt>"xdc/services/spec"</tt>.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Unix</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>export XDC_TRACE_ENABLE=&quot;xdc/services/spec&quot;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Windows</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>set XDC_TRACE_ENABLE=&quot;xdc/services/spec&quot;</pre></td></tr></table>
+</td></tr></table>
+<p>Notes similar to the following will be displayed.
+</p>
+<pre>
+Note: BrowserSession compiling ...; could not find .ccs file
+</pre>
+<dl><dd> This message indicates that you are using a version of the XDCtools whose IDL processor is not compatible with the IDL processor used to originally build the package whose base directory is named in the message.  This message is informative only; the only problem with recompiling the <tt>.xdc</tt> files is that the tools will take longer to complete.
+</dd></dl>
+<a name="Enabling_trace_from_within_scripts"></a><h6> <span class="mw-headline">Enabling trace from within scripts</span></h6>
+<p><span class="Leader">Enabling trace from within scripts</span>.&nbsp;  In addition to enabling trace on the command line as shown above, it is also possible to enable trace from within a script
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="re1">xdc.traceEnable</span><span class="br0">&#40;</span><span class="st0">&quot;xdc/xdc.tci&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>For more information about using tracing within scripts see <a href="../XDCscript_-_xdc.traceEnable/XDCscript_-_xdc.traceEnable.html" title="XDCscript - xdc.traceEnable">xdc.traceEnable</a> reference documentation.  For information about adding tracing to your modules see the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> reference documentation of the <a href="../XDCscript_-_Capsule-Object.%24trace/XDCscript_-_Capsule-Object.%24trace.html" title="XDCscript - Capsule-Object.$trace"> $trace</a> function.
+</p>
+<a name="Single-step_Debugging"></a><h2> <span class="mw-headline">Single-step Debugging</span></h2>
+<p>The underlying JavaScript engine for <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> is Rhino; a Mozilla open source implementation written entirely in Java.  This engine is supported by a GUI debugger that allows one to single step debug any script.
+</p><p>This section shows how to enable this debugger for a variety of scripts in the RTSC environment.
+</p>
+<a name="xs_Scripts"></a><h3> <span class="mw-headline">xs Scripts</span></h3>
+<p>You can run the Rhino GUI debugger directly from the <tt>xs</tt> command line via the <tt>-g</tt> option.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>   xs -g -f myscript.xs</pre></td></tr></table>
+<p>When the debugger window appears, it will look something like the following figure.
+</p><p><a href="images/Rhino.gif" class="image" title="Image:rhino.gif"><img alt="Image:rhino.gif" src="images/Rhino.gif" width="600" height="460" border="0" /></a>
+</p><p>You will notice that you are stopped in a file that is not related to your script.  The debugger initially stops in <tt>xs.js</tt>, a top-level script that parses the <tt>xs</tt> command-line arguments and calls your script.  To single step your script you should:
+</p>
+<ol><li>open the <tt>Debug</tt> menu and un-select "Break on Function Enter"
+</li><li>single step-over through the <tt>xs.js</tt> file until your script is about to be loaded
+</li><li>single step-into your script
+</li></ol>
+<p><img src="../common/extensions/rtsc/images/hand.png" />  It's currently not possible to set a breakpoint in a file that has not already been loaded.  You must single step until the file of interest is loaded and only at that point can you set breakpoints.  Once a file has been loaded you can set a breakpoint as follows.
+</p>
+<ol><li>open the <tt>Window</tt> menu, locate your script file (you may need to select the "More Windows ..." item), and select it
+</li><li>set a breakpoint in your script by clicking in the left-most column
+</li><li>click the <tt>Go</tt> button
+</li></ol>
+<a name="Build_Scripts"></a><h3> <span class="mw-headline">Build Scripts</span></h3>
+<p>You can run the Rhino GUI debugger directly from the <tt>xdc</tt> command line by adding <tt>-g</tt> to the XDCOPTIONS settings.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>xdc XDCOPTIONS=-g .make</pre></td></tr></table>
+<p>When the debugger window appears, it will look something like the following figure.
+</p><p><a href="images/Rhino-bld.gif" class="image" title="Image:rhino-bld.gif"><img alt="Image:rhino-bld.gif" src="images/Rhino-bld.gif" width="600" height="460" border="0" /></a>
+</p><p>You will notice that you are stopped in a file that is not related to your script.  The debugger initially stops in <tt>bld.js</tt>, a top-level script that runs both the <tt>config.bld</tt> and <tt>package.bld</tt> scripts.  To single step your script you should:
+</p>
+<ol><li>open the <tt>Debug</tt> menu and un-select "Break on Function Enter"
+</li><li>single step through the <tt>bld.js</tt> file until your script is about to be loaded
+</li><li>single step-into your script
+</li></ol>
+<p><img src="../common/extensions/rtsc/images/TIP.png" /> Alternatively, you can set a breakpoint in the <tt>utils.tci</tt> file at the <tt>utils.load()</tt> function and repeatedly click the <tt>Go</tt> button watching for your <tt>package.bld</tt> (or <tt>config.bld</tt>) script to be loaded.
+</p>
+<a name="Config_Scripts"></a><h3> <span class="mw-headline">Config Scripts</span></h3>
+<p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;to be written</span>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCscript Debugging&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCscript Debugging" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../The_XDCscript_Language/The_XDCscript_Language.html" title="The XDCscript Language"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 2007 bytes
+Post-expand include size: 1298 bytes
+Template argument size: 420 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XDCscript_Debugging.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.292 secs. --></body></html>

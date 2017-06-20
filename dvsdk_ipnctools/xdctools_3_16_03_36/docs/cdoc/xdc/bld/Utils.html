@@ -1,0 +1,153 @@
+<html>
+<head>
+<title>module xdc.bld.Utils</title>
+<meta name="description" content="Utility functions to simplify creation of targets and platforms">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.bld.</span><span class="xdoc-id">Utils</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Test.html" title="module Test"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/package.html" title="package xdc.bld"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Utils.html">index URL</a></div>
+<p class="xdocHdrSummary">Utility functions to simplify creation of targets and platforms</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+</ul>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Utils-src.html"><span class="xdocLabelFile">xdc/bld/Utils.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Utils</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Utils = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.bld.Utils'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#display">Utils.<span class="xdoc-id">display</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Recursively print arbitrary object</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">msg</span></go>, <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">obj</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#expand.String">Utils.<span class="xdoc-id">expandString</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Expand references within a string to specified values</span></span></a>( <i><span class="xdoc-kw2">String</span></i> <go><span class="xdoc-id">cmd</span></go>, <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">values</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">String</span></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/bld/Utils-src.html"><span class="xdocLabelFile">xdc/bld/Utils.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Utils</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">Void</span>&nbsp;<a class="xdocSynGo" href="#display"><span class="xdoc-id">display</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Recursively print arbitrary object</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">msg</span></go>, <span class="xdoc-kw2">Any</span>&nbsp;<go><span class="xdoc-id">obj</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><span class="xdoc-kw2">String</span>&nbsp;<a class="xdocSynGo" href="#expand.String"><span class="xdoc-id">expandString</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Expand references within a string to specified values</span></span></a>( <span class="xdoc-kw2">String</span>&nbsp;<go><span class="xdoc-id">cmd</span></go>, <span class="xdoc-kw2">Any</span>&nbsp;<go><span class="xdoc-id">values</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="display"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Utils.</span><span class="xdoc-id">display</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Utils.html#display">index URL</a></div>
+<p class="xdocHdrSummary">Recursively print arbitrary object</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Utils.<span class="xdoc-id">display</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">msg</span>, <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">obj</span> ) <i>returns</i> <i><span class="xdoc-kw2">Void</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">msg</span>
+<span class="xdocChildSum">&#151;&nbsp;a string to print before printing the object</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">obj</span>
+<span class="xdocChildSum">&#151;&nbsp;an arbitrary object to display</span>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="expand.String"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Utils.</span><span class="xdoc-id">expandString</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/bld/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/bld/Utils.html#expand.String">index URL</a></div>
+<p class="xdocHdrSummary">Expand references within a string to specified values</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Utils.<span class="xdoc-id">expandString</span>( <i><span class="xdoc-kw2">String</span></i> <span class="xdoc-id">cmd</span>, <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">values</span> ) <i>returns</i> <i><span class="xdoc-kw2">String</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">cmd</span>
+<span class="xdocChildSum">&#151;&nbsp;a string with embeded references to values defined in
+                  the values hashtable parameter</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">values</span>
+<span class="xdocChildSum">&#151;&nbsp;an arbitrary hash of name-value pairs; these values
+                  are used to substitute for references of the form
+                  <tt>$(name)</tt> that appear within <tt>cmd</tt>.</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">All references of the form "<tt>$(&lt;name&gt;)</tt>" within the command string,
+  <tt>cmd</tt> are replaced with the string value having key <tt>&lt;name&gt;</tt> in the
+  hashtable <tt>values</tt>.</div>
+<div class="xdocText">If <tt>&lt;name&gt;</tt> appears in values and its value is <tt>null</tt> or <tt>undefined</tt>,
+  then <tt>$(&lt;name&gt;)</tt> is replaced with the empty string.  If <tt>&lt;name&gt;</tt> does
+  not appear in <tt>values</tt>, then <tt>$(&lt;name&gt;)</tt> is not replaced.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">string with references replaced as specified by the
+                  <tt>values</tt> hash.</div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:18 GMT</div>
+</div></div></body>
+</html>

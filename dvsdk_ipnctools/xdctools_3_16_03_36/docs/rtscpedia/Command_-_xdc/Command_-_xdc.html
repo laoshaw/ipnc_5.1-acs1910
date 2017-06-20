@@ -1,0 +1,471 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Command - xdc - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Command - xdc&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Command - xdc" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Command_Line_Tools/Command_Line_Tools.html" title="Command_Line_Tools"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Command - xdc</p><p id="subtitle">eXpanDed C package build command</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Synopsis"><span class="tocnumber">1</span> <span class="toctext">Synopsis</span></a></li>
+<li class="toclevel-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Options"><span class="tocnumber">3</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1"><a href="#Usage"><span class="tocnumber">4</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">5</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Building_a_package"><span class="tocnumber">5.1</span> <span class="toctext">Building a package</span></a></li>
+<li class="toclevel-2"><a href="#Building_specific_files"><span class="tocnumber">5.2</span> <span class="toctext">Building specific files</span></a></li>
+<li class="toclevel-2"><a href="#Running_package_tests"><span class="tocnumber">5.3</span> <span class="toctext">Running package tests</span></a></li>
+<li class="toclevel-2"><a href="#Building_multiple_packages"><span class="tocnumber">5.4</span> <span class="toctext">Building multiple packages</span></a></li>
+<li class="toclevel-2"><a href="#Running_tests_in_multiple_packages"><span class="tocnumber">5.5</span> <span class="toctext">Running tests in multiple packages</span></a></li>
+<li class="toclevel-2"><a href="#Building_and_running_for_a_particular_target"><span class="tocnumber">5.6</span> <span class="toctext">Building and running for a particular target</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Environment_Variables"><span class="tocnumber">6</span> <span class="toctext">Environment Variables</span></a></li>
+<li class="toclevel-1"><a href="#Exit_Status"><span class="tocnumber">7</span> <span class="toctext">Exit Status</span></a></li>
+<li class="toclevel-1"><a href="#Files"><span class="tocnumber">8</span> <span class="toctext">Files</span></a></li>
+<li class="toclevel-1"><a href="#See_Also"><span class="tocnumber">9</span> <span class="toctext">See Also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Synopsis"></a><h2> <span class="mw-headline"> Synopsis </span></h2>
+<pre>xdc [-n] [-h] [-k] [-r[a]] [@opts-file] [goal ...] [-P[rRD] pkg-dir ...]
+</pre>
+<a name="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<p>The <tt>xdc</tt> command is used to build packages and executables that use packages. In its current implementation, <tt>xdc</tt> is nothing more than a command shell that invokes the <a href="http://www.gnu.org/software/make/" class="external text" title="http://www.gnu.org/software/make/" rel="nofollow">GNU make</a> utility with makefiles that are either part of <a href="../Glossary/Glossary.html#XDCtools" title="Glossary">XDCtools</a> or generated as part of processing a package's build script (<tt>package.bld</tt>).  As a result, any command line option supported by GNU make is also supported by the <tt>xdc</tt> command and integration of the <tt>xdc</tt> command into make based environments is particularly straightforward.
+</p><p>In order to ensure that the <tt>xdc</tt> command can be used identically on any host platform, prior to executing GNU make, <tt>xdc</tt> defines two variables:
+</p>
+<ul><li> <tt>HOSTOS</tt> &#151; the name of the host operating system ("Linux", "Windows", or "Solaris"), and 
+</li><li> <tt>XDCROOT</tt> &#151; the installation directory of the <tt>XDCtools</tt> containing the <tt>xdc</tt> command itself
+</li></ul>
+<p>To see the exact command that <tt>xdc</tt> will run, use the <tt>-n</tt> option.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -n</span></b>
+set PATH=<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/bin:...
+<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/gmake -r -R HOSTOS=Linux XDCROOT=<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span> -f <span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages/xdc/bld/xdc.mak</pre></td></tr></table>
+<a name="Options"></a><h2> <span class="mw-headline"> Options </span></h2>
+<dl><dt>-h
+</dt><dd>display usage help and exit
+</dd><dt>-k
+</dt><dd>if an error occurs during a build, do not stop (keep building as much as possible)
+</dd><dt>-n
+</dt><dd>show the make command but don't execute it
+</dd><dt>-r[a]
+</dt><dd>Remake the specified package (or packages) using the XDCPATH and XDCROOT values that were used the last time the package(s) was built -- ignoring any values that may be present in the environment. If -ra is specified, rebuild using previous values of XDCARGS, XDCBUILDCFG, XDCPATH, XDCROOT, and XDCTARGETS; i.e, ignore any changes to environment variables that would normally trigger the package to be rebuilt.
+</dd><dt>-P[rRD] pkg ...
+</dt><dd>Build specified goal(s) in all directories named after -P that contain a build script (i.e., package.bld); if -PR is specified, <tt>xdc</tt> recursively descends into all specified directories and builds in any package directory that contains a build script; if -PD is specified, <tt>xdc</tt> builds in the specified package directories and the package directories of all other packages "required" by these packages; if -Pr is specified, <tt>xdc</tt> recursively descends into all specified directories and builds any package whose repository is one of the named directories.
+</dd><dt>--xdcpath=path
+</dt><dd>Set the XDCPATH environment variable to path. See <a href="#Environment_Variables" title="">Environment Variables</a> for a complete description of this variable. This option is equivalent to passing "XDCPATH=path" on the command line.
+</dd><dt><tt>@</tt>&lt;opts-file&gt;
+</dt><dd>read the specified options file, &lt;opts-file&gt;, and include its contents as arguments to <tt>xdc</tt>.  Each line in the file corresponds to exactly on argument passed to to <tt>xdc</tt>.  No interpretation of the line is done unless the line is another <tt>@</tt>&lt;file&gt;; in this case, the line is (recursively) replaced with the lines from &lt;file&gt;.
+</dd></dl>
+<a name="Usage"></a><h2> <span class="mw-headline"> Usage </span></h2>
+<p>Any option passed on the <tt>xdc</tt> command line that is not listed above is passed directly to the underlying invocation of GNU make. In this way, one can control the build process with as much flexibility as a normal GNU make. In particular, the goals specified on the command line may be any file that make knows how to build.
+</p><p>Although it is always possible to name one or more specific buildable files on the <tt>xdc</tt> command line, it is often desirable to build collections of executables or libraries or run collections of tests. For example, building a test suite consisting of hundreds of executables would be difficult if each program had to be explicitly named on an <tt>xdc</tt> command line.
+</p><p>The <tt>xdc</tt> command supports a number of build goals that facilitate the building of collections of files. The following table summarizes some standard build goals supported by the <tt>xdc</tt> command.
+</p>
+<table style="margin-left:5.5em; border:1px solid #ddd; font-size:90%" cellpadding="3" cellspacing="0">
+<tr>
+<th> Goal
+</th><th> Description
+</th></tr>
+<tr>
+<td> all
+</td><td> builds all package files and all executables; this is the default goal if no goals are specified on the command line.
+</td></tr>
+<tr>
+<td> clean
+</td><td> removes all generated files
+</td></tr>
+<tr>
+<td> release
+</td><td> create the default release; an archive (tar or zip) containing all files that are to be distributed to a consumer of the package.
+</td></tr>
+<tr>
+<td> test
+</td><td> runs all package tests declared in the package's build script
+</td></tr>
+<tr>
+<td> .make
+</td><td> builds the generated makefiles only
+</td></tr>
+<tr>
+<td> .libraries
+</td><td> builds all libraries exported by this package
+</td></tr>
+<tr>
+<td> .executables
+</td><td> builds all executables declared in the package's build script
+</td></tr>
+<tr>
+<td> .interfaces
+</td><td> builds the package's schema and generates all header files for interfaces exported by the package
+</td></tr></table>
+<p>In addition to the target independent goals above, target specific goals are also supported. These goals allow one to restrict a build to just the libraries for a particular target, for example. In addition, these goals are used internally to prevent unnecessarily building libraries for all targets before building a specific executable. The following table summarizes the target specific goals currently supported.
+</p>
+<table style="margin-left:5.5em; border:1px solid #ddd; font-size:90%" cellpadding="3" cellspacing="0">
+<tr>
+<th> Goal
+</th><th> Description
+</th></tr>
+<tr>
+<td> all,<i>trg</i>
+</td><td> builds all libraries and all executables for the target whose suffix is <i>trg</i>.
+</td></tr>
+<tr>
+<td> clean,<i>trg</i>
+</td><td> removes all generated files for the target whose suffix is <i>trg</i>.
+</td></tr>
+<tr>
+<td> release,<i>name</i>
+</td><td> create the release named <i>name</i>.
+</td></tr>
+<tr>
+<td> test,<i>trg</i>
+</td><td> run all tests for all executables built using the target whose suffix is <i>trg</i>.
+</td></tr>
+<tr>
+<td> .libraries,<i>trg</i>
+</td><td> builds all libraries for the target whose suffix is <i>trg</i>
+</td></tr>
+<tr>
+<td> .executables,<i>trg</i>
+</td><td> builds all executables for the target whose suffix is <i>trg</i>
+</td></tr></table>
+<p>The <tt>-P</tt>, <tt>-PR</tt>, and <tt>-Pr</tt> options are very useful when working with multiple packages. Not only does it allow one to avoid building each package using a separate command it automatically handles any package inter-dependencies. A package may depend on another package; for example, any package that contains a program depends on at least one platform package. If two or more dependent packages are under development at the same time, it is important that the interfaces for the packages referenced are built before any libraries referencing these packages are built and that any libraries referenced are built before linking any executable. Thus, when building multiple packages, the <tt>xdc</tt> command builds the packages in several "phases"; it first builds all interfaces for all packages, then all libraries for all packages, and finally, all executables for all packages. By making several passes over the packages, it is possible to simultaneously develop multiple packages without having to worry about package build order due to package dependencies (which are subject to change).
+</p>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<a name="Building_a_package"></a><h6> <span class="mw-headline">Building a package</span></h6>
+<p><span class="Leader">Building a package</span>.&nbsp;  The following command will remove all generated files from the package located in the current working directory.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc clean</span></b></pre></td></tr></table>
+<p>To build all files for the package in the current working directory:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc</span></b></pre></td></tr></table>
+<p>Although the command above builds the files necessary for the package <i>producer</i> to use it in their build environment, it does not build the files necessary for clients of the package to install and maintain multiple releases of the package. The following command builds a releasable form of the package containing all necessary dependency and compatibility information needed by "outside" clients of the package:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc release</span></b></pre></td></tr></table>
+<a name="Building_specific_files"></a><h6> <span class="mw-headline">Building specific files</span></h6>
+<p><span class="Leader">Building specific files</span>.&nbsp;  While it is valuable to (re)build a package in its entirety, during development, it is often more convenient to build a specific file. The <tt>xdc</tt> command allows one to specify any generated file as the goal to be built. For example, the following command will build the program <tt>Hello.x62</tt> and files unrelated to this program will not be built.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc Hello.x62</span></b></pre></td></tr></table>
+<p>It is also possible to name several goals and, again, <tt>xdc</tt> will only build the files required to create the build goals named. For example, the following command will build both executables <tt>Hello.x62</tt> and <tt>Hello.x62e</tt>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc Hello.x62 Hello.x62e</span></b></pre></td></tr></table>
+<a name="Running_package_tests"></a><h6> <span class="mw-headline">Running package tests</span></h6>
+<p><span class="Leader">Running package tests</span>.&nbsp;  The RTSC build environment supports the ability to not only build executables and packages but also run executables. The RTSC environment defines a test as an executable and a set of command line arguments for the executable. Tests may be specified in the package's build script and every program defined in a package has one implicitly created test; the executable with no command line arguments. The <tt>xdc</tt> command allows one to easily run a package's tests.
+</p><p>The following command runs all tests defined by the package in the current working directory.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc test</span></b></pre></td></tr></table>
+<p>As with building individual files, it is often desirable to run individual tests. The following command runs the implicitly created test for the <tt>Hello.x62</tt> executable.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc Hello.x62.test</span></b></pre></td></tr></table>
+<a name="Building_multiple_packages"></a><h6> <span class="mw-headline">Building multiple packages</span></h6>
+<p><span class="Leader">Building multiple packages</span>.&nbsp;  The following command will remove all generated files from the packages <tt>pkg1</tt>, <tt>pkg2</tt>, and <tt>pkg3</tt> located in the current working directory.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc clean -P pkg1 pkg2 pkg3</span></b></pre></td></tr></table>
+<p>To build all files in multiple packages:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc all -P pkg1 pkg2 pkg3</span></b></pre></td></tr></table>
+<p>Because the build goal all is the default goal, the following command is equivalent to the one above.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -P pkg1 pkg2 pkg3</span></b></pre></td></tr></table>
+<p>Note that the <tt>xdc</tt> command will silently ignore directories that do not contain a package build script (<tt>package.bld</tt>). Thus, even if a directory contains sub-directories that are not package directories it is possible to build all packages contained in this directory using a wildcard. Suppose, for instance, that the directory named examples contains multiple sub-directories and only some are package directories. It is possible to build all packages in the examples directory with the following command.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -P examples/*</span></b></pre></td></tr></table>
+<p>Since a package's name must match the directory names containing the package, it is not uncommon for packages to be located at different levels of a directory tree or even inside other packages. In these cases, it is desirable to be able to build all packages contained under a specified root directory. The following command builds all packages located under the examples directory.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -PR examples</span></b></pre></td></tr></table>
+<p>In some situations you may want to limit the packages built to only those whose repository is a specific directory. Suppose, for example, you have a package named bundle that, as part of its build, creates a "temporary" package or installs another package in a sub-directory of bundle. In this case, using "<tt>xdc -PR</tt>" might not be feasible because the "temporary" package will be found and built (or cleaned) by the top level build and this will likely conflict with bundle's manipulation of this "temporary" package. The following command builds all packages located under the examples directory whose repository is also examples.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -Pr examples</span></b></pre></td></tr></table>
+<p>Rather than build all packages found at or below a specified directory, it is sometimes more efficient to build a specified package and (recursively) any of its prerequisites. The following command builds the package in the specified directory <i>and</i> any prerequisite packages declared by the "requires" statement in the package's specification file (i.e., <tt>package.xdc</tt>).
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -PD examples/basic/vers/app</span></b></pre></td></tr></table>
+<p>By default, if an error occurs during the build of any package the <tt>xdc</tt> command will terminate the build and not attempt to build other packages. While this is convenient during interactive builds, during an overnight build of many packages it is preferable to continue building as much as possible. In the morning, one can correct the errors and re-execute the command. Only goals that failed to build or those that depend on the fixed files will be rebuilt.
+</p><p>To prevent <tt>xdc</tt> from stopping on the first error in the example above, use the <tt>-k</tt> option.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -k -PR examples</span></b></pre></td></tr></table>
+<a name="Running_tests_in_multiple_packages"></a><h6> <span class="mw-headline">Running tests in multiple packages</span></h6>
+<p><span class="Leader">Running tests in multiple packages</span>.&nbsp;  In addition to building multiple packages at a time, it is also valuable to run all tests for multiple packages using a single command. A regression test suite can be structured as a collection of packages, for example. The following command runs all tests for the packages <tt>pkg1</tt>, <tt>pkg2</tt>, and <tt>pkg3</tt> located in the current working directory.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc test -P pkg1 pkg2 pkg3</span></b></pre></td></tr></table>
+<p>Since tests have a tendency to fail (otherwise they are not good tests), it is often valuable to continue running all tests even if a test fails. This is especially true when running over-night regression test suites containing hundreds of tests. The following command runs all tests and continues even if one or more tests fail.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -k test -P pkg1 pkg2 pkg3</span></b></pre></td></tr></table>
+<a name="Building_and_running_for_a_particular_target"></a><h6> <span class="mw-headline">Building and running for a particular target</span></h6>
+<p><span class="Leader">Building and running for a particular target</span>.&nbsp;  In the examples above, we built and ran executables for all targets. Recall a target defines a CPU ISA and a compiler runtime model (big endian, little endian, near, far, etc.). Since packages often need to support multiple targets, it is often desirable to restrict a build or a test to a particular target. The <tt>xdc</tt> command supports target specific versions of the build goals <tt>all</tt>, <tt>clean</tt>, <tt>test</tt>, <tt>.libraries</tt>, and <tt>.executables</tt>.
+</p><p>The following command runs only the tests for the target whose suffix is "62" for all packages in the examples directory and tries to run each test even if a test fails.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc -k test,62 -P examples/*</span></b></pre></td></tr></table>
+<p>The following command removes all generated files related to the target whose suffix is "62" for all packages in the examples directory.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc clean,62 -P examples/*</span></b></pre></td></tr></table>
+<p>The following command builds all generated files related to the target whose suffix is "62" for all packages in the examples directory.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdc all,62 -P examples/*</span></b></pre></td></tr></table>
+<a name="Environment_Variables"></a><h2> <span class="mw-headline"> Environment Variables </span></h2>
+<p>In addition to the command line options, the <tt>xdc</tt> command also uses the following environment variables to control its behavior. Except for XDCPATH, XDCARGS, and XDCBUILDCFG, no environment variable changes the contents of any goal produced by xdc; the results of a build are unaffected by environment variables (unless a user-specified tool invoked by xdc is affected by an environment variable).
+</p>
+<dl><dt>XDCARGS
+</dt><dd>this variable names arguments that are passed to the package's build script, <tt>package.bld</tt>. The package's build script references the arguments from the global array arguments. For example, the command
+</dd></dl>
+<dl><dd><pre>
+</dd><dd>xdc XDCARGS=&quot;foo bar&quot;
+</dd><dd></pre>
+</dd></dl>
+<dl><dd>causes the arguments array (in the package build script) to be initialized as follows:
+</dd></dl>
+<dl><dd><pre>
+</dd><dd>arguments[0] = &quot;foo&quot;;
+</dd><dd>arguments[1] = &quot;bar&quot;;
+</dd><dd></pre>
+</dd></dl>
+<dl><dt>XDCBUILDCFG
+</dt><dd>if defined <i>and</i> the file "./config.bld" does not exist, this variable names a file that will be used in-lieu of the config.bld file found along the "import" path (i.e., ".;$(XDCPATH);<i><b>xdcroot</b></i>;<i><b>xdcroot</b></i>/etc") to configure the build environment prior to running a build script. 
+</dd></dl>
+<dl><dd>However, if XDCBUILDCFG is specified in the command line, any package specific "./config.bld" will be ignored. Thus, with respect to specifying which config.bld to use, the package has precedence over the environment variable but the command line has precedence over the package.
+</dd></dl>
+<dl><dd>Why distinguish between setting XDCBUILDCFG on the command line verses setting it in the environment? Some packages need to override the setting of XDCBUILDCFG; e.g., in order to clean and rebuild a package of targets (which may be referenced by the file named by the environment variable XDCBUILDCFG), the package may define a "local" config.bld that does not reference <i>any</i> targets. 
+</dd></dl>
+<dl><dt>XDCOPTIONS
+</dt><dd> string of options that affect the messages displayed by <tt>xdc</tt> while it runs. Only four options are currently supported: "g", "v", "q", and "t".
+</dd></dl>
+<dl><dd>If this string contains "-g" or "g", an interactive debugger is started allowing you to single step debug your package's build scripts
+</dd></dl>
+<dl><dd>If this string contains "-v" or "v", each command executed by <tt>xdc</tt> is displayed before execution. This makes it easy to create "shell scripts" that re-create the build without the need for the <tt>xdc</tt> command or <tt>make</tt>.
+</dd></dl>
+<dl><dd>If this string contains "-q" or "q", banners normally displayed during multi-package builds are not displayed. Since the banners contain date and time information, this option is useful when the output from the <tt>xdc</tt> command must not vary between successive builds; e.g., when running regression tests.
+</dd></dl>
+<dl><dd>If this string contains "-t" or "t", banners are displayed during multi-package builds but no dates or times are displayed. This option is useful when running regression tests on a fixed set of packages; when an error occurs, the banners make it easy to tell which package(s) failed.
+</dd></dl>
+<dl><dt>XDCPATH
+</dt><dd>a string of ";" separated directories that contain packages. This path is used to locate packages that are used by the package being built. 
+</dd></dl>
+<dl><dd><b>It is usually a mistake to put a relative path in the XDCPATH environment variable.</b> Relative paths in XDCPATH reference directories relative to the package being built rather than the directory where the <tt>xdc</tt> command was invoked. Thus, a relative path will refer to a different repository for each package being built. 
+</dd></dl>
+<dl><dd>It is possible, however, to use the "^" character in the XDCPATH definition to refer to the current package's repository. So, if you have a repository that is always in a fixed location relative to all of your packages repositories, it is possible to create a single XDCPATH setting that does not include any absolute paths. Suppose, for example, that your build system places all prerequisite packages in an "imports" repository prior to building the packages in a "src" repository and the imports and src repositories are sibling directories in the file system. The following XDCPATH setting is sufficient to build all packages in the src repository.
+</dd></dl>
+<dl><dd><pre>
+</dd><dd>set XDCPATH=^/../imports
+</dd><dd></pre>
+</dd></dl>
+<dl><dd>Note that multiple versions of the same package can appear along the XDCPATH. The package path can name multiple "package repositories" which can contain a package directory with the same name. When searching for a package, the first repository that contains a directory matching the package's name will be used. Thus, even if two packages with the same name appear in the package path, only one will ever be found; i.e., the first one in the order specified in the package path.
+</dd></dl>
+<dl><dt>XDCTARGETS
+</dt><dd>a string of white space separated target names that name all supported build targets. Each name is interpreted as a regular expression and is used to select from the set of all available targets included in the build "startup" script (see config.bld in the Files section below). This environment variable can be used to re-build packages with a subset of the available targets. The current set of targets include the following:
+</dd></dl>
+<dl><dd><pre>
+</dd><dd>ti.targets.C54, ti.targets.C54_far
+</dd><dd>ti.targets.C55, ti.targets.C55_large
+</dd><dd>ti.targets.C28_large
+</dd><dd>ti.targets.C62
+</dd><dd>ti.targets.C62_big_endian
+</dd><dd>ti.targets.C64
+</dd><dd>ti.targets.C64_big_endian
+</dd><dd></pre>
+</dd></dl>
+<dl><dd>If a specified target name does not match any available target, the prefix "ti.targets." is added and the match is retried. If no match occurs, a warning is displayed and processing continues uninterrupted. Thus, the target "ti.targets.C62" may be abbreviated to just "C62"
+</dd></dl>
+<p>Any change to an environment variable that may affect the results of the build will trigger a rebuild of the goals that may be affected (as well as some that may not be affected).
+</p><p>Note that these environment variables may be specified on the <tt>xdc</tt> command line. In this case, the value specified on the command overrides any value in the environment. For example, the following command causes the package in the current working directory to be built for just the C62 and C54 targets.
+</p>
+<dl><dd><pre>
+</dd><dd>xdc XDCTARGETS=&quot;C62 C54&quot;
+</dd><dd></pre>
+</dd></dl>
+<a name="Exit_Status"></a><h2> <span class="mw-headline"> Exit Status </span></h2>
+<p>The exit status of the <tt>xdc</tt> command is the exit status of the underlying make command whenever make is executed; otherwise, the following exit values are returned:
+</p>
+<ul><li> 0 Successful completion.
+</li><li> 1 An error occurred.
+</li></ul>
+<a name="Files"></a><h2> <span class="mw-headline"> Files </span></h2>
+<dl><dt>config.bld
+</dt><dd>The build model "startup" script; this script, located along the import path ".;$(XDCPATH);<i><b>xdcroot</b></i>;<i><b>xdcroot</b></i>/etc", configures the build model's modules so that common settings can be shared among multiple package build scripts. It is possible to override this behavior using the XDCBUILDCFG environment variable.
+</dd></dl>
+<dl><dt>package.bld
+</dt><dd>The package's build script; this script, located in the package's working directory, specifies all of the physical files (libraries, executables, etc.) that are part of the package.
+</dd></dl>
+<dl><dt>.xdcenv.mak
+</dt><dd>This file is a generated file that captures the environment setting that can affect the contents of the generated makefile; changes to this file trigger a re-build of the makefile.
+</dd></dl>
+<a name="See_Also"></a><h2> <span class="mw-headline"> See Also </span></h2>
+<p><a href="http://www.gnu.org/software/make/manual/make.html" class="external free" title="http://www.gnu.org/software/make/manual/make.html" rel="nofollow">http://www.gnu.org/software/make/manual/make.html</a>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Command - xdc&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Command - xdc" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Command_Line_Tools/Command_Line_Tools.html" title="Command_Line_Tools"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1611 bytes
+Post-expand include size: 1053 bytes
+Template argument size: 426 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Command_-_xdc.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.218 secs. --></body></html>

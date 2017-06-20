@@ -1,0 +1,825 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XDCscript Language Reference - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCscript Language Reference&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCscript Language Reference" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html" title="XDCtools Reference Manual"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">XDCscript Language Reference</p><p id="subtitle">Elements of the RTSC meta-language</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Root_object"><span class="tocnumber">1</span> <span class="toctext">Root object</span></a></li>
+<li class="toclevel-1"><a href="#Object_model"><span class="tocnumber">2</span> <span class="toctext">Object model</span></a></li>
+<li class="toclevel-1"><a href="#Capsules"><span class="tocnumber">3</span> <span class="toctext">Capsules</span></a></li>
+<li class="toclevel-1"><a href="#Templates"><span class="tocnumber">4</span> <span class="toctext">Templates</span></a></li>
+<li class="toclevel-1"><a href="#Packages"><span class="tocnumber">5</span> <span class="toctext">Packages</span></a></li>
+<li class="toclevel-1"><a href="#Interfaces"><span class="tocnumber">6</span> <span class="toctext">Interfaces</span></a></li>
+<li class="toclevel-1"><a href="#Modules"><span class="tocnumber">7</span> <span class="toctext">Modules</span></a></li>
+<li class="toclevel-1"><a href="#Instances"><span class="tocnumber">8</span> <span class="toctext">Instances</span></a></li>
+<li class="toclevel-1"><a href="#Proxies"><span class="tocnumber">9</span> <span class="toctext">Proxies</span></a></li>
+<li class="toclevel-1"><a href="#Structs"><span class="tocnumber">10</span> <span class="toctext">Structs</span></a></li>
+<li class="toclevel-1"><a href="#Vectors"><span class="tocnumber">11</span> <span class="toctext">Vectors</span></a></li>
+<li class="toclevel-1"><a href="#Maps"><span class="tocnumber">12</span> <span class="toctext">Maps</span></a></li>
+<li class="toclevel-1"><a href="#Typed_Objects"><span class="tocnumber">13</span> <span class="toctext">Typed Objects</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">14</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p></p>
+<p>This reference provides reference material for the methods and objects available to all <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> code.  For overview information about <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> programming see the <a href="../The_XDCscript_Language/The_XDCscript_Language.html" title="The XDCscript Language">XDC Script User's Guide</a>.
+</p><p>Although the script language used throughout XDCtools is JavaScript, these tools also provide a set of XDCtools-specific functions that allow scripts to load and manipulate "<a href="../XDCscript_Language_Summary/XDCscript_Language_Summary.html#Typed-Object" title="XDCscript Language Summary">typed objects</a>" defined by the <a href="../XDCscript_Language_Summary/XDCscript_Language_Summary.html" title="XDCscript Language Summary">XDCscript  Language Summary</a>.  These objects include all modules, interfaces, and packages.  In addition, <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> JavaScript embedding provides access to any Java class&#151;including the entire Java Runtime Environment (JRE) .  This enables these scripts to portably run on any host and perform any function that a Java program can perform, including running and interacting with external command line utilities.  
+</p>
+<a name="Root_object"></a><h2> <span class="mw-headline">Root object</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_xdc/XDCscript_-_xdc.html" title="XDCscript - xdc">XDCscript - xdc</a>
+</td><td class="DocListSubTitle1"> The distinguished root object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.csd/XDCscript_-_xdc.csd.html" title="XDCscript - xdc.csd">XDCscript - xdc.csd</a>
+</td><td class="DocListSubTitle">Get current script directory
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.curPath/XDCscript_-_xdc.curPath.html" title="XDCscript - xdc.curPath">XDCscript - xdc.curPath</a>
+</td><td class="DocListSubTitle">Return the current package path
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.exec/XDCscript_-_xdc.exec.html" title="XDCscript - xdc.exec">XDCscript - xdc.exec</a>
+</td><td class="DocListSubTitle">Execute external command
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.findFile/XDCscript_-_xdc.findFile.html" title="XDCscript - xdc.findFile">XDCscript - xdc.findFile</a>
+</td><td class="DocListSubTitle">Find file along the package path
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.getErrors/XDCscript_-_xdc.getErrors.html" title="XDCscript - xdc.getErrors">XDCscript - xdc.getErrors</a>
+</td><td class="DocListSubTitle">Return array of errors
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.getWarnings/XDCscript_-_xdc.getWarnings.html" title="XDCscript - xdc.getWarnings">XDCscript - xdc.getWarnings</a>
+</td><td class="DocListSubTitle">Return array of warnings
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.getPackageBase/XDCscript_-_xdc.getPackageBase.html" title="XDCscript - xdc.getPackageBase">XDCscript - xdc.getPackageBase</a>
+</td><td class="DocListSubTitle">Return a package's base directory
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.getPackageRepository/XDCscript_-_xdc.getPackageRepository.html" title="XDCscript - xdc.getPackageRepository">XDCscript - xdc.getPackageRepository</a>
+</td><td class="DocListSubTitle">Return a package's repository
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.global/XDCscript_-_xdc.global.html" title="XDCscript - xdc.global">XDCscript - xdc.global</a>
+</td><td class="DocListSubTitle"> The original JavaScript Global object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.loadCapsule/XDCscript_-_xdc.loadCapsule.html" title="XDCscript - xdc.loadCapsule">XDCscript - xdc.loadCapsule</a>
+</td><td class="DocListSubTitle">Load specified capsule
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.loadPackage/XDCscript_-_xdc.loadPackage.html" title="XDCscript - xdc.loadPackage">XDCscript - xdc.loadPackage</a>
+</td><td class="DocListSubTitle">Load specified package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.loadTemplate/XDCscript_-_xdc.loadTemplate.html" title="XDCscript - xdc.loadTemplate">XDCscript - xdc.loadTemplate</a>
+</td><td class="DocListSubTitle">Create a template from a template file
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.loadXML/XDCscript_-_xdc.loadXML.html" title="XDCscript - xdc.loadXML">XDCscript - xdc.loadXML</a>
+</td><td class="DocListSubTitle">Load an XML file
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.jre/XDCscript_-_xdc.jre.html" title="XDCscript - xdc.jre">XDCscript - xdc.jre</a>
+</td><td class="DocListSubTitle">Top-level Java Runtime Environment object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.module/XDCscript_-_xdc.module.html" title="XDCscript - xdc.module">XDCscript - xdc.module</a>
+</td><td class="DocListSubTitle">Return specified module or interface object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om/XDCscript_-_xdc.om.html" title="XDCscript - xdc.om">XDCscript - xdc.om</a>
+</td><td class="DocListSubTitle">Top-Level object of current domain model
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.print/XDCscript_-_xdc.print.html" title="XDCscript - xdc.print">XDCscript - xdc.print</a>
+</td><td class="DocListSubTitle">Print a message
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.setCurPkgBase/XDCscript_-_xdc.setCurPkgBase.html" title="XDCscript - xdc.setCurPkgBase">XDCscript - xdc.setCurPkgBase</a>
+</td><td class="DocListSubTitle">Set the current package base
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.traceEnable/XDCscript_-_xdc.traceEnable.html" title="XDCscript - xdc.traceEnable">XDCscript - xdc.traceEnable</a>
+</td><td class="DocListSubTitle">Enable debug trace output
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.useModule/XDCscript_-_xdc.useModule.html" title="XDCscript - xdc.useModule">XDCscript - xdc.useModule</a>
+</td><td class="DocListSubTitle">Specify that a module is used in a configuration
+</td></tr></table>
+<p></p>
+<a name="Object_model"></a><h2> <span class="mw-headline">Object model</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_xdc.om/XDCscript_-_xdc.om.html" title="XDCscript - xdc.om">XDCscript - xdc.om</a>
+</td><td class="DocListSubTitle1">Top-Level object of current domain model
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om.%24curpkg/XDCscript_-_xdc.om.%24curpkg.html" title="XDCscript - xdc.om.$curpkg">XDCscript - xdc.om.$curpkg</a>
+</td><td class="DocListSubTitle">A model-specific current package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om.%24homepkg/XDCscript_-_xdc.om.%24homepkg.html" title="XDCscript - xdc.om.$homepkg">XDCscript - xdc.om.$homepkg</a>
+</td><td class="DocListSubTitle">A model-specific home package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om.%24modules/XDCscript_-_xdc.om.%24modules.html" title="XDCscript - xdc.om.$modules">XDCscript - xdc.om.$modules</a>
+</td><td class="DocListSubTitle">Array of all modules in the current model
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om.%24name/XDCscript_-_xdc.om.%24name.html" title="XDCscript - xdc.om.$name">XDCscript - xdc.om.$name</a>
+</td><td class="DocListSubTitle">Model name
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om.%24packages/XDCscript_-_xdc.om.%24packages.html" title="XDCscript - xdc.om.$packages">XDCscript - xdc.om.$packages</a>
+</td><td class="DocListSubTitle">Array of all packages within the current model
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om.%24root/XDCscript_-_xdc.om.%24root.html" title="XDCscript - xdc.om.$root">XDCscript - xdc.om.$root</a>
+</td><td class="DocListSubTitle">A model-specific root object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.om.Package-Name/XDCscript_-_xdc.om.Package-Name.html" title="XDCscript - xdc.om.Package-Name">XDCscript - xdc.om.Package-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr></table>
+<a name="Capsules"></a><h2> <span class="mw-headline">Capsules</span></h2>
+<p>Capsules are the fundamental unit of implementation for the <a href="../Glossary/Glossary.html#Meta-Domain" title="Glossary">meta-domain</a>. Each capsule exposes a set of public variables and functions to its client. 
+</p>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_xdc.loadCapsule/XDCscript_-_xdc.loadCapsule.html" title="XDCscript - xdc.loadCapsule">XDCscript - xdc.loadCapsule</a>
+</td><td class="DocListSubTitle1">Load specified capsule
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Capsule-Object/XDCscript_-_Capsule-Object.html" title="XDCscript - Capsule-Object">XDCscript - Capsule-Object</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Capsule-Object.%24trace/XDCscript_-_Capsule-Object.%24trace.html" title="XDCscript - Capsule-Object.$trace">XDCscript - Capsule-Object.$trace</a>
+</td><td class="DocListSubTitle">Print a trace message
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Capsule-Object.%24traceQuery/XDCscript_-_Capsule-Object.%24traceQuery.html" title="XDCscript - Capsule-Object.$traceQuery">XDCscript - Capsule-Object.$traceQuery</a>
+</td><td class="DocListSubTitle">Query whether capsule debug trace is enabled
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Capsule-Body/XDCscript_-_Capsule-Body.html" title="XDCscript - Capsule-Body">XDCscript - Capsule-Body</a>
+</td><td class="DocListSubTitle"> Contents of a capsule
+</td></tr></table>
+<p></p>
+<a name="Templates"></a><h2> <span class="mw-headline">Templates</span></h2>
+<p>Templates are objects used to generate a formatted output text stream following a prescribed pattern specified by a template file. Clients invoke templates with specific arguments and designate a sink for all generated output.
+</p>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_xdc.loadTemplate/XDCscript_-_xdc.loadTemplate.html" title="XDCscript - xdc.loadTemplate">XDCscript - xdc.loadTemplate</a>
+</td><td class="DocListSubTitle1">Create a template from a template file
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Template-Object/XDCscript_-_Template-Object.html" title="XDCscript - Template-Object">XDCscript - Template-Object</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Template-Object.genFile/XDCscript_-_Template-Object.genFile.html" title="XDCscript - Template-Object.genFile">XDCscript - Template-Object.genFile</a>
+</td><td class="DocListSubTitle">Generate textual output file from a template
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Template-Object.genStream/XDCscript_-_Template-Object.genStream.html" title="XDCscript - Template-Object.genStream">XDCscript - Template-Object.genStream</a>
+</td><td class="DocListSubTitle"> Generate textual output stream from a template
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Template-Body/XDCscript_-_Template-Body.html" title="XDCscript - Template-Body">XDCscript - Template-Body</a>
+</td><td class="DocListSubTitle">Contents of the template file
+</td></tr></table>
+<p></p>
+<a name="Packages"></a><h2> <span class="mw-headline">Packages</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_xdc.loadPackage/XDCscript_-_xdc.loadPackage.html" title="XDCscript - xdc.loadPackage">XDCscript - xdc.loadPackage</a>
+</td><td class="DocListSubTitle1">Load specified package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Object/XDCscript_-_Package-Object.html" title="XDCscript - Package-Object">XDCscript - Package-Object</a>
+</td><td class="DocListSubTitle">Object containing package-wide features of a package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Object.%24interfaces/XDCscript_-_Package-Object.%24interfaces.html" title="XDCscript - Package-Object.$interfaces">XDCscript - Package-Object.$interfaces</a>
+</td><td class="DocListSubTitle">Array of interfaces contained in this package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Object.%24modules/XDCscript_-_Package-Object.%24modules.html" title="XDCscript - Package-Object.$modules">XDCscript - Package-Object.$modules</a>
+</td><td class="DocListSubTitle"> Array of modules contained in this package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Object.%24name/XDCscript_-_Package-Object.%24name.html" title="XDCscript - Package-Object.$name">XDCscript - Package-Object.$name</a>
+</td><td class="DocListSubTitle"> Name of the package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Object.%24spec/XDCscript_-_Package-Object.%24spec.html" title="XDCscript - Package-Object.$spec">XDCscript - Package-Object.$spec</a>
+</td><td class="DocListSubTitle"> Package specification object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Object.%24vers/XDCscript_-_Package-Object.%24vers.html" title="XDCscript - Package-Object.$vers">XDCscript - Package-Object.$vers</a>
+</td><td class="DocListSubTitle"> The version of this package
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Type.%24patch/XDCscript_-_Package-Type.%24patch.html" title="XDCscript - Package-Type.$patch">XDCscript - Package-Type.$patch</a>
+</td><td class="DocListSubTitle"> Patch a package method
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Package-Body/XDCscript_-_Package-Body.html" title="XDCscript - Package-Body">XDCscript - Package-Body</a>
+</td><td class="DocListSubTitle"> Implementation of base package methods
+</td></tr></table>
+<p></p>
+<a name="Interfaces"></a><h2> <span class="mw-headline">Interfaces</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Interface-Object.Instance/XDCscript_-_Interface-Object.Instance.html" title="XDCscript - Interface-Object.Instance">XDCscript - Interface-Object.Instance</a>
+</td><td class="DocListSubTitle1"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.Module/XDCscript_-_Interface-Object.Module.html" title="XDCscript - Interface-Object.Module">XDCscript - Interface-Object.Module</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.%24name/XDCscript_-_Interface-Object.%24name.html" title="XDCscript - Interface-Object.$name">XDCscript - Interface-Object.$name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.%24package/XDCscript_-_Interface-Object.%24package.html" title="XDCscript - Interface-Object.$package">XDCscript - Interface-Object.$package</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.%24super/XDCscript_-_Interface-Object.%24super.html" title="XDCscript - Interface-Object.$super">XDCscript - Interface-Object.$super</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.Constant-Name/XDCscript_-_Interface-Object.Constant-Name.html" title="XDCscript - Interface-Object.Constant-Name">XDCscript - Interface-Object.Constant-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.EnumVal-Name/XDCscript_-_Interface-Object.EnumVal-Name.html" title="XDCscript - Interface-Object.EnumVal-Name">XDCscript - Interface-Object.EnumVal-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.Extern-Name/XDCscript_-_Interface-Object.Extern-Name.html" title="XDCscript - Interface-Object.Extern-Name">XDCscript - Interface-Object.Extern-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.Struct-Name/XDCscript_-_Interface-Object.Struct-Name.html" title="XDCscript - Interface-Object.Struct-Name">XDCscript - Interface-Object.Struct-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Object.Typedef-Name/XDCscript_-_Interface-Object.Typedef-Name.html" title="XDCscript - Interface-Object.Typedef-Name">XDCscript - Interface-Object.Typedef-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Interface-Body/XDCscript_-_Interface-Body.html" title="XDCscript - Interface-Body">XDCscript - Interface-Body</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr></table>
+<p></p>
+<a name="Modules"></a><h2> <span class="mw-headline">Modules</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_xdc.module/XDCscript_-_xdc.module.html" title="XDCscript - xdc.module">XDCscript - xdc.module</a>
+</td><td class="DocListSubTitle1">Return specified module or interface object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_xdc.useModule/XDCscript_-_xdc.useModule.html" title="XDCscript - xdc.useModule">XDCscript - xdc.useModule</a>
+</td><td class="DocListSubTitle">Specify that a module is used in a configuration
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object/XDCscript_-_Module-Object.html" title="XDCscript - Module-Object">XDCscript - Module-Object</a>
+</td><td class="DocListSubTitle">Object containing per-module-features of a module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.construct/XDCscript_-_Module-Object.construct.html" title="XDCscript - Module-Object.construct">XDCscript - Module-Object.construct</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.create/XDCscript_-_Module-Object.create.html" title="XDCscript - Module-Object.create">XDCscript - Module-Object.create</a>
+</td><td class="DocListSubTitle"> Create a new Instance object managed by this unit
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Instance/XDCscript_-_Module-Object.Instance.html" title="XDCscript - Module-Object.Instance">XDCscript - Module-Object.Instance</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Module/XDCscript_-_Module-Object.Module.html" title="XDCscript - Module-Object.Module">XDCscript - Module-Object.Module</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24addrof/XDCscript_-_Module-Object.%24addrof.html" title="XDCscript - Module-Object.$addrof">XDCscript - Module-Object.$addrof</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24instances/XDCscript_-_Module-Object.%24instances.html" title="XDCscript - Module-Object.$instances">XDCscript - Module-Object.$instances</a>
+</td><td class="DocListSubTitle"> An array of instance objects managed by this module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24logError/XDCscript_-_Module-Object.%24logError.html" title="XDCscript - Module-Object.$logError">XDCscript - Module-Object.$logError</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24logFatal/XDCscript_-_Module-Object.%24logFatal.html" title="XDCscript - Module-Object.$logFatal">XDCscript - Module-Object.$logFatal</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24logWarning/XDCscript_-_Module-Object.%24logWarning.html" title="XDCscript - Module-Object.$logWarning">XDCscript - Module-Object.$logWarning</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24name/XDCscript_-_Module-Object.%24name.html" title="XDCscript - Module-Object.$name">XDCscript - Module-Object.$name</a>
+</td><td class="DocListSubTitle"> Canonical name of the module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24objects/XDCscript_-_Module-Object.%24objects.html" title="XDCscript - Module-Object.$objects">XDCscript - Module-Object.$objects</a>
+</td><td class="DocListSubTitle"> An array of embedded instance objects managed by this module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24package/XDCscript_-_Module-Object.%24package.html" title="XDCscript - Module-Object.$package">XDCscript - Module-Object.$package</a>
+</td><td class="DocListSubTitle"> Package object of package containing the module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24private/XDCscript_-_Module-Object.%24private.html" title="XDCscript - Module-Object.$private">XDCscript - Module-Object.$private</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24spec/XDCscript_-_Module-Object.%24spec.html" title="XDCscript - Module-Object.$spec">XDCscript - Module-Object.$spec</a>
+</td><td class="DocListSubTitle"> Module specification object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24super/XDCscript_-_Module-Object.%24super.html" title="XDCscript - Module-Object.$super">XDCscript - Module-Object.$super</a>
+</td><td class="DocListSubTitle">The interface from which this module inherits
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.%24used/XDCscript_-_Module-Object.%24used.html" title="XDCscript - Module-Object.$used">XDCscript - Module-Object.$used</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Config-Name/XDCscript_-_Module-Object.Config-Name.html" title="XDCscript - Module-Object.Config-Name">XDCscript - Module-Object.Config-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Constant-Name/XDCscript_-_Module-Object.Constant-Name.html" title="XDCscript - Module-Object.Constant-Name">XDCscript - Module-Object.Constant-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.EnumVal-Name/XDCscript_-_Module-Object.EnumVal-Name.html" title="XDCscript - Module-Object.EnumVal-Name">XDCscript - Module-Object.EnumVal-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Extern-Name/XDCscript_-_Module-Object.Extern-Name.html" title="XDCscript - Module-Object.Extern-Name">XDCscript - Module-Object.Extern-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Function-Name/XDCscript_-_Module-Object.Function-Name.html" title="XDCscript - Module-Object.Function-Name">XDCscript - Module-Object.Function-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Proxy-Name/XDCscript_-_Module-Object.Proxy-Name.html" title="XDCscript - Module-Object.Proxy-Name">XDCscript - Module-Object.Proxy-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Struct-Name/XDCscript_-_Module-Object.Struct-Name.html" title="XDCscript - Module-Object.Struct-Name">XDCscript - Module-Object.Struct-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Object.Typedef-Name/XDCscript_-_Module-Object.Typedef-Name.html" title="XDCscript - Module-Object.Typedef-Name">XDCscript - Module-Object.Typedef-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body/XDCscript_-_Module-Body.html" title="XDCscript - Module-Body">XDCscript - Module-Body</a>
+</td><td class="DocListSubTitle">The implementation of a module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24meta%24init/XDCscript_-_Module-Body.module%24meta%24init.html" title="XDCscript - Module-Body.module$meta$init">XDCscript - Module-Body.module$meta$init</a>
+</td><td class="DocListSubTitle">Initialize meta-domain module state
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24static%24init/XDCscript_-_Module-Body.module%24static%24init.html" title="XDCscript - Module-Body.module$static$init">XDCscript - Module-Body.module$static$init</a>
+</td><td class="DocListSubTitle">Initialize module's <tt>State</tt> object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24use/XDCscript_-_Module-Body.module%24use.html" title="XDCscript - Module-Body.module$use">XDCscript - Module-Body.module$use</a>
+</td><td class="DocListSubTitle">Use other modules required by this module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24validate/XDCscript_-_Module-Body.module%24validate.html" title="XDCscript - Module-Body.module$validate">XDCscript - Module-Body.module$validate</a>
+</td><td class="DocListSubTitle">Validate current domain object model
+</td></tr></table>
+<p><br />
+The table below provides reference information for the meta-language functions that implement the module methods common to all modules.  These functions enable every module to interact with its environment at key points of the module's lifecycle.
+</p>
+<ul><li>when the module is first loaded;
+</li><li>when the module is used;
+</li><li>when instance objects are created; and
+</li><li>as part of model validation just prior to any generation process.
+</li></ul>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24meta%24init/XDCscript_-_Module-Body.module%24meta%24init.html" title="XDCscript - Module-Body.module$meta$init">XDCscript - Module-Body.module$meta$init</a>
+</td><td class="DocListSubTitle1">Initialize meta-domain module state
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24static%24init/XDCscript_-_Module-Body.module%24static%24init.html" title="XDCscript - Module-Body.module$static$init">XDCscript - Module-Body.module$static$init</a>
+</td><td class="DocListSubTitle">Initialize module's <tt>State</tt> object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24use/XDCscript_-_Module-Body.module%24use.html" title="XDCscript - Module-Body.module$use">XDCscript - Module-Body.module$use</a>
+</td><td class="DocListSubTitle">Use other modules required by this module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Module-Body.module%24validate/XDCscript_-_Module-Body.module%24validate.html" title="XDCscript - Module-Body.module$validate">XDCscript - Module-Body.module$validate</a>
+</td><td class="DocListSubTitle">Validate current domain object model
+</td></tr></table>
+<p></p>
+<a name="Instances"></a><h2> <span class="mw-headline">Instances</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Instance-Object/XDCscript_-_Instance-Object.html" title="XDCscript - Instance-Object">XDCscript - Instance-Object</a>
+</td><td class="DocListSubTitle1">Object containing per-instance-features of a module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.%24index/XDCscript_-_Instance-Object.%24index.html" title="XDCscript - Instance-Object.$index">XDCscript - Instance-Object.$index</a>
+</td><td class="DocListSubTitle"> Serial number of the instance
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.%24module/XDCscript_-_Instance-Object.%24module.html" title="XDCscript - Instance-Object.$module">XDCscript - Instance-Object.$module</a>
+</td><td class="DocListSubTitle"> The Module object that manages this instance
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.%24name/XDCscript_-_Instance-Object.%24name.html" title="XDCscript - Instance-Object.$name">XDCscript - Instance-Object.$name</a>
+</td><td class="DocListSubTitle"> Canonical name for the instance
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.%24package/XDCscript_-_Instance-Object.%24package.html" title="XDCscript - Instance-Object.$package">XDCscript - Instance-Object.$package</a>
+</td><td class="DocListSubTitle"> The Package object containing the module managing this instance
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.%24private/XDCscript_-_Instance-Object.%24private.html" title="XDCscript - Instance-Object.$private">XDCscript - Instance-Object.$private</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.%24super/XDCscript_-_Instance-Object.%24super.html" title="XDCscript - Instance-Object.$super">XDCscript - Instance-Object.$super</a>
+</td><td class="DocListSubTitle"> Instance of the inherited-interface
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.Config-Name/XDCscript_-_Instance-Object.Config-Name.html" title="XDCscript - Instance-Object.Config-Name">XDCscript - Instance-Object.Config-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Object.Function-Name/XDCscript_-_Instance-Object.Function-Name.html" title="XDCscript - Instance-Object.Function-Name">XDCscript - Instance-Object.Function-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Body/XDCscript_-_Instance-Body.html" title="XDCscript - Instance-Body">XDCscript - Instance-Body</a>
+</td><td class="DocListSubTitle"> The implementation of a module's instance methods
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Body.instance%24meta%24init/XDCscript_-_Instance-Body.instance%24meta%24init.html" title="XDCscript - Instance-Body.instance$meta$init">XDCscript - Instance-Body.instance$meta$init</a>
+</td><td class="DocListSubTitle">Initialize a meta-only module's instance
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Instance-Body.instance%24static%24init/XDCscript_-_Instance-Body.instance%24static%24init.html" title="XDCscript - Instance-Body.instance$static$init">XDCscript - Instance-Body.instance$static$init</a>
+</td><td class="DocListSubTitle">Statically initialize a target module's instance object
+</td></tr></table>
+<p></p>
+<a name="Proxies"></a><h2> <span class="mw-headline">Proxies</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Proxy-Object/XDCscript_-_Proxy-Object.html" title="XDCscript - Proxy-Object">XDCscript - Proxy-Object</a>
+</td><td class="DocListSubTitle1">Module object for a proxy
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Proxy-Object.delegate%24/XDCscript_-_Proxy-Object.delegate%24.html" title="XDCscript - Proxy-Object.delegate$">XDCscript - Proxy-Object.delegate$</a>
+</td><td class="DocListSubTitle"> Module that implements the proxy's interface
+</td></tr></table>
+<p></p>
+<a name="Structs"></a><h2> <span class="mw-headline">Structs</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Struct-Object/XDCscript_-_Struct-Object.html" title="XDCscript - Struct-Object">XDCscript - Struct-Object</a>
+</td><td class="DocListSubTitle1"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Struct-Object.%24addrof/XDCscript_-_Struct-Object.%24addrof.html" title="XDCscript - Struct-Object.$addrof">XDCscript - Struct-Object.$addrof</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Struct-Object.%24alignof/XDCscript_-_Struct-Object.%24alignof.html" title="XDCscript - Struct-Object.$alignof">XDCscript - Struct-Object.$alignof</a>
+</td><td class="DocListSubTitle">The target alignment of a structure
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Struct-Object.%24private/XDCscript_-_Struct-Object.%24private.html" title="XDCscript - Struct-Object.$private">XDCscript - Struct-Object.$private</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Struct-Object.%24sizeof/XDCscript_-_Struct-Object.%24sizeof.html" title="XDCscript - Struct-Object.$sizeof">XDCscript - Struct-Object.$sizeof</a>
+</td><td class="DocListSubTitle">The target size of a structure
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Struct-Object.Field-Name/XDCscript_-_Struct-Object.Field-Name.html" title="XDCscript - Struct-Object.Field-Name">XDCscript - Struct-Object.Field-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr></table>
+<p></p>
+<a name="Vectors"></a><h2> <span class="mw-headline">Vectors</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Vector-Object/XDCscript_-_Vector-Object.html" title="XDCscript - Vector-Object">XDCscript - Vector-Object</a>
+</td><td class="DocListSubTitle1">A typed JavaScript array
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Vector-Object.length/XDCscript_-_Vector-Object.length.html" title="XDCscript - Vector-Object.length">XDCscript - Vector-Object.length</a>
+</td><td class="DocListSubTitle">Get or set the number of values in a vector
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Vector-Object.%24add/XDCscript_-_Vector-Object.%24add.html" title="XDCscript - Vector-Object.$add">XDCscript - Vector-Object.$add</a>
+</td><td class="DocListSubTitle"> Append element to the end of a vector
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Vector-Object.%24addrof/XDCscript_-_Vector-Object.%24addrof.html" title="XDCscript - Vector-Object.$addrof">XDCscript - Vector-Object.$addrof</a>
+</td><td class="DocListSubTitle">Get address of vector element
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Vector-Object.Element-Index/XDCscript_-_Vector-Object.Element-Index.html" title="XDCscript - Vector-Object.Element-Index">XDCscript - Vector-Object.Element-Index</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr></table>
+<p></p>
+<a name="Maps"></a><h2> <span class="mw-headline">Maps</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Map-Object/XDCscript_-_Map-Object.html" title="XDCscript - Map-Object">XDCscript - Map-Object</a>
+</td><td class="DocListSubTitle1">An ordered hash table type
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Map-Object.length/XDCscript_-_Map-Object.length.html" title="XDCscript - Map-Object.length">XDCscript - Map-Object.length</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Map-Object.Element-Index/XDCscript_-_Map-Object.Element-Index.html" title="XDCscript - Map-Object.Element-Index">XDCscript - Map-Object.Element-Index</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Map-Object.Element-Name/XDCscript_-_Map-Object.Element-Name.html" title="XDCscript - Map-Object.Element-Name">XDCscript - Map-Object.Element-Name</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr></table>
+<p></p>
+<a name="Typed_Objects"></a><h2> <span class="mw-headline">Typed Objects</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_-_Typed-Object/XDCscript_-_Typed-Object.html" title="XDCscript - Typed-Object">XDCscript - Typed-Object</a>
+</td><td class="DocListSubTitle1"> Objects specified by the RTSC Interface Definition Language
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Typed-Object.%24copy/XDCscript_-_Typed-Object.%24copy.html" title="XDCscript - Typed-Object.$copy">XDCscript - Typed-Object.$copy</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Typed-Object.%24orig/XDCscript_-_Typed-Object.%24orig.html" title="XDCscript - Typed-Object.$orig">XDCscript - Typed-Object.$orig</a>
+</td><td class="DocListSubTitle"> The most specific typed-declaration for this object
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Typed-Object.%24seal/XDCscript_-_Typed-Object.%24seal.html" title="XDCscript - Typed-Object.$seal">XDCscript - Typed-Object.$seal</a>
+</td><td class="DocListSubTitle">Seal a typed object or one of its fields
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Typed-Object.%24sealed/XDCscript_-_Typed-Object.%24sealed.html" title="XDCscript - Typed-Object.$sealed">XDCscript - Typed-Object.$sealed</a>
+</td><td class="DocListSubTitle">Test a typed object or one of its fields for being read-only
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Typed-Object.%24self/XDCscript_-_Typed-Object.%24self.html" title="XDCscript - Typed-Object.$self">XDCscript - Typed-Object.$self</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Typed-Object.%24type/XDCscript_-_Typed-Object.%24type.html" title="XDCscript - Typed-Object.$type">XDCscript - Typed-Object.$type</a>
+</td><td class="DocListSubTitle"> <i>under construction</i>
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../XDCscript_-_Typed-Object.%24unseal/XDCscript_-_Typed-Object.%24unseal.html" title="XDCscript - Typed-Object.$unseal">XDCscript - Typed-Object.$unseal</a>
+</td><td class="DocListSubTitle"> Unseal a typed object or one of its fields
+</td></tr></table>
+<p></p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;The following documents are obsolete but contain information that has yet to be moved to the current document</span>
+</p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../XDCscript_Language_Summary/XDCscript_Language_Summary.html" title="XDCscript Language Summary">XDCscript  Language Summary</a>
+</td><td class="DocListSubTitle1">XDCscript language quick reference
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCscript Language Reference&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCscript Language Reference" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html" title="XDCtools Reference Manual"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<p><br />
+</p><!-- 
+Pre-expand include size: 7760 bytes
+Post-expand include size: 1604 bytes
+Template argument size: 105 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XDCscript_Language_Reference.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.213 secs. --></body></html>

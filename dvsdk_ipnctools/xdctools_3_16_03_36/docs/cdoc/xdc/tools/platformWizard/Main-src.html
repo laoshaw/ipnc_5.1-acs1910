@@ -1,0 +1,41 @@
+<html><head><title>module xdc.tools.platformWizard.Main</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright 2009 by Texas Instruments Incorporated.
+</span>     3    <span class="comment"> *
+</span>     4    <span class="comment"> */</span>
+     5    
+     6    <span class=key>package</span> xdc.tools.platformWizard;
+     7    
+     8    <span class="comment">/*
+</span>     9    <span class="comment"> * @_nodoc
+</span>    10    <span class="comment"> */</span>
+    11    <span class=key>metaonly</span> <span class=key>module</span> Main <span class=key>inherits</span> xdc.tools.ICmd {
+    12    
+    13        <span class=key>override</span> <span class=key>config</span> String usage[] = [
+    14            <span class="string">' -r &lt;repository for platform package&gt;'</span>,
+    15            <span class="string">' -x &lt;XML schema file&gt;'</span>,
+    16                    <span class="string">'&lt;platform package name&gt;'</span>
+    17        ];
+    18    
+    19    <span class=key>instance</span>:
+    20            
+    21            @CommandOption(<span class="string">"r"</span>)
+    22            <span class=key>config</span> String repositoryPath = <span class=key>null</span>;
+    23            
+    24            @CommandOption(<span class="string">"x"</span>)
+    25            <span class=key>config</span> String schemaFile = <span class=key>null</span>;
+    26            
+    27        <span class=key>override</span> Any run(xdc.tools.Cmdr.Instance cmdr, String args[]);
+    28    
+    29    }
+    30    <span class="comment">/*
+</span>    31    <span class="comment"> *  @(#) xdc.tools.platformWizard; 1,0,0,43; 11-20-2009 13:27:38; /db/ztree/library/trees/xdctools/xdctools-d08x/src/
+</span>    32    <span class="comment"> */</span>
+    33    
+</pre>
+</body></html>

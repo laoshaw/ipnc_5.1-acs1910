@@ -1,0 +1,161 @@
+<html>
+<head>
+<title>package ti.catalog.c470</title>
+<meta name="description" content="Package of devices for the c470 family of Arm processors">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">ti.catalog.c470</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../ti/catalog/c470/TMS470xx.html" title="interface TMS470xx"><img class="xdocHdrArrow" src="../../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#ti/catalog/c470/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Package of devices for the c470 family of Arm processors</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+</ul>
+<div class="xdocBrief">
+Each module in this package implements the xdc.platform.ICpuDataSheet
+  interface. This interface is used by platforms (modules that implement
+  xdc.platform.IPlatform) to obtain the memory map supported by each CPU.
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../ti/catalog/c470/package-src.html"><span class="xdocLabelFile">ti/catalog/c470/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/platform/package.html" title="xdc.platform">xdc.platform</a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../ti/catalog/arm/package.html" title="ti.catalog.arm">ti.catalog.arm</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">ti.catalog.c470</span></go> [1, 0, 1, 1] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS470xx.html' title='ti.catalog.c470.TMS470xx'><span class="xdoc-id">TMS470xx</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;An interface implemented by all TMS470xx devices</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/CortexM3.html' title='ti.catalog.c470.CortexM3'><span class="xdoc-id">CortexM3</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The CortexM3 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP2430.html' title='ti.catalog.c470.OMAP2430'><span class="xdoc-id">OMAP2430</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP2431.html' title='ti.catalog.c470.OMAP2431'><span class="xdoc-id">OMAP2431</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP2530.html' title='ti.catalog.c470.OMAP2530'><span class="xdoc-id">OMAP2530</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP2531.html' title='ti.catalog.c470.OMAP2531'><span class="xdoc-id">OMAP2531</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3403.html' title='ti.catalog.c470.OMAP3403'><span class="xdoc-id">OMAP3403</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3405.html' title='ti.catalog.c470.OMAP3405'><span class="xdoc-id">OMAP3405</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3425.html' title='ti.catalog.c470.OMAP3425'><span class="xdoc-id">OMAP3425</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3503.html' title='ti.catalog.c470.OMAP3503'><span class="xdoc-id">OMAP3503</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3505.html' title='ti.catalog.c470.OMAP3505'><span class="xdoc-id">OMAP3505</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3515.html' title='ti.catalog.c470.OMAP3515'><span class="xdoc-id">OMAP3515</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3517.html' title='ti.catalog.c470.OMAP3517'><span class="xdoc-id">OMAP3517</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3525.html' title='ti.catalog.c470.OMAP3525'><span class="xdoc-id">OMAP3525</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAP3530.html' title='ti.catalog.c470.OMAP3530'><span class="xdoc-id">OMAP3530</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/OMAPL137.html' title='ti.catalog.c470.OMAPL137'><span class="xdoc-id">OMAPL137</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320C1030.html' title='ti.catalog.c470.TMS320C1030'><span class="xdoc-id">TMS320C1030</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320C3430.html' title='ti.catalog.c470.TMS320C3430'><span class="xdoc-id">TMS320C3430</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320C5912.html' title='ti.catalog.c470.TMS320C5912'><span class="xdoc-id">TMS320C5912</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320CDM355.html' title='ti.catalog.c470.TMS320CDM355'><span class="xdoc-id">TMS320CDM355</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320CDM510.html' title='ti.catalog.c470.TMS320CDM510'><span class="xdoc-id">TMS320CDM510</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320CDM6446.html' title='ti.catalog.c470.TMS320CDM6446'><span class="xdoc-id">TMS320CDM6446</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320CDM6467.html' title='ti.catalog.c470.TMS320CDM6467'><span class="xdoc-id">TMS320CDM6467</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320DA828.html' title='ti.catalog.c470.TMS320DA828'><span class="xdoc-id">TMS320DA828</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320DA830.html' title='ti.catalog.c470.TMS320DA830'><span class="xdoc-id">TMS320DA830</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320DM357.html' title='ti.catalog.c470.TMS320DM357'><span class="xdoc-id">TMS320DM357</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS320DM365.html' title='ti.catalog.c470.TMS320DM365'><span class="xdoc-id">TMS320DM365</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS470R10.html' title='ti.catalog.c470.TMS470R10'><span class="xdoc-id">TMS470R10</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C470 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c470/TMS570PSF762.html' title='ti.catalog.c470.TMS570PSF762'><span class="xdoc-id">TMS570PSF762</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C470 device data sheet module</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:45 GMT</div>
+</div></div></body>
+</html>

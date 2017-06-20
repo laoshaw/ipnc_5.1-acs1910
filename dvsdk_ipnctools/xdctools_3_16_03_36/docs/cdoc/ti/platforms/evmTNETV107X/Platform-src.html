@@ -1,0 +1,102 @@
+<html><head><title>module ti.platforms.evmTNETV107X.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== Platform ========
+</span>    20    <span class="xdoc"> *  Platform support for the evmTNETV107X
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    23    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    26    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    27    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    28    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    29    <span class="xdoc"> */</span>
+    30    
+    31    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    32    {
+    33        <span class=key>enum</span> RuntimeEnv {
+    34            STDIO,
+    35            POSIX,
+    36            BIOS
+    37        };
+    38        
+    39        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    40            id:             <span class="string">"0"</span>,
+    41            boardName:      <span class="string">"evmTNETV107X"</span>,
+    42            boardFamily:    <span class="string">"evmTNETV107X"</span>,
+    43            boardRevision:  <span class=key>null</span>,
+    44        };
+    45            
+    46        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu DSP = {        
+    47            id:             <span class="string">"0"</span>,
+    48            clockRate:      400.0,
+    49            catalogName:    <span class="string">"ti.catalog.c6000"</span>,
+    50            deviceName:     <span class="string">"TNETV107X"</span>,
+    51            revision:       <span class="string">"1.0"</span>,
+    52        };
+    53        
+    54        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu GPP = {
+    55            id:             <span class="string">"1"</span>,
+    56            clockRate:      400.0,
+    57            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    58            deviceName:     <span class="string">"TNETV107X"</span>,
+    59            revision:       <span class="string">"1.0"</span>,
+    60        };
+    61    
+    62    <span class=key>instance</span>:
+    63    
+    64        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Memory
+    65            externalMemoryMap[string] = [
+    66                [<span class="string">"DDR2"</span>, {name: <span class="string">"DDR2"</span>, base: 0x80000000, len: 0x10000000}],
+    67            ];
+    68    
+    69        <span class="comment">/* default segment for code sections */</span>
+    70        <span class=key>override</span> <span class=key>config</span> string codeMemory = <span class="string">"DDR2"</span>;
+    71    
+    72        <span class="comment">/* default segment for data sections */</span>
+    73        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"DDR2"</span>;
+    74    
+    75        <span class="comment">/* default segment for stack sections */</span>
+    76        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"DDR2"</span>;
+    77    
+    78        <span class="xdoc">/*!
+</span>    79    <span class="xdoc">     *  ======== runTime ========
+</span>    80    <span class="xdoc">     *  The runtime environment available to executables
+</span>    81    <span class="xdoc">     */</span>
+    82        <span class=key>config</span> RuntimeEnv runTime = STDIO;
+    83    
+    84        <span class="xdoc">/*!
+</span>    85    <span class="xdoc">     *  ======== singleCore ========
+</span>    86    <span class="xdoc">     *  no longer used!
+</span>    87    <span class="xdoc">     * <b>@_nodoc</b>
+</span>    88    <span class="xdoc">     */</span>
+    89        <span class=key>config</span> Bool singleCore = <span class=key>true</span>;
+    90    }
+    91    <span class="comment">/*
+</span>    92    <span class="comment"> *  @(#) ti.platforms.evmTNETV107X; 1, 0, 0, 1,17; 2-23-2010 17:00:44; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    93    <span class="comment"> */</span>
+    94    
+</pre>
+</body></html>

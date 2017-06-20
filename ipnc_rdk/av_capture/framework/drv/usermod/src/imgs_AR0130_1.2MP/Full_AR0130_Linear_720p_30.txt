@@ -1,0 +1,132 @@
+
+#define INPUT_CLK    24  //EXTCLK
+#define PLL_M        74  //pll_multiplier
+#define PLL_pre_div  4   //pre_pll_clk_div
+#define PLL_P1       2   //vt_sys_clk_div
+#define PLL_P2       6   //vt_pix_clk_div
+#define OP_SYS_CLK_DIV 2 //OP_SYS_CLK_DIV
+
+#define OUT_CLK ((INPUT_CLK * PLL_M) / (PLL_pre_div * PLL_P1 * PLL_P2) )//74.25MHz
+i=0;
+regAddr[i]  = 0x301A; regValue[i] = 0x0001 	; i++ ; // RESET_REGISTER
+regAddr[i]  = 0x301A; regValue[i] = 0x10D8 	; i++ ; // RESET_REGISTER
+regAddr[i]  = 0x3088; regValue[i] = 0x8000 	; i++ ; // SEQ_CTRL_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0225 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x5050 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2D26 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0828 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0D17 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0926 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0028 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0526 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0xA728 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0725 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x8080 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2917 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0525 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0040 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2702 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1616 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2706 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1736 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x26A6 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1703 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x26A4 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x171F 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2805 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2620 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2804 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2520 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2027 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0017 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1E25 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0020 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2117 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1028 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x051B 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1703 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2706 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1703 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1747 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2660 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x17AE 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2500 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x9027 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0026 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1828 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x002E 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2A28 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x081E 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0831 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1440 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x4014 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2020 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1410 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1034 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1400 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1014 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0020 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1400 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x4013 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1802 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1470 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x7004 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1470 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x7003 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1470 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x7017 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2002 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1400 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2002 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1400 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x5004 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1400 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2004 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x1400 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x5022 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0314 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0020 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0314 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x0050 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2C2C 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x3086; regValue[i] = 0x2C2C 	; i++ ; // SEQ_DATA_PORT
+regAddr[i]  = 0x309E; regValue[i] = 0x0000 	; i++ ; // RESERVED_MFR_309E
+regAddr[i]  = 0x30E4; regValue[i] = 0x6372 	; i++ ; // RESERVED_MFR_30E4
+regAddr[i]  = 0x30E2; regValue[i] = 0x7253 	; i++ ; // RESERVED_MFR_30E2
+regAddr[i]  = 0x30E0; regValue[i] = 0x5470 	; i++ ; // RESERVED_MFR_30E0
+regAddr[i]  = 0x30E6; regValue[i] = 0xC4CC 	; i++ ; // RESERVED_MFR_30E6
+regAddr[i]  = 0x30E8; regValue[i] = 0x8050 	; i++ ; // RESERVED_MFR_30E8
+regAddr[i]  = 0x3082; regValue[i] = 0x0029 	; i++ ; // OPERATION_MODE_CTRL
+regAddr[i]  = 0x301E; regValue[i] = 0x00C8 	; i++ ; // DATA_PEDESTAL
+regAddr[i]  = 0x3EDA; regValue[i] = 0x0F03 	; i++ ; // RESERVED_MFR_3EDA
+regAddr[i]  = 0x3EDE; regValue[i] = 0xC005 	; i++ ; // RESERVED_MFR_3EDE
+regAddr[i]  = 0x3ED8; regValue[i] = 0x09EF 	; i++ ; // RESERVED_MFR_3ED8
+regAddr[i]  = 0x3EE2; regValue[i] = 0xA46B 	; i++ ; // RESERVED_MFR_3EE2
+regAddr[i]  = 0x3EE0; regValue[i] = 0x047D 	; i++ ; // RESERVED_MFR_3EE0
+regAddr[i]  = 0x3EDC; regValue[i] = 0x0070 	; i++ ; // RESERVED_MFR_3EDC
+regAddr[i]  = 0x3044; regValue[i] = 0x0404 	; i++ ; // DARK_CONTROL
+regAddr[i]  = 0x3EE6; regValue[i] = 0x8303 	; i++ ; // RESERVED_MFR_3EE6
+regAddr[i]  = 0x3EE4; regValue[i] = 0xD208 	; i++ ; // DAC_LD_24_25
+regAddr[i]  = 0x3ED6; regValue[i] = 0x00BD 	; i++ ; // RESERVED_MFR_3ED6
+regAddr[i]  = 0x30B0; regValue[i] = 0x1300 	; i++ ; // DIGITAL_TEST
+regAddr[i]  = 0x30D4; regValue[i] = 0xE007 	; i++ ; // COLUMN_CORRECTION
+regAddr[i]  = 0x301A; regValue[i] = 0x10DC 	; i++ ; // RESET_REGISTER
+regAddr[i]  = 0x301A; regValue[i] = 0x10D8 	; i++ ; // RESET_REGISTER
+regAddr[i]  = 0x3044; regValue[i] = 0x0400 	; i++ ; // DARK_CONTROL
+regAddr[i]  = 0x3012; regValue[i] = 0x02A0 	; i++ ; // COARSE_INTEGRATION_TIME
+regAddr[i]  = 0x3032; regValue[i] = 0x0000 	; i++ ; // DIGITAL_BINNING
+regAddr[i]  = 0x3002; regValue[i] = 0x0002 	; i++ ; // Y_ADDR_START
+regAddr[i]  = 0x3004; regValue[i] = 0x0000 	; i++ ; // X_ADDR_START
+regAddr[i]  = 0x3006; regValue[i] = 0x03C1 	; i++ ; // Y_ADDR_END
+regAddr[i]  = 0x3008; regValue[i] = 0x04FF 	; i++ ; // X_ADDR_END
+regAddr[i]  = 0x300A; regValue[i] = 0x03DE 	; i++ ; // FRAME_LENGTH_LINES
+regAddr[i]  = 0x300C; regValue[i] = 0x0672 	; i++ ; // LINE_LENGTH_PCK
+regAddr[i]  = 0x301A; regValue[i] = 0x10D8 	; i++ ; // RESET_REGISTER
+regAddr[i]  = 0x31D0; regValue[i] = 0x0001 	; i++ ; // HDR_COMP
+regAddr[i]  = 0x302C; regValue[i] = PLL_P1; 	; i++ ; // VT_SYS_CLK_DIV //0x0002
+regAddr[i]  = 0x302A; regValue[i] = PLL_P2; 	; i++ ; // VT_PIX_CLK_DIV //0x0004
+regAddr[i]  = 0x302E; regValue[i] = PLL_pre_div;	; i++ ; // PRE_PLL_CLK_DIV //0x0002 
+regAddr[i]  = 0x3030; regValue[i] = PLL_M; 	; i++ ; // PLL_MULTIPLIER //0x002C
+regAddr[i]  = 0x30B0; regValue[i] = 0x1300 	; i++ ; // DIGITAL_TEST
+regAddr[i]  = 0x301A; regValue[i] = 0x10DC 	; i++ ; // RESET_REGISTER
+regAddr[i]  = 0x301A; regValue[i] = 0x10DC 	; i++ ; // RESET_REGISTER

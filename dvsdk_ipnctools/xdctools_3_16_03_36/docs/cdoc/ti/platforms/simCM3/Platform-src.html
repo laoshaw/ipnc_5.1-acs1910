@@ -1,0 +1,104 @@
+<html><head><title>module ti.platforms.simCM3.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> */</span>
+    16    
+    17    <span class=key>package</span> ti.platforms.simCM3;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== Platform ========
+</span>    21    <span class="xdoc"> *  Simulation-based Platform support for TI Cortex M3 platforms
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    24    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    25    <span class="xdoc"> *
+</span>    26    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    27    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    28    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    29    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    30    <span class="xdoc"> *
+</span>    31    <span class="xdoc"> *  This particular platform has a single Cpu, and therefore, only
+</span>    32    <span class="xdoc"> *  declares a single CPU configuration object.  Multi-CPU platforms
+</span>    33    <span class="xdoc"> *  would declare multiple Cpu configuration parameters (one per
+</span>    34    <span class="xdoc"> *  platform CPU).
+</span>    35    <span class="xdoc"> */</span>
+    36    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    37    {
+    38        <span class="xdoc">/*!
+</span>    39    <span class="xdoc">     *  ======== BOARD ========
+</span>    40    <span class="xdoc">     *  This platform's board attributes
+</span>    41    <span class="xdoc">     */</span>
+    42        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {
+    43            id:             <span class="string">"0"</span>,
+    44            boardName:      <span class="string">"simCM3"</span>,
+    45            boardFamily:    <span class="string">"simCM3"</span>,
+    46            boardRevision:  <span class=key>null</span>
+    47        };
+    48    
+    49        <span class="xdoc">/*!
+</span>    50    <span class="xdoc">     *  ======== CPU ========
+</span>    51    <span class="xdoc">     *  The CPU simulated by this platform.
+</span>    52    <span class="xdoc">     *
+</span>    53    <span class="xdoc">     *  The device simulated is determined by the platform instance name
+</span>    54    <span class="xdoc">     *  or if this does not name a ti.catalog.arm module, then we
+</span>    55    <span class="xdoc">     *  we simulate a TMS470.
+</span>    56    <span class="xdoc">     */</span>
+    57        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu CPU = {        
+    58            id:             <span class="string">"0"</span>,
+    59            clockRate:      200.0,
+    60            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    61            deviceName:     <span class="string">"CortexM3"</span>,
+    62            revision:       <span class="string">"1.0"</span>,
+    63        };
+    64    
+    65    <span class=key>instance</span>:
+    66    
+    67        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Memory 
+    68            externalMemoryMap[string] = [
+    69    
+    70                [<span class="string">"Code"</span>, {
+    71                    comment: <span class="string">"Code Memory"</span>,
+    72                    name:   <span class="string">"Code"</span>,
+    73                    base:   0x00000000,
+    74                    len:    0x20000000,
+    75                    space:  <span class="string">"code"</span>,
+    76                    access: <span class="string">"RWX"</span>
+    77                }],
+    78    
+    79                [<span class="string">"SRAM"</span>, {
+    80                    comment: <span class="string">"Shared RAM"</span>,
+    81                    name:   <span class="string">"SRAM"</span>, 
+    82                    base:   0x20000000,
+    83                    len:    0x20000000,
+    84                    space:  <span class="string">"data"</span>,
+    85                    access: <span class="string">"RW"</span>
+    86                }],
+    87            ];
+    88    
+    89        <span class=key>override</span> <span class=key>config</span> string codeMemory = <span class="string">"Code"</span>;
+    90        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"SRAM"</span>;
+    91        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"SRAM"</span>;
+    92    };
+    93    <span class="comment">/*
+</span>    94    <span class="comment"> *  @(#) ti.platforms.simCM3; 1, 0, 1, 0,121; 2-23-2010 16:52:46; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    95    <span class="comment"> */</span>
+    96    
+</pre>
+</body></html>

@@ -1,0 +1,445 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Interface Primer/Lesson 15 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 15&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_14.html" title="Lesson 14"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_16.html" title="Lesson 16"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Interface Primer/Lesson 15</p><p id="subtitle">Abstract instances &#151; techniques for creating <tt>IGen</tt> objects</p>
+<p>Without much fanfare, the target-implementation of the <tt>FirTester_main</tt> function presented in <a href="RTSC_Interface_Primer__Lesson_14.html#cl-1:5" title="RTSC Interface Primer/Lesson 14">Lesson 14</a> already created an abstract instance by calling the <tt>FirTester_PFir_create</tt> function provided through the module's <tt>PFir</tt> proxy.  Not knowing the identity of the <tt>IFir</tt> module bound to this proxy, this particular <tt>create</tt> call returns an <i>abstract</i> <tt>FirTester_PFir_Handle</tt> that references some underlying concrete instance object&#151;a newly-created instance that from the client's perspective only supports the <i>abstract</i> functionality specified in the <tt>IFir</tt> interface.
+</p><p>When using the <tt>IGen</tt> interface introduced back in <a href="RTSC_Interface_Primer__Lesson_11.html#cl-3:1" title="RTSC Interface Primer/Lesson 11">Lesson 11</a> in a similar manner, however, things become a little more complex.  Why, because modules like <tt>RandGen</tt> and <tt>SineGen</tt> not only <i>inherit</i> the abstract <tt>IGen</tt> interface, these modules also <i>extend</i> <tt>IGen</tt> with additional per-instance configs that help shape individual instances upon creation.  This lesson examines a continuum of applications that each work with abstract <tt>IGen</tt> instances, showcasing a variety of RTSC idioms that all strike a balance between <i>concrete creation</i> and <i>abstract usage</i> of these instance objects.
+</p><p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;This lesson leverages some new proxy capabilities slated for <tt>XDCtools</tt> 3.20.</span>
+<br />
+<span class="note"><b>NOTE:</b>&nbsp;&nbsp;For now, just treat the programming examples as "read-only".</span> 
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Creating_instances_statically_.C2.97_AppSt"><span class="tocnumber">1</span> <span class="toctext">Creating instances statically &#151; AppSt</span></a></li>
+<li class="toclevel-1"><a href="#Creating_instances_dynamically_.C2.97_AppDy"><span class="tocnumber">2</span> <span class="toctext">Creating instances dynamically &#151; AppDy</span></a></li>
+<li class="toclevel-1"><a href="#Working_with_instance_factories_.C2.97_AppFa"><span class="tocnumber">3</span> <span class="toctext">Working with instance factories &#151; AppFa</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Creating_instances_statically_.C2.97_AppSt"></a><h2> <span class="mw-headline">Creating instances statically &#151; <tt>AppSt</tt></span></h2>
+<p>We'll begin with a (main) module canonically-named <tt>bravo.math2.genapps.AppSt</tt> featuring a proxy that inherits <tt>IGen</tt>, bound by clients to some suitable module such as <tt>RandGen</tt> or <tt>SineGen</tt> in the meta-domain.  In addition, <tt>AppSt</tt> defines a module-wide config that clients can assign a statically-created <tt>IGen</tt> instance using one of the aforementioned <tt>IGen</tt> modules.
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/AppSt.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IGen;
+&nbsp;
+<span class="xdoc">/*! IGen app using statically-created instances */</span>
+<span class="kw1">module</span> AppSt <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! IGen module used in this app */</span>
+    <span class="kw1">proxy</span> PGen <span class="kw1">inherits</span> IGen;
+&nbsp;
+    <span class="xdoc">/*! IGen instance from the same IGen module */</span>
+    <span class="kw1">config</span> PGen.Handle genInst;
+&nbsp;
+    <span class="xdoc">/*! Program entry point */</span>
+    <span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+&nbsp;</pre></td></tr></table>
+<div class="Info"><p class="Info">While you've seen numerous declarations of type <tt><i>Mod</i>_Handle</tt> in target-domain <tt>.c</tt> files, we've yet to declare any elements using the corresponding <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> type <tt><i>Mod</i>.Handle</tt> inside an <tt>.xdc</tt> file.  In this particular example, <tt><i>Mod</i></tt> does not refer to some module outside of <tt>AppSt</tt> but rather to <tt>PGen</tt>&#151;a proxy module defined <i>inside</i> the scope of <tt>AppSt</tt>.  Though someone pedantic, we could have expressed this type as <tt>AppSt.PGen.Handle</tt>; or taking matters to their logical conclusion, as <tt>bravo.math2.genapps.AppSt.PGen.Handle</tt>.  Fortunately, the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> language scoping rules enable us to minimize use of fully-qualified names outside of <span class="kw1"><tt>import</tt></span> statements.</p></div>  
+<p>Like earlier client programs sketched out in <a href="RTSC_Interface_Primer__Lesson_11.html#cl-2:2a" title="RTSC Interface Primer/Lesson 11">Lesson 11</a>, the target-implementation of <tt>AppSt</tt> simply prints successive values returned from <tt>AppSt_PGen_next</tt>, passing the instance object referenced through the <tt>AppSt_genInst</tt> config.
+</p>
+<div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/AppSt.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/AppSt.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#define</span> COUNT <span class="nu0">10</span>
+&nbsp;
+<span class="kw2">Int</span> AppSt_main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i;
+&nbsp;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;statically-created instance<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; COUNT; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        System_printf<span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span>, AppSt_PGen_next<span class="br0">&#40;</span>AppSt_genInst<span class="br0">&#41;</span><span class="br0">&#41;</span>; 
+    <span class="br0">&#125;</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The inner function call at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> says it all, referencing both the proxy module and instance object spec'd at lines <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> respectively.  As our earlier note implied, the <tt>genInst</tt> config&#151;spec'd of type <tt>PGen.Handle</tt> at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a>&#151;becomes a statically-initialized target-domain constant of type <tt>AppSt_PGen_Handle</tt> referenced at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> as <tt>AppSt_genInst</tt>.
+</p><p><span class="Leader">Client configuration</span>.&nbsp;  Consider the <tt>progSt.cfg</tt> meta-program, which both binds the <tt>AppSt.PGen</tt> proxy as well as assigns a statically-created instance to <tt>AppSt.genInst</tt>.  Note that since <tt>AppSt</tt> already supplies a candidate entry-point for <tt>Program.main</tt>, clients need not write a corresponding <tt>progSt.c</tt> target-program.  
+</p>
+<div id="cl-2:1"></div><div id="cl-2:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/progSt.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> AppSt = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math2.genapps.AppSt'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.cfg.Program'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> SineGen = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math2.SineGen'</span><span class="br0">&#41;</span>;
+&nbsp;
+AppSt.PGen = SineGen;
+AppSt.genInst = AppSt.PGen.create<span class="br0">&#40;</span><span class="br0">&#123;</span>range: <span class="nu0">127</span>, freq: <span class="nu0">16</span><span class="br0">&#125;</span><span class="br0">&#125;</span>;
+&nbsp;
+Program.main = AppSt.main;</pre></td></tr></table>
+<p>Needless to say, clients of <tt>AppSt</tt> "know" something that the module per-se does not&#151;the identity of the <tt>IGen</tt> delegate bound to the <tt>PGen</tt> proxy on line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a> (<tt>SineGen</tt> in this case).  Given this knowledge, the client meta-program takes full advantage here of per-instance configs <i>specific</i> to the concrete <tt>SineGen</tt> module (such as <tt>freq</tt>) when creating and assigning an abstract <tt>IGen</tt> instance on line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a>.
+</p><p>In general, though, just as <tt>AppSt.PGen</tt> accepts <i>any</i> module inheriting the <tt>IGen</tt> interface, we can likewise assign an instance object to <tt>AppSt.genInst</tt> created with <i>any</i> <tt>IGen</tt> module.  But here's the constraint&#151;we must take care to use the <i>same</i> <tt>IGen</tt> module on the lines <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> in this example; otherwise, fatal runtime consequences may ensue.
+</p>
+<div class="Info"><p class="Info">The idiom illustrated here&#151;first bind <tt><i>Mod.Proxy</i></tt>, then call <tt><i>Mod.Proxy</i>.create</tt>&#151;ensures some level of consistency when creating abstract instances.  Though not necessarily enforced, you should think of <tt><i>Mod.Proxy</i></tt> as a <i>write-once</i> property&#151;one that you should assign <i>before</i> using any other features of <tt><i>Mod.Proxy</i></tt> in the meta-domain, such as its special <tt>create</tt> function.  Since the latter function defers to the proxy's current delegate, <tt><i>Mod.Proxy</i></tt> must of course already be bound; and needless to say, assigning a different module to <tt><i>Mod.Proxy</i></tt> <i>after</i> calling <tt><i>Mod.Proxy</i>.create</tt> breaks everything.  Fortunately, a module like <tt>AppSt</tt> can programatically validate that the concrete module used to create the abstract instance held in <tt>AppSt.genInst</tt> matches the concrete module currently assigned to <tt>AppSt.PGen</tt>.</p></div>
+<a name="Creating_instances_dynamically_.C2.97_AppDy"></a><h2> <span class="mw-headline">Creating instances dynamically &#151; <tt>AppDy</tt></span></h2>
+<p>Our next (main) module&#151;canonically-named <tt>bravo.math2.genapps.AppDy</tt>&#151;not only creates abstract <tt>IGen</tt> instances during execution, it also enables the client to shape certain characteristics of these instances through command-line arguments passed to the program at runtime.  Consider the spec of <tt>AppDy</tt> together with its implementation in the target-domain.
+</p>
+<div id="cl-3:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/AppDy.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IGen;
+&nbsp;
+<span class="xdoc">/*! IGen app using dynamically-created instances */</span>
+<span class="kw1">module</span> AppDy <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! IGen module used in this app */</span>
+    <span class="kw1">proxy</span> PGen <span class="kw1">inherits</span> IGen;
+&nbsp;
+    <span class="xdoc">/*! Program entry point */</span>
+    <span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+&nbsp;</pre></td></tr></table>
+<p></p>
+<div id="cl-3:2"></div><div id="cl-3:3"></div><div id="cl-3:4"></div><div id="cl-3:5"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/AppDy.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4&nbsp;</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/AppDy.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;stdlib.h&gt;
+&nbsp;
+<span class="re1">#define</span> COUNT <span class="nu0">10</span>
+&nbsp;
+<span class="kw2">Int</span> AppDy_main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    AppDy_PGen_Handle genInst;
+    AppDy_PGen_Params genParams;
+    <span class="kw2">Int</span> i;
+&nbsp;
+    AppDy_PGen_Params* prmsRef = <span class="kw2">NULL</span>;         <span class="coMULTI">/* passed to create */</span>
+&nbsp;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;dynamically-created instance<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>argc &gt; <span class="nu0">1</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>                          <span class="coMULTI">/* assign range param */</span>
+        AppDy_PGen_Params_init<span class="br0">&#40;</span>&amp;genParams<span class="br0">&#41;</span>;
+        genParams.range = atoi<span class="br0">&#40;</span>argv<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+        prmsRef = &amp;genParams;                  <span class="coMULTI">/* passed to create */</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    genInst = AppDy_PGen_create<span class="br0">&#40;</span>prmsRef, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; COUNT; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        System_printf<span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span>, AppDy_PGen_next<span class="br0">&#40;</span>genInst<span class="br0">&#41;</span><span class="br0">&#41;</span>; 
+    <span class="br0">&#125;</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Like the earlier <tt>AppSt</tt> module, <tt>AppDy</tt> also specs a proxy named <tt>PGen</tt> at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> which inherits the <tt>IGen</tt> interface.  But unlike the earlier <tt>AppSt</tt> module&#151;which featured a <i>module-wide config</i> named <tt>genInst</tt> that held an statically-created abstract <tt>IGen</tt> instance&#151;<tt>AppDy</tt> instead declares the identifier <tt>genInst</tt> as a <i>local variable</i> of type <tt>AppDy_PGen_Handle</tt> at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a> of its target-implementation.  The code at lines <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a> and <a class="codexLink" href="#cl-3:5"><span class="codexLink">5</span></a> then proceed to create and use <tt>genInst</tt> at runtime, all the while employing the <tt>AppDy_PGen</tt> proxy as an intermediary.
+</p><p>Here again, the target-implementation of <tt>AppDy</tt> has no prior knowledge of the actual delegate module bound to its <tt>PGen</tt> proxy&#151;<tt>RandGen</tt>, <tt>SineGen</tt>, or any other module that inherits the <tt>IGen</tt> interface.  For this very reason, we can only pass per-instance config params to <tt>AppDy_PGen_create</tt> on line <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a> defined at the level of <tt>IGen</tt> itself&#151;configs common to <i>any</i> present or future module directly or indirectly inheriting this interface.
+</p><p>In the example at hand, this suggests that we <i>can</i> assign the common <tt>range</tt> parameter&#151;as we do at line <a class="codexLink" href="#cl-3:3"><span class="codexLink">3</span></a>, applying the standard C function <tt>atoi</tt> to the program's first command-line argument.  But we <i>cannot</i> (say) assign the <tt>freq</tt> parameter specific to the <tt>SineGen</tt> module; indeed, the <tt>AppDy_PGen_Params</tt> structure wouldn't even have a field of that name.
+</p>
+<div class="Info"><p class="Info">Note that if <tt>AppDy_main</tt> receives too few command-line arguments at runtime, the local variable <tt>prmsRef</tt> remains <tt>NULL</tt> when passed to the <tt>AppDy_PGen_create</tt> function at line <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a>; in this case, we'll just have to accept default values for <i>all</i> per-instance config params.</p></div>
+<p><span class="Leader">Client configuration</span>.&nbsp;  Here again, clients of <tt>AppDy</tt> who bind its <tt>PGen</tt> proxy in the meta-domain "know" the true identity of the <tt>IGen</tt> delegate module eventually used in the target-program.  And while <tt>AppDy</tt> supports instance creation only at runtime&#151;and shaped only by config params common to all <tt>IGen</tt> modules&#151;we can however associate a set of <i>delegate-specific</i>, per-instance configs as part of the overall process of proxy binding.
+</p>
+<div id="cl-4:1"></div><div id="cl-4:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/progDy.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> AppDy = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math2.genapps.AppDy'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.cfg.Program'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> SineGen = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math2.SineGen'</span><span class="br0">&#41;</span>;
+&nbsp;
+AppDy.PGen = SineGen;
+AppDy.PGen.defaultParams$ = <span class="kw1">new</span> SineGen.Params<span class="br0">&#40;</span><span class="br0">&#123;</span>range: <span class="nu0">127</span>, freq: <span class="nu0">16</span><span class="br0">&#125;</span><span class="br0">&#125;</span>;
+&nbsp;
+Program.main = AppDy.main;</pre></td></tr></table>
+<p>Once again, we've bound <tt>SineGen</tt> as the delegate for the <tt>PGen</tt> proxy at line <a class="codexLink" href="#cl-4:1"><span class="codexLink">1</span></a>.  Taking no further actions, all instances created dynamically through the <tt>PGen</tt> proxy will accept default values for all per-instance configs <i>not</i> specified in the <tt>IGen</tt> interface&#151;such as the <tt>freq</tt> param, which defaults to <tt>1</tt>.
+</p><p>However, by then assigning the special <tt>defaultParams$</tt> property associated with any proxy module supporting instances&#151;as we've done with <tt>AppDy.PGen</tt> on line <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a>&#151;we can effectively override defaults for all per-instance config params otherwise supplied by the proxy's delegate.  In this case, all abstract <tt>IGen</tt> instances created dynamically by calling <tt>AppDy_PGen_create</tt> at line <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a> of <tt>ApDy.c</tt> will use <tt>16</tt> as their value for <tt>freq</tt>; passing <tt>NULL</tt> as the first argument here will additionally use <tt>127</tt> as their value for <tt>range</tt>.  As a semantic constraint&#151;this time automatically enforced by <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>&#151;the object assigned to our proxy's <tt>defaultParams$</tt> property on line <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a> must originate from the <i>same</i> module bound as the proxy's delegate on line <a class="codexLink" href="#cl-4:1"><span class="codexLink">1</span></a>.
+</p>
+<div class="Info"><p class="Info">Despite appearances, <tt>defaultParams$</tt> is <i>not</i> a property of the <tt>PGen</tt> delegate&#151;<tt>SineGen</tt> in this case&#151;but rather a property of the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object representing the <tt>PGen</tt> proxy itself.  As it turns out, reading/writing <tt>AppDy.PGen</tt> becomes a "short-cut" that in reality accesses the special proxy property <tt>AppDy.PGen.delegate$</tt> behind the scenes.  If the asymmetry between lines <a class="codexLink" href="#cl-4:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a> bothers you, feel free to bind proxies by explicitly assigning to their <tt>delegate$</tt> property.</p></div>
+<div class="Info"><p class="Info">As you can probably imagine, the built-in <span class="kw1"><tt>new</tt></span> operator used on line <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a> fabricates a fresh <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object of type <tt>SineGen.Params</tt>, initializing a subset of its defined properties along the way; like other objects in the meta-domain, this particular one will eventually become a statically-initialized C structure of type <tt>SineGen_Params</tt> in the target-domain.</p></div>
+<p><span class="Leader">Program execution</span>.&nbsp;  As an alternative to some form of <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>test</tt></span>, we'll load and run the sample programs in this lesson using the <tt>xdc.tools.loader</tt> utility invoked using the standard <tt>xs</tt> command bundled with <tt>XDCtools</tt> product&#151;significantly streamlining <i>ad hoc</i> execution of programs expecting command-line arguments.  While indeed possible by leveraging more advanced features of the RTSC build model inside your <tt>package.bld</tt> script, the <tt>xdc.tools.loader</tt> utility proves ideal for more informal and interactive program execution.
+</p>
+<div id="cl-5:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; xs xdc.tools.loader appSt.x64P      </span></b>
+statically-created instance
+0 48 90 118 127 118 90 48 0 -49</pre></td></tr></table>
+<p></p>
+<div id="cl-5:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; xs xdc.tools.loader appDy.x86GW     </span></b>
+dynamically-created instance
+0 48 90 118 127 118 90 48 0 -49</pre></td></tr></table>
+<p></p>
+<div id="cl-5:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; xs xdc.tools.loader appDy.x64P 255  </span></b>
+dynamically-created instance
+0 6 12 18 25 31 37 43 49 56</pre></td></tr></table>
+<p>Since we've used identical per-instance config values at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> of <tt>progSt.cfg</tt> and line <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a> of <tt>progDy.cfg</tt>, the output at lines <a class="codexLink" href="#cl-5:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-5:2"><span class="codexLink">2</span></a> above should indeed match&#151;even though we've built these programs with different RTSC targets for execution on different RTSC platforms.  If, however, we explicitly pass a command-line argument to the <tt>apDy</tt> program which overrides our pre-configured default for <tt>range</tt>, we'll then see the different set of outputs at line <a class="codexLink" href="#cl-5:3"><span class="codexLink">3</span></a>.
+</p>
+<a name="Working_with_instance_factories_.C2.97_AppFa"></a><h2> <span class="mw-headline">Working with instance factories &#151; <tt>AppFa</tt></span></h2>
+<p>The final leg of our journey takes us to a module named <tt>bravo.math2.genapps.AppFa</tt>, where we'll leverage RTSC <b>instance factories</b> <i>defined</i> in the meta-domain&#151;but typically <i>used</i> in the target-domain&#151;to create different sorts of <tt>IGen</tt> instance objects at runtime.  As you'll soon see, RTSC instance factories effectively enable <i>one</i> proxy to potentially handle abstract instances originating from <i>multiple</i> delegates&#151;all inheriting a common interface, of course.
+</p><p>First, though, let's look at the spec followed by the target-implementation for <tt>AppFa</tt>.
+</p>
+<div id="cl-6:1"></div><div id="cl-6:2"></div><div id="cl-6:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/AppFa.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IGen;
+&nbsp;
+<span class="xdoc">/*! IGen app using factory-created instances */</span>
+<span class="kw1">module</span> AppFa <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! IGen module used in this app */</span>
+    <span class="re1">@Factory</span>
+    <span class="kw1">proxy</span> PGen <span class="kw1">inherits</span> IGen;
+&nbsp;
+    <span class="xdoc">/*! PGen factory descriptor */</span>
+    <span class="kw1">struct</span> FctyDesc <span class="br0">&#123;</span>
+        <span class="kw2">String</span> name;
+        PGen.Factory fcty;
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="xdoc">/*! Factory descriptor table */</span>
+    FctyDesc fctyDescTab<span class="br0">&#91;</span><span class="br0">&#93;</span>;
+&nbsp;
+    <span class="xdoc">/*! Program entry point */</span>
+    <span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+&nbsp;</pre></td></tr></table>
+<p></p>
+<div id="cl-6:4a"></div><div id="cl-6:4b"></div><div id="cl-6:5a"></div><div id="cl-6:5b"></div><div id="cl-6:6"></div><div id="cl-6:7"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/AppFa.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4a</span><br /><span class="codexLab">4b</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5a</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5b</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">6&nbsp;</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">7&nbsp;</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/AppFa.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;stdlib.h&gt;
+&nbsp;
+<span class="re1">#define</span> COUNT <span class="nu0">10</span>
+&nbsp;
+<span class="kw2">Int</span> AppFa_main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    AppFa_PGen_Handle genInst;
+    AppFa_PGen_Params genParams;
+    <span class="kw2">Int</span> i;
+&nbsp;
+    AppFa_PGen_Factory* fctyRef = <span class="kw2">NULL</span>;                <span class="coMULTI">/* passed to create */</span>
+    AppFa_PGen_Params* prmsRef = <span class="kw2">NULL</span>;                 <span class="coMULTI">/* passed to create */</span>
+&nbsp;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;factory-created instance<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>argc &gt; <span class="nu0">1</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>                                     <span class="coMULTI">/* select factory */</span>
+        <span class="kw2">Int</span> k = atoi<span class="br0">&#40;</span>argv<span class="br0">&#91;</span><span class="nu0">1</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+        System_printf<span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\&quot;</span>%s: <span class="es0">\&quot;</span>&quot;</span>, &amp;AppFa_fctyDescTab<span class="br0">&#91;</span>k<span class="br0">&#93;</span>-&gt;name<span class="br0">&#41;</span>;
+        fctyRef = &amp;AppFa_fctyDescTab<span class="br0">&#91;</span>k<span class="br0">&#93;</span>-&gt;fcty;        <span class="coMULTI">/* passed to create */</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>argc &gt; <span class="nu0">2</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>                                      <span class="coMULTI">/* assign params */</span>
+        AppFa_PGen_Params_init<span class="br0">&#40;</span>&amp;genParams<span class="br0">&#41;</span>;
+        genParams.range = atoi<span class="br0">&#40;</span>argv<span class="br0">&#91;</span><span class="nu0">2</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+        prmsRef = &amp;genParams;                         <span class="coMULTI">/* passed to create */</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    genInst = AppFa_PGen_create<span class="br0">&#40;</span>fctyRef, prmsRef, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; COUNT; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        System_printf<span class="br0">&#40;</span><span class="st0">&quot;%d &quot;</span>, AppFa_PGen_next<span class="br0">&#40;</span>genInst<span class="br0">&#41;</span><span class="br0">&#41;</span>; 
+    <span class="br0">&#125;</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The special <span class="re1"><tt>@Factory</tt></span> attribute preceding the proxy declaration at line <a class="codexLink" href="#cl-6:1"><span class="codexLink">1</span></a> enables us to reference a built-in <tt>Factory</tt> type associated with <tt>PGen</tt>&#151;either as <tt>PGen.Factory</tt> at line <a class="codexLink" href="#cl-6:2"><span class="codexLink">2</span></a> of the module's <tt>.xdc</tt> file or else as a <tt>AppFa_PGen_Factory</tt> at line <a class="codexLink" href="#cl-6:4a"><span class="codexLink">4a</span></a> of the module's <tt>.c</tt> file.  As you'll see shortly, a client meta-program would ultimately populate the <tt>ApFa.fctyDescTab</tt> array spec'd here at line <a class="codexLink" href="#cl-6:3"><span class="codexLink">3</span></a> with an appropriate set of <tt>PGen.Factory</tt> objects paired with a descriptive name.
+</p><p>Turning to the target-domain, pay careful attention to the <tt>AppFa_PGen_create</tt> call on line <a class="codexLink" href="#cl-6:6"><span class="codexLink">6</span></a>&#151;a subtle variation from the norm which occurs when using any RTSC proxy declared with the <span class="re1"><tt>@Factory</tt></span> attribute.  As you can see here, this particular form of the <tt><i>Mod_Proxy</i>_create</tt> function takes an <i>extra</i> argument of type <tt><i>Mod_Proxy</i>_Factory*</tt> that in turn references a statically-initialized <tt><i>Mod_Proxy</i>_Factory</tt> assigned in the meta-domain.  When passed <tt>NULL</tt> as its first argument, this form of <tt><i>Mod_Proxy</i>_create</tt> operates in the usual manner&#151;deferring directly to the delegate module bound to this proxy.
+</p><p>In the case of <tt>AppFa.c</tt>, lines <a class="codexLink" href="#cl-6:4a"><span class="codexLink">4a</span></a> and <a class="codexLink" href="#cl-6:4b"><span class="codexLink">4b</span></a> respectively declare and initialize references to a <tt>Factory</tt> and <tt>Params</tt> structure associated with the <tt>AppFa_PGen</tt> proxy.  Conditional upon the program receiving sufficient command-line arguments, we've updated these references at lines <a class="codexLink" href="#cl-6:5a"><span class="codexLink">5a</span></a> and <a class="codexLink" href="#cl-6:5b"><span class="codexLink">5b</span></a>.  The <tt>create</tt> call at line <a class="codexLink" href="#cl-6:6"><span class="codexLink">6</span></a> then consumes <tt>fctyRef</tt> and <tt>prmsRef</tt>, which may still have <tt>NULL</tt> as their values in some cases.
+</p><p>Compared with our earlier <tt>AppDy</tt> module, we can now select the <i>factory</i> used to create an abstract <tt>IGen</tt> instance as well as control its common per-instance configs&#151;all at runtime, of course.  To fully grasp the implications of this last statement, however, we need to examine the client's perspective of <tt>AppFa</tt> within the meta-domain.
+</p><p><span class="Leader">Client configuration</span>.&nbsp;  As we hinted earlier, the use of RTSC instance factories would in general enable the <tt>AppFa.PGen</tt> proxy to create abstract <tt>IGen</tt> instance object originating from <i>different</i> <tt>IGen</tt> modules.  Depending upon a command-line argument passed to the program at runtime&#151;which selects a particular element from a pre-configured <tt>AppFa.fctyDescTab</tt> array during execution&#151;the output could originate from <tt>SineGen</tt>, from <tt>RandGen</tt>, or from any other module that inherits the <tt>IGen</tt> interface.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; xs xdc.tools.loader appFa.x64P 0             </span></b>
+factory-created instance
+&quot;sine16&quot;: 0 97 181 236 255 236 181 97 0 -98</pre></td></tr></table>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; xs xdc.tools.loader appFa.x64P 1             </span></b>
+factory-created instance
+&quot;sine32&quot;: 0 181 255 181 0 -182 -256 -182 0 181</pre></td></tr></table>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; xs xdc.tools.loader appFa.x64P 2             </span></b>
+factory-created instance
+&quot;rand10&quot;: 126 108 219 76 238 117 133 145 62 236</pre></td></tr></table>
+<p>To effect these results, the following meta-program adds three elements to the <tt>AppFa.fctyDescTab</tt> array&#151;the first two defining the characteristics of the <tt>"sine16"</tt> and <tt>"sine32"</tt> factories, and the third defining the <tt>"rand10"</tt> factory. 
+</p>
+<div id="cl-7:1"></div><div id="cl-7:2"></div><div id="cl-7:3"></div><div id="cl-7:4"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>bravo/math2/genapps/progFa.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> AppFa = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math2.genapps.AppFa'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.cfg.Program'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> RandGen = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math2.RandGen'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> SineGen = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'bravo.math2.SineGen'</span><span class="br0">&#41;</span>;
+&nbsp;
+AppFa.PGen = SineGen;
+AppFa.PGen.defaultParams$ = <span class="kw1">new</span> SineGen.Params<span class="br0">&#40;</span><span class="br0">&#123;</span>range: <span class="nu0">127</span>, freq: <span class="nu0">16</span><span class="br0">&#125;</span><span class="br0">&#125;</span>;
+&nbsp;
+AppFa.fctyDescTab = <span class="br0">&#91;</span>
+    <span class="br0">&#123;</span>name: <span class="st0">&quot;sine16&quot;</span>, fcty: AppFa.PGen.addFactory$<span class="br0">&#40;</span>SineGen, <span class="kw1">new</span> SineGen.Params<span class="br0">&#40;</span><span class="br0">&#123;</span>range: <span class="nu0">255</span>, freq: <span class="nu0">16</span><span class="br0">&#125;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span>name: <span class="st0">&quot;sine32&quot;</span>, fcty: AppFa.PGen.addFactory$<span class="br0">&#40;</span>SineGen, <span class="kw1">new</span> SineGen.Params<span class="br0">&#40;</span><span class="br0">&#123;</span>range: <span class="nu0">255</span>, freq: <span class="nu0">32</span><span class="br0">&#125;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span>name: <span class="st0">&quot;rand10&quot;</span>, fcty: AppFa.PGen.addFactory$<span class="br0">&#40;</span>RandGen, <span class="kw1">new</span> RandGen.Params<span class="br0">&#40;</span><span class="br0">&#123;</span>range: <span class="nu0">100</span>, seed: <span class="nu0">10</span><span class="br0">&#125;</span><span class="br0">&#41;</span><span class="br0">&#41;</span><span class="br0">&#125;</span>,
+<span class="br0">&#93;</span>;
+&nbsp;
+Program.main = AppFa.main;</pre></td></tr></table>
+<p>As with each of our previous meta-programs, we've configured the <tt>AppFa.PGen</tt> proxy at lines <a class="codexLink" href="#cl-7:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-7:2"><span class="codexLink">2</span></a> with the same set of defaults&#151;in the event that our program receives <i>no</i> command-line arguments at runtime.  Recognizing the pattern here&#151;an <tt>IGen</tt> module paired with a <tt>Params</tt> object overriding that same module's defaults for per-instance configs&#151;the instance factories synthesized beginning at line <a class="codexLink" href="#cl-7:3"><span class="codexLink">3</span></a> actually follow suit.
+</p><p>In general, any proxy carrying the <span class="re1"><tt>@Factory</tt></span> attribute in its original spec supports a special meta-function named <tt>addFactory$</tt> whose arguments expect values of the same types assignable as the proxy's delegate as well as the proxy's <tt>defaultParams$</tt> property.    In effect, each additional factory behaves like a "mini-proxy" in its own right&#151;pairing the same sorts of information already used at lines <a class="codexLink" href="#cl-7:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-7:2"><span class="codexLink">2</span></a> under the same sorts of constraints.  And yet&#151;as line <a class="codexLink" href="#cl-7:4"><span class="codexLink">4</span></a> illustrates&#151;we <i>can</i> support a mixture of <tt>IGen</tt> delegate modules under the auspices of a single <tt>IGen</tt> proxy.
+</p><p><span class="Leader">Performance impact</span>.&nbsp;  Mixing <tt>IGen</tt> delegate modules in this fashion does, however, incur some runtime cost.  Until now, <i>all</i> proxies worked with just <i>one</i> delegate, known by the end of program configuration.  Though generated automatically, you can imagine the body of most proxy functions simply issuing direct calls to corresponding delegate functions of the same name; most compilers&#151;even without whole-program optimization&#151;can systematically fold-away these proxy functions.
+</p><p>If, however, the proxy must deal with instances originating from factories tied to <i>different</i> delegates, the runtime implementation devolves to the same technique used by every other object-oriented programming language&#151;virtual function tables.  So, unlike the call to <tt>AppDy_PGen_next</tt> at line <a class="codexLink" href="#cl-3:5"><span class="codexLink">5</span></a> of <tt>AppDy.c</tt>, the call to <tt>AppFa_PGen_next</tt> at line <a class="codexLink" href="#cl-6:7"><span class="codexLink">7</span></a> of <tt>AppFa.c</tt> will <i>not</i> call the <tt>SineGen_next</tt> function directly; rather, <tt>AppDy_Pgen_next</tt> will access a function table referenced through its instance handle argument that in turn holds a pointer to the actual <tt>next</tt> function appropriate for this object&#151;either <tt>SineGen_next</tt> <i>or</i> <tt>RandGen_next</tt> in this case.  So here's the bottom line&#151;several levels of runtime indirection versus direct calls to delegate functions amenable to auto-inlining.
+</p><p>Fortunately, most applications of the RTSC proxy-delegate pattern do not involve factories; and even when they do, the function table implementation should only kick in when the application requires proxy factories using <i>different</i> delegate modules.  Put in other terms, the <i>worse-case</i> implementation of RTSC interfaces achieves parity with current techniques used implicitly by C++ or else explicitly by over-zealous C programmers infatuated with function pointers.  But as for the <i>best-case</i> performance of RTSC interfaces&#151;you've already seen how we've benchmarked favorably against hand-tweaked code tuned for a specific target.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListSpacer1">&nbsp;
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 15&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_14.html" title="Lesson 14"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_16.html" title="Lesson 16"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 16167 bytes
+Post-expand include size: 5869 bytes
+Template argument size: 445 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Interface_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.205 secs. --></body></html>

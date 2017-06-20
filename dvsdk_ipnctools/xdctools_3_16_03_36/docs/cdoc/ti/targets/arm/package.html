@@ -1,0 +1,108 @@
+<html>
+<head>
+<title>package ti.targets.arm</title>
+<meta name="description" content="Package of Arm targets for TI code generation tools">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">ti.targets.arm</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../ti/targets/arm/IArm.html" title="interface IArm"><img class="xdocHdrArrow" src="../../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#ti/targets/arm/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Package of Arm targets for TI code generation tools</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+</ul>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../ti/targets/arm/package-src.html"><span class="xdocLabelFile">ti/targets/arm/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/bld/package.html" title="xdc.bld">xdc.bld</a>[1, 0, 1];
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../ti/targets/package.html" title="ti.targets">ti.targets</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">ti.targets.arm</span></go> [2, 0, 1, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/targets/arm/IArm.html' title='ti.targets.arm.IArm'><span class="xdoc-id">IArm</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Common settings for all Arm targets</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/targets/arm/IM3.html' title='ti.targets.arm.IM3'><span class="xdoc-id">IM3</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex M3 little endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/targets/arm/IM3_big_endian.html' title='ti.targets.arm.IM3_big_endian'><span class="xdoc-id">IM3_big_endian</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex M3 big endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/targets/arm/IR4.html' title='ti.targets.arm.IR4'><span class="xdoc-id">IR4</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex R4 little endian target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/targets/arm/IR4_big_endian.html' title='ti.targets.arm.IR4_big_endian'><span class="xdoc-id">IR4_big_endian</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex R4 big endian target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/Arm11.html' title='ti.targets.arm.Arm11'><span class="xdoc-id">Arm11</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;TI Arm11 little endian target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/Arm11_big_endian.html' title='ti.targets.arm.Arm11_big_endian'><span class="xdoc-id">Arm11_big_endian</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;TI Arm11 big endian target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/Arm7.html' title='ti.targets.arm.Arm7'><span class="xdoc-id">Arm7</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;TI Arm7 little endian target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/Arm7_big_endian.html' title='ti.targets.arm.Arm7_big_endian'><span class="xdoc-id">Arm7_big_endian</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;TI Arm7 big endian target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/Arm9.html' title='ti.targets.arm.Arm9'><span class="xdoc-id">Arm9</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;TI Arm9 little endian target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/Arm9t.html' title='ti.targets.arm.Arm9t'><span class="xdoc-id">Arm9t</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;TI Arm9 little endian thumb-mode target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/M3.html' title='ti.targets.arm.M3'><span class="xdoc-id">M3</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex M3 little endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/M3_big_endian.html' title='ti.targets.arm.M3_big_endian'><span class="xdoc-id">M3_big_endian</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex M3 big endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/R4.html' title='ti.targets.arm.R4'><span class="xdoc-id">R4</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex R4 little endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/R4_big_endian.html' title='ti.targets.arm.R4_big_endian'><span class="xdoc-id">R4_big_endian</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex R4 big endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/R4t.html' title='ti.targets.arm.R4t'><span class="xdoc-id">R4t</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex R4 little endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/targets/arm/R4t_big_endian.html' title='ti.targets.arm.R4t_big_endian'><span class="xdoc-id">R4t_big_endian</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Cortex R4 big endian thumb2 target</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:26:42 GMT</div>
+</div></div></body>
+</html>

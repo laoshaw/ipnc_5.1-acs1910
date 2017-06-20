@@ -1,0 +1,399 @@
+<html><head><title>module xdc.bld.BuildEnvironment</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== BuildEnvironment.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== BuildEnvironment ========
+</span>    19    <span class="xdoc"> *  Global build environment
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  This module defines a global object (aliased as '`Build`' in build scripts)
+</span>    22    <span class="xdoc"> *  which is configured by a build "startup" script and read by package build
+</span>    23    <span class="xdoc"> *  scripts.
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  This module's configuration parameters are initialized by
+</span>    26    <span class="xdoc"> *  a "startup" script that is run prior to running a package's build
+</span>    27    <span class="xdoc"> *  script (`package.bld`).  This script (often named "`config.bld`") is
+</span>    28    <span class="xdoc"> *  responsible for specifying the the `{<b>@link</b> xdc.bld.ITarget#rootDir}`
+</span>    29    <span class="xdoc"> *  configuration parameter of all targets that appear in the
+</span>    30    <span class="xdoc"> *  `{<b>@link</b> #targets}` array; the `rootDir` configuration parameter specifies 
+</span>    31    <span class="xdoc"> *  the absolute path to the installation directory of the compiler used to 
+</span>    32    <span class="xdoc"> *  build for the specified target.  Typically one startup script is used to
+</span>    33    <span class="xdoc"> *  establish an environment for multiple packages.
+</span>    34    <span class="xdoc"> *
+</span>    35    <span class="xdoc"> *  Note: it does not matter if you do not have tools for all the targets 
+</span>    36    <span class="xdoc"> *  mentioned in the startup script; if you do not build for a target,
+</span>    37    <span class="xdoc"> *  its setting in the startup script is irrelevant.
+</span>    38    <span class="xdoc"> *
+</span>    39    <span class="xdoc"> *  The startup script may configure this module as a function of the
+</span>    40    <span class="xdoc"> *  following global variables that exist before this script runs:
+</span>    41    <span class="xdoc"> *  <b>@p(dlist)</b>
+</span>    42    <span class="xdoc"> *    - `environment`
+</span>    43    <span class="xdoc"> *          a hash table of environment strings
+</span>    44    <span class="xdoc"> *    - `arguments`
+</span>    45    <span class="xdoc"> *          an array of string arguments to the `config.bld` script
+</span>    46    <span class="xdoc"> *          initialized as follows:
+</span>    47    <span class="xdoc"> *              `arguments[0]` - the file name of the `config.bld` script;
+</span>    48    <span class="xdoc"> *              `arguments[1]` - the first argument specified in `XDCARGS`;
+</span>    49    <span class="xdoc"> *                  ...;
+</span>    50    <span class="xdoc"> *              `arguments[n]` - the nth argument in `XDCARGS`.
+</span>    51    <span class="xdoc"> *    - `Build`
+</span>    52    <span class="xdoc"> *          an alias for this module (`xdc.bld.BuildEnvironment`).
+</span>    53    <span class="xdoc"> *          The following parameters of this object are initialized
+</span>    54    <span class="xdoc"> *          before the startup script runs:
+</span>    55    <span class="xdoc"> *              `hostOS`     - `{<b>@link</b> #HostOS}` enumeration identifier;
+</span>    56    <span class="xdoc"> *              `hostOSName` - "Windows", "Linux", or "Solaris"
+</span>    57    <span class="xdoc"> *    - `Pkg`
+</span>    58    <span class="xdoc"> *          an alias for this module (`xdc.bld.PackageContents`).
+</span>    59    <span class="xdoc"> *          The following parameters of this object are initialized
+</span>    60    <span class="xdoc"> *          before the startup script runs:
+</span>    61    <span class="xdoc"> *              `{<b>@link</b> PackageContents#name}` - the name of the current
+</span>    62    <span class="xdoc"> *              package;
+</span>    63    <span class="xdoc"> *              `{<b>@link</b> PackageContents#modules}` - array of module names
+</span>    64    <span class="xdoc"> *              supplied by this package; and
+</span>    65    <span class="xdoc"> *              `{<b>@link</b> PackageContents#interfaces}` - array of interface
+</span>    66    <span class="xdoc"> *              names supplied by this package
+</span>    67    <span class="xdoc"> *  <b>@p</b>
+</span>    68    <span class="xdoc"> *  When you build a package, the `xdc` command looks for the startup file
+</span>    69    <span class="xdoc"> *  using the following algorithm: 
+</span>    70    <span class="xdoc"> *  <b>@p(nlist)</b>
+</span>    71    <span class="xdoc"> *      -   if `XDCBUILDCFG` is defined on the `xdc` command line, its value is
+</span>    72    <span class="xdoc"> *          used;
+</span>    73    <span class="xdoc"> *      -   if `config.bld` exists in the current directory, this file is used;
+</span>    74    <span class="xdoc"> *      -   if `XDCBUILDCFG` is defined as an environment variable, its value
+</span>    75    <span class="xdoc"> *          is used;
+</span>    76    <span class="xdoc"> *      -   if `config.bld` exists along the package path (i.e. in `$XDCPATH`
+</span>    77    <span class="xdoc"> *          followed by the current package's repository), the first such
+</span>    78    <span class="xdoc"> *          file is used;
+</span>    79    <span class="xdoc"> *      -   if `$XDCROOT/config.bld` exists this file is used;
+</span>    80    <span class="xdoc"> *      -   if `$XDCROOT/etc/config.bld` exists, this file is used; and
+</span>    81    <span class="xdoc"> *          finally
+</span>    82    <span class="xdoc"> *      -   if no "startup file" can be found above, a fatal error is 
+</span>    83    <span class="xdoc"> *          reported and the `xdc` command terminates with a non-zero exit
+</span>    84    <span class="xdoc"> *          status.
+</span>    85    <span class="xdoc"> */</span>
+    86    <span class=key>metaonly</span> <span class=key>module</span> BuildEnvironment {
+    87    
+    88        <span class="xdoc">/*!
+</span>    89    <span class="xdoc">     *  ======== HostOS ========
+</span>    90    <span class="xdoc">     *  An enumeration of all supported development hosts
+</span>    91    <span class="xdoc">     *
+</span>    92    <span class="xdoc">     *  <b>@see</b> #hostOS
+</span>    93    <span class="xdoc">     */</span>
+    94        <span class=key>enum</span> HostOS {
+    95            WINDOWS,    <span class="xdoc">/*! Win32 Intel development host */</span>
+    96            SOLARIS,    <span class="xdoc">/*! SUN OS 5.x development host */</span>
+    97            LINUX       <span class="xdoc">/*! Linux development host */</span>
+    98        };
+    99        
+   100        <span class="xdoc">/*!
+</span>   101    <span class="xdoc">     *  ======== hostOS ========
+</span>   102    <span class="xdoc">     *  Enumerated constant that identifies the host OS that is executing
+</span>   103    <span class="xdoc">     *  the build script
+</span>   104    <span class="xdoc">     *
+</span>   105    <span class="xdoc">     *  Note that host OS at the time the makefiles are created may be
+</span>   106    <span class="xdoc">     *  different from the host OS at the time sources are compiled!
+</span>   107    <span class="xdoc">     */</span>
+   108        <span class=key>readonly</span> <span class=key>config</span> HostOS hostOS;
+   109    
+   110        <span class="xdoc">/*!
+</span>   111    <span class="xdoc">     *  ======== hostOSName ========
+</span>   112    <span class="xdoc">     *  The name of the development host
+</span>   113    <span class="xdoc">     *
+</span>   114    <span class="xdoc">     *  One of the strings: "Windows", "Solaris", "Linux".  This name is
+</span>   115    <span class="xdoc">     *  name of the host OS that is executing the package's build script.
+</span>   116    <span class="xdoc">     */</span>
+   117        <span class=key>readonly</span> <span class=key>config</span> String hostOSName;
+   118    
+   119        <span class="xdoc">/*!
+</span>   120    <span class="xdoc">     *  ======== useTargets ========
+</span>   121    <span class="xdoc">     *  The set of targets to use if the `{<b>@link</b> #targets}` array
+</span>   122    <span class="xdoc">     *  is empty
+</span>   123    <span class="xdoc">     *
+</span>   124    <span class="xdoc">     *  `useTargets` is a string of white space separated target names 
+</span>   125    <span class="xdoc">     *  (i.e., names of modules that implement `{<b>@link</b> xdc.bld.ITarget}`) or
+</span>   126    <span class="xdoc">     *  regular expression patterns matching target names.
+</span>   127    <span class="xdoc">     *
+</span>   128    <span class="xdoc">     *  If the `Build.{<b>@link</b> #targets}` array is empty at the end of the
+</span>   129    <span class="xdoc">     *  build model's configuration script, targets specified by this string
+</span>   130    <span class="xdoc">     *  are added to the build model's `{<b>@link</b> #targets}` array.
+</span>   131    <span class="xdoc">     *
+</span>   132    <span class="xdoc">     *  In addition to module names, the distinguished string
+</span>   133    <span class="xdoc">     *  `"native"` is interpreted as an alias for the target
+</span>   134    <span class="xdoc">     *  specified by the `{<b>@link</b> #nativeTarget}` configuration
+</span>   135    <span class="xdoc">     *  parameter.
+</span>   136    <span class="xdoc">     *
+</span>   137    <span class="xdoc">     *  Special values:
+</span>   138    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   139    <span class="xdoc">     *     -`undefined`
+</span>   140    <span class="xdoc">     *          use the environment variable `XDCTARGETS`;
+</span>   141    <span class="xdoc">     *     -`null`
+</span>   142    <span class="xdoc">     *          initialize the `{<b>@link</b> #targets}` array to be empty; and
+</span>   143    <span class="xdoc">     *     -`""`
+</span>   144    <span class="xdoc">     *          use all TI targets (i.e., "`ti.targets\..*`").
+</span>   145    <span class="xdoc">     *
+</span>   146    <span class="xdoc">     *  <b>@see</b> #excludeTargets
+</span>   147    <span class="xdoc">     *  <b>@see</b> #nativeTarget
+</span>   148    <span class="xdoc">     */</span>
+   149        <span class=key>config</span> String useTargets;
+   150    
+   151        <span class="xdoc">/*!
+</span>   152    <span class="xdoc">     *  ======== excludeTargets ========
+</span>   153    <span class="xdoc">     *  A set of targets to exclude from the set specified by
+</span>   154    <span class="xdoc">     *  `{<b>@link</b> #useTargets}`
+</span>   155    <span class="xdoc">     *
+</span>   156    <span class="xdoc">     *  This string parameter is a single regular expression used to exclude
+</span>   157    <span class="xdoc">     *  targets from the set specified by `useTargets` (or `XDCTARGETS`).
+</span>   158    <span class="xdoc">     *
+</span>   159    <span class="xdoc">     *  If `{<b>@link</b> #targets}` is initialized by the build model's
+</span>   160    <span class="xdoc">     *  configuration script (i.e., has length &gt; 0) this parameter is
+</span>   161    <span class="xdoc">     *  ignored.
+</span>   162    <span class="xdoc">     *
+</span>   163    <span class="xdoc">     *  If this string is `null` or `undefined`, nothing is excluded from 
+</span>   164    <span class="xdoc">     *  list specified by `{<b>@link</b> #useTargets}` or the environment variable
+</span>   165    <span class="xdoc">     *  `XDCTARGETS`.
+</span>   166    <span class="xdoc">     *
+</span>   167    <span class="xdoc">     *  <b>@see</b> #useTargets
+</span>   168    <span class="xdoc">     *  <b>@see</b> #nativeTarget
+</span>   169    <span class="xdoc">     */</span>
+   170        <span class=key>config</span> String excludeTargets;
+   171        
+   172        <span class="xdoc">/*!
+</span>   173    <span class="xdoc">     *  ======== targets ========
+</span>   174    <span class="xdoc">     *  Array of all targets that are supported for the current build
+</span>   175    <span class="xdoc">     *
+</span>   176    <span class="xdoc">     *  This array may be explicitly initialized by the build model's
+</span>   177    <span class="xdoc">     *  initial configuration script (by default, "`config.bld`").  For
+</span>   178    <span class="xdoc">     *  example, the following fragment specifies that just the
+</span>   179    <span class="xdoc">     *  `ti.targets.C64` target should be used:
+</span>   180    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   181    <span class="xdoc">     *      // get the ti.targets.C64 module
+</span>   182    <span class="xdoc">     *      var C64 = xdc.module('ti.targets.C64');
+</span>   183    <span class="xdoc">     *
+</span>   184    <span class="xdoc">     *      // add the ti.target.C64 module to BuildEnvironment.targets array
+</span>   185    <span class="xdoc">     *      Build.targets[Build.targets.length++] = C64;
+</span>   186    <span class="xdoc">     *  <b>@p</b>
+</span>   187    <span class="xdoc">     *  Alternatively, this array can be implicitly initialized via the
+</span>   188    <span class="xdoc">     *  `XDCTARGETS` environment variable or the `{<b>@link</b> #useTargets}`
+</span>   189    <span class="xdoc">     *  and `{<b>@link</b> #excludeTargets}` strings.  The `{<b>@link</b> #targets}` array
+</span>   190    <span class="xdoc">     *  is implicitly initialized if and only if the length of this array is
+</span>   191    <span class="xdoc">     *  0 after the build model's configuration script completes.
+</span>   192    <span class="xdoc">     *
+</span>   193    <span class="xdoc">     *  All targets that are in this array *must* have their
+</span>   194    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.ITarget#rootDir}` property set.
+</span>   195    <span class="xdoc">     *
+</span>   196    <span class="xdoc">     *  <b>@see</b> #excludeTargets
+</span>   197    <span class="xdoc">     *  <b>@see</b> #useTargets
+</span>   198    <span class="xdoc">     */</span>
+   199        <span class=key>config</span> ITarget.Module targets[];
+   200    
+   201        <span class="xdoc">/*!
+</span>   202    <span class="xdoc">     *  ======== nativeTarget ========
+</span>   203    <span class="xdoc">     *  A target that defines the "native" target
+</span>   204    <span class="xdoc">     *
+</span>   205    <span class="xdoc">     *  This parameter allows build scripts to refer to the "native"
+</span>   206    <span class="xdoc">     *  target without explicitly naming the target.
+</span>   207    <span class="xdoc">     *
+</span>   208    <span class="xdoc">     *  For example, a `package.bld` script may add a library via:
+</span>   209    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   210    <span class="xdoc">     *      Pkg.addLibrary("lib", Build.nativeTarget);
+</span>   211    <span class="xdoc">     *  <b>@p</b>
+</span>   212    <span class="xdoc">     *  In addition, it is possible to use `"native"` in `XDCTARGETS` or
+</span>   213    <span class="xdoc">     *  `{<b>@link</b> #useTargets}` to specify that
+</span>   214    <span class="xdoc">     *  `{<b>@link</b> #nativeTarget}` be added to the `{<b>@link</b> #targets}` array.
+</span>   215    <span class="xdoc">     *  Thus, it is possible to use the following command on *any* host to
+</span>   216    <span class="xdoc">     *  build for that host:
+</span>   217    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   218    <span class="xdoc">     *      xdc XDCTARGETS=native
+</span>   219    <span class="xdoc">     *  <b>@p</b>
+</span>   220    <span class="xdoc">     *
+</span>   221    <span class="xdoc">     *  If this parameter is not set by the build model's configuration
+</span>   222    <span class="xdoc">     *  script, it is initialized to an appropriate default native target:
+</span>   223    <span class="xdoc">     *  <b>@p(blist)</b>
+</span>   224    <span class="xdoc">     *      - `{<b>@link</b> microsoft.targets.Win32}` for Windows hosts;
+</span>   225    <span class="xdoc">     *      - `{<b>@link</b> gnu.targets.Sparc}` for Solaris hosts; and
+</span>   226    <span class="xdoc">     *      - `{<b>@link</b> gnu.targets.Linux86}` for Linux hosts.
+</span>   227    <span class="xdoc">     *  <b>@p</b>
+</span>   228    <span class="xdoc">     */</span>
+   229        <span class=key>config</span> ITarget.Module nativeTarget = <span class=key>null</span>;
+   230    
+   231        <span class="xdoc">/*!
+</span>   232    <span class="xdoc">     *  ======== platformTable ========
+</span>   233    <span class="xdoc">     *  A map of platform instance names to the parameters used to
+</span>   234    <span class="xdoc">     *  create them
+</span>   235    <span class="xdoc">     *
+</span>   236    <span class="xdoc">     *  This map allows one to define platform instances that require
+</span>   237    <span class="xdoc">     *  non-default parameter settings.  It also provides a way to
+</span>   238    <span class="xdoc">     *  publish a set of platforms to be shared among multiple build
+</span>   239    <span class="xdoc">     *  scripts.
+</span>   240    <span class="xdoc">     *
+</span>   241    <span class="xdoc">     *  <b>@a(EXAMPLES)</b>
+</span>   242    <span class="xdoc">     *  The following fragment defines a platform instance named
+</span>   243    <span class="xdoc">     *  `"ti.platforms.sim6xxx:big"` that corresponds to a platform instance
+</span>   244    <span class="xdoc">     *  created by the `ti.platforms.sim6xxx.Platform` module with the
+</span>   245    <span class="xdoc">     *  parameters `{endian: "big"}`:
+</span>   246    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   247    <span class="xdoc">     *    Build.platformTable["ti.platforms.sim6xxx:big"] = {endian: "big"};
+</span>   248    <span class="xdoc">     *  <b>@p</b>
+</span>   249    <span class="xdoc">     *
+</span>   250    <span class="xdoc">     *  The following fragment redefines the default platform instance for
+</span>   251    <span class="xdoc">     *  the platform package `ti.platforms.sim6xxx` by specifying alternative
+</span>   252    <span class="xdoc">     *  instance creation parameters.
+</span>   253    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   254    <span class="xdoc">     *    Build.platformTable["ti.platforms.sim6xxx"] = {
+</span>   255    <span class="xdoc">     *        endian: "little", verbose: false, ftpath: "c:/ftsuite_1_5",
+</span>   256    <span class="xdoc">     *    };
+</span>   257    <span class="xdoc">     *  <b>@p</b>
+</span>   258    <span class="xdoc">     *  Some platforms are "software abastractions" that can emulate a large
+</span>   259    <span class="xdoc">     *  number different physical platforms.  In the example below, the
+</span>   260    <span class="xdoc">     *  `ti.platforms.sim6xxx` platform package is capable of simulating
+</span>   261    <span class="xdoc">     *  any TMS320C6xxx device.  This particular platform package uses the
+</span>   262    <span class="xdoc">     *  name of the instance to determine the specific device that it should
+</span>   263    <span class="xdoc">     *  emulate.  So, the fragment below specifies a platform instance named
+</span>   264    <span class="xdoc">     *  `"ti.platforms.sim6xxx:TMS320C6416"` that emulates the `TMS320C6416`
+</span>   265    <span class="xdoc">     *  device, in little endian mode.
+</span>   266    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   267    <span class="xdoc">     *    Build.platformTable["ti.platforms.sim6xxx:TMS320C6416"] = {
+</span>   268    <span class="xdoc">     *        endian: "little"
+</span>   269    <span class="xdoc">     *    };
+</span>   270    <span class="xdoc">     *  <b>@p</b>
+</span>   271    <span class="xdoc">     *  Software platform packages, such as the `ti.platforms.generic`, can
+</span>   272    <span class="xdoc">     *  even go as far as emulating any device from any "catalog" of
+</span>   273    <span class="xdoc">     *  devices.  In this example, we use the `ti.platforms.generic`
+</span>   274    <span class="xdoc">     *  platform package to define an instance named
+</span>   275    <span class="xdoc">     *  `ti.platforms.generic:c6416` that corresponds to a platform
+</span>   276    <span class="xdoc">     *  containing the TMS320C6416 device specified in the `ti.catalog.c6000`
+</span>   277    <span class="xdoc">     *  package of devices.
+</span>   278    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   279    <span class="xdoc">     *    Build.platformTable["ti.platforms.generic:c6416"] = {
+</span>   280    <span class="xdoc">     *        deviceName: "TMS320C6416",
+</span>   281    <span class="xdoc">     *        catalogName: "ti.catalog.c6000",
+</span>   282    <span class="xdoc">     *    };
+</span>   283    <span class="xdoc">     *  <b>@p</b>
+</span>   284    <span class="xdoc">     *  <b>@see</b> ti.catalog.c6000
+</span>   285    <span class="xdoc">     *  <b>@see</b> ti.platforms.generic
+</span>   286    <span class="xdoc">     *  <b>@see</b> ti.platforms.sim6xxx
+</span>   287    <span class="xdoc">     */</span>
+   288        <span class=key>config</span> any platformTable[string] = [];
+   289        
+   290        <span class="xdoc">/*!
+</span>   291    <span class="xdoc">     *  ======== platforms ========
+</span>   292    <span class="xdoc">     *  Cache of all platform objects added via `{<b>@link</b> #usePlatform}`
+</span>   293    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   294    <span class="xdoc">     */</span>
+   295        <span class=key>config</span> any platforms[string];
+   296    
+   297        <span class="xdoc">/*!
+</span>   298    <span class="xdoc">     *  ======== usePlatform ========
+</span>   299    <span class="xdoc">     *  Instantiate the specified platform
+</span>   300    <span class="xdoc">     *
+</span>   301    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   302    <span class="xdoc">     *
+</span>   303    <span class="xdoc">     *  <b>@param(name)</b>  name of platform to create
+</span>   304    <span class="xdoc">     *
+</span>   305    <span class="xdoc">     *  <b>@a(returns)</b>
+</span>   306    <span class="xdoc">     *  `usePlatform()` returns the platform instance object
+</span>   307    <span class="xdoc">     *  (`xdc.platform.IPlatform.Instance`) specified by `name`.
+</span>   308    <span class="xdoc">     *
+</span>   309    <span class="xdoc">     *  <b>@a(throws)</b>
+</span>   310    <span class="xdoc">     *  `XDCException` exceptions are thrown for fatal errors. The following
+</span>   311    <span class="xdoc">     *  error codes are reported in the exception message:
+</span>   312    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   313    <span class="xdoc">     *      -  `xdc.bld.PARAMETER_MISMATCH`
+</span>   314    <span class="xdoc">     *      This error is reported whenever parameters with the wrong type
+</span>   315    <span class="xdoc">     *      are passed to the method. Ensure that the parameters passed have
+</span>   316    <span class="xdoc">     *      the right type.
+</span>   317    <span class="xdoc">     */</span>
+   318        <span class=key>function</span> usePlatform(name);
+   319        
+   320        <span class="xdoc">/*!
+</span>   321    <span class="xdoc">     *  ======== isInTargetsArray ========
+</span>   322    <span class="xdoc">     *  Test whether a target is in of the `targets` array
+</span>   323    <span class="xdoc">     *
+</span>   324    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   325    <span class="xdoc">     *
+</span>   326    <span class="xdoc">     *  <b>@param(target)</b>  `xdc.bld.ITarget` target object to test
+</span>   327    <span class="xdoc">     */</span>
+   328        Bool isInTargetsArray(ITarget.Module target);
+   329        
+   330        <span class="xdoc">/*!
+</span>   331    <span class="xdoc">     *  ======== printBuildTargets ========
+</span>   332    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   333    <span class="xdoc">     */</span>
+   334        String printBuildTargets();
+   335    
+   336        <span class="xdoc">/*!
+</span>   337    <span class="xdoc">     *  ======== onInit ========
+</span>   338    <span class="xdoc">     *  <b>@_nodoc</b> this function is called from the `xdc.bld` package's 
+</span>   339    <span class="xdoc">     *          initialization function to initialize this module.
+</span>   340    <span class="xdoc">     */</span>
+   341        <span class=key>function</span> onInit();
+   342    
+   343        <span class="xdoc">/*!
+</span>   344    <span class="xdoc">     *  ======== getReleaseDescs ========
+</span>   345    <span class="xdoc">     *  Return a description of all releases for the specified package
+</span>   346    <span class="xdoc">     *
+</span>   347    <span class="xdoc">     *  This function allows a "package of packages" to select appropriate
+</span>   348    <span class="xdoc">     *  releases from another package based on information provided by that
+</span>   349    <span class="xdoc">     *  package.
+</span>   350    <span class="xdoc">     *
+</span>   351    <span class="xdoc">     *  <b>@param(pname)</b>   name of the package to get the release 
+</span>   352    <span class="xdoc">     *                  information from
+</span>   353    <span class="xdoc">     *
+</span>   354    <span class="xdoc">     *  <b>@a(returns)</b>     array of `{<b>@link</b> xdc.bld.Release#Desc}`
+</span>   355    <span class="xdoc">     *                  structures that describe the releases specified
+</span>   356    <span class="xdoc">     *                  by `pname`'s build script
+</span>   357    <span class="xdoc">     *
+</span>   358    <span class="xdoc">     *  <b>@a(throws)</b>      `XDCException` exceptions are thrown for fatal
+</span>   359    <span class="xdoc">     *                   errors. The following error codes are
+</span>   360    <span class="xdoc">     *                   reported in the exception message:
+</span>   361    <span class="xdoc">     *                   <b>@p(dlist)</b>
+</span>   362    <span class="xdoc">     *                   - `xdc.bld.PACKAGE_NOT_BUILT`
+</span>   363    <span class="xdoc">     *                      This error is reported when a consumer tries to
+</span>   364    <span class="xdoc">     *                      use a package that has not been built. Ensure that
+</span>   365    <span class="xdoc">     *                      the required package has been built by the `xdc`
+</span>   366    <span class="xdoc">     *                      tool.
+</span>   367    <span class="xdoc">     *                   -  `xdc.bld.INVALID_PACKAGE`
+</span>   368    <span class="xdoc">     *                      This error is reported when a consumer tries to
+</span>   369    <span class="xdoc">     *                      use a corrupted package. Try rebuilding the
+</span>   370    <span class="xdoc">     *                      package causing the problem.
+</span>   371    <span class="xdoc">     *
+</span>   372    <span class="xdoc">     *  <b>@see</b> xdc.bld.Release#Desc
+</span>   373    <span class="xdoc">     */</span>
+   374        Release.DescArray getReleaseDescs(String pname);
+   375    
+   376        <span class="xdoc">/*!
+</span>   377    <span class="xdoc">     *  ======== initializeModel ========
+</span>   378    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   379    <span class="xdoc">     *  Initialize the build model
+</span>   380    <span class="xdoc">     *
+</span>   381    <span class="xdoc">     *  <b>@param(args)</b>    - an array of arguments whose first element is
+</span>   382    <span class="xdoc">     *                    the path to a config.bld script and subsequent
+</span>   383    <span class="xdoc">     *                    arguments are the argument (usually) specified
+</span>   384    <span class="xdoc">     *                    by `XDCARGS`.
+</span>   385    <span class="xdoc">     */</span>
+   386        <span class=key>function</span> initializeModel(args);
+   387    }
+   388    <span class="comment">/*
+</span>   389    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:31; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   390    <span class="comment"> */</span>
+   391    
+</pre>
+</body></html>

@@ -1,0 +1,99 @@
+<html><head><title>interface ti.sdoarch.standards.pkg.IVersion</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="xdoc">/*!
+</span>     2    <span class="xdoc"> *  ======== IVersion ========
+</span>     3    <span class="xdoc"> *  Standard package version number interface
+</span>     4    <span class="xdoc"> *
+</span>     5    <span class="xdoc"> *  This interface is part of the SDO Package Standard.  Each conformant
+</span>     6    <span class="xdoc"> *  package that supplies a version number contains a module named
+</span>     7    <span class="xdoc"> *  `Version` that implements this interface.  In other words,
+</span>     8    <span class="xdoc"> *  <b>@p(blist)</b>
+</span>     9    <span class="xdoc"> *      - the package's `package.xdc` file declares `Version` as one of it's
+</span>    10    <span class="xdoc"> *        modules
+</span>    11    <span class="xdoc"> *      - the package contains a spec for the `Version` module (named
+</span>    12    <span class="xdoc"> *        `Version.xdc`) and a header generated from this spec (named
+</span>    13    <span class="xdoc"> *        `Version.h`)
+</span>    14    <span class="xdoc"> *      - the `Version.xdc` file may optionally be generated from the
+</span>    15    <span class="xdoc"> *        `ti/sdoarch/standards/pkg/Version.xdt` template when the package's
+</span>    16    <span class="xdoc"> *        build script runs.
+</span>    17    <span class="xdoc"> *  <b>@p</b>
+</span>    18    <span class="xdoc"> *
+</span>    19    <span class="xdoc"> *  This interface defines a set of values that are used to 
+</span>    20    <span class="xdoc"> *  <b>@p(nlist)</b>
+</span>    21    <span class="xdoc"> *      - informally communicate the "degree" of change between successive
+</span>    22    <span class="xdoc"> *        releases of a package,
+</span>    23    <span class="xdoc"> *      - provide a "key" that enables the producer to unambigeously identify
+</span>    24    <span class="xdoc"> *        the sources (and tools) used to produce the package, and
+</span>    25    <span class="xdoc"> *      - enable consumers to easily communicate to producers the version(s)
+</span>    26    <span class="xdoc"> *        of the package(s) they are using.
+</span>    27    <span class="xdoc"> *  <b>@p</b>
+</span>    28    <span class="xdoc"> */</span>
+    29    <span class=key>interface</span> IVersion {
+    30        <span class="xdoc">/*!
+</span>    31    <span class="xdoc">     *  ======== MAJOR ========
+</span>    32    <span class="xdoc">     *  Major version number
+</span>    33    <span class="xdoc">     *
+</span>    34    <span class="xdoc">     *  This number should be changed when major changes in the package
+</span>    35    <span class="xdoc">     *  occur. Examples include adding new modules, adding substantial new
+</span>    36    <span class="xdoc">     *  features to the algorithm(s).
+</span>    37    <span class="xdoc">     */</span>
+    38        <span class=key>const</span> UInt16 MAJOR;
+    39    
+    40        <span class="xdoc">/*!
+</span>    41    <span class="xdoc">     *  ======== MINOR ========
+</span>    42    <span class="xdoc">     *  Minor version number
+</span>    43    <span class="xdoc">     *
+</span>    44    <span class="xdoc">     *  This number should be changed when minor changes in the package
+</span>    45    <span class="xdoc">     *  occur. Examples include minor changes to the existing APIs,
+</span>    46    <span class="xdoc">     *  adding minor features to the algorithms(s) including expanding the
+</span>    47    <span class="xdoc">     *  configuration options.
+</span>    48    <span class="xdoc">     */</span>
+    49        <span class=key>const</span> UInt16 MINOR;
+    50    
+    51        <span class="xdoc">/*!
+</span>    52    <span class="xdoc">     *  ======== PATCH ========
+</span>    53    <span class="xdoc">     *  Patch level
+</span>    54    <span class="xdoc">     *
+</span>    55    <span class="xdoc">     *  This number should be changed when bug fixes or performance
+</span>    56    <span class="xdoc">     *  improvements are introduced. There should be no changes in the APIs
+</span>    57    <span class="xdoc">     *  in this case.
+</span>    58    <span class="xdoc">     */</span>
+    59        <span class=key>const</span> UInt16 PATCH;
+    60    
+    61        <span class="xdoc">/*!
+</span>    62    <span class="xdoc">     *  ======== WIDTH ========
+</span>    63    <span class="xdoc">     *  Minimum width of print fields
+</span>    64    <span class="xdoc">     *
+</span>    65    <span class="xdoc">     *  When denoting version numbers using '.' to separate fields
+</span>    66    <span class="xdoc">     *  there is a danger of confusing version "6.1" and version "6.10";
+</span>    67    <span class="xdoc">     *  because, in decimal notation 6.1 == 6.10.  To avoid
+</span>    68    <span class="xdoc">     *  this confusion, it is common practice to adopt a fixed minimum field
+</span>    69    <span class="xdoc">     *  width that's when printing version dimensions (other than MAJOR);
+</span>    70    <span class="xdoc">     *  e.g., rather than printing "6.1", if WIDTH == 2 then the version would
+</span>    71    <span class="xdoc">     *  be displayed as "6.01".
+</span>    72    <span class="xdoc">     */</span>
+    73        <span class=key>const</span> UInt16 WIDTH;
+    74    
+    75        <span class="xdoc">/*!
+</span>    76    <span class="xdoc">     *  ======== getString ========
+</span>    77    <span class="xdoc">     *  Returns a string representation of the version
+</span>    78    <span class="xdoc">     *
+</span>    79    <span class="xdoc">     *  This method return a string of the form:
+</span>    80    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    81    <span class="xdoc">     *      MAJOR&lt;sep&gt;MINOR&lt;sep&gt;PATCH
+</span>    82    <span class="xdoc">     *  <b>@p</b>
+</span>    83    <span class="xdoc">     *  where `MAJOR`, `MINOR`, and `PATCH` are
+</span>    84    <span class="xdoc">     *  the values sepcified in this interface and `&lt;sep&gt;` is the (optional)
+</span>    85    <span class="xdoc">     *  argument to this method.  If `separator` is not supplied (or is
+</span>    86    <span class="xdoc">     *  `null`), `&lt;sep&gt;` defaults to `'.'`.
+</span>    87    <span class="xdoc">     */</span>
+    88        <span class=key>function</span> getString(separator);
+    89    }
+    90    
+    91    <span class="comment">/* @(#) ti.sdoarch.standards.pkg; 1, 0, 0; Thu, 16 Jul 2009 21:28:29 GMT; /db/ztree/library/trees/ps-b05x/src  */</span>
+</pre>
+</body></html>

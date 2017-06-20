@@ -1,0 +1,315 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Command - xdcpkg - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Command - xdcpkg&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Command - xdcpkg" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Command_Line_Tools/Command_Line_Tools.html" title="Command_Line_Tools"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Command - xdcpkg</p><p id="subtitle">eXpanDed C package list command</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Synopsis"><span class="tocnumber">1</span> <span class="toctext">Synopsis</span></a></li>
+<li class="toclevel-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Options"><span class="tocnumber">3</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">4</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Finding_Packages"><span class="tocnumber">4.1</span> <span class="toctext">Finding Packages</span></a></li>
+<li class="toclevel-2"><a href="#Getting_Package_Information"><span class="tocnumber">4.2</span> <span class="toctext">Getting Package Information</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Environment_Variables"><span class="tocnumber">5</span> <span class="toctext">Environment Variables</span></a></li>
+<li class="toclevel-1"><a href="#Exit_Status"><span class="tocnumber">6</span> <span class="toctext">Exit Status</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Synopsis"></a><h2> <span class="mw-headline"> Synopsis </span></h2>
+<pre>xdcpkg [-a] [-d] [-l[:fmt]] [-m[c]] [-p path] [-r] [-s] [dir ...]
+</pre>
+<a name="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<p>The xdcpkg command is used to find and display information about packages. By default, xdcpkg finds only packages that can be built (i.e., packages with both package.xdc and package.bld files).
+</p>
+<a name="Options"></a><h2> <span class="mw-headline"> Options </span></h2>
+<dl><dt>-a
+</dt><dd>display all packages, not just the buildable ones,
+</dd></dl>
+<dl><dt>-d
+</dt><dd>treat each directory as a package directory and (recursively) find the package's pre-requisites and display them.
+</dd></dl>
+<dl><dt>-l[:fmt]
+</dt><dd>display all package information, not just each package's base directory. If the optional ':' is used, the remainder of the option is taken to be a "format" string that controls the contents and format of the output. The format string is similar to a printf format string; each character (except&nbsp;%) in the string is written to stdout, "output specifiers" are introduced by the&nbsp;% character, the special characters '%', '\', tab, new line, and carriage return are output by the character pairs '\%', '\\', '\t', '\n', or '\r' respectively. The following "output specifiers are supported":
+</dd></dl>
+<dl><dd><dl><dt>%b
+</dt><dd>base directory of package
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%c
+</dt><dd>release build counter
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%d
+</dt><dd>release date in milliseconds since midnight (GMT) 1/1/1970
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%k
+</dt><dd>package's compatibility key (as specified by the package's package.xdc file)
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%l
+</dt><dd>package's release label
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%n
+</dt><dd>package's name
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%r
+</dt><dd>package's release name
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%t
+</dt><dd>top directory containing package (i.e., the package's repository)
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%v
+</dt><dd>a "version" number created by appending the package's compatibility key with the build counter
+</dd></dl>
+</dd></dl>
+<dl><dd><dl><dt>%V
+</dt><dd>a "version" number created by appending the package's compatibility key with the release date in milliseconds
+</dd></dl>
+</dd></dl>
+<dl><dd>If fmt is not specified, print package names followed by their base directory, release name, release label, version, and release date using the following format: 
+</dd></dl>
+<dl><dd><dl><dd>%n;%b;%r;%l;%v;%d
+</dd></dl>
+</dd></dl>
+<dl><dt>-m[c]
+</dt><dd>output make dependencies in the form a:b where a and b are package base directories. If the character c is specified, the ':' character is replaced by c.
+</dd></dl>
+<dl><dt>-p path
+</dt><dd>the path to use as the <i>complete</i> package path (not just $XDCPATH)
+</dd></dl>
+<dl><dt>-r
+</dt><dd>treat each directory as a repository and display <i>only</i> those packages that are "rooted" in this repository. Without this option, each directory is recursively searched for any package in any repository at or below the starting directory
+</dd></dl>
+<dl><dt>-s
+</dt><dd>shallow package search; don't recurse when looking for packages. If -d is also specified only display immediate requirements. This option can't be used with -r.
+</dd></dl>
+<dl><dt>-v
+</dt><dd>verbose output; display error messages for any failure.
+</dd></dl>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<a name="Finding_Packages"></a><h6> <span class="mw-headline">Finding Packages</span></h6>
+<p><span class="Leader">Finding Packages</span>.&nbsp; The following command will output all directories, starting from the current working directory, containing a buildable package.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg .</span></b></pre></td></tr></table>
+<p>To find all packages (buildable or not) starting from the current working directory:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg -a .</span></b></pre></td></tr></table>
+<p>To find all buildable prerequisite packages for the package whose base is the current working directory:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg -d .</span></b></pre></td></tr></table>
+<p>To find an appropriate build order for all buildable prerequisite packages of the package whose base is <tt>./</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg -m&quot; &quot; -d . | tsort</span></b></pre></td></tr></table>
+<p>To find all prerequisite packages for the package whose base is the current working directory:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg -a -d .</span></b></pre></td></tr></table>
+<p>To find all packages whose repository is <tt>./src</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg -a -r ./src</span></b></pre></td></tr></table>
+<a name="Getting_Package_Information"></a><h6> <span class="mw-headline">Getting Package Information</span></h6>
+<p><span class="Leader">Getting Package Information</span>.&nbsp;  The following command will display just the names of all packages located in (or below) the directories <tt>./src</tt> and <tt>c:/ti/packages</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg -a -l:%n ./src c:/ti/packages</span></b></pre></td></tr></table>
+<p>To output the names and a unique version identifier (between <tt>[]</tt>'s) for all packages installed in the repository <tt>c:/ti/packages</tt>:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">% xdcpkg -r -a -l:&quot;%n[%V,&nbsp;%r]&quot; c:/ti/packages&lt;/nowiki&gt;</span></b></pre></td></tr></table>
+<a name="Environment_Variables"></a><h2> <span class="mw-headline"> Environment Variables </span></h2>
+<p>In the event that the -p flag is not specified, xdcpkg constructs a package path from the environment variables XDCROOT and XDCPATH as follows:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>$XDCPATH;$XDCROOT/packages;^</pre></td></tr></table>
+<p>where,
+</p>
+<dl><dt><tt>XDCPATH</tt>
+</dt><dd>a string of ';' separated directories that contain packages. This path is used to locate packages. Recall that the '^' character in the XDCPATH definition refers to the current package's repository.
+</dd></dl>
+<dl><dt><tt>XDCROOT</tt>
+</dt><dd>this variable names an installation directory of the XDCtools.
+</dd><dt><tt>^</tt>
+</dt><dd>this character represents the current package's repository.
+</dd></dl>
+<a name="Exit_Status"></a><h2> <span class="mw-headline"> Exit Status </span></h2>
+<p>The following exit values are returned:
+</p>
+<ul><li> 0 Successful completion.
+</li><li> &gt; 0 An error occurred.
+</li></ul>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Command - xdcpkg&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Command - xdcpkg" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Command_Line_Tools/Command_Line_Tools.html" title="Command_Line_Tools"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Command_-_xdcpkg.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.249 secs. --></body></html>

@@ -1,0 +1,282 @@
+<html><head><title>interface microsoft.targets.ITarget</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== ITarget.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> microsoft.targets;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== ITarget ========
+</span>    19    <span class="xdoc"> *  A Microsoft-specific extension to the base xdc.bld.ITarget interface.
+</span>    20    <span class="xdoc"> */</span>
+    21    @TargetHeader(<span class="string">"xdc/bld/stddefs.xdt"</span>)
+    22    <span class=key>metaonly</span> <span class=key>interface</span> ITarget <span class=key>inherits</span> xdc.bld.ITarget {
+    23    
+    24        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string stdInclude = <span class="string">"microsoft/targets/std.h"</span>;
+    25        <span class=key>override</span> <span class=key>config</span> string dllExt     = <span class="string">".dll"</span>;
+    26    
+    27        <span class="xdoc">/*!
+</span>    28    <span class="xdoc">     *  ======== debugGen ========
+</span>    29    <span class="xdoc">     *  Debugger/IDE project file generation support.
+</span>    30    <span class="xdoc">     * 
+</span>    31    <span class="xdoc">     *  The settings below generate VC project files that enable one
+</span>    32    <span class="xdoc">     *  to debug (and even rebuild) Executables from within the VC GUI.
+</span>    33    <span class="xdoc">     *
+</span>    34    <span class="xdoc">     *  To avoid unnecessary build time overhead, these files are not always
+</span>    35    <span class="xdoc">     *  generated; by default, they are only generated for "debug" profiles.
+</span>    36    <span class="xdoc">     *  The generation of these files is controlled by the
+</span>    37    <span class="xdoc">     *  `{<b>@link</b> xdc.cfg.Program#gen}` configuration parameter.  To force these
+</span>    38    <span class="xdoc">     *  files to be generated for a particular executable, add the following
+</span>    39    <span class="xdoc">     *  line to the executable's program configuration script:
+</span>    40    <span class="xdoc">     *  <b>@p(code)</b>
+</span>    41    <span class="xdoc">     *      Program.gen.debuggerFiles = true;
+</span>    42    <span class="xdoc">     *  <b>@p</b>
+</span>    43    <span class="xdoc">     *  It is also possible to control the generation via build options; see
+</span>    44    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.ITarget#DebugGen}`.
+</span>    45    <span class="xdoc">     *
+</span>    46    <span class="xdoc">     *  To debug an executable: double click on the generated *.vcproj file,
+</span>    47    <span class="xdoc">     *      when the debugger comes up, type F11 (step into).
+</span>    48    <span class="xdoc">     *
+</span>    49    <span class="xdoc">     *  The first time you debug an executable, the VC debugger may prompt
+</span>    50    <span class="xdoc">     *  you for a "solution file" to save.  Click OK (accepting the solution
+</span>    51    <span class="xdoc">     *  file name), and you will be at the first statement of your
+</span>    52    <span class="xdoc">     *  executable.
+</span>    53    <span class="xdoc">     *
+</span>    54    <span class="xdoc">     *  To set command line arguments prior to debugging: open the
+</span>    55    <span class="xdoc">     *  executable's "Project Properties" dialog (select the
+</span>    56    <span class="xdoc">     *  executable in the "Solution Explorer" window and pull-down
+</span>    57    <span class="xdoc">     *  View-&gt;"Property Pages" or type shift-F4), select "Debugging"
+</span>    58    <span class="xdoc">     *  in the left-most pane of the executable's "Property Pages", and
+</span>    59    <span class="xdoc">     *  enter command line arguments in the "Command Arguments" text box.
+</span>    60    <span class="xdoc">     *
+</span>    61    <span class="xdoc">     *  <b>@see</b>  http://msdn.microsoft.com/library/default.asp?url=/library/en-us/vsdebug/html/vxtskdebugginganexecreatedwithoutvisualstudioproject.asp
+</span>    62    <span class="xdoc">     */</span>
+    63        <span class=key>override</span> <span class=key>config</span> xdc.bld.ITarget.DebugGen debugGen = {
+    64            execTemplate: <span class="string">"microsoft/targets/vc_exec.xdt"</span>,
+    65            execPattern: <span class="string">"$(cfgName).vcproj"</span>
+    66        };
+    67    
+    68        <span class="xdoc">/*!
+</span>    69    <span class="xdoc">     *  ======== profiles ========
+</span>    70    <span class="xdoc">     *  Standard options profiles for the microsoft tool-chain.
+</span>    71    <span class="xdoc">     */</span>
+    72        <span class=key>override</span> <span class=key>config</span> xdc.bld.ITarget.OptionSet profiles[string] = [
+    73            [<span class="string">"debug"</span>, {
+    74                compileOpts: {
+    75                    copts: <span class="string">"-Z7 -Odi -MTd"</span>,
+    76                    defs:  <span class="string">"-D_DEBUG=1"</span>,
+    77                },
+    78                linkOpts: <span class="string">"-debug msvcrt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib"</span>,
+    79            }],
+    80    
+    81            [<span class="string">"release"</span>, {
+    82                compileOpts: {
+    83                    copts: <span class="string">"-O2 -MT"</span>,
+    84                    defs:  <span class="string">""</span>,
+    85                },
+    86                linkOpts: <span class="string">"msvcrt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib"</span>,
+    87            }],
+    88        ];
+    89    
+    90        <span class="xdoc">/*!
+</span>    91    <span class="xdoc">     *  ======== Command ========
+</span>    92    <span class="xdoc">     *  Required command and options.
+</span>    93    <span class="xdoc">     *
+</span>    94    <span class="xdoc">     *  The compile, link, and archive functions in this interface are
+</span>    95    <span class="xdoc">     *  implemented by expanding the strings specified in this structure
+</span>    96    <span class="xdoc">     *  and inserting strings from the Options structure to form a single
+</span>    97    <span class="xdoc">     *  command.  The strings in this structure can not be changed by
+</span>    98    <span class="xdoc">     *  the user (they are fixed by the target), but the string in the
+</span>    99    <span class="xdoc">     *  Options structure may be changed by the user.
+</span>   100    <span class="xdoc">     *
+</span>   101    <span class="xdoc">     *  The final command is:
+</span>   102    <span class="xdoc">     *      Command.cmd Options.prefix Command.opts Options.suffix
+</span>   103    <span class="xdoc">     *
+</span>   104    <span class="xdoc">     *  <b>@field(cmd)</b>     name of a tool-chain executable without any path
+</span>   105    <span class="xdoc">     *                  information.  The location of this executable is
+</span>   106    <span class="xdoc">     *                  specified by the binDir (or pathPrefix) 
+</span>   107    <span class="xdoc">     *                  configuration parameter.
+</span>   108    <span class="xdoc">     *
+</span>   109    <span class="xdoc">     *  <b>@field(opts)</b>    required options passed to the command; these options
+</span>   110    <span class="xdoc">     *                  can not be changed or eliminated by user's
+</span>   111    <span class="xdoc">     *                  configuration script.
+</span>   112    <span class="xdoc">     */</span>
+   113        <span class=key>struct</span> Command {
+   114            string cmd;     <span class="xdoc">/*! the command to run */</span>
+   115            string opts;    <span class="xdoc">/*! required options for the command */</span>
+   116        }
+   117    
+   118        <span class="xdoc">/*!
+</span>   119    <span class="xdoc">     *  ======== Options ========
+</span>   120    <span class="xdoc">     *  User configurable command options.
+</span>   121    <span class="xdoc">     *
+</span>   122    <span class="xdoc">     *  The option strings allow the user to pass additional parameters to the
+</span>   123    <span class="xdoc">     *  executable that is responsible for compiling, linker, or archiving.
+</span>   124    <span class="xdoc">     *
+</span>   125    <span class="xdoc">     *  <b>@a(see)</b>
+</span>   126    <span class="xdoc">     *  microsoft.targets.ITarget.Command
+</span>   127    <span class="xdoc">     */</span>
+   128        <span class=key>struct</span> Options {
+   129            string prefix;  <span class=xdoc>//! options placed before required command options</span>
+   130            string suffix;  <span class=xdoc>//! options placed after required command options</span>
+   131        }
+   132    
+   133        <span class="xdoc">/*!
+</span>   134    <span class="xdoc">     *  ======== ar ========
+</span>   135    <span class="xdoc">     *  The command used to create an archive (i.e., library)
+</span>   136    <span class="xdoc">     */</span>
+   137        <span class=key>readonly</span> <span class=key>config</span> Command ar;
+   138    
+   139        <span class="xdoc">/*!
+</span>   140    <span class="xdoc">     *  ======== arOpts ========
+</span>   141    <span class="xdoc">     *  User configurable archiver options.
+</span>   142    <span class="xdoc">     */</span>
+   143        <span class=key>config</span> Options arOpts = {
+   144            prefix: <span class="string">""</span>,
+   145            suffix: <span class="string">""</span>
+   146        };
+   147    
+   148        <span class="xdoc">/*!
+</span>   149    <span class="xdoc">     *  ======== lnk ========
+</span>   150    <span class="xdoc">     *  The command used to link executables.
+</span>   151    <span class="xdoc">     */</span>
+   152        <span class=key>readonly</span> <span class=key>config</span> Command lnk;
+   153    
+   154        <span class="xdoc">/*!
+</span>   155    <span class="xdoc">     *  ======== lnkOpts ========
+</span>   156    <span class="xdoc">     *  User configurable linker options.
+</span>   157    <span class="xdoc">     */</span>
+   158        <span class=key>config</span> Options lnkOpts = {
+   159            prefix: <span class="string">""</span>,
+   160            suffix: <span class="string">""</span>
+   161        };
+   162    
+   163        <span class="xdoc">/*!
+</span>   164    <span class="xdoc">     *  ======== cc ========
+</span>   165    <span class="xdoc">     *  The command used to compile C/C++ source files into object files
+</span>   166    <span class="xdoc">     */</span>
+   167        <span class=key>readonly</span> <span class=key>config</span> Command cc;
+   168    
+   169        <span class="xdoc">/*!
+</span>   170    <span class="xdoc">     *  ======== ccOpts ========
+</span>   171    <span class="xdoc">     *  User configurable compiler options.
+</span>   172    <span class="xdoc">     */</span>
+   173        <span class=key>config</span> Options ccOpts = {
+   174            prefix: <span class="string">""</span>,
+   175            suffix: <span class="string">""</span>
+   176        };
+   177    
+   178        <span class="xdoc">/*!
+</span>   179    <span class="xdoc">     *  ======== asm ========
+</span>   180    <span class="xdoc">     *  The command used to assembles assembly source files into object files
+</span>   181    <span class="xdoc">     */</span>
+   182        <span class=key>readonly</span> <span class=key>config</span> Command asm;
+   183    
+   184        <span class="xdoc">/*!
+</span>   185    <span class="xdoc">     *  ======== setPath ========
+</span>   186    <span class="xdoc">     *  Return path needed to find necessary DLLS
+</span>   187    <span class="xdoc">     *
+</span>   188    <span class="xdoc">     *  The microsoft compilers often require one or more directories to
+</span>   189    <span class="xdoc">     *  be in the PATH; this allows the compiler to find necessary DLLs.
+</span>   190    <span class="xdoc">     *  A target implementing this function returns a string with path
+</span>   191    <span class="xdoc">     *  components separated by ";".
+</span>   192    <span class="xdoc">     */</span>
+   193        <span class=key>function</span> setPath();
+   194    
+   195        <span class="xdoc">/*!
+</span>   196    <span class="xdoc">     *  ======== cmdPrefix ========
+</span>   197    <span class="xdoc">     *  Prefix to put in front of each command
+</span>   198    <span class="xdoc">     *
+</span>   199    <span class="xdoc">     *  This string is put in front of every Command before being passed to
+</span>   200    <span class="xdoc">     *  the shell for execution.  This string can be used to run the compiler
+</span>   201    <span class="xdoc">     *  in emulation environments.  
+</span>   202    <span class="xdoc">     */</span>
+   203        <span class=key>config</span> String cmdPrefix = <span class="string">""</span>;
+   204        
+   205        <span class="xdoc">/*!
+</span>   206    <span class="xdoc">     *  ======== strictANSI ========
+</span>   207    <span class="xdoc">     *  Disable Microsoft C/C++ language extensions
+</span>   208    <span class="xdoc">     *
+</span>   209    <span class="xdoc">     *  Set to true if you plan to port your program to other environments.
+</span>   210    <span class="xdoc">     *  The compiler treats extended keywords as simple identifiers, disables
+</span>   211    <span class="xdoc">     *  the other Microsoft extensions, and automatically defines the
+</span>   212    <span class="xdoc">     *  `__STDC__` predefined macro for C programs. This option shows up
+</span>   213    <span class="xdoc">     *  as `"-Za"` on the command line when strictANSI is set to `true`.
+</span>   214    <span class="xdoc">     */</span>
+   215        <span class=key>config</span> <span class=key>bool</span> strictANSI = <span class=key>true</span>;
+   216        
+   217        <span class="xdoc">/*!
+</span>   218    <span class="xdoc">     *  ======== version ========
+</span>   219    <span class="xdoc">     *  The Compatibility Key associated with this target.
+</span>   220    <span class="xdoc">     *
+</span>   221    <span class="xdoc">     *  The first two components of this target Compatibility Key are '1,0'.
+</span>   222    <span class="xdoc">     *  The rest of the Key represents the compiler version. The third
+</span>   223    <span class="xdoc">     *  component combines the major and the minor version number in the format
+</span>   224    <span class="xdoc">     *  Major.Minor. The fourth component is the build number.
+</span>   225    <span class="xdoc">     *
+</span>   226    <span class="xdoc">     *  <b>@a(Example)</b>
+</span>   227    <span class="xdoc">     *  If this target's `rootDir` points to the Visual C++ 2005 Express 
+</span>   228    <span class="xdoc">     *  Edition, the output of the command `cl` may contains the compiler
+</span>   229    <span class="xdoc">     *  version string 14.00.50727.42. The Compatibility Key is
+</span>   230    <span class="xdoc">     *  [1,0,14.00,50727].
+</span>   231    <span class="xdoc">     *  
+</span>   232    <span class="xdoc">     */</span>
+   233        <span class=key>override</span> <span class=key>metaonly</span> <span class=key>config</span> String version;
+   234    
+   235        <span class="xdoc">/*!
+</span>   236    <span class="xdoc">     *  ======== asmOpts ========
+</span>   237    <span class="xdoc">     *  User configurable assembler options.
+</span>   238    <span class="xdoc">     */</span>
+   239        <span class=key>config</span> Options asmOpts = {
+   240            prefix: <span class="string">""</span>,
+   241            suffix: <span class="string">""</span>
+   242        };
+   243    
+   244        <span class="xdoc">/*!
+</span>   245    <span class="xdoc">     *  ======== includeOpts ========
+</span>   246    <span class="xdoc">     *  Additional user configurable target-specific include path options
+</span>   247    <span class="xdoc">     */</span>
+   248        <span class=key>config</span> string includeOpts;
+   249    
+   250        <span class="xdoc">/*!
+</span>   251    <span class="xdoc">     *  ======== stdTypes ========
+</span>   252    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   253    <span class="xdoc">     */</span>
+   254        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.StdTypes stdTypes = {
+   255            t_IArg          : { size: 4, align: 1 },
+   256            t_Char          : { size: 1, align: 1 },
+   257            t_Double        : { size: 8, align: 1 },
+   258            t_Float         : { size: 4, align: 1 },
+   259            t_Fxn           : { size: 4, align: 1 },
+   260            t_Int           : { size: 4, align: 1 },
+   261            t_Int8          : { size: 1, align: 1 },
+   262            t_Int16         : { size: 2, align: 1 },
+   263            t_Int32         : { size: 4, align: 1 },
+   264            t_Int64         : { size: 8, align: 1 },
+   265            t_Long          : { size: 4, align: 1 },
+   266            t_LDouble       : { size: 8, align: 1 },
+   267            t_Ptr           : { size: 4, align: 1 },
+   268            t_Short         : { size: 2, align: 1 },
+   269        };
+   270    }
+   271    <span class="comment">/*
+</span>   272    <span class="comment"> *  @(#) microsoft.targets; 1, 0, 2, 0,387; 2-24-2010 16:24:02; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>   273    <span class="comment"> */</span>
+   274    
+</pre>
+</body></html>

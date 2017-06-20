@@ -1,0 +1,116 @@
+<html><head><title>module xdc.tools.cdoc.Example</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class=key>package</span> xdc.tools.cdoc;
+    13    
+    14    <span class="xdoc">/*!
+</span>    15    <span class="xdoc"> *  ======== Example ========
+</span>    16    <span class="xdoc"> *  XDOC markup language examples for modules and interfaces
+</span>    17    <span class="xdoc"> *
+</span>    18    <span class="xdoc"> *  This module demonstrates the features of XDOC on the declarations
+</span>    19    <span class="xdoc"> *  of an XDC module. View the source text of this .xdc file for details
+</span>    20    <span class="xdoc"> *  on how to use these examples.
+</span>    21    <span class="xdoc"> */</span>
+    22    <span class=key>module</span> Example {
+    23        <span class="xdoc">/*!
+</span>    24    <span class="xdoc">     *  ======== AStruct ========
+</span>    25    <span class="xdoc">     *  Example structure declaration
+</span>    26    <span class="xdoc">     *
+</span>    27    <span class="xdoc">     * <b>@field(aField)</b> example field documentation
+</span>    28    <span class="xdoc">     */</span>
+    29        <span class=key>struct</span> AStruct {
+    30            Int aField;
+    31        };
+    32    
+    33        <span class="xdoc">/*!
+</span>    34    <span class="xdoc">     *  ======== aFunction ========
+</span>    35    <span class="xdoc">     *  Example function documentation
+</span>    36    <span class="xdoc">     *
+</span>    37    <span class="xdoc">     * <b>@param(aParam)</b> example function parameter documentation
+</span>    38    <span class="xdoc">     */</span>
+    39        Void aFunction(Int aParam);
+    40    
+    41        <span class="xdoc">/*!
+</span>    42    <span class="xdoc">     *  ======== AnEnum ========
+</span>    43    <span class="xdoc">     *  Example enum documentation
+</span>    44    <span class="xdoc">     *
+</span>    45    <span class="xdoc">     *  <b>@value(AVALUE)</b>  example enum value documentation
+</span>    46    <span class="xdoc">     */</span>
+    47        <span class=key>enum</span> AnEnum {
+    48            AVALUE
+    49        };
+    50        <span class="xdoc">/*!
+</span>    51    <span class="xdoc">     *  ======== AUnion ========
+</span>    52    <span class="xdoc">     *  Example union documentation
+</span>    53    <span class="xdoc">     *
+</span>    54    <span class="xdoc">     *  <b>@field(aString)</b> example union field documentation
+</span>    55    <span class="xdoc">     */</span>
+    56        <span class=key>union</span> AUnion {
+    57            String aString;
+    58            Int anInt;
+    59        };
+    60    
+    61        <span class="xdoc">/*!
+</span>    62    <span class="xdoc">     *  ======== u ========
+</span>    63    <span class="xdoc">     *  Example statically initialized union documentation
+</span>    64    <span class="xdoc">     */</span>
+    65        <span class=key>config</span> AUnion u = {aString: <span class="string">'hello'</span>, anInt: 1234};
+    66    
+    67        <span class="xdoc">/*!
+</span>    68    <span class="xdoc">     *  ======== ATypedEnum ========
+</span>    69    <span class="xdoc">     *  Example typed enumeration
+</span>    70    <span class="xdoc">     *
+</span>    71    <span class="xdoc">     *  This declaration defines a new type named ATypedEnum which is
+</span>    72    <span class="xdoc">     *  an alias of Int and two constants of type ATypedEnum.
+</span>    73    <span class="xdoc">     *
+</span>    74    <span class="xdoc">     *  Unlike ordinary C enums, where the compiler is free to choose an
+</span>    75    <span class="xdoc">     *  arbitrary type for enums, this declaration ensures that the new
+</span>    76    <span class="xdoc">     *  type is of a specific named type (in this case, Int).
+</span>    77    <span class="xdoc">     *
+</span>    78    <span class="xdoc">     *  <b>@value(LOOP)</b>  example "typed" enum value documentation
+</span>    79    <span class="xdoc">     */</span>
+    80        <span class=key>enum</span> ATypedEnum : Int {
+    81            LOOP = 6,
+    82            PRINT = 28
+    83        };
+    84        
+    85        <span class="xdoc">/*!
+</span>    86    <span class="xdoc">     *  ======== ACmd ========
+</span>    87    <span class="xdoc">     *  Example "tagged union" documentation
+</span>    88    <span class="xdoc">     *
+</span>    89    <span class="xdoc">     *  This structure illustrates the "tagged union" pattern: one
+</span>    90    <span class="xdoc">     *  field of the structure indicates how to interpret the rest of the
+</span>    91    <span class="xdoc">     *  structure.
+</span>    92    <span class="xdoc">     *
+</span>    93    <span class="xdoc">     * <b>@field(args)</b> example structure field documentation
+</span>    94    <span class="xdoc">     */</span>
+    95        <span class=key>struct</span> ACmd {
+    96            ATypedEnum cmdId;
+    97            <span class=key>union</span>  {
+    98                <span class=key>struct</span> {
+    99                    Int count;
+   100                } loop;
+   101    
+   102                <span class=key>struct</span> {
+   103                    String msg;
+   104                } print;
+   105            } args;
+   106        };
+   107    
+   108    }
+</pre>
+</body></html>

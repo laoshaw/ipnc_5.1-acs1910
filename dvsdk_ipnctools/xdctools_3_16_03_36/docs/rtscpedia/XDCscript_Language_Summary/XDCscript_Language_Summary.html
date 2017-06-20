@@ -1,0 +1,766 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>XDCscript Language Summary - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=XDCscript Language Summary&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/XDCscript Language Summary" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><p id="title">XDCscript Language Summary</p><p id="subtitle">XDCscript language quick reference</p>
+<p></p>
+<p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;This document will be retired shortly, after its contents has been merged into the <a href="../XDCscript_Language_Reference/XDCscript_Language_Reference.html" title="XDCscript Language Reference">XDCscript Language Reference</a>.</span>
+</p><p><tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> is a general-purpose programming language based upon the ECMA-262 Edition 3 standard -- popularly known as JavaScript 1.5. A central element of XDC, the language primarily serves as an implementation vehicle for hosted <i>meta-content</i> used to automate integration of companion <i>target-content</i> within executable programs tailored for a specific hardware platform and optimized for a specific application environment. RTSC also leverages the language to manage the flow of <i>packages</i> -- standardized containers holding re-usable target content plus its attendant meta-content -- between producers and consumers. And of course, the language is readily suited for standalone scripting tasks.
+</p><p>Working in tandem with <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> -- a special-purpose language for defining client-visible programmatic features of target- [and meta-] content through <b>module</b>, <b>interface</b>, and <b>package</b> specifications -- <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> augments standard JavaScript with modular, type-safe, and expressive mechanisms that meld nicely with the familiar style and substance of the C-centric target programming domain. References to terms defined in the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> grammar are written-this-way.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Base"><span class="tocnumber">1</span> <span class="toctext">Base</span></a></li>
+<li class="toclevel-1"><a href="#Root"><span class="tocnumber">2</span> <span class="toctext">Root</span></a></li>
+<li class="toclevel-1"><a href="#Java"><span class="tocnumber">3</span> <span class="toctext">Java</span></a></li>
+<li class="toclevel-1"><a href="#Capsule"><span class="tocnumber">4</span> <span class="toctext">Capsule</span></a></li>
+<li class="toclevel-1"><a href="#Capsule-Body"><span class="tocnumber">5</span> <span class="toctext">Capsule-Body</span></a></li>
+<li class="toclevel-1"><a href="#Template"><span class="tocnumber">6</span> <span class="toctext">Template</span></a></li>
+<li class="toclevel-1"><a href="#Template-Body"><span class="tocnumber">7</span> <span class="toctext">Template-Body</span></a></li>
+<li class="toclevel-1"><a href="#Package"><span class="tocnumber">8</span> <span class="toctext">Package</span></a></li>
+<li class="toclevel-1"><a href="#Object-Model"><span class="tocnumber">9</span> <span class="toctext">Object-Model</span></a></li>
+<li class="toclevel-1"><a href="#Interface"><span class="tocnumber">10</span> <span class="toctext">Interface</span></a></li>
+<li class="toclevel-1"><a href="#Module"><span class="tocnumber">11</span> <span class="toctext">Module</span></a></li>
+<li class="toclevel-1"><a href="#Instance"><span class="tocnumber">12</span> <span class="toctext">Instance</span></a></li>
+<li class="toclevel-1"><a href="#Module-Body"><span class="tocnumber">13</span> <span class="toctext">Module-Body</span></a></li>
+<li class="toclevel-1"><a href="#Struct"><span class="tocnumber">14</span> <span class="toctext">Struct</span></a></li>
+<li class="toclevel-1"><a href="#Vector"><span class="tocnumber">15</span> <span class="toctext">Vector</span></a></li>
+<li class="toclevel-1"><a href="#Map"><span class="tocnumber">16</span> <span class="toctext">Map</span></a></li>
+<li class="toclevel-1"><a href="#Typed-Object"><span class="tocnumber">17</span> <span class="toctext">Typed-Object</span></a></li>
+<li class="toclevel-1"><a href="#Typed-Operation"><span class="tocnumber">18</span> <span class="toctext">Typed-Operation</span></a></li>
+<li class="toclevel-1"><a href="#Typed-Value"><span class="tocnumber">19</span> <span class="toctext">Typed-Value</span></a></li>
+<li class="toclevel-1"><a href="#Typed-Assignment"><span class="tocnumber">20</span> <span class="toctext">Typed-Assignment</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Base"></a><h2> <span class="mw-headline"> Base </span></h2>
+<p><tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> incorporates all core JavaScript 1.5 classes, as defined in the ECMA-262 Edition 3 standard.
+</p>
+<table cellspacing="10">
+<tr>
+<td> Arguments
+</td><td> Error
+</td><td> Number
+</td></tr>
+<tr>
+<td> Array
+</td><td> Function
+</td><td> Object
+</td></tr>
+<tr>
+<td> Boolean
+</td><td> Global
+</td><td> RegEx
+</td></tr>
+<tr>
+<td> Date
+</td><td> Math
+</td><td> String
+</td></tr></table>
+<a name="Root"></a><h2> <span class="mw-headline"> Root </span></h2>
+<p>All <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> properties and methods are ultimately rooted in a distinguished (read-only) object referenced by the global identifier xdc. This name along with any identifier containing one or more $'s should be treated as a reserved word.
+</p>
+<dl><dt>xdc
+</dt></dl>
+<dl><dd>The distinguished root object.
+</dd></dl>
+<dl><dt>xdc.global   <b><a href="#Base" title="">Base</a></b>
+</dt></dl>
+<dl><dd>The original JavaScript Global object.
+</dd></dl>
+<dl><dt> xdc.jre   <b><a href="#Java" title="">Java</a></b>
+</dt></dl>
+<dl><dd>The Java Runtime Environment.
+</dd></dl>
+<dl><dt>xdc.csd
+</dt></dl>
+<dl><dd>The directory of the script file currently being loaded.
+</dd></dl>
+<dl><dt>xdc.exec(<i>command, attrs, status</i>)
+</dt></dl>
+<dl><dd>Executes an arbitrary shell command and returns the command's exit status. The parameter <i>command</i> can be one string containing the command and the command line parameters, or a string array with the command in the first element of the array.
+</dd></dl>
+<dl><dd>The optional parameter <i>attrs</i> controls the command's environment and accepts the following fields: <i>envs</i>(array of environment variable settings), <i>cwd</i> (the command's current working directory), <i>outName</i> (the name of the output file to create, if the file exists, output is appended to the end of the file) and <i>filter</i> (regular expression used to filter command output).
+</dd></dl>
+<dl><dd>The optional parameter <i>status</i> contains the fields <i>output</i> (string containing all output from command) and <i>exitStatus</i> (exit status of the command).
+</dd></dl>
+<dl><dt>xdc.findFile(<i>fileName</i>)
+</dt></dl>
+<dl><dd>Returns a path to <i>fileName</i> or else null if not found. If <i>fileName</i> is an absolute path or else begins with ./, this path is returned if the file exists. Otherwise, the file is first searched in the <tt>xdc.csd</tt> directory and then in each directory along the system package path.
+</dd></dl>
+<dl><dt>xdc.loadCapsule(<i>fileName</i>)   <b><a href="#Capsule" title="">Capsule</a></b>
+</dt><dd>Loads a capsule from <i>fileName</i>, and returns a Capsule object. Calls <tt>xdc.findFile()</tt> internally, and throws an <tt>Error</tt> if the capsule is not found.
+</dd></dl>
+<dl><dt>xdc.loadTemplate(<i>fileName</i>)   <b><a href="#Template" title="">Template</a></b>
+</dt><dd>Loads a template from <i>fileName</i>, and returns a Template object. Calls <tt>xdc.findFile()</tt> internally, and throws an <tt>Error</tt> if the template is not found.
+</dd></dl>
+<dl><dt>xdc.loadPackage(<i>pkgName</i>)   <b><a href="#Package" title="">Package</a></b>
+</dt></dl>
+<dl><dd>Loads a package whose qualified-package-name is <i>pkgName</i>, adds the package to the current Object-Model, and returns a Package object. Throws an <tt>Error</tt> if the package is not found along the system package path.
+</dd></dl>
+<dl><dt>xdc.module(<i>modName</i>)   <b><a href="#Module" title="">Module</a></b>
+</dt></dl>
+<dl><dd>Returns the Module object whose qualified-unit-name is <i>modName</i>. If <i>modName</i> is not qualified with a package name, <tt>xdc.om.$homepkg</tt> is presumed. Calls <tt>xdc.loadPackage()</tt> if needed. Throws an Error if the module is not found.
+</dd></dl>
+<dl><dt>xdc.om   <b><a href="#Object-Model" title="">Object-Model</a></b>
+</dt></dl>
+<dl><dd>The current Object-Model -- <i>program-config,</i> <i>package-build,</i> <i>standalone-scripting,</i> etc.
+</dd></dl>
+<dl><dt>xdc.traceEnable(<i>mask</i>)   <b><a href="#Capsule" title="">Capsule</a></b>
+</dt></dl>
+<dl><dd>This function accepts string-valued masks that designate a set of named capsules for which calls to the special function <tt>$trace(msg)</tt> result in the <tt>msg</tt> string being printed. If called with no arguments, the function returns the current trace mask; otherwise, the function updates the current trace mask and returns its previous value.
+</dd></dl>
+<dl><dd>The trace mask itself comprises a set of semicolon-separated patterns that are suffix-matched against the canonical filename of the capsule. Occurrences of slashes (forward or backward) within the patterns are appropriately normalized. Wildcards ('*') within the patterns match arbitrary character sequences that themselves do not contain slashes. For convenience, capsules can be designated without any particular file extension (e.g., ".xs").
+</dd></dl>
+<dl><dd>This function is called upon startup with the value of the environment variable <tt>"xdc.traceEnable"</tt>, if the latter is defined.
+</dd></dl>
+<dl><dt>xdc.useModule(<i>modName</i>)   <b><a href="#Module" title="">Module</a></b>
+</dt></dl>
+<dl><dd>Declares usage of a module whose qualified-unit-name is <i>modName</i>, and returns a Module object. If <i>modName</i> is not qualified with a package name, <tt>xdc.om.$homepkg</tt> is presumed. Calls <tt>xdc.loadPackage()</tt> if needed. Throws an <tt>Error</tt> if the module is not found.
+</dd></dl>
+<a name="Java"></a><h2> <span class="mw-headline"> Java </span></h2>
+<p><tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> supports connectivity to all classes in the current Java Runtime Environment (JRE). Public fields and functions of static class objects as well as newly constructed class instance objects can be accessed.
+</p>
+<pre>xdc.jre.<i>javaClass.staticField</i> = xdc.jre.<i>javaClass.staticFxn</i>()
+
+<b>var</b> jobj = new xdc.jre.<i>javaClass</i>()
+
+jobj.<i>field</i> = jobj.<i>fxn</i>()
+</pre>
+<a name="Capsule"></a><h2> <span class="mw-headline"> Capsule </span></h2>
+<p>A fundamental unit of implementation. Each capsule exposes a set of public variables and functions to its client.
+</p>
+<pre><b>var</b> Cap = xdc.loadCapsule(<i>fileName</i>)
+
+Cap.<i>publicVar</i> = Cap.<i>publicFxn</i>()
+</pre>
+<a name="Capsule-Body"></a><h2> <span class="mw-headline"> Capsule-Body </span></h2>
+<p>Contains top-level definitions of public and private variables/functions. Also contains top-level statements executed exactly <i>once</i> -- on first call to loadCapsule() naming this file.
+</p>
+<pre><b>var</b> <i>publicVar</i> =
+
+<b>var</b> <i>_privateVar</i> =
+
+<b>function</b> <i>publicFxn</i>( ... ) { ... }
+
+<b>function</b> <i>_privateFxn</i>( ... ) { ... }
+
+<i>stmt</i> ... 
+</pre>
+<a name="Template"></a><h2> <span class="mw-headline"> Template </span></h2>
+<p>A synthesized function that encapsulates a prescribed pattern for generating formatted output. Clients invoke templates with specific arguments and designate a sink for all generated output
+</p>
+<pre><b>var</b> Tplt = xdc.loadTemplate(<i>fileName</i>)
+</pre>
+<dl><dt>Tplt.genFile(<i>fileName</i>, <i>thisObj,</i> <i>args,</i> <i>clobber</i>)
+</dt></dl>
+<dl><dd>Generates output to <i>fileName,</i> which is created if necessary. Unless <i>clobber</i> is <b>true,</b> an existing file is overwritten only when its content has truly changed. Internally calls genStream().
+</dd></dl>
+<dl><dt>Tplt.genStream(<i>outStream</i>, <i>thisObj, args</i>)
+</dt></dl>
+<dl><dd>Generates output to <i>outStream,</i> an instance of class java.io.PrintStream. All three parameters are passed to the underlying template generation function.
+</dd></dl>
+<a name="Template-Body"></a><h2> <span class="mw-headline"> Template-Body </span></h2>
+<p>Contains lines of text that the synthesized function automatically outputs when invoked. Also contains lines of script to be inserted into the synthesized function. Interpolated script can reference any object in the current environment &#151; with $out, this, and $args bound to parameters of <tt>genStream()</tt>.
+</p>
+<dl><dt><i>text<tt>script</tt>text</i> ... \n
+</dt></dl>
+<dl><dd>A line of text to be output by the synthesized function at this point. All interpolated script is replaced with its (textual) value in the current context.
+</dd></dl>
+<dl><dt>% <i>script</i> ...\n
+</dt></dl>
+<dl><dd>A single line of script to be inserted into the synthesized function at this point.
+</dd></dl>
+<dl><dt>%%{\n
+</dt><dt> <i>stmt</i> ...\n
+</dt><dt> <i>stmt</i> ...\n
+</dt><dt>%%}\n
+</dt></dl>
+<dl><dd>Multiple lines of script to be inserted into the synthesized function at this point.
+</dd></dl>
+<a name="Package"></a><h2> <span class="mw-headline"> Package </span></h2>
+<p>Reflects a package-specification. A read-only container for Capsule, Template, Interface, and Module objects that implements the xdc.IPackage interface. Its init() function is invoked <i>once</i> -- on the first call to xdc.loadPackage() naming this package. Each package is also an element of the current Object-Model.
+</p>
+<pre><b>var</b> pkg = <i>somePkgObject</i>
+</pre>
+<dl><dt>pkg.<i>InterName</i>   <b><a href="#Interface" title="">Interface</a></b>
+</dt></dl>
+<dl><dd>A particular interface contained within this package, unless <i>InterName</i> matches a name in the xdc.IPackage interface -- in this case the xdc.IPackage interface value is returned. Because of this ambiguity, this method of referencing a package's interfaces is deprecated.
+</dd></dl>
+<dl><dt>pkg.<i>ModName</i>   <b><a href="#Module" title="">Module</a></b>
+</dt></dl>
+<dl><dd>A particular module contained within this package, unless <i>ModName</i> matches a name in the xdc.IPackage interface -- in this case the xdc.IPackage interface value is returned. Because of this ambiguity, this method of referencing a package's modules is deprecated.
+</dd></dl>
+<dl><dt>pkg.$interfaces   <b><a href="#Interface" title="">Interface</a></b>
+</dt></dl>
+<dl><dd>An array of all interfaces within this package. 
+</dd></dl>
+<dl><dt>pkg.$modules   <b><a href="#Module" title="">Module</a></b>
+</dt></dl>
+<dl><dd>An array of all modules within this package. 
+</dd></dl>
+<dl><dt>pkg.$name
+</dt></dl>
+<dl><dd>The qualified-package-name of this package.
+</dd></dl>
+<dl><dt>pkg.$vers
+</dt></dl>
+<dl><dd>An array of numbers formed from the package's compatibility key array followed by the package's release date in milliseconds since midnight 1/1/1970 GMT. If the compatibility key array has fewer than three elements, the release date is not appended to the array.
+</dd></dl>
+<a name="Object-Model"></a><h2> <span class="mw-headline"> Object-Model </span></h2>
+<p>A specialized execution context for scripts which comprises a model-dependent prologue and epilogue. May also introduce global variables representing "anchor points" within the model as well as codifiy <b>metaonly</b> interfaces to be implemented by constituent packages.
+</p>
+<dl><dt>xdc.om.$homepkg
+</dt></dl>
+<dl><dd>A model-specific home package. Unless <b>undefined,</b> <tt>xdc.useModule()</tt> resolves unqualified module names within this package.
+</dd></dl>
+<dl><dt>xdc.om.$name
+</dt></dl>
+<dl><dd>The name of the current model.
+</dd></dl>
+<dl><dt>xdc.om[<i>pkgname</i>]   <b><a href="#Package" title="">Package</a></b>
+</dt></dl>
+<dl><dd>The package named <i>pkgname</i> within the current model.
+</dd></dl>
+<dl><dt>xdc.om.$packages[]   <b><a href="#Package" title="">Package</a></b>
+</dt></dl>
+<dl><dd>An array of all packages within the current model.
+</dd></dl>
+<a name="Interface"></a><h2> <span class="mw-headline"> Interface </span></h2>
+<p>Reflects a unit-specification for an <b>interface.</b>
+</p>
+<pre><b>var</b> Inter = <i>someInterObj</i>
+</pre>
+<dl><dt>Inter.<i>CONST_NAME</i>   <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt></dl>
+<dl><dd>A scalar value of the type specified in a const definition.
+</dd></dl>
+<dl><dt>Inter.<i>ENUMVAL_NAME</i>   <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt></dl>
+<dl><dd>A scalar value of the type specified in an enum definition.
+</dd></dl>
+<dl><dt>Inter.<i>EXTERN_NAME</i>   <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt></dl>
+<dl><dd>A scalar value of the type specified in an extern definition.
+</dd></dl>
+<dl><dt><b>new</b> Inter.<i>StructName</i>   <b><a href="#Struct" title="">Struct</a></b>
+</dt></dl>
+<dl><dd>A pointer to an aggregate of the type specified in a struct definition.
+</dd></dl>
+<dl><dt>Inter.Module(<i>someModObj</i>)   <b><a href="#Module" title="">Module</a></b>
+</dt></dl>
+<dl><dd>Casts a Module object to the <b>Module</b> handle type of this interface. Returns <b>null</b> if incompatible.
+</dd></dl>
+<dl><dt>Inter.Instance(<i>someInstObj</i>)   <b><a href="#Instance" title="">Instance</a></b>
+</dt></dl>
+<dl><dd>Casts an Instance object to the <b>Instance</b> handle type of this interface. Returns <b>null</b> if incompatible.
+</dd></dl>
+<dl><dt>Inter.$name
+</dt></dl>
+<dl><dd>The qualified-unit-name of this interface.
+</dd></dl>
+<dl><dt>Inter.$package   <b><a href="#Package" title="">Package</a></b>
+</dt></dl>
+<dl><dd>The Package object which contains this unit.
+</dd></dl>
+<dl><dt>Inter.$super   <b><a href="#Interface" title="">Interface</a></b>
+</dt></dl>
+<dl><dd>An interface object corresponding to the inherited-interface for this interface, or <b>null</b> if not specified.
+</dd></dl>
+<a name="Module"></a><h2> <span class="mw-headline"> Module </span></h2>
+<p>Reflects a unit-specification and its module-wide-feature(s)
+</p>
+<pre><b>var</b> Mod = <i>someModObj</i>   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</pre>
+<dl><dt><b>Mod.<i>CONST_NAME</i>   </b><a href="#Typed-Value" title="">Typed-Value</a>
+</dt></dl>
+<dl><dd>A scalar value of the type specified in a const definition.
+</dd></dl>
+<dl><dt>Mod.<i>ENUMVAL_NAME</i>   <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt></dl>
+<dl><dd>A scalar value of the type specified in an enum definition.
+</dd></dl>
+<dl><dt>Mod.<i>EXTERN_NAME</i>   <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt></dl>
+<dl><dd>A scalar value of the type specified in an extern definition.
+</dd></dl>
+<dl><dt><b>new</b> Mod.<i>StructName</i>   <b><a href="#Struct" title="">Struct</a></b>
+</dt></dl>
+<dl><dd>A pointer to an aggregate of the type specified in a struct definition.
+</dd></dl>
+<dl><dt>Mod.<i>configName</i> =   <b><a href="#Typed-Operation" title="">Typed-Operation</a></b>
+</dt></dl>
+<dl><dd>A property of the type specified in a config-parameter definition. Assignable, unless <b>readonly</b> in the specification.
+</dd></dl>
+<dl><dt>Mod.<i>fxnName</i>( ... )   <b><a href="#Typed-Operation" title="">Typed-Operation</a></b>
+</dt></dl>
+<dl><dd>A method whose signature is specified in a function-declaration.
+</dd></dl>
+<dl><dt>Mod.create(<i>createParams</i>)   <b><a href="#Instance" title="">Instance</a></b>
+</dt></dl>
+<dl><dd>A special method that returns a new Instance object managed by this unit.
+</dd></dl>
+<dl><dt>Mod.Module(<i>someModObj</i>)    <b><a href="#Module" title="">Module</a></b>
+</dt></dl>
+<dl><dd>Casts a Module object to the <b>Module</b> handle type of this module. Returns <b>null</b> if incompatible.
+</dd></dl>
+<dl><dt>Mod.Instance(<i>someInstObj</i>)   <b><a href="#Instance" title="">Instance</a></b>
+</dt></dl>
+<dl><dd>Casts an Instance object to the <b>Instance</b> handle type of this module. Returns <b>null</b> if incompatible.
+</dd></dl>
+<dl><dt>Mod.$instances[]   <b><a href="#Instance" title="">Instance</a></b>
+</dt></dl>
+<dl><dd>An array of Instance objects managed by this module.
+</dd></dl>
+<dl><dt>Mod.$name
+</dt></dl>
+<dl><dd>The qualified-unit-name of this module.
+</dd></dl>
+<dl><dt>Mod.$package   <b><a href="#Package" title="">Package</a></b>
+</dt></dl>
+<dl><dd>The Package object which contains this module.
+</dd></dl>
+<dl><dt>Mod.$private
+</dt></dl>
+<dl><dd>A private object used by capsules implementing module-wide functions specified for this module.
+</dd></dl>
+<dl><dt>Mod.$super   <b><a href="#Mod" title="">Mod</a></b>
+</dt></dl>
+<dl><dd>A Module object of the <b>Module</b> type designated in the inherited-interface for this module, or <b>null</b> if not specified.
+</dd></dl>
+<dl><dt>Mod.$used
+</dt></dl>
+<dl><dd><b>true</b> if this module has been named in a call to xdc.useModule, <b>false</b> otherwise.
+</dd></dl>
+<a name="Instance"></a><h2> <span class="mw-headline"> Instance </span></h2>
+<p>Reflects per-instance-feature(s) of a unit-specification.
+</p>
+<pre><b>var</b> inst = <i>someInstObj</i>   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</pre>
+<dl><dt><b>inst.<i>configName</i> =   </b><a href="#Typed-Operation" title="">Typed-Operation</a>
+</dt></dl>
+<dl><dd>A property of the type specified in a config-parameter definition. Assignable, unless <b>readonly</b> in the specification.
+</dd></dl>
+<dl><dt>inst.<i>fxnName</i>( ... )   <b><a href="#Typed-Operation" title="">Typed-Operation</a></b>
+</dt></dl>
+<dl><dd>A method whose signature is specified in a function-declaration.
+</dd></dl>
+<dl><dt>inst.$index
+</dt></dl>
+<dl><dd>A serial number assigned when created by its managing module.
+</dd></dl>
+<dl><dt>inst.$module   <b><a href="#Module" title="">Module</a></b>
+</dt></dl>
+<dl><dd>The Module object that manages this instance.
+</dd></dl>
+<dl><dt>inst.$package   <b><a href="#Package" title="">Package</a></b>
+</dt></dl>
+<dl><dd>The Package object which contains the module that manages this instance.
+</dd></dl>
+<dl><dt>inst.$private
+</dt></dl>
+<dl><dd>A private object used by capsules implementing per-instance functions specified for the module managing this instance.
+</dd></dl>
+<dl><dt>inst.$super   <b><a href="#Instance" title="">Instance</a></b>
+</dt></dl>
+<dl><dd>An Instance object of the <b>Instance</b> type designated in the inherited-interface for the module managing this instance, or <b>null</b> if not specified.
+</dd></dl>
+<a name="Module-Body"></a><h2> <span class="mw-headline"> Module-Body </span></h2>
+<p>A capsule that implements all (inherited) module-wide and per-instance <b>metaonly</b> functions declared in a module's unit-specification. These capsule files are named <i>UnitName.xs</i> and reside in the base directory of the containing package. A special capsule named package.xs implements the (module-wide) functions specified in the xdc.IPackage interface.
+</p>
+<pre><b>function</b> <i>fxnName</i>(<i>arg</i> ... ) {   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b>
+    this.$private = ...
+    <b>return</b> <i>expr</i>   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b>
+}
+</pre>
+<p>Implements a module-wide or per-instance function specified for this module. this references the corresponding Module or Instance object, whose $private state is manipulated in this capsule. Typed-Assignment rules are enforced upon function entry and exit.
+</p>
+<pre><b>function</b> instance$meta$init(<i>createParams</i>) {
+    this.$private = ...
+}
+</pre>
+<p>A distinguished function called upon creating a new Instance object, to which this is bound. Typically used to initialize the $private state for this Instance.
+</p>
+<a name="Struct"></a><h2> <span class="mw-headline"> Struct </span></h2>
+<p>An aggregate of the type specified in a struct definition. Comprises a fixed number of values of different types, selected by name. A constrained variant of a JavaScript object.
+</p>
+<pre><b>var</b> str = <i>someStructObj</i>   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</pre>
+<dl><dt><b>str.<i>fieldName</i> =</b>
+</dt></dl>
+<dl><dd>An assignable property of the type designated in a struct-field definition.
+</dd></dl>
+<a name="Vector"></a><h2> <span class="mw-headline"> Vector </span></h2>
+<p>An aggregate that comprises an expandable ordered set of values of some common base type, indexed by non-negative integers. A constrained variant of a JavaScript array.
+</p>
+<pre><b>var</b> vec = <i>someVectorObj</i>   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</pre>
+<dl><dt><b>vec.length =</b>
+</dt></dl>
+<dl><dd>Gets or sets the number of values in this vector.
+</dd></dl>
+<dl><dt>vec[<i>number</i>] =   <b><a href="#Typed-Operation" title="">Typed-Operation</a></b>
+</dt></dl>
+<dl><dd>Gets or sets an element of this vector whose index is in the range 0..length-1.
+</dd></dl>
+<dl><dt>vec.$add(<i>arg</i>)   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b>
+</dt></dl>
+<dl><dd>Appends <i>arg</i> to the end of this vector. Equivalent to vec[length++] = arg.
+</dd></dl>
+<dl><dt>vec.$addrof(<i>number</i>)   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</dt></dl>
+<dl><dd>Returns an object of the <b>Ptr</b> type. The object represents the address of the element vec[number] on the target. Such an object can be used at the configuration time to refer to an address that is generally not known at the configuration time.
+</dd></dl>
+<dl><dd>The expression vec.$addrof(vec.length) can be used to refer to the first address after vec[length--1].
+</dd></dl>
+<a name="Map"></a><h2> <span class="mw-headline"> Map </span></h2>
+<p>An aggregate that comprises an expandable ordered set of values of some common base type, indexed by strings as well as non-negative integers. A constrained hybrid of a JavaScript object and array.
+</p>
+<pre><b>var</b> map = <i>someMapObj</i>   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</pre>
+<dl><dt><b>map.length</b>
+</dt></dl>
+<dl><dd>Gets the number of values in this map.
+</dd></dl>
+<dl><dt>map[<i>number</i>] =   <b><a href="#Typed-Operation" title="">Typed-Operation</a></b>
+</dt></dl>
+<dl><dd>Gets or sets an element of this map whose index is in the range 0..length-1.
+</dd></dl>
+<dl><dt>map[<i>string</i>] =   <b><a href="#Typed-Operation" title="">Typed-Operation</a></b>
+</dt></dl>
+<dl><dd>Gets or sets a map element given a string-value key. Returns <b>undefined</b> if the designated element does not exist.
+</dd></dl>
+<dl><dd>The command delete map[string] removes the named element from this map and decrements length.
+</dd></dl>
+<a name="Typed-Object"></a><h2> <span class="mw-headline"> Typed-Object </span></h2>
+<p>Common properties and methods shared by Module, Instance, Struct, Vector, and Map objects. These objects also belong to a <i>specified type </i>ultimately defined within a unit-specification.
+</p>
+<dl><dt><i>tobj</i>.$copy()   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</dt></dl>
+<dl><dd>Returns a deep-copy of this object, leaving references intact (Struct, Vector, Map only)
+</dd></dl>
+<dl><dt><i>tobj</i>.$orig
+</dt></dl>
+<dl><dd>Returns an object with the most specific typed-declaration for this object rather than the declared type of <i>tobj</i>
+</dd></dl>
+<dl><dt><i>tobj</i>.$seal(<i>fieldName</i>)
+</dt></dl>
+<dl><dd>Renders the specifed field within <i>tobj</i> read-only. If <i>fieldName</i> is omitted, the entire object is made read-only.
+</dd></dl>
+<dl><dt><i>tobj</i>.$sealed
+</dt></dl>
+<dl><dd><b>true</b> if this object has been sealed.
+</dd></dl>
+<dl><dt><i>tobj</i>.$self   <b><a href="#Typed-Object" title="">Typed-Object</a></b>
+</dt></dl>
+<dl><dd>This object. Useful for bulk assignment when <i>tobj</i> is a JavaScript variable.
+</dd></dl>
+<dl><dt><i>tobj</i>.$type
+</dt></dl>
+<dl><dd>A string representation of a typed-declaration for this object.
+</dd></dl>
+<dl><dt><i>tobj</i>.$unseal(<i>fieldName</i>)
+</dt></dl>
+<dl><dd>Renders the specifed field within <i>tobj</i> writable. If <i>fieldName</i> is omitted, the entire object is made writable.
+</dd></dl>
+<a name="Typed-Operation"></a><h2> <span class="mw-headline"> Typed-Operation </span></h2>
+<p>Each category of Typed-Object defines selectors for getting and setting constituent values of some specified type. Unit and Instance objects additionally define callable functions with parameter and return values of some specified type.
+</p>
+<dl><dt><i>tobj.ident</i>  --&gt;    <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt><dt><i>tobj</i>[<i>number</i>]  --&gt;    <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt><dt><i>tobj</i>[<i>string</i>]  --&gt;    <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt></dl>
+<dl><dd>Get a value of a specified type
+</dd></dl>
+<dl><dt><i>tobj.ident</i> &lt;-- <i>expr</i>   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b>
+</dt><dt><i>tobj</i>[<i>number</i>] &lt;-- <i>expr</i>   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b>
+</dt><dt><i>tobj</i>[<i>string</i>] &lt;-- <i>expr</i>   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b>
+</dt></dl>
+<dl><dd>Set a value of a specified type. <i>expr</i> must yield an assignment-compatible value.
+</dd></dl>
+<dl><dt><i>tobj.fxn</i>(<i>arg</i> ... )   --&gt;    <b><a href="#Typed-Value" title="">Typed-Value</a></b>
+</dt><dt>     <i>arg</i> &lt;-- <i>expr</i>   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b>
+</dt><dt>     <i><b>return</b> &lt;-- </i>expr<i>   <b><a href="#Typed-Assignment" title="">Typed-Assignment</a></b></i>
+</dt></dl>
+<dl><dd>Call a function of a specified type. Assignment-compatibility is enforced for each <i>expr</i> passed as a function argument and for the value returned from within the function body.
+</dd></dl>
+<a name="Typed-Value"></a><h2> <span class="mw-headline"> Typed-Value </span></h2>
+<p>All values belong to either <i>standard types</i> supported in the base language or else to <i>specified types</i> ultimately defined within some unit-specification. Each is identified by a characteristic syntactic pattern comprising type-constructors of the form <i>T</i>&lt;...&gt; to denote a particular type as well as type-variables <i>t</i> that range over any of these patterns.
+</p>
+<dl><dt><i>T</i>&lt;<b>int</b>&gt; <i>T</i>&lt;<b>float</b>&gt;...   <b><a href="#Base" title="">Base</a></b>
+</dt><dt><i>T</i>&lt;<b>boolean</b>&gt;   <b><a href="#Base" title="">Base</a></b>
+</dt><dt><i>T</i>&lt;<b>string</b>&gt;   <b><a href="#Base" title="">Base</a></b>
+</dt></dl>
+<dl><dd>Standard scalar types with JavaScript number, boolean, or string values.
+</dd></dl>
+<dl><dt><i>T</i>&lt;{ <i>p</i>: <i>t </i>... }&gt;   <b><a href="#Base" title="">Base</a></b>
+</dt><dt> <i>T</i>&lt;[ <i>t</i> ... ]&gt;   <b><a href="#Base" title="">Base</a></b>
+</dt></dl>
+<dl><dd>Standard aggregate types with JavaScript objects or arrays as values
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>null</b>&gt;   <b><a href="#Base" title="">Base</a></b>
+</dt><dt><i>T</i>&lt;<b>undefined</b>&gt;   <b><a href="#Base" title="">Base</a></b>
+</dt></dl>
+<dl><dd>Standard singleton types with <b>null</b> or <b>undefined</b> as their only values.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>struct</b> S&gt;   <b><a href="#Struct" title="">Struct</a></b>
+</dt><dt><i>T</i>&lt;<b>struct</b> S*&gt;   <b><a href="#Struct" title="">Struct</a></b>
+</dt></dl>
+<dl><dd>Specified types with Struct objects or Struct pointers for values, the latter mimicing a JavaScript object reference. The name S comes from a corresponding struct definition.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<i>t</i>[<b>length</b>]&gt;   <b><a href="#Vector" title="">Vector</a></b>
+</dt><dt><i>T</i>&lt;<i>t</i>[<b>string</b>]&gt;   <b><a href="#Map" title="">Map</a></b>
+</dt></dl>
+<dl><dd>Specified types whose values are Vector or Map objects.
+</dd></dl>
+<dl><dt><i>T</i>&lt;U.<b>Module</b>&gt;   <b><a href="#Module" title="">Module</a></b>
+</dt><dt><i>T</i>&lt;U.<b>Instance</b>&gt;   <b><a href="#Instance" title="">Instance</a></b>
+</dt></dl>
+<dl><dd>Specified types whose values are opaque handles for Module or Instance objects. The name U comes from a corresponding unit-specification.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>void</b>*&gt;
+</dt><dt><i>T</i>&lt;<i>t</i>*&gt;
+</dt></dl>
+<dl><dd>Specified types whose values connote target program addresses.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>any</b>&gt;
+</dt></dl>
+<dl><dd>A universal type that subsumes all possible standard and specified types.
+</dd></dl>
+<a name="Typed-Assignment"></a><h2> <span class="mw-headline"> Typed-Assignment </span></h2>
+<p>Rules for assignment compatibility.
+</p>
+<dl><dt><i>t-LValue</i> &lt;-- <i>t-RValue</i>
+</dt></dl>
+<dl><dd>Typed-Assignment pattern expressed in terms of LValue and RValue types. Enforced when assigning a specified selector, binding specified function arguments, and executing a <b>return</b> statement from within a specified function.
+</dd></dl>
+<dl><dt><i>t</i> &lt;-- <i>t</i>
+</dt><dt><i>t</i> &lt;-- <i>T</i>&lt;<b>undefined</b>&gt;
+</dt><dt><i>T</i>&lt;<b>any</b>&gt; &lt;-- <i>t</i>
+</dt></dl>
+<dl><dd>Identical types are assignment compatible; any type can be assigned <b>undefined</b>; and any type of RValue can be assigned to an LValue specified <b>any</b>.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>struct</b> S&gt; &lt;-- <i>T</i>&lt;<b>struct</b> S&gt;
+</dt><dt><i>T</i>&lt;<b>struct</b> S*&gt; &lt;-- <i>T</i>&lt;<b>struct</b> S*&gt;
+</dt></dl>
+<dl><dd>Struct objects based on a common definition are assigned field-wise using the rules of Typed-Assignment -- that is, <i>by value</i>. Struct pointers are assigned to one another without getting or setting any constituent fields of the underlying object -- that is, <i>by reference</i>.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>struct</b> S&gt; &lt;-- <i>T</i>&lt;<b>struct</b> S*&gt;
+</dt><dt><i>T</i>&lt;<b>struct</b> S*&gt; &lt;-- <i>T</i>&lt;<b>struct</b> S&gt;
+</dt></dl>
+<dl><dd>Field-wise assignment involving a mixture of Struct objects and pointers. Implicitly gets or sets all fields of the underlying object referenced through a Struct pointer.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>struct</b> S&gt; &lt;-- <i>T</i>&lt;{ <i>fld</i>: <i>t-fld</i> ... }&gt;
+</dt><dt><i>T</i>&lt;<b>struct</b> S*&gt; &lt;-- <i>T</i>&lt;{ <i>fld</i>: <i>t-fld</i> ... }&gt;
+</dt></dl>
+<dl><dd>Assignment from a standard JavaScript object. Named properties of the latter corresponding to fields specified in the definition of S are assigned using the rules of Typed-Assignment. Each <i>t-fld</i> must be assignment-compatible with the type of S.<i>fld</i>.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<i>t</i>[<b>length</b>]&gt; &lt;-- <i>T</i>&lt;<i>t<b>´</b></i>[<b>length</b>]&gt;
+</dt><dt><i>T</i>&lt;<i>t</i>[<b>string</b>]&gt; &lt;-- <i>T</i>&lt;<i>t<b>´</b></i>[<b>string</b>]&gt;
+</dt></dl>
+<dl><dd>Vectors and Maps are assigned by value, by effectively removing all elements from the destination object and then performing an element-wise Typed-Assignment from the source object. The element types <i>t</i> and <i>t<b>´</b></i> must be assignment-compatible.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<i>t</i>[<b>length</b>]&gt; &lt;-- <i>T</i>&lt;[ <i>t-elem</i> ... ]&gt;
+</dt><dt><i>T</i>&lt;<i>t</i>[<b>string</b>]&gt; &lt;-- <i>T</i>&lt;[[<i>T</i>&lt;<b>string</b>&gt;,<i>t-elem</i> ] ... ]&gt;
+</dt></dl>
+<dl><dd>Assignment to Vectors or Maps from a standard JavaScript array. Elements of the destination object are replaced (in order) by elements in the source array. Each <i>t-elem</i> must be assignment-compatible with the base type <i>t</i>.
+</dd></dl>
+<dl><dt><i>T</i>&lt;U.<b>Module</b>&gt; &lt;-- <i>T</i>&lt;U´.<b>Module</b>&gt;
+</dt><dt><i>T</i>&lt;U.<b>Instance</b>&gt; &lt;-- <i>T</i>&lt;U´.<b>Instance</b>&gt;
+</dt></dl>
+<dl><dd>Assignment of opaque references to Module or Instance objects. The unit-specification(s) for U and U´ are either the same, or else the former must directly/indirectly inherit from the latter.
+</dd></dl>
+<dl><dt><i>T</i>&lt;U.<b>Module</b>&gt; &lt;-- <i>T</i>&lt;{ <i>cfg</i>: <i>t-cfg</i> ... }&gt;
+</dt><dt><i>T</i>&lt;U.<b>Instance</b>&gt; &lt;-- <i>T</i>&lt;{ <i>cfg</i>: <i>t-cfg</i> ... }&gt;
+</dt></dl>
+<dl><dd>Assignment from a standard JavaScript object. Named properties of the latter corresponding to module-wide or per-instance configs specified in the definition of U are assigned using the rules of Typed-Assignment. Each <i>t-cfg</i> must be assignment-compatible with the type of U.<i>cfg</i>.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>void</b>*&gt; &lt;-- <i>T</i>&lt;<b>struct</b> S&gt;
+</dt><dt><i>T</i>&lt;<b>void</b>*&gt; &lt;-- <i>T</i>&lt;<b>struct</b> S*&gt;
+</dt><dt><i>T</i>&lt;<b>void</b>*&gt; &lt;-- <i>T</i>&lt;<i>t</i>*&gt;
+</dt></dl>
+<dl><dd>Assignment to <b>void</b>* covers Struct objects/pointers plus arbitrary target addresses.
+</dd></dl>
+<dl><dt><i>T</i>&lt;<b>struct</b> S*&gt; &lt;-- <i>T</i>&lt;<b>null</b>&gt;
+</dt><dt><i>T</i>&lt;U.<b>Module</b>&gt; &lt;-- <i>T</i>&lt;<b>null</b>&gt;
+</dt><dt><i>T</i>&lt;U.<b>Instance</b>&gt; &lt;-- <i>T</i>&lt;<b>null</b>&gt;
+</dt></dl>
+<dl><dd>Assignment of <b>null</b> limited to Struct pointers, target addresses, and Module/Instance handles.
+</dd></dl>
+<p><br />
+</p><!-- 
+Pre-expand include size: 1664 bytes
+Post-expand include size: 899 bytes
+Template argument size: 80 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__XDCscript_Language_Summary.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.224 secs. --></body></html>

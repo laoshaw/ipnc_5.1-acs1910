@@ -1,0 +1,368 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Command - xs - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Command - xs&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Command - xs" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Command_Line_Tools/Command_Line_Tools.html" title="Command_Line_Tools"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Command - xs</p><p id="subtitle">XDCscript interpreter</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Synopsis"><span class="tocnumber">1</span> <span class="toctext">Synopsis</span></a></li>
+<li class="toclevel-1"><a href="#Description"><span class="tocnumber">2</span> <span class="toctext">Description</span></a></li>
+<li class="toclevel-1"><a href="#Options"><span class="tocnumber">3</span> <span class="toctext">Options</span></a></li>
+<li class="toclevel-1"><a href="#Usage"><span class="tocnumber">4</span> <span class="toctext">Usage</span></a></li>
+<li class="toclevel-1"><a href="#Controlling_the_xs_Context.2FEnvironment"><span class="tocnumber">5</span> <span class="toctext">Controlling the xs Context/Environment</span></a></li>
+<li class="toclevel-1"><a href="#Taking_Options_and_Arguments_from_a_File"><span class="tocnumber">6</span> <span class="toctext">Taking Options and Arguments from a File</span></a></li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">7</span> <span class="toctext">Examples</span></a>
+<ul>
+<li class="toclevel-2"><a href="#.22Hello_World.22"><span class="tocnumber">7.1</span> <span class="toctext">"Hello World"</span></a></li>
+<li class="toclevel-2"><a href="#Interactive_session"><span class="tocnumber">7.2</span> <span class="toctext">Interactive session</span></a></li>
+<li class="toclevel-2"><a href="#Setting_and_retrieving_an_environment_variable"><span class="tocnumber">7.3</span> <span class="toctext">Setting and retrieving an environment variable</span></a></li>
+<li class="toclevel-2"><a href="#Running_a_script_contained_in_a_capsule"><span class="tocnumber">7.4</span> <span class="toctext">Running a script contained in a capsule</span></a></li>
+<li class="toclevel-2"><a href="#Running_a_script_contained_in_a_module"><span class="tocnumber">7.5</span> <span class="toctext">Running a script contained in a module</span></a></li>
+<li class="toclevel-2"><a href="#Running_a_script_contained_in_a_package"><span class="tocnumber">7.6</span> <span class="toctext">Running a script contained in a package</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Environment_Variables"><span class="tocnumber">8</span> <span class="toctext">Environment Variables</span></a></li>
+<li class="toclevel-1"><a href="#Exit_Status"><span class="tocnumber">9</span> <span class="toctext">Exit Status</span></a></li>
+<li class="toclevel-1"><a href="#See_Also"><span class="tocnumber">10</span> <span class="toctext">See Also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Synopsis"></a><h2> <span class="mw-headline"> Synopsis </span></h2>
+<p>xs <i>[options]</i> xdc-package [script-arg1 script-arg2 …]
+</p><p>xs <i>[options]</i> -c xdc-capsule [script-arg1 script-arg2 …]
+</p><p>xs <i>[options]</i> -f xs-script-file [script-arg1 script-arg2 …]
+</p><p>xs <i>[options]</i> -m xdc-module [script-arg1 script-arg2 …]
+</p><p>xs <i>[options]</i> -i 
+</p>
+<a name="Description"></a><h2> <span class="mw-headline"> Description </span></h2>
+<p>The <tt>xs</tt> command is used to execute <a href="../Glossary/Glossary.html#XDCscript" title="Glossary">XDCscript</a> programs. XDCscript is a general-purpose programming language based upon the ECMA-262 Edition 3 standard – popularly known as JavaScript 1.5. A central element of XDC, this language primarily serves as an implementation vehicle for hosted <i><a href="../Glossary/Glossary.html#Meta-Code" title="Glossary">meta-content</a></i> used to automate integration of companion <i><a href="../Glossary/Glossary.html#Target-Code" title="Glossary">target-content</a></i> within executable programs tailored for a specific hardware platform and optimized for a specific application environment. XDCtools also leverages the language to manage the flow of <i><a href="../Glossary/Glossary.html#Package" title="Glossary">packages</a> </i>– standardized containers holding re-usable target content plus its attendant meta-content – between producers and consumers. And of course, the language is readily suited for standalone scripting tasks. 
+</p><p>The <tt>xs</tt> command is implemented using the Java programming language. The actual JavaScript interpreter is based on the Mozilla Rhino package. Consult the documentation for Rhino to learn more about the particular features of this implementation of JavaScript. In particular, look for material on LiveConnect, which enables JavaScript programs to transparently invoke Java APIs. This powerful feature provides a mechanism to tap into vast amount of functionality in the Java ecosystem.
+</p>
+<a name="Options"></a><h2> <span class="mw-headline"> Options </span></h2>
+<dl><dt><tt>@</tt>&lt;opts-file&gt;
+</dt><dd>read the specified options file, &lt;opts-file&gt;, and include its contents as arguments to <tt>xs</tt>.  Each line in the file corresponds to exactly on argument passed to to <tt>xs</tt>.  No interpretation of the line is done unless the line is another <tt>@</tt>&lt;file&gt;; in this case, the line is (recursively) replaced with the lines from &lt;file&gt;.
+</dd></dl>
+<dl><dt><tt>-D&lt;name&gt;=&lt;val&gt;</tt>
+</dt><dd>define the (Java) environment variable &lt;name&gt; to have the value &lt;val&gt;
+</dd></dl>
+<dl><dt>--help
+</dt><dd>display usage help and exit
+</dd></dl>
+<dl><dt>--xdcpath &lt;xdc-path&gt;
+</dt><dd>specify a list of repositories (directories) to be used as part of the package path. The &lt;xdc-path&gt; argument should be a semi-colon separated list of directories.  This setting overrides any value contained in the <tt>XDCPATH</tt> environment variable.
+</dd></dl>
+<dl><dt>-i 
+</dt><dd>start an interactive session. A prompt is issued to the console where JavaScript statements can be entered for immediate execution. The session can be terminated by typing <i>quit</i> 
+</dd></dl>
+<dl><dt>-c &lt;capsule&gt; arg1 arg2 …
+</dt><dd>execute the script in the function <tt>main()</tt> of the specified <a href="../Glossary/Glossary.html#Capsule" title="Glossary">capsule</a>, passing any remaining arguments to the script
+</dd></dl>
+<dl><dt>-f &lt;file&gt; arg1 arg2 …
+</dt><dd>execute the script in the contained in the specified file, passing any remaining arguments to the script
+</dd></dl>
+<dl><dt>-m &lt;module&gt; arg1 arg2 …
+</dt><dd>execute the script in the function <tt>main()</tt> of the specified <a href="../Glossary/Glossary.html#Module" title="Glossary">module</a>, passing any remaining arguments to the script
+</dd></dl>
+<dl><dt>&lt;package&gt; arg1 arg2 …
+</dt><dd>execute the script in the function <tt>main()</tt> in the file <tt>Main.xs</tt> of the specified <a href="../Glossary/Glossary.html#Package" title="Glossary">package</a>, passing any remaining arguments to the script
+</dd></dl>
+<a name="Usage"></a><h2> <span class="mw-headline"> Usage </span></h2>
+<p>The basic model for using the xs command is to specify a script to be executed along with any (optional) arguments to be passed to the script:
+</p><p>xs [options-to-xs] script arg1 arg2
+</p><p>The variations in invocation are due to how the "script" is located by xs. The four choices are:
+</p>
+<ul><li> Script file located anywhere on the filesystem (-f option)
+</li><li> Script code contained in an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> Capsule (-c option)
+</li><li> Script code is part of a module (-m option)
+</li><li> Script code is part of a package (default: no option required)
+</li></ul>
+<p>See the <a href="#Examples" title="">Examples</a> section below for sample invocations.
+</p><p>An interactive session can be started by using the –i option. In this mode of operation, the xs command displays a prompt - js&gt; - and reads lines of script entered by the user. This can be useful for exploring the XDCscript environment. To exit an interactive session, enter <tt>quit</tt>. 
+</p><p>Arguments supplied to scripts can be retrieved using the standard JavaScript <tt>arguments</tt> object. This is an array-like object containing the arguments passed to the function, indexed beginning at 0. The <tt>length</tt> property of the object can be used to determine the number of arguments actually passed. This is true even for scripts that do not have a function defined, but rather just start execution with the first line in the file.
+</p>
+<a name="Controlling_the_xs_Context.2FEnvironment"></a><h2> <span class="mw-headline"> Controlling the xs Context/Environment </span></h2>
+<p>It can be useful to set, what is in effect, a "global" variable when running an XDCscript program. This can be done using the <tt>–D</tt> option to <tt>xs</tt> and then retrieving that value from the "environment" in the script being run. The environment is a hash table indexed by the name of the environment variable. Note that these values are not the same as the command shell’s environment variables.
+</p><p>As an example, the following will set an environment variable called "junk" to the value "car".
+</p>
+<pre>
+xs –Djunk=car –f envvar.xs
+</pre>
+<p>The environment could be accessed and printed as shown below:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">print<span class="br0">&#40;</span><span class="st0">&quot;Env var: &quot;</span> + environment<span class="br0">&#91;</span><span class="st0">&quot;junk&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>The <tt>--xdcpath</tt> option is used to set the user portion of the package path. See <a href="../Managing_the_Package_Path/Managing_the_Package_Path.html" title="Managing the Package Path">Managing the Package Path</a> for more details on the package path.) To specify a directory to be used as a repository, add it to a list of semicolon-separated directories supplied with the <tt>--xdcpath</tt> option. See the following section for an example.
+</p>
+<a name="Taking_Options_and_Arguments_from_a_File"></a><h2> <span class="mw-headline"> Taking Options and Arguments from a File </span></h2>
+<p>The <tt>@</tt> option enables re-using common options and arguments captured in a file. One common scenario is the specification of the user part of package path. If several repositories (directories containing packages) are being used, the argument to the <tt>--xdcpath</tt> option can get quite long and tedious to re-enter each time <tt>xs</tt> is used. By creating a file named opts-file that contains two lines:
+</p>
+<pre>
+--xdcpath
+dir-path1;dir-path2;dir-path3
+</pre>
+<p>and then starting <tt>xs</tt> as shown below,
+</p>
+<pre>
+xs @opts-file …
+</pre>
+<p>the <tt>xs</tt> command is effectively invoked as
+</p>
+<pre>
+xs --xdcpath dir-path1;dir-path2;dir-path3 …
+</pre>
+<p>In general, each line of the file supplied with the <tt>@</tt>, is added to the argument list of the <tt>xs</tt> command. The process is recursive so that if there is a line with an <tt>@</tt> option, that file will be opened and added to the argument list, and so on.
+</p>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<a name=".22Hello_World.22"></a><h6> <span class="mw-headline">"Hello World"</span></h6>
+<p><span class="Leader">"Hello World"</span>.&nbsp;  The following command will run the code in the file <tt>hello.xs</tt>.
+</p>
+<pre>
+xs –f hello.xs world
+</pre>
+<p>Assuming <tt>hello.xs</tt> contains the line:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">print<span class="br0">&#40;</span><span class="st0">&quot;hello&quot;</span> + arguments<span class="br0">&#91;</span><span class="nu0">0</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>the text "<tt>hello world</tt>" will be echoed to the standard output of the command shell.
+</p>
+<a name="Interactive_session"></a><h6> <span class="mw-headline">Interactive session</span></h6>
+<p><span class="Leader">Interactive session</span>.&nbsp;  The following command will start the XDCscript interpreter and issue a prompt for an interactive session.
+</p>
+<pre>
+xs –i
+</pre>
+<p>The prompt used by <tt>xs</tt> is "<tt>js&gt; </tt>" (the "$ " below is the command-line prompt from the shell being used): 
+</p>
+<pre>
+$ xs -i
+js&gt; print(&quot;hello world&quot;)
+hello world
+js&gt; quit
+$
+</pre>
+<a name="Setting_and_retrieving_an_environment_variable"></a><h6> <span class="mw-headline">Setting and retrieving an environment variable</span></h6>
+<p><span class="Leader">Setting and retrieving an environment variable</span>.&nbsp;  This example shows how to set and retrieve an environment variable. This approach works for any of the methods for finding and running a script.
+</p>
+<pre>
+$ xs -Djunk=car -i
+js&gt; print(&quot;Env var: &quot; + environment[&quot;junk&quot;]);&lt;/nowiki&gt;
+Env var: car
+js&gt; quit
+$
+</pre>
+<a name="Running_a_script_contained_in_a_capsule"></a><h6> <span class="mw-headline">Running a script contained in a capsule</span></h6>
+<p><span class="Leader">Running a script contained in a capsule</span>.&nbsp;  An XDCscript capsule is simply a file in a package that contains XDCscript code that can be loaded and utilized via the <tt>xdc.loadCapsule()</tt> method. If the capsule contains a <tt>main()</tt> method, it can be run using <tt>xs</tt> by specifying the Capsule with the <tt>–c</tt> option.
+</p>
+<pre>
+xs –c sample/stuff/hello.xs world
+</pre>
+<p>The package is sample.stuff and will be located along the package path. Note that instead of using the Package name directly, the "." separator is replaced with "/". The script is contained in the file hello.xs. There are no requirements on the naming of the script file (different file extensions can be used) or the actual location of the file within the package (sub-directories can be used).
+</p>
+<a name="Running_a_script_contained_in_a_module"></a><h6> <span class="mw-headline">Running a script contained in a module</span></h6>
+<p><span class="Leader">Running a script contained in a module</span>.&nbsp;  A meta-only module that contains a method named <tt>main</tt> can be run using <tt>xs</tt> by specifying the module with the <tt>–m</tt> option.
+</p>
+<pre>
+xs –m sample.stuff.Hello world
+</pre>
+<p>The Package is <tt>sample.stuff</tt> and will be located along the package path. The module <tt>Hello</tt> must contain a function named <tt>main</tt>, as specified in the corresponding XDCspec file, <tt>Hello.xdc</tt>, and implemented in <tt>Hello.xs</tt>.
+</p>
+<a name="Running_a_script_contained_in_a_package"></a><h6> <span class="mw-headline">Running a script contained in a package</span></h6>
+<p><span class="Leader">Running a script contained in a package</span>.&nbsp;  A Package that contains a <tt>main()</tt> method in a module named <tt>Main</tt> can be invoked directly as shown below.
+</p>
+<pre>
+xs sample.stuff world
+</pre>
+<p>The package is <tt>sample.stuff</tt> and will be located along the package path. The script is contained in the file <tt>Main.xs</tt>. Note that this is equivalent to the following invocation using the module option:
+</p>
+<pre>
+xs –m sample.stuff.Main world
+</pre>
+<a name="Environment_Variables"></a><h2> <span class="mw-headline"> Environment Variables </span></h2>
+<p>XDCPATH See the description of this environment variable in the documentation for the <tt>xdc</tt> command.
+</p>
+<a name="Exit_Status"></a><h2> <span class="mw-headline"> Exit Status </span></h2>
+<p>The exit status of the <tt>xs</tt> command is one of the following values:
+</p><p>0 Successful completion.
+</p><p>Non-zero An error occurred.
+</p><p>A script can indicate an error by throwing a JavaScript exception, which will cause <tt>xs</tt> to exit with a non-zero status.
+</p>
+<a name="See_Also"></a><h2> <span class="mw-headline"> See Also </span></h2>
+<p>Mozilla Rhino Project: <a href="http://www.mozilla.org/rhino" class="external free" title="http://www.mozilla.org/rhino" rel="nofollow">http://www.mozilla.org/rhino</a>
+</p><p>JavaScript Arguments: <a href="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Functions:arguments" class="external free" title="http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Functions:arguments" rel="nofollow">http://developer.mozilla.org/en/docs/Core_JavaScript_1.5_Reference:Functions:arguments</a>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Command - xs&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Command - xs" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Command_Line_Tools/Command_Line_Tools.html" title="Command_Line_Tools"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1781 bytes
+Post-expand include size: 1386 bytes
+Template argument size: 460 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Command_-_xs.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.218 secs. --></body></html>

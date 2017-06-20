@@ -1,0 +1,112 @@
+<html><head><title>module gnu.targets.codesourcery.GCArmv6</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    import gnu.targets.ITarget;
+    13    
+    14    <span class="xdoc">/*!
+</span>    15    <span class="xdoc"> *  ======== GCArmv6.xdc ========
+</span>    16    <span class="xdoc"> *  This module defines an embedded target for Linux on Arm. The target
+</span>    17    <span class="xdoc"> *  generates code compatible with the "v6" architecture.
+</span>    18    <span class="xdoc"> *
+</span>    19    <span class="xdoc"> */</span>
+    20    <span class=key>metaonly</span> <span class=key>module</span> GCArmv6 <span class=key>inherits</span> gnu.targets.ITarget {
+    21        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name                = <span class="string">"GCArmv6"</span>;    
+    22        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string os                  = <span class="string">"Linux"</span>;      
+    23        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix              = <span class="string">"v6"</span>;
+    24        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa                 = <span class="string">"v6"</span>;
+    25        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model= {
+    26            endian: <span class="string">"little"</span>
+    27        };
+    28    
+    29        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts = <span class="string">"gnu.targets.codesourcery.rtsv6"</span>;
+    30        <span class=key>override</span> <span class=key>config</span> string platform     = <span class="string">"ti.platforms.evm2530"</span>;
+    31        
+    32        <span class=key>override</span> <span class=key>config</span> string LONGNAME = <span class="string">"/bin/arm-none-linux-gnueabi-gcc"</span>;
+    33    
+    34        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> Bool CYGWIN     = <span class=key>true</span>;
+    35    
+    36        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> String stdInclude = <span class="string">"gnu/targets/codesourcery/std.h"</span>;
+    37    
+    38        <span class="xdoc">/*!
+</span>    39    <span class="xdoc">     *  ======== cc ========
+</span>    40    <span class="xdoc">     *  The compile command
+</span>    41    <span class="xdoc">     *
+</span>    42    <span class="xdoc">     *  The following options do not impact the content of the output file. They
+</span>    43    <span class="xdoc">     *  only generate additional output containg make dependencies.
+</span>    44    <span class="xdoc">     *
+</span>    45    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    46    <span class="xdoc">     *      -`-MD`
+</span>    47    <span class="xdoc">     *          generate make dependency rules
+</span>    48    <span class="xdoc">     *      -`-MF`
+</span>    49    <span class="xdoc">     *          the next argument ($@.dep) is the name for the dependency
+</span>    50    <span class="xdoc">     *          output file
+</span>    51    <span class="xdoc">     *
+</span>    52    <span class="xdoc">     */</span>
+    53        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command cc = {
+    54            cmd: <span class="string">"$(rootDir)/$(LONGNAME) -c -MD -MF $@.dep"</span>,
+    55            opts: <span class="string">"-march=armv6"</span>
+    56        };
+    57    
+    58        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command asm = {
+    59            cmd: <span class="string">"$(rootDir)/$(LONGNAME) -c -x assembler"</span>,
+    60            opts: <span class="string">"-march=armv6"</span>
+    61        };
+    62    
+    63        <span class=key>override</span> <span class=key>config</span> ITarget.Options ccOpts = {
+    64            prefix: <span class="string">"-fPIC -Wunused"</span>,
+    65            suffix: <span class="string">"-Dfar= "</span>
+    66        };
+    67    
+    68        <span class=key>override</span> <span class=key>config</span> ITarget.Options lnkOpts = {
+    69            prefix: <span class="string">""</span>,
+    70            suffix: <span class="string">"-lstdc++ -L$(rootDir)/$(GCCTARG)/lib"</span>
+    71        };
+    72            
+    73        <span class="comment">/*
+</span>    74    <span class="comment">     *  ======== includeOpts ========
+</span>    75    <span class="comment">     */</span>
+    76        <span class=key>override</span> <span class=key>config</span> string includeOpts = <span class="string">""</span>;
+    77    
+    78        <span class="comment">/*
+</span>    79    <span class="comment">     *  ======== compatibleSuffixes ========
+</span>    80    <span class="comment">     */</span>
+    81        <span class=key>override</span> <span class=key>config</span> String compatibleSuffixes[] = [<span class="string">"v5T"</span>, <span class="string">"470MV"</span>, <span class="string">"v5t"</span>];
+    82    
+    83        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.StdTypes stdTypes = {
+    84            t_IArg          : { size: 4, align: 4 },
+    85            t_Char          : { size: 1, align: 1 },
+    86            t_Double        : { size: 8, align: 4 },
+    87            t_Float         : { size: 4, align: 4 },
+    88            t_Fxn           : { size: 4, align: 4 },
+    89            t_Int           : { size: 4, align: 4 },
+    90            t_Int8          : { size: 1, align: 1 },
+    91            t_Int16         : { size: 2, align: 2 },
+    92            t_Int32         : { size: 4, align: 4 },
+    93            t_Int64         : { size: 8, align: 4 },
+    94            t_Long          : { size: 4, align: 4 },
+    95            t_LDouble       : { size: 8, align: 4 },
+    96            t_LLong         : { size: 8, align: 4 },
+    97            t_Ptr           : { size: 4, align: 4 },
+    98            t_Short         : { size: 2, align: 2 },
+    99        };
+   100    }
+   101    <span class="comment">/*
+</span>   102    <span class="comment"> *  @(#) gnu.targets.codesourcery; 1, 0, 0, 0,241; 2-24-2010 16:24:01; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>   103    <span class="comment"> */</span>
+   104    
+</pre>
+</body></html>

@@ -1,0 +1,349 @@
+<html>
+<head>
+<title>package xdc</title>
+<meta name="description" content="Core interfaces and modules necessary for the XDC runtime">
+<link rel="stylesheet" type="text/css" href="../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">xdc</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../xdc/IPackage.html" title="interface IPackage"><img class="xdocHdrArrow" src="../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../index.html#xdc/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Core interfaces and modules necessary for the XDC runtime</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">USAGE</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-3">STANDARD TYPES</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-4"></a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-5">PREDEFINED MACROS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-6">SEE</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-7">THROWS</a></li>
+</ul>
+<div class="xdocBrief">
+In addition to the interfaces specified below, this package also supplies
+  a C/C++ header, <tt>std.h</tt> that facilitates the creation of portable sources.
+  This header defines a set of "base" types that enable the creation
+  of C-code that is portable between any two targets.  C source code that
+  relies exclusively on these types is portable to all targets and
+  platforms.  Where appropriate, the types defined below are related to the
+  types defined in the library headers perscribed by the C99 standard
+  (ISO/IEC 9899:1999).
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../xdc/package-src.html"><span class="xdocLabelFile">xdc/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">xdc</span></go> [1, 1, 1] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../xdc/IPackage.html' title='xdc.IPackage'><span class="xdoc-id">IPackage</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;Base interface implemented by all packages</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">In addition to the interfaces specified below, this package also supplies
+  a C/C++ header, <tt>std.h</tt> that facilitates the creation of portable sources.
+  This header defines a set of "base" types that enable the creation
+  of C-code that is portable between any two targets.  C source code that
+  relies exclusively on these types is portable to all targets and
+  platforms.  Where appropriate, the types defined below are related to the
+  types defined in the library headers perscribed by the C99 standard
+  (ISO/IEC 9899:1999).</div>
+<div class="xdocText">Why not simply use the C99 types?  Having a
+  unique set of names provides a layer of insulation between a portable code
+  base and a particular compiler; e.g., even if a compiler does not support
+  the C99 types or defines them inappropriately for a particular device, it
+  is possible to use the compiler without changing the code base.  Thus, the
+  developer is not forced to choose the lesser of two evils: waiting for a
+  change to the compiler or forking the code base for a particular compiler
+  device combination.</div>
+<div class="xdocText">There are several situations where a small separate set of portable types
+  can help the maintainability of a code base.</div>
+<div class="xdocText"><UL><LI> not all of the types described in the C99 standard are required to 
+        be defined by conformant implementations nor is it possible for all
+        devices to implement some of the types specified (e.g., <tt>int8_t</tt> is
+        not implemented on C54 devices); so it is difficult to identify
+        non-portable source code.
+</LI><LI> not all compilers provide C99 type support; if XDC supplies the type
+        definition and the compiler is updated to include C99 types, a
+        compilation error will occur if the source includes the C99
+        headers.
+</LI><LI> not all compiler and device combinations are conformant; even high
+        quality compilers may not properly define the types for each device
+        supported by compiler.
+
+</LI></UL></div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">USAGE</div>
+<div class="xdocText"></div>
+<div class="xdocText"><PRE class="Example">      #include &lt;xdc/std.h&gt;
+</PRE></div>
+<div class="xdocText">To compile sources that include <tt>xdc/std.h</tt>, two symbols must be defined
+  before including this header:</div>
+<div class="xdocText"><DL><DT> <tt>xdc_target_types__</tt></DT><DD>
+          the package qualified path of the target's standard types header;
+          e.g., <tt>ti/targets/std.h</tt>.  This value is specified in the target's
+          <tt>stdInclude</tt> config parameter; see
+          <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#std.Include" title="xdc.bld.ITarget.stdInclude">xdc.bld.ITarget.stdInclude</a></tt>
+</DD><DT> <tt>xdc_target_name__</tt></DT><DD>
+          the target's module name without the package prefix; e.g., <tt>C64</tt>
+          rather than <tt>ti.targets.C64</tt>.
+</DD></DL></div>
+<div class="xdocText">For example, to compile sources for the <tt>ti.targets.C64</tt> target using TI's
+  <tt>cl6x</tt> compiler, the following command line is sufficient:</div>
+<div class="xdocText"><PRE class="Example">      cl6x -Dxdc_target_types__=ti/targets/std.h -Dxdc_target_name__=C64
+</PRE></div>
+<div class="xdocText">Each of the type names below has an equivalent "long name"; i.e., a name
+  that has an "<tt>xdc_</tt>" prefix.  For example, the type <tt>Bool</tt> can also be
+  written as "<tt>xdc_Bool</tt>".  Long names exist to avoid conflicts with
+  names defined or used by existing code bases.</div>
+<div class="xdocText">In the event that one of the short type names below conflicts with another
+  type name (that can not be changed), it is possble to disable the short
+  names by defining the symbol <tt>xdc__nolocalnames</tt> before including
+  <tt>xdc/std.h</tt>.</div>
+<div class="xdocText"><PRE class="Example">      #define xdc__nolocalnames
+      #include &lt;xdc/std.h&gt;
+</PRE></div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">STANDARD TYPES</div>
+<div class="xdocText">This header may be included multiple times and defines the following
+  target-dependent types:</div>
+<div class="xdocText"><DL><DT> <tt>Bool</tt></DT><DD>
+          this type is large enough to hold the values <tt>0</tt> or <tt>1</tt>.  The
+          constants TRUE and FALSE are of this type; see below.
+</DD><DT> <tt>String</tt></DT><DD>
+          this type is defined to be a <tt>char *</tt> and exists to allow code
+          to distinguish between pointers to buffers of raw data and
+          '\0' terminated strings.
+</DD><DT> <tt>Int</tt>n, where n = 8, 16, or 32</DT><DD>
+          signed integer type that is large enough to hold n bits; the
+          actual target type may by be larger than n.  This type is
+          equivalent to one of the C99 types <tt>int_least</tt>n<tt>_t</tt> or
+          <tt>int_fast</tt>n<tt>_t</tt>; see  Section 7.18.
+</DD><DT> <tt>UInt</tt>n, where n = 8, 16, or 32</DT><DD>
+          unsigned integer type that is large enough to hold n bits; the
+          actual target type may by be larger than n.  This type is
+          equivalent to one of the C99 types <tt>uint_least</tt>n<tt>_t</tt> or
+          <tt>uint_fast</tt>n<tt>_t</tt>; see ISO/IEC 9899:1999 Section 7.18.
+</DD><DT> <tt>Bits</tt>n, where n = 8, 16, or 32</DT><DD>
+          unsigned integer type that is precisely n bits. Not all targets
+          support all values of n; if the target does not support an exact
+          size the corresponding type is not defined.  This type is
+          equivalent to the corresponding C99 type <tt>uint</tt>n<tt>_t</tt>; see ISO/IEC
+          9899:1999 Section 7.18.
+</DD><DT> <tt>Fxn</tt></DT><DD>
+          this type is a pointer to code; it can hold a pointer to any
+          function.
+</DD><DT> <tt>Ptr</tt></DT><DD>
+          this type is a pointer to data; it can hold a pointer to any
+          data structure.
+</DD><DT> <tt>IArg</tt></DT><DD>
+          this integer type is large enough to hold a <tt>Fxn</tt>, <tt>Ptr</tt>, or
+          <tt>Int</tt>.
+</DD><DT> <tt>UArg</tt></DT><DD>
+          this unsigned integer type is large enough to hold a <tt>Fxn</tt>,
+          <tt>Ptr</tt>, or <tt>Int</tt>.
+</DD><DT> <tt>LLong</tt></DT><DD>
+          this long integer type is large enough to hold a <tt>Long</tt> and is
+          defined as a 'long long' type on targets that support this type;
+          otherwise, it is simply a <tt>Long</tt>.
+
+          Note that C99 requires the <tt>long long</tt> type to be at least 64-bits
+          wide (See ISO/IEC 9899:1999 Section 5.2.4.2.1).  But some
+          compilers do not support 64-bit integral types and some don't
+          support the <tt>long long</tt> even though they do support 64-bit
+          integral types.  Since these variations limit the portability of
+          valid C sources, the LLong type is always defined, is always at
+          least as wide as the <tt>Long</tt> type, and is at least 64-bits wide for
+          targets that support 64-bit integral types.
+</DD><DT> <tt>ULLong</tt></DT><DD>
+          this unsigned long integer type is large enough to hold a <tt>ULong</tt>
+          and is defined as a 'unsigned long long' type on targets that
+          support this type; otherwise, it is simply a <tt>ULong</tt>.
+</DD></DL></div>
+<div class="xdocText">The <tt>xdc/std.h</tt> header also defines the following aliases for the base C
+  types.  These aliases exist so that C sources can consistently follow
+  a naming convention in which all type names are written in camel-case.</div>
+<div class="xdocText"><DL><DT> <tt>Char</tt> and <tt>UChar</tt></DT><DD>
+          aliases for <tt>char</tt> and <tt>unsigned char</tt>, respectively
+</DD><DT> <tt>Short</tt> and <tt>UShort</tt></DT><DD>
+          aliases for <tt>short</tt> and <tt>unsigned short</tt>, respectively
+</DD><DT> <tt>Int</tt> and <tt>UInt</tt></DT><DD>
+          aliases for <tt>int</tt> and <tt>unsigned int</tt>, respectively
+</DD><DT> <tt>Long</tt> and <tt>ULong</tt></DT><DD>
+          aliases for <tt>long</tt> and <tt>unsigned long</tt>, respectively
+</DD><DT> <tt>Double</tt> and <tt>LDouble</tt></DT><DD>
+          aliases for <tt>double</tt> and <tt>long double</tt>, respectively
+</DD><DT> <tt>SizeT</tt></DT><DD>
+          alias for <tt>size_t</tt>
+</DD><DT> <tt>VaList</tt></DT><DD>
+          alias for <tt>va_list</tt>
+</DD></DL></div>
+<div class="xdocText">The types above are defined for all targets.  Some targets can support
+  the following additional types.  Since these types are not always
+  supported by a target, these types should only be used when no other
+  type sufficies.</div>
+<div class="xdocText"><DL><DT> <tt>Bits</tt>n, where n = 8, 16, or 32</DT><DD>
+          this unsigned integer type is precisely n-bits wide.  This type is
+          equivalent to the optional C99 type <tt>uint</tt>n<tt>_t</tt>; see ISO/IEC
+          9899:1999 Section 7.18.1.1.  This type is defined if and
+          only if the preprocessor macro <tt>xdc__BITS</tt>n<tt>__</tt> is defined.
+</DD></DL></div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect"></div>
+<div class="xdocText">(64-Bit Types)
+  Although the C99 standard requires support for 64-bit types, not all
+  compiler/device combinations can usefully support them.  As a result,
+  the 64-bit types described here may not be defined for all targets.  For
+  each type there is a corresponding pre-processor macro which is
+  defined if and only if the type is supported.</div>
+<div class="xdocText"><DL><DT> <tt>Int64</tt></DT><DD>
+          signed integer type that is large enough to hold 64 bits; the
+          actual target type may by be wider than 64 bits.  This type is
+          equivalent to one of the C99 types <tt>int_least64_t</tt> or
+          <tt>int_fast64_t</tt>; see  Section 7.18.  This type is defined if and
+          only if the preprocessor macro <tt>xdc__INT64__</tt> is defined.
+</DD><DT> <tt>UInt64</tt></DT><DD>
+          unsigned integer type that is large enough to hold n bits; the
+          actual target type may by be wider than 64 bits.  This type is
+          equivalent to one of the C99 types <tt>uint_least64_t</tt> or
+          <tt>uint_fast64_t</tt>; see ISO/IEC 9899:1999 Section 7.18.  This type
+          is defined if and only if the preprocessor macro
+          <tt>xdc__INT64__</tt> is defined.
+</DD><DT> <tt>Bits64</tt></DT><DD>
+          unsigned integer type that is precisely 64 bits wide. If the target
+          does not support an exact 64-bit size, this type is not defined.
+          This type is equivalent to the corresponding C99 type
+          <tt>uint64_t</tt>; see ISO/IEC 9899:1999 Section 7.18.  This type is
+          defined if and only if the preprocessor macro <tt>xdc__BITS64__</tt> is
+          defined.
+</DD></DL></div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">PREDEFINED MACROS</div>
+<div class="xdocText">In addition to the type definitions above, <tt>xdc/std.h</tt> also defines the
+  following commonly used constants</div>
+<div class="xdocText"><DL><DT> <tt>NULL</tt></DT><DD>
+          defined as <tt>0</tt>
+</DD><DT> <tt>TRUE</tt></DT><DD>
+          defined as <tt>((Bool)1)</tt>
+</DD><DT> <tt>FALSE</tt></DT><DD>
+          defined as <tt>((Bool)0)</tt>
+</DD></DL></div>
+<div class="xdocText">Finally, <tt>xdc/std.h</tt> defines the following target-independent symbols
+  that have target-dependent values; these predefined macros enable
+  conditional compilation of source files based on target-specific
+  attributes.</div>
+<div class="xdocText"><DL><DT> {c_target_name}</DT><DD>
+          this symbol (the target's fully qualified name with all '.'s
+          replaced with '_') is always defined and allows one to easily
+          include target-specific headers or define symbols with
+          target-specific values.
+</DD><DT> <tt>xdc_target__isaCompatible_</tt>{isa_name}</DT><DD>
+          for every ISA named in the array returned by this target's
+          <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#get.I.S.A.Chain" title="xdc.bld.ITarget.getISAChain">xdc.bld.ITarget.getISAChain()</a></tt> method, a symbol of this
+          name is defined.  In addition to enabling one to create code
+          specific to a particular ISA, this allows one to create code that
+          depends on TI's C6x architecture without being dependent
+          on a particular member of the C6x family, for example.
+</DD><DT> <tt>xdc_target__isa_</tt>{isa}</DT><DD>
+          this symbol is always defined  and {isa} is the
+          target's <tt>isa</tt> (see <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#isa" title="xdc.bld.ITarget.isa">xdc.bld.ITarget.isa</a></tt>).
+</DD><DT> <tt>xdc_target__</tt>{little,big}<tt>Endian</tt></DT><DD>
+          if this target's <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#model" title="xdc.bld.ITarget.model">xdc.bld.ITarget.model</a>.endian</tt> property is
+          specified, this symbol is defined and {little,big} is replaced
+          by <tt>model.endian</tt>.
+</DD><DT> <tt>xdc_target__</tt>{code_model_name}<tt>Code</tt></DT><DD>
+          if this target's <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#model" title="xdc.bld.ITarget.model">xdc.bld.ITarget.model</a>.codeModel</tt> is
+          specified, this symbol is defined and {code_model_name} is
+          replaced by <tt>model.codeModel</tt>.
+</DD><DT> <tt>xdc_target__</tt>{data_model_name}<tt>Data</tt></DT><DD>
+          if this target's <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#model" title="xdc.bld.ITarget.model">xdc.bld.ITarget.model</a>.dataModel</tt> is
+          specified, this symbol is defined and {data_model_name} is
+          replaced by <tt>model.dataModel</tt>.
+</DD><DT> <tt>xdc_target__os_</tt>{os_name}</DT><DD>
+          this symbol is always defined  and {os_name} is the
+          target's os name (see <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#os" title="xdc.bld.ITarget.os">xdc.bld.ITarget.os</a></tt>).
+</DD><DT> <tt>xdc_target__sizeof_</tt>{type_name}</DT><DD>
+          this symbol is defined for each type name supported in the target's
+          <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#std.Types" title="xdc.bld.ITarget.stdTypes">xdc.bld.ITarget.stdTypes</a></tt> structure, {type_name} is the
+          name of one of the standard types supported above, and the 
+          value is <tt>sizeof(type_name)</tt>.
+</DD><DT> <tt>xdc_target__alignof_</tt>{type_name}</DT><DD>
+          this symbol is defined for each type name supported in the target's
+          <tt><a class="xdoc-link" href="../xdc/bld/ITarget.html#std.Types" title="xdc.bld.ITarget.stdTypes">xdc.bld.ITarget.stdTypes</a></tt> structure, {type_name} is the
+          name of one of the standard types supported above, and the
+          value is the alignment required by the compiler for {type_name}.
+</DD><DT> <tt>xdc_target__bitPerChar</tt></DT><DD>
+          this symbol is always defined and specifies the number of bits 
+          in the target's <tt>char</tt>.  This value combined with the
+          <tt>xdc_target__sizeof_</tt> values allows C code to determine the
+          precise number of bits in any of the standard types.
+</DD></DL></div>
+<span id="xdoc-sect-6"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-linkExt" href="http://www.open-std.org/jtc1/sc22/wg14/www/standards" title="http://www.open-std.org/jtc1/sc22/wg14/www/standards">ISO-IEC JTC1-SC22-WG14 - C Approved standards</a></div>
+<span id="xdoc-sect-7"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>XDCException</tt> exceptions are thrown for fatal errors. The following
+  error codes are reported in the exception message:</div>
+<div class="xdocText"><DL><DT> <tt>xdc.PACKAGE_NOT_FOUND</tt></DT><DD>
+           This error is reported whenever a specified package is not found
+           This may happen for the following reasons:
+</DD></DL></div>
+<div class="xdocText"><UL><LI>  Ensure that the package in question is contained in one of
+               the repositories named in the package path.  
+</LI><LI>  The package has not been built by the <tt>xdc</tt> tool even though
+               the physical package directory may be present along the
+               package path
+</LI></UL></div>
+<div class="xdocText"><DL><DT> <tt>xdc.FILE_NOT_FOUND</tt></DT><DD>
+            This error is reported when a specified file is not found. 
+            Ensure that any directory name prefix in the name is a package
+            directory contained in one of the repositories named in the
+            package path.  For example, if "ti/targets/linkcmd.xdt" can't
+            be found, make sure the directory <tt>ti/targets/</tt> is contained in
+            at least one repository named in the package path.
+</DD><DT> <tt>xdc.MODULE_NOT_FOUND</tt></DT><DD>
+            This error is reported when a specified module can't be
+            found. Ensure that the package containing the module in
+            question is contained in at least one repository named in
+            the package path.
+            Also ensure that the module name is qualified with the
+            package name. For example, to refer to the module <tt>Engine</tt>
+            in the package <tt>ti.sdo.ce</tt>, the module name should be
+            specified as <tt>ti.sdo.ce.Engine</tt>.
+</DD><DT> <tt>xdc.TOOL_USAGE_ERROR</tt></DT><DD>
+            This error may happen when the <tt>xs</tt> tool is not passed the
+            expected command line arguments. 
+</DD><DT> <tt>xdc.MODULE_UNDEFINED_MAIN_FUNCTION</tt></DT><DD>
+            This error is reported when the <tt>xs</tt> tool is passed a module
+            that does not define a <tt>main</tt> function. Ensure that the
+            meta-domain implementation of the module has a <tt>main</tt> function.
+</DD><DT> <tt>xdc.SPEC_FILE_ERROR</tt></DT><DD>
+            This error is reported when there is a parsing error in a
+            specification file. Check the spec. file for syntax errors.
+</DD><DT> <tt>xdc.DEPRECATED_FUNCTION</tt></DT><DD>
+            This error is reported whenever a deprecated function is called.
+</DD><DT> <tt>xdc.STATIC_INSTANCE</tt></DT><DD>
+            This error is reported when a function create() is called at the
+            configuration time for a module that does not implement the
+            function instance$static$init and therefore does not support
+            static instances. 
+ 
+</DD></DL></div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:27 GMT</div>
+</div></div></body>
+</html>

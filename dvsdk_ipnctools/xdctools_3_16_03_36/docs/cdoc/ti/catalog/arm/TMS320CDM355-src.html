@@ -1,0 +1,81 @@
+<html><head><title>module ti.catalog.arm.TMS320CDM355</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS320CDM355.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    
+    18    <span class=key>metaonly</span> <span class=key>module</span> TMS320CDM355 <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    19    {
+    20    <span class=key>instance</span>:
+    21        <span class=key>override</span> <span class=key>config</span> string cpuCore           = <span class="string">"v5T"</span>;
+    22        <span class=key>override</span> <span class=key>config</span> string isa               = <span class="string">"v5T"</span>;
+    23        <span class=key>override</span> <span class=key>config</span> string cpuCoreRevision   = <span class="string">"1.0"</span>;
+    24        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minProgUnitSize   = 1;
+    25        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minDataUnitSize   = 1;
+    26        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    dataWordSize      = 4;
+    27    
+    28        <span class="xdoc">/*!
+</span>    29    <span class="xdoc">     *  ======== memMap ========
+</span>    30    <span class="xdoc">     *  The memory map returned be getMemoryMap().
+</span>    31    <span class="xdoc">     */</span>
+    32        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string] = [
+    33            [<span class="string">"IRAM0"</span>, {
+    34                comment:    <span class="string">"Internal ARM Instruction RAM0"</span>,
+    35                name:       <span class="string">"IRAM0"</span>,
+    36                base:       0x00000000,
+    37                len:        0x00004000,
+    38                space:      <span class="string">"code"</span>,
+    39                access:     <span class="string">"RWX"</span>
+    40            }],
+    41    
+    42            [<span class="string">"IRAM1"</span>, {
+    43                comment:    <span class="string">"Internal ARM Instruction RAM1"</span>,
+    44                name:       <span class="string">"IRAM1"</span>,
+    45                base:       0x00004000,
+    46                len:        0x00004000,
+    47                space:      <span class="string">"code"</span>,
+    48                access:     <span class="string">"RWX"</span>
+    49            }],
+    50    
+    51            [<span class="string">"DRAM0"</span>, {
+    52                comment:    <span class="string">"Internal ARM Data RAM0"</span>,
+    53                name:       <span class="string">"DRAM0"</span>,
+    54                base:       0x00010000,
+    55                len:        0x00004000,
+    56                space:      <span class="string">"data"</span>,
+    57                access:     <span class="string">"RW"</span>
+    58            }],
+    59    
+    60            [<span class="string">"DRAM1"</span>, {
+    61                comment:    <span class="string">"Internal ARM Data RAM1"</span>,
+    62                name:       <span class="string">"DRAM1"</span>,
+    63                base:       0x00014000,
+    64                len:        0x00004000,
+    65                space:      <span class="string">"data"</span>,
+    66                access:     <span class="string">"RW"</span>
+    67            }],
+    68        ];
+    69    }
+    70    <span class="comment">/*
+</span>    71    <span class="comment"> *  @(#) ti.catalog.arm; 1, 0, 1, 0,116; 2-23-2010 16:50:34; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    72    <span class="comment"> */</span>
+    73    
+</pre>
+</body></html>

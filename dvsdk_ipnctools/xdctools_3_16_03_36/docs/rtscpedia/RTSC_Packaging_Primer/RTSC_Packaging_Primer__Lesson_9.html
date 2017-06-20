@@ -1,0 +1,377 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 9 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 9&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_8.html" title="Lesson 8"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_10.html" title="Lesson 10"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 9</p><p id="subtitle">Product Bundles &#151; producing <tt>charlie_mathsuite_2_71</tt></p>
+<p></p>
+<p>While content suppliers can always deliver elementary packages like <tt>charlie.sqrtlib</tt> on an individual basis&#151;installed and deployed following the pattern first outlined in <a href="RTSC_Packaging_Primer__Lesson_1.html#Populating_a_package_repository" title="RTSC Packaging Primer/Lesson 1">Lesson 1</a> using <tt>acme.utils</tt>&#151;package producers will frequently field product bundles like <tt>charlie_mathsuite_2_71</tt> as a convenient vehicle for aggregating multiple packages into a single deliverable.  Whereas <a href="RTSC_Packaging_Primer__Lesson_2.html#Adding_versus_merging_repositories" title="RTSC Packaging Primer/Lesson 2">Lesson 2</a> focused on installing and deploying product bundles from the consumer's vantage, we'll now examine the internal steps required to orchestrate their production within <tt>package.bld</tt> scripts.
+</p>
+<div class="Info"><p class="Info">Recall that the <tt>charlie_mathsuite_2_71</tt> product incorporates <tt>charlie.sqrtlib.samples</tt> as well as <tt>charlie.sqrtlib</tt>, elementary packages respectively released in <a href="RTSC_Packaging_Primer__Lesson_4.html#cl-2:1" title="RTSC Packaging Primer/Lesson 4">Lesson 4</a> and <a href="RTSC_Packaging_Primer__Lesson_6.html#cl-1:1" title="RTSC Packaging Primer/Lesson 6">Lesson 6</a>.</p></div>
+<p>But first, we owe you some explanation behind the name <tt>charlie_mathsuite_2_71</tt> itself&#151;which then leads to a broader discussion on how to express <i>software versioning</i> within constituent packages such as <tt>charlie.sqrtlib</tt>. 
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Conveying_version_information"><span class="tocnumber">1</span> <span class="toctext">Conveying version information</span></a></li>
+<li class="toclevel-1"><a href="#Populating_internal_repositories"><span class="tocnumber">2</span> <span class="toctext">Populating internal repositories</span></a></li>
+<li class="toclevel-1"><a href="#Building_with_the_xdc_command"><span class="tocnumber">3</span> <span class="toctext">Building with the xdc command</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Conveying_version_information"></a><h2> <span class="mw-headline">Conveying version information</span></h2>
+<p>While we'll often use the terms interchangeably, this lesson will clearly distinquish between different <b>versions</b> versus multiple <b>releases</b> of the same package.  As <a href="RTSC_Packaging_Primer__Lesson_6.html#Releasing_multiple_archives" title="RTSC Packaging Primer/Lesson 6">Lesson 6</a> illustrated using <tt>charlie.sqrtlib</tt>, multiple releases of the same package (drawing from a common base of content) occur at the <i>same</i> point in time.  By contrast, when we refer to different versions of the same package, the dimension of time enters the equation.  To complicate matters a bit, we'll routinely use different RTSC idioms for conveying version information in product bundles versus elementary packages.    
+</p><p><span class="Leader">External product names</span>.&nbsp;  Externally branded products&#151;<i>MathSuite v2.71</i> from <i>Charlie &amp; Co.</i>&#151;will often encode some level of software versioning in their very name; for sure, we'd all recognize <i>MathSuite v3.14</i> as a more recent (and perhaps improved) version of the same underlying product.  But other than the fact that "larger" numbers mean "later" products, these sorts of labeling schemes often say very little about technical changes to <i>programmatic contracts</i> within the product's constituent packages&#151;an important topic we'll address shortly.
+</p>
+<div class="Info"><p class="Info">The progression of the <tt>XDCtools</tt> product itself moving from (say) versions 2.95 to 3.00 and then on to versions 3.10 and 3.15 says nothing about the specific versions of the 100+ individual packages actually bundled with this product.  The decision as to which digit(s) to step in a new <tt>XDCtools</tt> release&#151;like so many other products&#151;has more to do with external perception than internal reality.</p></div>
+<p>Mapping external products (<i>MathSuite v2.71</i>) onto RTSC product bundles (<tt>charlie_mathsuite_2_71</tt>) applies a simple naming convention for the corresponding package&#151;ensuring its global-uniqueness by prefixing the producer's identity (<tt>charlie</tt>), but using a style that differentiates product "wrapper" packages from elementary "bundled" packages with multi-segment names like <tt>charlie.sqrtlib</tt>.  Following the protocol laid out in <a href="RTSC_Packaging_Primer__Lesson_2.html#Adding_versus_merging_repositories" title="RTSC Packaging Primer/Lesson 2">Lesson 2</a> for deploying product bundles, you'd rarely find packages with mangled names like <tt>charlie_mathsuite_2_71</tt> <i>along</i> the current package path; rather, you'd see these names <i>within</i> the package path itself, en route to some internal repository contained therein.
+</p>
+<div class="Info"><p class="Info">This protocol offers a potential benefit for content consumers, who can quickly scan the composition of their package path and "see" which (external) versions of which products currently contribute deployed packages.</p></div>
+<p>In practice, RTSC product bundles become "one-shot" packages:&nbsp; <i>Charlie &amp; Co.</i> would never deliver a later version of the <u>same</u> package named <tt>charlie_mathsuite_2_71</tt>; instead, they would manufacture a <u>new</u> wrapper package with a different name (say, <tt>charlie_mathsuite_3_14</tt>) that reflects the product's external positioning.  This further confirms that top-level wrapper packages would typically contain artifacts <i>specific</i> to a particular product version (say, its <tt>README</tt> file); generic content found and consumed along the package path&#151;modules, headers, libraries&#151;would instead reside within elementary packages that populate the product's internal repository(s).
+</p><p><span class="Leader">Package compatibility key</span>.&nbsp;  Elementary packages like <tt>charlie.sqrtlib</tt> could presumably reach potential clients as part of many different product bundles, each uniquely named to reflect a particular product version and each released at a unique point in time.  But unlike top-level wrapper packages, nothing in the <i>name</i> <tt>charlie.sqrtlib</tt> conveys any information about the particular <i>version</i> of this package bundled within a particular product deliverable.
+</p>
+<p><div class="Notice"><p class="Notice">Indeed, the name of an elementary package should remain <i>stable</i> over time, from one version to the next&#151;a key facet of what becomes a larger programmatic contract between package producer and package consumer.</p></div></p>
+<p>And yet, we know (and even come to expect!) that any given package will evolve over the course of time&#151;potentially changing from one version to the next in ways that impact <i>compatibility</i> from the client programmer's perspective:
+</p>
+<dl><dt>full binary-compatibility
+</dt><dd><small>The supplier may repair defects or improve performance, requiring clients to re-link existing code</small>.
+</dd></dl>
+<dl><dt>backward binary-compatibility
+</dt><dd><small>The supplier may add new functions to existing libraries, also requiring clients to re-link existing code</small>.
+</dd></dl>
+<dl><dt>source-compatibility
+</dt><dd><small>The supplier may add new fields to public structures in headers, now requiring clients to re-compile their code</small>.
+</dd></dl>
+<dl><dt><u>in</u>-compatibility
+</dt><dd><small>The supplier may elect to remove or alter previously available features, thus requiring clients to re-write their code.</small>
+</dd></dl>
+<p>To formally convey this sort of versioning information, suppliers can specify a <b>package compatibility key</b> within the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> <tt>package.xdc</tt> file that remains inside the package throughout its natural life-cycle.  Consider, then, a side-by-side comparison of the <tt>charlie/sqrtlib/package.xdc</tt> file originally shipped as part of the <i>MathSuite v2.71</i> product with a newer version of the <tt>charlie.sqrtlib</tt> package spec that might accompany (say) <i>MathSuite v3.14</i>.
+</p>
+<table>
+
+<tr valign="top">
+<td><div id="cl-1:1a"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1a</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Library of square-root functions */</span>
+<span class="kw1">package</span> charlie.sqrtlib <span class="br0">&#91;</span><span class="nu0">1</span>,<span class="nu0">0</span>,<span class="nu0">2</span>,<span class="nu0">6</span><span class="br0">&#93;</span> <span class="br0">&#123;</span>
+    <span class="kw1">module</span> Settings;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><div id="cl-1:1b"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1b</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Bigger and better library of square-root functions */</span>
+<span class="kw1">package</span> charlie.sqrtlib <span class="br0">&#91;</span><span class="nu0">1</span>,<span class="nu0">0</span>,<span class="nu0">4</span>,<span class="nu0">3</span><span class="br0">&#93;</span> <span class="br0">&#123;</span>
+    <span class="kw1">module</span> Settings;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr></table>
+<p>Even without reading the commentary here, the package compatibility key spec'd at line <a class="codexLink" href="#cl-1:1b"><span class="codexLink">1b</span></a> intuitively seems "more recent" than the one associated with the (earlier) version spec'd at line <a class="codexLink" href="#cl-1:1a"><span class="codexLink">1a</span></a>.  To the point, though, comparing keys of the form <tt>[M,S,R,P]</tt> precisely communicates <i>what</i> sort of compatibility the supplier has maintained between these two different versions of the <tt>charlie.sqrtlib</tt> package released at different points in time:
+</p>
+<dl><dt>full binary-compatibility
+</dt><dd>same <tt>[M,S,R]</tt> but different <tt>P</tt>, where <tt>P</tt> designates the <i>patch</i> level of this package
+</dd></dl>
+<dl><dt>backward binary-compatibility
+</dt><dd>same <tt>[M,S]</tt> but different <tt>R</tt>, where <tt>R</tt> designates the <i>radius</i> level of this package
+</dd></dl>
+<dl><dt>source-compatibility
+</dt><dd>same <tt>[M]</tt> but different <tt>S</tt>, where <tt>S</tt> designates the <i>source</i> level of this package
+</dd></dl>
+<dl><dt><u>in</u>-compatibility
+</dt><dd>different <tt>M</tt>, where <tt>M</tt> designates the <i>major</i> level of this package
+</dd></dl>
+<p>Stated in other terms, suppliers of target content who promise binary-compatibility to their clients&#151;a very admirable objective, and one apparently maintained here by <tt>charlie.sqrtlib</tt>&#151;would effectively step just the <tt>P</tt> or <tt>R</tt> values of the key from one package version to the next:
+</p>
+<ul><li>changing internal function implementations while preserving all current programmatic contracts would result in a <i>patch</i>, stepping only the <tt>P</tt> value; but
+</li></ul>
+<p></p>
+<ul><li>adding new client-visible functions conceptually widens the <i>radius</i> of any prior contract, reflected by stepping the <tt>R</tt> value while resetting <tt>P</tt>.
+</li></ul>
+<p>Put another way, packages whose compatibility keys change in their <tt>M</tt> or <tt>S</tt> values from one version to the next have apparently required their clients to minimally re-build&#151;and possibly even re-write&#151;their own content.  While often unavoidable in practice, suppliers should nevertheless weigh the cumulative impact of these sorts of changes when their clients themselves become producers of other RTSC packages.
+</p>
+<a name="Populating_internal_repositories"></a><h2> <span class="mw-headline">Populating internal repositories</span></h2>
+<p>Turning now to the general process of manufacturing RTSC product bundles, recall again from <a href="RTSC_Packaging_Primer__Lesson_2.html#Fig3" title="RTSC Packaging Primer/Lesson 2">Lesson 2</a> how the <tt>charlie_mathlib_2_71</tt> wrapper package itself houses a <i>repository</i> (named <tt>packages</tt>) which in turn contains <i>released</i> forms of the <tt>charlie.sqrtlib</tt> and <tt>charlie.sqrtlib.samples</tt> packages.  As with elementary packages, the <tt>package.bld</tt> script within the wrapper package defines the inventory of the product bundle in its deliverable form; and once again, the <tt>xdc.bld.PackageContents</tt> meta-module plays a central role in capturing this information.
+</p>
+<div class="Info"><p class="Info">To aid your understanding of the process, we'll present three successive <tt>package.bld</tt> scripts that trade-off simplicity for generality.</p></div>
+<p><span class="Leader">Importing named releases</span>.&nbsp;  In its simplest form, the <tt>package.bld</tt> script for <tt>charlie_mathlib_2_71</tt> would populate its internal <tt>packages</tt> repository by directly importing individual packages releases referenced through strings of the form <span class="st0"><tt>"<span class="mq">&laquo;</span>package-name<span class="mq">&raquo;</span>:<span class="mq">&laquo;</span>release-name<span class="mq">&raquo;</span>"</tt></span>.  Consider our first variant of <tt>package.bld</tt>:
+</p>
+<div id="cl-2:1"></div><div id="cl-2:2"></div><div id="cl-2:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie_mathlib_2_71/package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* first variant */</span>
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.PackageContents'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> PKG_RELEASES = <span class="br0">&#91;</span>
+    <span class="st0">&quot;charlie.sqrtlib:charlie_sqrtlib&quot;</span>,
+    <span class="st0">&quot;charlie.sqrtlib.samples:charlie_sqrtlib_samples&quot;</span>
+<span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">var</span> repo = Pkg.addRepository<span class="br0">&#40;</span><span class="st0">&quot;packages&quot;</span><span class="br0">&#41;</span>;
+repo.addPackages<span class="br0">&#40;</span>PKG_RELEASES<span class="br0">&#41;</span>;
+&nbsp;
+Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;</pre></td></tr></table>
+<p>After creating an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object representing the newly-named repository at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a>, the call to <tt>addPackages</tt> at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a>  defines the set of package release archives to effectively "install" into this particular repository when releasing <tt>charlie_mathlib_2_71</tt> itself.  While each element within the <tt>PKG_RELEASES</tt> array defined at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a> happens to reference the default archive name associated with these packages, you can surely imagine generalizations of this idiom with <i>multiple</i> repositories in the wrapper package populated with <i>distinct</i> releases of other elementary packages.
+</p>
+<div class="Info"><p class="Info">The choice of <tt>packages</tt> for the name of our repository follows a pattern already established within the world of RTSC.  As you may recall from <a href="RTSC_Packaging_Primer__Lesson_1.html#cl-2:1a" title="RTSC Packaging Primer/Lesson 1">Lesson 1</a>, the current package path <i>always</i> contains the directory <tt><span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages</tt>&#151;a repository delivered as part of the <tt>XDCtools</tt> product that holds the vast majority of the packages seen throughout this Primer.  Adding product bundles such as <tt>charlie_mathsuite_2_71</tt> which then contain their own <tt>packages</tt> repository&#151;as we did later in <a href="RTSC_Packaging_Primer__Lesson_2.html#cl-2:1a" title="RTSC Packaging Primer/Lesson 2">Lesson 2</a>&#151;merely reinforces this naming convention.  But like any package repository in RTSC, you can practically call it whatever you want.</p></div> 
+<p><span class="Leader">Importing labeled releases</span>.&nbsp;  To shield the <tt>package.bld</tt> script within the wrapper package from the actual release names chosen for each of the elementary packages, we can alternatively import the appropriate release by using its <i>label</i>; recall from <a href="RTSC_Packaging_Primer__Lesson_6.html#cl-1:2" title="RTSC Packaging Primer/Lesson 6">Lesson 6</a> that you can assign a meaningful label to each archive file manufactured by a particular package.  Consider our second variant of <tt>package.bld</tt>, which now features a nested pair of <span class="kw1"><tt>for</tt></span> loops each iterating over successive elements of some <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> array:
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><div id="cl-3:3"></div><div id="cl-3:4"></div><div id="cl-3:5"></div><div id="cl-3:6"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie_mathlib_2_71/package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">6</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* second variant */</span>
+<span class="kw1">var</span> Build = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.BuildEnvironment'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.PackageContents'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> REQUIRED_PKGS = <span class="br0">&#91;</span><span class="st0">&quot;charlie.sqrtlib&quot;</span>, <span class="st0">&quot;charlie.sqrtlib.samples&quot;</span><span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">var</span> pkgReleases = <span class="br0">&#91;</span><span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> pname <span class="kw1">in</span> REQUIRED_PKGS<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> relDesc <span class="kw1">in</span> Build.getReleaseDescs<span class="br0">&#40;</span>pname<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>relDesc.label = <span class="st0">&quot;default&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            pkgReleases.push<span class="br0">&#40;</span>pname + <span class="st0">&quot;:&quot;</span> + relDesc.name<span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">var</span> repo = Pkg.addRepository<span class="br0">&#40;</span><span class="st0">&quot;packages&quot;</span><span class="br0">&#41;</span>;
+repo.addPackages<span class="br0">&#40;</span>pkgReleases<span class="br0">&#41;</span>;
+&nbsp;
+Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;</pre></td></tr></table>
+<p>Working backwards from line <a class="codexLink" href="#cl-3:6"><span class="codexLink">6</span></a>, notice that we've computed the array of <span class="st0"><tt>"<span class="mq">&laquo;</span>package-name<span class="mq">&raquo;</span>:<span class="mq">&laquo;</span>release-name<span class="mq">&raquo;</span>"</tt></span> strings passed to <tt>addPackages</tt> here.  First initialized with an empty array on line <a class="codexLink" href="#cl-3:3"><span class="codexLink">3</span></a>, the standard JavaScript function <tt>push</tt> invoked at line <a class="codexLink" href="#cl-3:5"><span class="codexLink">5</span></a> repeatedly extends this array with strings formed by concatenating <tt>pname</tt> [<span class="st0"><tt><span class="mq">&laquo;</span>package-name<span class="mq">&raquo;</span></tt></span>] with the <tt>relDesc.name</tt> property [<span class="st0"><tt><span class="mq">&laquo;</span>release-name<span class="mq">&raquo;</span></tt></span>].  The local variable <tt>pname</tt> used here iterates over each package named in the <tt>REQUIRED_PKGS</tt> array, initialized back at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a>. 
+</p><p>In the case of <tt>relDesc</tt>, the <span class="kw1"><tt>for</tt></span> loop at line <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a> successively binds this local variable to each element of an array of <tt>xdc.bld.Release.Desc</tt> objects&#151;whose <tt>label</tt> and <tt>name</tt> properties we've accessed in the lines that follow.  As a final note, we've once again imported the <tt>xdc.bld.BuildEnvironment</tt> meta-module in the <tt>package.bld</tt> script and then bound the corresponding <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object to the local variable <tt>Build</tt> at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a>.
+</p><p><span class="Leader">Importing required packages</span>.&nbsp;  As it turns out, the same <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> <span class="kw1"><tt>requires</tt></span> statement already seen in <a href="RTSC_Packaging_Primer__Lesson_8.html#cl-3:1" title="RTSC Packaging Primer/Lesson 8">Lesson 8</a> can essentially obsolete the <tt>REQUIRED_PKGS</tt> array initialized above at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a>.  Besides publicly specifying the inventory of other packages released as part of a particular product bundle, the <span class="kw1"><tt>requires</tt></span> statement allows suppliers to designate specific <i>versions</i> of these packages identified by their compatibility key.  
+</p>
+<div class="Info"><p class="Info">You may also recall that the <span class="kw1"><tt>requires</tt></span> statement enables us to build and release these packages as a <i>set</i>, which we'll see momentarily when we once again leverage the potent <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>-PD</tt></span> command.</p></div> 
+<div id="cl-4:1"></div><div id="cl-4:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie_mathlib_2_71/package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">requires</span> charlie.sqrtlib<span class="br0">&#91;</span><span class="nu0">1</span>,<span class="nu0">0</span>,<span class="nu0">2</span>,<span class="nu0">6</span><span class="br0">&#93;</span>;
+<span class="kw1">requires</span> charlie.sqrtlib.samples;
+&nbsp;
+<span class="xdoc">/*! Charlie &amp; Co. MathSuite 2.71 product bundle */</span>
+<span class="kw1">package</span> charlie_mathsuite_2_71 <span class="br0">&#123;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<div class="Info"><p class="Info">Because of their "one-shot" nature, specifying a compatibility key on line <a class="codexLink" href="#cl-4:2"><span class="codexLink">2</span></a> for wrapper packages such as <tt>charlie_mathsuite_2_71</tt> has little practical value; we've instead conveyed (external) version information through the package name itself.  Elementary packages such as <tt>charlie.sqrtlib.samples</tt> that contain miscellaneous artifacts similarly derive no real value from specifying a compatibility key&#151;unlike <tt>charlie.sqrtlib</tt>, whose constituent modules, headers, and libraries truly define a <i>programmatic contract</i> with the client.</p></div> 
+<p>Returning again to the <tt>package.bld</tt> script for <tt>charlie_mathlib_2_71</tt>, our final variant will now programmatically retrieve the names of those dependent packages specified through the <span class="kw1"><tt>requires</tt></span> statements beginning at line <a class="codexLink" href="#cl-4:1"><span class="codexLink">1</span></a> of the corresponding <tt>package.xdc</tt> file.    
+</p>
+<div id="cl-5:1"></div><div id="cl-5:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie_mathlib_2_71/package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="coMULTI">/* final variant */</span>
+<span class="kw1">var</span> Build = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.BuildEnvironment'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.PackageContents'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> pkgReleases = <span class="br0">&#91;</span><span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> pname <span class="kw1">in</span> Pkg.imports<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    print<span class="br0">&#40;</span><span class="st0">&quot;requires: &quot;</span> + pname<span class="br0">&#41;</span>;
+    pname = pname.substr<span class="br0">&#40;</span><span class="nu0">0</span>, pname.indexOf<span class="br0">&#40;</span><span class="st0">&quot;{&quot;</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> relDesc <span class="kw1">in</span> Build.getReleaseDescs<span class="br0">&#40;</span>pname<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">if</span> <span class="br0">&#40;</span>relDesc.label = <span class="st0">&quot;default&quot;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">var</span> imp = pname + <span class="st0">&quot;:&quot;</span> + relDesc.name;
+            print<span class="br0">&#40;</span><span class="st0">&quot;importing: &quot;</span> + imp<span class="br0">&#41;</span>;
+            pkgReleases.push<span class="br0">&#40;</span>imp<span class="br0">&#41;</span>;
+        <span class="br0">&#125;</span>
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">var</span> repo = Pkg.addRepository<span class="br0">&#40;</span><span class="st0">&quot;packages&quot;</span><span class="br0">&#41;</span>;
+repo.addPackages<span class="br0">&#40;</span>pkgReleases<span class="br0">&#41;</span>;
+&nbsp;
+Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;</pre></td></tr></table>
+<p>The <span class="kw1"><tt>for</tt></span> loop at line <a class="codexLink" href="#cl-5:1"><span class="codexLink">1</span></a> binds the local variable <tt>pname</tt> to successive elements of <tt>Pkg.imports</tt>&#151;an array of strings of the form <span class="st0"><tt>"<span class="mq">&laquo;</span>package-name<span class="mq">&raquo;</span>{<span class="mq">&laquo;</span>optional-compatibility-key<span class="mq">&raquo;</span>"</tt></span>, with the text after the <span class="st0"><tt>"{"</tt></span> character omitted if the corresponding package has no specified key.  After printing its original value, the script extracts the <span class="st0"><tt><span class="mq">&laquo;</span>package-name<span class="mq">&raquo;</span></tt></span> portion of <tt>pname</tt> at line <a class="codexLink" href="#cl-5:2"><span class="codexLink">2</span></a> using some built-in string functions courtesy of JavaScript.  The remainder of the script mimics our second variant of <a href="#cl-3:1" title=""><tt>package.bld</tt></a>.
+</p>
+<a name="Building_with_the_xdc_command"></a><h2> <span class="mw-headline">Building with the <tt>xdc</tt> command</span></h2>
+<p>And now comes the fun part....  Simply invoke the <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>release</tt>&nbsp;<tt>-PD</tt>&nbsp;<tt>.</tt></span> command from within the <tt>charlie_mathlib_2_71</tt> package directory, and let's just see what happens:
+</p>
+<div id="cl-6:1"></div><div id="cl-6:2"></div><div id="cl-6:3"></div><div id="cl-6:4"></div><div id="cl-6:5"></div><div id="cl-6:6"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">6</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xdc release -PD .</span></b>
+    ...
+making package.mak (because of package.bld) ...
+requires: charlie.sqrtlib{1, 0, 2, 6
+importing: charlie.sqrtlib:charlie_sqrtlib
+requires: charlie.sqrtlib.samples{
+importing: charlie.sqrtlib.samples:charlie_sqrtlib_samples
+    ...
+&nbsp;
+======== release [<span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/charlie/sqrtlib] ========
+all files complete.
+    ...
+making release file charlie_sqrtlib.zip (because ...) ...
+&nbsp;
+======== release [<span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/charlie/sqrtlib/samples] ========
+all files complete.
+    ...
+making release file charlie_sqrtlib_samples.zip (because ...) ...
+&nbsp;
+======== release [<span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/charlie_mathsuite_2_71] ========
+all files complete.
+&nbsp;
+installing charlie.sqrtlib [release charlie_sqrtlib.zip] ...
+installing charlie.sqrtlib.samples [release charlie_sqrtlib_samples.zip] ...
+    ...
+making release file charlie_mathsuite_2_71.zip (because of ...) ...</pre></td></tr></table>
+<p>Starting at the top, we've (re-)generated <tt>package.mak</tt> for <tt>charlie_mathlib_2_71</tt> by first executing what became the final variant of its <tt>package.bld</tt> script; the messages following line <a class="codexLink" href="#cl-6:1"><span class="codexLink">1</span></a> originate with <tt>print</tt> statements embedded within the <a href="#cl-5:1" title="">script</a> itself.  Moving on, the output at lines <a class="codexLink" href="#cl-6:2"><span class="codexLink">2</span></a> and <a class="codexLink" href="#cl-6:3"><span class="codexLink">3</span></a> reflects the <i>prior</i> release of the <tt>charlie.*</tt> packages named in the <span class="kw1"><tt>requires</tt></span> statements within the <a href="#cl-4:1" title=""><tt>package.xdc</tt></a> spec&#151;(re-)building these dependent packages on an as-needed basis, thanks to their generated <tt>package.mak</tt> files. 
+</p><p>With all requisite packages now up-to-date, the formal release of <tt>charlie_mathsuite_2_71</tt> begins at line <a class="codexLink" href="#cl-6:4"><span class="codexLink">4</span></a> by first ensuring the current package has built all of <i>its</i> artifacts (if relevant).  As suggested by the output at line <a class="codexLink" href="#cl-6:5"><span class="codexLink">5</span></a>, released forms of the dependent <tt>charlie.*</tt> packages then find themselves <i>installed</i> into a newly-created <tt>packages</tt> repository rooted under the <tt>charlie_mathsuite_2_71</tt> package directory.  The final step at line <a class="codexLink" href="#cl-6:6"><span class="codexLink">6</span></a> would automatically include the <tt>packages</tt> repository&#151;plus the released forms of the <tt>charlie.*</tt> packages it now contains&#151;within the generated <tt>charlie_mathsuite_2_71.zip</tt> package archive.
+</p>
+<div class="Info"><p class="Info">All we can say about this incredibly powerful generalization of the already-potent <tt>xdc</tt> command is:&nbsp;  <i>try it, you'll like it!</i></p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p><span class="todo"><b>TODO:</b>&nbsp;&nbsp;write it</span>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 9&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_8.html" title="Lesson 8"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_10.html" title="Lesson 10"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 12775 bytes
+Post-expand include size: 4938 bytes
+Template argument size: 714 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>

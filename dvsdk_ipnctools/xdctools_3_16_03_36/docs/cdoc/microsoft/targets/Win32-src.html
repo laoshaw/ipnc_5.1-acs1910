@@ -1,0 +1,329 @@
+<html><head><title>module microsoft.targets.Win32</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Win32.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    
+    16    <span class="xdoc">/*!
+</span>    17    <span class="xdoc"> *  ======== Win32 ========
+</span>    18    <span class="xdoc"> *  Microsoft Windows 32-bit target using the Visual C/C++ compiler
+</span>    19    <span class="xdoc"> *
+</span>    20    <span class="xdoc"> *  This target can be configured to be used with different versions of
+</span>    21    <span class="xdoc"> *  Microsoft Visual C/C++ and different installations of Platform SDK (or a
+</span>    22    <span class="xdoc"> *  newer equivalent Windows SDK). The optional Platform SDK is needed only
+</span>    23    <span class="xdoc"> *  for building applications that use Windows API.
+</span>    24    <span class="xdoc"> *  The target `Win32` contains default configurations for Visual C/C++
+</span>    25    <span class="xdoc"> *  versions 6.0, 7.0 and 8.0, but in order to support future versions of
+</span>    26    <span class="xdoc"> *  Visual C/C++ and different Platform SDK installations, there
+</span>    27    <span class="xdoc"> *  is a parameter {<b>@link</b> #vcPath}, which users can set in their `config.bld`
+</span>    28    <span class="xdoc"> *  files to enable usage of this target with their installations. 
+</span>    29    <span class="xdoc"> *
+</span>    30    <span class="xdoc"> *  Unlike the Visual C/C++ 6.x tool chain, this compiler complies very
+</span>    31    <span class="xdoc"> *  closely with the C/C++ language specification.  This target may be
+</span>    32    <span class="xdoc"> *  necessary in situations that take full advantage of the C++ language.
+</span>    33    <span class="xdoc"> */</span>
+    34    <span class=key>metaonly</span> <span class=key>module</span> Win32 <span class=key>inherits</span> microsoft.targets.ITarget {
+    35    
+    36        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name                = <span class="string">"Win32"</span>;      
+    37        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string os                  = <span class="string">"Windows"</span>;    
+    38        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix              = <span class="string">"86W"</span>;
+    39        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa                 = <span class="string">"x86"</span>;        
+    40        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model = {
+    41            endian: <span class="string">"little"</span>
+    42        };
+    43    
+    44        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts = <span class="string">"microsoft.targets.rts"</span>;
+    45    
+    46        <span class=key>override</span> <span class=key>config</span> string platform     = <span class="string">"host.platforms.PC"</span>;
+    47        <span class=key>override</span> <span class=key>config</span> string execExt      = <span class="string">".exe"</span>;
+    48        
+    49        <span class="xdoc">/*!
+</span>    50    <span class="xdoc">     *  ======== VCPath ========
+</span>    51    <span class="xdoc">     *
+</span>    52    <span class="xdoc">     *  Object that defines various paths in a particular Visual Studio
+</span>    53    <span class="xdoc">     *  installation.
+</span>    54    <span class="xdoc">     *
+</span>    55    <span class="xdoc">     *  Different Visual Studio installations keep the actual compiler and
+</span>    56    <span class="xdoc">     *  additional required DLLs in separate directories. Also, a Platform SDK
+</span>    57    <span class="xdoc">     *  installation is needed for building programs that use Windows API.
+</span>    58    <span class="xdoc">     *
+</span>    59    <span class="xdoc">     *  <b>@field(compilerDir)</b> Relative path from this target's rootDir to the
+</span>    60    <span class="xdoc">     *          directory that contains the compiler.
+</span>    61    <span class="xdoc">     *
+</span>    62    <span class="xdoc">     *  <b>@field(dllPath)</b> Relative path from this target's rootDir to the 
+</span>    63    <span class="xdoc">     *          directory that contains mspdb.dll, mspdbcore.dll, etc.
+</span>    64    <span class="xdoc">     *
+</span>    65    <span class="xdoc">     *  <b>@field(sdkPath)</b> Relative path from this target's rootDir to a
+</span>    66    <span class="xdoc">     *          Platform SDK installation or an absolute path to a Platform SDK
+</span>    67    <span class="xdoc">     *          installation. Platform SDK is required if the target is used to
+</span>    68    <span class="xdoc">     *          build executables that use Windows API.
+</span>    69    <span class="xdoc">     *
+</span>    70    <span class="xdoc">     *  <b>@field(libs)</b> List of libraries to be added to the linker command line.
+</span>    71    <span class="xdoc">     *          If Platform SDK is used, the list should contain required 
+</span>    72    <span class="xdoc">     *          libraries from sdkPath/lib. Otherwise, only the libraries from
+</span>    73    <span class="xdoc">     *          compilerDir/lib can be added to 'libs'.
+</span>    74    <span class="xdoc">     */</span>
+    75        <span class=key>struct</span> VCPath {
+    76            string compilerDir;
+    77            string dllPath;
+    78            string sdkPath;
+    79            string libs;
+    80        };
+    81    
+    82        <span class="xdoc">/*!
+</span>    83    <span class="xdoc">     *  ======== vcPath ========
+</span>    84    <span class="xdoc">     *  Location of the compiler, additional DLLs, and Platform SDK
+</span>    85    <span class="xdoc">     *  installation
+</span>    86    <span class="xdoc">     *
+</span>    87    <span class="xdoc">     *  This parameter is a map that contains information about paths to DLLs
+</span>    88    <span class="xdoc">     *  needed for building applications, and paths to the optional Platform
+</span>    89    <span class="xdoc">     *  SDK. Keys in the map are user-selected aliases for different Visual
+</span>    90    <span class="xdoc">     *  C/C++ releases. The values are {<b>@link</b> #VCPath} objects. 
+</span>    91    <span class="xdoc">     *  This parameter can be set only in `config.bld`, together with
+</span>    92    <span class="xdoc">     *  `rootDir`. If `vcPath` is not set in `rootDir`, the default values
+</span>    93    <span class="xdoc">     *  specified below are used. After a user sets this target's `rootDir`,
+</span>    94    <span class="xdoc">     *  XDCtools search through the 
+</span>    95    <span class="xdoc">     *  values in `vcPath`, looking for a field `compilerDir` whose content
+</span>    96    <span class="xdoc">     *  matches a name of a subdirectory in `rootDir`. Once a match is found,
+</span>    97    <span class="xdoc">     *  the content of that element of the map is used to find a path to
+</span>    98    <span class="xdoc">     *  required DLLs, a path to Platform SDK and a list of libraries.
+</span>    99    <span class="xdoc">     *
+</span>   100    <span class="xdoc">     *  <b>@a(Examples)</b>
+</span>   101    <span class="xdoc">     *  If the content of `vcPath`, set in `config.bld` is
+</span>   102    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   103    <span class="xdoc">     *      Win32.vcPath = [
+</span>   104    <span class="xdoc">     *          ["Visual Studio 7",
+</span>   105    <span class="xdoc">     *              {
+</span>   106    <span class="xdoc">     *                  compilerDir: "Vc7",
+</span>   107    <span class="xdoc">     *                  dllPath: "Common7/IDE;VisualStudio.NETProfessional-English",
+</span>   108    <span class="xdoc">     *                  sdkPath: "C:/PlatformSDK",
+</span>   109    <span class="xdoc">     *                  libs: " msvcrt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib mfc70.lib msvcirt.lib"
+</span>   110    <span class="xdoc">     *              }
+</span>   111    <span class="xdoc">     *          ],
+</span>   112    <span class="xdoc">     *          ["Visual Studio C++ 2005",
+</span>   113    <span class="xdoc">     *              {
+</span>   114    <span class="xdoc">     *                  compilerDir: "VC",
+</span>   115    <span class="xdoc">     *                  dllPath: "Common7/IDE",
+</span>   116    <span class="xdoc">     *                  sdkPath: "VC/PlatformSDK",
+</span>   117    <span class="xdoc">     *                  libs: " msvcrt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib"
+</span>   118    <span class="xdoc">     *              }
+</span>   119    <span class="xdoc">     *          ]
+</span>   120    <span class="xdoc">     *      ];
+</span>   121    <span class="xdoc">     *  <b>@p</b>
+</span>   122    <span class="xdoc">     *  and the `rootDir` for the target `Win32` is set to 
+</span>   123    <span class="xdoc">     *  `"C:/Program Files/Microsoft Visual Studio 8"`, XDCtools will first 
+</span>   124    <span class="xdoc">     *  check if there is a directory `"Vc7"` under `rootDir`. If the directory
+</span>   125    <span class="xdoc">     *  is not found, the next element in the map and its `compilerDir` field
+</span>   126    <span class="xdoc">     *  are queried. In this case, the next element's `compilerDir` is `"VC"`.
+</span>   127    <span class="xdoc">     *  If that directory is found under `rootDir`, the other fields in that
+</span>   128    <span class="xdoc">     *  element are used as follows: `compilerDir` and `dllPath` are added to
+</span>   129    <span class="xdoc">     *  the environment variable `PATH`. The contents of `sdkPath` and `libs`
+</span>   130    <span class="xdoc">     *  are added to appropriate command lines.
+</span>   131    <span class="xdoc">     *
+</span>   132    <span class="xdoc">     *  If none of the elements in the map has `compilerDir` that corresponds
+</span>   133    <span class="xdoc">     *  to a subdirectory in `rootDir`, the configuration fails.
+</span>   134    <span class="xdoc">     *
+</span>   135    <span class="xdoc">     *  Once a user sets up `vcPath` with all available installations of
+</span>   136    <span class="xdoc">     *  Visual Studio, simply by switching `rootDir` for this target, the
+</span>   137    <span class="xdoc">     *  right component of `vcPath` will be selected.
+</span>   138    <span class="xdoc">     *     
+</span>   139    <span class="xdoc">     *  The default version of this parameter contains settings for several
+</span>   140    <span class="xdoc">     *  Visual Studio releases. Therefore, a user does not have to completely
+</span>   141    <span class="xdoc">     *  redefine `vcPath`. Only the fields that corresponds to settings that
+</span>   142    <span class="xdoc">     *  differ between user's configuration and the default configuration
+</span>   143    <span class="xdoc">     *  need to be changes. For example, if the only difference between the
+</span>   144    <span class="xdoc">     *  default configuration and a user's environment is that the user
+</span>   145    <span class="xdoc">     *  installed Platform SDK to be used with Visual C/C++ 8 in a different
+</span>   146    <span class="xdoc">     *  directory, only that field needs to be changed.
+</span>   147    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   148    <span class="xdoc">     *      var Win32 = xdc.module('microsoft.targets.Win32');
+</span>   149    <span class="xdoc">     *      Win32.vcPath["VC8"].sdkPath = "C:/WindowsSDK";
+</span>   150    <span class="xdoc">     *  <b>@p</b>
+</span>   151    <span class="xdoc">     *
+</span>   152    <span class="xdoc">     *  If Platform SDK is not installed, sdkPath should be empty and the 
+</span>   153    <span class="xdoc">     *  libraries from Platform SDK should be removed from 'libs':
+</span>   154    <span class="xdoc">     *  <b>@p(code)</b>
+</span>   155    <span class="xdoc">     *      var Win32 = xdc.module('microsoft.targets.Win32');
+</span>   156    <span class="xdoc">     *      Win32.vcPath = [
+</span>   157    <span class="xdoc">     *          ["VC8",
+</span>   158    <span class="xdoc">     *              {
+</span>   159    <span class="xdoc">     *                  compilerDir: "VC",
+</span>   160    <span class="xdoc">     *                  dllPath: "Common7/IDE",
+</span>   161    <span class="xdoc">     *                  sdkPath: "",
+</span>   162    <span class="xdoc">     *                  libs: " msvcrt.lib setargv.obj oldnames.lib"
+</span>   163    <span class="xdoc">     *              }
+</span>   164    <span class="xdoc">     *          ],
+</span>   165    <span class="xdoc">     *      ];
+</span>   166    <span class="xdoc">     *  <b>@p</b>
+</span>   167    <span class="xdoc">     *
+</span>   168    <span class="xdoc">     */</span>
+   169        <span class=key>config</span> VCPath vcPath[string] = [
+   170            [<span class="string">"VC6"</span>, {compilerDir: <span class="string">"vc98"</span>, dllPath: <span class="string">"common/msdev98/bin"</span>,
+   171                     sdkPath: <span class="string">""</span>,
+   172                     libs: <span class="string">" msvcrt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib mfc42.lib msvcirt.lib"</span>}],
+   173            [<span class="string">"VC7"</span>, {compilerDir: <span class="string">"Vc7"</span>,
+   174                     dllPath: <span class="string">"Common7/IDE;VisualStudio.NETProfessional-English"</span>,
+   175                     sdkPath: <span class="string">"Vc7/PlatformSDK"</span>,
+   176                     libs: <span class="string">" msvcrt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib mfc70.lib msvcirt.lib"</span>}],
+   177            <span class="comment">/* Free version of VC8.0 doesn't include mfc libraries. */</span>
+   178            [<span class="string">"VC8"</span>, {compilerDir: <span class="string">"VC"</span>,   dllPath: <span class="string">"Common7/IDE"</span>,
+   179                     sdkPath: <span class="string">"VC/PlatformSDK"</span>,
+   180                     libs: <span class="string">" msvcrt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib"</span>}],
+   181        ];
+   182    
+   183        <span class="xdoc">/*!
+</span>   184    <span class="xdoc">     *  ======== profiles ========
+</span>   185    <span class="xdoc">     *  Standard options profiles are overwritten because we can't use 'MTs'
+</span>   186    <span class="xdoc">     *  and -D_DEBUG=1. Both of them added the debug version of the C runtime
+</span>   187    <span class="xdoc">     *  library to the manifest.
+</span>   188    <span class="xdoc">     */</span>
+   189        <span class=key>override</span> <span class=key>config</span> xdc.bld.ITarget.OptionSet profiles[string] = [
+   190            [<span class="string">"debug"</span>, {
+   191                compileOpts: {
+   192                    copts: <span class="string">"-Z7 -Odi -MT"</span>,
+   193                    defs:  <span class="string">""</span>,
+   194                },
+   195                linkOpts: <span class="string">"-debug "</span>,
+   196            }],
+   197    
+   198            [<span class="string">"release"</span>, {
+   199                compileOpts: {
+   200                    copts: <span class="string">"-O2 -MT"</span>,
+   201                    defs:  <span class="string">""</span>,
+   202                },
+   203                linkOpts: <span class="string">""</span>,
+   204            }],
+   205        ];
+   206    
+   207        <span class="xdoc">/*!
+</span>   208    <span class="xdoc">     *  ======== ar ========
+</span>   209    <span class="xdoc">     *  The archiver command and all required options
+</span>   210    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   211    <span class="xdoc">     *      -`-nologo`
+</span>   212    <span class="xdoc">     *          don't display archiver copyright
+</span>   213    <span class="xdoc">     */</span>
+   214        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command ar = {
+   215            cmd: <span class="string">"$(rootDir)/$(compilerDir)/bin/lib.exe -nologo"</span>,
+   216            opts: <span class="string">""</span>
+   217        };
+   218    
+   219        <span class="xdoc">/*!
+</span>   220    <span class="xdoc">     *  ======== cc ========
+</span>   221    <span class="xdoc">     *  The compile command and all required options
+</span>   222    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   223    <span class="xdoc">     *      -`-W3`
+</span>   224    <span class="xdoc">     *          enable all warnings recommended for production purposes.
+</span>   225    <span class="xdoc">     *      -`-c`
+</span>   226    <span class="xdoc">     *          don't link
+</span>   227    <span class="xdoc">     *      -`-nologo`
+</span>   228    <span class="xdoc">     *          don't display compiler copyright
+</span>   229    <span class="xdoc">     *      -`-Zp1`
+</span>   230    <span class="xdoc">     *          Packs structure members on 1-byte boundry
+</span>   231    <span class="xdoc">     */</span>
+   232        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command cc = {
+   233            cmd: <span class="string">"$(rootDir)/$(compilerDir)/bin/cl.exe -nologo -c"</span>,
+   234            opts: <span class="string">'-Zp1 -W3 -DWIN32 -D_DLL -D_AFXDLL -DEXPORT=""'</span>
+   235        };
+   236    
+   237        <span class="xdoc">/*!
+</span>   238    <span class="xdoc">     *  ======== asm ========
+</span>   239    <span class="xdoc">     *  The assemble command and all required options
+</span>   240    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   241    <span class="xdoc">     *      -`-c`
+</span>   242    <span class="xdoc">     *          don't link
+</span>   243    <span class="xdoc">     *      -`-nologo`
+</span>   244    <span class="xdoc">     *          don't display macro assembler copyright
+</span>   245    <span class="xdoc">     */</span>
+   246        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command asm = {
+   247            cmd: <span class="string">"$(rootDir)/$(compilerDir)/bin/ml -c"</span>,
+   248            opts: <span class="string">"-nologo"</span>
+   249        };
+   250    
+   251        <span class="xdoc">/*!
+</span>   252    <span class="xdoc">     *  ======== lnk ========
+</span>   253    <span class="xdoc">     *  The linker command and all required options
+</span>   254    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   255    <span class="xdoc">     *      -`-nologo`
+</span>   256    <span class="xdoc">     *          Don't display linker copyright
+</span>   257    <span class="xdoc">     */</span>
+   258        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command lnk = {
+   259            cmd: <span class="string">"$(rootDir)/$(compilerDir)/bin/link"</span>,
+   260            opts: <span class="string">"-nologo"</span>
+   261        };
+   262        
+   263        <span class="xdoc">/*!
+</span>   264    <span class="xdoc">     *  ======== ccOpts ========
+</span>   265    <span class="xdoc">     *  User modifiable default options.
+</span>   266    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   267    <span class="xdoc">     *      -`-G5` (removed because it is incompatible with VC8.0)
+</span>   268    <span class="xdoc">     *          Optimizes code to favor the Pentium processor
+</span>   269    <span class="xdoc">     *      -`-Ob1`
+</span>   270    <span class="xdoc">     *          Expand only functions marked as inline or, in a C++
+</span>   271    <span class="xdoc">     *          member function, defined within a class declaration
+</span>   272    <span class="xdoc">     *      -`-Gs`
+</span>   273    <span class="xdoc">     *          Probe stack to automatically grow stack as necessary
+</span>   274    <span class="xdoc">     *      -`-GX` (removed because it is incompatible with VC8.0)
+</span>   275    <span class="xdoc">     *          Enables synchronous exception handling
+</span>   276    <span class="xdoc">     *      -`-WL`
+</span>   277    <span class="xdoc">     *          Write errors/warnings on a single output line
+</span>   278    <span class="xdoc">     */</span>
+   279        <span class=key>override</span> <span class=key>config</span> ITarget.Options ccOpts = {
+   280            prefix: <span class="string">"-Ob1 -Gs"</span>,
+   281            suffix: <span class="string">"-Dfar= "</span>
+   282        };
+   283    
+   284        <span class="xdoc">/*!
+</span>   285    <span class="xdoc">     *  ======== lnkOpts ========
+</span>   286    <span class="xdoc">     *  User modifiable linker options
+</span>   287    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   288    <span class="xdoc">     *      -`-libpath`...
+</span>   289    <span class="xdoc">     *              directories to search for toolchain specific libraries
+</span>   290    <span class="xdoc">     *      -`-nodefaultlib`
+</span>   291    <span class="xdoc">     *              don't search for default libraries when linking; all
+</span>   292    <span class="xdoc">     *              libraries used must be explicitly named
+</span>   293    <span class="xdoc">     *      -`-incremental:no`
+</span>   294    <span class="xdoc">     *              link for execution (no subsequent link will occur)
+</span>   295    <span class="xdoc">     *      -`-machine:ix86`
+</span>   296    <span class="xdoc">     *              link for the Intel x86 architecture
+</span>   297    <span class="xdoc">     *      -`-map:$(XDCCFGDIR)/$@.map`
+</span>   298    <span class="xdoc">     *              output any link map information to the specified file
+</span>   299    <span class="xdoc">     *              ($(XDCCFGDIR) is usually package/cfg)
+</span>   300    <span class="xdoc">     *      -`-pdb:$(XDCCFGDIR)/$@.pdb`
+</span>   301    <span class="xdoc">     *              output any program debug information to the specified file
+</span>   302    <span class="xdoc">     *              ($(XDCCFGDIR) is usually package/cfg)
+</span>   303    <span class="xdoc">     */</span>
+   304        <span class=key>override</span> <span class=key>config</span> ITarget.Options lnkOpts = {
+   305            prefix: <span class="string">"-libpath:$(rootDir)/$(compilerDir)/lib -libpath:$(rootDir)/$(compilerDir)/atlmfc/lib -libpath:$(rootDir)/$(compilerDir)/mfc/lib -libpath:$(sdkPath)/lib"</span>,
+   306            suffix: <span class="string">"-map:$(XDCCFGDIR)/$@.map -pdb:$(XDCCFGDIR)/$@.pdb -machine:ix86 -nodefaultlib -incremental:no"</span>
+   307        };
+   308            
+   309        <span class="xdoc">/*!
+</span>   310    <span class="xdoc">     *  ======== includeOpts ========
+</span>   311    <span class="xdoc">     *  User modifiable include paths
+</span>   312    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   313    <span class="xdoc">     *      -`-I$(rootDir)/$(compilerDir)/include`
+</span>   314    <span class="xdoc">     *          include compiler specific headers
+</span>   315    <span class="xdoc">     */</span>
+   316        <span class=key>override</span> <span class=key>config</span> string includeOpts = <span class="string">"-I$(rootDir)/$(compilerDir)/include -I$(rootDir)/$(compilerDir)/atlmfc/include -I$(rootDir)/$(compilerDir)/mfc/include -I$(rootDir)/$(compilerDir)/atl/include -I$(sdkPath)/include"</span>;
+   317    }
+   318    <span class="comment">/*
+</span>   319    <span class="comment"> *  @(#) microsoft.targets; 1, 0, 2, 0,387; 2-24-2010 16:24:02; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>   320    <span class="comment"> */</span>
+   321    
+</pre>
+</body></html>

@@ -1,0 +1,162 @@
+<html><head><title>module xdc.bld.Test</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== Test.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    <span class=key>package</span> xdc.bld;
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== Test ========
+</span>    19    <span class="xdoc"> *  Model of a test
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  Each Test instance represents a pair consisting of an executable and
+</span>    22    <span class="xdoc"> *  command line arguments for that executable.  Each pair uniquely
+</span>    23    <span class="xdoc"> *  identifies an output sequence (the result of running the executable
+</span>    24    <span class="xdoc"> *  with the specified arguments) that can be compared to a known valid
+</span>    25    <span class="xdoc"> *  result.  Executables that have non-deterministic execution behavior
+</span>    26    <span class="xdoc"> *  (e.g., multi-threaded apps) must ensure that the output is independent
+</span>    27    <span class="xdoc"> *  of these variations.
+</span>    28    <span class="xdoc"> *
+</span>    29    <span class="xdoc"> *  Test instances are created via the `Executable.addTest()` function; 
+</span>    30    <span class="xdoc"> *  this ensures that each test is associated with a containing executable.
+</span>    31    <span class="xdoc"> *
+</span>    32    <span class="xdoc"> *  Test instances do not have unique names. However, each test does have
+</span>    33    <span class="xdoc"> *  a "group" name which is optionally specified via `Test.Attrs`.  If the
+</span>    34    <span class="xdoc"> *  "group" name is not specified, it defaults to the name of the containing
+</span>    35    <span class="xdoc"> *  executable.  To run any group of tests (which may consist of one or more
+</span>    36    <span class="xdoc"> *  executable and command-line pairs) it is sufficient to run
+</span>    37    <span class="xdoc"> *  the following command:
+</span>    38    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    39    <span class="xdoc"> *      xdc &lt;test_group_name&gt;.test
+</span>    40    <span class="xdoc"> *  <b>@p</b>
+</span>    41    <span class="xdoc"> *  where `&lt;test_group_name&gt;` is the name of the test group to run.
+</span>    42    <span class="xdoc"> *
+</span>    43    <span class="xdoc"> *  Each Executable instance (created via `PackageContents.addExecutable()`)
+</span>    44    <span class="xdoc"> *  implicitly adds a test whose "group" name is the name of the executable
+</span>    45    <span class="xdoc"> *  and whose arguments are empty (i.e., argc == 0).  Thus, it is possible
+</span>    46    <span class="xdoc"> *  to run any executable that can be built using the following command:
+</span>    47    <span class="xdoc"> *  <b>@p(code)</b>
+</span>    48    <span class="xdoc"> *      xdc &lt;exe_name&gt;.test
+</span>    49    <span class="xdoc"> *  <b>@p</b>
+</span>    50    <span class="xdoc"> *  where `&lt;exe_name&gt;` is the name of the executable.  Note that if you add a
+</span>    51    <span class="xdoc"> *  test to the executable (without specifying a unique `groupName`), the
+</span>    52    <span class="xdoc"> *  command above will run the executable more than once; it will run once
+</span>    53    <span class="xdoc"> *  for every test associated with the executable.
+</span>    54    <span class="xdoc"> */</span>
+    55    <span class=key>metaonly</span> <span class=key>module</span> Test {
+    56        <span class="xdoc">/*!
+</span>    57    <span class="xdoc">     *  ======== Attrs ========
+</span>    58    <span class="xdoc">     *  Optional attributes for a test instance.
+</span>    59    <span class="xdoc">     *
+</span>    60    <span class="xdoc">     *  Unspecified attributes are "inherited" from `{<b>@link</b> Executable#Attrs}`;
+</span>    61    <span class="xdoc">     *  i.e., if one of fields in this structure is unspecified *and* this
+</span>    62    <span class="xdoc">     *  field's name matches a field name in `Executable.Attrs`, then
+</span>    63    <span class="xdoc">     *  this field's value defaults to the value in specified by
+</span>    64    <span class="xdoc">     *  `Executable.Attrs`.  This mechanism makes it possible to establish
+</span>    65    <span class="xdoc">     *  executable-specific default values for any of the "inherited"
+</span>    66    <span class="xdoc">     *  attributes.
+</span>    67    <span class="xdoc">     *
+</span>    68    <span class="xdoc">     *  <b>@field(args)</b>        this is a string of arguments (which may contain
+</span>    69    <span class="xdoc">     *                      embedded strings) that are passed to the executable
+</span>    70    <span class="xdoc">     *                      being run.
+</span>    71    <span class="xdoc">     *  <b>@field(execCmd)</b>     this string names the "loader" which is responsible
+</span>    72    <span class="xdoc">     *                      for running the executable with the arguments
+</span>    73    <span class="xdoc">     *                      specified by the `args` field.  If this field is
+</span>    74    <span class="xdoc">     *                      `null` or `undefined`, the command used to run
+</span>    75    <span class="xdoc">     *                      the executable is determined by the executable's
+</span>    76    <span class="xdoc">     *                      configuration script; see
+</span>    77    <span class="xdoc">     *                      `{<b>@link</b> xdc.cfg.Program#execCmd}`.
+</span>    78    <span class="xdoc">     *  <b>@field(execArgs)</b>    this is a string of arguments passed to the
+</span>    79    <span class="xdoc">     *                      "loader" to control how this loader manages the
+</span>    80    <span class="xdoc">     *                      execution of the executable being run.
+</span>    81    <span class="xdoc">     *  <b>@field(groupName)</b>   the name of the group of tests that this test is a
+</span>    82    <span class="xdoc">     *                      a member of.
+</span>    83    <span class="xdoc">     *  <b>@field(refOutput)</b>   the name of a "reference" text file that is used
+</span>    84    <span class="xdoc">     *                      to validate the output generated by running
+</span>    85    <span class="xdoc">     *                      the executable with the specified arguments.  If
+</span>    86    <span class="xdoc">     *                      the exit status of the executable is 0 and the
+</span>    87    <span class="xdoc">     *                      output of the executable differs from the
+</span>    88    <span class="xdoc">     *                      contents of `refOutput`, the test fails.  If this
+</span>    89    <span class="xdoc">     *                      comparison fails, the output of the executable is
+</span>    90    <span class="xdoc">     *                      saved to a temporary file to allow analysis of the
+</span>    91    <span class="xdoc">     *                      failure.  The temporary file's name is:
+</span>    92    <span class="xdoc">     *                      "`.tmp,{exeName},{id}`", where `{exeName}` is the
+</span>    93    <span class="xdoc">     *                      name of the executable and `{id}` is a test
+</span>    94    <span class="xdoc">     *                      id number.
+</span>    95    <span class="xdoc">     *
+</span>    96    <span class="xdoc">     *                      If `refOutput` is not defined (or set to `null`)
+</span>    97    <span class="xdoc">     *                      no comparison is made; only the exit status of the
+</span>    98    <span class="xdoc">     *                      executable is used to determine the success or
+</span>    99    <span class="xdoc">     *                      failure of the test.
+</span>   100    <span class="xdoc">     *  <b>@field(refExitCode)</b> the expected exit status of the executable.
+</span>   101    <span class="xdoc">     *
+</span>   102    <span class="xdoc">     *                      If `refExitCode` is not defined (or set to `null`)
+</span>   103    <span class="xdoc">     *                      an exit status of 0 is assumed.
+</span>   104    <span class="xdoc">     *
+</span>   105    <span class="xdoc">     *  <b>@see</b> #attrs
+</span>   106    <span class="xdoc">     */</span>
+   107        <span class=key>struct</span> Attrs {
+   108            string args;        <span class="xdoc">/*! arguments passed to the exe for this test */</span>
+   109            string execCmd;     <span class="xdoc">/*! exec command for this test */</span>
+   110            string execArgs;    <span class="xdoc">/*! arguments to the exec command itself */</span>
+   111            string groupName;   <span class="xdoc">/*! name of a group of related tests */</span>
+   112            string refOutput;   <span class="xdoc">/*! name of a reference output file */</span>
+   113            <span class=key>int</span>    refExitCode; <span class="xdoc">/*! expected exit code (default = 0) */</span>
+   114        };
+   115    
+   116    <span class=key>instance</span>:
+   117        <span class="xdoc">/*!
+</span>   118    <span class="xdoc">     *  ======== create ========
+</span>   119    <span class="xdoc">     *  <b>@_nodoc</b>
+</span>   120    <span class="xdoc">     *  Instances should only be created via Executable.addTest()
+</span>   121    <span class="xdoc">     */</span>
+   122        create();
+   123        
+   124        <span class="xdoc">/*!
+</span>   125    <span class="xdoc">     *  ======== attrs ========
+</span>   126    <span class="xdoc">     *  Optional attributes for this test instance.
+</span>   127    <span class="xdoc">     *
+</span>   128    <span class="xdoc">     *  Default values for each of the fields in attrs:
+</span>   129    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   130    <span class="xdoc">     *     - `groupName`
+</span>   131    <span class="xdoc">     *          name of the program "containing" this test
+</span>   132    <span class="xdoc">     *
+</span>   133    <span class="xdoc">     *     - `execCmd`
+</span>   134    <span class="xdoc">     *          the first non-`null` value in:
+</span>   135    <span class="xdoc">     *              `prog.attrs.test.exec,
+</span>   136    <span class="xdoc">     *              xdc.cfg.Program.execCmd`,
+</span>   137    <span class="xdoc">     *              `prog.platform.getExecCmd()`.
+</span>   138    <span class="xdoc">     *
+</span>   139    <span class="xdoc">     *     - execArgs
+</span>   140    <span class="xdoc">     *          the first non-`null` value in:
+</span>   141    <span class="xdoc">     *              `prog.attrs.test.execArgs`,
+</span>   142    <span class="xdoc">     *              "".
+</span>   143    <span class="xdoc">     *
+</span>   144    <span class="xdoc">     *     - args
+</span>   145    <span class="xdoc">     *          the first non-`null` value in:
+</span>   146    <span class="xdoc">     *              `prog.attrs.test.args`,
+</span>   147    <span class="xdoc">     *              "".
+</span>   148    <span class="xdoc">     */</span>
+   149        <span class=key>config</span> Test.Attrs attrs;
+   150    }
+   151    <span class="comment">/*
+</span>   152    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:32; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   153    <span class="comment"> */</span>
+   154    
+</pre>
+</body></html>

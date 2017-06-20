@@ -1,0 +1,181 @@
+<html>
+<head>
+<title>package ti.catalog.c5500</title>
+<meta name="description" content="Package of devices for the c5500 family of DSPs">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">package</span> <span class="xdoc-id">ti.catalog.c5500</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../ti/catalog/c5500/IOMAP.html" title="interface IOMAP"><img class="xdocHdrArrow" src="../../../Arrow_right.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#ti/catalog/c5500/package.html">index URL</a></div>
+<p class="xdocHdrSummary">Package of devices for the c5500 family of DSPs</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+</ul>
+<div class="xdocBrief">
+Each module in this package implements the xdc.platform.ICpuDataSheet
+  interface. This interface is used by platforms (modules that implement
+  xdc.platform.IPlatform) to obtain the memory map supported by each CPU.
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../ti/catalog/c5500/package-src.html"><span class="xdocLabelFile">ti/catalog/c5500/package.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../xdc/platform/package.html" title="xdc.platform">xdc.platform</a>;
+</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">requires</span> <a class="xdoc-link" href="../../../ti/catalog/package.html" title="ti.catalog">ti.catalog</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <go><span class="xdoc-id">ti.catalog.c5500</span></go> [1, 0, 0, 0] {
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/IOMAP.html' title='ti.catalog.c5500.IOMAP'><span class="xdoc-id">IOMAP</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;An interface implemented by all OMAP devices</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">interface</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/ITMS320C55xx.html' title='ti.catalog.c5500.ITMS320C55xx'><span class="xdoc-id">ITMS320C55xx</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;An interface implemented by all TMS320C55xx devices</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C1035.html' title='ti.catalog.c5500.TMS320C1035'><span class="xdoc-id">TMS320C1035</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C1035 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C1510.html' title='ti.catalog.c5500.TMS320C1510'><span class="xdoc-id">TMS320C1510</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C1510 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C1610.html' title='ti.catalog.c5500.TMS320C1610'><span class="xdoc-id">TMS320C1610</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C1610 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C1710.html' title='ti.catalog.c5500.TMS320C1710'><span class="xdoc-id">TMS320C1710</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C1710 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C2320.html' title='ti.catalog.c5500.TMS320C2320'><span class="xdoc-id">TMS320C2320</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C2320 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C2420.html' title='ti.catalog.c5500.TMS320C2420'><span class="xdoc-id">TMS320C2420</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C2420 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5501.html' title='ti.catalog.c5500.TMS320C5501'><span class="xdoc-id">TMS320C5501</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5501 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5502.html' title='ti.catalog.c5500.TMS320C5502'><span class="xdoc-id">TMS320C5502</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5502 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5503.html' title='ti.catalog.c5500.TMS320C5503'><span class="xdoc-id">TMS320C5503</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5503 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5504.html' title='ti.catalog.c5500.TMS320C5504'><span class="xdoc-id">TMS320C5504</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5504 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5505.html' title='ti.catalog.c5500.TMS320C5505'><span class="xdoc-id">TMS320C5505</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5505 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5507.html' title='ti.catalog.c5500.TMS320C5507'><span class="xdoc-id">TMS320C5507</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5507 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5509.html' title='ti.catalog.c5500.TMS320C5509'><span class="xdoc-id">TMS320C5509</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5509 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5509A.html' title='ti.catalog.c5500.TMS320C5509A'><span class="xdoc-id">TMS320C5509A</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5509A device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5510.html' title='ti.catalog.c5500.TMS320C5510'><span class="xdoc-id">TMS320C5510</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5510 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5510A.html' title='ti.catalog.c5500.TMS320C5510A'><span class="xdoc-id">TMS320C5510A</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5510A device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5514.html' title='ti.catalog.c5500.TMS320C5514'><span class="xdoc-id">TMS320C5514</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5514 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5515.html' title='ti.catalog.c5500.TMS320C5515'><span class="xdoc-id">TMS320C5515</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5515 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5561.html' title='ti.catalog.c5500.TMS320C5561'><span class="xdoc-id">TMS320C5561</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5561 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5903.html' title='ti.catalog.c5500.TMS320C5903'><span class="xdoc-id">TMS320C5903</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5903 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5905.html' title='ti.catalog.c5500.TMS320C5905'><span class="xdoc-id">TMS320C5905</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5905 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5910.html' title='ti.catalog.c5500.TMS320C5910'><span class="xdoc-id">TMS320C5910</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5910 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5912.html' title='ti.catalog.c5500.TMS320C5912'><span class="xdoc-id">TMS320C5912</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5912 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5944.html' title='ti.catalog.c5500.TMS320C5944'><span class="xdoc-id">TMS320C5944</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5944 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5946.html' title='ti.catalog.c5500.TMS320C5946'><span class="xdoc-id">TMS320C5946</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5946 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320C5948.html' title='ti.catalog.c5500.TMS320C5948'><span class="xdoc-id">TMS320C5948</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The C5948 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320CDA255.html' title='ti.catalog.c5500.TMS320CDA255'><span class="xdoc-id">TMS320CDA255</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The DA255 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320CDA295.html' title='ti.catalog.c5500.TMS320CDA295'><span class="xdoc-id">TMS320CDA295</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The DA295 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320CDA300.html' title='ti.catalog.c5500.TMS320CDA300'><span class="xdoc-id">TMS320CDA300</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The DA300 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TMS320CRYUJIN.html' title='ti.catalog.c5500.TMS320CRYUJIN'><span class="xdoc-id">TMS320CRYUJIN</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The CRYUJIN device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TNETV1050.html' title='ti.catalog.c5500.TNETV1050'><span class="xdoc-id">TNETV1050</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The TNETV1050 device data sheet module</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><span class="xdoc-kw1">module</span> <a class='xdocSynGo' href='../../../ti/catalog/c5500/TNETV1055.html' title='ti.catalog.c5500.TNETV1055'><span class="xdoc-id">TNETV1055</span>;</a>
+</div>
+<div class='xdocSynSum'><tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt>//&nbsp;The TNETV1055 device data sheet module</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:50 GMT</div>
+</div></div></body>
+</html>

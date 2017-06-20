@@ -1,0 +1,270 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Extending xdc.runtime Memory - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Extending xdc.runtime Memory&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Extending xdc.runtime Memory" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Extending_This_Package_Index" title="Overview_of_xdc.runtime#Extending_This_Package_Index"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Extending_xdc.runtime_Memory__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Extending xdc.runtime Memory</p><p id="subtitle">How to create customized heap managers</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Overview"><span class="tocnumber">2</span> <span class="toctext">Overview</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Architecture"><span class="tocnumber">2.1</span> <span class="toctext">Architecture</span></a></li>
+<li class="toclevel-2"><a href="#Configuration"><span class="tocnumber">2.2</span> <span class="toctext">Configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Examples"><span class="tocnumber">3</span> <span class="toctext">Examples</span></a></li>
+<li class="toclevel-1"><a href="#Related_Topics"><span class="tocnumber">4</span> <span class="toctext">Related Topics</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>The <tt>xdc.runtime</tt> package contains several modules that work together to provide modular and extensible memory management support.  This support is centered around the <tt>Memory</tt> module that enables the application to allocate and free memory.  All memory allocations are eventually "handled" by a module that implements the <tt><a href="../../cdoc/xdc/runtime/IHeap.html" class="cdoc"><tt>IHeap</tt></a></tt> interface.  These modules are responsible for managing a region of memory in a manner appropriate for the application.  
+</p><p>Two such modules are provided in the <tt>xdc.runtime</tt> package:
+</p>
+<ol><li><tt><a href="../../cdoc/xdc/runtime/HeapMin.html" class="cdoc"><tt>HeapMin</tt></a></tt> - a module that simply maintains a "high water" mark for each managed memory block and never frees memory, and
+</li><li><tt><a href="../../cdoc/xdc/runtime/HeapStd.html" class="cdoc"><tt>HeapStd</tt></a></tt> - a module that uses the ANSI C Standard Library functions <tt>malloc()</tt> and <tt>free()</tt>.
+</li></ol>
+<p>In addition, it is possible to create new implementations of the <tt>IHeap</tt> interface that provide more sophisticated or even application-specific memory management policies.  For example, a heap may limit the memory allocated by specific tasks, monitor ownership of each memory block (to allow reclamation of memory from terminated threads), and even implement custom allocation algorithms to minimize fragmentation (first-fit, best-fit, etc.).
+</p><p>In the following sections we focus on how to use and create modules that implement the <tt>IHeap</tt> interface.
+</p>
+<a name="Overview"></a><h2> <span class="mw-headline">Overview</span></h2>
+<p>Memory management in embedded systems, especially DSPs with their high-speed but relatively small on-chip memories and lack of virtual memory, can be a critical factor in getting full entitlement from the hardware.  The performance difference between on-chip static RAM and external dynamic RAM makes it especially important that the on-chip memory be allocated only to the performance critical portions of a system.  But, from the point of view of an individual module, it's often not be possible to know in advance whether the module's memory should be in on-chip memory or in bulk external memory; two different applications may have very different usages of the module.  As a result, it's important that the system integrator have control over the management of each module's data memory placement.
+</p><p>The <tt>xdc.runtime</tt> memory architecture enables developers to write their code once, deliver modules in binary form, and still allow the system integrator to, on a per module basis, 
+</p>
+<ul><li> monitor and track allocations,
+</li><li> control the type and amount of memory allocated, and
+</li><li> select alternate allocation strategies, striking a balance between deterministic performance and minimal fragmentation loss.
+</li></ul>
+<p>In other words, modules can be written once, delivered in binary form, and be reused in virtually any application <i>without limiting the flexibility required by system integrators to get full entitlement from their unique hardware platform</i>.
+</p>
+<a name="Architecture"></a><h3> <span class="mw-headline">Architecture</span></h3>
+<p>The <tt>Memory</tt> module provides an interface that allows any client code to allocate and free memory.  However, each <tt>Memory</tt> function is passed a handle of a heap instance and it is this instance that performs the requested service.  As a result, each heap can manage a different memory space, such as on-chip DARAM or external bulk DDR memory, using unique allocation and management algorithms, such as fixed-length deterministic or variable-length first-fit allocation.
+</p><p>All "heaps" are modules that implement the <tt><a href="../../cdoc/xdc/runtime/IHeap.html" class="cdoc"><tt>IHeap</tt></a></tt> interface.  The relationship between heaps and the <tt>Memory</tt> module is depicted in the figure below.
+</p>
+<center><a href="images/RuntimeMem.png" class="image" title="Memory Architecture"><img alt="Memory Architecture" src="images/RuntimeMem.png" width="697" height="262" border="0" /></a></center>
+<p>Using each heap instance to reference the actual memory management code provides a great deal of flexibility, but now clients have to pass an <tt>IHeap</tt> instance object on each allocation.  Since these handles are heap-specific, it appears that clients must tie themselves to a specific heap - defeating the goal of keeping the clients unaware of any particular heap manager.  To solve this problem and enable client code to be 100% independent of the heaps it uses, it is possible to pass <tt>NULL</tt> as a heap instance handle and, in this case, the distinguished heap instance defined by the <tt><a href="../../cdoc/xdc/runtime/Memory.html#default.Heap.Instance" class="cdoc"><tt>Memory.defaultHeapInstance</tt></a></tt> configuration parameter is used.  
+</p><p>In addition, every module that supports instances has a unique heap instance, a "generic" means to get this heap, and a means for <i>the system integrator</i> to define this heap at configuration time.  These RTSC modules reference their configured heap instance from the module's C code using <tt><a href="../C_-_Object_heap/C_-_Object_heap.html" title="C - Object heap"><i>Mod</i>_Object_heap()</a></tt> where <tt><i>Mod</i></tt> is the name of the module.
+</p><p>Of course, most systems do not create a unique heap for each module but, as we'll see in the examples, the ability to associate a unique heap for selected modules can be extremely useful.  Not only is it possible to control or redirect access to various memories within different sub-systems of an application, but you can also "chain" heaps to provide sophisticated application-specific memory validation atop any other heap manager (see <a href="Extending_xdc.runtime_Memory__Example_1.html" title="Extending xdc.runtime Memory/Example 1">Example 1</a>).
+</p>
+<a name="Configuration"></a><h3> <span class="mw-headline">Configuration</span></h3>
+<p>Since heaps are often required very early during runtime startup, they are usually created at configuration time.  The most common configuration, illustrated in the figure below, is to have a single heap for the entire application.  In this figure, the application consists of the modules <tt>xdc.runtime.Main</tt>, <tt>xdc.runtime.Memory</tt>, an <tt>IHeap</tt> manager (<tt><a href="../../cdoc/xdc/runtime/HeapStd.html" class="cdoc"><tt>xdc.runtime.HeapStd</tt></a></tt>), and some number of modules <tt>Mod0</tt> through <tt>ModN</tt>, where <tt>xdc.runtime.Main</tt> represents all code not in any module and <tt>HeapStd</tt> is a module that implements the <tt>xdc.runtime.IHeap</tt> interface.
+</p>
+<center><a href="images/RuntimeHeapConfig.png" class="image" title="Image:RuntimeHeapConfig.png"><img alt="Image:RuntimeHeapConfig.png" src="images/RuntimeHeapConfig.png" width="769" height="338" border="0" /></a></center>
+<p>Notice that if the heap instance passed to <tt>Memory</tt> is <tt>NULL</tt>, the <tt><a href="../../cdoc/xdc/runtime/Memory.html#default.Heap.Instance" class="cdoc"><tt>Memory.defaultHeapInstance</tt></a></tt> configuration parameter is used.  In addition, the default value of the <tt>Memory.defaultHeapInstance</tt> configuration parameter is an instance of <tt>xdc.runtime.HeapStd</tt> created with <tt><a href="../../cdoc/index.html#xdc/runtime/Memory.html#default.Heap.Size" class="cdoc"><tt>Memory.defaultHeapSize</tt></a></tt> MAUS of capacity.  Because of these defaults, the configuration script that corresponds to the figure above is quite simple.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Memory = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Memory&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+<p></p>
+<p>In fact, the configuration script above is equivalent to the more explicit script shown below.  We show this more explicit script because it hints at the some powerful capabilities provided to the system integrator with respect to controlling each part of a system's access to and use of memory.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Memory = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Memory&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> HeapStd = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.HeapStd&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> params = <span class="kw1">new</span> HeapStd.Params;
+params.size = Memory.defaultHeapSize;
+Memory.defaultHeapInstance = HeapStd.create<span class="br0">&#40;</span>params<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>Suppose, for example, you want to use standard variable-length memory allocations in an existing code base but you want to limit all RTSC modules to a simple deterministic growth-only memory manager.  The following configuration script can be used to achive this effect.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>twoHeaps.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Memory = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Memory&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Defaults = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Defaults&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> HeapMin = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.HeapMin&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> params = <span class="kw1">new</span> HeapMin.Params;
+params.size = Memory.defaultHeapSize;
+Defaults.common$.heap = HeapMin.create<span class="br0">&#40;</span>params<span class="br0">&#41;</span>;</pre></td></tr></table>
+<p>This configuration script results in a configuration depicted in the figure below.  As with the first example, even though <tt>HeapStd</tt> is not directly named in the configuration script, it is part of the configuration because the <tt>Memory.defaultHeapInstance</tt> is not set by the script. 
+</p>
+<center><a href="images/Runtime2HeapConfig.png" class="image" title="Image:Runtime2HeapConfig.png"><img alt="Image:Runtime2HeapConfig.png" src="images/Runtime2HeapConfig.png" width="769" height="338" border="0" /></a></center>
+<a name="Examples"></a><h2> <span class="mw-headline">Examples</span></h2>
+<p>The best way to understand how to use and create new heap managers is to study some simple examples.  In the table below, we list examples that illustrate the key requirements of heap managers and provide links to more advanced topics.
+</p>
+<table cellpadding="4" cellspacing="2" border="1" style="color:black;background-color:#eeeeee;">
+
+<tr>
+<th align="center"> <b>Examples</b>
+</th><th align="center"> <b>Description</b>
+</th><th align="center"> <b>Purpose</b>
+</th></tr>
+<tr>
+<td align="left"> <a href="Extending_xdc.runtime_Memory__Example_1.html" title="Extending xdc.runtime Memory/Example 1">Example 1</a>
+</td><td align="left"> Simple heap monitor
+</td><td align="left"> illustrate the ability to add custom heap management without changing any existing sources
+</td></tr></table>
+<a name="Related_Topics"></a><h2> <span class="mw-headline">Related Topics</span></h2>
+<p><a href="../Using_xdc.runtime_Memory/Using_xdc.runtime_Memory.html" title="Using xdc.runtime Memory">Using the Runtime Memory Manager</a>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Extending xdc.runtime Memory&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Extending xdc.runtime Memory" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Overview_of_xdc.runtime/Overview_of_xdc.runtime.html#Extending_This_Package_Index" title="Overview_of_xdc.runtime#Extending_This_Package_Index"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Extending_xdc.runtime_Memory__Example_1.html" title="Example 1"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1233 bytes
+Post-expand include size: 783 bytes
+Template argument size: 150 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Extending_xdc.runtime_Memory.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.218 secs. --></body></html>

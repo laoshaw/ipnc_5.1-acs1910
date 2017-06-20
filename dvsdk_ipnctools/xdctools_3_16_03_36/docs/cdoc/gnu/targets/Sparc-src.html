@@ -1,0 +1,85 @@
+<html><head><title>module gnu.targets.Sparc</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== Sparc.xdc ========
+</span>    14    <span class="xdoc"> *  Native Sparc Solaris target
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  This module defines a native target for Solaris on Sparc workstations
+</span>    17    <span class="xdoc"> */</span>
+    18    <span class=key>metaonly</span> <span class=key>module</span> Sparc <span class=key>inherits</span> gnu.targets.ITarget {
+    19        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name                = <span class="string">"Sparc"</span>;      
+    20        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string os                  = <span class="string">"Solaris"</span>;    
+    21        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix              = <span class="string">"5"</span>;
+    22        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa                 = <span class="string">"sparc"</span>;      
+    23        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model= {
+    24            endian: <span class="string">"big"</span>
+    25        };
+    26    
+    27        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts                 = <span class="string">"gnu.targets.rts5"</span>;
+    28    
+    29        <span class=key>override</span> <span class=key>config</span> string platform = <span class="string">"host.platforms.SUN"</span>;
+    30        
+    31        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command ar = {
+    32            cmd: <span class="string">"$(rootDir)/bin/ar"</span>,
+    33            opts: <span class="string">"cr"</span>
+    34        };
+    35    
+    36        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command cc = {
+    37            cmd: <span class="string">"$(rootDir)/bin/gcc -c -MD -MF $@.dep"</span>,
+    38            opts: <span class="string">"-B$(rootDir)/lib/gcc/$(GCCTARG)/$(GCCVERS)/ -B$(rootDir)/lib/gcc-lib/$(GCCTARG)/$(GCCVERS)/"</span>
+    39        };
+    40    
+    41        <span class=key>override</span> <span class=key>config</span> ITarget.Options ccOpts = {
+    42            prefix: <span class="string">"-fPIC -m32 -Wunused"</span>,
+    43            suffix: <span class="string">"-Dfar="</span>
+    44        };
+    45    
+    46        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command asm = {
+    47            cmd: <span class="string">"$(rootDir)/bin/gcc -c -x assembler"</span>,
+    48            opts: <span class="string">"-B$(rootDir)/lib/gcc/$(GCCTARG)/$(GCCVERS)/ -B$(rootDir)/lib/gcc-lib/$(GCCTARG)/$(GCCVERS)/"</span>
+    49        };
+    50    
+    51        <span class=key>override</span> <span class=key>config</span> ITarget.Options lnkOpts = {
+    52            prefix: <span class="string">""</span>,
+    53            suffix: <span class="string">"-lstdc++ -L$(rootDir)/lib"</span>
+    54        };
+    55            
+    56        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.StdTypes stdTypes = {
+    57            t_IArg          : { size: 4, align: 4 },
+    58            t_Char          : { size: 1, align: 1 },
+    59            t_Double        : { size: 8, align: 8 },
+    60            t_Float         : { size: 4, align: 4 },
+    61            t_Fxn           : { size: 4, align: 4 },
+    62            t_Int           : { size: 4, align: 4 },
+    63            t_Int8          : { size: 1, align: 1 },
+    64            t_Int16         : { size: 2, align: 2 },
+    65            t_Int32         : { size: 4, align: 4 },
+    66            t_Int64         : { size: 8, align: 8 },
+    67            t_Long          : { size: 4, align: 4 },
+    68            t_LDouble       : { size: 16, align: 8 },
+    69            t_LLong         : { size: 8, align: 8 },
+    70            t_Ptr           : { size: 4, align: 4 },
+    71            t_Short         : { size: 2, align: 2 },
+    72        };
+    73    }
+    74    <span class="comment">/*
+</span>    75    <span class="comment"> *  @(#) gnu.targets; 1, 0, 1,387; 2-24-2010 16:24:01; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>    76    <span class="comment"> */</span>
+    77    
+</pre>
+</body></html>

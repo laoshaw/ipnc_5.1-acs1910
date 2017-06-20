@@ -1,0 +1,131 @@
+<html><head><title>interface ti.catalog.c6000.IHimalaya</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== IHimalaya.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    <span class=key>package</span> ti.catalog.c6000;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== IHimalaya ========
+</span>    21    <span class="xdoc"> *  An interface implemented by all Himalaya devices
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  This interface is defined to factor common data about all Himalaya devices
+</span>    24    <span class="xdoc"> *  into a single place; they are all the same from the configuration point of
+</span>    25    <span class="xdoc"> *  view.
+</span>    26    <span class="xdoc"> */</span>
+    27    <span class=key>metaonly</span> <span class=key>interface</span> IHimalaya <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    28    {
+    29    
+    30        <span class=key>config</span> <span class=key>long</span> cacheSizeL1[string] = [
+    31            [<span class="string">"0k"</span>,  0x0000],
+    32            [<span class="string">"4k"</span>,  0x1000],
+    33            [<span class="string">"8k"</span>,  0x2000],
+    34            [<span class="string">"16k"</span>, 0x4000],
+    35            [<span class="string">"32k"</span>, 0x8000],
+    36        ];
+    37    
+    38        <span class=key>config</span> <span class=key>long</span> cacheSizeL2[string] = [
+    39            [<span class="string">"0k"</span>,   0x00000],
+    40            [<span class="string">"32k"</span>,  0x08000],
+    41            [<span class="string">"64k"</span>,  0x10000],
+    42            [<span class="string">"128k"</span>, 0x20000],
+    43            [<span class="string">"256k"</span>, 0x40000]
+    44        ];
+    45    
+    46        <span class=key>readonly</span> <span class=key>config</span> ti.catalog.c6000.ICacheInfo.CacheDesc cacheMap[string] =  [
+    47                 [<span class="string">'l1PMode'</span>,{desc:<span class="string">"L1P Cache"</span>,
+    48                             map : [[<span class="string">"0k"</span>,0x0000],
+    49                                    [<span class="string">"4k"</span>,0x1000],
+    50                                    [<span class="string">"8k"</span>,0x2000],
+    51                                    [<span class="string">"16k"</span>,0x4000],
+    52                                    [<span class="string">"32k"</span>,0x8000]],
+    53                             defaultValue: <span class="string">"0k"</span>,
+    54                             memorySection: <span class="string">"L1PSRAM"</span>}],
+    55             
+    56                     [<span class="string">'l1DMode'</span>,{desc:<span class="string">"L1D Cache"</span>,
+    57                             map : [[<span class="string">"0k"</span>,0x0000],
+    58                                    [<span class="string">"4k"</span>,0x1000],
+    59                                    [<span class="string">"8k"</span>,0x2000],
+    60                                    [<span class="string">"16k"</span>,0x4000],
+    61                                    [<span class="string">"32k"</span>,0x8000]],
+    62                             defaultValue: <span class="string">"0k"</span>,
+    63                             memorySection: <span class="string">"L1DSRAM"</span>}],
+    64                         
+    65                 [<span class="string">'l2Mode'</span>,{desc:<span class="string">"L2 Cache"</span>,
+    66                             map : [[<span class="string">"0k"</span>,0x0000],
+    67                                    [<span class="string">"32k"</span>,0x8000],
+    68                                    [<span class="string">"64k"</span>,0x10000],
+    69                                    [<span class="string">"128k"</span>, 0x20000],
+    70                                [<span class="string">"256k"</span>, 0x40000]],
+    71                             defaultValue: <span class="string">"0k"</span>,
+    72                             memorySection: <span class="string">"IRAM"</span>}], 
+    73    
+    74        ];  
+    75    
+    76    <span class=key>instance</span>:
+    77    
+    78        <span class=key>override</span> <span class=key>config</span> string   cpuCore         = <span class="string">"64x+"</span>;
+    79        <span class=key>override</span> <span class=key>config</span> string   isa = <span class="string">"64P"</span>;
+    80        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    81    
+    82        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minProgUnitSize = 1;
+    83        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minDataUnitSize = 1;    
+    84        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     dataWordSize    = 4;
+    85    
+    86        <span class="xdoc">/*!
+</span>    87    <span class="xdoc">     *  ======== memMap ========
+</span>    88    <span class="xdoc">     *  The default memory map for this device
+</span>    89    <span class="xdoc">     */</span>
+    90        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    91            [<span class="string">"IRAM"</span>, {
+    92                comment:    <span class="string">"Internal 2MB UMAP0 memory"</span>,
+    93                name:       <span class="string">"IRAM"</span>,
+    94                base:       0x800000,
+    95                len:        0x200000,
+    96                space:      <span class="string">"code/data"</span>,
+    97                access:     <span class="string">"RWX"</span>
+    98            }],
+    99    
+   100            [<span class="string">"L1PSRAM"</span>, {
+   101                comment:    <span class="string">"Internal 32KB RAM/CACHE L1 program memory"</span>,
+   102                name:       <span class="string">"L1PSRAM"</span>,
+   103                base:       0xE00000,
+   104                len:        0x008000,
+   105                space:      <span class="string">"code"</span>,
+   106                access:     <span class="string">"RWX"</span>
+   107            }],
+   108    
+   109            [<span class="string">"L1DSRAM"</span>, {
+   110                comment:    <span class="string">"Internal 32KB RAM/CACHE L1 data memory"</span>,
+   111                name:       <span class="string">"L1DSRAM"</span>,
+   112                base:       0xF00000,
+   113                len:        0x008000,
+   114                space:      <span class="string">"data"</span>,
+   115                access:     <span class="string">"RW"</span>
+   116            }],
+   117    
+   118        ];
+   119    };
+   120    <span class="comment">/*
+</span>   121    <span class="comment"> *  @(#) ti.catalog.c6000; 1, 0, 0, 0,226; 2-23-2010 16:50:37; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   122    <span class="comment"> */</span>
+   123    
+</pre>
+</body></html>

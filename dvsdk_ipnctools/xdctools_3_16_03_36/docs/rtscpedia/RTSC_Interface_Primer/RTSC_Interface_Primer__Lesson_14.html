@@ -1,0 +1,392 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Interface Primer/Lesson 14 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 14&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_13.html" title="Lesson 13"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_15.html" title="Lesson 15"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Interface Primer/Lesson 14</p><p id="subtitle">Abstract testing &#151; benchmarking <tt>IFir</tt> implementations</p>
+<p>In this lesson we'll expand upon some idioms for module testing first introduced in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html" title="RTSC Module Primer/Lesson 9">Lesson 9</a>, by now fabricating a more generic test harness that enables us to easily benchmark the performance of any <tt>IFir</tt> implementation.  Using this test harness in tandem with whole-program optimization, we'll systematically benchmark the entire series of <tt>IFir</tt> modules presented in <a href="RTSC_Interface_Primer__Lesson_13.html" title="RTSC Interface Primer/Lesson 13">Lesson 13</a>.
+</p><p>We've always promised that RTSC can deliver <i>higher-level programming <b>and</b> higher-levels of performance</i>; and now you'll finally see some concrete evidence of this claim, as we compare an optimized and processor-dependent <tt>FirB</tt> module against a more generalized and abstracted <tt>FirC</tt> module that achieves portability through skillful use of the proxy-delegate pattern.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Testing_more_generically"><span class="tocnumber">1</span> <span class="toctext">Testing more generically</span></a></li>
+<li class="toclevel-1"><a href="#Building_and_running_the_tests"><span class="tocnumber">2</span> <span class="toctext">Building and running the tests</span></a></li>
+<li class="toclevel-1"><a href="#Interpreting_benchmark_results"><span class="tocnumber">3</span> <span class="toctext">Interpreting benchmark results</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Testing_more_generically"></a><h2> <span class="mw-headline">Testing more generically</span></h2>
+<p>With several heirs of the <tt>IFir</tt> interface already in hand, we'll turn now to a generic test harness&#151;a new module named <tt>acme.filters2.test.FirTester</tt>&#151;that invokes and benchmarks <i>any</i> <tt>IFir</tt> implementation in a uniform manner.  Derived from the <tt>FirTest1.c</tt> test program originally introduced back in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-4:1" title="RTSC Module Primer/Lesson 9">Lesson 9</a>, we've elected instead to field a first-class RTSC module in lieu of a dedicated main program to perform the testing itself.
+</p><p>Besides enabling us to declare a <tt>PFir</tt> proxy through which we can bind the specific <tt>IFir</tt> implementation under scrutiny, the <tt>FirTester</tt> module allows the client to further customize the testing scenario through additional configuration parameters.
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/test/FirTester.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> stdsorg.math.IFir;
+&nbsp;
+<span class="xdoc">/*! Generic IFir test harness */</span>
+<span class="kw1">module</span> FirTester <span class="br0">&#123;</span>
+&nbsp;
+    <span class="xdoc">/*! IFir implementation under test */</span>
+    <span class="kw1">proxy</span> PFir <span class="kw1">inherits</span> IFir;
+&nbsp;
+    <span class="xdoc">/*! Message displayed when benchmarking */</span>
+    <span class="kw1">config</span> <span class="kw2">String</span> benchMsg;
+&nbsp;
+    <span class="xdoc">/*! Program entry point */</span>
+    <span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Before commenting on <tt>FirTester.xdc</tt>&#151;especially the somewhat unexpected declaration of <tt>main</tt> at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a>&#151;let's first look at the module's implementation in the target-domain. 
+</p>
+<div id="cl-1:4"></div><div id="cl-1:5"></div><div id="cl-1:6"></div><div id="cl-1:7"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/test/FirTester.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br /><span class="codexLab">6</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">7</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;acme/utils2/Bench.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/FirTester.xdc.h&quot;</span>
+&nbsp;
+<span class="re1">#define</span> COEFFSLEN <span class="nu0">4</span>
+<span class="re1">#define</span> FRAMELEN <span class="nu0">20</span>
+&nbsp;
+<span class="kw1">static</span> <span class="kw2">Int16</span> coeffs<span class="br0">&#91;</span>COEFFSLEN<span class="br0">&#93;</span> = <span class="br0">&#123;</span><span class="nu0">20000</span>, <span class="nu0">21000</span>, <span class="nu0">22000</span>, <span class="nu0">-3000</span><span class="br0">&#125;</span>; 
+&nbsp;
+<span class="kw1">static</span> <span class="kw2">Int16</span> inFrame<span class="br0">&#91;</span>FRAMELEN<span class="br0">&#93;</span> = <span class="br0">&#123;</span><span class="nu0">0</span>,<span class="nu0">1</span>,<span class="nu0">2</span>,<span class="nu0">3</span>,<span class="nu0">4</span>,<span class="nu0">5</span>,<span class="nu0">6</span>,<span class="nu0">7</span>,<span class="nu0">8</span>,<span class="nu0">9</span>,<span class="nu0">0</span>,<span class="nu0">1</span>,<span class="nu0">2</span>,<span class="nu0">3</span>,<span class="nu0">4</span>,<span class="nu0">5</span>,<span class="nu0">6</span>,<span class="nu0">7</span>,<span class="nu0">8</span>,<span class="nu0">9</span><span class="br0">&#125;</span>;
+<span class="kw1">static</span> <span class="kw2">Int16</span> outFrame<span class="br0">&#91;</span>FRAMELEN<span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">static</span> <span class="kw2">Void</span> printOut<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw2">Int</span> FirTester_main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">Char</span>* argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    FirTester_PFir_Handle fir;
+    FirTester_PFir_Params params;
+&nbsp;
+    FirTester_PFir_Params_init<span class="br0">&#40;</span>&amp;params<span class="br0">&#41;</span>;
+    params.frameLen = FRAMELEN;
+&nbsp;
+    fir = FirTester_PFir_create<span class="br0">&#40;</span>coeffs, COEFFSLEN, &amp;params, <span class="kw2">NULL</span><span class="br0">&#41;</span>;    <span class="coMULTI">/* create filter */</span>
+    Bench_begin<span class="br0">&#40;</span>FirTester_benchMsg<span class="br0">&#41;</span>;                                  <span class="coMULTI">/* start benchmark */</span>
+    FirTester_PFir_apply<span class="br0">&#40;</span>fir, inFrame, outFrame<span class="br0">&#41;</span>;                     <span class="coMULTI">/* run filter */</span>
+    Bench_end<span class="br0">&#40;</span><span class="br0">&#41;</span>;                                                      <span class="coMULTI">/* stop and display timing */</span>
+    printOut<span class="br0">&#40;</span><span class="br0">&#41;</span>;                                                       <span class="coMULTI">/* display results */</span>
+    FirTester_PFir_delete<span class="br0">&#40;</span>&amp;fir<span class="br0">&#41;</span>;                                      <span class="coMULTI">/* delete filter */</span>
+&nbsp;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="kw1">static</span> <span class="kw2">Void</span> printOut<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i;
+    <span class="kw2">String</span> comma = <span class="st0">&quot;&quot;</span>;
+&nbsp;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;<span class="es0">\t</span>outFrame = {&quot;</span><span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; FRAMELEN; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        System_printf<span class="br0">&#40;</span><span class="st0">&quot;%s%d&quot;</span>, comma, outFrame<span class="br0">&#91;</span>i<span class="br0">&#93;</span><span class="br0">&#41;</span>;
+        comma = <span class="st0">&quot;,&quot;</span>;
+    <span class="br0">&#125;</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;}<span class="es0">\n</span><span class="es0">\n</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Compared with the <tt>FirTest1.c</tt> program from <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-4:1" title="RTSC Module Primer/Lesson 9">Lesson 9</a>, we've introduced nothing "new" here at all:&nbsp; the <span class="re1"><tt>#include</tt></span> at line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> should surely come as no surprise; the <tt>main</tt> function defined at line <a class="codexLink" href="#cl-1:5"><span class="codexLink">5</span></a> follows the usual RTSC naming idiom, given the declaration at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> of the spec; and the use of a longer <tt>FirTester_PFir_</tt> prefix beginning at line <a class="codexLink" href="#cl-1:6"><span class="codexLink">6</span></a> follows from the proxy declaration at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a>.  Otherwise, we've basically preserved the <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-4:1" title="RTSC Module Primer/Lesson 9">original program's</a> structure.
+</p>
+<div class="Info"><p class="Info">The <tt>FirTester</tt> module presents <i>many</i> more opportunities for generalization through additional module-wide config params.   As we've stressed before, client-assignable configs could naturally replace the <span class="re1"><tt>#define</tt></span> constants and <span class="kw1"><tt>static</tt></span> arrays declared between lines <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> and <a class="codexLink" href="#cl-1:5"><span class="codexLink">5</span></a> of <tt>FirTester.c</tt>.  To aid your understanding, though, we've tried to minimize the differences between <tt>FirTester.c</tt> and the original <tt>FirTest1.c</tt> program from <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#cl-4:1" title="RTSC Module Primer/Lesson 9">Lesson 9</a>.</p></div> 
+<p>Needless to say, we'll also need an implementation of <tt>FirTester</tt> in the meta-domain.           
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/test/FirTester.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> module$use<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.utils2.Bench'</span><span class="br0">&#41;</span>;
+    <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.System'</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Note that the <tt>PFir</tt> proxy spec'd back at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> does not acquire a default binding inside of <tt>module$use</tt>, unlike the <tt>acme.utils2.Bench</tt> meta-implementation from <a href="RTSC_Interface_Primer__Lesson_12.html#cl-6:1b" title="RTSC Interface Primer/Lesson 12">Lesson 12</a>; clients must explicitly bind a suitable <tt>IFir</tt> implemenation to <tt>FirTester.PFir</tt>.  In the same vein, note that the <tt>benchMsg</tt> config spec'd at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> and used internally at line <a class="codexLink" href="#cl-1:7"><span class="codexLink">7</span></a> also has no default value; clients must likewise assign a meaningful string to <tt>FirTester.benchMsg</tt>.
+</p>
+<div class="Info"><p class="Info">To guarantee robustness, <tt>FirTester</tt> might actually assert inside the <tt>module$use</tt> function that the client has indeed bound the module's <tt>PFir</tt> proxy, issuing a meaningful warning if necessary; similar checks can occur here&#151;or within the special <tt>module$validate</tt> function invoked at the end of the configuration process&#151;to ensure that <tt>benchMsg</tt> has a non-empty string value.</p></div>
+<p>To further streamline re-use across a set of <tt>IFir</tt> implementations&#151;<tt>FirA</tt>, <tt>FirB</tt>, and <tt>FirC</tt> for now, but perhaps others in the future&#151;the <tt>acme.filter2.test</tt> package employs a <i>single</i> <tt>testFir.cfg</tt> meta-program made more flexible through arguments originating inside of the <tt>package.bld</tt> script for the <tt>acme.filters2.test</tt> package.
+</p>
+<div id="cl-2:1"></div><div id="cl-2:2"></div><div id="cl-2:3"></div><div id="cl-2:4"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme/filters2/test/testFir.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Bench = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.utils2.Bench'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> FirTester = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.filters2.test.FirTester'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Program = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.cfg.Program'</span><span class="br0">&#41;</span>;
+&nbsp;
+FirTester.benchMsg = Program.build.cfgArgs.benchMsg;
+FirTester.PFir = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span>Program.build.cfgArgs.firModName<span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">if</span> <span class="br0">&#40;</span>Program.build.target.isa == <span class="st1">'64P'</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    Bench.PClock = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'txn.clocks.Clock64P'</span><span class="br0">&#41;</span>;
+    Bench.enableFlag = <span class="kw2">true</span>;
+<span class="br0">&#125;</span>
+<span class="kw1">else</span> <span class="br0">&#123;</span>
+    Bench.enableFlag = <span class="kw2">false</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+Program.main = FirTester.main;</pre></td></tr></table>
+<p>Starting with the <tt>benchMsg</tt> assignment at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a>, the script simply uses a string retrieved from an identically named property of the special <tt>Program.build.cfgArgs</tt> object.  The binding of the <tt>PFir</tt> proxy at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> similarly retrieves the name of the <tt>IFir</tt> module under test, passing this value programmatically to <span class="re1"><tt>xdc.useModule</tt></span>.  Formation of the <tt>cfgArgs</tt> object occurs through a more general form of a <tt>Pkg.addExecutable</tt> call found in the <tt>package.bld</tt> script for this package, which we'll have more to say about in the section that follows.
+</p><p>The logic beginning at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> then proceeds to configure the <tt>Bench</tt> module in an obvious way, conditional upon the current program's target.  Though we haven't done so here, additional arguments to the <tt>testFir.cfg</tt> script could similarly generalize the configuration of <tt>Bench</tt> as we already have done with <tt>FirTester</tt>.  
+</p><p>Turning finally to line <a class="codexLink" href="#cl-2:4"><span class="codexLink">4</span></a>, the special <tt>xdc.cfg.Program</tt> module also enables us to designate the actual "main" function for this program.  By assigning <tt>Program.main</tt> a reference to a spec'd function with the same <i>type signature</i> as the standard C <tt>main</tt> function&#151;certainly the case with <tt>FirTester.main</tt> spec'd at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> of <tt>FirTester.xdc</tt>&#151;we've effectively overridden the default <tt>main</tt> entry-point into this program with one of our own module-wide functions.
+</p>
+<div class="Info"><p class="Info">We've shamelessly stolen the idea behind <tt>Program.main</tt> from Java, in which program execution begins in a named class that defines a static, public function named <tt>main</tt> with a well-known signature.  Though RTSC does not directly support the notion of a <i>class</i> as a first-class entity&#151;<tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> has no corresponding <span class="kw1"><tt>keyword</tt></span>&#151;referencing a canonically-named module with a conforming <tt>main</tt> function (such as <tt>acme.filters2.test.FirTester.main</tt>) within a RTSC configuration script mimics the way one launches Java (or C#) applications from the command-line or using an XML-based manifest.</p></div>
+<a name="Building_and_running_the_tests"></a><h2> <span class="mw-headline">Building and running the tests</span></h2>
+<p>We've hinted back in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_9.html#Managing_a_test-suite" title="RTSC Module Primer/Lesson 9">Lesson 9</a> that one key to managing an open-ended suite of tests lies with appropriately structuring the <tt>package.bld</tt> script to reflect the problem at hand.  In this case, we not only need to build multiple programs for multiple targets in general&#151;<tt>testFirA.x*</tt>, <tt>testFirB.x*</tt>, <tt>testFirC.x*</tt>, and so on&#151;but we also need to pass specific arguments to a common <tt>testFir.cfg</tt> script used throughout.
+</p><p>For those targets supporting whole-program optimization&#151;such as <tt>ti.targets.64P</tt>, selected in your <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/config.bld</tt> file&#151;we actually want to build <i>two</i> versions of the same program:&nbsp; one using the compiler's default release profile; the other using whole-program optimization.  To further complicate matters, the <tt>package.bld</tt> script must also ensure that we build non-portable programs like <tt>testFirB.x*</tt> for only the appropriate targets.
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><div id="cl-3:3"></div><div id="cl-3:4"></div><div id="cl-3:5"></div><div id="cl-3:6"></div><div id="cl-3:7"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>acme.filter2.test.package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br /><span class="codexLab">6</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">7</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Build = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.BuildEnvironment'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.bld.PackageContents'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> TEST_INFO = <span class="br0">&#91;</span>
+    <span class="br0">&#123;</span>id: <span class="st0">&quot;FirA&quot;</span>, benchMsg: <span class="st0">&quot;portable implementation&quot;</span><span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span>id: <span class="st0">&quot;FirB&quot;</span>, benchMsg: <span class="st0">&quot;optimized implementation&quot;</span>, buildFor: <span class="st0">&quot;64P&quot;</span><span class="br0">&#125;</span>,
+    <span class="br0">&#123;</span>id: <span class="st0">&quot;FirC&quot;</span>, benchMsg: <span class="st0">&quot;generalized implementation&quot;</span><span class="br0">&#125;</span>,
+<span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">var</span> LIB_NAME = <span class="st0">&quot;lib/&quot;</span> + Pkg.name;
+<span class="kw1">var</span> LIB_SRCS = <span class="br0">&#91;</span><span class="st0">&quot;FirTester.c&quot;</span><span class="br0">&#93;</span>;
+&nbsp;
+<span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> targ <span class="kw1">in</span> Build.targets<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+    Pkg.addLibrary<span class="br0">&#40;</span>LIB_NAME, targ, <span class="br0">&#123;</span>profile: <span class="st0">&quot;whole-program&quot;</span><span class="br0">&#125;</span><span class="br0">&#41;</span>.addObjects<span class="br0">&#40;</span>LIB_SRCS<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="kw1">for</span> <span class="kw1">each</span> <span class="br0">&#40;</span><span class="kw1">var</span> testInfo <span class="kw1">in</span> TEST_INFO<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+&nbsp;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>testInfo.buildFor &amp;&amp; testInfo.buildFor&nbsp;!= targ.isa<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+             <span class="kw1">continue</span>;
+        <span class="br0">&#125;</span>
+&nbsp;
+        <span class="kw1">var</span> progName = <span class="st0">&quot;test&quot;</span> + testInfo.modId;
+        <span class="kw1">var</span> progAttrs = <span class="br0">&#123;</span>
+            cfgScript: <span class="st0">&quot;testFir.cfg&quot;</span>,
+            cfgArgs: <span class="st0">&quot;{&quot;</span> +
+                <span class="st0">&quot;firModName: 'acme.filters2.&quot;</span> + testInfo.id + <span class="st0">&quot;', &quot;</span> +
+                <span class="st0">&quot;benchMsg: '&quot;</span> + testInfo.benchMsg + <span class="st0">&quot;'&quot;</span> +
+            <span class="st0">&quot;}&quot;</span>,
+        <span class="br0">&#125;</span>;
+        Pkg.addExecutable<span class="br0">&#40;</span>progName, targ, targ.platform, progAttrs<span class="br0">&#41;</span>.addObjects<span class="br0">&#40;</span><span class="br0">&#91;</span><span class="st0">&quot;FirTester.c&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>;
+&nbsp;
+        <span class="kw1">if</span> <span class="br0">&#40;</span>!targ.profiles<span class="br0">&#91;</span><span class="st0">&quot;whole_program&quot;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+            <span class="kw1">continue</span>;
+        <span class="br0">&#125;</span>
+&nbsp;
+        progName += <span class="st0">&quot;-WP&quot;</span>;
+        progAttrs.profile = <span class="st0">&quot;whole_program&quot;</span>;
+        Pkg.addExecutable<span class="br0">&#40;</span>progName, targ, targ.platform, progAttrs<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>The <tt>Pkg.addExecutable</tt> call at line <a class="codexLink" href="#cl-3:5"><span class="codexLink">5</span></a> receives an additional fourth argument here, used to further refine the building of the program designated as <tt>progName</tt>&#151;a local variable initialized at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a> using structured elements within the <tt>TEST_INFO</tt> array defined at the top of the file.  The variable <tt>progAttrs</tt>&#151;itself an object&#151;further defines a pair of properties that shape the configuration of the designated program.
+</p>
+<ul><li> the <tt>cfgScript</tt> property initialized at line <a class="codexLink" href="#cl-3:3"><span class="codexLink">3</span></a> designates this particular script as the current meta-program, overriding any implicit assumptions based upon the program's name; and
+</li></ul>
+<p></p>
+<ul><li> the <tt>cfgArgs</tt> property initialized at line <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a> becomes a set of arguments passed to the program's configuration script, accessed via the <tt>Program.build.cfgArgs</tt> object in the meta-program itself.
+</li></ul>
+<div class="Info"><p class="Info">The <tt>cfgArgs</tt> property expects a string which, when evaluated <i>later</i> at the outset of program configuration, results in the actual <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object consumed by <tt>testFir.cfg</tt>.  To avoid excessive use of escape sequences inside this string (such as <tt>"\""</tt>), recall that <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> allows us to use matching single- <i>or</i> double-quotes in literal string values; we've done our best at line <a class="codexLink" href="#cl-3:4"><span class="codexLink">4</span></a> to make this multi-line string look like the "real" object it will eventually become.</p></div> 
+<p>Finally, the logic at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> uses an optional <tt>buildFor</tt> property found in some elements of the <tt>TEST_INFO</tt> array to screen out particular <tt>IFir</tt> modules that <i>cannot</i> support the current target.  In our case, this ensures that we only test the <tt>FirB</tt> module using a TMS32064+ target and platform; unlike the other modules, we will <i>not</i> build a native version of the <tt>testFirB</tt> program using a GCC-based RTSC target such as <tt>gnu.targets.Mingw</tt>.
+</p><p>Further filtering then occurs at line <a class="codexLink" href="#cl-3:6"><span class="codexLink">6</span></a>, where we determine whether the current target supports a special <tt>"whole_program"</tt> profile.  If so, we invoke <tt>Pkg.addExecutable</tt> for a second time at line <a class="codexLink" href="#cl-3:7"><span class="codexLink">7</span></a>, only now with <tt>progName</tt> carrying a distinct <tt>"-WP"</tt> suffix and the special <tt>progAttrs.profile</tt> property appropriately assigned.
+</p><p>To build and run all tests targeted for the TMS32064+ within the <tt>acme.filters2.test</tt> package&#151;which will output benchmark timings as well as program results&#151;simply invoke <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>test,64P</tt></span> from the command-line.  Invoking <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>test</tt></span> will additionally build and run native versions of (a subset of) these programs&#151;but without any benchmark timings.
+</p>
+<a name="Interpreting_benchmark_results"></a><h2> <span class="mw-headline">Interpreting benchmark results</span></h2>
+<p>If you haven't already done so, let's fire off the <span class="cmdFrag"><tt>xdc</tt>&nbsp;<tt>test,64P</tt></span> command&#151;which will benchmark <tt>FirA</tt> through <tt>FirC</tt>, both with and without whole-program optimization&#151;and then analyze the results.
+</p>
+<div id="cl-4:A1"></div><div id="cl-4:A2"></div><div id="cl-4:B1"></div><div id="cl-4:B2"></div><div id="cl-4:C1"></div><div id="cl-4:C2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">A1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">A2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">B1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">B2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">C1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">C2</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">&gt;&gt; xdc test,64P</span></b>
+&nbsp;
+running testFirA.x64P ...
+portable implementation [571]
+	outFrame = {0,-1,0,1,3,5,7,9,10,12,15,10,5,1,3,5,7,9,10,12}
+&nbsp;
+running testFirA-WP.x64P ...
+portable implementation [550]
+	outFrame = {0,-1,0,1,3,5,7,9,10,12,15,10,5,1,3,5,7,9,10,12}
+&nbsp;
+running testFirB.x64P ...
+optimized implementation [391]
+	outFrame = {0,-1,0,1,3,5,7,9,10,12,15,10,5,1,3,5,7,9,10,12}
+&nbsp;
+running testFirB-WP.x64P ...
+optimized implementation [370]
+	outFrame = {0,-1,0,1,3,5,7,9,10,12,15,10,5,1,3,5,7,9,10,12}
+&nbsp;
+running testFirC.x64P ...
+generalized implementation [1903]
+	outFrame = {0,-1,0,1,3,5,7,9,10,12,15,10,5,1,3,5,7,9,10,12}
+&nbsp;
+running testFirC-WP.x64P ...
+generalized implementation [370]
+	outFrame = {0,-1,0,1,3,5,7,9,10,12,15,10,5,1,3,5,7,9,10,12}</pre></td></tr></table>
+<p>Looking first at our <tt>FirA</tt> baseline&#151;built with the default profile at line <a class="codexLink" href="#cl-4:A1"><span class="codexLink">A1</span></a> and with whole-program optimization at line <a class="codexLink" href="#cl-4:A2"><span class="codexLink">A2</span></a>&#151;we see only modest improvement in the latter over the former.  This pattern repeats itself with the optimized <tt>FirB</tt> module at lines <a class="codexLink" href="#cl-4:B1"><span class="codexLink">B1</span></a> and <a class="codexLink" href="#cl-4:B2"><span class="codexLink">B2</span></a>, as the impact of loop-unrolling and processor-specific intrinsics used in the <tt>FirB</tt> <a href="RTSC_Interface_Primer__Lesson_13.html#cl-1:1" title="RTSC Interface Primer/Lesson 13">target-implementation</a> begins to kick in here.
+</p><p>The most interesting outcome, however, occurs with <tt>FirC</tt> at lines <a class="codexLink" href="#cl-4:C1"><span class="codexLink">C1</span></a> and <a class="codexLink" href="#cl-4:C2"><span class="codexLink">C2</span></a>.  Before commenting on the wide disparity in these timings, note that whole-program optimization of this heavily-abstracted <a href="RTSC_Interface_Primer__Lesson_13.html#cl-2:3" title="RTSC Interface Primer/Lesson 13">target-implementation</a> yields <i>identical</i> results to the compiler-specific and processor-dependent <tt>FirB</tt> module benchmarked at line <a class="codexLink" href="#cl-4:B2"><span class="codexLink">B2</span></a>.  Despite the generality introduced through use of an <tt>IMathOps</tt> proxy-delegate pattern inside of <tt>FirC</tt>, we've managed to hold the line on runtime performance!
+</p><p>As for the large degradation in <tt>FirC</tt> when built with the default profile at line <a class="codexLink" href="#cl-4:C1"><span class="codexLink">C1</span></a>, just think about what's really happening in each of those <tt>FirC_PMathOps</tt> calls after line <a href="RTSC_Interface_Primer__Lesson_13.html#cl-2:3" title="RTSC Interface Primer/Lesson 13"><span class="codexLink">3</span></a> in <tt>Fir.c</tt>&#151;<i>two</i> runtime function dispatches apiece, each eventually arriving in a function body comprising <i>one</i> processor instruction.  With callers and callees residing in <i>separate</i> source files, however, "normal" compilation has no choice but to generate external function calls at each site.  Using whole-program optimization, on the other hand, the compiler rather trivially identifies these (small!) functions as viable candidates for automatic inlining.
+</p>
+<div class="Info"><p class="Info">The brilliance of whole-program optimization results from applying relatively <i>basic</i> compilation techniques&#151;function inlining, constant folding, and dead code elimination&#151;to a consolidated base of source code that otherwise resides in separate files potentially produced by different individuals.  In reality, the compiler's no smarter; it now just sees more of the program during its usual optimization phase, and hence will often yield dramatic performance improvements&#151;especially when given RTSC modules replete with references to (<tt>extern</tt>) config params as well as calls to (<tt>extern</tt>) proxies that in turn call other (<tt>extern</tt>) functions provided by the delegate module.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListSpacer1">&nbsp;
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Interface Primer/Lesson 14&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Interface_Primer__Lesson_13.html" title="Lesson 13"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Interface_Primer.html#TOC" title="RTSC Interface Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Interface_Primer__Lesson_15.html" title="Lesson 15"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 11718 bytes
+Post-expand include size: 4296 bytes
+Template argument size: 442 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Interface_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.205 secs. --></body></html>

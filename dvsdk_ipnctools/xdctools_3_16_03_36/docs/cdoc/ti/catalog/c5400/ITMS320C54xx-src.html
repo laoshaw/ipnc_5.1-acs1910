@@ -1,0 +1,45 @@
+<html><head><title>interface ti.catalog.c5400.ITMS320C54xx</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== ITMS320C54xx.xdc ========
+</span>    15    <span class="comment"> */</span>
+    16    <span class=key>package</span> ti.catalog.c5400;
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== ITMS320C54xx ========
+</span>    20    <span class="xdoc"> *  An interface implemented by all ITMS320C54xx devices.
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  This interface is defined to factor common data about this family into
+</span>    23    <span class="xdoc"> *  a single place; all ITMS320C54xx devices extend this interface.
+</span>    24    <span class="xdoc"> */</span>
+    25    <span class=key>metaonly</span> <span class=key>interface</span> ITMS320C54xx <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    26    {
+    27    <span class=key>instance</span>:    
+    28        <span class=key>override</span> <span class=key>config</span> string   cpuCore        = <span class="string">"5400"</span>;
+    29        <span class=key>override</span> <span class=key>config</span> string   isa            = <span class="string">"54"</span>;
+    30        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minProgUnitSize = 2;
+    31        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minDataUnitSize = 2;    
+    32        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     dataWordSize    = 2;
+    33    };
+    34    <span class="comment">/*
+</span>    35    <span class="comment"> *  @(#) ti.catalog.c5400; 1, 0, 0, 0,226; 2-23-2010 16:53:05; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    36    <span class="comment"> */</span>
+    37    
+</pre>
+</body></html>

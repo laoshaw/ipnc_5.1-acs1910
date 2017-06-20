@@ -1,0 +1,83 @@
+<html><head><title>interface ti.catalog.c6000.ITMS320C64_128K</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== ITMS320C64_128K.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    <span class=key>package</span> ti.catalog.c6000;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== ITMS320C64_128K ========
+</span>    21    <span class="xdoc"> *  An interface implemented by all TMS320C64xx devices with 128KB of internal
+</span>    22    <span class="xdoc"> *  memory.
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> *  This interface is defined to factor common data about this family into
+</span>    25    <span class="xdoc"> *  a single place; all TMS320C64xx devices with 128KB of internal
+</span>    26    <span class="xdoc"> *  memory extend this interface.
+</span>    27    <span class="xdoc"> */</span>
+    28    <span class=key>metaonly</span> <span class=key>interface</span> ITMS320C64_128K <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    29    {
+    30    
+    31        <span class=key>config</span> <span class=key>long</span> cacheSize[string] = [
+    32            [<span class="string">"4-way cache (0k)"</span>,   0x00000],
+    33            [<span class="string">"4-way cache (32k)"</span>,  0x08000],
+    34            [<span class="string">"4-way cache (64k)"</span>,  0x10000],
+    35            [<span class="string">"4-way cache (128k)"</span>, 0x20000],
+    36        ];
+    37    
+    38        <span class=key>readonly</span> <span class=key>config</span> ti.catalog.c6000.ICacheInfo.CacheDesc cacheMap[string] =  [
+    39             [<span class="string">'l2Mode'</span>,{desc:<span class="string">"L2 Cache"</span>,
+    40                         map : [[<span class="string">"4-way cache (0k)"</span>,0x0000],
+    41                                [<span class="string">"4-way cache (32k)"</span>,0x8000],
+    42                                [<span class="string">"4-way cache (64k)"</span>,0x10000],
+    43                                [<span class="string">"4-way cache (128k)"</span>,0x20000]],
+    44                         defaultValue: <span class="string">"4-way cache (0k)"</span>,
+    45                         memorySection: <span class="string">"IRAM"</span>}]
+    46        ];
+    47    
+    48    <span class=key>instance</span>:
+    49        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minProgUnitSize = 1;
+    50        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     minDataUnitSize = 1;    
+    51        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>     dataWordSize    = 4;
+    52        
+    53        <span class=key>override</span> <span class=key>config</span> string   cpuCore        = <span class="string">"6400"</span>;
+    54        <span class=key>override</span> <span class=key>config</span> string   isa = <span class="string">"64"</span>;
+    55        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    56    
+    57        <span class="xdoc">/*!
+</span>    58    <span class="xdoc">     *  ======== memMap ========
+</span>    59    <span class="xdoc">     *  The default memory map for this device
+</span>    60    <span class="xdoc">     */</span>
+    61        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    62            [<span class="string">"IRAM"</span>, {
+    63                name:       <span class="string">"IRAM"</span>,
+    64                comment:    <span class="string">"Internal L2 memory"</span>,
+    65                base:       0x00000,
+    66                len:        0x20000,
+    67                space:      <span class="string">"code/data"</span>,
+    68                access:     <span class="string">"RWX"</span>
+    69            }],
+    70        ];
+    71    }
+    72    <span class="comment">/*
+</span>    73    <span class="comment"> *  @(#) ti.catalog.c6000; 1, 0, 0, 0,226; 2-23-2010 16:50:38; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    74    <span class="comment"> */</span>
+    75    
+</pre>
+</body></html>

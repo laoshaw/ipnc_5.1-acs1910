@@ -1,0 +1,308 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Managing Compiler Toolchains - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Managing Compiler Toolchains&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Managing Compiler Toolchains" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../XDCtools_User's_Guide/XDCtools_User's_Guide.html" title="XDCtools User's Guide"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Managing Compiler Toolchains</p><p id="subtitle">How to manage XDCtools use of your compiler toolchain</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Background"><span class="tocnumber">1</span> <span class="toctext">Background</span></a></li>
+<li class="toclevel-1"><a href="#Configuring_targets_for_your_development_environment"><span class="tocnumber">2</span> <span class="toctext">Configuring targets for your development environment</span></a></li>
+<li class="toclevel-1"><a href="#How_and_when_config.bld_is_used"><span class="tocnumber">3</span> <span class="toctext">How and when config.bld is used</span></a>
+<ul>
+<li class="toclevel-2"><a href="#During_package_creation"><span class="tocnumber">3.1</span> <span class="toctext">During package creation</span></a></li>
+<li class="toclevel-2"><a href="#During_configuration"><span class="tocnumber">3.2</span> <span class="toctext">During configuration</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Leveraging_an_existing_config.bld_file"><span class="tocnumber">4</span> <span class="toctext">Leveraging an existing config.bld file</span></a></li>
+<li class="toclevel-1"><a href="#Managing_multiple_toolchains"><span class="tocnumber">5</span> <span class="toctext">Managing multiple toolchains</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<p></p>
+<a name="Background"></a><h2> <span class="mw-headline"> Background </span></h2>
+<p>The embedded C/C++ programmer's development environment often contains multiple C/C++ compiler toolchains from different vendors.  It's not uncommon, for example, to use native C/C++ toolchains to develop and test large portions of an embedded code base before cross-compiling for execution on an embedded device.  Native development is often used to enable software development to precede the availability of embedded hardware, allowing hardware and software development to proceed in parallel.  But because each toolchain has unique project files, different compiler options, and unique tool usage requirements, native development is often supplanted by pure embedded development after hardware platforms become available.  Maintaining two unique sets of project files is a luxury most teams can't afford and later regret when, late in a project, intermittent failures &#151; easily debugged on native platforms &#151; require heroic efforts by the best developers to find using the limited tools typically available on embedded devices.
+</p><p><tt>XDCtools</tt> is designed to make the transition between different C/C++ toolchains as seamless as possible.  This has several advantages for embedded development:
+</p>
+<ul><li> testing and debugging - by making it easy to move back and forth between native and embedded development environments  <i>at any point in the development cycle</i>, you can always quickly leverage the best debugging, profiling, and analysis tools of any toolchain as well as state of the art runtime error trapping provided by native platforms that allow you to trap <tt>NULL</tt> pointer use (via native platform MMU support) and even use of uninitialized data (via tools like <a href="http://valgrind.org/" class="external text" title="http://valgrind.org/" rel="nofollow">valgrind</a>);
+</li><li> porting to new devices - support for new devices often requires no change to any source files <i>including project build files that are usually tied to specific toolchains</i>; and
+</li><li> product-line reuse - projects can simultaneously support multiple devices with little or no effort, even devices with completely different instruction sets (e.g, a TI C6x DSP and an Arm with custom accelerators).
+</li></ul>
+<p>To enable these benefits, <tt>XDCtools</tt> "abstracts" cross-development toolchains by always referencing these toolchains through a single fixed interface (<tt><a href="../../cdoc/xdc/bld/ITarget.html" class="cdoc"><tt>xdc.bld.ITarget</tt></a></tt>).  This means that <i>any</i> toolchain supporting this interface can be used with <tt>XDCtools</tt>.  Toolchains support this interface by providing one or more <a href="../Glossary/Glossary.html#Target" title="Glossary">targets</a>; i.e., modules that implement the <tt>ITarget</tt> interface.  Most developers never need to implement this interface, they simply use a target supplied by someone else: typically the first developer who needs to use a particular toolchain for a project.  While creating a target often requires fairly intimate knowledge of the toolchain and the C language, once it's created, all other developers use it by simply passing its name to those tools requiring use of the toolchain.
+</p>
+<a name="Configuring_targets_for_your_development_environment"></a><h2> <span class="mw-headline"> Configuring targets for your development environment </span></h2>
+<p>In order for <a href="../Glossary/Glossary.html#Target" title="Glossary">targets</a> to work in your development environment, you must "configure" each target with information specific to your development host.  You must, at a minimum, specify the installation directory of each compiler toolchain you plan to use.  This information is specified in a special file named "<tt>config.bld</tt>" and, although this file is an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> file, its contents are often quite simple.
+<span id="min_config">
+</p>
+<div id="cl-1:1"></div><div id="cl-min_config:1"></div><div id="cl-1:2"></div><div id="cl-min_config:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br /><span class="codexLab">2</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> C64P = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;ti.targets.C64P&quot;</span><span class="br0">&#41;</span>;
+C64P.rootDir = <span class="st0">&quot;/user/local/ti/c64/6.1.2&quot;</span>;</pre></td></tr></table>
+<p></span>
+Line <a class="codexLink" href="#cl-min_config:1"><span class="codexLink">1</span></a> loads the specified target, returning an object whose configuration parameters can be set on subsequent lines.  Line <a class="codexLink" href="#cl-min_config:2"><span class="codexLink">2</span></a> of this script specifies the only required parameter to use a target: <tt><a href="../../cdoc/xdc/bld/ITarget.html#root.Dir" class="cdoc"><tt>rootDir</tt></a></tt> &#151; the installation directory of the compiler.  This simple two line file is sufficient to enable the full functionality of <tt>XDCtools</tt> with TI's C64P compiler tool chain.  As you might expect, adding support for other toolchains amounts to adding another two lines per toolchain.
+</p><p>While using a hard coded path in a <tt>config.bld</tt> script is the simplest way to get started, when integrating with an existing development environment, the fact that <tt>config.bld</tt> is an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> script means that it's also easy to seamlessly inter-operate with existing tools.  It's possible to reference environment variables, read external files, load XML files, and even run external commands.  Suppose, for example, that your development group maintains all cross-development tools on a shared network drive and that the location of these tools is specified by an environment variable named <tt>TOOLS</tt>.  The following <tt>config.bld</tt> script uses <tt>TOOLS</tt> to configure the <tt>ti.targets.C64P</tt> target.
+</p>
+<div id="cl-2:1"></div><div id="cl-env_config:1"></div><div id="cl-2:2"></div><div id="cl-env_config:2"></div><div id="cl-2:3"></div><div id="cl-env_config:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> tools = java.lang.System.getenv<span class="br0">&#40;</span><span class="st0">&quot;TOOLS&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> C64P = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;ti.targets.C64P&quot;</span><span class="br0">&#41;</span>;
+C64P.rootDir = tools + <span class="st0">&quot;/c64/6.1.2&quot;</span>;</pre></td></tr></table>
+<p>Line <a class="codexLink" href="#cl-env_config:1"><span class="codexLink">1</span></a> gets the value of the <tt>TOOLS</tt> environment variable, line <a class="codexLink" href="#cl-env_config:2"><span class="codexLink">2</span></a> loads the <tt>ti.targets.C64P</tt> target, and line <a class="codexLink" href="#cl-env_config:3"><span class="codexLink">3</span></a> sets the <tt>rootDir</tt> configuration parameter to the value of <tt>TOOLS</tt> followed by <tt>"/c64/6.1.2"</tt>.  For more information about the capabilities of <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> scripts see <a href="../The_XDCscript_Language/The_XDCscript_Language.html" title="The XDCscript Language">The XDCscript Language</a>.
+</p>
+<div class="Info"><p class="Info">Addition of strings in <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> results in a new string formed by concatenating the operands.</p></div>
+<p>In addition to bridging <tt>XDCtools</tt> with your existing development environment, <tt>config.bld</tt> is used to centralize the definitions of target-specific or development-group-specific options enabling you to avoid duplicating this information in every project's build files.  Duplication of this information is generally <a href="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself" class="external text" title="http://en.wikipedia.org/wiki/Don%27t_repeat_yourself" rel="nofollow">a bad practice</a> as it makes it difficult to change or fix bugs in options passed to your compiler(s).  Suppose, for example, that your development group has a convention that all debug builds have the C macro definition <tt>DEBUG</tt> defined and no code should disable interrupts for more than 100 instruction cycles.  Starting with the <tt>config.bld</tt> file above, the following example configures the <tt>ti.targets.C64P</tt> target to support both of these new requirements.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> tools = java.lang.System.getenv<span class="br0">&#40;</span><span class="st0">&quot;TOOLS&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> C64P = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;ti.targets.C64P&quot;</span><span class="br0">&#41;</span>;
+C64P.rootDir = tools + <span class="st0">&quot;/c64/6.1.2&quot;</span>;
+<span class="coMULTI">/* define group-specific macros for debug builds */</span>
+C64P.profiles<span class="br0">&#91;</span><span class="st0">&quot;debug&quot;</span><span class="br0">&#93;</span>.compileOpts.defs = <span class="st0">&quot;-DDEBUG&quot;</span>;
+<span class="coMULTI">/* never disable interrupts for more than 100 cycles */</span>
+C64P.ccOpts.prefix = <span class="st0">&quot;-mi=100&quot;</span>;</pre></td></tr></table>
+<p>Every project using this <tt>config.bld</tt> can rely on the <tt>DEBUG</tt> macro being defined for debug builds and, perhaps more importantly, you can be sure that all such projects are compiled in such a way that the compiler never allows loops to disable interrupts for more than 100 cycles.  If, in the future, you decide that it would be better to allow 150 cycles (to give the compiler more optimization flexibility and get some performance gain), you can change this single file and simply rebuild all affected projects.  
+</p><p>For more information about configuration options available, see the <tt><a href="../../cdoc/xdc/bld/ITarget.html" class="cdoc"><tt>xdc.bld.ITarget</tt></a></tt> reference for options supported by <i>all</i> targets and the reference documentation for individual targets for options specific to that target; for example, the <tt><a href="../../cdoc/index.html#ti/targets/C64P.html" class="cdoc"><tt>ti.targets.C64P</tt></a></tt> reference page lists configuration options specific to the <tt>C64P</tt> target.
+</p><p>As you can see, <tt>config.bld</tt> files for mature development efforts can easily grow to more than the two lines shown <a href="#min_config" title="">above</a>.  Fortunately, since <tt>config.bld</tt> files are <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> files, it is possible to factor common settings into a single file and then load and modify these setting on an as needed basis.  The section <a href="Managing_Compiler_Toolchains.html#Leveraging_an_existing_config.bld_file" title="Managing Compiler Toolchains">Leveraging an existing <tt>config.bld</tt> file</a> below illustrates this technique.
+</p>
+<a name="How_and_when_config.bld_is_used"></a><h2> <span class="mw-headline"> How and when <tt>config.bld</tt> is used </span></h2>
+<p>There are several points in the development process where information about your C/C++ toolchains and hardware platforms is required by <tt>XDCtools</tt>:
+</p>
+<ul><li> as part of the configuration process, <tt>xdc.tools.configuro</tt> generates a C file which is compiled into an object file that must be linked into the final application
+</li><li> during the creation of a package, the <tt><a href="../Command_-_xdc/Command_-_xdc.html" title="Command - xdc">xdc</a></tt> command determines and records the versions of the compilers used to build the package, and
+</li><li> if you opt to use <tt>xdc</tt> to build your C/C++ sources, the makefiles generated by <tt>xdc</tt> contain references to each of your toolchain's tools (compilers, linkers, and archivers).
+</li></ul>
+<a name="During_package_creation"></a><h6> <span class="mw-headline">During package creation</span></h6>
+<p><span class="Leader">During package creation</span>.&nbsp;  The <tt><a href="../Command_-_xdc/Command_-_xdc.html" title="Command - xdc">xdc</a></tt> command is used to create one or more <a href="../Glossary/Glossary.html#Release" title="Glossary">releases</a> of a package &#151; simple archives (<tt>.tar</tt>, <tt>.tar.gz</tt>, or <tt>.zip</tt>) containing all the files necessary to use a package.  A single version of a package can have multiple releases.  For example, you may produce two releases of a codec package from a common set of sources, one that runs on a C6x architecture and one that runs on an Arm.
+</p><p>The <tt>xdc</tt> command is capable of compiling your sources or simply assembling files created via some other tools.  But, whether you use <tt>xdc</tt> to compile your sources or not, the <tt>xdc</tt> command <i>must</i> be used to create releases of a package.  This ensures that each release archive has the appropriate <a href="../Glossary/Glossary.html#Metadata" title="Glossary">meta-data</a> properly collected and stored in the specially named files which enables other tools to "see" and operate on the package as a whole.  It's the meta-data about the package that allows package display tools to report package version numbers and release labels, the configuration tool to validate compatibility of the packages used in an application, and the repository management tools to know which packages are supplied by product bundles and to validate the compatibility of the packages placed in a repository.
+</p><p>The <tt>xdc</tt> command distinguishes between packages that are "buildable" from those that are not by the existence of a file named <tt>package.bld</tt>.  As you might have guessed from this file's suffix, <tt>package.bld</tt> is related to <tt>config.bld</tt> and is also an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> file.  The <tt>package.bld</tt> script specifies what each release of a package must contain.  During the processing of <tt>package.bld</tt>, this script reads information from the <tt><a href="../../cdoc/xdc/bld/BuildEnvironment.html" class="cdoc"><tt>xdc.bld.BuildEnvironment</tt></a></tt> module and updates the information maintained by the <tt><a href="../../cdoc/index.html#xdc/bld/PackageContents.html" class="cdoc"><tt>xdc.bld.PackageContents</tt></a></tt> module.  The contents of each release of a package is <i>entirely</i> determined by the state of the <tt>xdc.bld.PackageContents</tt> module at the conclusion of <tt>package.bld</tt>.  But, before processing <tt>package.bld</tt>, the <tt>xdc</tt> command first runs <tt>config.bld</tt> to "configure" your build environment and set options that are shared across multiple packages.  
+</p><p><span id="config_bld_xdc">
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Build = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.bld.BuildEnvironment&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.bld.PackageContents&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> C64P = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;ti.targets.C64P&quot;</span><span class="br0">&#41;</span>;
+C64P.rootDir = <span class="st0">&quot;<span class="mq">&laquo;</span>compiler_install_dir<span class="mq">&raquo;</span>&quot;</span>;
+Build.targets = <span class="br0">&#91;</span>C64P<span class="br0">&#93;</span>;         <span class="coMULTI">/* only build using C64P target */</span>
+&nbsp;
+Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;     <span class="coMULTI">/* package archive format is .zip */</span>
+Pkg.attrs.profile = <span class="st0">&quot;debug&quot;</span>;    <span class="coMULTI">/* default build profile is &quot;debug&quot; */</span></pre></td></tr></table>
+<p></span>
+</p><p>As a rule, <tt>config.bld</tt> contains settings that are specific to your development environment (installation directories of compiler tool chains, optional compiler flags, etc.) whereas <tt>package.bld</tt> only specifies <i>what</i> should be in each package release.  By keeping development environment specific information out of <tt>package.bld</tt>, your packages become portable; any developer can re-build the package without making any changes to the files within the package itself.  The <tt>config.bld</tt> file becomes a convenient place to specify "global" conventions shared by all packages; e.g., the package archive format, compiler-specific options that control the level of warnings, etc.
+</p><p>Since <tt>config.bld</tt> scripts are used to initialize <tt>xdc.bld.BuildEnvironment</tt>, which is the input to <tt>package.bld</tt> scripts, the <tt>xdc</tt> command requires a <tt>config.bld</tt> file and, unless it's explicitly specified on the command line or it exists in the current package being built, <tt>xdc</tt> looks for it along the <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a>.  This allows each package to easily override global conventions set by a shared <tt>config.bld</tt> or to simply use a shared <tt>config.bld</tt>.
+</p>
+<a name="During_configuration"></a><h6> <span class="mw-headline">During configuration</span></h6>
+<p><span class="Leader">During configuration</span>.&nbsp;  The <tt><a href="../Command_-_xdc.tools.configuro/Command_-_xdc.tools.configuro.html" title="Command - xdc.tools.configuro">xdc.tools.configuro</a></tt> tool automatically generates a <tt>config.bld</tt> file based on its command line parameters.  The <tt>configuro</tt> tool's command line parameters allow you to either explicitly name the installation directory of your compiler (convenient within makefiles that often already have this information) or specify the location of a hand-crafted <tt>config.bld</tt> file.  If you pass a <tt>config.bld</tt> file to <tt>configuro</tt> on the command line, the <tt>config.bld</tt> file generated by <tt>configuro</tt> loads the hand-crafted file, chooses a single target, and sets the compiler's installation directory (if it was specified in the command line).
+</p><p>For example, command line "<tt>xs</tt>&nbsp;<tt>xdc.tools.configuro</tt>&nbsp;<tt>-t</tt>&nbsp;<tt><span class="mq">&laquo;</span>target_name<span class="mq">&raquo;</span></tt>&nbsp;<tt>-c</tt>&nbsp;<tt><span class="mq">&laquo;</span>compiler_install_dir<span class="mq">&raquo;</span></tt>&nbsp;<tt>...</tt>" causes <tt>configuro</tt> to create and use a <tt>config.bld</tt> file whose contents are shown below.
+</p>
+<div id="cl-4:1"></div><div id="cl-config_bld_1:1"></div><div id="cl-4:2"></div><div id="cl-config_bld_1:2"></div><div id="cl-4:3"></div><div id="cl-config_bld_1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld (generated by configuro)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> target  = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="mq">&laquo;</span>target_name<span class="mq">&raquo;</span>&quot;</span><span class="br0">&#41;</span>;
+target.rootDir = <span class="st0">&quot;<span class="mq">&laquo;</span>compiler_install_dir<span class="mq">&raquo;</span>&quot;</span>;
+Build.targets = <span class="br0">&#91;</span>target<span class="br0">&#93;</span>;</pre></td></tr></table>
+<p>Line <a class="codexLink" href="#cl-config_bld_1:1"><span class="codexLink">1</span></a> loads the target specified on the command line, line <a class="codexLink" href="#cl-config_bld_1:2"><span class="codexLink">2</span></a> configures the target's installation directory, and line <a class="codexLink" href="#cl-config_bld_1:3"><span class="codexLink">3</span></a> tells the <tt>XDCtools</tt> build engine to only build for this one target.
+</p><p>Similarly, if you also specify a hand-crafted <tt>config.bld</tt> to be used (via <tt>-b <span class="mq">&laquo;</span>config_bld_file<span class="mq">&raquo;</span></tt>), <tt>configuro</tt> will generate the following <tt>config.bld</tt> for its use.
+</p>
+<div id="cl-5:1"></div><div id="cl-config_bld_2:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld (generated by configuro)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="re1">xdc.loadCapsule</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="mq">&laquo;</span>config_bld_file<span class="mq">&raquo;</span>&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> target = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;<span class="mq">&laquo;</span>target_name<span class="mq">&raquo;</span>&quot;</span><span class="br0">&#41;</span>;
+target.rootDir = <span class="st0">&quot;<span class="mq">&laquo;</span>compiler_install_dir<span class="mq">&raquo;</span>&quot;</span>;
+Build.targets = <span class="br0">&#91;</span>target<span class="br0">&#93;</span>;</pre></td></tr></table>
+<p>In this case, the user specified <span class="mq">&laquo;</span>config_bld_file<span class="mq">&raquo;</span> is loaded on line <a class="codexLink" href="#cl-config_bld_2:1"><span class="codexLink">1</span></a> and this file can configure the target <span class="mq">&laquo;</span>target_name<span class="mq">&raquo;</span> with additional compiler flags, a different default platform, new or modified profiles, etc.
+</p>
+<p><div class="Notice"><p class="Notice">As you can see from the generated <tt>config.bld</tt> files, <tt>configuro</tt> <i>always</i> specifies a single target.  Even if your <tt>config.bld</tt> file configure multiple targets, <tt>configuro</tt> always assigns <tt><a href="../../cdoc/xdc/bld/BuildEnvironment.html#targets" class="cdoc"><tt>Build.targets</tt></a></tt> an array containing a single target.</p></div></p>
+<a name="Leveraging_an_existing_config.bld_file"></a><h2> <span class="mw-headline"> Leveraging an existing <tt>config.bld</tt> file </span></h2>
+<p>Sometimes a project simply needs to augment or slightly modify a <tt>config.bld</tt> that is shared among a set of related projects. Since <tt>config.bld</tt> files are <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> files that can load and execute other scripts, it's easy to create a simple <tt>config.bld</tt> that loads a "common" <tt>config.bld</tt> and makes minor changes.  This technique allows you to maintain central control with a single <tt>config.bld</tt> while still allowing for the rare (but inevitable) exception.
+</p><p>One technique for sharing a common <tt>config.bld</tt>, while still allowing minor changes, is to place the shared <tt>config.bld</tt> in a sub-directory, say <tt>./common</tt>, of any repository named on your <a href="../Glossary/Glossary.html#Package_Path" title="Glossary">package path</a>.  Whenever you need to create a <tt>config.bld</tt> script that is a minor variation of the common <tt>config.bld</tt>, simply use <tt><a href="../XDCscript_-_xdc.loadCapsule/XDCscript_-_xdc.loadCapsule.html" title="XDCscript - xdc.loadCapsule">xdc.loadCapsule()</a></tt> to find and load the common file.
+</p>
+<div id="cl-6:1"></div><div id="cl-local_config:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> common = <span class="re1">xdc.loadCapsule</span><span class="br0">&#40;</span><span class="st0">&quot;common/config.bld&quot;</span><span class="br0">&#41;</span>;
+   &nbsp;:</pre></td></tr></table>
+<p>Since <tt>xdc.loadCapsule()</tt> searches along the package path for the specified file, line <a class="codexLink" href="#cl-local_config:1"><span class="codexLink">1</span></a> only needs to name the sub-directory and file rather than an absolute or relative path to the shared file.  This makes the new <tt>config.bld</tt> file both portable (to other workstations) and position independent.  Even though <tt>xdc.loadCapsule()</tt> searches along the package path, the sub-directory <tt>./common</tt> does not itself have to be a package.
+</p><p>For the sake of creating a complete example, suppose you just need to add the <tt>-mo</tt> compiler flag to all <tt>ti.targets.C64P</tt> builds within a project and that this flag should not be used in any other project.  Assuming we use a shared <tt>config.bld</tt> in a <tt>./common</tt> sub-directory of some repository named on the package path, the following <tt>config.bld</tt> will do the trick.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> common = <span class="re1">xdc.loadCapsule</span><span class="br0">&#40;</span><span class="st0">&quot;common/config.bld&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> C64P = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;ti.targets.C64P&quot;</span><span class="br0">&#41;</span>;
+C64P.ccOpts.prefix = C64P.ccOpts.prefix + <span class="st0">&quot; -mo&quot;</span>;</pre></td></tr></table>
+<a name="Managing_multiple_toolchains"></a><h2> <span class="mw-headline"> Managing multiple toolchains </span></h2>
+<p>All of the <tt>config.bld</tt> examples we've seen so far have configured a single target.  After all, when you first start development on a project, you'll generally begin with a single C compiler toolchain.  As development matures, however, it's not uncommon to port a code base to another target.  Fortunately, adding support for multiple toolchains is quite easy: you simply name the new target and set its <tt>rootDir</tt> configuration parameter in the same <tt>config.bld</tt> file that you started with.  
+</p><p>Starting with the <tt>config.bld</tt> <a href="#config_bld_xdc" title="">above</a> that was used by the <tt>xdc</tt> command to build content using the <tt>ti.targets.C64P</tt> target, suppose we want to re-build the same code base for native execution on a Linux platform.
+</p>
+<div id="cl-8:1"></div><div id="cl-config_bld_xdc_many:1"></div><div id="cl-8:2"></div><div id="cl-config_bld_xdc_many:2"></div><div id="cl-8:3"></div><div id="cl-config_bld_xdc_many:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Build = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.bld.BuildEnvironment&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Pkg = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.bld.PackageContents&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> C64P = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;ti.targets.C64P&quot;</span><span class="br0">&#41;</span>;
+C64P.rootDir = <span class="st0">&quot;<span class="mq">&laquo;</span>c64_compiler_install_dir<span class="mq">&raquo;</span>&quot;</span>;
+<span class="kw1">var</span> Linux86 = <span class="re1">xdc.module</span><span class="br0">&#40;</span><span class="st0">&quot;gnu.targets.Linux86&quot;</span><span class="br0">&#41;</span>;
+Linux86.rootDir = <span class="st0">&quot;<span class="mq">&laquo;</span>linux_compiler_install_dir<span class="mq">&raquo;</span>&quot;</span>;
+Build.targets = <span class="br0">&#91;</span>C64P, Linux86<span class="br0">&#93;</span>;  <span class="coMULTI">/* build using both C64P and Linux86 targets */</span>
+&nbsp;
+Pkg.attrs.archiver = <span class="st0">&quot;zip&quot;</span>;       <span class="coMULTI">/* package archive format is .zip */</span>
+Pkg.attrs.profile = <span class="st0">&quot;debug&quot;</span>;      <span class="coMULTI">/* default build profile is &quot;debug&quot; */</span></pre></td></tr></table>
+<p>As before, line <a class="codexLink" href="#cl-config_bld_xdc_many:1"><span class="codexLink">1</span></a> loads the new target, line <a class="codexLink" href="#cl-config_bld_xdc_many:2"><span class="codexLink">2</span></a> configures this target's installation directory, and line <a class="codexLink" href="#cl-config_bld_xdc_many:3"><span class="codexLink">3</span></a> tells the <tt>XDCtools</tt> build engine to build for both targets.  If your packages use <tt>xdc</tt> to compile your sources and these sources are portable C, these three lines are sufficient to build your packages for both native execution on a Linux platform and execution on an embedded <tt>C64P</tt> device; no changes to individual packages are required.
+</p><p><br />
+</p><!-- 
+Pre-expand include size: 4929 bytes
+Post-expand include size: 2787 bytes
+Template argument size: 297 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Managing_Compiler_Toolchains.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.248 secs. --></body></html>

@@ -1,0 +1,296 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using xdc.runtime Errors/Example 1 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Errors/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Using_xdc.runtime_Errors.html#TOC" title="Using xdc.runtime Errors"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_Errors__Example_2.html" title="Example 2"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">Using xdc.runtime Errors/Example 1</p><p id="subtitle">How to use the <tt>Error</tt> module</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Using_the_Error_module"><span class="tocnumber">1</span> <span class="toctext">Using the Error module</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Error_Policies"><span class="tocnumber">1.1</span> <span class="toctext">Error Policies</span></a></li>
+<li class="toclevel-2"><a href="#Ignoring_Errors"><span class="tocnumber">1.2</span> <span class="toctext">Ignoring Errors</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">2</span> <span class="toctext">See also</span></a></li>
+</ul>
+</li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Using_the_Error_module"></a><h2> <span class="mw-headline">Using the <tt>Error</tt> module</span></h2>
+<p>In the somewhat contrived example below, we show how errors are raised and how they are detected.  The function <tt>half()</tt> raises an error when its argument is not an even number.  The <tt>main()</tt> function initializes an <tt>Error_Block</tt>, calls <tt>half()</tt>, and then checks for an error.
+</p><p>Notice that the caller, in this case <tt>main()</tt>, must first initialize an <tt>Error_Block</tt> by calling <tt><a href="../../cdoc/xdc/runtime/Error.html#init" class="cdoc"><tt>Error_init()</tt></a></tt>.  After calling a function that raises errors, the caller uses <tt><a href="../../cdoc/index.html#xdc/runtime/Error.html#check" class="cdoc"><tt>Error_check()</tt></a></tt> to test whether or not an an error was raised.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Error.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+&nbsp;
+<span class="coMULTI">/* ======== half ======== */</span>
+<span class="kw1">static</span> <span class="kw2">Int</span> half<span class="br0">&#40;</span><span class="kw2">Int</span> num, Error_Block *eb<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* raise an error if num is not even */</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>num &amp; 0x1<span class="br0">&#41;</span>&nbsp;!= <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        Error_raise<span class="br0">&#40;</span>eb, Error_E_generic, 
+            <span class="st0">&quot;num must be even&quot;</span>, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>num / <span class="nu0">2</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/*  ======== main ======== */</span>
+<span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">String</span> argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    Error_Block eb;
+&nbsp;
+    <span class="coMULTI">/* must initialize prior to first use */</span>
+    Error_init<span class="br0">&#40;</span>&amp;eb<span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* call a function that raises an error */</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;half returned&nbsp;%d<span class="es0">\n</span>&quot;</span>, half<span class="br0">&#40;</span><span class="nu0">17</span>, &amp;eb<span class="br0">&#41;</span><span class="br0">&#41;</span>;
+&nbsp;
+    <span class="coMULTI">/* return 1 if an error occured, 0 otherwise */</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>Error_check<span class="br0">&#40;</span>&amp;eb<span class="br0">&#41;</span>&nbsp;? <span class="nu0">1</span>&nbsp;: <span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Error = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Error&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td></tr></table>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>xdc.runtime.Main: &quot;main.c&quot;, line 10: generic error: num must be even
+half returned 8</pre></td></tr></table>
+<p>For simplicity the <tt>half()</tt> function uses an existing error ID, <tt><a href="../../cdoc/xdc/runtime/Error.html#/.E_generic" class="cdoc"><tt>Error_E_generic</tt></a></tt>, defined by the <tt>Error</tt> module itself.  We'll see in a later example (<a href="Using_xdc.runtime_Errors__Example_4.html" title="Using xdc.runtime Errors/Example 4">Example 4</a>) how to define custom error IDs that allow complete control over the message format string as well as the number and type of the arguments supported by the error.
+</p>
+<a name="Error_Policies"></a><h3> <span class="mw-headline">Error Policies</span></h3>
+<p>If we can change the <tt>Error</tt> <i><a href="../../cdoc/xdc/runtime/Error.html#/.Policy" class="cdoc"><tt>policy</tt></a></i> to terminate on any error rather than "unwind" to the caller, any call to <tt>Error_raise()</tt> results in a call to <tt>System_abort()</tt> and control does <i>not</i> return to the caller.  In the example above, a call to <tt>half()</tt> with an odd argument will terminate the program.  
+</p><p>In the example below, we only change the <tt>Error.policy</tt> configuration parameter to <tt>Error.TERMINATE</tt> and <i>without re-compiling the application</i> it now terminates prior to returning from <tt>half()</tt>.  This can be seen by comparing the output of this application with the previous example; notice that there is no output from the <tt>System_printf()</tt> function and there is a message from a call to <tt>System_abort()</tt> made by the <tt>Error</tt> module.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Error  = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Error&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+Error.policy = Error.TERMINATE;</pre></td></tr></table>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>xdc.runtime.Main: &quot;main.c&quot;, line 10: generic error: num must be even
+xdc.runtime.Error.raise: terminating execution</pre></td></tr></table>
+<a name="Ignoring_Errors"></a><h3> <span class="mw-headline">Ignoring Errors</span></h3>
+<p>In many small-footprint systems, errors are "handled" by aborting the application and restarting; if all errors are fatal, the application never needs to check for error return values and, thereby, eliminate unnecessary code.  In cases where any error from a function that raises errors should be treated as a fatal error, it is possible to simply call the function with a <tt>NULL</tt> =Error_Block= reference.  In effect, the caller is specifying that if an error occurs the application can not proceed and it must abort (via <tt><a href="../../cdoc/xdc/runtime/System.html#abort" class="cdoc"><tt>System_abort()</tt></a></tt>).
+</p><p>If we modify our original example to pass <tt>NULL</tt> rather than an initialized <tt>Error_block</tt>, you'll see that the application aborts immediately upon passing an odd value to <tt>half()</tt>.  Notice that the output is identical to output we got by setting the <tt>Error</tt> policy to <tt>Error.TERMINATE</tt>.  Passing a <tt>NULL</tt> error block reference is effectively the same as setting the <tt>Error</tt> policy to <tt>Error.TERMINATE</tt> for the just the function being called.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/std.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Error.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+&nbsp;
+<span class="coMULTI">/* ======== half ======== */</span>
+<span class="kw1">static</span> <span class="kw2">Int</span> half<span class="br0">&#40;</span><span class="kw2">Int</span> num, Error_Block *eb<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* raise an error if num is not even */</span>
+    <span class="kw1">if</span> <span class="br0">&#40;</span><span class="br0">&#40;</span>num &amp; 0x1<span class="br0">&#41;</span>&nbsp;!= <span class="nu0">0</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        Error_raise<span class="br0">&#40;</span>eb, Error_E_generic, 
+            <span class="st0">&quot;num must be even&quot;</span>, <span class="kw2">NULL</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span>num / <span class="nu0">2</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/*  ======== main ======== */</span>
+<span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">String</span> argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="coMULTI">/* call half() with NULL Error_Block reference */</span>
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;half returned&nbsp;%d<span class="es0">\n</span>&quot;</span>, half<span class="br0">&#40;</span><span class="nu0">17</span>, <span class="kw2">NULL</span><span class="br0">&#41;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Error = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Error&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td></tr></table>
+<p>Running the application above results in the following output.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>xdc.runtime.Main: &quot;main.c&quot;, line 10: generic error: num must be even
+xdc.runtime.Error.raise: terminating execution</pre></td></tr></table>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="Using_xdc.runtime_Errors__Example_2.html" title="Using xdc.runtime Errors/Example 2">Using xdc.runtime Errors/Example 2</a>
+</td><td class="DocListSubTitle1">How to use the <tt>Assert</tt> module
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Errors/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Using_xdc.runtime_Errors.html#TOC" title="Using xdc.runtime Errors"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="Using_xdc.runtime_Errors__Example_2.html" title="Example 2"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1296 bytes
+Post-expand include size: 675 bytes
+Template argument size: 93 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_xdc.runtime_Errors.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.267 secs. --></body></html>

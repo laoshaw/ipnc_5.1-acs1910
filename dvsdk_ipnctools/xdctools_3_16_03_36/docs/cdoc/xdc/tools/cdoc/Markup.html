@@ -1,0 +1,252 @@
+<html>
+<head>
+<title>module xdc.tools.cdoc.Markup</title>
+<meta name="description" content="XDCspec doc markup language examples">
+<link rel="stylesheet" type="text/css" href="../../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.tools.cdoc.</span><span class="xdoc-id">Markup</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/tools/cdoc/Main.html" title="module Main"><img class="xdocHdrArrow" src="../../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../../xdc/tools/cdoc/package.html" title="package xdc.tools.cdoc"><img class="xdocHdrArrow" src="../../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../../index.html#xdc/tools/cdoc/Markup.html">index URL</a></div>
+<p class="xdocHdrSummary">XDCspec doc markup language examples</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdoc-desc">Additional documentation</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-1">DETAILS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-2">HEADINGS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-3">PARAGRAPH FORMATTING</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-4">CHARACTER FORMATTING</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-5">LIST TYPES</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-6">CDOC HYPERLINKS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-7">SEE</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-8">EXTERNAL HTML LINKS</a></li>
+<li class="xdocToc2"><a class="xdocToc" href="#xdoc-sect-9">LINKING TO OTHER DOCUMENTATION FILES</a></li>
+</ul>
+<div class="xdocBrief">
+This module demonstrates the features of XDCspec doc and gives usage
+ examples for the XDCspec doc markup language. View the source text of this
+ .xdc file for details on how to use these examples.
+[&nbsp;<a class="xdocBrief" href="#xdoc-desc">more</a>&nbsp;...&nbsp;]
+</div>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../xdc/tools/cdoc/Markup-src.html"><span class="xdocLabelFile">xdc/tools/cdoc/Markup.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Markup</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Markup = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.tools.cdoc.Markup'</span>);
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../../xdc/tools/cdoc/Markup-src.html"><span class="xdocLabelFile">xdc/tools/cdoc/Markup.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../../xdc/tools/cdoc/package.html" title="xdc.tools.cdoc">xdc.tools.cdoc</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Markup</span></go> {
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<span id="xdoc-desc"></span>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This module demonstrates the features of XDCspec doc and gives usage
+ examples for the XDCspec doc markup language. View the source text of this
+ .xdc file for details on how to use these examples.</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">HEADINGS</div>
+<div class="xdocText">Major headings can be inserted into the document using the following
+ syntax:</div>
+<div class="xdocText"><PRE class="Example">    @tag(headingText)
+</PRE></div>
+<div class="xdocText">The available tags are:</div>
+<div class="xdocText"><DL><DT> <tt>@a(headingText)</tt></DT><DD>
+      Add a heading to the end ("a" for "after") of the details section.
+</DD><DT> <tt>@b(headingText)</tt></DT><DD>
+      Add a heading to the start ("b" for "before") of the details section.
+</DD></DL></div>
+<div class="xdocText">Since XDCtools 3.05, @a and @b tags can accept space characters in headings.
+ Prior to this, heading text could contain no spaces.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">PARAGRAPH FORMATTING</div>
+<div class="xdocText">Paragraphs can be marked in several different styles using the
+ following syntax:</div>
+<div class="xdocText"><PRE class="Example"> @p(style)
+  paragraph text here...
+
+  another paragraph...
+ @p
+</PRE></div>
+<div class="xdocText">The available paragraph styles are:</div>
+<div class="xdocText"><DL><DT> <tt>@p(text) or @p</tt></DT><DD>
+       Plain text -- this is the default.
+</DD><DT> <tt>@p(code)</tt></DT><DD>
+       Fragments of source code or pseudo-code. Paragraphs of this
+       type are rendered in a fixed-width font.
+</DD><DT> <tt>@p(html)</tt></DT><DD>
+       HTML markup. Paragraphs of this type are copied directly into the
+       XDCspec doc output, with no interpretation.
+</DD></DL></div>
+<span id="xdoc-sect-4"></span>
+<div class="xdocSect">CHARACTER FORMATTING</div>
+<div class="xdocText"></div>
+<span id="xdoc-sect-5"></span>
+<div class="xdocSect">LIST TYPES</div>
+<div class="xdocText">Lists in several styles can be created using the syntax:</div>
+<div class="xdocText"><PRE class="Example"> @p(style)
+  - first list item
+    continued...
+  - second list item
+ @p
+</PRE></div>
+<div class="xdocText">The available list styles are bulleted list, numbered list, and
+ definition list, and they look like this:</div>
+<div class="xdocText"><UL><LI>  The <tt>blist</tt> bulleted list style is an unnumbered, unordered list
+</LI><LI>  Rendered using the HTML <tt>&lt;UL&gt;</tt> element.
+</LI></UL></div>
+<div class="xdocText"><OL><LI> The <tt>nlist</tt> numbered list style is an ordered, numbered list
+</LI><LI> Rendered using the HTML <tt>&lt;OL&gt;</tt> element.
+</LI></OL></div>
+<div class="xdocText"><DL><DT> <tt>Definition List</tt></DT><DD>
+       The <tt>dlist</tt> definition list style has a minor heading for
+       each item in the list
+</DD><DT> <tt>Rendering</tt></DT><DD>
+       Rendered using the HTML <tt>&lt;DL&gt;</tt> element.
+</DD></DL></div>
+<span id="xdoc-sect-6"></span>
+<div class="xdocSect">CDOC HYPERLINKS</div>
+<div class="xdocText">HTML hyperlinks between XDCspec doc pages can be inserted using the
+ <tt><a class="xdoc-link" href="Markup.html" title=""></a></tt> inline keyword. <tt>link</tt> takes as a parameter the name of an XDCspec
+ element, and optionally some additional formatting text. The
+ XDCspec element can name a package, a module or interface, or a
+ declaration within a module or interface. The general syntax is:</div>
+<div class="xdocText"><PRE class="Example">    {@link [pkgName.][modName][#decl][suffText] [altText]}
+</PRE></div>
+<div class="xdocText">where:</div>
+<div class="xdocText"><DL><DT> <tt>pkgName</tt></DT><DD>
+       is the name of a package.
+</DD><DT> <tt>modName</tt></DT><DD>
+       is the name of a module or interface within the package.
+</DD><DT> <tt>decl</tt></DT><DD>
+       is the name of a declaration within the module or interface,
+       for example a function or config parameter.
+       Note that <tt>decl</tt> is delimited by a '<tt>#</tt>' character to distinguish
+       it from the name of a package, module or interface.
+</DD><DT> <tt>suffText</tt></DT><DD>
+       is text to be appended to the text of the link. For example, '<tt>()</tt>'
+       might be appended to denote a void function. The suffix text must
+       contain no spaces.
+</DD><DT> <tt>altText</tt></DT><DD>
+       is alternate text to be used instead of the XDCspec name of the
+       link target.
+</DD></DL></div>
+<div class="xdocText"><table cellSpacing="2" cellPadding="2" width="100%" border="1">
+   <tbody>
+   <tr>
+     <th><B>Write this:</B></th>
+     <th><B>To reference this:</B></th></tr>
+   <tr>
+     <td>{@link <i>pkgName</i>}</td>
+     <td>a package</td></tr>
+   <tr>
+     <td>{@link <i>pkgName</i>.<i>moduleName</i>}</td>
+     <td>a module</td></tr>
+   <tr>
+     <td>{@link <i>moduleName</i>}</td>
+     <td>a module in the same package</td></tr>
+   <tr>
+     <td>{@link <i>pkgName</i>.<i>moduleName</i>#<i>declName</i>}</td>
+     <td>a decl in a module</td></tr>
+   <tr>
+     <td>{@link <i>moduleName</i>#<i>declName</i>}</td>
+     <td>a decl in the same package</td></tr>
+   <tr>
+     <td>{@link #<i>declName</i>}</td>
+     <td>a decl in the same module</td></tr>
+   <tr>
+     <td>{@link #<i>declName</i>(<i>arg1</i>,<i>arg2</i>)}</td>
+     <td>a function with explicit args given in <i>suffText</i></td></tr>
+   <tr>
+     <td>{@link #<i>declName</i> defined here}</td>
+     <td>a decl with the explicit link text "defined here"</td></tr>
+   </tbody>
+ </table></div>
+<div class="xdocText">Examples are:</div>
+<div class="xdocText"><DL><DT> <a class="xdoc-link" href="Example.html#.A.Struct" title="Example.AStruct">Example.AStruct</a></DT><DD>
+</DD><DT> <a class="xdoc-link" href="../../../xdc/tools/cdoc/Example.html" title="xdc.tools.cdoc.Example">xdc.tools.cdoc.Example</a></DT><DD>
+</DD><DT> <a class="xdoc-link" href="Example.html#.A.Struct" title="Example.AStruct">a struct with alternate text</a></DT><DD>
+</DD></DL></div>
+<span id="xdoc-sect-7"></span>
+<div class="xdocSect">SEE</div>
+<div class="xdocText"><a class="xdoc-link" href="Example.html#a.Struct" title="Example.aStruct">Example.aStruct</a></div>
+<span id="xdoc-sect-8"></span>
+<div class="xdocSect">EXTERNAL HTML LINKS</div>
+<div class="xdocText">Documentation can also include HTML hyperlinks to web sites, using
+ the syntax:</div>
+<div class="xdocText"><PRE class="Example">    {@link http://serverName/pathName[#anchor] [altText]}
+</PRE></div>
+<div class="xdocText">The URL must include a resource type, typically "http:" or "ftp:".</div>
+<div class="xdocText">Examples are:</div>
+<div class="xdocText"><DL><DT> <a class="xdoc-linkExt" href="http://ti.com" title="http://ti.com">http://ti.com</a></DT><DD>
+</DD><DT> <a class="xdoc-linkExt" href="http://ti.com" title="http://ti.com">Texas Instruments</a></DT><DD>
+</DD></DL></div>
+<span id="xdoc-sect-9"></span>
+<div class="xdocSect">LINKING TO OTHER DOCUMENTATION FILES</div>
+<div class="xdocText">It is possible to deliver other documentation files along with a
+ package, and link to it from XDCspec doc. The documentation files must
+ be placed in a subdirectory of the package with the name <tt>'doc-files'</tt>.
+ Hyperlinks to files in this directory are created using the syntax:</div>
+<div class="xdocText"><PRE class="Example">    {@link ./doc-files/filename[#anchor] [altText]}
+    {@link pkgDir/doc-files/fileName[#anchor] [altText]}
+</PRE></div>
+<div class="xdocText">The file name is specified using the same syntax as the <tt>xdc.findFile()</tt>
+ function. That is, filenames within the current package must begin with "./".
+ Links to files in other packages must use the fully qualified package name,
+ with slashes ('/') instead of dots ('.') in the name.</div>
+<div class="xdocText"><table cellSpacing="2" cellPadding="2" border="1">
+   <tbody>
+   <tr>
+     <th><B>Write this:</B></th>
+     <th><B>To reference this:</B></th></tr>
+   <tr>
+     <td>{@link ./doc-files/<i>filename</i> }</td>
+     <td>a file in the current package</td></tr>
+   <tr>
+     <td>{@link <i>pkgDir</i>/doc-files/<i>filename</i> }</td>
+     <td>a file in another package</td></tr>
+   </tbody>
+ </table></div>
+<div class="xdocText">Examples are:</div>
+<div class="xdocText"><DL><DT> <a class="xdoc-linkFile" href="./doc-files/example.html" title="./doc-files/example.html">./doc-files/example.html</a></DT><DD>
+</DD><DT> <a class="xdoc-linkFile" href="../../../xdc/tools/cdoc/doc-files/example.html" title="xdc/tools/cdoc/doc-files/example.html">xdc/tools/cdoc/doc-files/example.html</a></DT><DD>
+</DD></DL></div>
+<div id="xdocElems">
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:08 GMT</div>
+</div></div></body>
+</html>

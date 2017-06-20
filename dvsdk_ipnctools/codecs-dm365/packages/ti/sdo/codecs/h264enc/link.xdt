@@ -1,0 +1,7 @@
+SECTIONS
+{
+% if (this.H264ENC.dataSection) { 
+    .data  > `this.H264ENC.dataSection`
+    .rodata  > `this.H264ENC.dataSection`
+%}
+}

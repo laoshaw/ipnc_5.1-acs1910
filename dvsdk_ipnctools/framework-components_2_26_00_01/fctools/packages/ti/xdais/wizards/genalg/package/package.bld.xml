@@ -1,0 +1,52 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  This file conforms to the DTD xdc/bld/build.dtd -->
+<package name="ti.xdais.wizards.genalg" version="1, 0, 0, 0" producerId="undefined">
+    <units>
+        <module name="Main"/>
+        <module name="Gui"/>
+    </units>
+    <sources>
+    </sources>
+    <configurations>
+    </configurations>
+    <makefiles>
+        <srcFile name="package.mak" src="package.bld"/>
+        <srcFile name="package/package.xdc.dep" src="package.xdc"/>
+        <srcFile name="package/package.cfg.dep" src="package.xdc"/>
+        <srcFile name="package/rel/ti_xdais_wizards_genalg.tar.dep" src="package/rel/ti_xdais_wizards_genalg.xdc.inc"/>
+    </makefiles>
+    <targets>
+    </targets>
+    <libraries>
+    </libraries>
+    <executables>
+    </executables>
+    <tests>
+    </tests>
+    <releases relDir="package/rel/">
+    <release name="ti_xdais_wizards_genalg"
+        pname="ti_xdais_wizards_genalg.tar"
+        label="default"
+        relScript="tisb/release/filters/copyright.rel">
+        <file name="package.bld"/>
+        <file name="shared_gui.xs"/>
+        <file name="templates"/>
+        <file name="package/package.cfg.xdc.inc"/>
+        <file name="package/package.xdc.inc"/>
+        <file name="xmlOps.xs"/>
+        <file name="package/package.rel.dot"/>
+        <file name="logic.xs"/>
+        <file name="Main.xdc"/>
+        <file name="img"/>
+        <file name="package/package.bld.xml"/>
+        <file name="Gui.xs"/>
+        <file name="package/package.ext.xml"/>
+        <file name="Gui.xdc"/>
+        <file name="package/build.cfg"/>
+        <file name="Main.xs"/>
+        <file name="wizard_constants.xs"/>
+    </release>
+    </releases>
+    <repositories>
+    </repositories>
+</package>

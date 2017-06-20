@@ -1,0 +1,335 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 2 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 2&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_1.html" title="Lesson 1"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_3.html" title="Lesson 3"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 2</p><p id="subtitle">Repository management &#151; deploying <tt>charlie_mathsuite_2_71</tt></p>
+<p>Building upon the basic concepts of RTSC packaging introduced in Lesson 1&#151;while still focusing upon the package <i>path</i>-<i>repository</i>-<i>directory</i> hierarchy&#151;we'll once again install an inbound package archive and then deploy its contents for use within the sample application covered in Lesson 3.  Unlike <tt>acme.utils</tt>, however, the (somewhat oddly-named) <tt>charlie_mathsuite_2_71</tt> package actually constitutes what RTSC informally terms a <b>product bundle</b>&#151;a top-level "wrapper" package whose contents in turn include a repository pre-populated with other RTSC packages.
+</p><p>Though seemingly still a "toy" example, deploying the <tt>charlie_mathsuite_2_71</tt> product bundle illustrates most of the common practices followed by content consumers when managing <i>multiple</i> packages installed across <i>multiple</i> repositories&#151;and even <i>multiple</i> variants of the package path composed from distinct sets of package repositories.
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Working_with_product_bundles"><span class="tocnumber">1</span> <span class="toctext">Working with product bundles</span></a></li>
+<li class="toclevel-1"><a href="#Adding_versus_merging_repositories"><span class="tocnumber">2</span> <span class="toctext">Adding versus merging repositories</span></a></li>
+<li class="toclevel-1"><a href="#Handling_per-package_updates"><span class="tocnumber">3</span> <span class="toctext">Handling per-package updates</span></a></li>
+<li class="toclevel-1"><a href="#Defining_alternate_package_paths"><span class="tocnumber">4</span> <span class="toctext">Defining alternate package paths</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Working_with_product_bundles"></a><h2> <span class="mw-headline">Working with product bundles</span></h2>
+<p>To gain some more insight into its internal organization, we'll once again invoke the <span class="cmdFrag"><tt>repoman&nbsp;-n</tt></span> command to now inspect the <tt>charlie_mathsuite_2_71.zip</tt> package archive file found in <tt><span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives</tt>.
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.repoman -n <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/charlie_mathsuite_2_71.zip</span></b>
+charlie_mathsuite_2_71
+  packages/
+    charlie.sqrtlib
+    charlie.sqrtlib.samples</pre></td></tr></table>
+<p>As you might have guessed, the output at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> confirms the presence of a RTSC package with the (somewhat odd) name of <tt>charlie_mathsuite_2_71</tt>&#151;signifying, say, the <i>MathSuite v2.71</i> product available from <i>Charlie &amp; Co.</i>  And while this top-level package may contain some important collateral&#151;such as release notes&#151;an internal <tt>packages</tt> repository flagged at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> appears to hold the "real" product content within other <tt>charlie.*</tt> packages.
+</p>
+<div class="Info"><p class="Info">Taking this scheme one step further, <i>Charlie &amp; Co.</i> would deliver a future version of this product&#151;say, <i>MathSuite v3.14</i>&#151;as a (different) RTSC product bundle named <tt>charlie_mathsuite_3_14</tt>, though internally structured along similar lines.  In effect, a top-level product "wrapper" package like <tt>charlie_mathsuite_2_71</tt> becomes a <i>one-shot</i>, never re-released under the same name by its supplier; by contrast, "bundled" packages like <tt>charlie.sqrtlib</tt> would hopefully maintain backward compatibility&#151;same package name, same package content&#151;despite any enhancements from one product version to the next.  More on this topic in Lesson 9.</p></div>
+<p>Following a similar progression in how we handled <tt>acme.utils</tt> in the last lesson, let's imagine a (different) package repository&#151;<tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products</tt>&#151;into which we'll install <tt>charlie_mathsuite_2_71</tt> using the <span class="cmdFrag"><tt>repoman&nbsp;-x</tt></span> command.
+</p>
+<div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.repoman -x -v -r <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/charlie_mathsuite_2_71.zip    </span></b>
+xdc.tools.repoman: extracting package(s)...
+xdc.tools.repoman: checking compatibility prior to extracting... 
+xdc.tools.repoman: extracting charlie_mathsuite_2_71 from <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/charlie_mathsuite_2_71.zip
+xdc.tools.repoman: extracting <span class="mq">&laquo;</span>examples<span class="mq">&raquo;</span>/archives/charlie_mathsuite_2_71.zip to <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products
+&nbsp;
+<b><span class="st0">%&gt; xs xdc.tools.repoman -n -p <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products</span></b>
+charlie_mathsuite_2_71</pre></td></tr></table>
+<p>The output of the <span class="cmdFrag"><tt>repoman&nbsp;-n</tt></span> command at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> appears to have omitted the internal <tt>packages</tt> repository reported earlier at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a>, where we inspected the <tt>charlie_mathsuite_2_71.zip</tt> archive prior to installation.  But now let's stop and think about it:&nbsp; the other <tt>charlie.*</tt> packages aren't rooted within <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products</tt> at all, but rather in a <i>different</i> repository found at <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie/mathsuite_2_71/packages</tt>.
+</p>
+<span id="Fig3"><center><a href="images/PkgPrimerFig3.png" class="image" title="Image:PkgPrimerFig3.png"><img alt="Image:PkgPrimerFig3.png" src="images/PkgPrimerFig3.png" width="676" height="239" border="0" /></a></center></span>
+<p>Using a different form of the <span class="cmdFrag"><tt>path</tt></span> command from what we'd illustrated in the previous lesson, we can discover "interior" packages such as <tt>charlie.sqrtlib</tt> by recursively searching arbitrary directories and then displaying a full slate of information about each package found&#151;including the full path to its parent repository.
+</p>
+<div id="cl-1:4"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path -PR <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products    </span></b>
+Package Name:    charlie_mathsuite_2_71
+Repository:      <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products
+    ....
+Package Name:    charlie.sqrtlib
+Repository:      <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie/mathsuite_2_71/packages
+    ....
+Package Name:    charlie.sqrtlib.samples
+Repository:      <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie/mathsuite_2_71/packages
+    ....</pre></td></tr></table>
+<a name="Adding_versus_merging_repositories"></a><h2> <span class="mw-headline">Adding versus merging repositories</span></h2>
+<p>To complete the task, we'll now <i>deploy</i> the <tt>charlie_mathsuite_2_71</tt> product for use within client applications&#151;such as the program we'll develop in the next lesson, which happens to depend upon the contents of the <tt>charlie.sqrtlib</tt> package as well as <tt>acme.utils</tt>.  Since <tt>charlie.sqrtlib</tt> already resides within a package repository&#151;the one reported at line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> of the last example&#151;we can simply append this directory to the <tt>XDCPATH</tt> environment variable and inspect the results by invoking <span class="cmdFrag"><tt>path&nbsp;-p</tt></span> and <span class="cmdFrag"><tt>path&nbsp;-n</tt></span> commands.
+</p>
+<div id="cl-2:1a"></div><div id="cl-2:2a"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1a</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2a</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path -p    </span></b>
+<span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo;<span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie_mathsuite_2_71/packages;<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages;
+&nbsp;
+<b><span class="st0">%&gt; xs xdc.tools.path -n        </span></b>
+acme.utils
+charlie.sqrtlib
+charlie.sqrtlib.samples
+gnu.gdb.jserver
+gnu.targets.arm
+    ...
+xdc.utils</pre></td></tr></table>
+<div class="Info"><p class="Info">Note that the current package path echoed after line <a class="codexLink" href="#cl-2:1a"><span class="codexLink">1a</span></a> does not include the <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products</tt> package repository, hence <tt>charlie_mathsuite_2_71</tt> itself does not appear amongst the currently deployed packages listed after line <a class="codexLink" href="#cl-2:2a"><span class="codexLink">2a</span></a>.  As suggested earlier, you'd typically find <i>programming</i> artifacts needed by client applications&#151;such as C language headers and libraries&#151;within a "bundled" package such as <tt>charlie.sqrtlib</tt> in lieu of top-level "wrapper" packages crafted for a particular product version.</p></div>
+<p><span class="Leader">Scaling the pattern</span>.&nbsp;  Should you ever obtain <i>additional</i> product packages from others structured along lines similar to <tt>charlie_mathsuite_2_71</tt>&#151;a very real possibility&#151;the process of deployment could take a fairly predictable course:
+</p>
+<ul><li> extract the new product package archive into the existing <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products</tt> directory;
+</li><li> locate the "interesting" package repository(s) bundled with the product; and
+</li><li> append these additional repository locations to the current package path.
+</li></ul>
+<p>In theory, this pattern scales indefinitely&#151;with the advantage that the package path naturally reflects the present roster of product releases through repository filenames like <tt><span class="mq">&laquo;</span>products<span class="mq">&raquo;</span>/charlie/mathsuite_2_71/packages</tt>.  In practice, though, the sheer length of the RTSC package path might become a limiting factor in your development environment as the number of product bundles reaches into the dozens&#151;another very real possibility.
+</p><p>As an alternative, we can leverage a fundamental property of each RTSC package&#151;its globally-unique name&#151;and consider <i>merging</i> multiple package repositories into one.  With unique names like <tt>acme.utils</tt> and <tt>charlie.sqrtlib</tt> dictating correspondingly distinct directory paths&#151;<tt>acme/utils</tt> and <tt>charlie/sqrtlib</tt>&#151;these two packages could safely coexist within the same package repository.  In theory, we could deploy <i>all</i> inbound packages within a <i>single</i> repository&#151;say, <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt>&#151;without conflict; and we'd certainly have a shorter package path.
+</p><p>To illustrate, let's first invoke a <span class="cmdFrag"><tt>repoman&nbsp;-c</tt></span> command variant to <i>copy</i> all of the <tt>charlie.*</tt> packages into the <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt>&#151;the <i>only</i> repository we'd then have to include on the package path.  
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.repoman -c -v -r <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo -p <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie_mathsu.../packages charlie.*    </span></b>
+xdc.tools.repoman: copying charlie.sqrtlib from <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/cha.../packages to <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo
+xdc.tools.repoman: copying charlie.sqrtlib.samples from <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/cha.../packages to <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</pre></td></tr></table>
+<p>Next, let's invoke the same forms of the <span class="cmdFrag"><tt>path</tt></span> command used earlier and then compare the results.
+</p>
+<div id="cl-2:1b"></div><div id="cl-2:2b"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1b</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2b</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path -p    </span></b>
+<span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo;<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/packages;
+&nbsp;
+<b><span class="st0">%&gt; xs xdc.tools.path -n        </span></b>
+acme.utils
+charlie.sqrtlib
+charlie.sqrtlib.samples
+gnu.gdb.jserver
+gnu.targets.arm
+    ...
+xdc.utils</pre></td></tr></table>
+<p>Despite a shorter package path reported at line <a class="codexLink" href="#cl-2:1b"><span class="codexLink">1b</span></a> compared with line <a class="codexLink" href="#cl-2:1a"><span class="codexLink">1a</span></a> above, the deployed packages listed after lines <a class="codexLink" href="#cl-2:2a"><span class="codexLink">2a</span></a> <i>and</i> <a class="codexLink" href="#cl-2:2b"><span class="codexLink">2b</span></a> remain identical&#151;we'd successfully deploy <tt>acme.utils</tt> and <tt>charlie.sqrtlib</tt> using <i>either</i> scheme.
+</p>
+<div class="Info"><p class="Info">Similar tradeoffs occur when managing executable programs on your host computer, assuming these programs have distinct names:&nbsp;do we deploy most if not all programs in a <i>single</i> directory already in your search <tt>PATH</tt>; or do we maintain <i>separate</i> directories for distinct groups of programs organized (say) along product lines, but then continually expand the search <tt>PATH</tt> with each new set of programs.</p></div>
+<a name="Handling_per-package_updates"></a><h2> <span class="mw-headline">Handling per-package updates</span></h2>
+<p>Though inconsequential so far, you should understand that the <tt>XDCtools</tt> perform an <i>ordered</i> search of the package path when locating individual packages.  Returning to the original deployment scenario at line <a class="codexLink" href="#cl-2:1a"><span class="codexLink">1a</span></a> of the earlier example, consider what might happen if (say) a version of <tt>charlie.sqrtlib</tt> exists in <i>more</i> than one repository on the package path&#151;perhaps <i>Charlie &amp; Co</i> sent you a "new-and-improved" <tt>charlie.sqrtlib</tt> package in a standalone form, which you'd install into <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> following the same procedure used with <tt>acme.bench</tt>.
+</p>
+<center><a href="images/PkgPrimerFig4.png" class="image" title="Image:PkgPrimerFig4.png"><img alt="Image:PkgPrimerFig4.png" src="images/PkgPrimerFig4.png" width="659" height="242" border="0" /></a></center>
+<p>To help manage cases when updates arrive on a per-package basis, the unabridged output of the <span class="cmdFrag"><tt>path</tt></span> command would here draw attention to the <i>second</i> occurrence of <tt>charlie.sqrtlib</tt>&#151;the version originally found in the <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie/mathsuite_2_71/packages</tt> repository&#151;as a "duplicate" worthy of closer inspection.
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.path    </span></b>
+Package Name:      acme.utils
+Repository:        <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo
+    ....
+Package Name:      charlie.sqrtlib
+Repository:        <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo
+Release Name:      charlie_sqrtlib
+Label:             default
+Compatibility Key: 1, 0, 4, 3
+Date:              08/08/2008  08:08
+&nbsp;
+Package Name:      charlie.sqrtlib
+Repository:        <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie/mathsuite_2_71/packages
+Release Name:      charlie_sqrtlib
+Label:             default
+Compatibility Key: 1, 0, 2, 6
+Date:              07/07/2007  07:07
+    ....</pre></td></tr></table>
+<div class="Info"><p class="Info">Beginning in Lesson 4, we'll have more to say about the attributes reported here (<tt>Release Name</tt>, <tt>Label</tt>, <tt>Compatibility Key</tt>) and how package producers can effect their respective values.  Suffice it to say, the version of <tt>charlie.sqrtlib</tt> reported at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> does indeed appears "more recent" than the version bundled with <tt>charlie_mathsuite_2_71</tt> and reported at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a>.</p></div>  
+<p>In this particular deployment, client application programs requiring C language headers and libraries logically contained inside of the <tt>charlie.sqrtlib</tt> package would find these under the <tt>charlie/sqrtlib</tt> package directory rooted in <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt>&#151;the repository at the front of the package path&#151;effectively overriding the (older) original version under <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products</tt> co-located with the rest of the <tt>charlie_mathsuite_2_71</tt> product bundle.
+</p>
+<div class="Info"><p class="Info">Any manner of ordered directory search&#151;whether the executable <tt>PATH</tt>, <tt>-I</tt> compiler flags, or the RTSC package path itself&#151;ultimately gives you the flexibility to supersede a "shared" artifact seen by many (whether a program, a header, or a package) with a "local" artifact of the same name.  Our use of <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> as a staging ground for deploying product patches alongside standalone packages proves invaluable for this task; anyone working with RTSC should likewise maintain their own private repository at the front of the package path.</p></div>
+<a name="Defining_alternate_package_paths"></a><h2> <span class="mw-headline">Defining alternate package paths</span></h2>
+<p>Suppose, now, <i>Charlie &amp; Co</i> delivered a new release of their <i>MathSuite</i> product&#151;bundled as <tt>charlie_mathsuite_3_14</tt> and perhaps containing versions of <tt>charlie.sqrtlib</tt> with expanded functionality as well as entirely new packages not offered before.  Following protocol, we'd extract the corresponding package archive file into the same <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products</tt> directory already holding the current product release&#151;with no conflict here, since the top-level "wrapper" packages have distinct names tied to <i>MathSuite v2.71</i> versus <i>MathSuite v3.14</i>.
+</p><p>Deploying the latest <i>MathSuite</i> product then requires us to alter the current package path, replacing repositories rooted under <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie_mathsuite_2_71</tt> with alternates under <tt>.../charlie_mathsuite_3_14</tt>.  We'd also need to remove any isolated updates to packages like <tt>charlie.sqrtlib</tt> which might currently reside in other repositories like <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> and inadvertently preempt an even more recent version of this package bundled with the latest product.
+</p>
+<div class="Info"><p class="Info">The <tt>path</tt> tool&#151;or its GUI counterpart, the <tt>path.sg</tt> tool&#151;can assist in locating duplicate packages found along the current package path as illustrated <a href="#cl-3:1" title="">earlier</a>.  To remove any unwanted duplicates&#151;which would override access to a <i>newer</i> version of some package&#151;use the <span class="cmdFrag"><tt>repoman</tt>&nbsp;<tt>-d</tt></span> command whose additional arguments name the repository and the package(s).</p></div>
+<p>But after making all of these adjustments to the package path (enabling us to start working with <i>MathSuite v3.14</i>) the challenge now becomes one of simultaneously supporting existing applications tied to the earlier <i>MathSuite v2.71</i> product&#151;which requires the <i>previous</i> form of the package path, prior to making any changes. Clearly, the <tt>XDCtools</tt> can only see one package path at a time; but can we at least streamline the task of "switching context"&#151;changing the set of currently deployed packages&#151;without having to constantly update the <tt>XDCPATH</tt> environment variable.
+</p><p>As it turns out, the underlying <tt>xs</tt> command we've used all along to launch tools like <tt>path</tt> or <tt>repoman</tt> supports a special <tt>--xdcpath</tt> option enabling us to explicitly enumerate the package repositories comprising the current package path; if present on the command-line, the  <tt>--xdcpath</tt> option would override the current <tt>XDCPATH</tt> environment variable.
+</p><p>To keep command-line input manageable&#151;as well as to facilitate sharing amongst developers&#151;the <tt>xs</tt> command also accepts an <tt>@<span class="mq">&laquo;</span>opts-file<span class="mq">&raquo;</span></tt> argument.  For example, we can first populate <tt>oldpath.opts</tt> and <tt>newpath.opts</tt> with different settings for the package path and then invoke <tt>xdc.tools.path</tt> with each.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>oldpath.opts</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>--xdcpath=<span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo;<span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie_mathsuite_2_71/packages</pre></td></tr></table>
+<p></p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>newpath.opts</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>--xdcpath=<span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo;<span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie_mathsuite_3_14/packages</pre></td></tr></table>
+<p></p>
+<div id="cl-4:1"></div><div id="cl-4:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs @oldpath.opts xdc.tools.path   </span></b>
+acme.utils
+charlie.sqrtlib
+charlie.sqrtlib.samples
+    ...
+xdc.utils
+&nbsp;
+<b><span class="st0">%&gt; xs @newpath.opts xdc.tools.path   </span></b>
+acme.utils
+charlie.sqrtlib
+charlie.sqrtlib.samples
+charlie.triglib
+    ...
+xdc.utils</pre></td></tr></table>
+<p>Needless to say, these <tt>*.opts</tt> files can reside <i>anywhere</i> within your file-system&#151;including centrally-managed project-wide directories like <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span></tt> where judicious use can ensure consistent package deployment across of team of software developers.  To handle even more complex variations of the package path&#151;each representing different combinations and permutations amongst multiple product bundles&#151;one <tt>@<span class="mq">&laquo;</span>opt-file<span class="mq">&raquo;</span></tt> can even reference another.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p><span class="todo"><b>TODO:</b>&nbsp;&nbsp;write it</span>
+</p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 2&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_1.html" title="Lesson 1"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_3.html" title="Lesson 3"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 13516 bytes
+Post-expand include size: 4257 bytes
+Template argument size: 619 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>

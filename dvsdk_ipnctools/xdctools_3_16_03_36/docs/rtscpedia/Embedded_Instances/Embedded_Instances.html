@@ -1,0 +1,325 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Embedded Instances - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Embedded Instances&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Embedded Instances" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"></td></tr></table><p id="title">Embedded Instances</p><p id="subtitle">When (and when not) to use the type <tt>Object</tt></p>
+<p></p>
+<p>This article introduces an advanced RTSC programming feature known as <b>embedded instances</b>, which affords the developer of RTSC modules  some additional opportunities for optimizing run-time performance.  Building upon the foundation put in place within the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>&#151;material we assume you've already mastered&#151;the embedded instances feature described here largely boils down to disciplined use of the type <tt>Object</tt> within module source files.
+</p>
+<div class="Info"><p class="Info">The <tt>XDCtools</tt> product has supported embedded instances for quite some time now, albeit as an "undocumented" feature used only by a select set of <b>BIOSv6</b> module developers.  Consider, then, this article as the first publication of the embedded instances feature!</p></div>
+<p><span class="note"><b>NOTE:</b>&nbsp;&nbsp;The <tt>XDCtools</tt> 3.10 product, while supporting this feature, could do a better job of flagging <i>incorrect</i> use of the type <tt>Object</tt>.</span>
+<br />
+<span class="note"><b>NOTE:</b>&nbsp;&nbsp;The programming rules for using <tt>Object</tt> enumerated throughout this article will be more strictly enforced in <tt>XDCtools</tt> 3.15.</span>
+<br />
+<span class="note"><b>NOTE:</b>&nbsp;&nbsp;Current developers using embedded instances should review their code along these lines, to avoid breakage in the future.</span>  
+</p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#The_types_Handle.2C_Struct.2C_and_Object"><span class="tocnumber">1</span> <span class="toctext">The types Handle, Struct, and Object</span></a></li>
+<li class="toclevel-1"><a href="#Performance_impact_of_linking_versus_embedding"><span class="tocnumber">2</span> <span class="toctext">Performance impact of linking versus embedding</span></a></li>
+<li class="toclevel-1"><a href="#An_idiomatic_example_of_embedded_instances"><span class="tocnumber">3</span> <span class="toctext">An idiomatic example of embedded instances</span></a></li>
+<li class="toclevel-1"><a href="#Implications_for_binary_compatibility"><span class="tocnumber">4</span> <span class="toctext">Implications for binary compatibility</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">5</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="The_types_Handle.2C_Struct.2C_and_Object"></a><h2> <span class="mw-headline">The types <tt>Handle</tt>, <tt>Struct</tt>, and <tt>Object</tt></span></h2>
+<p><span class="Leader">Client perspective</span>.&nbsp; By way of review, clients of a RTSC module hypothetically named <tt>ModA</tt> will interact with underlying instance objects (presumably) managed by this module using pointer-sized values of type <tt>ModA_Handle</tt> within their C code.  As illustrated in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_4.html#cl-1:1" title="RTSC Module Primer/Lesson 4">Lesson 4</a> of the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>, values of type <tt>ModA_Handle</tt> can originate from a variety of sources:
+</p>
+<ul><li> from calls to the <tt>ModA_create</tt> function, which returns values of this type;
+</li><li> from the special conversion function <tt>ModA_handle</tt>, applied to a <tt>ModA_Struct</tt> pointer; and
+</li><li> from <tt>extern</tt> variables of this type referencing static instances, created during program configuration.
+</li></ul>
+<p>In all cases, clients should treat a <tt>Handle</tt> as an <i>opaque reference</i> to some underlying instance object originally manufactured in one of several different ways.  Though technically a C <tt>typedef</tt> that equates to a <tt>ModA_Object*</tt> pointer, clients of <tt>ModA</tt> must <u>absolutely</u> ignore this fact.  As a client, you should instead regard <tt>ModA_Handle</tt> as a unique C type (distinct from any other module's <tt>Handle</tt>) whose true meaning derives from the per-instance functions of <tt>ModA</tt> which ultimately manipulate values of this type.
+</p>
+<p><div class="Notice-red"><p class="Notice-red">From <tt>XDCtools</tt> 3.15 onward, <tt>ModA_Object</tt> will remain as an <i>incomplete</i> C <tt>struct</tt> during client compilation&#151;further preventing clients of <tt>ModA</tt> from making any assumptions whatsoever about the <i>size</i> of this structure, let alone its contents.  For all practical purposes, clients of <tt>ModA</tt> must <u>never</u> declare variables of type <tt>ModA_Object</tt> in their code.</p></div></p>
+<p>Clients wishing to explicitly allocate space for an instance object can always declare a C variable of type <tt>ModA_Struct</tt>, passing its address to the <tt>ModA_construct</tt> function to complete the initialization process; as noted above, you can obtain corresponding values of type <tt>ModA_Handle</tt> referencing newly-constructed instance objects via the <tt>ModA_handle</tt> conversion function.  If necessary, you should review this programming example in <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_4.html#cl-1:1" title="RTSC Module Primer/Lesson 4">Lesson 4</a> to clarify the relationship between the types <tt>ModA_Handle</tt> and <tt>ModA_Struct</tt>.
+</p><p>While certainly not an <i>incomplete</i> C <tt>struct</tt> (like <tt>ModA_Object</tt>, whose size remains unknown at compile-time), clients should nevertheless treat <tt>ModA_Struct</tt> as an opaque type&#151;one representing a "chunk" of memory large enough to hold the internal state of an instance object, but without any further details exposed at this point.
+</p>
+<p><div class="Notice-red"><p class="Notice-red">From <tt>XDCtools</tt> 3.15 onward, the definition of type <tt>ModA_Struct</tt> will have fictionalized field names, preventing (accidental) attempts by clients to access supplier-proprietary instance state variables via structures of this type.</p></div></p>
+<p><span class="Leader">Supplier perspective</span>.&nbsp;  Unlike its clients, the supplier of the <tt>ModA</tt> module both defines and manipulates internal state variables associated with each <tt>ModA</tt> instance object.  Originally defined as elements of a well-known <tt>Instance_State</tt> structure found in the <span class="kw1"><tt>internal</tt></span> section of the module's <i>specification</i> (<tt>ModA.xdc</tt>), these state variables become fields of the type <tt>ModA_Object</tt> within the module's <i>target-implementation</i> in C.  A quick glance through <a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_8.html" title="RTSC Module Primer/Lesson 8">Lesson 8</a> of the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a> should refresh your memory on these points.
+</p><p>Though no longer an incomplete <tt>struct</tt>, the <tt>ModA</tt> supplier will nevertheless access <tt>ModA_Object</tt> fields&#151;corresponding to instance state variables&#151;exclusively via <i>pointers</i> to this type of structure, conventionally passed as the first argument to all per-instance functions.  Whereas clients of <tt>ModA</tt> shouldn't even mention the type <tt>ModA_Object</tt> by name within their own source code, declarations of type <tt>ModA_Object*</tt> will conventionally appear throughout the supplier's target-implementation in C.
+</p>
+<p><div class="Notice-red"><p class="Notice-red">Even the <tt>ModA</tt> supplier must <u>never</u> declare variables of type <tt>ModA_Object</tt>, as you'll come to understand shortly.  Unlike <tt>ModA</tt> clients&#151;who would encounter compile-time errors from <tt>XDCtools</tt> 3.15 onward&#151;module suppliers (for now) must exercise vigilance, following prescribed programming idioms that rely upon <i>pointers</i> of type <tt>ModA_Object*</tt> instead.</p></div></p>
+<a name="Performance_impact_of_linking_versus_embedding"></a><h2> <span class="mw-headline">Performance impact of linking versus embedding</span></h2>
+<p>Often, the supplier of <tt>ModA</tt> becomes a client of another module <tt>ModB</tt>&#151;in particular, when the implementation of <tt>ModA</tt> instance objects internally rely upon <tt>ModB</tt> instances.  Practical examples of this pattern occur throughout "real-world" products composed out of RTSC modules, such as <b>BIOSv6</b>:  <tt>Semaphore</tt> instances internally manage a <tt>Queue</tt> instance; <tt>Mailbox</tt> instances internally manage <i>two</i> <tt>Semaphore</tt> instances plus a <tt>Queue</tt> instance of their own; and so forth.
+</p><p>As a rule, <tt>ModA</tt> interacts with <tt>ModB</tt> no differently than any other client; and above all, <tt>ModA</tt> can make <i>no</i> assumptions about the internal implementation of <tt>ModB</tt> (which, in general, could reside in a different package).  Following protocol, <tt>ModA</tt> may specify instance state variables of type <tt>ModB.Handle</tt> in the <tt>ModA.xdc</tt> specification; these in turn become fields of type <tt>ModB_Handle</tt> in <tt>ModA.c</tt>, manipulated as part of the module's implementation in the target-domain.
+</p>
+<table>
+
+<tr valign="top">
+<td><div id="cl-1:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>pkg1/ModA.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> pkg2.ModB <span class="br0">&#123;</span>
+<span class="kw1">module</span> ModA <span class="br0">&#123;</span>
+    ...
+<span class="kw1">internal</span>:    
+    <span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>
+        ModB.Handle mbInst;  
+        <span class="kw2">Int</span> x;
+    <span class="br0">&#125;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><div id="cl-1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>pkg1/ModA.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;pkg2/ModB.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/ModA.xdc.h&quot;</span>
+&nbsp;
+<span class="kw2">Void</span> ModA_Instance_init<span class="br0">&#40;</span>ModA_Object *obj, const ModA_Params *params<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    obj-&gt;mbInst = ModB_create<span class="br0">&#40;</span> ... <span class="br0">&#41;</span>;
+    obj-&gt;x = ...&nbsp;;
+<span class="br0">&#125;</span>
+&nbsp;</pre></td></tr></table>
+</td></tr></table>
+<div class="Info"><p class="Info">This pattern extends analogously to the implementation of <tt>ModA</tt> in the meta-domain, where the special <tt>instance$static$init</tt> function defined in <tt>ModA.xs</tt> would mimic line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> and assign <tt>obj.mbInst</tt> the results of calling <tt>ModB.create</tt> during program configuration.</p></div>
+<p>Taken to the limit, instance objects managed by one RTSC module can (recursively) compose instances managed by other RTSC modules&#151;with opaque <tt>Handle</tt> references at the center of the client-supplier contract found at each level of this arbitrarily-rich hierarchy of modules.  While easy to comprehend and straightforward to implement, this general design pattern does have one major drawback:
+</p>
+<p><div class="Notice"><p class="Notice">Excessive of use opaque <tt>Handle</tt> references&#151;especially when composing small and/or frequently-accessed instance objects&#151;can potentially degrade run-time performance in <i>time</i> as well as <i>space</i>.</p></div></p>
+<p>Suppose, now, that the per-instance state of a <tt>ModB</tt> object required only two words of memory:  the pointer-sized <tt>ModB_Handle</tt> then retained by <tt>ModA</tt> within each of its own instance objects would introduce a <i>space</i> overhead of 50% under this scenario.  Even with somewhat larger instance objects, what effectively becomes pointer-based linkage between instances can potentially increase fragmentation of memory pools and decrease locality of reference during program execution&#151;especially since each call to <tt>ModA_create</tt> (or <tt>ModA_construct</tt>) at run-time would trigger a corresponding call to <tt>ModB_create</tt>; calls to <tt>ModA_delete</tt> (or <tt>ModA_destruct</tt>) would likewise invoke <tt>ModB_delete</tt>.
+</p>
+<div class="Info"><p class="Info">For the record, <b>BIOSv6</b> <tt>Queue</tt> and <tt>Semaphore</tt> instance objects respectively consume two (2) and six (6) words of memory apiece.</p></div>
+<p>The <tt>ModB_Handle</tt> retained by <tt>ModA</tt> also represents a potential <i>time</i> overhead, logically requiring an additional memory fetch of <tt>obj-&gt;mbInst</tt> each time a <tt>ModA</tt> per-instance function becomes a client of <tt>ModB</tt>.  Even when applying the most aggressive modes of whole-program optimization&#151;in which <tt>ModB</tt> calls become automatically inlined&#151;retention of the <tt>ModB_Handle</tt> by <tt>ModA</tt> will always incur some residual cost.
+</p><p>The answer, quite simply, boils down to <i>embedding</i> a <tt>ModB</tt> instance object directly within the representation of an <tt>ModA</tt> instance object, rather than <i>linking</i> to a <tt>ModB</tt> instance via the <tt>mbInst</tt> state variable currently of type <tt>ModB_Handle</tt>.  The real question, then, becomes finding an appropriate type (other than <tt>Handle</tt>) for <tt>mbInst</tt> per se.
+</p>
+<div class="Info"><p class="Info">Seemingly, declaring <tt>mbInst</tt> as a <tt>ModB.Struct</tt> at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a> above would signify instance embedding versus instance linking; not so, since the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> language doesn't even recognize <tt>Struct</tt> as a legal type!&nbsp;  More to the point, however, the C type <tt>ModB_Struct</tt> will generally reserve <i>more</i> storage than actually required to hold a <tt>ModB</tt> instance object&#151;whose final size, it turns out, depends upon program configuration parameters known <i>after</i> compilation of <tt>ModA.c</tt>.  At the end of the day, we need a way to reconcile C's innate requirement for fixed <tt>struct</tt> sizes at compile-time versus RTSC's unique ability to impact the size of module instance objects at config-time.</p></div>
+<a name="An_idiomatic_example_of_embedded_instances"></a><h2> <span class="mw-headline">An idiomatic example of embedded instances</span></h2>
+<p>As hinted by the sub-title of this article, the type <tt>Object</tt> <i>does</i> play a central role when realizing embedded instances.  Turning first to <tt>ModA.xdc</tt>&#151;where we had originally declared <tt>mbInst</tt> of type <tt>ModB.Handle</tt> back at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a>&#151;we'll alternatively ascribe the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> type <tt>ModB.Object</tt> to the same state variable.
+</p>
+<div id="cl-1:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>pkg1/ModA.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">import</span> pkg2.ModB <span class="br0">&#123;</span>
+<span class="kw1">module</span> ModA <span class="br0">&#123;</span>
+    ...
+<span class="kw1">internal</span>:
+    <span class="kw1">struct</span> Instance_State <span class="br0">&#123;</span>  
+        ModB.Object mbInst;  
+        <span class="kw2">Int</span> x;
+    <span class="br0">&#125;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>While we've effectively banned direct use of the C <tt>struct</tt> type <tt>ModB_Object</tt> by clients and suppliers alike, you will encounter the corresponding <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> type <tt>ModB.Object</tt> within module specifications&#151;though only in a limited set of contexts.  As a rule, the type <tt>Object</tt> can only appear inside the special <span class="kw1"><tt>internal</tt></span> structures <tt>Instance_State</tt> and <tt>Module_State</tt>, respectively used to define the per-instance and module-wide state variables that form the backbone of a module's proprietary implementation.
+</p>
+<p><div class="Notice-red"><p class="Notice-red">From <tt>XDCtools</tt> 3.15 onward, the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> translator will flag any inappropriate usage of the type <tt>Object</tt> as an error.</p></div></p>
+<p>Turning now to <tt>ModA.c</tt>, we've finally come to the heart of the matter&#151;a new C programming idiom used within RTSC module implementations to retrieve a <tt>Handle</tt> referencing a corresponding <tt>Object</tt> embedded within this module's state. 
+</p>
+<div id="cl-1:4"></div><div id="cl-1:5"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>pkg1/ModA.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;pkg2/ModB.h&gt;</span>
+<span class="re1">#include</span> <span class="st0">&quot;package/internal/ModA.xdc.h&quot;</span>
+&nbsp;
+<span class="kw2">Void</span> ModA_Instance_init<span class="br0">&#40;</span>ModA_Object *obj, const ModA_Params *params<span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ModB_Handle mbH = ModA_Instance_State_mbInst<span class="br0">&#40;</span>obj<span class="br0">&#41;</span>;
+&nbsp;
+    ModB_construct<span class="br0">&#40;</span>ModB_struct<span class="br0">&#40;</span>mbH<span class="br0">&#41;</span>, ... <span class="br0">&#41;</span>;
+    obj-&gt;x = ...&nbsp;;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Conceptually, the automatically-generated "getter" function called at line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> means <tt>&amp;(obj-&gt;mbInst)</tt>, an expression denoting the address of the <tt>ModB_Object</tt> stored in the <tt>mbInst</tt> field of <tt>obj</tt> (that is, a value of type <tt>ModB_Handle</tt>); in reality, the <tt>ModA_Object</tt> structure has no field named <tt>mbInst</tt> whatsoever. Since <tt>ModA</tt> cannot make any assumptions about the actual size of a <tt>ModB_Object</tt>, the definition of the <tt>ModA_Object</tt> structure seen when compiling <tt>ModA.c</tt> cannot include an <i>incomplete</i> field of this type.
+</p>
+<p><div class="Notice-red"><p class="Notice-red">From <tt>XDCtools</tt> 3.15 onward, the expression <tt>obj-&gt;mbInst</tt> (even within <tt>ModA.c</tt>) would result in a compile-time error.</p></div></p>
+<p>The name itself of the special getter called at line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> suggests this idiom extends not only to <i>multiple</i> per-instance state variables holding embedded objects (each of a potentially different <tt>Object</tt> type), but to module-wide state variables as well.  In the latter case, parameter-less calls of the form <tt><i>Mod</i>_Module_State_<i>var</i>()</tt> inside of <tt><i>Mod</i>.c</tt> conceptually mean the same thing as the expression <tt>&amp;(module-&gt;<i>var</i>)</tt>, yielding a <tt>Handle</tt> to the embedded <tt>Object</tt> held in the module-wide state variable named <tt><i>var</i></tt>.
+</p>
+<div class="Info"><p class="Info">From the perspective of <tt>ModA</tt>, its module-wide state variables not only can hold embedded <tt>ModB.Object</tt> instances but in fact can hold one or more of its <i>own</i> <tt>ModA.Object</tt> instances as well; not as exotic as you might imagine, this design pattern effectively enables the <tt>ModA</tt> implementation to maintain its own private pool of statically-created instances apart from those fabricated through calls by others to <tt>ModA.create</tt> in the meta-domain.  At the same time, an unresolvable self-referential type definition would prevent the <i>per-instance</i> state of  <tt>ModA</tt> from itself further embedding any <tt>ModA.Object</tt> instances.</p></div>
+<p>Wrapping up <tt>ModA.c</tt>, the value of type <tt>ModB_Handle</tt> returned by the getter at line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> subsequently becomes input to the <tt>ModB_construct</tt> call at line <a class="codexLink" href="#cl-1:5"><span class="codexLink">5</span></a>&#151;with the special conversion function <tt>ModB_struct</tt> effectively casting <tt>mbH</tt> into a corresponding value of type <tt>ModB_Struct*</tt>.  Though not shown here, an implementation of <tt>ModA_instance_finalize</tt> would feature an analogous call to <tt>ModB_destruct</tt> with a similar set of preparatory steps.  Needless to say, the implementation of any per-instance <tt>ModA</tt> function that in turn becomes a client of some <tt>ModB</tt> per-instance function would likewise invoke the <tt>ModA_Instance_State_mbInst</tt> getter to obtain a suitable <tt>ModB_Handle</tt> for input.
+</p><p>And finally, let's take a quick look at the special meta-function <tt>instance$static$init</tt> defined in <tt>ModA.xs</tt>:
+</p>
+<div id="cl-1:6"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>pkg1/ModA.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">6</span><br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> ModB = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'pkg2.ModB'</span><span class="br0">&#41;</span>;
+    ...
+<span class="kw1">function</span> instance$state$init<span class="br0">&#40;</span> obj, ... <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    ModB.construct<span class="br0">&#40;</span>obj.mbInst, ... <span class="br0">&#41;</span>;
+    obj-&gt;x = ...&nbsp;;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>While clearly mirroring line <a class="codexLink" href="#cl-1:5"><span class="codexLink">5</span></a> of <tt>ModA.c</tt>, the rather uncluttered call to <tt>ModB.construct</tt> here at line <a class="codexLink" href="#cl-1:6"><span class="codexLink">6</span></a> reflects upon the higher-level nature of the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> meta-language versus standard C.
+</p>
+<a name="Implications_for_binary_compatibility"></a><h2> <span class="mw-headline">Implications for binary compatibility</span></h2>
+<p>Ideally, "new-and-improved" versions of <tt>ModB</tt> would maintain <i>binary</i> backward-compatibility whenever possible.  While the supplier of <tt>ModB</tt> continues to innovate&#151;not only by adding new functionality, but also by improving the internal implementation of current functionality&#151;clients such as <tt>ModA</tt> need not continuously track these sorts of changes within a programmatic contract already put in place.  Said another way, re-compiling <tt>ModA.c</tt> should become unnecessary&#151;"old" <tt>ModA</tt> libraries will continue to link and run against "new" (binary-compatible) versions of <tt>ModB</tt>.
+</p>
+<div class="Info"><p class="Info">Notwithstanding the growing trend towards "open-source" software&#151;enabling integrators to re-build all inbound components at will&#151;we firmly believe the <i>discipline</i> required to maintain binary compatibility significantly boosts overall software quality by keeping contracts between suppliers and their clients front-and-center.  If nothing else, binary compatibility re-affirms the application integrator's ability to mix-and-match otherwise discrete, independently developed software elements&#151;a distinguishing characteristic of any robust component-based ecosystem.</p></div>
+<p>More to the point, suppose the supplier of <tt>ModB</tt> in some way <i>changes</i> the number or type of (internal) instance state variables required in the module's (internal) implementation&#151;whether to optimize performance of current client-visible functionality in some way, or else to support expanded client-visible functionality in a new version of <tt>ModB</tt>.  Either way, the actual <i>size</i> of the structure representing a <tt>ModB</tt> instance object could change&#151;normally implying that clients such as a <tt>ModA</tt> who elected to embed <tt>ModB</tt> instances within their own internal state would need to re-build and re-release their own content against these changes.
+</p>
+<div class="Info"><p class="Info">Even without new versions of <tt>ModB</tt> that change the size of its instances, program integrators can optionally configure <tt>ModB</tt> to automatically retain a textual name (optionally) provided by clients upon instance creation.  Setting the special module-wide config parameter <tt>ModB.common$.namedInstance</tt> to <tt>true</tt> effectively <i>enlarges</i> the <tt>ModB</tt> instance object by adding an internal field that retains the value of the special per-instance config parameter <tt>instance.name</tt>.  Since various diagnostic capabilities of the <tt>xdc.runtime</tt> package described <a href="../Using_xdc.runtime_Logging/Using_xdc.runtime_Logging.html" title="Using xdc.runtime Logging">here</a> will leverage these names if present within an instance object, the program integrator can  weigh the cost of the extra storage per <tt>ModB</tt> instance against decreased visibility when troubleshooting an errant program at runtime.  Either way, the supplier of <tt>ModA</tt> electing to embed <tt>ModB</tt> instance objects should remain insulated from these downstream decisions by the integrator.</p></div>
+<p>By following the programmatic idioms exemplified earlier, the supplier of <tt>ModA</tt> can indeed remain insulated from any changes to the size of a <tt>ModB</tt> instance object.  While understanding how this actually works lies outside the scope of this article (requiring some knowledge of the C language binding used internally by RTSC), suffice it to say that the (seemingly complete) type <tt>ModA_Object</tt> referenced in <a href="#cl-1:4" title=""><tt>ModA.c</tt></a> in reality serves as a <i>prefix</i> for the "real" definition of this structure laid down in the aftermath of RTSC program configuration.
+</p><p>Having a global perspective of the program under configuration not seen by individual module suppliers, the "real" definition of <tt>ModA_Object</tt> can now refer to the "real" definition of <tt>ModB_Object</tt>; and both of these "real" structure definitions may or may not contain an extra internal field, depending upon the setting of <tt>common$.namedInstance</tt> for these modules.  Based upon the actual definitions known only at config-time, RTSC then generates the run-time apparatus needed to access embedded instances at run-time using the special "getters" illustrated earlier.
+</p>
+<div class="Info"><p class="Info">And thanks to the transformational power of <i>whole-program optimization</i>, the call to <tt>ModA_Instance_State_mb</tt> at line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a> effectively devolves into an inline reference to <tt>&amp;(obj-&gt;mbInst)</tt>&#151;incurring no more overhead than if the "real" definitions of both <tt>ModA_Object</tt> along with the <tt>ModB_Object</tt> it embeds were known when compiling <tt>ModA.c</tt> in the first place.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_4.html" title="RTSC Module Primer/Lesson 4">RTSC Module Primer/Lesson 4</a>
+</td><td class="DocListSubTitle1">Instance object life-cycle &#151; using the <tt>RandGen</tt> module
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../RTSC_Module_Primer/RTSC_Module_Primer__Lesson_8.html" title="RTSC Module Primer/Lesson 8">RTSC Module Primer/Lesson 8</a>
+</td><td class="DocListSubTitle">Instance modules &#151; implementing <tt>bravo.math.RandGen</tt>
+</td></tr></table>
+<p><br />
+</p><!-- 
+Pre-expand include size: 12409 bytes
+Post-expand include size: 2834 bytes
+Template argument size: 202 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Embedded_Instances.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.214 secs. --></body></html>

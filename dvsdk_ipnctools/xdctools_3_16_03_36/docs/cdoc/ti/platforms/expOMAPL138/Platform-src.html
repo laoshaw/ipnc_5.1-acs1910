@@ -1,0 +1,119 @@
+<html><head><title>module ti.platforms.expOMAPL138.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> */</span>
+    16    
+    17    <span class=key>package</span> ti.platforms.expOMAPL138;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== Platform ========
+</span>    21    <span class="xdoc"> *  Platform support for the expOMAPL138
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    24    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    25    <span class="xdoc"> *
+</span>    26    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    27    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    28    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    29    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    30    <span class="xdoc"> *
+</span>    31    <span class="xdoc"> *  This particular platform has a single Cpu, and therefore, only
+</span>    32    <span class="xdoc"> *  declares a single CPU configuration object.  Multi-CPU platforms
+</span>    33    <span class="xdoc"> *  would declare multiple Cpu configuration parameters (one per
+</span>    34    <span class="xdoc"> *  platform CPU).
+</span>    35    <span class="xdoc"> */</span>
+    36    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    37    {
+    38        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    39            id:             <span class="string">"0"</span>,
+    40            boardName:      <span class="string">"expOMAPL138"</span>,
+    41            boardFamily:    <span class="string">"expOMAPL138"</span>,
+    42            boardRevision:  <span class=key>null</span>,
+    43        };
+    44            
+    45        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu DSP = {        
+    46            id:             <span class="string">"0"</span>,
+    47            clockRate:      300.0,
+    48            catalogName:    <span class="string">"ti.catalog.c6000"</span>,
+    49            deviceName:     <span class="string">"OMAPL138"</span>,
+    50            revision:       <span class="string">""</span>,
+    51        };
+    52    
+    53        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu GPP = {
+    54            id:             <span class="string">"1"</span>,
+    55            clockRate:      300.0,
+    56            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    57            deviceName:     <span class="string">"OMAPL138"</span>,
+    58            revision:       <span class="string">"1.0"</span>,
+    59        };
+    60    <span class=key>instance</span>:
+    61    
+    62        <span class="comment">/* 
+</span>    63    <span class="comment">     *  DDR is 64MByte but we need to share it with Arm.
+</span>    64    <span class="comment">     *  Reserve 32MB for Arm/Linux (base: 0xC000000)
+</span>    65    <span class="comment">     *  16MB for shared Arm/DSP (base: 0xC2000000)
+</span>    66    <span class="comment">     *  16MB for DSP (base: 0xC3000000)
+</span>    67    <span class="comment">     */</span>
+    68        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Memory
+    69            externalMemoryMap[string] = [
+    70                [<span class="string">"DDR"</span>,  {name: <span class="string">"DDR"</span>,  base: 0xC3000000, len: 0x01000000}],
+    71            ];
+    72    
+    73        <span class="comment">/*
+</span>    74    <span class="comment">     *  ======== sectMap ========
+</span>    75    <span class="comment">     *  Define a placement of compiler generated output sections into
+</span>    76    <span class="comment">     *  memory regions defined in the memTab above.
+</span>    77    <span class="comment">     */</span>
+    78        <span class=key>override</span> <span class=key>config</span> string codeMemory = <span class="string">"DDR"</span>;
+    79        
+    80        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"DDR"</span>;
+    81    
+    82        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"DDR"</span>;
+    83    
+    84        <span class="comment">/*
+</span>    85    <span class="comment">     *  ======== l1PMode ========
+</span>    86    <span class="comment">     *  Define the amount of L1P RAM used for L1 Program Cache.
+</span>    87    <span class="comment">     *
+</span>    88    <span class="comment">     *  Check the device documentation for valid values.
+</span>    89    <span class="comment">     */</span>
+    90        <span class=key>config</span> String l1PMode;
+    91        
+    92        <span class="comment">/*
+</span>    93    <span class="comment">     *  ======== l1DMode ========
+</span>    94    <span class="comment">     *  Define the amount of L1D RAM used for L1 Data Cache.
+</span>    95    <span class="comment">     *
+</span>    96    <span class="comment">     *  Check the device documentation for valid values.
+</span>    97    <span class="comment">     */</span>
+    98        <span class=key>config</span> String l1DMode;
+    99        
+   100        <span class="comment">/*
+</span>   101    <span class="comment">     *  ======== l2Mode ========
+</span>   102    <span class="comment">     *  Define the amount of L2 RAM used for L2 Cache.
+</span>   103    <span class="comment">     *
+</span>   104    <span class="comment">     *  Check the device documentation for valid values.
+</span>   105    <span class="comment">     */</span>
+   106        <span class=key>config</span> String l2Mode;
+   107    };
+   108    <span class="comment">/*
+</span>   109    <span class="comment"> *  @(#) ti.platforms.expOMAPL138; 1, 0, 0,36; 2-23-2010 17:00:53; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>   110    <span class="comment"> */</span>
+   111    
+</pre>
+</body></html>

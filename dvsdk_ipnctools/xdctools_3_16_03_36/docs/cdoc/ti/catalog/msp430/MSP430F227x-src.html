@@ -1,0 +1,66 @@
+<html><head><title>module ti.catalog.msp430.MSP430F227x</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2009 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== MSP430F227x.xdc ========
+</span>    15    <span class="comment"> *
+</span>    16    <span class="comment"> */</span>
+    17    <span class=key>package</span> ti.catalog.msp430;
+    18    
+    19    <span class="xdoc">/*!
+</span>    20    <span class="xdoc"> *  ======== MSP430F227x ========
+</span>    21    <span class="xdoc"> *  MSP430F227x Cpu definition
+</span>    22    <span class="xdoc"> *
+</span>    23    <span class="xdoc"> *  This device has 32KB + 256B of Flash Memory and 1KB RAM.  The
+</span>    24    <span class="xdoc"> *  MSP430F2274 has two op-amps (OA) whereas the MSP430F2272 has none.
+</span>    25    <span class="xdoc"> */</span>
+    26    <span class=key>metaonly</span> <span class=key>module</span> MSP430F227x <span class=key>inherits</span> IMSP430x22xx
+    27    {
+    28    <span class=key>instance</span>:
+    29        <span class=key>override</span> <span class=key>config</span> string   cpuCoreRevision = <span class="string">"1.0"</span>;
+    30    
+    31        <span class="xdoc">/*!
+</span>    32    <span class="xdoc">     *  ======== memMap ========
+</span>    33    <span class="xdoc">     *  The default memory map for this device
+</span>    34    <span class="xdoc">     */</span>
+    35        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string]  = [
+    36            [<span class="string">"RAM"</span>, {
+    37                comment:    <span class="string">"Data RAM"</span>,
+    38                name:       <span class="string">"RAM"</span>,
+    39                base:       0x200,
+    40                len:        0x400,
+    41                space:      <span class="string">"code/data"</span>,
+    42                access:     <span class="string">"RWX"</span>
+    43            }],
+    44    
+    45            [<span class="string">"FLASH"</span>, {
+    46                comment:    <span class="string">"Program FLASH"</span>,
+    47                name:       <span class="string">"FLASH"</span>,
+    48                base:       0x8000,
+    49                len:        0x7FDE,
+    50                space:      <span class="string">"code"</span>,
+    51                access:     <span class="string">"RWX"</span>
+    52            }],
+    53        ];
+    54    };
+    55    <span class="comment">/*
+</span>    56    <span class="comment"> *  @(#) ti.catalog.msp430; 1, 0, 0,17; 2-23-2010 16:52:59; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    57    <span class="comment"> */</span>
+    58    
+</pre>
+</body></html>

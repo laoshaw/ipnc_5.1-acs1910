@@ -1,0 +1,73 @@
+<html><head><title>module ti.catalog.arm.TMS320CDM730</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== TMS320CDM730.xdc ========
+</span>    15    <span class="comment"> */</span>
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== TMS320CDM730 ========
+</span>    19    <span class="xdoc"> *  The TMS320CDM730 device data sheet module.
+</span>    20    <span class="xdoc"> *
+</span>    21    <span class="xdoc"> *  This module implements the xdc.platform.ICpuDataSheet interface and is 
+</span>    22    <span class="xdoc"> *  used by platforms to obtain "data sheet" information about this device.
+</span>    23    <span class="xdoc"> *
+</span>    24    <span class="xdoc"> */</span>
+    25    <span class=key>metaonly</span> <span class=key>module</span> TMS320CDM730 <span class=key>inherits</span> ti.catalog.ICpuDataSheet
+    26    {
+    27    <span class=key>instance</span>:
+    28        <span class=key>override</span> <span class=key>config</span> string cpuCore           = <span class="string">"CM3"</span>;
+    29        <span class=key>override</span> <span class=key>config</span> string isa               = <span class="string">"v7M"</span>;
+    30        <span class=key>override</span> <span class=key>config</span> string cpuCoreRevision   = <span class="string">"1.0"</span>;
+    31        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minProgUnitSize   = 1;
+    32        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    minDataUnitSize   = 1;
+    33        <span class=key>override</span> <span class=key>config</span> <span class=key>int</span>    dataWordSize      = 4;
+    34    
+    35        <span class="xdoc">/*!
+</span>    36    <span class="xdoc">     *  ======== memMap ========
+</span>    37    <span class="xdoc">     *  The memory map returned be getMemoryMap().
+</span>    38    <span class="xdoc">     */</span>
+    39        <span class=key>config</span> xdc.platform.IPlatform.Memory memMap[string] = [
+    40    
+    41            <span class="comment">/* 
+</span>    42    <span class="comment">         * AMMU mapped L2 ROM virtual address
+</span>    43    <span class="comment">         * Physical address is 0x55000000
+</span>    44    <span class="comment">         */</span>
+    45            [<span class="string">"L2_ROM"</span>, {
+    46                name: <span class="string">"L2_ROM"</span>,
+    47                base: 0x00000000,
+    48                len:  0x00004000
+    49            }],
+    50    
+    51            <span class="comment">/* 
+</span>    52    <span class="comment">         * AMMU mapped L2 RAM virtual address
+</span>    53    <span class="comment">         * Physical address is 0x55020000
+</span>    54    <span class="comment">         */</span>
+    55            [<span class="string">"L2_RAM"</span>, {
+    56                name: <span class="string">"L2_RAM"</span>,
+    57                base: 0x20000000, 
+    58                len:  0x00010000
+    59            }],
+    60        ];
+    61    };
+    62    <span class="comment">/*
+</span>    63    <span class="comment"> *  @(#) ti.catalog.arm; 1, 0, 1, 0,116; 2-23-2010 16:50:34; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    64    <span class="comment"> */</span>
+    65    
+</pre>
+</body></html>

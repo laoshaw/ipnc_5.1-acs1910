@@ -1,0 +1,72 @@
+<html><head><title>module ti.platforms.evmLM3S8962.Platform</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright (c) 2010 by Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> *
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> *
+</span>    11    <span class="comment"> * */</span>
+    12    
+    13    <span class="comment">/*
+</span>    14    <span class="comment"> *  ======== Platform.xdc ========
+</span>    15    <span class="comment"> *  Platform support for evmLM3S8962
+</span>    16    <span class="comment"> *
+</span>    17    <span class="comment"> */</span>
+    18    
+    19    <span class=key>package</span> ti.platforms.evmLM3S8962;
+    20    
+    21    <span class="xdoc">/*!
+</span>    22    <span class="xdoc"> *  ======== Platform ========
+</span>    23    <span class="xdoc"> *  Platform support for the evmLM3S8962
+</span>    24    <span class="xdoc"> *
+</span>    25    <span class="xdoc"> *  This module implements xdc.platform.IPlatform and defines configuration
+</span>    26    <span class="xdoc"> *  parameters that correspond to this platform's Cpu's, Board's, etc.
+</span>    27    <span class="xdoc"> *
+</span>    28    <span class="xdoc"> *  The configuration parameters are initialized in this package's
+</span>    29    <span class="xdoc"> *  configuration script (package.cfg) and "bound" to the TCOM object
+</span>    30    <span class="xdoc"> *  model.  Once they are part of the model, these parameters are
+</span>    31    <span class="xdoc"> *  queried by a program's configuration script.
+</span>    32    <span class="xdoc"> *
+</span>    33    <span class="xdoc"> *  This particular platform has a single Cpu, and therefore, only
+</span>    34    <span class="xdoc"> *  declares a single CPU configuration object.  Multi-CPU platforms
+</span>    35    <span class="xdoc"> *  would declare multiple Cpu configuration parameters (one per
+</span>    36    <span class="xdoc"> *  platform CPU).
+</span>    37    <span class="xdoc"> */</span>
+    38    <span class=key>metaonly</span> <span class=key>module</span> Platform <span class=key>inherits</span> xdc.platform.IPlatform
+    39    {
+    40        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IPlatform.Board BOARD = {      
+    41            id:             <span class="string">"0"</span>,
+    42            boardName:      <span class="string">"evmLM3S8962"</span>,
+    43            boardFamily:    <span class="string">"evmLM3S8962"</span>,
+    44            boardRevision:  <span class=key>null</span>,
+    45        };
+    46    
+    47        <span class="comment">/* M3 Subsystem */</span>
+    48        <span class=key>readonly</span> <span class=key>config</span> xdc.platform.IExeContext.Cpu M3 = { 
+    49            id:             <span class="string">"0"</span>,
+    50            clockRate:      50.0,
+    51            catalogName:    <span class="string">"ti.catalog.arm"</span>,
+    52            deviceName:     <span class="string">"LM3S8962"</span>,
+    53            revision:       <span class="string">"1.0"</span>,
+    54        };
+    55    
+    56    <span class=key>instance</span>:
+    57        <span class=key>override</span> <span class=key>config</span> string codeMemory = <span class="string">"FRAM"</span>;
+    58        <span class=key>override</span> <span class=key>config</span> string dataMemory = <span class="string">"IRAM"</span>;
+    59        <span class=key>override</span> <span class=key>config</span> string stackMemory = <span class="string">"IRAM"</span>;
+    60    };
+    61    <span class="comment">/*
+</span>    62    <span class="comment"> *  @(#) ti.platforms.evmLM3S8962; 1, 0, 0,40; 2-23-2010 16:52:58; /db/ztree/library/trees/platform/platform-k32x/src/
+</span>    63    <span class="comment"> */</span>
+    64    
+</pre>
+</body></html>

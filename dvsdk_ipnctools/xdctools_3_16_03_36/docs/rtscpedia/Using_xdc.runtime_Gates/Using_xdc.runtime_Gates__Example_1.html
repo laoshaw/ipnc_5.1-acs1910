@@ -1,0 +1,314 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Using xdc.runtime Gates/Example 1 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Gates/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Using_xdc.runtime_Gates.html#TOC" title="Using xdc.runtime Gates"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Using xdc.runtime Gates/Example 1</p><p id="subtitle">Adding concurrency support for pthread-based applications</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Using_Gate_in_a_pthread-based_Application"><span class="tocnumber">1</span> <span class="toctext">Using Gate in a pthread-based Application</span></a></li>
+<li class="toclevel-1"><a href="#A_Simple_Multi-Threaded_Application"><span class="tocnumber">2</span> <span class="toctext">A Simple Multi-Threaded Application</span></a></li>
+<li class="toclevel-1"><a href="#How_to_Use_Gate_to_Protect_Global_Data"><span class="tocnumber">3</span> <span class="toctext">How to Use Gate to Protect Global Data</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Using_Gate_in_a_pthread-based_Application"></a><h2> <span class="mw-headline">Using <tt>Gate</tt> in a pthread-based Application</span></h2>
+<p>Before showing the use of <tt>Gate</tt>, we start with a somewhat contrived multi-threaded application that has a concurrency bug.  Then we look at how the <tt>Gate</tt> module is used to fix the application.
+</p>
+<a name="A_Simple_Multi-Threaded_Application"></a><h2> <span class="mw-headline">A Simple Multi-Threaded Application</span></h2>
+<p>In the somewhat contrived example below we show a pthread-based application that creates two threads that each increments a global counter, named <tt>count</tt>, by one <tt>N</tt> times.  When the application completes, we expect that the counter's value is precisely <tt>2 * N</tt>.  However, unless special precautions are taken, the final value of the counter may differ from <tt>2 * N</tt>.  How is this possible?  Incrementing a global variable often requires several instructions (to read the current value into a register, increment the register, and write the new value to memory) and threads can preempt one another between any two instructions.  So, starting with <tt>count</tt> = 0, the following sequence of instructions is possible:
+</p>
+<ol><li>thread 0 reads <tt>count</tt> (= 0) into register A
+</li><li>thread 1 reads <tt>count</tt> (= 0) into register A
+</li><li>thread 0 increments and stores A (= 1) to <tt>count</tt>
+</li><li>thread 1 increments and stores A (= 1, because each thread has a "private" version of A) to <tt>count</tt>
+</li></ol>
+<p>If this sequence is repeated for the entire run of the application, the final value of <tt>count</tt> will be <tt>N</tt> rather than <tt>2 * N</tt>.  
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>app.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> &lt;stdio.h&gt;
+<span class="re1">#include</span> &lt;pthread.h&gt;
+&nbsp;
+<span class="re1">#define</span> N   <span class="nu0">1000000</span>
+<span class="re1">#define</span> T   <span class="nu0">2</span>
+&nbsp;
+<span class="kw2">Int</span> count = <span class="nu0">0</span>;   <span class="coMULTI">/* global counter updated by all threads */</span>
+&nbsp;
+<span class="coMULTI">/* ======== thread ======== */</span>
+<span class="kw1">static</span> <span class="kw2">Void</span> thread<span class="br0">&#40;</span><span class="kw2">Void</span> *state<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i;
+    printf<span class="br0">&#40;</span><span class="st0">&quot;starting thread&nbsp;%d<span class="es0">\n</span>&quot;</span>, *<span class="br0">&#40;</span><span class="kw2">Int</span> *<span class="br0">&#41;</span>state<span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; N; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        count++;                        <span class="coMULTI">/* update global data */</span>
+    <span class="br0">&#125;</span>
+    printf<span class="br0">&#40;</span><span class="st0">&quot;thread&nbsp;%d done.<span class="es0">\n</span>&quot;</span>, *<span class="br0">&#40;</span><span class="kw2">Int</span> *<span class="br0">&#41;</span>state<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span>
+&nbsp;
+<span class="coMULTI">/* ======== main ======== */</span>
+<span class="kw2">Int</span> main<span class="br0">&#40;</span><span class="kw2">Int</span> argc, <span class="kw2">String</span> argv<span class="br0">&#91;</span><span class="br0">&#93;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    pthread_attr_t pattrs;
+    pthread_t      pthread<span class="br0">&#91;</span>T<span class="br0">&#93;</span>;
+    <span class="kw2">Int</span>            i, state<span class="br0">&#91;</span>T<span class="br0">&#93;</span>;
+&nbsp;
+    pthread_attr_init<span class="br0">&#40;</span>&amp;pattrs<span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; T; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>            <span class="coMULTI">/* create T threads */</span>
+        state<span class="br0">&#91;</span>i<span class="br0">&#93;</span> = i;
+        pthread_create<span class="br0">&#40;</span>&amp;pthread<span class="br0">&#91;</span>i<span class="br0">&#93;</span>, &amp;pattrs,
+            <span class="br0">&#40;</span>void *<span class="br0">&#40;</span>*<span class="br0">&#41;</span><span class="br0">&#40;</span>void *<span class="br0">&#41;</span><span class="br0">&#41;</span>thread, <span class="br0">&#40;</span>void *<span class="br0">&#41;</span><span class="br0">&#40;</span>state + i<span class="br0">&#41;</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; T; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        pthread_join<span class="br0">&#40;</span>pthread<span class="br0">&#91;</span>i<span class="br0">&#93;</span>, <span class="kw2">NULL</span><span class="br0">&#41;</span>;  <span class="coMULTI">/* wait for them to complete */</span>
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>count&nbsp;!= <span class="br0">&#40;</span>N * T<span class="br0">&#41;</span><span class="br0">&#41;</span> <span class="br0">&#123;</span>              <span class="coMULTI">/* check their work */</span>
+        fprintf<span class="br0">&#40;</span>stderr, <span class="st0">&quot;count =&nbsp;%d, should be&nbsp;%d<span class="es0">\n</span>&quot;</span>, count, N<span class="br0">&#41;</span>;
+        <span class="kw1">return</span> <span class="br0">&#40;</span><span class="nu0">1</span><span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+    <span class="kw1">return</span> <span class="br0">&#40;</span><span class="nu0">0</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>starting thread 0
+starting thread 1
+thread 0 done.
+thread 1 done.
+count = 162752, should be 200000</pre></td></tr></table>
+</td></tr></table>
+<a name="How_to_Use_Gate_to_Protect_Global_Data"></a><h2> <span class="mw-headline">How to Use <tt>Gate</tt> to Protect Global Data</span></h2>
+<p>Gates are used to protect modifiable data structures that are shared between two or more threads in a multi-threaded environment.  In the application above we saw that when multiple threads update shared data, if these threads can preempt on another at arbitrary points in the instruction stream, there is a risk that the data will not be consistently updated.  Gates provide a way to control or serialize access to global data and prevent the anomalies seen above.
+</p><p>To prevent this anomaly, we can modify the implementation of the <tt>thread()</tt> function above to encapsulate the modification of <tt>count</tt> with calls to <tt>Gate_enterSystem()</tt> <a class="codexLink" href="#cl-2:&gt;"><span class="codexLink">&gt;</span></a> and <tt>Gate_leaveSystem()</tt> <a class="codexLink" href="#cl-2:&lt;"><span class="codexLink">&lt;</span></a>.  Since only one thread can be "in the system gate" at a time, the entire sequence of instructions that updates <tt>count</tt> is guarenteed to be executed without interruption.  As a result, all threads will store a properly updated count before another thread can read it and the final value of count in the new application should always be <tt>2 * N</tt>.
+</p>
+<div id="cl-1:>"></div><div id="cl-1:<"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>C Code</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br />&nbsp;<br /><span class="codexLab"><</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/Gate.h&gt;</span>
+&nbsp;
+<span class="kw1">static</span> <span class="kw2">Void</span> thread<span class="br0">&#40;</span><span class="kw2">Void</span> *state<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw2">Int</span> i;
+    printf<span class="br0">&#40;</span><span class="st0">&quot;starting thread&nbsp;%d<span class="es0">\n</span>&quot;</span>, *<span class="br0">&#40;</span><span class="kw2">Int</span> *<span class="br0">&#41;</span>state<span class="br0">&#41;</span>;
+    <span class="kw1">for</span> <span class="br0">&#40;</span>i = <span class="nu0">0</span>; i &lt; N; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        IArg key = Gate_enterSystem<span class="br0">&#40;</span><span class="br0">&#41;</span>;  <span class="coMULTI">/* enter critical section */</span>
+        count++;                        <span class="coMULTI">/* update global data     */</span>
+        Gate_leaveSystem<span class="br0">&#40;</span>key<span class="br0">&#41;</span>;          <span class="coMULTI">/* leave critical section */</span>
+    <span class="br0">&#125;</span>
+    printf<span class="br0">&#40;</span><span class="st0">&quot;thread&nbsp;%d done.<span class="es0">\n</span>&quot;</span>, *<span class="br0">&#40;</span><span class="kw2">Int</span> *<span class="br0">&#41;</span>state<span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Since we added a reference to a RTSC module, <tt>Gate</tt>, we need to add a configuration script that declares that we are using this module, run the RTSC configuration tool, and link the application above with the output.  But if we re-run the application, the gate does not seem to help.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Config Code (Wrong!)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Gate&quot;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>   starting thread 0
+   starting thread 1
+   thread 0 done.
+   thread 1 done.
+   count = 126370, should be 200000</pre></td></tr></table>
+</td></tr></table>
+<p>The problem is twofold: although we need to use the <tt>Gate</tt> module, as shown above, we <i>also</i> need to
+</p>
+<ul><li> create an instance of a "real" gate, and
+</li><li> "bind" this instance to the <tt>System</tt> module's <tt><a href="../../cdoc/xdc/runtime/IModule.html#common$" class="cdoc"><tt>common$.gate</tt></a></tt> configuration parameter
+</li></ul>
+<p>The <tt>Gate_enterSystem()</tt> method uses a the gate instance associated with the <tt>System</tt> module.  Unless we bind a non-trivial gate instance <tt>System</tt>, <tt>Gate_enterSystem()</tt> will operate on a default gate instance created from <tt>GateNull</tt>.  If we assume there is a module named <tt>examples.runtime.gates.Lock</tt> that provides a posix-based implementation of <tt>IGateProvider</tt>, we can finally fix the application with the configuration script shown below.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Config Code (Right)</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Gate= <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.Gate&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;xdc.runtime.System&quot;</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> Lock = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st0">&quot;examples.runtime.gates.Lock&quot;</span><span class="br0">&#41;</span>;
+System.common$.gate = Lock.create<span class="br0">&#40;</span><span class="br0">&#41;</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Output</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>starting thread 0
+starting thread 1
+thread 0 done.
+thread 1 done.</pre></td></tr></table>
+</td></tr></table>
+<p>A complete implementation of this presumed <tt>examples.runtime.gates.Lock</tt> module appears in the <a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates__Example_1.html" title="Extending xdc.runtime Gates/Example 1">Runtime Gate Provider Example 1</a>.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Extending_xdc.runtime_Gates/Extending_xdc.runtime_Gates__Example_1.html" title="Extending xdc.runtime Gates/Example 1">Extending xdc.runtime Gates/Example 1</a>
+</td><td class="DocListSubTitle1">A posix-based <tt>IGateProvider</tt> implementation
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Using xdc.runtime Gates/Example 1&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="Using_xdc.runtime_Gates.html#TOC" title="Using xdc.runtime Gates"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 1260 bytes
+Post-expand include size: 635 bytes
+Template argument size: 126 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Using_xdc.runtime_Gates.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.227 secs. --></body></html>

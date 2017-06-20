@@ -1,0 +1,40 @@
+<html><head><title>module xdc.tools.platformWizard.memoryMap.Main</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/*
+</span>     2    <span class="comment"> *  Copyright 2009 by Texas Instruments Incorporated.
+</span>     3    <span class="comment"> *
+</span>     4    <span class="comment"> */</span>
+     5    
+     6    <span class=key>package</span> xdc.tools.platformWizard.memoryMap;
+     7    
+     8    <span class="comment">/*
+</span>     9    <span class="comment"> * @_nodoc
+</span>    10    <span class="comment"> */</span>
+    11    <span class=key>metaonly</span> <span class=key>module</span> Main <span class=key>inherits</span> xdc.tools.ICmd {
+    12    
+    13        <span class=key>override</span> <span class=key>config</span> String usage[] = [
+    14            <span class="string">' -m &lt;Module Name&gt;'</span>,
+    15            <span class="string">' -r &lt;Register Settings&gt;'</span>
+    16        ];
+    17    
+    18    <span class=key>instance</span>:
+    19            
+    20            @CommandOption(<span class="string">"m"</span>)
+    21            <span class=key>config</span> String deviceModuleName = <span class=key>null</span>;
+    22    
+    23            @CommandOption(<span class="string">"r"</span>)
+    24            <span class=key>config</span> String registerSettings = <span class=key>null</span>;
+    25            
+    26        <span class=key>override</span> Any run(xdc.tools.Cmdr.Instance cmdr, String args[]);
+    27    
+    28    }
+    29    <span class="comment">/*
+</span>    30    <span class="comment"> *  @(#) xdc.tools.platformWizard.memoryMap; 1,0,0,43; 11-20-2009 13:27:45; /db/ztree/library/trees/xdctools/xdctools-d08x/src/
+</span>    31    <span class="comment"> */</span>
+    32    
+</pre>
+</body></html>

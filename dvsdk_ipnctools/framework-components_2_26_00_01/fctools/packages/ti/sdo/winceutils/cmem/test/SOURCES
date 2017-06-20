@@ -1,0 +1,21 @@
+TARGETNAME=cmem_test
+TARGETTYPE=PROGRAM
+SYNCHRONIZE_DRAIN=1
+RELEASETYPE=LOCAL
+
+INCLUDES=\
+    $(_PUBLICROOT)\common\ddk\inc;\
+    $(_PUBLICROOT)\common\sdk\inc;\
+    $(_PUBLICROOT)\common\oak\inc;\
+    ..\..\..\..\..
+
+EXEENTRY=main
+
+SOURCES= \
+    cmem_test.c 
+
+TARGETLIBS= \
+    $(_SYSGENSDKROOT)\lib\$(_CPUINDPATH)\coredll.lib \
+    $(_SYSGENSDKROOT)\lib\$(_CPUINDPATH)\ceddk.lib \
+    ..\user\obj\ARMV4I\$(WINCEDEBUG)\cmem.lib
+

@@ -1,0 +1,201 @@
+<html><head><title>interface xdc.bld.ITargetFilter</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* --COPYRIGHT--,EPL
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * --/COPYRIGHT--*/</span>
+    12    <span class="xdoc">/*!
+</span>    13    <span class="xdoc"> *  ======== ITargetFilter ========
+</span>    14    <span class="xdoc"> *  User-supplied filter of a target's command set
+</span>    15    <span class="xdoc"> *
+</span>    16    <span class="xdoc"> *  This interface defines a set of user-supplied methods that are invoked
+</span>    17    <span class="xdoc"> *  during the Build Model's makefile generation process.  These methods
+</span>    18    <span class="xdoc"> *  can augment or modify the commands that are placed in the generated
+</span>    19    <span class="xdoc"> *  makefiles.  For example, an `ITargetFilter` module can add pre or post
+</span>    20    <span class="xdoc"> *  build steps for virtually any generated file.
+</span>    21    <span class="xdoc"> *
+</span>    22    <span class="xdoc"> *  Filters can:
+</span>    23    <span class="xdoc"> *  <b>@p(nlist)</b>
+</span>    24    <span class="xdoc"> *      - modify or augment the commands returned by a target's compile,
+</span>    25    <span class="xdoc"> *        link and archive methods via `{<b>@link</b> #compile}`, `{<b>@link</b> #link}`,
+</span>    26    <span class="xdoc"> *        and `{<b>@link</b> #archive}`;
+</span>    27    <span class="xdoc"> *      - add new definitions to the generated makefiles usable by the
+</span>    28    <span class="xdoc"> *        command added above via `{<b>@link</b> #getDefs}`; and
+</span>    29    <span class="xdoc"> *      - specify new files to be generated during the configuration process
+</span>    30    <span class="xdoc"> *        that may be used during or after the link process via
+</span>    31    <span class="xdoc"> *        `{<b>@link</b> #getGenTab}`.
+</span>    32    <span class="xdoc"> *  <b>@p</b>
+</span>    33    <span class="xdoc"> *  Filters are created implicitly when a target's profile
+</span>    34    <span class="xdoc"> *  (`{<b>@link</b> xdc.bld.ITarget#profiles}`) that references the filter is used.
+</span>    35    <span class="xdoc"> *  To use a filter, one must configure a profile's option set
+</span>    36    <span class="xdoc"> *  (`{<b>@link</b> xdc.bld.ITarget#OptionSet}`) in the build configuration script
+</span>    37    <span class="xdoc"> *  `config.bld`.  It is possible to add filters to existing profiles (such
+</span>    38    <span class="xdoc"> *  as `"debug"` and `"release"`) or to create entirely new profiles that
+</span>    39    <span class="xdoc"> *  utilize the filters.
+</span>    40    <span class="xdoc"> *
+</span>    41    <span class="xdoc"> *  When modifying existing profiles, no changes to individual packages using
+</span>    42    <span class="xdoc"> *  these profiles is required; one simply has to clean and rebuild these
+</span>    43    <span class="xdoc"> *  packages for the filters to have an effect.
+</span>    44    <span class="xdoc"> *
+</span>    45    <span class="xdoc"> *  By adding new profiles, one can ensure that existing build artifacts are
+</span>    46    <span class="xdoc"> *  unchanged and only those packages that want to take advantage of a filter
+</span>    47    <span class="xdoc"> *  can do so easily by adding a new build artifact that uses the new
+</span>    48    <span class="xdoc"> *  profile; for example, see `{<b>@link</b> xdc.bld.Library#Attrs}`.
+</span>    49    <span class="xdoc"> */</span>
+    50    <span class=key>metaonly</span> <span class=key>interface</span> ITargetFilter
+    51    {
+    52        <span class="xdoc">/*!
+</span>    53    <span class="xdoc">     *  ======== InstDesc ========
+</span>    54    <span class="xdoc">     *  `ITargetFilter` Instance descriptor
+</span>    55    <span class="xdoc">     *
+</span>    56    <span class="xdoc">     *  This structure provides the information necessary to create an
+</span>    57    <span class="xdoc">     *  instance of an `ITargetFilter`.
+</span>    58    <span class="xdoc">     *
+</span>    59    <span class="xdoc">     *  <b>@see</b> xdc.bld.ITarget#OptionSet
+</span>    60    <span class="xdoc">     */</span>
+    61        <span class=key>struct</span> InstDesc {
+    62            String  moduleName; <span class="xdoc">/*! name of a module implementing `ITargetFilter`*/</span>
+    63            Any     params;     <span class="xdoc">/*! params passed to ITargetFilter.create() */</span>
+    64        };
+    65        
+    66        <span class="xdoc">/*!
+</span>    67    <span class="xdoc">     *  ======== GenDesc ========
+</span>    68    <span class="xdoc">     *  Configuration file generation descriptor
+</span>    69    <span class="xdoc">     *
+</span>    70    <span class="xdoc">     *  This structure is used to specify a new file to be generated during
+</span>    71    <span class="xdoc">     *  the configuration process.
+</span>    72    <span class="xdoc">     *
+</span>    73    <span class="xdoc">     *  Templates are expanded in the context of the Configuration domain;
+</span>    74    <span class="xdoc">     *  as a result, the contents of the generated file can be a function
+</span>    75    <span class="xdoc">     *  of an executable's `{<b>@link</b> xdc.cfg.Program}` object.  Template names
+</span>    76    <span class="xdoc">     *  are interpreted using the `xdc.findFile()` method to
+</span>    77    <span class="xdoc">     *  locate the template file name.  Templates can, therefore, be 
+</span>    78    <span class="xdoc">     *  contained in any package located along the package path.
+</span>    79    <span class="xdoc">     *
+</span>    80    <span class="xdoc">     *  Names of files to be generated are always interpreted relative to
+</span>    81    <span class="xdoc">     *  the base directory of the package for which makefiles are being
+</span>    82    <span class="xdoc">     *  generated.
+</span>    83    <span class="xdoc">     *
+</span>    84    <span class="xdoc">     *  <b>@see</b> #getGenTab
+</span>    85    <span class="xdoc">     */</span>
+    86        <span class=key>struct</span> GenDesc {
+    87            String template;    <span class="xdoc">/*! name of the template to expand */</span>
+    88            String file;        <span class="xdoc">/*! the name of the file to generate */</span>
+    89        };
+    90    
+    91        <span class="xdoc">/*!
+</span>    92    <span class="xdoc">     *  ======== MacroDesc ========
+</span>    93    <span class="xdoc">     *  Macro definition descriptor
+</span>    94    <span class="xdoc">     *
+</span>    95    <span class="xdoc">     *  This structure is used to specify macro name-value pairs that are
+</span>    96    <span class="xdoc">     *  added to the generated makefiles.  These names can be used
+</span>    97    <span class="xdoc">     *  by commands added via the filter's `{<b>@link</b> #archive()}`,
+</span>    98    <span class="xdoc">     *  `{<b>@link</b> #compile()}`, or `{<b>@link</b> #link()}` methods.
+</span>    99    <span class="xdoc">     *
+</span>   100    <span class="xdoc">     *  Using symbolic values in lieu of embeddeding explicit paths or values
+</span>   101    <span class="xdoc">     *  enables the end-user to re-define these values without requiring
+</span>   102    <span class="xdoc">     *  regeneration of makefiles.
+</span>   103    <span class="xdoc">     *
+</span>   104    <span class="xdoc">     *  <b>@see</b> #getDefs
+</span>   105    <span class="xdoc">     */</span>
+   106        <span class=key>struct</span> MacroDesc {
+   107            String name;    <span class="xdoc">/*! name of the macro */</span>
+   108            String value;   <span class="xdoc">/*! the name value of the macro name */</span>
+   109        };
+   110        
+   111    <span class=key>instance</span>:
+   112    
+   113        <span class="xdoc">/*!
+</span>   114    <span class="xdoc">     *  ======== archive ========
+</span>   115    <span class="xdoc">     *  Archive command filter
+</span>   116    <span class="xdoc">     *
+</span>   117    <span class="xdoc">     *  This method is called for every archive created by the package's
+</span>   118    <span class="xdoc">     *  build script (via `{<b>@link</b> xdc.bld.PackageContents#addLibrary()}`).
+</span>   119    <span class="xdoc">     *
+</span>   120    <span class="xdoc">     *  <b>@param(container)</b>   String
+</span>   121    <span class="xdoc">     *  <b>@param(lib)</b>         `{<b>@link</b> xdc.bld.Library}`
+</span>   122    <span class="xdoc">     *  <b>@param(archArgs)</b>    `{<b>@link</b> xdc.bld.ITarget#ArchiveGoal}`
+</span>   123    <span class="xdoc">     *  <b>@param(result)</b>      `{<b>@link</b> xdc.bld.ITarget#CommandSet}`
+</span>   124    <span class="xdoc">     */</span>
+   125        <span class=key>function</span> archive(container, lib, objList, archArgs, result);
+   126    
+   127        <span class="xdoc">/*!
+</span>   128    <span class="xdoc">     *  ======== compile ========
+</span>   129    <span class="xdoc">     *  Compile command filter
+</span>   130    <span class="xdoc">     *
+</span>   131    <span class="xdoc">     *  This method is called for every object created by the package's
+</span>   132    <span class="xdoc">     *  build script (via `{<b>@link</b> xdc.bld.Executable#addObjects()}`,
+</span>   133    <span class="xdoc">     *  `{<b>@link</b> xdc.bld.Library#addObjects()}`, ...).
+</span>   134    <span class="xdoc">     *
+</span>   135    <span class="xdoc">     *  <b>@param(container)</b>   String
+</span>   136    <span class="xdoc">     *  <b>@param(target)</b>      `{<b>@link</b> xdc.bld.ITarget}.Module`
+</span>   137    <span class="xdoc">     *  <b>@param(goal)</b>        String goal file
+</span>   138    <span class="xdoc">     *  <b>@param(compArgs)</b>    `{<b>@link</b> xdc.bld.ITarget#CompileGoal}` the file to
+</span>   139    <span class="xdoc">     *                      compile
+</span>   140    <span class="xdoc">     *  <b>@param(result)</b>      `{<b>@link</b> xdc.bld.ITarget#CommandSet}`
+</span>   141    <span class="xdoc">     */</span>
+   142        <span class=key>function</span> compile(container, target, goal, compArgs, result);
+   143    
+   144        <span class="xdoc">/*!
+</span>   145    <span class="xdoc">     *  ======== getGenTab ========
+</span>   146    <span class="xdoc">     *  Get table of files to be generated during configuration
+</span>   147    <span class="xdoc">     *
+</span>   148    <span class="xdoc">     *  This method is called during makefile generation to obtain
+</span>   149    <span class="xdoc">     *  a list of additional files to be generated during configuration.
+</span>   150    <span class="xdoc">     *
+</span>   151    <span class="xdoc">     *  <b>@param(prog)</b>        `{<b>@link</b> xdc.bld.Executable}` or Assembly
+</span>   152    <span class="xdoc">     *  <b>@param(cfgDir)</b>      String directory where generated config files are
+</span>   153    <span class="xdoc">     *                      placed
+</span>   154    <span class="xdoc">     *  <b>@param(configName)</b>  String base name of the configuration
+</span>   155    <span class="xdoc">     *  <b>@a(RETURNS)</b>         array of `{<b>@link</b> #GenDesc}`
+</span>   156    <span class="xdoc">     */</span>
+   157        <span class=key>function</span> getGenTab(prog, cfgDir, configName);
+   158    
+   159        <span class="xdoc">/*!
+</span>   160    <span class="xdoc">     *  ======== getDefs ========
+</span>   161    <span class="xdoc">     *  Get table of macro definitions
+</span>   162    <span class="xdoc">     *
+</span>   163    <span class="xdoc">     *  This method is called during makefile generation to obtain
+</span>   164    <span class="xdoc">     *  a list of macro definitions that are to be added to the
+</span>   165    <span class="xdoc">     *  generated makefile.  These macros can then be referenced by
+</span>   166    <span class="xdoc">     *  commands added via a filter function (`{<b>@link</b> #archive()}`,
+</span>   167    <span class="xdoc">     *  `{<b>@link</b> #compile()}` or `{<b>@link</b> #link()}`).
+</span>   168    <span class="xdoc">     *
+</span>   169    <span class="xdoc">     *  <b>@a(RETURNS)</b>         array of `{<b>@link</b> #MacroDesc}`
+</span>   170    <span class="xdoc">     */</span>
+   171        <span class=key>function</span> getDefs();
+   172    
+   173        <span class="xdoc">/*!
+</span>   174    <span class="xdoc">     *  ======== link ========
+</span>   175    <span class="xdoc">     *  Link command filter
+</span>   176    <span class="xdoc">     *
+</span>   177    <span class="xdoc">     *  This method is called for every executable created by the package's
+</span>   178    <span class="xdoc">     *  build script (via `{<b>@link</b> xdc.bld.PackageContents#addExecutable()}`,
+</span>   179    <span class="xdoc">     *  ...).
+</span>   180    <span class="xdoc">     *
+</span>   181    <span class="xdoc">     *  <b>@param(container)</b>   String
+</span>   182    <span class="xdoc">     *  <b>@param(cfgbase)</b>     String
+</span>   183    <span class="xdoc">     *  <b>@param(prog)</b>        Executable or Assembly
+</span>   184    <span class="xdoc">     *  <b>@param(objList)</b>     String
+</span>   185    <span class="xdoc">     *  <b>@param(linkArgs)</b>    `{<b>@link</b> xdc.bld.ITarget#LinkGoal}`
+</span>   186    <span class="xdoc">     *  <b>@param(result)</b>      `{<b>@link</b> xdc.bld.ITarget#CommandSet}`
+</span>   187    <span class="xdoc">     */</span>
+   188        <span class=key>function</span> link(container, cfgBase, prog, objList, linkArgs, result);
+   189    }
+   190    <span class="comment">/*
+</span>   191    <span class="comment"> *  @(#) xdc.bld; 1, 0, 2,238; 2-22-2010 10:33:31; /db/ztree/library/trees/xdc/xdc-u17x/src/packages/
+</span>   192    <span class="comment"> */</span>
+   193    
+</pre>
+</body></html>

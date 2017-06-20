@@ -1,0 +1,284 @@
+<html>
+<head>
+<title>module xdc.platform.Utils</title>
+<meta name="description" content="Misc platform utilities">
+<link rel="stylesheet" type="text/css" href="../../xdoc.css" />
+</head>
+<body><div id="xdocWrapper"><div id="xdocContent">
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <span class="xdoc-id">xdc.platform.</span><span class="xdoc-id">Utils</span></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/ExeContext.html" title="module ExeContext"><img class="xdocHdrArrow" src="../../Arrow_left.png"/></a></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/package.html" title="package xdc.platform"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/Utils.html">index URL</a></div>
+<p class="xdocHdrSummary">Misc platform utilities</p>
+<ul class="xdocToc">
+<li class="xdocToc"><a class="xdocToc" href="#meta-synop">XDCscript usage</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#spec-synop">XDCspec declarations</a></li>
+<li class="xdocToc"><a class="xdocToc" href="#xdocElems">Individual elements</a></li>
+</ul>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> summary</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/Utils-src.html"><span class="xdocLabelFile">xdc/platform/Utils.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Utils</span></go> {<b>&nbsp;&nbsp;...</b>
+</div>
+</div>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">var</span> Utils = <span class="xdoc-kw3">xdc.useModule</span>(<span class="xdoc-id">'xdc.platform.Utils'</span>);
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#assemble.Memory.Map">Utils.<span class="xdoc-id">assembleMemoryMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Combine the device and the external memory map into a platform map</span></span></a>( <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">cpu</span></go>, <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">plat</span></go>, <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">noCheck</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#check.Defaults">Utils.<span class="xdoc-id">checkDefaults</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Check if dataMemory, codeMemory and stackMemory are set correctly</span></span></a>( <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">inst</span></go>, <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">memMap</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#check.Fit">Utils.<span class="xdoc-id">checkFit</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Check if a memory map fits into available physical memory</span></span></a>( <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">realMemMap</span></go>, <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">customMemMap</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#check.Overlap">Utils.<span class="xdoc-id">checkOverlap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Check if there is an overlap among memory objects in a memory map</span></span></a>( <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">memMap</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Cpu.Data.Sheet">Utils.<span class="xdoc-id">getCpuDataSheet</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Get the specified cpu data sheet object</span></span></a>( <i><span class="xdoc-kw2">Any</span></i> <go><span class="xdoc-id">cpuDesc</span></go> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+</div>
+<span id='spec-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id">XDCspec</span></tt> declarations</td>
+<td class="xdocLabelRight">sourced in <a class="xdocLink" href="../../xdc/platform/Utils-src.html"><span class="xdocLabelFile">xdc/platform/Utils.xdc</span></a></td>
+</tr></table>
+<div class="xdocSynX">
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">package</span> <a class="xdoc-link" href="../../xdc/platform/package.html" title="xdc.platform">xdc.platform</a>;
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<div class="xdocSynCode">
+<tt></tt><span class="xdoc-kw1">metaonly </span><span class="xdoc-kw1">module</span> <go><span class="xdoc-id">Utils</span></go> {
+</div>
+<div class='xdocSynHdr'>module-wide functions</div>
+
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#assemble.Memory.Map"><span class="xdoc-kw1">function </span><span class="xdoc-id">assembleMemoryMap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Combine the device and the external memory map into a platform map</span></span></a>( <go><span class="xdoc-id">cpu</span></go>, <go><span class="xdoc-id">plat</span></go>, <go><span class="xdoc-id">noCheck</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#check.Defaults"><span class="xdoc-kw1">function </span><span class="xdoc-id">checkDefaults</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Check if dataMemory, codeMemory and stackMemory are set correctly</span></span></a>( <go><span class="xdoc-id">inst</span></go>, <go><span class="xdoc-id">memMap</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#check.Fit"><span class="xdoc-kw1">function </span><span class="xdoc-id">checkFit</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Check if a memory map fits into available physical memory</span></span></a>( <go><span class="xdoc-id">realMemMap</span></go>, <go><span class="xdoc-id">customMemMap</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#check.Overlap"><span class="xdoc-kw1">function </span><span class="xdoc-id">checkOverlap</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Check if there is an overlap among memory objects in a memory map</span></span></a>( <go><span class="xdoc-id">memMap</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt>&nbsp;&nbsp;&nbsp;&nbsp;</tt><tt></tt><a class="xdocSynGo" href="#get.Cpu.Data.Sheet"><span class="xdoc-kw1">function </span><span class="xdoc-id">getCpuDataSheet</span><span class="xdocSynHoverShadow"><span class="xdocSynHover">//&nbsp;Get the specified cpu data sheet object</span></span></a>( <go><span class="xdoc-id">cpuDesc</span></go> );
+</div>
+<div class="xdocSynCode">
+<tt></tt>}
+</div>
+</div>
+<div id="xdocElems">
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="assemble.Memory.Map"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Utils.</span><span class="xdoc-id">assembleMemoryMap</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/Utils.html#assemble.Memory.Map">index URL</a></div>
+<p class="xdocHdrSummary">Combine the device and the external memory map into a platform map</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Utils.<span class="xdoc-id">assembleMemoryMap</span>( <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">cpu</span>, <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">plat</span>, <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">noCheck</span> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">cpu</span>
+<span class="xdocChildSum">&#151;&nbsp;an <tt>xdc.platform.IExeContext</tt> object</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">plat</span>
+<span class="xdocChildSum">&#151;&nbsp;a platform instance</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">noCheck</span>
+<span class="xdocChildSum">&#151;&nbsp;if true, and a custom memory map is defined, the
+			function does not check if the custom memory map fits
+			into the available physical memory</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">This function combines memory maps and also applies memory map name
+  changes requested through renameMap.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">platform memory map</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="check.Defaults"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Utils.</span><span class="xdoc-id">checkDefaults</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/Utils.html#check.Defaults">index URL</a></div>
+<p class="xdocHdrSummary">Check if dataMemory, codeMemory and stackMemory are set correctly</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Utils.<span class="xdoc-id">checkDefaults</span>( <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">inst</span>, <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">memMap</span> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">inst</span>
+<span class="xdocChildSum">&#151;&nbsp;an <tt>xdc.platform.IPlatform</tt> instance</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">memMap</span>
+<span class="xdocChildSum">&#151;&nbsp;a map of <tt>xdc.platform.IPlatform.Memory</tt> objects</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">The <tt>xdc.platform.IPlatform</tt> instance parameters 'dataMemory',
+  'codeMemory', and 'stackMemory' are strings. This function verifies
+  that those strings correspond to names of the memory objects in the
+  supplied memory map.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">'true' if checked parameters are valid, 'false'
+			otherwise</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="check.Fit"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Utils.</span><span class="xdoc-id">checkFit</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/Utils.html#check.Fit">index URL</a></div>
+<p class="xdocHdrSummary">Check if a memory map fits into available physical memory</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Utils.<span class="xdoc-id">checkFit</span>( <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">realMemMap</span>, <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">customMemMap</span> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">realMemMap</span>
+<span class="xdocChildSum">&#151;&nbsp;a map of <tt>xdc.platform.IPlatform.Memory</tt>
+				objects containing physical memory map as
+				defined in datasheets for the device and the
+				platform</span>
+</div>
+<div class="xdocChild"><span class="xdocChildId">customMemMap</span>
+<span class="xdocChildSum">&#151;&nbsp;a map of <tt>xdc.platform.IPlatform.Memory</tt>
+				objects containing user defined memory map,
+				which must fit within boundaries of 'realMemMap'</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">DETAILS</div>
+<div class="xdocText">A custom memory map segment can be spread over multiple physical
+  memories or multiple custom memory map segments can be located in
+  one physical memory. However, code/data restrictions must be followed.
+  A custom memory segment with the parameter 'space' set to "code/data",
+  which is the default value if the parameter was not specified, can fit
+  only into "code/data" physical memories. Custom memory segments with
+  'space' set to "code" can fit into "code" and "code/data" memories, and
+  custom memory segments with 'space' set to "data" can fit into "data"
+  and "code/data" physical memories.</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">'true', if customMemMap fits within realMemMap,
+				and 'false' otherwise</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="check.Overlap"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Utils.</span><span class="xdoc-id">checkOverlap</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/Utils.html#check.Overlap">index URL</a></div>
+<p class="xdocHdrSummary">Check if there is an overlap among memory objects in a memory map</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Utils.<span class="xdoc-id">checkOverlap</span>( <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">memMap</span> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">memMap</span>
+<span class="xdocChildSum">&#151;&nbsp;a map of <tt>xdc.platform.IPlatform.Memory</tt> objects</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">a string with names of Memory objects that overlap</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<a class="xdocAnchor" id="get.Cpu.Data.Sheet"></a>
+<table class="xdocHdr"><tr>
+<td class="xdocHdrTitle"><span class="xdoc-id">Utils.</span><span class="xdoc-id">getCpuDataSheet</span>( )&nbsp;&nbsp;<small><span class="xdocSynSum">//&nbsp;module-wide</span></small></td>
+<td class="xdocHdrArrow">
+<a class="xdocHdrLink" href="../../xdc/platform/Utils.html" title="module Utils"><img class="xdocHdrArrow" src="../../Arrow_up.png"/></a></td>
+</table>
+<div class=xdocHdrIndex><a class=xdocHdrIndex title="right-click to capture" href="../../index.html#xdc/platform/Utils.html#get.Cpu.Data.Sheet">index URL</a></div>
+<p class="xdocHdrSummary">Get the specified cpu data sheet object</p>
+<span id='meta-synop'></span>
+<table class="xdocLabel"><tr>
+<td class="xdocLabelLeft"><tt><span class="xdoc-id-meta2">XDCscript</span></tt> usage</td>
+<td class="xdocLabelRight">meta-domain</td>
+</tr></table>
+<div class="xdocSynM">
+<div class="xdocSynCode">
+<tt></tt><tt></tt>Utils.<span class="xdoc-id">getCpuDataSheet</span>( <i><span class="xdoc-kw2">Any</span></i> <span class="xdoc-id">cpuDesc</span> ) <i>returns</i> <i><span class="xdoc-kw2">Any</span></i>
+</div>
+</div>
+<div class="xdocSynSpacer">&nbsp;</div>
+<span id="xdoc-sect-1"></span>
+<div class="xdocSect">ARGUMENTS</div>
+<div class="xdocChild"><span class="xdocChildId">cpuDesc</span>
+<span class="xdocChildSum">&#151;&nbsp;an <tt>xdc.platform.IExeContext.Cpu</tt> object identifying 
+			the CPU device</span>
+</div>
+<span id="xdoc-sect-2"></span>
+<div class="xdocSect">RETURNS</div>
+<div class="xdocText">an <tt>xdc.platform.ICpuDataSheet.Instance</tt> object that
+			corresponds to the specified cpuDesc</div>
+<span id="xdoc-sect-3"></span>
+<div class="xdocSect">THROWS</div>
+<div class="xdocText"><tt>Error</tt> exceptions are thrown for fatal errors</div>
+</div>
+<div id="xdocDate">generated on Thu, 25 Feb 2010 19:25:07 GMT</div>
+</div></div></body>
+</html>

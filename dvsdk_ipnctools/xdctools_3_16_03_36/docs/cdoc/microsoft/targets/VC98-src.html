@@ -1,0 +1,192 @@
+<html><head><title>module microsoft.targets.VC98</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== VC98.xdc ========
+</span>    14    <span class="comment"> */</span>
+    15    
+    16    <span class=key>package</span> microsoft.targets
+    17    
+    18    <span class="xdoc">/*!
+</span>    19    <span class="xdoc"> *  ======== VC98.xdc ========
+</span>    20    <span class="xdoc"> *  Microsoft Windows 32-bit target using the Visual C/C++ 6.x compiler
+</span>    21    <span class="xdoc"> */</span>
+    22    
+    23    <span class=key>metaonly</span> <span class=key>module</span> VC98 <span class=key>inherits</span> microsoft.targets.ITarget {
+    24    
+    25        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name                    = <span class="string">"VC98"</span>;   
+    26        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string os                      = <span class="string">"Windows"</span>;
+    27        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix                  = <span class="string">"86"</span>;
+    28        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa                     = <span class="string">"x86"</span>;    
+    29        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model    = {
+    30            endian: <span class="string">"little"</span>
+    31        };
+    32    
+    33        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts = <span class="string">"microsoft.targets.rts"</span>;
+    34        <span class=key>override</span> <span class=key>config</span> string platform     = <span class="string">"host.platforms.PC"</span>;
+    35        <span class=key>override</span> <span class=key>config</span> string execExt      = <span class="string">".exe"</span>;
+    36        
+    37        <span class="xdoc">/*!
+</span>    38    <span class="xdoc">     *  ======== path ========
+</span>    39    <span class="xdoc">     *  Path components added during execution of commands
+</span>    40    <span class="xdoc">     *
+</span>    41    <span class="xdoc">     *  The VC98 compiler DLLs are located in the vc98/bin subdirectory 
+</span>    42    <span class="xdoc">     *  the pdb DLL is located in $(rootDir)/msdev98/bin.
+</span>    43    <span class="xdoc">     */</span>
+    44        <span class=key>readonly</span> <span class=key>config</span> string path =
+    45            <span class="string">"$(rootDir)/vc98/bin;$(rootDir)/common/msdev98/bin"</span>;
+    46    
+    47        <span class="xdoc">/*!
+</span>    48    <span class="xdoc">     *  ======== ar ========
+</span>    49    <span class="xdoc">     *  The archiver command and all required options
+</span>    50    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    51    <span class="xdoc">     *      -`-nologo`
+</span>    52    <span class="xdoc">     *          don't display archiver copyright
+</span>    53    <span class="xdoc">     */</span>
+    54        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command ar = {
+    55            cmd: <span class="string">"$(rootDir)/vc98/bin/lib"</span>,
+    56            opts: <span class="string">"-nologo"</span>
+    57        };
+    58    
+    59        <span class="xdoc">/*!
+</span>    60    <span class="xdoc">     *  ======== cc ========
+</span>    61    <span class="xdoc">     *  The compile command and all required options
+</span>    62    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    63    <span class="xdoc">     *      -`-W3`
+</span>    64    <span class="xdoc">     *          enable all warnings recommended for production purposes.
+</span>    65    <span class="xdoc">     *      -`-Zp1`
+</span>    66    <span class="xdoc">     *          Packs structure members on 1-byte boundry
+</span>    67    <span class="xdoc">     *      -`-c`
+</span>    68    <span class="xdoc">     *          don't link
+</span>    69    <span class="xdoc">     *      -`-nologo`
+</span>    70    <span class="xdoc">     *          don't display compiler copyright
+</span>    71    <span class="xdoc">     */</span>
+    72        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command cc = {
+    73            cmd: <span class="string">"$(rootDir)/vc98/bin/cl.exe -nologo -c"</span>,
+    74            opts: <span class="string">'-W3 -Zp1 -DWIN32 -D_DLL -D_AFXDLL -DEXPORT=""'</span>
+    75        };
+    76    
+    77        <span class="xdoc">/*!
+</span>    78    <span class="xdoc">     *  ======== asm ========
+</span>    79    <span class="xdoc">     *  The assemble command and all required options
+</span>    80    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    81    <span class="xdoc">     *      -`-c`
+</span>    82    <span class="xdoc">     *          don't link
+</span>    83    <span class="xdoc">     *      -`-nologo`
+</span>    84    <span class="xdoc">     *          don't display compiler copyright
+</span>    85    <span class="xdoc">     */</span>
+    86        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command asm = {
+    87            cmd: <span class="string">"$(rootDir)/vc98/bin/cl.exe -nologo -c"</span>,
+    88            opts: <span class="string">""</span>
+    89        };
+    90    
+    91        <span class="xdoc">/*!
+</span>    92    <span class="xdoc">     *  ======== lnk ========
+</span>    93    <span class="xdoc">     *  The linker command and all required options
+</span>    94    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    95    <span class="xdoc">     *      -`-nologo`
+</span>    96    <span class="xdoc">     *          Don't display linker copyright
+</span>    97    <span class="xdoc">     */</span>
+    98        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ITarget.Command lnk = {
+    99            cmd: <span class="string">"$(rootDir)/vc98/bin/link -nologo"</span>,
+   100            opts: <span class="string">""</span>
+   101        };
+   102        
+   103        <span class="xdoc">/*!
+</span>   104    <span class="xdoc">     *  ======== ccOpts ========
+</span>   105    <span class="xdoc">     *  User modifiable default options.
+</span>   106    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   107    <span class="xdoc">     *      -`-G5`
+</span>   108    <span class="xdoc">     *          Optimizes code to favor the Pentium processor
+</span>   109    <span class="xdoc">     *      -`-Ob1`
+</span>   110    <span class="xdoc">     *          Expand only functions marked as inline or, in a C++
+</span>   111    <span class="xdoc">     *          member function, defined within a class declaration
+</span>   112    <span class="xdoc">     *      -`-Gs`
+</span>   113    <span class="xdoc">     *          Probe stack to automatically grow stack as necessary
+</span>   114    <span class="xdoc">     *      -`-GX`
+</span>   115    <span class="xdoc">     *          Enables synchronous exception handling
+</span>   116    <span class="xdoc">     *      -`-WL`
+</span>   117    <span class="xdoc">     *          Write errors/warnings on a single output line
+</span>   118    <span class="xdoc">     */</span>
+   119        <span class=key>override</span> <span class=key>config</span> ITarget.Options ccOpts = {
+   120            prefix: <span class="string">"-G5 -Ob1 -Gs -GX"</span>,
+   121            suffix: <span class="string">"-Dfar= "</span>
+   122        };
+   123    
+   124        <span class="xdoc">/*!
+</span>   125    <span class="xdoc">     *  ======== lnkOpts ========
+</span>   126    <span class="xdoc">     *  User modifiable linker options
+</span>   127    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   128    <span class="xdoc">     *      -`-libpath`...
+</span>   129    <span class="xdoc">     *              directories to search for toolchain specific libraries
+</span>   130    <span class="xdoc">     *      -`-nodefaultlib`
+</span>   131    <span class="xdoc">     *              don't search for default libraries when linking; all
+</span>   132    <span class="xdoc">     *              libraries used must be explicitly named
+</span>   133    <span class="xdoc">     *      -`-incremental:no`
+</span>   134    <span class="xdoc">     *              link for execution (no subsequent link will occur)
+</span>   135    <span class="xdoc">     *      -`-machine:ix86`
+</span>   136    <span class="xdoc">     *              link for the Intel x86 architecture
+</span>   137    <span class="xdoc">     *      -`-map:$(XDCCFGDIR)/$@.map`
+</span>   138    <span class="xdoc">     *              output any link map information to the specified file
+</span>   139    <span class="xdoc">     *              ($(XDCCFGDIR) is usually package/cfg)
+</span>   140    <span class="xdoc">     *      -`-pdb:$(XDCCFGDIR)/$@.pdb`
+</span>   141    <span class="xdoc">     *              output any program debug information to the specified file
+</span>   142    <span class="xdoc">     *              ($(XDCCFGDIR) is usually package/cfg)
+</span>   143    <span class="xdoc">     */</span>
+   144        <span class=key>override</span> <span class=key>config</span> ITarget.Options lnkOpts = {
+   145            prefix: <span class="string">"-libpath:$(rootDir)/vc98/lib -libpath:$(rootDir)/vc98/mfc/lib"</span>,
+   146            suffix: <span class="string">"-map:$(XDCCFGDIR)/$@.map -pdb:$(XDCCFGDIR)/$@.pdb -machine:ix86 -nodefaultlib -incremental:no"</span>
+   147        };
+   148            
+   149        <span class="xdoc">/*!
+</span>   150    <span class="xdoc">     *  ======== includeOpts ========
+</span>   151    <span class="xdoc">     *  User modifiable include paths
+</span>   152    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   153    <span class="xdoc">     *      -`-I$(rootDir)/include`
+</span>   154    <span class="xdoc">     *          include compiler specific headers
+</span>   155    <span class="xdoc">     */</span>
+   156        <span class=key>override</span> <span class=key>config</span> string includeOpts = <span class="string">"-I$(rootDir)/vc98/include -I$(rootDir)/vc98/mfc/include -I$(rootDir)/vc98/atl/include"</span>;
+   157    
+   158    
+   159        <span class="xdoc">/*!
+</span>   160    <span class="xdoc">     *  ======== profiles ========
+</span>   161    <span class="xdoc">     *  User modifiable default profiles
+</span>   162    <span class="xdoc">     */</span>
+   163        <span class=key>override</span> <span class=key>config</span> xdc.bld.ITarget.OptionSet profiles[string] = [
+   164            [<span class="string">"debug"</span>, {
+   165                compileOpts: {
+   166                    copts: <span class="string">"-Z7 -Odi -MTd"</span>,
+   167                    defs:  <span class="string">"-D_DEBUG=1"</span>,
+   168                },
+   169                linkOpts: <span class="string">"-debug mfc42.lib mfcs42.lib msvcrt.lib msvcirt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib"</span>,
+   170            }],
+   171    
+   172            [<span class="string">"release"</span>, {
+   173                compileOpts: {
+   174                    copts: <span class="string">"-O2 -MT"</span>,
+   175                    defs:  <span class="string">""</span>,
+   176                },
+   177                linkOpts: <span class="string">"mfc42.lib mfcs42.lib msvcrt.lib msvcirt.lib setargv.obj oldnames.lib ole32.lib oleaut32.lib olepro32.lib uuid.lib kernel32.lib user32.lib gdi32.lib advapi32.lib shell32.lib comctl32.lib"</span>,
+   178            }],
+   179        ];
+   180    }
+   181    <span class="comment">/*
+</span>   182    <span class="comment"> *  @(#) microsoft.targets; 1, 0, 2, 0,387; 2-24-2010 16:24:02; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>   183    <span class="comment"> */</span>
+   184    
+</pre>
+</body></html>

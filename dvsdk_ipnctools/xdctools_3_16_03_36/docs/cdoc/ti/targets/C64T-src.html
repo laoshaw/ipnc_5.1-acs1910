@@ -1,0 +1,183 @@
+<html><head><title>module ti.targets.C64T</title>
+<meta name="googlebot" content="noindex,nofollow">
+<link rel="stylesheet" type="text/css" href="../../src.css"/>
+</head>
+<body>
+<pre class=src>
+     1    <span class="comment">/* 
+</span>     2    <span class="comment"> *  Copyright (c) 2008 Texas Instruments and others.
+</span>     3    <span class="comment"> *  All rights reserved. This program and the accompanying materials
+</span>     4    <span class="comment"> *  are made available under the terms of the Eclipse Public License v1.0
+</span>     5    <span class="comment"> *  which accompanies this distribution, and is available at
+</span>     6    <span class="comment"> *  http://www.eclipse.org/legal/epl-v10.html
+</span>     7    <span class="comment"> * 
+</span>     8    <span class="comment"> *  Contributors:
+</span>     9    <span class="comment"> *      Texas Instruments - initial implementation
+</span>    10    <span class="comment"> * 
+</span>    11    <span class="comment"> * */</span>
+    12    <span class="comment">/*
+</span>    13    <span class="comment"> *  ======== C64T.xdc ========
+</span>    14    <span class="comment"> *
+</span>    15    <span class="comment"> */</span>
+    16    
+    17    <span class="xdoc">/*!
+</span>    18    <span class="xdoc"> *  ======== C64T ========
+</span>    19    <span class="xdoc"> */</span>
+    20    <span class=key>metaonly</span> <span class=key>module</span> C64T <span class=key>inherits</span> ti.targets.ITarget {
+    21        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string name                 = <span class="string">"C64T"</span>;
+    22        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string suffix               = <span class="string">"64T"</span>;
+    23        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string isa                  = <span class="string">"64T"</span>;
+    24        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Model model = {
+    25            endian: <span class="string">"little"</span>
+    26        };
+    27        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.Module base = ti.targets.C62;
+    28    
+    29        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string rts = <span class="string">"ti.targets.rts6000"</span>;
+    30        <span class=key>override</span> <span class=key>config</span> string platform     = <span class="string">"ti.platforms.qtTesla"</span>;
+    31        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string stdInclude = <span class="string">"ti/targets/std.h"</span>;
+    32        
+    33        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command ar = {
+    34            cmd: <span class="string">"ar6x"</span>,
+    35            opts: <span class="string">"rq"</span>
+    36        };
+    37    
+    38        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command cc = {
+    39            cmd: <span class="string">"cl6x -c"</span>,
+    40            opts: <span class="string">"-mv=tesla --abi=coffabi"</span>
+    41        };
+    42    
+    43        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command vers = {
+    44            cmd: <span class="string">"cl6x"</span>,
+    45            opts: <span class="string">"-version"</span>
+    46        };
+    47    
+    48        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command asm = {
+    49            cmd: <span class="string">"cl6x -c"</span>,
+    50            opts: <span class="string">"-mv=tesla --abi=coffabi"</span>
+    51        };
+    52    
+    53        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> ti.targets.ITarget.Command lnk = {
+    54            cmd: <span class="string">"lnk6x"</span>,
+    55            opts: <span class="string">"--abi=coffabi"</span>
+    56        };
+    57        
+    58        <span class=key>override</span> <span class=key>config</span> xdc.bld.ITarget.OptionSet profiles[string] = [
+    59            [<span class="string">"debug"</span>, {
+    60                compileOpts: {
+    61                    copts: <span class="string">"--symdebug:dwarf"</span>,
+    62                    defs:  <span class="string">"-D_DEBUG_=1"</span>,
+    63                }
+    64            }],
+    65            [<span class="string">"release"</span>, {
+    66                compileOpts: {
+    67                    copts: <span class="string">"-O2"</span>,
+    68                },
+    69            }],
+    70            [<span class="string">"profile"</span>, {
+    71                compileOpts: {
+    72                    copts: <span class="string">"--gen_profile_info"</span>,
+    73                },
+    74            }],
+    75            [<span class="string">"coverage"</span>, {
+    76                compileOpts: {
+    77                    copts: <span class="string">"--gen_profile_info"</span>,
+    78                },
+    79            }],
+    80            [<span class="string">"whole_program"</span>, {
+    81                compileOpts: {
+    82                    copts: <span class="string">"-oe -O2 -mo"</span>,
+    83                },
+    84            }],
+    85            [<span class="string">"whole_program_debug"</span>, {
+    86                compileOpts: {
+    87                    copts: <span class="string">"-oe --symdebug:dwarf -mo"</span>,
+    88                },
+    89            }],
+    90        ];
+    91    
+    92        <span class="xdoc">/*!
+</span>    93    <span class="xdoc">     *  ======== asmOpts ========
+</span>    94    <span class="xdoc">     *  User configurable assembler options.
+</span>    95    <span class="xdoc">     *
+</span>    96    <span class="xdoc">     *  Defaults:
+</span>    97    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>    98    <span class="xdoc">     *      -`-qq`
+</span>    99    <span class="xdoc">     *          super quiet mode
+</span>   100    <span class="xdoc">     */</span>
+   101        <span class=key>override</span> <span class=key>config</span> ti.targets.ITarget.Options asmOpts = {
+   102            prefix: <span class="string">"-qq"</span>,
+   103            suffix: <span class="string">""</span>
+   104        };
+   105    
+   106        <span class="xdoc">/*!
+</span>   107    <span class="xdoc">     *  ======== ccOpts ========
+</span>   108    <span class="xdoc">     *  User configurable compiler options.
+</span>   109    <span class="xdoc">     *
+</span>   110    <span class="xdoc">     *  Defaults:
+</span>   111    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   112    <span class="xdoc">     *      -`-qq`
+</span>   113    <span class="xdoc">     *          super quiet mode
+</span>   114    <span class="xdoc">     *      -`-pdsw225`
+</span>   115    <span class="xdoc">     *          generate a warning for implicitly declared functions; i.e.,
+</span>   116    <span class="xdoc">     *          functions without prototypes
+</span>   117    <span class="xdoc">     */</span>
+   118        <span class=key>override</span> <span class=key>config</span> ti.targets.ITarget.Options ccOpts = {
+   119            prefix: <span class="string">"-qq -pdsw225"</span>,
+   120            suffix: <span class="string">""</span>
+   121        };
+   122    
+   123        <span class="xdoc">/*!
+</span>   124    <span class="xdoc">     *  ======== ccConfigOpts ========
+</span>   125    <span class="xdoc">     *  User configurable compiler options for the generated config C file.
+</span>   126    <span class="xdoc">     *
+</span>   127    <span class="xdoc">     *  -mo places all functions into subsections
+</span>   128    <span class="xdoc">     *  --no_compress helps with compile time with no real difference in
+</span>   129    <span class="xdoc">     *  code size since the generated config.c is mostly data and small
+</span>   130    <span class="xdoc">     *  function stubs.
+</span>   131    <span class="xdoc">     */</span>
+   132        <span class=key>override</span> <span class=key>config</span> ti.targets.ITarget.Options ccConfigOpts = {
+   133            prefix: <span class="string">"$(ccOpts.prefix) -mo --no_compress"</span>,
+   134            suffix: <span class="string">"$(ccOpts.suffix)"</span>
+   135        };
+   136    
+   137        <span class="xdoc">/*!
+</span>   138    <span class="xdoc">     *  ======== lnkOpts ========
+</span>   139    <span class="xdoc">     *  User configurable linker options.
+</span>   140    <span class="xdoc">     *
+</span>   141    <span class="xdoc">     *  Defaults:
+</span>   142    <span class="xdoc">     *  <b>@p(dlist)</b>
+</span>   143    <span class="xdoc">     *      -`-w`
+</span>   144    <span class="xdoc">     *          Display linker warnings
+</span>   145    <span class="xdoc">     *      -`-q`
+</span>   146    <span class="xdoc">     *          Quite run
+</span>   147    <span class="xdoc">     *      -`-u`
+</span>   148    <span class="xdoc">     *          Place unresolved external symbol into symbol table
+</span>   149    <span class="xdoc">     *      -`-c`
+</span>   150    <span class="xdoc">     *          ROM autoinitialization model
+</span>   151    <span class="xdoc">     *      -`-m`
+</span>   152    <span class="xdoc">     *          create a map file
+</span>   153    <span class="xdoc">     *      -`-l`
+</span>   154    <span class="xdoc">     *          archive library file as linker input
+</span>   155    <span class="xdoc">     */</span>
+   156        <span class=key>override</span> <span class=key>config</span> ti.targets.ITarget.Options lnkOpts = {
+   157            prefix: <span class="string">"-w -q -u _c_int00"</span>,
+   158            suffix: <span class="string">"-c -m $(XDCCFGDIR)/$@.map -l $(rootDir)/lib/rtstesla_le_coff.lib"</span>
+   159        };
+   160            
+   161        <span class=key>override</span> <span class=key>config</span> string includeOpts = <span class="string">"-I$(rootDir)/include"</span>;
+   162    
+   163        <span class=key>final</span> <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> string sectMap[string] =
+   164            ti.targets.C62.sectMap;
+   165    
+   166        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> xdc.bld.ITarget.StdTypes stdTypes = 
+   167            ti.targets.C62.stdTypes;
+   168        
+   169        <span class=key>override</span> <span class=key>readonly</span> <span class=key>config</span> Int bitsPerChar = 
+   170            ti.targets.C62.bitsPerChar;
+   171    }
+   172    <span class="comment">/*
+</span>   173    <span class="comment"> *  @(#) ti.targets; 1, 0, 3,385; 2-24-2010 16:24:15; /db/ztree/library/trees/xdctargets/xdctargets-b36x/src/
+</span>   174    <span class="comment"> */</span>
+   175    
+</pre>
+</body></html>

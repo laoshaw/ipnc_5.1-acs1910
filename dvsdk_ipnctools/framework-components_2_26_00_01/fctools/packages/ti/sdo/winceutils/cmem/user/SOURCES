@@ -1,0 +1,19 @@
+TARGETNAME=cmem
+RELEASETYPE=LOCAL
+TARGETTYPE=LIBRARY
+SYNCHRONIZE_DRAIN=1
+
+!IF "$(WINCEDEBUG)" == "debug"
+CDEFINES=$(CDEFINES) -D__DEBUG 
+!ENDIF
+
+CDEFINES=$(CDEFINES) -DCEDDK_USEDDKMACRO 
+
+INCLUDES=\
+    $(_PUBLICROOT)\common\ddk\inc;\
+    $(_PUBLICROOT)\common\sdk\inc;\
+    $(_PUBLICROOT)\common\oak\inc;\
+    ..\..\..\..\..
+
+SOURCES= \
+    cmem.c

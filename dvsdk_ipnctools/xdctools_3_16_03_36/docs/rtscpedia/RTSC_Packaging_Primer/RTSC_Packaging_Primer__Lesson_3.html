@@ -1,0 +1,324 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 3 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 3&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_2.html" title="Lesson 2"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_4.html" title="Lesson 4"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 3</p><p id="subtitle">Client Applications &#151; consuming deployed package content</p>
+<p></p>
+<p>Having deployed both <tt>acme.utils</tt> and <tt>charlie.sqrtlib</tt>, we'll turn now to a small yet typical client application that consumes the target content of these packages&#151;which, in the final analysis, boils down to a set of C header files and function libraries.  Along the way, we'll introduce one of most important facets of RTSC from the content consumer's perspective&#151;<b>program configuration</b>&#151;which enables RTSC packages to become active participants within the familiar process of compiling/linking your program.
+</p>
+<div class="Info"><p class="Info">Much of the material presented here, though self-contained, receives more thorough treatment within the first two lessons of the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html#TOC" title="RTSC Module Primer">RTSC Module Primer</a>.  While not a prerequisite to understanding RTSC packages, we'd still encourage you to learn about RTSC modules as well.</p></div>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Reading_the_program"><span class="tocnumber">1</span> <span class="toctext">Reading the program</span></a></li>
+<li class="toclevel-1"><a href="#Configuring_RTSC_programs"><span class="tocnumber">2</span> <span class="toctext">Configuring RTSC programs</span></a></li>
+<li class="toclevel-1"><a href="#Building_and_running_the_program"><span class="tocnumber">3</span> <span class="toctext">Building and running the program</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Reading_the_program"></a><h2> <span class="mw-headline">Reading the program</span></h2>
+<p>Our client application program&#151;whose source resides in the <tt>charlie.sqrtlib.samples</tt> package&#151;benchmarks an integer square-root function (<tt>isqrt</tt>) available through <tt>charlie.sqrtlib</tt> itself.  To measure performance, our sample program leverages a RTSC <b>module</b> named <tt>Bench</tt>&#151;found in the <tt>acme.utils</tt> package&#151;which enables us to sandwich a single <tt>isqrt</tt> call between a pair of benchmark "begin/end" functions.  Besides reporting the measurement in a message, our application outputs the value returned from the <tt>isqrt</tt> call using a familiar-looking <tt>printf</tt> function supported by another RTSC module named <tt>System</tt>&#151;part of the <tt>xdc.runtime</tt> package contained within the <tt>XDCtools</tt> product itself.
+</p><p>Looking now at the code, our client application actually comprises a <i>pair</i> of source files.  The first file (<tt>prog.c</tt>) should appear rather ordinary to anyone familiar with C&#151;though our use of multi-segment paths within <span class="re1"><tt>#include</tt></span> directives may seem unusual at first.  By contrast, the second file (<tt>prog.cfg</tt>) truly represents something new and different here&#151;a RTSC <b>meta-program</b> that <i>configures</i> the corresponding <b>target-program</b>.
+</p>
+<div class="Info"><p class="Info">If you're not sure what role <tt>prog.cfg</tt> plays in the overall flow&#151;or for that matter, what language we're even using here&#151;you will by the end of this lesson.  If you've already tackled the <a href="../RTSC_Module_Primer/RTSC_Module_Primer.html" title="RTSC Module Primer">RTSC Module Primer</a>, however, we've clearly returned to familiar territory.</p></div>   
+<table>
+
+<tr valign="top">
+<td><div id="cl-1:1a"></div><div id="cl-1:2a"></div><div id="cl-1:3a"></div><div id="cl-1:4a"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/samples/prog.c</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1a</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2a</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3a</span><br /><span class="codexLab">4a</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#include</span> <span class="re2">&lt;acme/utils/Bench.h&gt;</span>
+<span class="re1">#include</span> <span class="re2">&lt;xdc/runtime/System.h&gt;</span>
+&nbsp;
+<span class="re1">#include</span> &lt;charlie/sqrtlib/isqrt.h&gt;
+&nbsp;
+<span class="kw2">int</span> main<span class="br0">&#40;</span><span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw2">unsigned</span> <span class="kw2">int</span> x, y;
+&nbsp;
+    x = <span class="nu0">1000</span>;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;==&gt; isqrt(%d)<span class="es0">\n</span>, x&quot;</span><span class="br0">&#41;</span>;
+&nbsp;
+    Bench_begin<span class="br0">&#40;</span><span class="st0">&quot;cycle count:&quot;</span><span class="br0">&#41;</span>;
+    y = isqrt<span class="br0">&#40;</span>x<span class="br0">&#41;</span>;
+    Bench_end<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+&nbsp;
+    System_printf<span class="br0">&#40;</span><span class="st0">&quot;&lt;==&nbsp;%d<span class="es0">\n</span>&quot;</span>, y<span class="br0">&#41;</span>;
+    <span class="kw1">return</span> <span class="nu0">0</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><div id="cl-1:1b"></div><div id="cl-1:2b"></div><div id="cl-1:3b"></div><div id="cl-1:4b"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/samples/prog.cfg</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">1b</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2b</span><br />&nbsp;<br /><span class="codexLab">3b</span><br /><span class="codexLab">4b</span><br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Bench = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'acme.utils.Bench'</span><span class="br0">&#41;</span>;
+<span class="kw1">var</span> System = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'xdc.runtime.System'</span><span class="br0">&#41;</span>;
+&nbsp;
+<span class="kw1">var</span> Settings = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'charlie.sqrtlib.Settings'</span><span class="br0">&#41;</span>;
+&nbsp;
+Bench.enable = <span class="kw2">true</span>;
+Settings.optimize = Settings.OPTIMIZE_FOR_TIME;</pre></td></tr></table>
+</td></tr></table>
+<p><span class="Leader">The target-program</span>.&nbsp; Starting with <tt>prog.c</tt>, this application follows the same pattern used in virtually every other piece of C code&#151;first <span class="re1"><tt>#include</tt></span> some headers [<a class="codexLink" href="#cl-1:1a"><span class="codexLink">1a</span></a>, <a class="codexLink" href="#cl-1:2a"><span class="codexLink">2a</span></a>] and then call some functions defined therein [<a class="codexLink" href="#cl-1:3a"><span class="codexLink">3a</span></a>, <a class="codexLink" href="#cl-1:4a"><span class="codexLink">4a</span></a>]. As for the multi-segment paths leading to <tt>Bench.h</tt> and <tt>isqrt.h</tt>, you should (obviously!) recognize these as the <tt>acme.utils</tt> and <tt>charlie.sqrtlib</tt> package directories&#151;which (obviously!) must contain these header files.
+</p><p>Drilling a little deeper, you might have also sensed some subtle differences between the contents of <tt>charlie.sqrtlib</tt> compared with the other packages used here.  In the case of <tt>acme.utils</tt> and <tt>xdc.runtime</tt>, both packages happen to contain full-fledged RTSC modules&#151;cohesive collections of constants, types, and functions with a <i>public specification</i> and a <i>private implementation</i> (not unlike a <i>class</i> in C++ or Java).  Though our focus here remains on RTSC packages, you should start to recognize and appreciate the programming style and discipline surrounding RTSC modules.
+</p><p>As it turns out, the <tt>charlie.sqrtlib</tt> package houses what we'll refer to as <i>legacy content</i>&#151;C language headers and function libraries delivered in their original format rather than under the guise of a specified RTSC module.  At the same time, just think of RTSC modules as a more <i>disciplined</i> development approach that ultimately yields the same sorts of artifacts&#151;headers and libraries.  Either way, RTSC packaging provide a standardized delivery vehicle and deployment mechanism that can streamline the integration of C-based target content originating from different suppliers.
+</p><p><span class="Leader">The meta-program</span>.&nbsp;  By design, RTSC target-programs&#151;ordinary C programs with a <tt>main</tt> entry-point&#151;metaphorically begin life as a corresponding meta-program that executes on your host computer <i>before</i> the final compiling/linking of your application.  In our example at hand, the outcome of running the <tt>prog.cfg</tt> meta-program effectively <i>configures</i> the downstream <tt>prog.c</tt> target-program&#151;identifying all RTSC modules used in the program [<a class="codexLink" href="#cl-1:1b"><span class="codexLink">1b</span></a>, <a class="codexLink" href="#cl-1:2b"><span class="codexLink">2b</span></a>] as well as optionally assigning values to <b>configuration parameters</b> furnished by these modules [<a class="codexLink" href="#cl-1:3b"><span class="codexLink">3b</span></a>, <a class="codexLink" href="#cl-1:4b"><span class="codexLink">4b</span></a>].
+</p><p>Here again, <tt>charlie.sqrtlib</tt> appears to break the pattern used with the other packages, in which <span class="re1"><tt>xdc.useModule</tt></span> calls within the meta-program strictly mirror <span class="re1"><tt>#include</tt></span> directives found in the target-program; observe the predictable correspondence between lines <a class="codexLink" href="#cl-1:1a"><span class="codexLink">1a</span></a> and <a class="codexLink" href="#cl-1:1b"><span class="codexLink">1b</span></a> above, an idiom applied with each RTSC module used in the application.  But also recall that <tt>charlie.sqrtlib</tt> houses legacy content&#151;C headers and libraries delivered outside the scope of any specified RTSC module; and yet, <tt>charlie.sqrtlib</tt> should merit the same level of participation in the RTSC configuration process as afforded module-rich packages such as <tt>acme.utils</tt> or <tt>xdc.runtime</tt>.
+</p><p>To achieve parity, <tt>charlie.sqrtlib</tt> just so happens to furnish a special <b>meta-only module</b> named <tt>Settings</tt> which effectively serves as a configuration agent for legacy C functions like <tt>isqrt</tt> contained within this package.  Just like the <tt>acme.utils.Bench</tt> module, the <tt>charlie.sqrtlib.Settings</tt> meta-module defines configuration parameters that impact the ultimate behavior of the target-program depending upon their value at the end of the meta-program:
+</p>
+<ul><li> alternatively assigning the module configuration parameter <tt>Bench.enable</tt> the built-in value <span class="kw2"><tt>false</tt></span> at line <a class="codexLink" href="#cl-1:3b"><span class="codexLink">3b</span></a> of <tt>prog.cfg</tt> would effectively turn the runtime calls to the <tt>Bench_begin</tt> and <tt>Begin_end</tt> functions beginning at line <a class="codexLink" href="#cl-1:3a"><span class="codexLink">3a</span></a> of <tt>prog.c</tt> into NOPs; and
+</li></ul>
+<p></p>
+<ul><li> alternatively assigning the module configuration parameter <tt>Settings.optimize</tt> the enumerated value <tt>Settings.OPTIMIZE_FOR_SPACE</tt> at line <a class="codexLink" href="#cl-1:4b"><span class="codexLink">4b</span></a> of <tt>prog.cfg</tt> would potentially bind the <tt>isqrt</tt> function call at line <a class="codexLink" href="#cl-1:4a"><span class="codexLink">4a</span></a> of <tt>prog.c</tt> to a slower but more compact implementation.
+</li></ul>
+<p>As for the programming language used in <tt>prog.cfg</tt>, you'll (of course!) express RTSC <b>meta-programs</b> using the RTSC <b>meta-language</b>&#151;which is <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>, a superset of industry-standard JavaScript that builds upon Mozilla's openly available Rhino implementation.  We have in fact extended Rhino/JavaScript to better integrate with other elements in the overall RTSC development flow&#151;for sure, you won't find <span class="re1"><tt>xdc.useModule</tt></span> described in any JavaScript textbooks.
+</p>
+<div class="Info"><p class="Info">Recall that <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> is one of two special-purpose languages introduced by RTSC under the banner of <b><i>e<span style="font-size:115%;" class="color-green">X</span>pan<span style="font-size:115%;" class="color-red">D</span>ed&nbsp;&nbsp;<span style="font-size:115%;" class="color-blue">C</span></i></b>&#151;suggesting that C alone is not enough.  As we start exploring RTSC packages from the supplier's perspective in the next lesson, we'll introduce the other special-purpose <b><i>e<span style="font-size:115%;" class="color-green">X</span>pan<span style="font-size:115%;" class="color-red">D</span>ed&nbsp;&nbsp;<span style="font-size:115%;" class="color-blue">C</span></i></b> language&#151;the higher-level <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> specification language which works hand-in-hand with <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> to enable package producers to satisfy the diverse needs of their consumers.</p></div>
+<a name="Configuring_RTSC_programs"></a><h2> <span class="mw-headline">Configuring RTSC programs</span></h2>
+<p>RTSC configuration, as we've already hinted, occurs <i>before</i> the final compile/link of your application:  executing the <tt>prog.cfg</tt> meta-program serves as a "pre-build" step that ultimately affects the compiling and linking of the <tt>prog.c</tt> target-program.  To ease integration into existing program build flows&#151;whether driven by command-line tools or a graphical IDE&#151;we'll rely here on another tool known as <tt>configuro</tt> to orchestrate the RTSC configuration process:
+</p>
+<span id="figure"><center><a href="images/ModPrimerFig1.png" class="image" title="image:ModPrimerFig1.png"><img alt="image:ModPrimerFig1.png" src="images/ModPrimerFig1.png" width="455" height="352" border="0" /></a></center></span>
+<p>Included as part of the <tt>XDCtools</tt> product you've already installed in <a href="RTSC_Packaging_Primer__Lesson_0.html#Downloading_the_XDCtools_product" title="RTSC Packaging Primer/Lesson 0">Lesson 0</a>, <tt>configuro</tt> generates two output files that in turn become inputs to the compiler and linker when building your target-program:
+</p>
+<ul><li> <tt>compiler.opt</tt>, which sets all <tt>-D</tt> and <tt>-I</tt> compiler flags needed to locate any C headers included by this program (such as <tt>acme/utils/Bench.h</tt> or <tt>charlie/sqrtlib/isqrt.h</tt>); and
+</li></ul>
+<p></p>
+<ul><li> <tt>linker.cmd</tt>, which lists the appropriate C libraries containing implementations of any functions used by this program (such as <tt>Bench_begin</tt> or <tt>isqrt</tt>).
+</li></ul>
+<div class="Info"><p class="Info">Putting some of the pieces together, the <span class="re1"><tt>#include</tt></span> search-path defined through the <tt>-I</tt> flags in <tt>compiler.opt</tt> <i>exactly</i> reflects the current package path on a per-repository basis&#151;which explains how the compiler finds headers named <tt>&lt;acme/utils/Bench.h&gt;</tt> or <tt>&lt;charlie/sqrtlib/isqrt.h&gt;</tt>.  Rather than collecting all <tt>.h</tt> files into a centralized <tt>include/</tt> directory, C headers delivered within RTSC packages remain in place at the consumer's site to help ensure their integrity. We'd also claim that using package directory paths in <span class="rel1"><tt>#include</tt></span> directives makes code more <i>maintainable</i>, leaving little doubt as to the particular supplier of each file; and this approach further enables different suppliers of (uniquely-named) packages to coincidently choose the same name for a header&#151;say, <tt>Types.h</tt>.</p></div> 
+<p>Besides the <tt>prog.cfg</tt> meta-program, input to <tt>configuro</tt> will typically designate a RTSC <b>target</b> as well as a RTSC <b>platform</b>&#151;pre-defined <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> recipes that respectively guide the compiling and linking of <tt>prog.c</tt> in our example at hand:
+</p>
+<ul><li> a RTSC target knows how to compile C sources into an object-code library for a particular CPU instruction set and memory model using a specific vendor tool-chain; and
+</li></ul>
+<p></p>
+<ul><li> a RTSC platform knows how to link and execute a C program for a particular hardware board (real or simulated) featuring a specific complement of processors, memory, and peripherals.
+</li></ul>
+<p>While clearly impacting the contents of <tt>compiler.opt</tt> and <tt>linker.cmd</tt>, the wealth of information encapsulated within a RTSC target and RTSC platform is generally available throughout the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> environment&#151;during execution of the <tt>prog.cfg</tt> meta-program as well as from within special back-end meta-functions we'll encounter later on.
+</p>
+<div class="Info"><p class="Info">Putting a few more of the pieces together, the generated <tt>linker.cmd</tt> references function libraries using full directory paths such as <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo/acme/utils/lib/acme.utils.a64P</tt>.  As you'll learn in Lesson 7, RTSC packages play an integral role during program configuration in selecting the set of libraries used for the final link step.  As the <tt>.a64P</tt> suffix may suggest, packages containing libraries compiled for <i>different</i> RTSC targets can query the current target's identify when making this selection.  Special <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> meta-functions implemented by package suppliers can also reflect upon the current RTSC platform when identifying libraries; or else&#151;in the case of <tt>charlie.sqrtlib</tt> with its <tt>Settings</tt> meta-module&#151;use the current value of a client-visible configuration parameter to guide the choice.</p></div>
+<a name="Building_and_running_the_program"></a><h2> <span class="mw-headline">Building and running the program</span></h2>
+<p>If you're "playing along" with us and actually want to build and run the program at this time, we'd recommend first copying the <tt>charlie.sqrtlib.samples</tt> package into <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> using the <span class="cmdFraq"><tt>repoman</tt>&nbsp;<tt>-c</tt></span> command.  This way, you can freely tweak the application sources without tainting the original package contents which would still remain in <tt><span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/charlie_sqrtlib_2_71/packages</tt>.
+</p>
+<div id="cl-1:1"></div><div id="cl-1:2"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; xs xdc.tools.repoman -c -v -r <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo -p <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/cha.../packages charlie.sqrtlib.samples</span></b>
+xdc.tools.repoman: deleting charlie.sqrtlib.samples from <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo
+xdc.tools.repoman: checking if charlie.sqrtlib.samples is a bundle 
+xdc.tools.repoman:     charlie.sqrtlib.samples is not a bundle.
+xdc.tools.repoman: deleting contents of directory myrepo/charlie/sqrtlib/demos/package
+xdc.tools.repoman: copying charlie.sqrtlib.samples from <span class="mq">&laquo;</span>shared<span class="mq">&raquo;</span>/products/cha.../packages to <span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</pre></td></tr></table>
+<div class="Info"><p class="Info">The output between lines <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a> and <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> occurs whenever <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> <i>already</i> contains a version of the <tt>charlie.sqrtlib.samples</tt> package.  To reinforce the concept of RTSC packages as individual logical entities rather than a mass of physical files, <tt>repoman</tt> will also delete packages as a unit prior to replacing them with a fresh copy.  But why not simply use the native <tt>delete</tt> and <tt>copy</tt> commands of your host computer to perform these operations.... For one, because RTSC packages often house complex directory structures of their own which cannot be compromised; but even more important, because RTSC package directories may also serve as stepping-stones to <i>other</i> RTSC packages&#151;try deleting a version of <tt>charlie.sqrtlib</tt> <i>without</i> removing the contents of <tt>charlie.sqrtlib.samples</tt> as well.</p></div>
+<p>In addition to <tt>prog.c</tt> and <tt>prog.cfg</tt>, the <tt>charlie.sqrtlib.samples</tt> package contains a standard GNU <tt>makefile</tt> that enables you to build and run our sample application.  Before doing so, however, you'll need to edit a pair of lines at the top of the <tt>makefile</tt> to reflect the actual directories you've chosen for <span class="mq">&laquo;</span><tt>xdcroot</tt><span class="mq">&raquo;</span> and <span class="mq">&laquo;</span><tt>c6xtools</tt><span class="mq">&raquo;</span> back in <a href="RTSC_Packaging_Primer__Lesson_0.html#Downloading_the_XDCtools_product" title="RTSC Packaging Primer/Lesson 0">Lesson 0</a>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/samples/makefile</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>XDCROOT = <span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>
+C6XTOOLS = <span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span>            
+   ...</pre></td></tr></table>
+<p></p>
+<p><div class="Notice-red"><p class="Notice-red">Windows-hosted developers should surround <span class="mq">&laquo;</span><tt>xdcroot</tt><span class="mq">&raquo;</span> or <span class="mq">&laquo;</span><tt>c6xtools</tt><span class="mq">&raquo;</span> with double-quotes <span class="st0"><tt>"..."</tt></span> if these directory paths contain any <i>spaces</i> in their names.</p></div></p>
+<p></p>
+<p><div class="Notice-red"><p class="Notice-red">Linux-hosted developers should also edit the definition of the <tt>RMCMD</tt> symbol per instructions found in the <tt>makefile</tt>.</p></div></p>
+<p>Using a version of <tt>gmake</tt> bundled with <tt>XDCtools</tt>&#151;and assuming you've added <tt><span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span></tt> to your <tt>PATH</tt>&#151;invoking the command <span class="cmdFrag"><tt>gmake</tt>&nbsp;<tt>all</tt></span> from the <tt>charlie/matlib/samples</tt> package directory (now) residing within the <tt><span class="mq">&laquo;</span>local<span class="mq">&raquo;</span>/myrepo</tt> package repository should yield the following messages:
+</p>
+<div id="cl-3:1"></div><div id="cl-3:2"></div><div id="cl-3:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">2</span><br /><span class="codexLab">3</span><br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; gmake all</span></b>
+<span class="mq">&laquo;</span>xdcroot<span class="mq">&raquo;</span>/xs xdc.tools.configuro -c <span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span> -t ti.targets.C64P -p ti.platforms.sim64Pxx -o cfgsite prog.cfg
+making package.mak (because of package.bld) ...
+generating interfaces for package cfgsite (because package/package.xdc.xml is older than package.xdc) ...
+configuring prog.x64P from package/cfg/prog_x64P.cfg ...
+cl64P package/cfg/prog_x64P.c ...
+<span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span>/bin/cl6x -q -@cfgsite/compiler.opt -c prog.c
+<span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span>/bin/lnk6x -q -z -c prog.obj cfgsite/linker.cmd -o prog.out -l <span class="mq">&laquo;</span>c6xtools<span class="mq">&raquo;</span>/lib/rts64plus.lib</pre></td></tr></table>
+<p>Lines <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a>, <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a>, and <a class="codexLink" href="#cl-3:3"><span class="codexLink">3</span></a> respectively follow the flow outlined in the earlier <a href="#figure" title="">figure</a>, but now with all the details of invoking these tools made explicit.  Looking at little closer at the options passed to <tt>configuro</tt> at line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a>, suffice it to say that <tt>ti.targets.C64P</tt> designates a meta-module&#151;the RTSC <b>target</b>&#151;which guides compilation of this program and that <tt>ti.platforms.sim64Pxx</tt> identifies a package&#151;the RTSC <b>platform</b>&#151;which directs program linking and loading.
+</p>
+<div class="Info"><p class="Info">To read more about the hundreds of RTSC packages and modules bundled with the <tt>XDCtools</tt> product&#151;and hence already found along the current package path&#151;just fire-up <tt>xdc.tools.cdoc.sg</tt> using the standard <tt>xs</tt> command to interactively browse client documentation originally sourced in <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> files contained in each package; you'll even see some documentation for <i>third-party</i> packages, such as <tt>acme.utils</tt> and <tt>charlie.sqrtlib</tt>.&nbsp;  (You can also visit <a href="http://rtsc.eclipse.org/cdoc-tip" class="external text" title="http://rtsc.eclipse.org/cdoc-tip" rel="nofollow">rtsc.eclipse.org</a> for a snapshot of the latest <tt>XDCtools</tt> package documentation.)</p></div>
+<p>To execute the program, simply invoke the <span class="cmdFrag"><tt>gmake</tt>&nbsp;<tt>test</tt></span> command:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre><b><span class="st0">%&gt; gmake test</span></b>
+==&gt; isqrt(1000)
+cycle count: [63]    
+&lt;== 31</pre></td></tr></table>
+<p>At this point, feel free to explore the effect upon program output when you vary the value passed to the <tt>isqrt(x)</tt> function call on line <a class="codexLink" href="#cl-1:4a"><span class="codexLink">4a</span></a> of <tt>prog.c</tt>; or else, when you assign <tt>Settings.OPTIMIZE_FOR_SPACE</tt> on line <a class="codexLink" href="#cl-1:4b"><span class="codexLink">4b</span></a> of <tt>prog.cfg</tt>.  After you make any changes, (re-)invoking the <span class="cmdFrag"><tt>gmake</tt>&nbsp;<tt>test</tt></span> command will first perform the requisite build-steps&#151;but only what's needed, given the structure of our <tt>makefile</tt>&#151;before executing the program.  To rebuild the all of the pieces from scratch, first invoke <span class="cmdFrag"><tt>gmake</tt>&nbsp;<tt>clean</tt></span> to remove all generated files.
+</p>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Consuming_Configurable_Content/Consuming_Configurable_Content.html" title="Consuming Configurable Content">Consuming Configurable Content</a>
+</td><td class="DocListSubTitle1">Introduction to the RTSC configuration process
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../Command_-_xdc.tools.configuro/Command_-_xdc.tools.configuro.html" title="Command - xdc.tools.configuro">Command - xdc.tools.configuro</a>
+</td><td class="DocListSubTitle">Target content configuration tool
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../The_XDCscript_Language/The_XDCscript_Language.html" title="The XDCscript Language">The XDCscript Language</a>
+</td><td class="DocListSubTitle">XDCscript overview
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 3&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_2.html" title="Lesson 2"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_4.html" title="Lesson 4"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 17511 bytes
+Post-expand include size: 5551 bytes
+Template argument size: 663 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>

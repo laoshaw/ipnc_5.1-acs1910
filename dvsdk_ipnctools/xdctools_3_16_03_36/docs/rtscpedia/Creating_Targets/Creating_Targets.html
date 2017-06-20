@@ -1,0 +1,443 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>Creating Targets - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Creating Targets&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Creating Targets" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_Targets_and_Platforms/Using_Targets_and_Platforms.html" title="Using_Targets_and_Platforms"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><p id="title">Creating Targets</p><p id="subtitle">How to create a new target</p>
+<p></p>
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Introduction"><span class="tocnumber">1</span> <span class="toctext">Introduction</span></a></li>
+<li class="toclevel-1"><a href="#Creating_an_ITarget_Module"><span class="tocnumber">2</span> <span class="toctext">Creating an ITarget Module</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Implementing_the_xdc.bld.ITarget_interface"><span class="tocnumber">2.1</span> <span class="toctext">Implementing the xdc.bld.ITarget interface</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Defining_target-specific_.22base.22_types"><span class="tocnumber">3</span> <span class="toctext">Defining target-specific "base" types</span></a>
+<ul>
+<li class="toclevel-2"><a href="#Example_of_a_Base_Types_Header"><span class="tocnumber">3.1</span> <span class="toctext">Example of a Base Types Header</span></a></li>
+</ul>
+</li>
+<li class="toclevel-1"><a href="#Providing_a_runtime_support_package"><span class="tocnumber">4</span> <span class="toctext">Providing a runtime support package</span></a></li>
+<li class="toclevel-1"><a href="#Inheriting_from_an_Existing_Target"><span class="tocnumber">5</span> <span class="toctext">Inheriting from an Existing Target</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Introduction"></a><h2> <span class="mw-headline">Introduction</span></h2>
+<p>Targets are RTSC modules that implement the <tt><a href="../../cdoc/xdc/bld/ITarget.html" class="cdoc"><tt>xdc.bld.ITarget</tt></a></tt> interface and are an essential part of the RTSC build and configuration models.  Targets are used to generate makefiles that can compile and link portable C/C++ code and are used by packages during configuration to select appropriate libraries to link into the end application.  Targets also serve to enable compatibility checks between packages built with different toolchains.
+</p><p>Adding a new target from scratch involves three major steps.
+</p>
+<ol><li><a href="#CreateTargetModule" title="">Create a module that extends the <tt>xdc.bld.ITarget</tt> interface</a>; i.e., you must implement the methods and supply the configuration parameters declared in the <tt>xdc.bld.ITarget</tt> interface.
+</li><li><a href="#DefineBaseTypes" title="">Define the "base" types</a> required from all targets; i.e., create a C header (named by the module created above) that defines the target-specific "base" types (<tt>Int8</tt>, <tt>Int16</tt>, <tt>Int32</tt>, etc.).  
+</li><li><a href="#ProvideRTSPackage" title="">Provide a runtime support package</a> for the target.  This package contains the startup boot sequence (if necessary) plus a pre-built library of all of the  <tt>xdc.runtime</tt> package's modules.
+</li></ol>
+<p>However, if the target you want to add is a simple variation of an existing target, these steps can be greatly simplified by simply "inheriting" from an existing target. For example, the <a href="images/Local_targets.zip" class="internal" title="Local targets.zip"> local.targets</a> package illustrates how to create a package of targets that inherits the <tt>xdc.bld.ITarget</tt> implementation from <tt>ti.targets.ITarget</tt>.  In this case, each new target is nothing more than a relatively short <tt>.xdc</tt> module specification that defines a few constants. Also, in <a href="#Inheriting_from_an_Existing_Target" title="">Inheriting from an Existing Target</a>, we describe the steps required to create a new target based on an existing target.
+</p><p><span id="CreateTargetModule">
+</p>
+<a name="Creating_an_ITarget_Module"></a><h2> <span class="mw-headline">Creating an <tt>ITarget</tt> Module</span></h2>
+<p></span>
+Since targets are RTSC modules, they are developed and delivered in a package.  In addition, it is common for several targets to be delivered together; e.g., a big endian and little endian variation of a target.  Object files that should not be combined in a single application must be created with different targets.
+</p><p>Since the implementation of the <tt>xdc.bld.ITarget</tt> interface is strongly influenced by the compiler toolchain that it "wraps", it is usually best to create separate target packages for each compiler vendor; e.g., GNU gcc compiler targets are in a package separate from the Microsoft Windows compiler targets.  While is common for multiple packages to support the same compiler tool chain, it is best not to have a single package support multiple tool chains.
+</p>
+<a name="Implementing_the_xdc.bld.ITarget_interface"></a><h3> <span class="mw-headline">Implementing the <tt>xdc.bld.ITarget</tt> interface</span></h3>
+<p>Different targets in a package often only differ by a small set of required options; e.g., options that select a runtime model, structure packing conventions, or a specific Instruction Set Architecture (ISA).  As a result, most target packages first define common interface that both inherits from <tt>xdc.bld.ITarget</tt> and defines properties that are common to the target modules in the package.
+</p><p>In RTSC, metaonly interfaces can provide "default" implementations of their declared methods.  This allows a form of implementation inheritance that often allows new target modules that inherit a common interface to simply declare unique compiler options and rely on the default method implementation in the common interface to do the "heavy lifting" required to implement <tt>xdc.bld.ITarget</tt>.
+</p><p>For example, the targets package <tt><a href="../../cdoc/gnu/targets/package.html" class="cdoc"><tt>gnu.targets</tt></a></tt> contains an interface <tt>gnu.targets.ITarget</tt> that inherits <tt>xdc.bld.ITarget</tt>, defines default values for the targets in this package, and provides default implementations for these targets (in <tt>gnu/targets/ITarget.xs</tt>).
+</p><p>The <tt><a href="images/Local_targets.zip" class="internal" title="Local targets.zip"> local.targets</a></tt> example package illustrates how to create a package of targets that inherits the <tt>xdc.bld.ITarget</tt> implementation from <tt>ti.targets.ITarget</tt>.  In this case, each new target is nothing more than a relatively short <tt>.xdc</tt> module specification that defines a few constants.
+</p><p><span id="DefineBaseTypes">
+</p>
+<a name="Defining_target-specific_.22base.22_types"></a><h2> <span class="mw-headline">Defining target-specific "base" types</span></h2>
+<p></span>
+All targets name a target-specific C header that defines a "base" set of types; see <a href="../../cdoc/xdc/bld/ITarget.html#std/.Include" class="cdoc"><tt>xdc.bld.ITarget.stdInclude</tt></a>.
+Client source code, on the other hand, always includes the target-independent header <tt><a href="../../cdoc/xdc/package.html" class="cdoc"><tt>xdc/std.h</tt></a></tt> to access these definitions.  The <tt>xdc/std.h</tt> header indirectly includes target-specific definitions of these types based on the value of the symbol <tt>xdc_target_types__</tt> defined on the command line.  This bit of indirection eliminates target-specific references from sources and makes them trivially portable to any target.  
+</p><p>In fact, two symbols are <i>always</i> defined when compiling any code that references a RTSC module: <tt>xdc_target_types__</tt> and <tt>xdc_target_name__</tt>.  These symbols are defined on the compiler's command line either explicitly by the end-user or implicitly by the makefile generated from the target module.  The first symbol, <tt>xdc_target_types__</tt>, is used by <tt>xdc/std.h</tt> to include a target-specific header.  The second symbol, <tt>xdc_target_name__</tt>, is optionally used by the target-specific header to conditionally define base types. For more information about how code that references RTSC modules is compiled, see <a href="../Integrating_RTSC_Modules/Integrating_RTSC_Modules.html" title="Integrating RTSC Modules"> Integrating RTSC Modules</a>.
+</p>
+<a name="Example_of_a_Base_Types_Header"></a><h3> <span class="mw-headline">Example of a Base Types Header</span></h3>
+<p>The following command line sets these symbols for the TI C6x compiler when using the <tt>ti.targets.C64</tt> target.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre>cl6x -Dxdc_target_types__=ti/targets/std.h -Dxdc_target_name__=C64 ... client.c</pre></td></tr></table>
+<p>The client sources include <tt>xdc/std.h</tt> which, in turn, uses the definition of <tt>xdc_target_types__</tt> to include the target-specific header.  To make it possible to this target-specific header to easily include automatically generated definitions (from the ITarget interface), most target-specific headers include a header whose name is simply derived from adding ".h" to the end of value of <tt>xdc_target_name__</tt>.
+</p><p>In summary, 
+</p>
+<ol><li>client code includes <tt>&lt;xdc/std.h&gt;</tt>
+</li><li><tt>xdc/std.h</tt> includes a target-specific header, say <tt>&lt;ti/targets/std.h&gt;</tt>, and finally
+</li><li>this target-specific header includes a machine-generated header whose name is derived from <tt>xdc_target_name__</tt>, say <tt>"C64.h"</tt>.
+</li></ol>
+<p>The following fragment shows the basic structure of the header used for all targets supplied by the <tt>ti.targets</tt> package.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>ti/targets/std.h</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#ifndef</span> ti_targets_STD_  <span class="coMULTI">/* prevent multiple includes of this header */</span>
+<span class="re1">#define</span> ti_targets_STD_
+&nbsp;
+<span class="coMULTI">/*  Include target-specific &quot;portable&quot; macros
+ *
+ *  The build command-line defines xdc_target_name__ to be the value
+ *  of the target's name config parameter.  We use this to include the
+ *  target-specific definitions for the required target-independent
+ *  xdc_target* macros.
+ *
+ *  xdc__local_include is a macro that expands into a #include of
+ *  &quot;&lt;name&gt;.h&quot;, where &lt;name&gt; is the argument to the macro. This macro
+ *  is defined in xdc/std.h.
+ *
+ *  This header is machine generated from the template xdc/bld/stddefs.xdt
+ *  and includes many definitions that are specified in the xdc.bld.ITarget
+ *  interface.
+ */</span>
+<span class="re1">#if</span> defined<span class="br0">&#40;</span>xdc_target_name__<span class="br0">&#41;</span> &amp;&nbsp;!defined<span class="br0">&#40;</span>xdc_target_macros_include__<span class="br0">&#41;</span>
+<span class="re1">#include</span> xdc__local_include<span class="br0">&#40;</span>xdc_target_name__<span class="br0">&#41;</span>
+<span class="re1">#endif</span>
+&nbsp;
+<span class="coMULTI">/* include the C99 standard integer types supported by TI */</span>
+<span class="re1">#include</span> &lt;stdint.h&gt; 
+&nbsp;
+<span class="coMULTI">/* use compiler specific macros to guide definitions within xdc/std.h */</span>   
+<span class="re1">#if</span> defined<span class="br0">&#40;</span>_TMS320C6X<span class="br0">&#41;</span> <span class="coMULTI">/* defined by cl6x for all C6x CPUs */</span>
+      &nbsp;:
+    <span class="re1">#define</span> xdc__BITS64__     <span class="coMULTI">/* has a precise 64-bit type */</span>
+    <span class="re1">#define</span> xdc__INT64__      <span class="coMULTI">/* has a 64-bit integer type */</span>
+<span class="re1">#elif</span> ...
+   &nbsp;:
+<span class="re1">#else</span>
+    <span class="coMULTI">/* generate an error if this header is used with an unknown target */</span>
+    <span class="re1">#error</span> &lt;ti/targets/std.h&gt; is not supported <span class="kw1">for</span> this target
+<span class="re1">#endif</span>
+&nbsp;
+<span class="coMULTI">/* define the RTSC base types in terms the TI compiler understands */</span>
+typedef int_least8_t    xdc_Int8;
+typedef uint_least8_t   xdc_UInt8;
+typedef int_least16_t   xdc_Int16;
+typedef uint_least16_t  xdc_UInt16;
+typedef int_least32_t   xdc_Int32;
+typedef uint_least32_t  xdc_UInt32;
+&nbsp;
+<span class="re1">#ifdef</span> xdc__INT64__
+    typedef int_least64_t   xdc_Int64;
+    typedef int_least64_t   xdc_UInt64;
+<span class="re1">#endif</span>
+&nbsp;
+<span class="re1">#endif</span> <span class="coMULTI">/* ti_targets_STD_ */</span></pre></td></tr></table>
+<p>In most cases, it is unnecessary to create the file above from scratch.  In fact, most new targets are simple variations of existing target.  In these cases, the new targets can "inherit" the definitions above by simply <tt>#include</tt>'ing the header and redefining as necessary.  For example, a new package of targets, say <tt>local.targets</tt>, can define <tt>local/targets/std.h</tt> as shown below.
+</p>
+ <table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>local/targets/std.h</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#ifndef</span> local_targets_STD_  <span class="coMULTI">/* prevent multiple includes of this header */</span>
+<span class="re1">#define</span> local_targets_STD_
+&nbsp;
+<span class="coMULTI">/* include my target-specific &quot;portable&quot; macros (which will
+ * override the ones included by ti/targets/std.h because  
+ * xdc_target_macros_include__ is defined by my target's
+ * header)
+ */</span>
+<span class="re1">#if</span> defined<span class="br0">&#40;</span>xdc_target_name__<span class="br0">&#41;</span> &amp;&nbsp;!defined<span class="br0">&#40;</span>xdc_target_macros_include__<span class="br0">&#41;</span>
+<span class="re1">#include</span> xdc__local_include<span class="br0">&#40;</span>xdc_target_name__<span class="br0">&#41;</span>
+<span class="re1">#endif</span>
+&nbsp;
+<span class="coMULTI">/* include the existing TI RTSC base definitions */</span>
+<span class="re1">#include</span> &lt;ti/targets/std.h&gt; 
+&nbsp;
+<span class="re1">#endif</span> <span class="coMULTI">/* local_targets_STD_ */</span></pre></td></tr></table>
+<p><span id="ProvideRTSPackage">
+</p>
+<a name="Providing_a_runtime_support_package"></a><h2> <span class="mw-headline">Providing a runtime support package</span></h2>
+<p></span>
+The <tt>xdc.bld.ITarget</tt> interface names a package that contains pre-built libraries of the modules contained in the <tt>xdc.runtime</tt> package; see <a href="../../cdoc/xdc/bld/ITarget.html#rts" class="cdoc"><tt>xdc.bld.ITargets.rts</tt></a>.  The <tt>xdc.runtime</tt> package contains target-independent C sources and files to simplify the creation of target-specific packages that contain pre-built versions of these sources.  This architecture ensures that new targets can be added and used without requiring <i>any</i> re-release of the <tt>xdc.runtime</tt> package itself.
+</p><p>Although it is not required, it is natural to "nest" the runtime support package under the package of targets that reference it.  Suppose, for example, that the targets package is named <tt>local.targets</tt>, the runtime support package might be named <tt>local.targets.rts</tt>.  The files below are the only source files required to create this package.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">package</span> local.targets.rts <span class="br0">&#123;</span> 
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> RtsBuild = <span class="re1">xdc.loadCapsule</span><span class="br0">&#40;</span><span class="st1">'xdc/runtime/build.xs'</span><span class="br0">&#41;</span>;
+&nbsp;
+Pkg.makePrologue = RtsBuild.makePrologue;
+Pkg.attrs.exportAll = <span class="kw2">true</span>;
+&nbsp;
+<span class="kw1">for</span> <span class="br0">&#40;</span><span class="kw1">var</span> i = <span class="nu0">0</span>; i &lt; Build.targets.length; i++<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+    <span class="kw1">var</span> targ = Build.targets<span class="br0">&#91;</span>i<span class="br0">&#93;</span>;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>targ.rts == Pkg.name<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">var</span> lib = Pkg.addLibrary<span class="br0">&#40;</span><span class="st0">&quot;lib/&quot;</span> + Pkg.name,
+            targ<span class="br0">&#41;</span>;
+        lib.addObjects<span class="br0">&#40;</span>RtsBuild.objs<span class="br0">&#41;</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td></tr>
+</table>
+<p>To build and release this package you must add your newly created targets to your <tt>config.bld</tt> script and run the <tt>"xdc release"</tt> command from the base of the <tt>local.targets.rts</tt> package.  The resulting package archive contains all the libraries necessary for clients to take full advantage of the xdc.runtime modules without any additional build steps.
+</p>
+<a name="Inheriting_from_an_Existing_Target"></a><h2> <span class="mw-headline">Inheriting from an Existing Target</span></h2>
+<p>An easy way to create a new target is to find an existing target similar to the new target, copy the existing target's files, and make the changes required for the new target.  This section demonstrates a simple scenario where the target producer plans to create only one target named <tt>local.targets.Arm9e</tt> and this target is a simple variation of the preexisting <tt>ti.targets.arm.Arm9</tt> target.
+</p><p>In this example, the target producer creates a target similar to <tt>ti.targets.arm.Arm9</tt> target, with the difference that new target uses the <tt>big endian</tt> code model.
+</p><p>1. Create a package <tt>local.targets</tt> by creating a directory <tt>local/targets</tt>, and create the files <tt>config.bld</tt>, <tt>package.bld</tt> and <tt>package.xdc</tt>.  The content of these three files is shown below.
+</p>
+<table>
+
+<tr valign="top">
+<td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Build.useTargets = <span class="kw2">null</span>;</pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">requires</span> ti.targets.arm;
+&nbsp;
+<span class="kw1">package</span> local.targets <span class="br0">&#123;</span>
+    <span class="kw1">module</span> Arm9e; 
+<span class="br0">&#125;</span></pre></td></tr></table>
+</td><td><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>package.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript">Pkg.attrs.exportAll = <span class="kw2">true</span>;</pre></td></tr></table>
+</td></tr></table>
+<p>The purpose of <tt>config.bld</tt> in this package is to prevent an accidental usage of another <tt>config.bld</tt>, which might have a reference to the target being built in this package.
+</p><p>In <tt>package.xdc</tt>, we declare that this package contains the module <tt>Arm9e</tt>. This module, described in the following steps, defines the new target.  Also, since the new target relies on the <tt>ti.targets.arm.IArm</tt> interface to define most of the new target's configuration, the package <tt>ti.targets.arm</tt> must be available on the package path.
+</p><p>Finally, <tt>package.bld</tt> ensures that all files required to use this target are available in the package's releases.
+</p><p>2. Copy the <tt>Arm9.xdc</tt> file from the <tt>ti.targets.arm</tt> package to <tt>Arm9e.xdc</tt> in the <tt>local.targets</tt> package.
+</p><p>3. Make the changes in <tt>Arm9e.xdc</tt> that differentiate the <tt>local.targets.Arm9e</tt> target from <tt>ti.targets.arm.Arm9</tt>. The extent of the changes that must be made in this step greatly depends on the differences between the existing and the new target. In this case, besides the obvious changes related to the name of the new target, we changed the build options for both the compiler and assembler, the name of the target-specific header (<tt>stdInclude</tt>), the target's runtime support library (<tt>rts</tt>, which will be built using this target), and the default toolchain runtime library (<tt>linkLib</tt>).
+</p><p>The content of the new file is shown below with the lines with changes marked by <a class="codexLink" href="#cl-Arm9e_spec:&gt;"><span class="codexLink">&gt;</span></a>.
+</p>
+<div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><div id="cl-1:>"></div><div id="cl-Arm9e_spec:>"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>Arm9e.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br /><span class="codexLab">></span><br /><span class="codexLab">></span><br />&nbsp;<br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">></span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*!
+ *  ======== Arm9e.xdc ========
+ */</span>
+<span class="kw1">metaonly</span> <span class="kw1">module</span> Arm9e <span class="kw1">inherits</span> ti.targets.arm.IArm <span class="br0">&#123;</span>
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> string name = <span class="st0">&quot;Arm9e&quot;</span>;
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> string suffix = <span class="st0">&quot;9e&quot;</span>;
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> string isa = <span class="st0">&quot;v5T&quot;</span>;    
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> string rts = <span class="st0">&quot;local.targets.rts&quot;</span>;
+&nbsp;
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> xdc.bld.ITarget.Module base = ti.targets.TMS470;
+&nbsp;
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> xdc.bld.ITarget.Model model = <span class="br0">&#123;</span>
+        endian: <span class="st0">&quot;big&quot;</span>
+    <span class="br0">&#125;</span>;
+&nbsp;
+    <span class="kw1">override</span> <span class="kw1">config</span> <span class="kw2">String</span> stdInclude = <span class="st0">&quot;local/targets/std.h&quot;</span>;
+&nbsp;
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> ti.targets.ITarget.Command cc = <span class="br0">&#123;</span>
+        cmd:  <span class="st0">&quot;cl470 -c&quot;</span>,
+        opts: <span class="st0">&quot;-mv5e --abi=ti_arm9_abi&quot;</span>
+    <span class="br0">&#125;</span>;
+&nbsp;
+    <span class="kw1">override</span> <span class="kw1">readonly</span> <span class="kw1">config</span> ti.targets.ITarget.Command asm = <span class="br0">&#123;</span>
+        cmd:  <span class="st0">&quot;cl470 -c&quot;</span>,
+        opts: <span class="st0">&quot;-mv5e --abi=ti_arm9_abi&quot;</span>
+    <span class="br0">&#125;</span>;
+&nbsp;
+    <span class="xdoc">/*!
+     *  ======== linkLib ========
+     *  Default TMS470 cgtools runtime library to link with executable
+     *  (comes from $rootDir/lib)
+     */</span>
+    <span class="kw1">config</span> string linkLib = <span class="st0">&quot;rts32.lib&quot;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>4. Add the <tt>std.h</tt> file, shown below, whose purpose and content are described in <a href="#DefineBaseTypes" title="">Defining target-specific "base" types</a>.
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>local/targets/std.h</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="c"><span class="re1">#ifndef</span> local_targets_STD_  <span class="coMULTI">/* prevent multiple includes of this header */</span>
+<span class="re1">#define</span> local_targets_STD_
+&nbsp;
+<span class="coMULTI">/* include my target-specific &quot;portable&quot; macros */</span>
+<span class="re1">#if</span> defined<span class="br0">&#40;</span>xdc_target_name__<span class="br0">&#41;</span> &amp;&nbsp;!defined<span class="br0">&#40;</span>xdc_target_macros_include__<span class="br0">&#41;</span>
+<span class="re1">#include</span> xdc__local_include<span class="br0">&#40;</span>xdc_target_name__<span class="br0">&#41;</span>
+<span class="re1">#endif</span>
+&nbsp;
+<span class="coMULTI">/* include the existing TI Arm RTSC base definitions */</span>
+<span class="re1">#include</span> &lt;ti/targets/arm/std.h&gt; 
+&nbsp;
+<span class="re1">#endif</span> <span class="coMULTI">/* local_targets_STD_ */</span></pre></td></tr></table>
+<p>5. Create the package <tt>local.targets.rts</tt> that will contain a pre-compiled version of the runtime support package for your new target. Follow the steps from <a href="#ProvideRTSPackage" title="">Providing a runtime support package</a> to add files and build the support package.
+</p><p>6. Once the target package and the runtime support package are successfully built, the new target can be configured in a <tt>config.bld</tt> file and used to build executables. 
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>config.bld</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">var</span> Arm9e = <span class="re1">xdc.useModule</span><span class="br0">&#40;</span><span class="st1">'local.targets.Arm9e'</span><span class="br0">&#41;</span>;
+Arm9e.rootDir = <span class="st0">&quot;C:/CCStudio_v3.3/tms470/cgtools&quot;</span>;
+Build.targets = <span class="br0">&#91;</span>Arm9e<span class="br0">&#93;</span>;</pre></td></tr></table>
+<p>The result of building this package should look something like the following:
+</p>
+<table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>% xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre>making package.mak (because of package.bld) ...
+generating interfaces for package ti.targets.rts6000 (because package/pack\
+&nbsp;
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/SysMin.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Startup.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Memory.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Core_params.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Diags.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/System.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Assert.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Core_mem.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/SysStd.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/LoggerSys.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Core_label.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Timestamp.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Error.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Text.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Gate.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/HeapMin.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/GateNull.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/LoggerBuf.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/Log.c ...
+cl9e package/package_ti.targets.rts6000.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/HeapStd.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/xdc_noinit.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/TimestampNull.c ...
+cl9e /db/ztree/dr/xdc-s18x/src/packages/xdc/runtime/TimestampStd.c ...
+archiving package/lib/lib/ti.targets.rts6000/xdc/runtime/SysMin.o9e  ...
+all files complete.</pre></td></tr></table>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=Creating Targets&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;[<a href="/mediawiki-tip/index.php?title=Special:Offline/Creating Targets" title="a standalone HTML bundle of this entire document, ready for download">offline version</a>]</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="../Using_Targets_and_Platforms/Using_Targets_and_Platforms.html" title="Using_Targets_and_Platforms"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__Creating_Targets.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.215 secs. --></body></html>

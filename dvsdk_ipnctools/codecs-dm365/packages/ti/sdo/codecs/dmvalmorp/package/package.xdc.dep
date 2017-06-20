@@ -1,0 +1,54 @@
+clean::
+	$(RM) package/ti.sdo.codecs.dmvalmorp.ccs
+	$(RM) package/.vers_g104
+	$(RM) package/.vers_r108
+	$(RM) package/.vers_b102
+	$(RM) package/ti.sdo.codecs.dmvalmorp.sch
+	$(RM) package/package_ti.sdo.codecs.dmvalmorp.c
+	$(RM) package/package.defs.h
+	$(RM) package/package.doc.xml
+
+.interfaces: package/ti.sdo.codecs.dmvalmorp.ccs package/.vers_g104 package/.vers_r108 package/.vers_b102 package/ti.sdo.codecs.dmvalmorp.sch package/package_ti.sdo.codecs.dmvalmorp.c package/package.defs.h package/package.doc.xml 
+package/package.xdc.inc: package/.vers_g104
+package/.vers_g104:
+package/package.xdc.inc: package/.vers_r108
+package/.vers_r108:
+package/package.xdc.inc: package/.vers_b102
+package/.vers_b102:
+
+.interfaces: DMVALMORP.xdc 
+
+# schema include file dependencies
+package.xs:
+package/package.xdc.inc: package.xs
+
+# schema update dependencies
+package/package.xdc.inc: DMVALMORP.xdc
+package/package.xdc.inc: xdc/IPackage.xdc
+xdc/IPackage.xdc:
+vpath xdc/IPackage.xdc $(XPKGVPATH)
+
+ifneq (clean,$(MAKECMDGOALS))
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/junit.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/junit.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/spec/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/spec/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/xsr/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/xsr/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/global/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/global/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/tar.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/tar.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/js.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/js.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/antlr.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/antlr.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/cmd/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/cmd/java/package.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/xbean.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/shelf/java/xbean.jar
+D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/gen/java/package.jar:
+package/package.xdc.inc: D:/CCS_3.3/xdctools_3_10_02/packages/xdc/services/intern/gen/java/package.jar
+endif
+# goals for files generated during schema generation but unspecified by schema's pattern rule
+

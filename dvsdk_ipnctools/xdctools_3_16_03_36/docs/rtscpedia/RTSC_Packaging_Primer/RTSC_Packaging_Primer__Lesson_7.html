@@ -1,0 +1,328 @@
+<!DOCTYPE html PUBLIC "-//W3C//DTD XHTML 1.0 Transitional//EN" "http://www.w3.org/TR/xhtml1/DTD/xhtml1-transitional.dtd">
+<html xmlns="http://www.w3.org/1999/xhtml" xml:lang="en" lang="en" dir="ltr">
+	<head>
+		<meta http-equiv="Content-Type" content="text/html; charset=utf-8" />
+				<link rel="shortcut icon" href="/favicon.ico" />
+		<link rel="search" type="application/opensearchdescription+xml" href="mediawiki-tip/opensearch_desc.php" title="RTSC-Pedia (English)" />
+		<title>RTSC Packaging Primer/Lesson 7 - Offline Version</title>
+		<style type="text/css" media="screen, projection">/*<![CDATA[*/
+			@import "../common/skins/common/shared.css";
+			@import "../common/skins/monobook/main.css";
+		/*]]>*/</style>
+		<link rel="stylesheet" type="text/css" media="print" href="../common/skins/common/commonPrint.css" />
+		<!--[if lt IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE50Fixes.css";</style><![endif]-->
+		<!--[if IE 5.5000]><style type="text/css">@import "../common/skins/monobook/IE55Fixes.css";</style><![endif]-->
+		<!--[if IE 6]><style type="text/css">@import "../common/skins/monobook/IE60Fixes.css";</style><![endif]-->
+		<!--[if IE 7]><style type="text/css">@import "../common/skins/monobook/IE70Fixes.css";</style><![endif]-->
+		<!--[if lt IE 7]><script type="text/javascript" src="../common/skins/common/IEFixes.js?97"></script>
+		<meta http-equiv="imagetoolbar" content="no" /><![endif]-->
+		
+		<script type= "text/javascript">/*<![CDATA[*/
+var skin = "monobook";
+var stylepath = "../common/skins";
+var wgArticlePath = "/docs-tip/$1";
+var wgScriptPath = "mediawiki-tip";
+var wgScript = "mediawiki-tip/index.php";
+var wgServer = "http://rtsc.eclipse.org";
+var wgCanonicalNamespace = "Special";
+var wgCanonicalSpecialPageName = "Offline";
+var wgNamespaceNumber = -1;
+var wgPageName = "Special:Offline";
+var wgTitle = "Offline";
+var wgAction = "view";
+var wgRestrictionEdit = [];
+var wgRestrictionMove = [];
+var wgArticleId = 0;
+var wgIsArticle = true;
+var wgUserName = null;
+var wgUserGroups = null;
+var wgUserLanguage = "en";
+var wgContentLanguage = "en";
+var wgBreakFrames = false;
+var wgCurRevisionId = 0;
+/*]]>*/</script>
+                
+		<script type="text/javascript" src="../common/skins/common/wikibits.js?97"><!-- wikibits js --></script>
+		<script type="text/javascript" src="mediawiki-tip/index.php?title=-&amp;action=raw&amp;gen=js&amp;useskin=monobook"><!-- site js --></script>
+		<style type="text/css">/*<![CDATA[*/
+@import "mediawiki-tip/index.php?title=MediaWiki:Common.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=MediaWiki:Monobook.css&usemsgcache=yes&action=raw&ctype=text/css&smaxage=18000";
+@import "mediawiki-tip/index.php?title=-&action=raw&gen=css&maxage=18000";
+/*]]>*/</style>
+		<!-- Head Scripts -->
+<link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/ViewStyle.css" /><link rel="stylesheet" type="text/css" href="../common/extensions/rtsc/MainStyle.css" />
+	</head>
+<body  class="mediawiki ns--1 ltr page-Special_Offline">
+	<div id="globalWrapper" align="center">
+		<div id="column-content">
+	<div id="content">
+		<a name="top" id="top"></a>
+				<h1 class="firstHeading"></h1>
+		<div id="bodyContent">
+			<h3 id="siteSub">From RTSC-Pedia</h3>
+			<div id="contentSub"></div>
+									<div id="jump-to-nav">Jump to: <a href="#column-one">navigation</a>, <a href="#searchInput">search</a></div>			<!-- start content --><div id="revInfo">revision tip</div><span id="printInfo">&#151;&#151;&nbsp;LANDSCAPE orientation</span><table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 7&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_6.html" title="Lesson 6"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_8.html" title="Lesson 8"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><p id="title">RTSC Packaging Primer/Lesson 7</p><p id="subtitle">Program Configuration &#151; selecting <tt>charlie.sqrtlib</tt> libraries</p>
+<p></p>
+<p>Having finally built and released the <tt>charlie.sqrtlib</tt> function libraries&#151;one pair per RTSC target&#151;we'll turn now to the task of <i>selecting</i> the appropriate library from this set during program configuration at the client's site.  While the configuration process in general affords packages many opportunities to become active participants in building client applications&#151;which we'll highlight towards the end of this lesson&#151;selecting the appropriate function libraries that satisfy a particular set of program requirements becomes another "sweet spot" of RTSC packaging. 
+</p>
+<div class="Info"><p class="Info">As you may recall from the flow introduced in <a href="RTSC_Packaging_Primer__Lesson_3.html#Configuring_RTSC_programs" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a>, program configuration requires that the client designate a particular RTSC target as an input to the process&#151;clearly one factor in guiding library selection.  But you may also recall that the client configured the <tt>optimize</tt> parameter of the <tt>charlie.sqrtlib.Settings</tt> module in <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:4b" title="RTSC Packaging Primer/Lesson 3"><tt>prog.cfg</tt></a>&#151;an additional piece of data used internally by the package when choosing between the <tt>isqrt_loop</tt> and <tt>isqrt_unroll</tt> libraries for the current target.</p></div>  
+<table id="toc" class="toc" summary="Contents"><tr><td><div id="toctitle"><h2>Contents</h2></div>
+<ul>
+<li class="toclevel-1"><a href="#Specifying_the_Settings_module"><span class="tocnumber">1</span> <span class="toctext">Specifying the Settings module</span></a></li>
+<li class="toclevel-1"><a href="#Implementing_the_getLibs_function"><span class="tocnumber">2</span> <span class="toctext">Implementing the getLibs function</span></a></li>
+<li class="toclevel-1"><a href="#The_xdc.IPackage_interface"><span class="tocnumber">3</span> <span class="toctext">The xdc.IPackage interface</span></a></li>
+<li class="toclevel-1"><a href="#See_also"><span class="tocnumber">4</span> <span class="toctext">See also</span></a></li>
+</ul>
+</td></tr></table><script type="text/javascript"> if (window.showTocToggle) { var tocShowText = "show"; var tocHideText = "hide"; showTocToggle(); } </script>
+<a name="Specifying_the_Settings_module"></a><h2> <span class="mw-headline">Specifying the <tt>Settings</tt> module</span></h2>
+<p>From the very outset, we've exposed you to a wide range of RTSC modules used in a variety of contexts:
+</p>
+<ul><li><a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1a" title="RTSC Packaging Primer/Lesson 3"><tt>acme.utils.Bench</tt></a>, with its <tt>begin</tt> and <tt>end</tt> functions and its <tt>enable</tt> configuration parameter;
+</li><li><a href="RTSC_Packaging_Primer__Lesson_6.html#cl-1:1" title="RTSC Packaging Primer/Lesson 6"><tt>xdc.bld.PackageContents</tt></a>, with its <tt>addLibrary</tt> function and <tt>otherFiles</tt> parameter;
+</li><li><a href="RTSC_Packaging_Primer__Lesson_5.html#cl-2:2a" title="RTSC Packaging Primer/Lesson 5"><tt>ti.targets.C64</tt></a> and <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-2:2b" title="RTSC Packaging Primer/Lesson 5"><tt>gnu.targets.Mingw</tt></a>, with their <tt>rootDir</tt> parameters; and now
+</li><li><a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:2b" title="RTSC Packaging Primer/Lesson 3"><tt>charlie.sqrtlib.Settings</tt></a>, with its <tt>optimize</tt> configuration parameter.
+</li></ul>
+<p>As a rule, content suppliers will explicitly declare the public (client-visible) features of a RTSC module&#151;its constants, types, parameters, functions&#151;through a separate <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file found in the corresponding package directory.  Applying a simple physical design pattern borrowed from Java, the specification for the <tt>charlie.sqrtlib.Settings</tt> module <i>must</i> reside in a file named <tt>Settings.xdc</tt> housed in the <tt>charlie/sqrtlib</tt> package directory.  
+</p>
+<div id="cl-1:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Library of square-root functions */</span>
+<span class="kw1">package</span> charlie.sqrtlib <span class="br0">&#123;</span>
+    <span class="kw1">module</span> Settings;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<div id="cl-1:2"></div><div id="cl-1:3"></div><div id="cl-1:4"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/Settings.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="xdoc">/*! Controls library selection during program configuration */</span>
+<span class="kw1">metaonly</span> <span class="kw1">module</span> Settings <span class="br0">&#123;</span>
+&nbsp;
+    <span class="kw1">enum</span> OptType <span class="br0">&#123;</span>
+        OPTIMIZE_FOR_SPACE,
+        OPTIMIZE_FOR_TIME
+    <span class="br0">&#125;</span>;
+&nbsp;
+    <span class="kw1">config</span> OptType optimize = OPTIMIZE_FOR_TIME;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<div class="Info"><p class="Info">To complete the picture, we've also listed the <tt>package.xdc</tt> specification file for <tt>charlie.sqrtlib</tt> which first <i>introduces</i> the <tt>Settings</tt> module within the scope of this package at line <a class="codexLink" href="#cl-1:1"><span class="codexLink">1</span></a>.</p></div>
+<p>Even more suggestive of a header file&#151;but clearly expressed in a higher-level language than C&#151;<tt>Settings.xdc</tt> like <tt>package.xdc</tt> before it defines its own namespace that in turns scopes other programmatic identifiers.  In the case of the <span class="kw1"><tt>module</tt></span> declaration beginning at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a>&#151;again, using a notation suggestive of a C <span class="kw1"><tt>struct</tt></span>&#151;we've then introduced <tt>OptType</tt> and <tt>optimize</tt> within the scope of <tt>Settings</tt> itself.
+</p><p>The <span class="kw1"><tt>enum</tt></span> declaration at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> mirrors the syntax and semantics of C, and merits no further explanation at this point.  As for the <span class="kw1"><tt>config</tt></span> declaration at line <a class="codexLink" href="#cl-1:4"><span class="codexLink">4</span></a>&#151;a new keyword to match a new construct&#151;suffice it to say that <tt>optimize</tt> becomes a property of the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object representing the <tt>Settings</tt> module with the client's <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:2b" title="RTSC Packaging Primer/Lesson 3"><tt>prog.cfg</tt></a> file, with <tt>OPTIMIZE_FOR_TIME</tt> serving as its initial (default) value.  Not unlike variables or fields in C, config declarations will effectively constrain the <i>type</i> of values this parameter can receive during assignment.
+</p>
+<div class="Info"><p class="Info">As a practical matter, virtually any sort of declaration normally placed within a C language header file&#151;constants, types, functions&#151;can appear within an <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> module specification with little or no change.  Suffice it to say that you'd find <span class="kw1"><tt>const</tt></span>, <span class="kw1"><tt>typedef</tt></span>, <span class="kw1"><tt>struct</tt></span>, and <span class="kw1"><tt>extern</tt></span> amongst the keywords of the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> language; a cursory scan through some of the module specifications bundled with the <tt>XDCtools</tt> product&#151;viewed using <tt>xdc.tools.cdoc.sg</tt> or else by browsing <a href="http://rtsc.eclipse.org/cdoc-tip" class="external text" title="http://rtsc.eclipse.org/cdoc-tip" rel="nofollow">rtsc.eclipse.org</a>&#151;would also reveal an <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> type system that effectively supersets standard C.</p></div>
+<p><span class="Leader">Implementation domain</span>.&nbsp;  Whereas all RTSC modules will uniformly define their public client-visible features through a corresponding <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file&#151;invariably found within the containing package directory, and viewable through client documentation utilities such as <tt>xdc.tools.cdoc.sg</tt>&#151;internal implementation strategies can vary considerably from one module to the next:
+</p>
+<ul><li><tt>acme.utils.Bench</tt> has C-based implementations for its <tt>begin</tt> and <tt>end</tt> functions, callable from within executable target programs at runtime; whereas
+</li></ul>
+<p></p>
+<ul><li><tt>xdc.bld.PackageContents</tt> has an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>-based implementation for its <tt>addLibrary</tt> function, callable from within hosted scripts generally running in a very specific context.
+</li></ul>
+<p>Our <tt>charlie.sqrtlib.Settings</tt> module of course has no functions at all, just a configuration parameter plus some supporting types and constants; practically speaking, the module does not require a private implementation in either programming language.  Still, to reinforce the fact that its features remain limited to the client's configuration <b>meta-program</b>&#151;as opposed to also having a presence in the client's executable <b>target-program</b>&#151;we've qualified the declaration back at line <a class="codexLink" href="#cl-1:2"><span class="codexLink">2</span></a> with the <span class="kw1"><tt>metaonly</tt></span> keyword.
+</p>
+<div class="Info"><p class="Info">By contrast, a module like <tt>acme.utils.Bench</tt>&#151;whose <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> specification <i>omits</i> the <span class="kw1"><tt>metaonly</tt></span> keyword&#151;maintains a presence in the domain of <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> <i>and</i> C.  In particular, the final value held by the assignable <tt>Bench.enable</tt> parameter at configuration-time becomes the initial value of the <tt>Bench_enable</tt> <span class="kw1"><tt>const</tt></span> at run-time&#151;used internally within the C implementation of the <tt>Bench_begin</tt> and <tt>Bench_end</tt> functions.  The concept of a <i>single</i> <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> specification&#151;one set of constant, type, parameter, or function declarations in a C-based notation&#151;driving a realization within the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> meta-language as well as the C target-language remains a basic premise of RTSC.</p></div>
+<a name="Implementing_the_getLibs_function"></a><h2> <span class="mw-headline">Implementing the <tt>getLibs</tt> function</span></h2>
+<p>Back to the task at hand&#151;selecting the appropriate set of libraries during program configuration&#151;RTSC packages can explicitly participate at this stage of the process by implementing a special meta-function named <tt>getLibs</tt>.  Sourced in <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> and found in a special file named <tt>package.xs</tt> within the corresponding package directory, the <tt>getLibs</tt> function returns a string naming each library actually used further downstream when linking the current program.  
+</p>
+<div class="Info"><p class="Info">The <tt>makefile</tt> and <tt>prog.cfg</tt> script used to build and configure the client application in <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-3:1" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a> respectively selected <tt>ti.targets.C64P</tt> as the program's target and assigned <tt>OPTIMIZE_FOR_TIME</tt> to the <tt>Settings.optimize</tt> configuration parameter.  As you'd discover by inspecting the program <tt>linker.cmd</tt> file generated through the RTSC <a href="RTSC_Packaging_Primer__Lesson_3.html#figure" title="RTSC Packaging Primer/Lesson 3">configuration&nbsp;process</a>, this particular combination of inputs selects <tt>lib/isqrt_loop.a64P</tt> as the library contribution from the <tt>charlie.sqrtlib</tt> package.</p></div>
+<div id="cl-2:1"></div><div id="cl-2:2"></div><div id="cl-2:3"></div><div id="cl-2:4"></div><div id="cl-2:5"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>charlie/sqrtlib/package.xs</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br />&nbsp;<br /><span class="codexLab">1</span><br /><span class="codexLab">2</span><br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br /><span class="codexLab">4</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">5</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcscript"><span class="kw1">function</span> getLibs<span class="br0">&#40;</span> prog <span class="br0">&#41;</span>
+<span class="br0">&#123;</span>
+    <span class="kw1">var</span> pkg = <span class="kw2">this</span>;
+    <span class="kw1">var</span> Settings = pkg.Settings;
+&nbsp;
+    <span class="kw1">var</span> suffix = prog.build.target.findSuffix<span class="br0">&#40;</span>pkg<span class="br0">&#41;</span>;
+    <span class="kw1">var</span> name;
+&nbsp;
+    <span class="kw1">switch</span> <span class="br0">&#40;</span>Settings.optimize<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">case</span> Settings.OPTIMIZE_FOR_SPACE:
+            name = <span class="st0">&quot;isqrt_loop&quot;</span>;
+            <span class="kw1">break</span>;
+        <span class="kw1">case</span> Settings.OPTIMIZE_FOR_TIME:
+            name = <span class="st0">&quot;isqrt_unroll&quot;</span>;
+            <span class="kw1">break</span>;
+    <span class="br0">&#125;</span>
+&nbsp;
+    <span class="kw1">if</span> <span class="br0">&#40;</span>suffix &amp;&amp; name<span class="br0">&#41;</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="st0">&quot;lib/&quot;</span> + name + <span class="st0">&quot;.a&quot;</span> + suffix;
+    <span class="br0">&#125;</span>
+    <span class="kw1">else</span> <span class="br0">&#123;</span>
+        <span class="kw1">return</span> <span class="kw2">null</span>;
+    <span class="br0">&#125;</span>
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p>Automatically invoked during the final stages of RTSC configuration&#151;well after first executing the client's <tt>prog.cfg</tt> script&#151;the <tt>getLibs</tt> function has access to two important <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> objects used when constructing the list of libraries contributed by this package:
+</p>
+<ul><li><tt>prog</tt> (an explicitly named argument to <tt>getLibs</tt>) references an object whose properties characterize the program as a whole&#151;including information about the current target extracted at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a>; and
+</li></ul>
+<p></p>
+<ul><li><span class="kw2"><tt>this</tt></span> (an implicit argument to <tt>getLibs</tt>) references an object representing the <tt>charlie.sqrtlib</tt> package per se&#151;bound here to the local variable <tt>pkg</tt> at line <a class="codexLink" href="#cl-2:1"><span class="codexLink">1</span></a> to improve readability.
+</li></ul>
+<div class="Info"><p class="Info">In object-oriented languages such as <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt>, calls of the form <tt><span class="mq">&laquo;</span>object<span class="mq">&raquo;</span>.<span class="mq">&laquo;</span>function<span class="mq">&raquo;</span>(</tt>&nbsp;<tt><span class="mq">&laquo;</span>args<span class="mq">&raquo;</span></tt>&nbsp;<tt>)</tt>&#151;sometimes termed a <i>method invocation</i>&#151;would here bind the distinguished variable <span class="kw2"><tt>this</tt></span> to the value of <span class="mq">&laquo;</span><tt>object</tt><span class="mq">&raquo;</span> once inside the body of <span class="mq">&laquo;</span><tt>function</tt><span class="mq">&raquo;</span>.  Said another way, the configuration process automatically invokes the <tt>getLibs</tt> method on each <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> <span class="mq">&laquo;</span><tt>package-object</tt><span class="mq">&raquo;</span> corresponding to some RTSC package contributing directly or indirectly to the current program.</p></div>
+<p>Working backwards now, the string returned at line <a class="codexLink" href="#cl-2:5"><span class="codexLink">5</span></a> relies on earlier assignments to <tt>suffix</tt> and <tt>name</tt>&#151;which would here assume the values <span class="st0"><tt>"isqrt_loop"</tt></span> and <span class="st0"><tt>"64P"</tt></span> in light of our client application from <a href="RTSC_Packaging_Primer__Lesson_3.html#cl-1:1b" title="RTSC Packaging Primer/Lesson 3">Lesson 3</a>.  In general, the string returned by <tt>getLibs</tt> can name <i>multiple</i> libraries with <span class="st0"><tt>";"</tt></span> as a delimiter; and, in cases where a particular package has <i>no</i> libraries to contribute, <tt>getLibs</tt> can return an empty string <span class="st0"><tt>""</tt></span> or else the special value <span class="kw2"><tt>null</tt></span>.
+</p><p>Moving up the page, the <span class="kw1"><tt>switch</tt></span> statement beginning at line <a class="codexLink" href="#cl-2:4"><span class="codexLink">4</span></a> discriminates amongst the set of possible values currently held by <tt>Settings.optimize</tt>&#151;values of type <tt>OptType</tt> specified earlier at line <a class="codexLink" href="#cl-1:3"><span class="codexLink">3</span></a> of <tt>Settings.xdc</tt>&#151;and then appropriately assigns the local variable <tt>name</tt>.  As for the binding of <tt>Settings</tt> at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> of <tt>getLibs</tt>, we've accessed the <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object representing this module using a <tt><span class="mq">&laquo;</span>package-object<span class="mq">&raquo;</span>.<span class="mq">&laquo;</span>module-name<span class="mq">&raquo;</span></tt> idiom, where <tt>pkg</tt> (alias <span class="kw2"><tt>this</tt></span>) here references the <tt>charlie.sqrtlib</tt> package object.  
+</p>
+<div class="Info"><p class="Info">As an alternative, we could have called <tt><span class="re1">xdc.useModule</span>(<span class="st1">'charlie.sqrtlib.Settings'</span>)</tt> at line <a class="codexLink" href="#cl-2:2"><span class="codexLink">2</span></a> to retrieve the corresponding module object, though somehow leveraging the package object already available to <tt>getLibs</tt> seems more self-contained in this example.</p></div> 
+<p>Completing the story now, the assignment to <tt>suffix</tt> at line <a class="codexLink" href="#cl-2:3"><span class="codexLink">3</span></a> starts with the object bound to the <tt>prog</tt> argument of <tt>getLibs</tt> and then eventually navigates to a <tt>findSuffix</tt> function defined on targets; taking the current package object as its argument, <tt>findSuffix</tt> reflects on <i>all</i> targets used when building this package and returns the suffix "most compatible" with the target selected for this program configuration.  Internally, <tt>findSuffix</tt> comprehends the rather rich backward-compatibility relationships that often exist amongst targets&#151;for instance, "newer" targets (like <tt>ti.targets.C64P</tt>) can often link libraries compiled with "older" targets (like <tt>ti.targets.C62</tt>).
+</p>
+<div class="Info"><p class="Info">To test your understanding, the value of <span class="kw2"><tt>this</tt></span> within the body of the <tt>findSuffix</tt> function would here reference an <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> object corresponding to the <tt>ti.targets.C64P</tt> target&#151;the same meta-module we've configured earlier within the <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-2:2a" title="RTSC Packaging Primer/Lesson 5"><tt>config.bld</tt></a> script prepared at the producer's site and executed prior to building the <tt>charlie.sqrtlib</tt> package.</p></div>
+<a name="The_xdc.IPackage_interface"></a><h2> <span class="mw-headline">The <tt>xdc.IPackage</tt> interface</span></h2>
+<p>Besides <tt>getLibs</tt>, package producers can elect to implement other meta-functions in <tt>package.xs</tt> called at different points within the program configuration process&#151;from when the package first enters the current configuration through final generation of the <tt>linker.cmd</tt> output file.
+</p>
+<dl><dt><tt>init</tt>
+</dt><dd><small>called upon importing this package into the current configuration, usually via <span class="re1"><tt>xdc.useModule</tt></span></small>
+</dd></dl>
+<dl><dt><tt>close</tt>
+</dt><dd><small>called when the client's script completes its contribution to the current configuration</small>
+</dd></dl>
+<dl><dt><tt>validate</tt>
+</dt><dd><small>called before generation of output files begins, giving the package one last opportunity to issue errors/warnings</small>
+</dd></dl>
+<dl><dt><tt>exit</tt>
+</dt><dd><small>called after the current configuration has been successfully validated, immediately before generation</small>
+</dd></dl>
+<dl><dt><tt>getSects</tt>
+</dt><dd><small>called during generation, to elicit contributions to <tt>linker.cmd</tt> beyond the libraries returned by <tt>getLibs</tt></small>
+</dd></dl>
+<p>Like virtually everything within the world of RTSC, this set of functions ultimately belongs to a larger programmatic entity specified within an <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file&#151;in this case, a RTSC <b>interface</b> named <tt>xdc.IPackage</tt>.  Following the same pattern introduced earlier with the <tt>charlie.sqrtlib.Settings</tt> module, the special <tt>xdc</tt> package&#151;bundled with the <tt>XDCtools</tt> product&#151;indeed contains an <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> source file named <tt>IPackage.xdc</tt>.
+</p>
+<div id="cl-3:1"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>xdc/package.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab">&nbsp;<br /><span class="codexLab">1</span><br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">package</span> xdc <span class="br0">&#123;</span>
+    <span class="kw1">interface</span> IPackage;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<p></p>
+<div id="cl-3:2"></div><div id="cl-3:3"></div><table cellpadding="0" cellspacing="0" class="codex"><tr><td class="codexLab"></td><td class="codexName"><tt>xdc/IPackage.xdc</tt></td></tr><tr class="codex"><td class="codexLab"><tt class="codexLab"><span class="codexLab">2</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br /><span class="codexLab">3</span><br />&nbsp;<br />&nbsp;<br />&nbsp;<br />&nbsp;<br /></tt></td><td class="codexBody"><pre class="xdcspec"><span class="kw1">metaonly</span> <span class="kw1">interface</span> IPackage <span class="br0">&#123;</span>
+        ...
+    <span class="kw1">function</span> close<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="kw1">function</span> exit<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="kw1">function</span> getLibs<span class="br0">&#40;</span>prog<span class="br0">&#41;</span>;
+    <span class="kw1">function</span> getSects<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="kw1">function</span> init<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+    <span class="kw1">function</span> validate<span class="br0">&#40;</span><span class="br0">&#41;</span>;
+<span class="br0">&#125;</span></pre></td></tr></table>
+<div class="Info"><p class="Info">Here again, line <a class="codexLink" href="#cl-3:1"><span class="codexLink">1</span></a> of <tt>xdc/package.xdc</tt> first introduces <tt>IPackage</tt> within the scope of the <tt>xdc</tt> package per se, followed then with a more comprehensive specification in <tt>IPackage.xdc</tt>; and not unlike <a href="#cl-1:2" title=""><tt>Settings.xdc</tt></a>, the <span class="kw1"><tt>metaonly</tt></span> keyword at line <a class="codexLink" href="#cl-3:2"><span class="codexLink">2</span></a> implies that none of the <tt>xdc.IPackage</tt> features specified here have a presence within the target-program during execution.  Note also how the <span class="kw1"><tt>function</tt></span> keyword in the <tt class="color-green" style="font-size:110%; font-weight:bold;">XDCspec</tt> declaration at line <a class="codexLink" href="#cl-3:3"><span class="codexLink">3</span></a> mirrors the syntax of its <tt class="color-red" style="font-size:110%; font-weight:bold;">XDCscript</tt> implementation back in <a href="#cl-2:1" title=""><tt>package.xs</tt></a>.  Needless to say, the "real" <tt>xdc.IPackage.xdc</tt> interface specification bundled with the <tt>XDCtools</tt> product contains considerably more detail than shown here.</p></div>
+<p>Similar to the modules we've already encountered, a RTSC interface defines a programmatic contract that aggregates a related set of constants, types, parameters, and functions.  But unlike a RTSC module&#151;which couples a client-visible specification with a distinct supplier-proprietary implementation at any point in time&#151;a RTSC interface can simultaneously support <i>multiple</i> implementations.  Said a little differently, any package producer can elect to furnish a <i>specific</i> implementation of the <tt>xdc.IPackage</tt> functions within their <tt>package.xs</tt> file&#151;effectively superseding default implementations otherwise invoked during the program configuration process.
+</p>
+<div class="Info"><p class="Info">In the same vein, the <tt>xdc.bld.ITarget</tt> interface specifies a collection of features shared by <i>all</i> RTSC targets; reviewing the current <a href="RTSC_Packaging_Primer__Lesson_5.html#cl-2:1" title="RTSC Packaging Primer/Lesson 5"><tt>config.bld</tt></a> script, you'll recall that <tt>ti.targets.C64P</tt> and <tt>gnu.targets.Mingw</tt> each have an assignable <tt>rootDir</tt> property.  In general, RTSC (meta-)modules like <tt>ti.targets.C64P</tt> can <i>inherit</i> client-visible features specified elsewhere within a RTSC (meta-)interface, can <i>extend</i> these features on a per-module basis, and can <i>override</i> default parameter values or function implementations as appropriate.</p></div>
+<a name="See_also"></a><h2> <span class="mw-headline">See also</span></h2>
+<p></p>
+<table id="TOC" class="DocList">
+
+<tr>
+<td class="DocListTitle1" style="width:35%;"><a href="../Writing_getLibs%28%29/Writing_getLibs%28%29.html" title="Writing getLibs()">Writing getLibs()</a>
+</td><td class="DocListSubTitle1">Guidelines for package <tt>getLibs()</tt> functions
+</td></tr>
+<tr>
+<td class="DocListTitle" style="width:35%;"><a href="../../cdoc/xdc/IPackage.html" class="cdoc"><tt>xdc.IPackage</tt></a>
+</td><td class="DocListSubTitle">Client documentation for <tt>xdc.IPackage</tt>
+</td></tr></table>
+<p></p>
+<table width="100%"><tr><td class="lights"><img src="../common/extensions/rtsc/images/yellow_light.png" /></td><td class="offline">[<a href="/mediawiki-tip/index.php?title=RTSC Packaging Primer/Lesson 7&amp;printable=yes" title="just this page in black-and-white, ready for printing in landscape orientation">printable version</a>]&nbsp;&nbsp;</td><td class="offlineDate">offline version generated on 02-Oct-2009 22:10 UTC</td><td class="arrows"><a href="RTSC_Packaging_Primer__Lesson_6.html" title="Lesson 6"><img src="../common/extensions/rtsc/images/Arrow_left.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer.html#TOC" title="RTSC Packaging Primer"><img src="../common/extensions/rtsc/images/Arrow_up.png" /></a>&nbsp;<a href="RTSC_Packaging_Primer__Lesson_8.html" title="Lesson 8"><img src="../common/extensions/rtsc/images/Arrow_right.png" /></a></td></tr></table><div id=copyInfo>Copyright &#169; 2008 The Eclipse Foundation. All Rights Reserved</div>
+<!-- 
+Pre-expand include size: 20358 bytes
+Post-expand include size: 5973 bytes
+Template argument size: 785 bytes
+Maximum: 2097152 bytes
+-->
+
+			<div class="printfooter">
+Retrieved from "<a href="http://rtsc.eclipse.org/docs-tip/Special:Offline">http://rtsc.eclipse.org/docs-tip/Special:Offline</a>"</div>
+						<!-- end content -->
+			<div class="visualClear"></div>
+		</div>
+	</div>
+		</div>
+		<div id="column-one">
+	<div id="p-cactions" class="portlet">
+		<h5>Views</h5>
+		<div class="pBody">
+			<ul>
+					 <li id="ca-nstab-special" class="selected"><a href="../Special:Offline/Special:Offline__RTSC_Packaging_Primer.html" title="This is a special page, you can't edit the page itself">Special</a></li>
+				</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-personal">
+		<h5>Personal tools</h5>
+		<div class="pBody">
+			<ul>
+				<li id="pt-login"><a href="mediawiki-tip/index.php?title=Special:Userlogin&amp;returnto=Special:Offline" title="You are encouraged to log in, it is not mandatory however. [o]" accesskey="o">Log in / create account</a></li>
+			</ul>
+		</div>
+	</div>
+	<div class="portlet" id="p-logo">
+		<a style="background-image: url(../common/extensions/rtsc/images/logo.png);" href="/docs-tip/Main_Page" title="Visit the Main Page [z]" accesskey="z"></a>
+	</div>
+	<script type="text/javascript"> if (window.isMSIE55) fixalpha(); </script>
+		<div class='portlet' id='p-navigation'>
+		<h5>Navigation</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-RTSC-pedia-home"><a href="../Main_Page/Main_Page.html">RTSC-pedia home</a></li>
+				<li id="n-RTSC-project-home"><a href="http://rtsc.eclipse.org ">RTSC project home</a></li>
+				<li id="n-News-.26-support"><a href="http://www.eclipse.org/newsportal/thread.php?group=eclipse.dsdp.rtsc">News &amp; support</a></li>
+				<li id="n-Help"><a href="../Help:Contents/Help:Contents.html">Help</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-binders'>
+		<h5>binders</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-General-Information"><a href="../General_Information/General_Information.html">General Information</a></li>
+				<li id="n-RTSC-Programming"><a href="../RTSC_Programming/RTSC_Programming.html">RTSC Programming</a></li>
+				<li id="n-User.27s-Guide"><a href="../XDCtools_User%27s_Guide/XDCtools_User%27s_Guide.html">User's Guide</a></li>
+				<li id="n-Reference-Manual"><a href="../XDCtools_Reference_Manual/XDCtools_Reference_Manual.html">Reference Manual</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-package_reference'>
+		<h5>package reference</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-XDCtools-packages"><a href="http://rtsc.eclipse.org/cdoc-tip/index.html ">XDCtools packages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-lists'>
+		<h5>lists</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Master-doc-map"><a href="../Special:DocMap/Special:DocMap__Main_Page.html">Master doc-map</a></li>
+				<li id="n-Category-query"><a href="../Special:Cats/Special:Cats.html">Category query</a></li>
+				<li id="n-Redirected-pages"><a href="../Special:Listredirects/Special:Listredirects.html">Redirected pages</a></li>
+			</ul>
+		</div>
+	</div>
+		<div class='portlet' id='p-tools'>
+		<h5>tools</h5>
+		<div class='pBody'>
+			<ul>
+				<li id="n-Find.2BReplace-.28grep.29"><a href="../Special:Grep/Special:Grep.html">Find+Replace (grep)</a></li>
+				<li id="n-RSS-feed"><a href="http://rtsc.eclipse.orgmediawiki-tip/index.php?title=Special:Recentchanges&amp;feed=rss ">RSS feed</a></li>
+			</ul>
+		</div>
+	</div>
+		<div id="p-search" class="portlet">
+		<h5><label for="searchInput">Search</label></h5>
+		<div id="searchBody" class="pBody">
+			<form action="/docs-tip/Special:Search" id="searchform"><div>
+				<input id="searchInput" name="search" type="text" title="Search RTSC-Pedia [f]" accesskey="f" value="" />
+				<input type='submit' name="go" class="searchButton" id="searchGoButton"	value="Go" />&nbsp;
+				<input type='submit' name="fulltext" class="searchButton" id="mw-searchButton" value="Search" />
+			</div></form>
+		</div>
+	</div>
+	<div class="portlet" id="p-tb">
+		<h5>more tools</h5>
+		<div class="pBody">
+			<ul>
+<li id="t-upload"><a href="../Special:Upload/Special:Upload.html" title="Upload images or media files [u]" accesskey="u">Upload file</a></li>
+<li id="t-specialpages"><a href="../Special:Specialpages/Special:Specialpages.html" title="List of all special pages [q]" accesskey="q">Special pages</a></li>
+			</ul>
+		</div>
+	</div>
+		</div><!-- end of the left (by default at least) column -->
+			<div class="visualClear"></div>
+			<div id="footer">
+				<div id="f-poweredbyico"><a href="http://www.mediawiki.org/"><img src="../common/skins/common/images/poweredby_mediawiki_88x31.png" alt="Powered by MediaWiki" /></a></div>
+			<ul id="f-list">
+				<li id="privacy"><a href="../RTSC-Pedia:Privacy_policy/RTSC-Pedia:Privacy_policy.html" title="RTSC-Pedia:Privacy policy">Privacy policy</a></li>
+				<li id="about"><a href="../RTSC-Pedia:About/RTSC-Pedia:About.html" title="RTSC-Pedia:About">About RTSC-Pedia</a></li>
+				<li id="disclaimer"><a href="../RTSC-Pedia:General_disclaimer/RTSC-Pedia:General_disclaimer.html" title="RTSC-Pedia:General disclaimer">Disclaimers</a></li>
+			</ul>
+		</div>
+		
+	
+		<script type="text/javascript">if (window.runOnloadHook) runOnloadHook();</script>
+</div>
+<!-- Served in 0.206 secs. --></body></html>
