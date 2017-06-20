@@ -26,8 +26,8 @@ IPNC_DEVICE := DM368
 #IPNC_DEVICE := DMVA2
 
 # Filesystem mode to selected: NAND or NFS
-FILESYS_MODE := NFS
-#FILESYS_MODE := UBIFS
+#FILESYS_MODE := NFS
+FILESYS_MODE := UBIFS
 
 # Build configuration : debug or release
 #APP_BUILD_CFG    := debug
@@ -40,9 +40,9 @@ MTD_UTILS_MODE := 64bit
 # Sensor Selected for the build, based on SYSTEM_PLATFORM
 # IPNC and EVM platform have different set of Sensor supported
 ifeq ($(SYSTEM_PLATFORM), IPNC)
-IMGS_ID := IMGS_MICRON_MT9P031_5MP
+#IMGS_ID := IMGS_MICRON_MT9P031_5MP
 #IMGS_ID := IMGS_MICRON_MT9D131_2MP
-#IMGS_ID := IMGS_OV10630_1MP
+IMGS_ID := IMGS_OV10630_1MP
 #IMGS_ID := IMGS_MICRON_MT9M031_1.2MP
 #IMGS_ID := IMGS_MICRON_MT9M034_1.2MP
 #IMGS_ID := IMGS_OV2715_2MP

@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!--  This file conforms to the DTD xdc/bld/build.dtd -->
+<package name="alg_config" version="" producerId="undefined">
+    <units>
+    </units>
+    <sources>
+        <srcFile name="package/cfg/alg_server_xv5T.c"/>
+    </sources>
+    <configurations>
+        <srcFile name="/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg"/>
+    </configurations>
+    <makefiles>
+        <srcFile name="package.mak" src="package.bld"/>
+        <srcFile name="package/package.xdc.dep" src="package.xdc"/>
+        <srcFile name="package/cfg/alg_server_xv5T.mak" src="package.bld"/>
+        <srcFile name="package/cfg/alg_server_xv5T.ov5T.dep" src="package/cfg/alg_server_xv5T.c"/>
+        <srcFile name="package/cfg/alg_server_xv5T.dep" src="package/cfg/alg_server_xv5T.cfg"/>
+        <srcFile name="package/rel/alg_config.tar.dep" src="package/rel/alg_config.xdc.inc"/>
+    </makefiles>
+    <targets>
+        <target name="gnu.targets.arm.GCArmv5T"
+            version="gnu.targets.arm.GCArmv5T{1,0,4.3,3"
+            platform="host.platforms.arm"
+            isa="v5T"
+            suffix="v5T"
+            rootDir="/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/../dvsdk_ipnctools/linux-devkit"
+            os="Linux"
+            rts="gnu.targets.arm.rtsv5T">
+            <model endian="little"
+                codeModel="undefined"
+                dataModel="undefined"/>
+        </target>
+    </targets>
+    <libraries>
+    </libraries>
+    <executables>
+    <executable name="alg_server"
+        pname="alg_server.xv5T"
+        target="gnu.targets.arm.GCArmv5T"
+        platform="ti.platforms.evmDM365"
+        profile="release"
+        xCfgScript="package/cfg/alg_server_xv5T.cfg"
+        xCfgPrefix="package/cfg/alg_server_xv5T"
+        cfgScript="/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg"
+        cfgArgs="null"
+        />
+    </executables>
+    <tests>
+    <test exeName="alg_server.xv5T"
+        args=""
+        groupName="alg_server.xv5T"
+        refOutput="undefined"
+        refExitCode="0"
+        execArgs=""
+        />
+    </tests>
+    <releases relDir="package/rel/">
+    <release name="alg_config"
+        pname="alg_config.tar"
+        label="default"
+    >
+        <file name="package/build.cfg"/>
+        <file name="package/package.ext.xml"/>
+        <file name="package/package.xdc.inc"/>
+        <file name="package/package.bld.xml"/>
+        <file name="package/package.rel.dot"/>
+    </release>
+    </releases>
+    <repositories>
+    </repositories>
+</package>
