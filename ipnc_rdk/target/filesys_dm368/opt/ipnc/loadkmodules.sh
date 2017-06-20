@@ -30,9 +30,9 @@ insmod /opt/ipnc/modules/libcrc32c.ko
 #net
 
 #mmc
-insmod /opt/ipnc/modules/mmc_core.ko
-insmod /opt/ipnc/modules/mmc_block.ko
-insmod /opt/ipnc/modules/davinci_mmc.ko
+#insmod /opt/ipnc/modules/mmc_core.ko
+#insmod /opt/ipnc/modules/mmc_block.ko
+#insmod /opt/ipnc/modules/davinci_mmc.ko
 #usb
 insmod /opt/ipnc/modules/scsi_transport_iscsi.ko
 insmod /opt/ipnc/modules/libiscsi.ko
