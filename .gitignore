@@ -42,3 +42,4 @@ tftp/
 *.DEPEND
 *.map
 *.ko
+*.o.cmd
