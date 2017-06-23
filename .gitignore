@@ -43,3 +43,7 @@ tftp/
 *.map
 *.ko
 *.o.cmd
+cscope.out
+cscope.out.in
+cscope.out.po
+tags

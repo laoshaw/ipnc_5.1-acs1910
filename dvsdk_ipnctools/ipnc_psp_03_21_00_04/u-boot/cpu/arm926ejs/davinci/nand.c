@@ -426,7 +426,7 @@ static int nand_davinci_4bit_compare_ecc(struct mtd_info *mtd,
 	udelay (this->chip_delay);
 	}
 
-	if (iserror == ECC_STATE_NO_ERR){
+	if (iserror == ECC_STATE_NO_ERR || iserror == 5){
 		val = emif_addr->NANDERRVAL1;
 		return 0;
 	} else if (iserror == ECC_STATE_TOO_MANY_ERRS) {

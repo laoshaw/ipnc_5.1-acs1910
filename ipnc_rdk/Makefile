@@ -87,6 +87,25 @@ endif
 ifeq ($(SYSTEM_PLATFORM), EVM)
 	make lspbuild MAKE_TARGET=davinci_dm36x_$(SYSTEM_CFG)_$(BUILD_CFG)_defconfig
 endif	
+
+psccfg:
+	make -C$(KERNELDIR) ARCH=arm CROSS_COMPILE=$(MVTOOL_PREFIX) menuconfig
+pscbuild:
+	make -C$(KERNELDIR) ARCH=arm CROSS_COMPILE=$(MVTOOL_PREFIX) uImage
+	cp $(KERNELDIR)/arch/arm/boot/uImage $(TFTP_HOME)/uImage_$(SYSTEM_CFG)_$(HARDWARE_CFG)
+psclsp:
+	#make psccfg
+	cp $(DVSDK_BASE_DIR)/linuxutils_2_26_02_05/packages/ti/sdo/linuxutils/cmem/src/module/cmemk.o $(KERNELDIR)/drivers/char
+	cp $(DVSDK_BASE_DIR)/linuxutils_2_26_02_05/packages/ti/sdo/linuxutils/edma/src/module/edmak.o $(KERNELDIR)/drivers/char
+	cp $(DVSDK_BASE_DIR)/linuxutils_2_26_02_05/packages/ti/sdo/linuxutils/irq/src/module/irqk.o $(KERNELDIR)/drivers/char
+	cp $(DVSDK_BASE_DIR)/dm365mm-module_01_00_03/module/dm365mmap.o $(KERNELDIR)/drivers/char
+	cp $(AVCAPTURE_BUILD_DIR)/../framework/drv/kermod/build/drv.o $(KERNELDIR)/drivers/char
+	cp $(AVCAPTURE_BUILD_DIR)/../framework/csl/kermod/build/csl.o $(KERNELDIR)/drivers/char
+	make lspbuild MAKE_TARGET=uImage
+	make lspbuild MAKE_TARGET=modules
+	cp $(KERNELDIR)/arch/arm/boot/uImage $(TFTP_HOME)/uImage_$(SYSTEM_CFG)_$(HARDWARE_CFG)
+	find $(KERNELDIR) -name "*.ko" -exec cp '{}' $(IPNC_EXEC_DIR)/modules \;
+	cp $(KERNELDIR)/drivers/usb/gadget/g_file_storage.ko $(IPNC_EXEC_DIR)			
 	
 lsp:
 	make lspcfg
