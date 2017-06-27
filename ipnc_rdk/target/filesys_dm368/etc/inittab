@@ -7,7 +7,6 @@ id:5:initdefault:
 # Boot-time system configuration/initialization script.
 # This is run first except when booting in emergency (-b) mode.
 si::sysinit:/etc/init.d/rcS
-#ttyS1::sysinit:/bin/sh
 
 # What to do in single-user mode.
 ~~:S:wait:/sbin/sulogin
@@ -48,5 +47,5 @@ con:2345:respawn:/sbin/getty 115200 ttyS1
 #1:2345:respawn:/sbin/getty 115200 tty1
 
 #S0:2345:respawn:/sbin/getty 115200 ttyS0
-#S1:2345:respawn:/sbin/getty 115200 console
+#S1:2345:respawn:/sbin/getty 115200 ttyS1
 #S2:2345:respawn:/sbin/getty 115200 ttyS2
