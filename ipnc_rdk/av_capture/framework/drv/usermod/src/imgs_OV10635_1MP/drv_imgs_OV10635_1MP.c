@@ -1,5 +1,6 @@
 
 #include "drv_imgs_OV10635_1MP.h"
+#include "drv_imgs_reg.h"
 #include <drv_gpio.h>
 
 DRV_ImgsObj gDRV_imgsObj;
@@ -23,7 +24,7 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     OSA_ERROR("DRV_i2cOpen()\n");
     return status;
   }
-#if 1
+#if 0
   #ifdef BOARD_AP_IPNC
   DRV_gpioSetMode(IMGS_RESET_GPIO, DRV_GPIO_DIR_OUT);
   DRV_gpioSet(IMGS_RESET_GPIO);
@@ -33,7 +34,20 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
   OSA_waitMsecs(100);
   #endif
 #endif
+  DRV_gpioSetMode(IMGS_RESET_GPIO, DRV_GPIO_DIR_OUT);
+  DRV_gpioSetMode(IMGS_PWDN_GPIO, DRV_GPIO_DIR_OUT);
+  DRV_gpioSetMode(IMGS_SDI0_GPIO, DRV_GPIO_DIR_IN);
+  DRV_gpioSetMode(IMGS_SDI1_GPIO, DRV_GPIO_DIR_IN);
+  DRV_gpioSetMode(IMGS_SDI2_GPIO, DRV_GPIO_DIR_IN);
 
+  DRV_gpioSet(IMGS_PWDN_GPIO);
+  DRV_gpioClr(IMGS_RESET_GPIO);
+  
+  OSA_waitMsecs(500);
+  DRV_gpioClr(IMGS_PWDN_GPIO);
+  OSA_waitMsecs(10);
+  DRV_gpioSet(IMGS_RESET_GPIO);
+  OSA_waitMsecs(500);
 
   do {
     status = DRV_imgsCheckId();
@@ -1160,7 +1174,7 @@ int DRV_imgsCheckId()
     	OSA_ERROR("DRV_i2cRead16()\n");
     	return status;  
       	}
-	printf("register addr:%x, and its value is %x\n", regAddr, regValueH);
+	printf(" register addr:%x, and its value is %x\n", regAddr, regValueH);
 
    regAddr = CHIP_VERSION_L;
   	regValueL = 0;
@@ -1172,28 +1186,50 @@ int DRV_imgsCheckId()
     	return status;  
   	}
 
-	printf("register addr:%x, and its value is %x\n", regAddr, regValueL);  
-  return OSA_SOK;
+	printf(" register addr:%x, and its value is %x\n", regAddr, regValueL);  
+
   regValue = (regValueH<<8)|regValueL;
-
-
+    printf(" chip id is 0x%04x\n", regValue);
 
 /* all registers' readout value are always zero, why????*/
   if(regValue!=IMGS_CHIP_ID)
+  {
+      printf("chip id is not right!\n");
     return OSA_EFAIL;  
-
+  }
   return OSA_SOK;
 }
 
 int DRV_imgsSetRegs()
 {
+	Uint16 regAddr;
+	Uint8 regValue;
+    int i;
+    int status;
 
-	int status;
+	for(i = 0; i < REG_BUF_MAX_LEN; i = i + 2)
+	{
+		regAddr = gOv10635_reg_buf[i];
+		regValue = (Uint8)(gOv10635_reg_buf[i + 1]);
+		status = DRV_i2c16Write8(&gDRV_imgsObj.i2cHndl, &regAddr, &regValue, 1);
+  		if(status!=OSA_SOK) {
+    			OSA_ERROR("DRV_i2c16Write8\n");
+    			return status;
+  		}
+#if 0	
+		readregValue[0] = 0;
+		status = DRV_i2cRead8Addr16(&gDRV_imgsObj.i2cHndl, regAddr, readregValue, 1);
+		OSA_printf("\r\nregAddr %x, regValue %x, readregValue %x, i %d\r\n", regAddr[0], regValue[0], readregValue[0], i);
+
+		if((readregValue[0] != regValue[0]) && (i != 0))
+		{
+			i = i - 2;
+			OSA_waitMsecs(10);
+		}
+#endif	
+	}
 	
-	status = DRV_imgsReset();
-  if(status!=OSA_SOK) 
-    return status;
-
+	OSA_printf("\r ImgsSetRegs OK ..............\n");
 	return status;
 }
 

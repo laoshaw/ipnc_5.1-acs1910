@@ -22,7 +22,7 @@
 #define IMGS_PLL_REF_CLK     (24*IMGS_MHZ)
 
 //#define IMGS_CHIP_ID        (0x2710)
-#define IMGS_CHIP_ID        (0xa630)
+#define IMGS_CHIP_ID        (0xa635)
 
 /***************** OV10630's registers starts *****************/
 #define OV10630_REG_0103		0x0103
@@ -769,7 +769,11 @@
 //#define IMGS_I2C_ADDR       (0x6C)
 #endif
 
-#define IMGS_RESET_GPIO     (31)
+#define IMGS_RESET_GPIO     (42)  //EM_A19
+#define IMGS_PWDN_GPIO     (39)  //EM_A16
+#define IMGS_SDI0_GPIO     (43)  //EM_A20
+#define IMGS_SDI1_GPIO     (40)  //EM_A17
+#define IMGS_SDI2_GPIO     (38)  //EM_A15
 
 //Added by Richard: adding registers to update awb & color matrix
 #define OV10630_REG_5580 	0x5580

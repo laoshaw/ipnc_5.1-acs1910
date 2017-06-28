@@ -802,9 +802,9 @@ int DRV_isifTestMain(int argc, char **argv)
   if(status!=OSA_SOK)
     return status;
 
-  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_640x480;
+  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_1280x800;
   imgsConfig.binEnable  = FALSE;
-  imgsConfig.fps        = 30;
+  imgsConfig.fps        = 25;
 
   isifConfig.sensorMode = imgsConfig.sensorMode;
   isifConfig.alawEnable = FALSE;
