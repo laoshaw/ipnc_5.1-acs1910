@@ -10,9 +10,12 @@ int DRV_imgsTestMain(int argc, char **argv)
   if(status!=OSA_SOK)
     return status;
 
-  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_640x480;
-  imgsConfig.fps        = 30;
-  imgsConfig.binEnable  = TRUE;      
+//  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_640x480;
+//  imgsConfig.fps        = 30;
+//  imgsConfig.binEnable  = TRUE;      
+  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_1280x800;
+  imgsConfig.fps        = 25;
+  imgsConfig.binEnable  = FALSE;      
 
   OSA_printf( " IMGS: Imager %s is selected\n", DRV_imgsGetImagerName());
 

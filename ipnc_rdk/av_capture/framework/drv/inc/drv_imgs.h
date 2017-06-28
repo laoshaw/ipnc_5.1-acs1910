@@ -18,7 +18,8 @@ typedef enum{
     DRV_IMGS_SENSOR_MODE_1620x1080,
 	DRV_IMGS_SENSOR_MODE_1920x1080,
 	DRV_IMGS_SENSOR_MODE_2048x1536,
-	DRV_IMGS_SENSOR_MODE_2592x1920
+	DRV_IMGS_SENSOR_MODE_2592x1920,
+    DRV_IMGS_SENSOR_MODE_1280x800   //add by pamsimochen
 } DRV_IMGS_SENSOR_MODE;
 
 #define DRV_IMGS_VNF_PAD_VALUE  		(32)  	  // pads 16 extra pixels on all four sides, this is needed Katana NF

@@ -64,13 +64,13 @@ int DRV_init()
     OSA_ERROR("FRAME COPY init\n");
     goto resz_error_exit;
   }
-
+/*
   status = DRV_imageTuneInit();
   if(status!=OSA_SOK) {
     OSA_ERROR("IMAGE TUNE init\n");
     goto framecopy_error_exit;
   }
-
+*/
   status = DRV_ldcInit();
   if(status!=OSA_SOK) {
     OSA_ERROR("LDC init\n");
@@ -216,7 +216,13 @@ void DRV_imgGetWidthHeight(int sensorMode, Uint16 *width, Uint16 *height)
       *width  = 2592;
       *height = 1920;
       break;
-   }
+//add pamsimochen
+    case DRV_IMGS_SENSOR_MODE_1280x800:
+      *width  = 1280;
+      *height = 800;
+      break;
+//end add
+    }
 
   //DRV_imgWidthHeightPad(sensorMode, width, height);
 

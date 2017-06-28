@@ -60,6 +60,7 @@ install:
 	cp $(EXE_BASE_DIR)/$(APP_BUILD_CFG)/av_server.out $(IPNC_EXEC_DIR)
 	cp $(EXE_BASE_DIR)/$(APP_BUILD_CFG)/i2crw.out $(IPNC_EXEC_DIR)
 	cp $(EXE_BASE_DIR)/$(APP_BUILD_CFG)/regrw.out $(IPNC_EXEC_DIR)
+	cp $(EXE_BASE_DIR)/$(APP_BUILD_CFG)/moduletest.out $(IPNC_EXEC_DIR)
 
 dvsdkbuild:
 	make -C$(DVSDK_BASE_DIR) $(DVSDK_TARGET)
