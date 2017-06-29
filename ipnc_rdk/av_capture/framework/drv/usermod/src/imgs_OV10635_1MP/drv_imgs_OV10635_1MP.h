@@ -8,8 +8,8 @@
 #define IMGS_ROW_START_MIN  (0)
 #define IMGS_COL_START_MIN  (0)
 
-#define IMGS_H_PAD          (8)
-#define IMGS_V_PAD          (6)
+#define IMGS_H_PAD          (0)
+#define IMGS_V_PAD          (0)
 
 //#define IMGS_W_MAX     (1920)
 //#define IMGS_H_MAX     (1080)

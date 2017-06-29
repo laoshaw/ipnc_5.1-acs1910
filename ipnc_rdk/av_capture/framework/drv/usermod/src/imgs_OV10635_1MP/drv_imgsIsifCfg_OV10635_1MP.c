@@ -7,7 +7,7 @@ DRV_ImgsIsifConfig gDRV_imgsIsifConfig_Common = {
   
     .hLpfEnable = FALSE,
     
-    .inDataMsbPosition = CSL_CCDC_MSB_POSITION_BIT13,
+    .inDataMsbPosition = CSL_CCDC_MSB_POSITION_BIT8,
     
     .lin = {
       .enable = FALSE,
@@ -32,12 +32,12 @@ DRV_ImgsIsifConfig gDRV_imgsIsifConfig_Common = {
       .gainGb                 = 0x200,
       .gainB                  = 0x200,
       .offset                 = 0,
-      .ipipeGainEnable        = TRUE,
-      .ipipeOffsetEnable      = TRUE,
-      .h3aGainEnable          = TRUE,
-      .h3aOffsetEnable        = TRUE,
-      .sdramOutGainEnable     = TRUE,
-      .sdramOutOffsetEnable   = TRUE,
+      .ipipeGainEnable        = FALSE,//TRUE,
+      .ipipeOffsetEnable      = FALSE,//TRUE,
+      .h3aGainEnable          = FALSE,//TRUE,
+      .h3aOffsetEnable        = FALSE,//TRUE,
+      .sdramOutGainEnable     = FALSE,//TRUE,
+      .sdramOutOffsetEnable   = FALSE,//TRUE,
     },
     
     .dfc = {

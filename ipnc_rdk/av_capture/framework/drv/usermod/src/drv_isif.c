@@ -41,6 +41,7 @@ int DRV_isifOpen(DRV_IsifConfig *config)
   memcpy(&gDRV_isifObj.config, config, sizeof(gDRV_isifObj.config));
 
   gDRV_isifObj.info.ddrOutDataOffsetH = gDRV_isifObj.imgsModeInfo.validWidth;
+  printf(" gDRV_isifObj.imgsModeInfo.validWidth = %d\n", gDRV_isifObj.imgsModeInfo.validWidth);
 
   if(config->alawEnable) {
 
@@ -58,6 +59,8 @@ int DRV_isifOpen(DRV_IsifConfig *config)
 #else
   gDRV_isifObj.info.ddrOutDataHeight = gDRV_isifObj.imgsModeInfo.validHeight;
 #endif
+  printf(" gDRV_isifObj.imgsModeInfo.validHeight = %d\n", gDRV_isifObj.imgsModeInfo.validHeight);
+  printf(" gDRV_isifObj.info.ddrOutDataHeight = %d\n", gDRV_isifObj.info.ddrOutDataHeight);
 
   gDRV_isifObj.numBuf = config->numBuf;
   gDRV_isifObj.numLscBuf = config->numLscBuf;
@@ -485,15 +488,11 @@ int DRV_isifSetParams()
 #endif
   miscConfig.fidLatchAtVdDisable            = FALSE;
 #ifdef YUV_MODE
-  miscConfig.ycInSwap                       = TRUE;
+  miscConfig.ycInSwap                       = FALSE;//TRUE;
 #else
   miscConfig.ycInSwap                       = FALSE;
 #endif
   miscConfig.ycOutSwap                      = FALSE;
-
-#ifdef OV10630
-  miscConfig.ycInSwap                       = FALSE;
-#endif
 
   dfcLscOffsetConfig.hOffset                = gDRV_isifObj.imgsModeInfo.validStartX;
   dfcLscOffsetConfig.vOffset                = gDRV_isifObj.imgsModeInfo.validStartY;
@@ -505,12 +504,18 @@ int DRV_isifSetParams()
   sdrOutConfig.outStartH            = gDRV_isifObj.imgsModeInfo.validStartX;
   sdrOutConfig.outStartV0           = gDRV_isifObj.imgsModeInfo.validStartY;
   sdrOutConfig.outStartV1           = gDRV_isifObj.imgsModeInfo.validStartY;
+OSA_printf("sdrOutConfig.outStartH=%d, sdrOutConfig.outStartV0=%d, sdrOutConfig.outStartV1=%d\r\n", sdrOutConfig.outStartH, sdrOutConfig.outStartV0, sdrOutConfig.outStartV1);
 #ifdef YUV_MODE_INTERLACED
   sdrOutConfig.outStartV0           = 1;
   sdrOutConfig.outStartV1           = 1;
 #endif
   if(inDataConfig.inDataType == CSL_CCDC_IN_DATA_TYPE_YUV8)
+  {
     sdrOutConfig.outWidth           = gDRV_isifObj.imgsModeInfo.validWidth*2; // Needed to change the outWidth when YUV8 bit mode is selected
+    sdrOutConfig.outStartH = sdrOutConfig.outStartH * 2;
+  }
+ else if(inDataConfig.inDataType == CSL_CCDC_IN_DATA_TYPE_YUV16)
+      sdrOutConfig.outWidth = gDRV_isifObj.imgsModeInfo.validWidth; 
   else
   sdrOutConfig.outWidth           = gDRV_isifObj.imgsModeInfo.validWidth; // Needed to change the outWidth when YUV8 bit mode is selected
 
@@ -519,7 +524,7 @@ int DRV_isifSetParams()
 #else
   sdrOutConfig.outHeight            = gDRV_isifObj.imgsModeInfo.validHeight;
 #endif
-
+  OSA_printf("sdrOutConfig.outWidth=%d, sdrOutConfig.outHeight=%d\r\n", sdrOutConfig.outWidth, sdrOutConfig.outHeight);
   sdrOutConfig.culHEven             = 0xFF;
   sdrOutConfig.culHOdd              = 0xFF;
   sdrOutConfig.culV                 = 0xFF;
@@ -802,7 +807,7 @@ int DRV_isifTestMain(int argc, char **argv)
   if(status!=OSA_SOK)
     return status;
 
-  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_1280x800;
+  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_1280x800;;
   imgsConfig.binEnable  = FALSE;
   imgsConfig.fps        = 25;
 
