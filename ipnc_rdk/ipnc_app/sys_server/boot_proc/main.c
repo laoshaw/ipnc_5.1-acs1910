@@ -58,7 +58,7 @@ int main(int argc,char *argv[]) {
 	}else{
 		value = atoi(argv[1]);
 		if(signal(SIGALRM, alarm_handler) != SIG_ERR){
-			alarm(10);
+			alarm(1);
 			if(sizeof(value) != SysDoBootProc(&value, sizeof(value)))
 				ERR("SysDoBootProc control fail.\n");
 			else
