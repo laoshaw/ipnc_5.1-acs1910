@@ -588,6 +588,8 @@ void UI_setConfig(AVSERVER_Config *config)
 
       config->numEncodeStream     = numEncodes;
 
+        VI_DEBUG("config->numEncodeStream = %d\n", numEncodes);
+
       config->faceDetectConfig.captureStreamId = 1;
       config->faceDetectConfig.fdEnable        = gAVSERVER_UI_config.fdEnable;
       config->dmvaAppConfig.captureStreamId    = 1;

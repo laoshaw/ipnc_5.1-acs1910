@@ -5,7 +5,7 @@ digraph configuration {
     concentrate=true;
     compound=true;
     label="\nConfiguration for alg_config/alg_server.xv5T"
-  node [font=Helvetica, fontsize=14, fontcolor=black];  subgraph cluster0 {label=""; __cfg [label="/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg", color=white, fontcolor=blue];
+  node [font=Helvetica, fontsize=14, fontcolor=black];  subgraph cluster0 {label=""; __cfg [label="/home/pamsimochen/arable_land/acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg", color=white, fontcolor=blue];
     node [font=Helvetica, fontsize=10];    subgraph cluster1 {
         label="";
         xdc_services_global__top [shape=box,label="xdc.services.global\n1, 0, 0", color=white];

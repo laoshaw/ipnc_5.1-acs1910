@@ -7,7 +7,7 @@
         <srcFile name="package/cfg/alg_server_xv5T.c"/>
     </sources>
     <configurations>
-        <srcFile name="/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg"/>
+        <srcFile name="/home/pamsimochen/arable_land/acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg"/>
     </configurations>
     <makefiles>
         <srcFile name="package.mak" src="package.bld"/>
@@ -23,7 +23,7 @@
             platform="host.platforms.arm"
             isa="v5T"
             suffix="v5T"
-            rootDir="/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/../dvsdk_ipnctools/linux-devkit"
+            rootDir="/home/pamsimochen/arable_land/acs1910/ipnc_rdk/../dvsdk_ipnctools/linux-devkit"
             os="Linux"
             rts="gnu.targets.arm.rtsv5T">
             <model endian="little"
@@ -41,7 +41,7 @@
         profile="release"
         xCfgScript="package/cfg/alg_server_xv5T.cfg"
         xCfgPrefix="package/cfg/alg_server_xv5T"
-        cfgScript="/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg"
+        cfgScript="/home/pamsimochen/arable_land/acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg"
         cfgArgs="null"
         />
     </executables>

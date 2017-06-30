@@ -14,82 +14,82 @@ XDCCFGDIR = package/cfg/
 # in the event that some included BOM script changes.
 #
 ifneq (clean,$(MAKECMDGOALS))
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Trace.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Trace.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/File.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/File.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/package.xs.xdt:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/package.xs.xdt
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/BuildEnvironment.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/BuildEnvironment.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/ITarget.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/ITarget.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/IPackage.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/IPackage.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/package.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/package.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/custom.mak.exe.xdt:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/custom.mak.exe.xdt
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/compiler.opt.xdt:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/compiler.opt.xdt
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv6.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv6.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/config_1.bld:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/config_1.bld
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen2.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen2.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xdc.tci:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xdc.tci
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Library.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Library.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/MVArm9.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/MVArm9.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/template.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/template.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/package.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/package.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Executable.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Executable.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITarget.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITarget.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/PackageContents.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/PackageContents.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/package.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/package.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/UCArm9.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/UCArm9.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/include/utils.tci:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/include/utils.tci
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Repository.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Repository.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Utils.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Utils.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/package.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/package.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITargetFilter.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITargetFilter.xs
 package.mak: package.bld
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Clock.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Clock.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITargetFilter.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITargetFilter.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Utils.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Utils.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Script.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Script.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv7A.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv7A.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/_gen.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/_gen.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Linux86.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Linux86.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/om2.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/om2.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Trace.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Trace.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/package.xs.xdt:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/package.xs.xdt
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/_gen.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/_gen.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen2.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen2.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Library.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Library.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xmlgen.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITarget.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/ITarget.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/package.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/package.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Executable.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Executable.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/MVArm9.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/MVArm9.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/compiler.opt.xdt:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/compiler.opt.xdt
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Linux86.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Linux86.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/config_1.bld:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/config_1.bld
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xdc.tci:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/xdc.tci
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/UCArm9.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/UCArm9.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/IPackage.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/IPackage.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Repository.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Repository.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/File.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/File.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/include/utils.tci:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/include/utils.tci
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv6.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv6.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/om2.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/om2.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv7A.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/GCArmv7A.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/package.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/package.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/ITarget.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/ITarget.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Script.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/Script.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/template.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/template.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/custom.mak.exe.xdt:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/tools/configuro/template/custom.mak.exe.xdt
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Clock.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/global/Clock.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/package.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/services/io/package.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Mingw.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Mingw.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/PackageContents.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/PackageContents.xs
+/home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/BuildEnvironment.xs:
+package.mak: /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/bld/BuildEnvironment.xs
 package.mak: config.bld
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/package.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/xdc/package.xs
-/home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Mingw.xs:
-package.mak: /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/Mingw.xs
 endif
 
-gnu.targets.arm.GCArmv5T.rootDir ?= /home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/../dvsdk_ipnctools/linux-devkit
-gnu.targets.arm.packageBase ?= /home/pamsimochen/arable_land/ipnc_5.1-acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/
+gnu.targets.arm.GCArmv5T.rootDir ?= /home/pamsimochen/arable_land/acs1910/ipnc_rdk/../dvsdk_ipnctools/linux-devkit
+gnu.targets.arm.packageBase ?= /home/pamsimochen/arable_land/acs1910/dvsdk_ipnctools/xdctools_3_16_03_36/packages/gnu/targets/arm/
 .PRECIOUS: $(XDCCFGDIR)/%.ov5T
 .PHONY: all,v5T .dlls,v5T .executables,v5T test,v5T
 all,v5T: .executables,v5T

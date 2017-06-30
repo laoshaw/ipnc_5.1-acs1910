@@ -799,6 +799,14 @@ int StartStream(StreamEnv_t* pConfig)
 			}
 			break;
 		}
+/////////////////////////add by pamsimochen
+        case CODEC_COMB_ACS1910_H264:
+            sprintf(cmd, "av_server.out %s 720P H264 %d %s %s MENUOFF &\n",
+                cmdopt, pConfig->nBitrate1, sw_brc1, sw_mecfg1); 
+            fSetVideoSize(5, 1280, 720);
+            fSetStreamConfig(0, 1280, 720, codec_tpye[0], H264_1_PORTNUM);
+            break;
+////////////////////////end add
 		case CODEC_COMB_SINGLE_H264:
 		default :
 		{	// SINGLE H.264

@@ -11,7 +11,7 @@ var makeAssembly = false;
 var Executable = xdc.module('xdc.bld.Executable');
 
 var exeOpts = new Executable.Attrs({
-        cfgScript: '/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg',
+        cfgScript: '/home/pamsimochen/arable_land/acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_server.cfg',
         profile: 'release',
         cfgHome: 'alg_config',
 });
@@ -49,7 +49,7 @@ else {
 }
 var thisObj = {
     cfg:        'alg_server.cfg',
-    outputPath: '/home/pamsimochen/arable_land/ipnc_5.1-acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_config',
+    outputPath: '/home/pamsimochen/arable_land/acs1910/ipnc_rdk/av_capture/framework/alg/src/alg_config',
     exeName:    'alg_server' + suffix,
     exeIntName: 'alg_server' + suffix.replace('.', '_'),
     targ:       targ,
