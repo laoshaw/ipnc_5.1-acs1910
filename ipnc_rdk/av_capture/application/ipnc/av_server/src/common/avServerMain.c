@@ -105,6 +105,8 @@ int main(int argc, char **argv)
     return 0;
   }
 
+    VI_DEBUG("into AVSERVER##############################");
+
   memset(&gAVSERVER_UI_config, 0, sizeof(gAVSERVER_UI_config));
 
   #ifdef YUV_MODE_INTERLACED
@@ -188,6 +190,11 @@ int main(int argc, char **argv)
     if(strcmp(argv[i], "720P")==0)
       gAVSERVER_UI_config.mode = AVSERVER_UI_CAPTURE_MODE_720P;
     else
+///////////////////add by pamsimochen
+    if(strcmp(argv[i], "ACS1910")==0)
+        gAVSERVER_UI_config.mode = AVSERVER_UI_CAPTURE_MODE_ACS1910;
+    else
+///////////////////end add
     if(strcmp(argv[i], "720P_MAX")==0)
       gAVSERVER_UI_config.mode = AVSERVER_UI_CAPTURE_MODE_720P_MAX;
     else

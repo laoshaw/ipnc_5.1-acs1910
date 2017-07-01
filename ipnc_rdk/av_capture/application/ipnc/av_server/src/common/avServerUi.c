@@ -285,6 +285,78 @@ void UI_setConfig(AVSERVER_Config *config)
 
   switch(gAVSERVER_UI_config.mode) {
 
+////////////////////add by pamsimochen
+        case AVSERVER_UI_CAPTURE_MODE_ACS1910:
+
+       		gAVSERVER_UI_config.ldcEnable 		= FALSE;
+		    gAVSERVER_UI_config.vsEnable  		= FALSE;
+		    gAVSERVER_UI_config.snfEnable 		= FALSE;
+		    gAVSERVER_UI_config.tnfEnable 		= FALSE;
+
+			config->sensorMode					= DRV_IMGS_SENSOR_MODE_ACS1910;
+			config->sensorFps 					= DRV_IMGS_FPS_ACS1910;
+  			config->aewb_config.aewbBinEnable	= FALSE;
+  			config->aewb_config.reduceShutter	= 200;
+			config->aewb_config.saldreEnable 	= FALSE;
+
+			config->vstabTskEnable				= gAVSERVER_UI_config.vsEnable;
+			config->ldcTskEnable				= gAVSERVER_UI_config.ldcEnable;
+			config->vnfTskEnable				= gAVSERVER_UI_config.snfEnable|gAVSERVER_UI_config.tnfEnable;
+			config->encryptTskEnable			= gAVSERVER_UI_config.encryptEnable;
+
+			config->captureSingleResize 		= FALSE;
+			config->captureYuvFormat			= DRV_DATA_FORMAT_YUV422;
+
+	  		config->numCaptureStream		  	= 1;
+
+			if(numEncodes > config->numCaptureStream)
+				numEncodes = config->numCaptureStream;
+
+			config->numEncodeStream 					= numEncodes;
+
+			config->faceDetectConfig.captureStreamId 	= 1;
+			config->faceDetectConfig.fdEnable 		 	= FALSE;
+			config->faceDetectConfig.fdTracker 		 	= FALSE;
+			config->dmvaAppConfig.captureStreamId       = 1;
+			config->dmvaAppConfig.dmvaEnable            = FALSE;
+
+	  		config->displayConfig.captureStreamId    	= 0;
+			config->displayConfig.width 			 	= 720;
+			config->displayConfig.height			 	= 480;
+			config->displayConfig.expandH            	= TRUE;
+
+			i=0;
+
+			k=0;
+			config->captureConfig[i].width				= DRV_IMGS_WIDTH_ACS1910; //1280
+			config->captureConfig[i].height 			= DRV_IMGS_HEIGHT_ACS1910; //800
+			config->captureConfig[i].ldcEnable			= gAVSERVER_UI_config.ldcEnable;
+			config->captureConfig[i].snfEnable			= gAVSERVER_UI_config.snfEnable;
+			config->captureConfig[i].tnfEnable			= gAVSERVER_UI_config.tnfEnable;
+			config->captureConfig[i].vsEnable 			= gAVSERVER_UI_config.vsEnable;
+
+			if(numEncodes>0)
+				config->captureConfig[i].numEncodes 	= 1;
+
+			config->captureConfig[i].encodeStreamId[k++]= 0;
+			config->captureConfig[i].frameSkipMask		= 0x3FFFFFFF;
+
+			i=0;
+			config->encodeConfig[i].captureStreamId 			= 0;
+			config->encodeConfig[i].cropWidth 					= ALIGN_ENCODE(DRV_IMGS_WIDTH_ACS1910);//ALIGN_ENCODE(1280);
+			config->encodeConfig[i].cropHeight					= ALIGN_ENCODE(DRV_IMGS_HEIGHT_ACS1910);//ALIGN_ENCODE(720);
+			config->encodeConfig[i].frameRateBase				= config->sensorFps*1000;
+			config->encodeConfig[i].frameSkipMask 				= 0x3FFFFFFF;
+			config->encodeConfig[i].codecType 					= gAVSERVER_UI_config.codecType[i];
+			config->encodeConfig[i].codecBitrate				= gAVSERVER_UI_config.codecBitrate[i];
+			config->encodeConfig[i].encryptEnable 				= gAVSERVER_UI_config.encryptEnable;
+			config->encodeConfig[i].fileSaveEnable				= FALSE;
+			config->encodeConfig[i].motionVectorOutputEnable 	= FALSE;
+			config->encodeConfig[i].qValue					 	= gAVSERVER_UI_config.codecBitrate[i];
+
+			break;
+////////////////////end add
+//
 		case AVSERVER_UI_CAPTURE_MODE_D1:
 
 			#ifdef YUV_MODE_INTERLACED

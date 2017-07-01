@@ -44,6 +44,7 @@ int VIDEO_captureTskCreate()
     captureConfig.ipipeConfig.inputSrc = DRV_IPIPE_INPUT_SRC_ISIF;
   else
     captureConfig.ipipeConfig.inputSrc = DRV_IPIPE_INPUT_SRC_DDR;
+  VI_DEBUG("captureConfig.ipipeConfig.inputSrc = %d\n", captureConfig.ipipeConfig.inputSrc);
 
   captureConfig.ipipeConfig.boxcarBlockSize  = DRV_IPIPE_BOXCAR_BLOCK_SIZE_NONE;
   captureConfig.ipipeConfig.histogramMode    = DRV_IPIPE_HISTO_MODE_1_REGION; //ANR-Hist
