@@ -812,6 +812,8 @@ int VIDEO_captureTskMain(struct OSA_TskHndl *pTsk, OSA_MsgHndl *pMsg, Uint32 cur
     #endif
   }
 
+    VI_DEBUG("captureRawInMode = %d; 0, ISIF_IN; 1, DDR_IN \n", gAVSERVER_config.captureRawInMode);
+
   while(!done) {
 
     VIDEO_aewbApplyPrm();

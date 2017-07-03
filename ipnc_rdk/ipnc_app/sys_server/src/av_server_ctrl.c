@@ -802,7 +802,7 @@ int StartStream(StreamEnv_t* pConfig)
 /////////////////////////add by pamsimochen
         case CODEC_COMB_ACS1910_H264:
             printf(" %s:%d:pConfig->nVidecodecres = %d\n", __FILE__, __LINE__, pConfig->nVideocodecres);
-            sprintf(cmd, "av_server.out %s 720 H264 %d %s %s MENUOFF &\n",
+            sprintf(cmd, "av_server.out %s ACS1910 H264 %d %s %s MENUOFF &\n",
                 cmdopt, pConfig->nBitrate1, sw_brc1, sw_mecfg1); 
             fSetVideoSize(5, ACS1910_H264_WIDTH, ACS1910_H264_HEIGHT);
             fSetStreamConfig(0, ACS1910_H264_WIDTH, ACS1910_H264_HEIGHT, codec_tpye[0], H264_1_PORTNUM);

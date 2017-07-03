@@ -144,11 +144,16 @@ int VIDEO_encodeTskRun(int streamId)
 
       if(pOutBufInfo!=NULL) {
 
+       // VI_DEBUG("pInBufHeader->startX = %d, startY = %d, width = %d, height = %d, cropWidth = %d, cropHeight = %d\n", 
+       //     pInBufHeader->startX, pInBufHeader->startY, pInBufHeader->width, pInBufHeader->height,
+       //     gAVSERVER_config.encodeConfig[encodeId].cropWidth, gAVSERVER_config.encodeConfig[encodeId].cropHeight);
+
         encPrm.inStartX = pInBufHeader->startX + (pInBufHeader->width  - gAVSERVER_config.encodeConfig[encodeId].cropWidth)/2;
         encPrm.inStartY = pInBufHeader->startY + (pInBufHeader->height - gAVSERVER_config.encodeConfig[encodeId].cropHeight)/2;
 
         encPrm.inStartX = OSA_floor(encPrm.inStartX, 2);
 
+       // VI_DEBUG("encPrm.inStartX = %d, inStartY = %d\n", encPrm.inStartX, encPrm.inStartY);
         encPrm.inAddr   = pInBufInfo->virtAddr  + VIDEO_BUF_HEADER_SIZE;
         encPrm.outAddr  = pOutBufInfo->virtAddr + VIDEO_BUF_HEADER_SIZE;
 

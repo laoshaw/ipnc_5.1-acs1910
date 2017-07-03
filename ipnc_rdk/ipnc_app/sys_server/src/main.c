@@ -444,6 +444,7 @@ int ProcSysMsg(SYS_MSG_BUF* pMsg)
 		}*/
 		case SYS_MSG_SET_IP:
 		{
+            printf("===================%s:%s:%d===================\n", __FILE__, __func__, __LINE__);
 			in_addr_t ip;
 			if(pMsg->length != sizeof(ip))
 				break;

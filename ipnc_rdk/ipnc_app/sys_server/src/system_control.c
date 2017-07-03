@@ -946,7 +946,7 @@ int SystemInit()
 	tConfig.audioalarm = pSysInfo->audio_config.alarmON;
 	tConfig.audioalarmlevel = pSysInfo->audio_config.alarmlevel;
 
-    //tConfig.nVideocodecmode = CODEC_COMB_ACS1910_H264; 
+    tConfig.nVideocodecmode = CODEC_COMB_ACS1910_H264; 
 
 	StartStream(&tConfig);
 	ipnc_gio_write(GIO_LED_2, LED_ON);

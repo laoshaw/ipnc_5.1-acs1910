@@ -288,7 +288,7 @@ void UI_setConfig(AVSERVER_Config *config)
 ////////////////////add by pamsimochen
         case AVSERVER_UI_CAPTURE_MODE_ACS1910:
 
-       		gAVSERVER_UI_config.ldcEnable 		= FALSE;
+            gAVSERVER_UI_config.ldcEnable 		= FALSE;
 		    gAVSERVER_UI_config.vsEnable  		= FALSE;
 		    gAVSERVER_UI_config.snfEnable 		= FALSE;
 		    gAVSERVER_UI_config.tnfEnable 		= FALSE;
@@ -305,7 +305,7 @@ void UI_setConfig(AVSERVER_Config *config)
 			config->encryptTskEnable			= gAVSERVER_UI_config.encryptEnable;
 
 			config->captureSingleResize 		= FALSE;
-			config->captureYuvFormat			= DRV_DATA_FORMAT_YUV422;
+			config->captureYuvFormat			= DRV_DATA_FORMAT_YUV420;
 
 	  		config->numCaptureStream		  	= 1;
 
@@ -343,8 +343,8 @@ void UI_setConfig(AVSERVER_Config *config)
 
 			i=0;
 			config->encodeConfig[i].captureStreamId 			= 0;
-			config->encodeConfig[i].cropWidth 					= ALIGN_ENCODE(DRV_IMGS_WIDTH_ACS1910);//ALIGN_ENCODE(1280);
-			config->encodeConfig[i].cropHeight					= ALIGN_ENCODE(DRV_IMGS_HEIGHT_ACS1910);//ALIGN_ENCODE(720);
+			config->encodeConfig[i].cropWidth 					= ALIGN_ENCODE(DRV_IMGS_ENCODE_WIDTH_ACS1910);//ALIGN_ENCODE(1280);
+			config->encodeConfig[i].cropHeight					= ALIGN_ENCODE(DRV_IMGS_ENCODE_HEIGHT_ACS1910);//ALIGN_ENCODE(720);
 			config->encodeConfig[i].frameRateBase				= config->sensorFps*1000;
 			config->encodeConfig[i].frameSkipMask 				= 0x3FFFFFFF;
 			config->encodeConfig[i].codecType 					= gAVSERVER_UI_config.codecType[i];
