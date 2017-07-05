@@ -105,8 +105,6 @@ int main(int argc, char **argv)
     return 0;
   }
 
-    VI_DEBUG("into AVSERVER##############################");
-
   memset(&gAVSERVER_UI_config, 0, sizeof(gAVSERVER_UI_config));
 
   #ifdef YUV_MODE_INTERLACED

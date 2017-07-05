@@ -229,6 +229,7 @@ void DRV_imgGetWidthHeight(int sensorMode, Uint16 *width, Uint16 *height)
     }
 
   //DRV_imgWidthHeightPad(sensorMode, width, height);
+    printf("%s:%s:%d: width = %d, height = %d\n", __FILE__, __func__, __LINE__, *width, *height);
 
   if(sensorMode & DRV_IMGS_SENSOR_MODE_VSTAB) {
 	  /* Done here to keep the same Field of View when VNF is ON */
