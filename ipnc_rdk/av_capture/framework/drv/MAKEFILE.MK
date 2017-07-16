@@ -67,7 +67,9 @@ endif
 ifeq ($(IMGS_ID), IMGS_OV10635_1MP)
 	make -fMAKEFILE.MK -C$(USERMOD)/imgs_OV10635_1MP MODULE=drv $(MAKE_TARGET)
 endif
-
+ifeq ($(IMGS_ID), IMGS_MC1208_2MP)
+	make -fMAKEFILE.MK -C$(USERMOD)/imgs_MC1208_2MP MODULE=drv $(MAKE_TARGET)
+endif
 all:
 	make -fMAKEFILE.MK depend
 	make -fMAKEFILE.MK clean

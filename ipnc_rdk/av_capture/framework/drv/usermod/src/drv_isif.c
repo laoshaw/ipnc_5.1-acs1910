@@ -464,7 +464,7 @@ int DRV_isifSetParams()
   inDataConfig.hLpfEnable         = gDRV_isifObj.pImgsIsifConfig->ccdcParams.hLpfEnable;
   inDataConfig.inDataMsbPosition  = gDRV_isifObj.pImgsIsifConfig->ccdcParams.inDataMsbPosition;
 #ifdef YUV_MODE
-  inDataConfig.inDataType         = CSL_CCDC_IN_DATA_TYPE_YUV8;
+  inDataConfig.inDataType         = CSL_CCDC_IN_DATA_TYPE_YUV16;
 #else
   inDataConfig.inDataType         = CSL_CCDC_IN_DATA_TYPE_RAW;
 #endif
@@ -807,7 +807,7 @@ int DRV_isifTestMain(int argc, char **argv)
   if(status!=OSA_SOK)
     return status;
 
-  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_1280x800;;
+  imgsConfig.sensorMode = DRV_IMGS_SENSOR_MODE_ACS1910;
   imgsConfig.binEnable  = FALSE;
   imgsConfig.fps        = 25;
 

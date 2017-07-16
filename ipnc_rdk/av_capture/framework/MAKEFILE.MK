@@ -67,6 +67,9 @@ endif
 ifeq ($(IMGS_ID), IMGS_OV10635_1MP)
 	make -fMAKEFILE.MK -C./alg/src/aewb_ti/imgs_OV10630_1MP MODULE=alg $(MAKE_TARGET)
 endif
+ifeq ($(IMGS_ID), IMGS_MC1208_2MP)
+	make -fMAKEFILE.MK -C./alg/src/aewb_ti/imgs_OV10630_1MP MODULE=alg $(MAKE_TARGET)
+endif
 
 else	
 
