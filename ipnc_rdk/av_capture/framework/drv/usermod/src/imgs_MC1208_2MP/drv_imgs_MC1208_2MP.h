@@ -11,8 +11,8 @@
 #define IMGS_H_PAD          (0)
 #define IMGS_V_PAD          (0)
 
-#define IMGS_W_MAX     (1920)
-#define IMGS_H_MAX     (1080)
+#define IMGS_W_MAX     (2640)
+#define IMGS_H_MAX     (1120)
 //#define IMGS_W_MAX     (1280)
 //#define IMGS_H_MAX     (800)
 

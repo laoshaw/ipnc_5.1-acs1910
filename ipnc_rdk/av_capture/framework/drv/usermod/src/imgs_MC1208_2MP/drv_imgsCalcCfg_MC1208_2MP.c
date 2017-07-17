@@ -1,5 +1,6 @@
 
 #include "drv_imgs_MC1208_2MP.h"
+#include "osa_file.h"
 #include <math.h>
 #define DRV_SHOW_INFO
 int DRV_imgsCalcFrameRate(int fps)
@@ -157,6 +158,7 @@ int DRV_imgsCalcFrameTime(Uint32 fps, Uint32 dataW, Uint32 dataH, Bool binEnable
   pModeCfg->validHeight       = pModeCfg->sensorDataHeight-IMGS_V_PAD;
   #endif
   pModeCfg->binEnable         = binEnable;
+  VI_DEBUG("valideStartX = %d, validStartY = %d, validWidth = %d, validHeight = %d\n", pModeCfg->validStartX, pModeCfg->validStartY, pModeCfg->validWidth, pModeCfg->validHeight);
 
   if( flipV == 0 )
   {

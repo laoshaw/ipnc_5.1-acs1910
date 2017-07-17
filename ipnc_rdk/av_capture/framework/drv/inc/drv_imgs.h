@@ -27,7 +27,7 @@ typedef enum{
 #define DRV_IMGS_WIDTH_ACS1910 (1920)
 #define DRV_IMGS_HEIGHT_ACS1910 (1088)
 #define DRV_IMGS_ENCODE_WIDTH_ACS1910 (1920)
-#define DRV_IMGS_ENCODE_HEIGHT_ACS1910 (1080)
+#define DRV_IMGS_ENCODE_HEIGHT_ACS1910 (1088)
 
 #define DRV_IMGS_VNF_PAD_VALUE  		(32)  	  // pads 16 extra pixels on all four sides, this is needed Katana NF
 #define DRV_IMGS_SENSOR_MODE_PIXEL_PAD  (0x0200)  // pads 16 extra pixels on all four sides, this is needed Katana NF

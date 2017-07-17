@@ -28,6 +28,7 @@ int DRV_isifOpen(DRV_IsifConfig *config)
     return OSA_EFAIL;
   }
 
+
   if(DRV_imgsGetModeConfig(config->sensorMode)==NULL)
   {
     OSA_ERROR("DRV_imgsGetModeConfig()\n");
@@ -41,7 +42,7 @@ int DRV_isifOpen(DRV_IsifConfig *config)
   memcpy(&gDRV_isifObj.config, config, sizeof(gDRV_isifObj.config));
 
   gDRV_isifObj.info.ddrOutDataOffsetH = gDRV_isifObj.imgsModeInfo.validWidth;
-  printf(" gDRV_isifObj.imgsModeInfo.validWidth = %d\n", gDRV_isifObj.imgsModeInfo.validWidth);
+  VI_DEBUG(" gDRV_isifObj.imgsModeInfo.validWidth = %d\n", gDRV_isifObj.imgsModeInfo.validWidth);
 
   if(config->alawEnable) {
 
@@ -59,8 +60,6 @@ int DRV_isifOpen(DRV_IsifConfig *config)
 #else
   gDRV_isifObj.info.ddrOutDataHeight = gDRV_isifObj.imgsModeInfo.validHeight;
 #endif
-  printf(" gDRV_isifObj.imgsModeInfo.validHeight = %d\n", gDRV_isifObj.imgsModeInfo.validHeight);
-  printf(" gDRV_isifObj.info.ddrOutDataHeight = %d\n", gDRV_isifObj.info.ddrOutDataHeight);
 
   gDRV_isifObj.numBuf = config->numBuf;
   gDRV_isifObj.numLscBuf = config->numLscBuf;
@@ -504,7 +503,7 @@ int DRV_isifSetParams()
   sdrOutConfig.outStartH            = gDRV_isifObj.imgsModeInfo.validStartX;
   sdrOutConfig.outStartV0           = gDRV_isifObj.imgsModeInfo.validStartY;
   sdrOutConfig.outStartV1           = gDRV_isifObj.imgsModeInfo.validStartY;
-OSA_printf("sdrOutConfig.outStartH=%d, sdrOutConfig.outStartV0=%d, sdrOutConfig.outStartV1=%d\r\n", sdrOutConfig.outStartH, sdrOutConfig.outStartV0, sdrOutConfig.outStartV1);
+    VI_DEBUG("sdrOutConfig.outStartH=%d, sdrOutConfig.outStartV0=%d, sdrOutConfig.outStartV1=%d\r\n", sdrOutConfig.outStartH, sdrOutConfig.outStartV0, sdrOutConfig.outStartV1);
 #ifdef YUV_MODE_INTERLACED
   sdrOutConfig.outStartV0           = 1;
   sdrOutConfig.outStartV1           = 1;
@@ -768,14 +767,15 @@ int DRV_isifTestRun()
     pBufInfo = DRV_isifGetOutBufInfo(bufId);
 
     if(pBufInfo!=NULL) {
-      if(count%30==0)
-      {
-        OSA_printf("%d: buf ID:%d ADDR:%08x\n", count, bufId, (Uint32)pBufInfo->physAddr);
-      }
+      //if(count%30==0)
+      //{
+      //  OSA_printf("%d: buf ID:%d ADDR:%08x\n", count, bufId, (Uint32)pBufInfo->physAddr);
+      //}
       #if 1
       if(count>1) {
         if(count%100==0) {
           sprintf(filename, "IMG_%04d_%dx%d.RAW", count, gDRV_isifInfo.ddrOutDataOffsetH, gDRV_isifInfo.ddrOutDataHeight);
+          VI_DEBUG("size = %d, width = %d, height =%d\n", pBufInfo->size, pBufInfo->width, pBufInfo->height);
           OSA_fileWriteFile(filename, pBufInfo->virtAddr, gDRV_isifInfo.ddrOutDataOffsetH*gDRV_isifInfo.ddrOutDataHeight);
         }
       }

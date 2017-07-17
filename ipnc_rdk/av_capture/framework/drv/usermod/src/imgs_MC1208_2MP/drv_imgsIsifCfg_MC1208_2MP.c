@@ -64,8 +64,8 @@ DRV_ImgsIsifConfig gDRV_imgsIsifConfig_Common = {
     .fidPolarity   = CSL_CCDC_SIGNAL_POLARITY_POSITIVE,
     .hdPolarity    = CSL_CCDC_SIGNAL_POLARITY_POSITIVE,
     //.hdPolarity    = CSL_CCDC_SIGNAL_POLARITY_NEGATIVE,
-    //.vdPolarity    = CSL_CCDC_SIGNAL_POLARITY_POSITIVE,        
-    .vdPolarity    = CSL_CCDC_SIGNAL_POLARITY_NEGATIVE,        
+    .vdPolarity    = CSL_CCDC_SIGNAL_POLARITY_POSITIVE,        
+    //.vdPolarity    = CSL_CCDC_SIGNAL_POLARITY_NEGATIVE,        
     .hdVdDir       = CSL_CCDC_SIGNAL_DIR_INPUT,
     .fidDir        = CSL_CCDC_SIGNAL_DIR_INPUT,
 
