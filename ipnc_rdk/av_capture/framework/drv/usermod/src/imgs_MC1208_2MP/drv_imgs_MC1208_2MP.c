@@ -1,6 +1,9 @@
 
 #include "drv_imgs_MC1208_2MP.h"
 #include <drv_gpio.h>
+#include "VIM_API_Release.h"
+#include <fcntl.h>
+#include "osa_file.h"
 
 DRV_ImgsObj gDRV_imgsObj;
 
@@ -18,12 +21,55 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
 
   DRV_imgsCalcFrameTime(config->fps, width, height, config->binEnable, config->flipH, config->flipV);
 
-  status = DRV_i2cOpen(&gDRV_imgsObj.i2cHndl, IMGS_I2C_ADDR);
-  if(status!=OSA_SOK) {
-    OSA_ERROR("DRV_i2cOpen()\n");
-    return status;
-  }
-
+#if 0
+    VIM_SystemInit();
+    status = VIM_OpenChannel(CHANNEL_I2C, 100, "/dev/i2c-1");
+    printf("VIM open channel return %d\n", status);
+    if(status!=VIM_SUCCEED) {
+        OSA_ERROR("DRV_i2cOpen()\n");
+        return OSA_EFAIL;
+    }
+    {
+        VIM_ATTRIBUTE_S VIM_CurAttr;
+        VIM_GENERAL_INFO VIM_GenInfo;
+        status = VIM_GetCurrentAttribute((UINT8 *)&VIM_CurAttr);
+        if(status!=VIM_SUCCEED){
+            OSA_ERROR("VIM GetCurrentAttribute");
+            printf("status = %d\n", status);
+            return OSA_EFAIL;
+        }
+        status = VIM_GetGeneralAttribute((UINT8 *)&VIM_GenInfo);
+        if(status!=VIM_SUCCEED){
+            OSA_ERROR("VIM GetGeneralAttribute");
+            printf("status = %d\n", status);
+            return OSA_EFAIL;
+        }
+       // VI_DEBUG("General Attribute flag                    = %x\n", VIM_GenInfo.flag);
+       // VI_DEBUG("General Attribute Sensor_VID              = %d\n", VIM_GenInfo.sensor_VID);
+       // VI_DEBUG("General Attribute Sensor_ID               = %d\n", VIM_GenInfo.sensor_ID);
+       // VI_DEBUG("General Attribute Chip_Version            = %d\n", VIM_GenInfo.chip_Version);
+       // VI_DEBUG("General Attribute Ini_Version             = %d\n", VIM_GenInfo.Ini_Version);
+       // VI_DEBUG("General Attribute ProjectSpec_Version     = %d\n", VIM_GenInfo.projectSpec_Version);
+       // VI_DEBUG("General Attribute Content_Version         = %d\n", VIM_GenInfo.content_Version);
+       // VI_DEBUG("General Attribute date_info               = %02x %02x %02x %02x\n", VIM_GenInfo.date_info[3], VIM_GenInfo.date_info[2], VIM_GenInfo.date_info[1], VIM_GenInfo.date_info[0]);
+       // VI_DEBUG("General Attribute Firmware_version        = %d\n", VIM_GenInfo.Firmware_Version);
+    }
+#endif
+    status = DRV_SPIOpen(&gDRV_imgsObj.spiHndl, 0);
+    if(status == OSA_EFAIL)
+    {
+        OSA_ERROR("Open SPI\n");
+    }
+    {
+        while(1)
+        {
+            unsigned char buf = 0xff;
+            unsigned char Obuf;
+            status = DRV_SPIRead8(&gDRV_imgsObj.spiHndl, &buf, 1, &Obuf);
+            printf("==============================status = %d\n", status);
+            sleep(1);
+        }
+    }
   return 0;
 }
 

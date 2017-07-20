@@ -206,7 +206,7 @@ int DRV_imgsCalcFrameTime(Uint32 fps, Uint32 dataW, Uint32 dataH, Bool binEnable
 	}
 
   pModeCfg->vdint2						= pModeCfg->vdint1;
-
+#if 0
   #ifdef DRV_SHOW_INFO
   OSA_printf(" Sensor Mode Info,\n");
   OSA_printf(" Width      = %4d \n", pModeCfg->sensorDataWidth);
@@ -246,7 +246,7 @@ int DRV_imgsCalcFrameTime(Uint32 fps, Uint32 dataW, Uint32 dataH, Bool binEnable
   OSA_printf(" vdint1               = %d\n", pModeCfg->vdint1         );
   OSA_printf(" \n");
   #endif
-
+#endif
   return OSA_SOK;
 }
 

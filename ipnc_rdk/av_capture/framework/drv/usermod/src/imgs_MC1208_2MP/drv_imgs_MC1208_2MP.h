@@ -4,6 +4,7 @@
 
 #include <drv_imgs.h>
 #include <drv_i2c.h>
+#include <drv_spi.h>
 
 #define IMGS_ROW_START_MIN  (0)
 #define IMGS_COL_START_MIN  (0)
@@ -836,6 +837,7 @@ typedef struct {
 typedef struct {
 
   DRV_I2cHndl i2cHndl;
+    DRV_SPIHndl spiHndl;
 
   DRV_ImgsFrameTime curFrameTime;
   DRV_ImgsModeConfig curModeConfig;

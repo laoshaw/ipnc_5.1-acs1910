@@ -23,6 +23,9 @@ LIBS+=$(CODEC_LIBS)
 LIBS+=$(APP_LIB_DIR)/msg_util.a
 LIBS+=$(APP_LIB_DIR)/alarm_msg_drv.a
 LIBS+=$(DM365MM_LIB)
+ifeq ($(IMGS_ID), IMGS_MC1208_2MP)
+	LIBS+=$(VIM_LIB)
+endif
 
 INCLUDE+=$(CSL_INC)
 INCLUDE+=$(IMAGE_TUNE_INC)

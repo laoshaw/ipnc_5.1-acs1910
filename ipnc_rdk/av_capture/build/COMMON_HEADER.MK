@@ -15,6 +15,10 @@ LIB_DIR=$(LIB_BASE_DIR)/$(APP_BUILD_CFG)
 EXE_DIR=$(EXE_BASE_DIR)/$(APP_BUILD_CFG)
 OBJ_DIR=$(OBJ_BASE_DIR)/$(MODULE)/$(APP_BUILD_CFG)
 
+ifeq ($(IMGS_ID), IMGS_MC1208_2MP)
+	VIM_LIB=$(AVCAPTURE_BUILD_DIR)/../framework/drv/usermod/src/imgs_MC1208_2MP/VIM_API/libvc0710_isp.a
+endif
+
 CC_OPTS=-c -Wall -fPIC
 
 ifeq ($(APP_BUILD_CFG), debug)

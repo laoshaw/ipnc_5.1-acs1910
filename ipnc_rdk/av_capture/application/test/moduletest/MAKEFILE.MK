@@ -6,4 +6,8 @@ LIBS=$(LIB_DIR)/moduletest.a $(AVCAPTURE_BUILD_DIR)/../framework/alg/lib/dmval.a
 LIBS+=$(CODEC_LIBS)
 LIBS+=$(DM365MM_LIB)
 
+ifeq ($(IMGS_ID), IMGS_MC1208_2MP)
+	LIBS+=$(VIM_LIB)
+endif
+
 include $(AVCAPTURE_BUILD_DIR)/COMMON_FOOTER.MK
