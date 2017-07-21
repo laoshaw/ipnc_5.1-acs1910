@@ -503,7 +503,7 @@ MUX_CFG(DM365,	MCBSP0_R,	0,   19,    1,	  1,	 false)
 MUX_CFG(DM365,	MCBSP0_BFSR,	0,   18,    1,	  1,	 false)
 
 MUX_CFG(DM365,	SPI0_SCLK,	3,   28,    1,    1,	 false)
-MUX_CFG(DM365,	SPI0_SDI,	3,   26,    3,    0,	 false)
+MUX_CFG(DM365,	SPI0_SDI,	3,   26,    3,    1,	 false)
 MUX_CFG(DM365,	SPI0_SDO,	3,   25,    1,    1,	 false)
 MUX_CFG(DM365,	SPI0_SDENA0,	3,   29,    3,    3,	 false)
 MUX_CFG(DM365,	SPI0_SDENA1,	3,   26,    3,    2,	 false)
@@ -636,7 +636,7 @@ static struct davinci_spi_platform_data dm365_spi0_pdata = {
 	.num_chipselect = 2,
 };
 */
-static u8 chsel[1] = {23};
+static u8 chsel[1] = {29};
 static struct davinci_spi_platform_data dm365_spi0_pdata = {
 	.version = SPI_VERSION_1,
 	.num_chipselect = 1,
@@ -685,21 +685,23 @@ static struct platform_device dm365_spi0_device = {
 void __init dm365_init_spi0(unsigned chipselect_mask,
 		struct spi_board_info *info, unsigned len)
 {
+
 	davinci_cfg_reg(DM365_SPI0_SCLK);
-	davinci_cfg_reg(DM365_SPI0_SDI);
 	davinci_cfg_reg(DM365_SPI0_SDO);
+	davinci_cfg_reg(DM365_SPI0_SDI);
 	
 	/* not all slaves will be wired up */
+#if 0
 	if (chipselect_mask & BIT(0))
 		davinci_cfg_reg(DM365_SPI0_SDENA0);
 	if (chipselect_mask & BIT(1))
 		davinci_cfg_reg(DM365_SPI0_SDENA1);
-
+#endif
 	spi_register_board_info(info, len);
 
 	platform_device_register(&dm365_spi0_device);
 }
-
+#if 0
 //add by pamsimochen
 // spi1
 static u64 dm368_spi1_dma_mask = DMA_BIT_MASK(32);
@@ -710,7 +712,7 @@ static struct davinci_spi_platform_data dm365_spi0_pdata = {
 	.num_chipselect = 2,
 };
 */
-static u8 chsel_spi1[1] = {23};
+static u8 chsel_spi1[1] = {29};
 static struct davinci_spi_platform_data dm368_spi1_pdata = {
 	.version = SPI_VERSION_1,
 	.num_chipselect = 1,
@@ -782,7 +784,7 @@ static struct davinci_spi_platform_data dm365_spi0_pdata = {
 	.num_chipselect = 2,
 };
 */
-static u8 chsel_spi2[1] = {23};
+static u8 chsel_spi2[1] = {33};
 static struct davinci_spi_platform_data dm368_spi2_pdata = {
 	.version = SPI_VERSION_1,
 	.num_chipselect = 1,
@@ -846,6 +848,7 @@ void __init dm368_init_spi2(unsigned chipselect_mask,
 	platform_device_register(&dm368_spi2_device);
 }
 //end add
+#endif
 
 static struct emac_platform_data dm365_emac_pdata = {
 	.ctrl_reg_offset	= DM365_EMAC_CNTRL_OFFSET,
