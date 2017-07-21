@@ -63,11 +63,11 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     {
         while(1)
         {
-            unsigned char buf = 0xff;
-            unsigned char Obuf;
-            status = DRV_SPIRead8(&gDRV_imgsObj.spiHndl, &buf, 1, &Obuf);
-            printf("==============================status = %d\n", status);
-            sleep(1);
+            unsigned char buf[2] = {0x45, 0x55};
+            unsigned char Obuf[2] = {0,0};
+            status = DRV_SPIWrite8(&gDRV_imgsObj.spiHndl, &buf, 1);
+            printf("==============================status = %d, Obuf = %x, %x\n", status, Obuf[0], Obuf[1]);
+            sleep(2);
         }
     }
   return 0;

@@ -587,6 +587,29 @@ static struct spi_board_info dm3xx_spi_board_info[] = {
 		.chip_select = 0,
 	},
 };
+//add by pamsimochen
+static struct spi_board_info dm368_spi1_board_info[] = {
+    [0] = {
+        .modalias = "spidev", 
+        .mode = SPI_MODE_0,
+        .irq = 0,
+        .max_speed_hz = 25 * 1000 * 1000,
+        .bus_num = 1, 
+        .chip_select = 0, 
+    },
+};
+
+static struct spi_board_info dm368_spi2_board_info[] = {
+    [0] = {
+        .modalias = "spidev", 
+        .mode = SPI_MODE_0,
+        .irq = 0,
+        .max_speed_hz = 25 * 1000 * 1000,
+        .bus_num = 2, 
+        .chip_select = 0, 
+    },
+};
+//end add
 
 static void setup_sensor(void)
 {
@@ -715,9 +738,17 @@ static __init void dm368_evm_init(void)
 	davinci_psc_config(DAVINCI_GPSC_ARMDOMAIN, 0, DM365_LPSC_VPSSMSTR, PSC_STATE_ENABLE, 1);
 	dm365evm_usb_configure();
 
+    printk("start dm365 init spi0\n");
 	dm365_init_spi0(BIT(0), dm3xx_spi_board_info,
 			ARRAY_SIZE(dm3xx_spi_board_info));
 
+    printk("start dm368 init spi1\n");
+	dm368_init_spi1(BIT(0), dm368_spi1_board_info,
+			ARRAY_SIZE(dm368_spi1_board_info));
+    
+    printk("dm368 init spi2\n");
+    dm368_init_spi2(BIT(0), dm368_spi2_board_info,
+			ARRAY_SIZE(dm368_spi2_board_info));
 }
 
 MACHINE_START(DAVINCI_DM365_EVM, "DaVinci DM36x IPNC")

@@ -700,6 +700,153 @@ void __init dm365_init_spi0(unsigned chipselect_mask,
 	platform_device_register(&dm365_spi0_device);
 }
 
+//add by pamsimochen
+// spi1
+static u64 dm368_spi1_dma_mask = DMA_BIT_MASK(32);
+
+/*//kg,disable,redefine
+static struct davinci_spi_platform_data dm365_spi0_pdata = {
+	.version 	= SPI_VERSION_1,
+	.num_chipselect = 2,
+};
+*/
+static u8 chsel_spi1[1] = {23};
+static struct davinci_spi_platform_data dm368_spi1_pdata = {
+	.version = SPI_VERSION_1,
+	.num_chipselect = 1,
+	.chip_sel = chsel_spi1,
+	.clk_name = "SPICLK",
+};
+static struct resource dm368_spi1_resources[] = {
+	{
+		.start = 0x01c66800,
+		.end   = 0x01c66fff,
+		.flags = IORESOURCE_MEM,
+	},
+	{
+		.start = 18,//IRQ_DM365_SPIINT3_0,
+		  .end = 18,//IRQ_DM365_SPIINT3_0,
+		.flags = IORESOURCE_IRQ,
+	},
+	/*//disable dma for spi currently
+	{
+		.start = 17,
+		.flags = IORESOURCE_DMA,
+	},
+	{
+		.start = 16,
+		.flags = IORESOURCE_DMA,
+	},
+	{
+		.start = EVENTQ_3,
+		.flags = IORESOURCE_DMA,
+	},
+	*/
+};
+
+static struct platform_device dm368_spi1_device = {
+	.name = "spi_davinci",
+	.id = 1,
+	.dev = {
+		.dma_mask = &dm368_spi1_dma_mask,
+		.coherent_dma_mask = DMA_BIT_MASK(32),
+		.platform_data = &dm368_spi1_pdata,
+	},
+	.num_resources = ARRAY_SIZE(dm368_spi1_resources),
+	.resource = dm368_spi1_resources,
+};
+void __init dm368_init_spi1(unsigned chipselect_mask,
+		struct spi_board_info *info, unsigned len)
+{
+	davinci_cfg_reg(DM365_SPI1_SCLK);
+	davinci_cfg_reg(DM365_SPI1_SDI);
+	davinci_cfg_reg(DM365_SPI1_SDO);
+    davinci_cfg_reg(DM365_SPI1_SDENA0);
+	
+	/* not all slaves will be wired up */
+	//if (chipselect_mask & BIT(0))
+	//	davinci_cfg_reg(DM365_SPI1_SDENA0);
+	//if (chipselect_mask & BIT(1))
+	//	davinci_cfg_reg(DM365_SPI1_SDENA1);
+
+	spi_register_board_info(info, len);
+
+	platform_device_register(&dm368_spi1_device);
+}
+// spi2
+static u64 dm368_spi2_dma_mask = DMA_BIT_MASK(32);
+
+/*//kg,disable,redefine
+static struct davinci_spi_platform_data dm365_spi0_pdata = {
+	.version 	= SPI_VERSION_1,
+	.num_chipselect = 2,
+};
+*/
+static u8 chsel_spi2[1] = {23};
+static struct davinci_spi_platform_data dm368_spi2_pdata = {
+	.version = SPI_VERSION_1,
+	.num_chipselect = 1,
+	.chip_sel = chsel_spi2,
+	.clk_name = "SPICLK",
+};
+static struct resource dm368_spi2_resources[] = {
+	{
+		.start = 0x01c67800,
+		.end   = 0x01c67fff,
+		.flags = IORESOURCE_MEM,
+	},
+	{
+		.start = IRQ_DM365_SPINT2_1,
+		  .end = IRQ_DM365_SPINT2_1,
+		.flags = IORESOURCE_IRQ,
+	},
+	/*//disable dma for spi currently
+	{
+		.start = 17,
+		.flags = IORESOURCE_DMA,
+	},
+	{
+		.start = 16,
+		.flags = IORESOURCE_DMA,
+	},
+	{
+		.start = EVENTQ_3,
+		.flags = IORESOURCE_DMA,
+	},
+	*/
+};
+
+static struct platform_device dm368_spi2_device = {
+	.name = "spi_davinci",
+	.id = 2,
+	.dev = {
+		.dma_mask = &dm368_spi2_dma_mask,
+		.coherent_dma_mask = DMA_BIT_MASK(32),
+		.platform_data = &dm368_spi2_pdata,
+	},
+	.num_resources = ARRAY_SIZE(dm368_spi2_resources),
+	.resource = dm368_spi2_resources,
+};
+void __init dm368_init_spi2(unsigned chipselect_mask,
+		struct spi_board_info *info, unsigned len)
+{
+	davinci_cfg_reg(DM365_SPI2_SCLK);
+	davinci_cfg_reg(DM365_SPI2_SDI);
+	davinci_cfg_reg(DM365_SPI2_SDO);
+	davinci_cfg_reg(DM365_SPI2_SDENA0);
+	
+	/* not all slaves will be wired up */
+	//if (chipselect_mask & BIT(0))
+	//	davinci_cfg_reg(DM365_SPI2_SDENA0);
+	//if (chipselect_mask & BIT(1))
+	//	davinci_cfg_reg(DM365_SPI2_SDENA1);
+
+	spi_register_board_info(info, len);
+
+	platform_device_register(&dm368_spi2_device);
+}
+//end add
+
 static struct emac_platform_data dm365_emac_pdata = {
 	.ctrl_reg_offset	= DM365_EMAC_CNTRL_OFFSET,
 	.ctrl_mod_reg_offset	= DM365_EMAC_CNTRL_MOD_OFFSET,
