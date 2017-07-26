@@ -618,7 +618,7 @@ static void setup_sensor(void)
 
         void __iomem *pll1_cken = (void __iomem *) IO_ADDRESS(0x01C40948);
         void __iomem *pinmux1 = (void __iomem *) IO_ADDRESS(0x01C40004);
-   
+
 
         temp1 = __raw_readl(pinmux1);  //select gio91
         temp1 = temp1 & ~(3<<2);
@@ -712,7 +712,7 @@ static int dm365_rmd_cs_rdk_150_wl_set_power(int slot, int power_on)
 #endif
 static __init void dm368_evm_init(void)
 {
-	evm_init_i2c();
+       evm_init_i2c();
         setup_sensor();           
 	davinci_serial_init(&uart_config);
 	dm365evm_emac_configure();
@@ -739,9 +739,14 @@ static __init void dm368_evm_init(void)
 	davinci_psc_config(DAVINCI_GPSC_ARMDOMAIN, 0, DM365_LPSC_VPSSMSTR, PSC_STATE_ENABLE, 1);
 	dm365evm_usb_configure();
 
-    printk("start dm365 init spi0\n");
 	dm365_init_spi0(BIT(0), dm3xx_spi_board_info,
 			ARRAY_SIZE(dm3xx_spi_board_info));
+
+    //davinci_cfg_reg(DM365_PWM0);
+    davinci_cfg_reg(DM365_PWM1);
+    davinci_cfg_reg(DM365_PWM2_G87);
+    davinci_cfg_reg(DM365_PWM3_G85);
+
 #if 0
     printk("start dm368 init spi1\n");
 	dm368_init_spi1(BIT(0), dm368_spi1_board_info,

@@ -20,7 +20,7 @@
  * <chipname>.h
  */
 #define DAVINCI_SYSTEM_MODULE_BASE        0x01C40000
-#define DAVINCI_EDMA_BASE                 0x01C00000          
+#define DAVINCI_EDMA_BASE                 0x01C00000
 
 #ifndef __ASSEMBLER__
 extern void __iomem  *davinci_sysmodbase;
