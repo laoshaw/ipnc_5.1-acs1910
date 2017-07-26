@@ -84,9 +84,9 @@ int DRV_SPIRead(DRV_SPIHndl *hndl, Uint8 *buf,  Uint32 count, Uint8 *Obuf)
 		return OSA_EFAIL;
 		
 	ret = ioctl(hndl->fd, SPI_IOC_MESSAGE(1), &tr);
-	//if (ret == 1){
-	//	OSA_ERROR("can't send spi message");	
-	//}
+	if (ret != count){
+		OSA_ERROR("can't send spi message");	
+	}
 	
 	return ret;
 }
@@ -107,7 +107,7 @@ int DRV_SPIWrite(DRV_SPIHndl *hndl, Uint8 *buf, Uint32 count)
 		return OSA_EFAIL;
 		
 	ret = ioctl(hndl->fd, SPI_IOC_MESSAGE(1), &tr);
-	if (ret == 1){
+	if (ret != count){
 		OSA_ERROR("can't send spi message");	
 	}
 	
