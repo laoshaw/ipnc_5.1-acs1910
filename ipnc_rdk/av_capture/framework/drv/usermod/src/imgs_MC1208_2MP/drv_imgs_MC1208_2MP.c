@@ -85,14 +85,14 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
 
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
 
-  //DRV_imgGetWidthHeight(config->sensorMode, &width, &height);
+  DRV_imgGetWidthHeight(config->sensorMode, &width, &height);
 
   width+=IMGS_H_PAD;
   height+=IMGS_V_PAD;
+  
+  DRV_imgsCalcFrameTime(config->fps, width, height, config->binEnable, config->flipH, config->flipV);
 
-  //DRV_imgsCalcFrameTime(config->fps, width, height, config->binEnable, config->flipH, config->flipV);
-
-#if 0
+#if 1
     VIM_SystemInit();
     status = VIM_OpenChannel(CHANNEL_I2C, 100, "/dev/i2c-1");
     printf("VIM open channel return %d\n", status);
@@ -158,6 +158,11 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     #endif
     }//end VIM initial
 #endif
+  status = DRV_i2cOpen(&gDRV_imgsObj.i2cHndl, IMGS_I2C_ADDR);
+  if(status!=OSA_SOK) {
+    OSA_ERROR("DRV_i2cOpen()\n");
+    return status;
+  }
 #if 1
     status = DRV_SPIOpen(&gDRV_imgsObj.spiHndl, 0);
     if(status == OSA_EFAIL)
@@ -165,16 +170,17 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
         OSA_ERROR("Open SPI\n");
     }
     {
-        while(1)
+//        while(1)
         {
             unsigned int buf= 0x12345678;
             unsigned int Obuf;
             status = DRV_SPIRead(&gDRV_imgsObj.spiHndl, &buf, sizeof(buf), &Obuf);
             printf("==============================status = %d, Obuf = %x\n", status, Obuf);
-            sleep(2);
+//            sleep(2);
         }
     }
 #endif
+
 #if 0
     {//test adc
         int fd,ret,i,times=10;
