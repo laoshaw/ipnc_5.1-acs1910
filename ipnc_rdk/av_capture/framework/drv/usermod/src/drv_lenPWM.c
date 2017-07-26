@@ -15,7 +15,6 @@ Copyright (c) 2016-2016 VIFOCUS
 #include <fcntl.h>
 #include <termios.h>
 #include <semaphore.h>
-#include <dm365mm.h>
 #include <sys/mman.h>
 #include <linux/types.h>
 #include <sys/ioctl.h>

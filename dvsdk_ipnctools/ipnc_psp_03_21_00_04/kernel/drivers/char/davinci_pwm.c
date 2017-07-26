@@ -95,10 +95,6 @@ static int pwm_open(struct inode *inode, struct file *file)
 	pwm_dev->regs->rpt = 1;
 	pwm_dev->regs->cfg |= 0x1;
 
-	
-
-    printk("pwm_dev->regs->pid = 0x%08X\n", pwm_dev->regs->pid);
-
 	pwm_dev->intr_complete = 0;
 
 	return 0;
@@ -124,16 +120,13 @@ static long pwm_unlocked_ioctl(struct file *file, unsigned int cmd,
 	unsigned int minor = iminor(inode);
 	struct pwm_davinci_device *pwm_dev;
 
-    printk("come on pwm_ioctl==================,cmd = %x, arg = %x\n", cmd, arg);
 	pwm_dev = pwm_dev_get_by_minor(minor);
 
 	switch (cmd) {
 
 	case PWMIOC_SET_MODE:
-        printk("cmd: set mode\n");
 		if (pwm_dev->regs->cfg & 0x20000)
         {
-            printk("cfg = 0x20000");
 			return -EBUSY;
         }
 		get_user(mode, (int *)arg);
@@ -148,20 +141,15 @@ static long pwm_unlocked_ioctl(struct file *file, unsigned int cmd,
 			return -EINVAL;
 		break;
 	case PWMIOC_SET_PERIOD:
-        printk("cmd: set period\n");
 		get_user(mode, (int *)arg);
-        //printk("pwm_dev->regs->cfg = 0x%08X\n", pwm_dev->regs->cfg);
-        //printk("mode = 0x%08X\n", mode);
         mode = (int)arg;
 		if (mode < 0 || mode > 0xffffffff)
         {
-            printk("1111111111111111/n");
 			return -EINVAL;
         }
 		if (pwm_dev->regs->cfg & 0x2 && pwm_dev->regs->cfg & 0x20000) {
 			if (mode < 7)
             {
-                printk("2222222222222222/n");
 				return -EINVAL;
             }
 			/* Enable PWM interrupts */
@@ -180,7 +168,6 @@ static long pwm_unlocked_ioctl(struct file *file, unsigned int cmd,
 			pwm_dev->regs->per = mode;
 		break;
 	case PWMIOC_SET_DURATION:
-        printk("cmd: set duration\n");
 		get_user(mode, (int *)arg);
         mode = (int)arg;
 		if (mode < 0 || mode > 0xffffffff)
@@ -203,7 +190,6 @@ static long pwm_unlocked_ioctl(struct file *file, unsigned int cmd,
 			pwm_dev->regs->ph1d = mode;
 		break;
 	case PWMIOC_SET_RPT_VAL:
-        printk("cmd: set rpt\n");
 		get_user(mode, (int *)arg);
         mode = (int)arg;
 
@@ -213,7 +199,6 @@ static long pwm_unlocked_ioctl(struct file *file, unsigned int cmd,
 		pwm_dev->regs->rpt = mode;
 		break;
 	case PWMIOC_SET_FIRST_PHASE_STATE:
-        printk("cmd: set phase\n");
 		get_user(mode, (int *)arg);
         mode = (int)arg;
 
@@ -227,7 +212,6 @@ static long pwm_unlocked_ioctl(struct file *file, unsigned int cmd,
 			return -EINVAL;
 		break;
 	case PWMIOC_SET_INACT_OUT_STATE:
-        printk("cmd: set INACT_OUT\n");
 		get_user(mode, (int *)arg);
         mode = (int)arg;
 
@@ -241,11 +225,9 @@ static long pwm_unlocked_ioctl(struct file *file, unsigned int cmd,
 			return -EINVAL;
 		break;
 	case PWMIOC_START:
-        printk("cmd: start\n");
 		pwm_dev->regs->start = 0x1;
 		break;
 	case PWMIOC_STOP:
-        printk("cmd: stop\n");
 		if (pwm_dev->regs->cfg & 0x1 && pwm_dev->regs->cfg & 0x20000)
 			pwm_dev->regs->cfg &= 0xFFFFFFFC;
 		if (pwm_dev->regs->cfg & 0x2 && pwm_dev->regs->cfg & 0x20000) {

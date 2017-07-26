@@ -239,7 +239,7 @@ static void davinci_spi_chipselect(struct spi_device *spi, int value)
 	if (gpio_chipsel) {
 		if (value == BITBANG_CS_ACTIVE)
 			gpio_set_value(pdata->chip_sel[chip_sel], 0);
-		else
+        else
 			gpio_set_value(pdata->chip_sel[chip_sel], 1);
 	} else {
 		if (value == BITBANG_CS_ACTIVE) {

@@ -12,7 +12,7 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
-static char *device = "/dev/spidev0.0";
+static char *device = "/dev/spidev2.0";
 static uint8_t mode = 0x08;
 static uint8_t bits = 16;
 static uint32_t speed = 24000000;
@@ -59,16 +59,16 @@ int DRV_SPIOpen(DRV_SPIHndl *hndl, Uint8 devAddr)
 	if (ret == -1)
 		OSA_ERROR("can't get max speed hz");
 
-	OSA_printf("spi mode: %d\n", mode);
-	OSA_printf("bits per word: %d\n", bits);
-	OSA_printf("max speed: %d Hz (%d KHz)\n", speed, speed/1000);
+	//OSA_printf("spi mode: %d\n", mode);
+	//OSA_printf("bits per word: %d\n", bits);
+	//OSA_printf("max speed: %d Hz (%d KHz)\n", speed, speed/1000);
 
 	if(ret<0)
 		close(hndl->fd);
 	return ret;
 }
 
-int DRV_SPIRead8(DRV_SPIHndl *hndl, Uint8 *buf,  Uint32 count, Uint8 *Obuf)
+int DRV_SPIRead(DRV_SPIHndl *hndl, Uint8 *buf,  Uint32 count, Uint8 *Obuf)
 {
 	int ret;
 	struct spi_ioc_transfer tr = {
@@ -91,7 +91,7 @@ int DRV_SPIRead8(DRV_SPIHndl *hndl, Uint8 *buf,  Uint32 count, Uint8 *Obuf)
 	return ret;
 }
 
-int DRV_SPIWrite8(DRV_SPIHndl *hndl, Uint8 *buf, Uint32 count)
+int DRV_SPIWrite(DRV_SPIHndl *hndl, Uint8 *buf, Uint32 count)
 {
 	int ret;
 	struct spi_ioc_transfer tr = {

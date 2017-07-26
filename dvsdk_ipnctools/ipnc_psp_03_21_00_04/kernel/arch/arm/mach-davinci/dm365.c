@@ -555,8 +555,8 @@ MUX_CFG(DM365,	SPI1_SDENA0,	4,   4,     3,    1,	 false)
 MUX_CFG(DM365,	SPI1_SDENA1,	4,   0,     3,    2,	 false)
 
 MUX_CFG(DM365,	SPI2_SCLK,	4,   10,    3,    1,	 false)
-MUX_CFG(DM365,	SPI2_SDI,	4,   6,     3,    1,	 false)
-MUX_CFG(DM365,	SPI2_SDO,	4,   8,     3,    1,	 false)
+MUX_CFG(DM365,	SPI2_SDI,	4,   8,     3,    1,	 false)
+MUX_CFG(DM365,	SPI2_SDO,	4,   6,     3,    1,	 false)
 MUX_CFG(DM365,	SPI2_SDENA0,	4,   12,    3,    1,	 false)
 MUX_CFG(DM365,	SPI2_SDENA1,	4,   8,     3,    2,	 false)
 
@@ -775,7 +775,8 @@ void __init dm368_init_spi1(unsigned chipselect_mask,
 
 	platform_device_register(&dm368_spi1_device);
 }
-// spi2
+#endif
+    // spi2
 static u64 dm368_spi2_dma_mask = DMA_BIT_MASK(32);
 
 /*//kg,disable,redefine
@@ -790,6 +791,7 @@ static struct davinci_spi_platform_data dm368_spi2_pdata = {
 	.num_chipselect = 1,
 	.chip_sel = chsel_spi2,
 	.clk_name = "SPICLK",
+    .intr_line = 1,
 };
 static struct resource dm368_spi2_resources[] = {
 	{
@@ -835,20 +837,19 @@ void __init dm368_init_spi2(unsigned chipselect_mask,
 	davinci_cfg_reg(DM365_SPI2_SCLK);
 	davinci_cfg_reg(DM365_SPI2_SDI);
 	davinci_cfg_reg(DM365_SPI2_SDO);
-	davinci_cfg_reg(DM365_SPI2_SDENA0);
+	//davinci_cfg_reg(DM365_SPI2_SDENA0);
 	
 	/* not all slaves will be wired up */
 	//if (chipselect_mask & BIT(0))
 	//	davinci_cfg_reg(DM365_SPI2_SDENA0);
 	//if (chipselect_mask & BIT(1))
 	//	davinci_cfg_reg(DM365_SPI2_SDENA1);
-
+	
 	spi_register_board_info(info, len);
 
 	platform_device_register(&dm368_spi2_device);
 }
 //end add
-#endif
 
 static struct emac_platform_data dm365_emac_pdata = {
 	.ctrl_reg_offset	= DM365_EMAC_CNTRL_OFFSET,

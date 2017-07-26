@@ -23,9 +23,7 @@
 //#define ADC_BASE                        0x01C23C00
 
 #define ADC_BASE                        base_addr
-#define PWM0_BASE												pwm0_base_addr
 
-#define PWM0_PID												*(volatile Uint32 *)(PWM0_BASE + 0x00)
 
 #define ADC_ADCTL        		*( volatile Uint32* )( ADC_BASE + 0x00 ) // Control register
 #define ADC_CMPTGT        		*( volatile Uint32* )( ADC_BASE + 0x04 ) // Comparator target channel
@@ -121,8 +119,6 @@ static ssize_t adc_read(struct file *file, char __user *buf, size_t count, loff_
 	}
 	if(copy_to_user(buf,data,count))
 			return -EFAULT;
-	retVal = PWM0_PID;
-	printk("PWM0_PID: 0x%08X\n", retVal);
 	return count;
 }
 
@@ -148,7 +144,6 @@ static int adc_open(struct inode * inode, struct file * filp)
         	EVMDM365_ADC_readChannel(channel_num);
   }
 
-  printk("=======open: PWM0_PID = 0x%08X\n", PWM0_PID);
 	return 0;
 }
 
@@ -195,7 +190,6 @@ static int __init adc_init(void)
     }
     printk("DM365_ADC driver initial ok\n");
 
-   printk("=======init: PWM0_PID = 0x%08X\n", PWM0_PID);
 
     
 	return 0;
