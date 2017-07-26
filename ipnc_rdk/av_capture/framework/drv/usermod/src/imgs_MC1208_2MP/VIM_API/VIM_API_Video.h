@@ -681,6 +681,7 @@ typedef enum SHUTTER_STATE
 	Factory_quitGS,
 }VIM_SHUTTER_STATE;
 
+#pragma pack(1)
 typedef struct __VIM_ATTRIBUTE__
 {
     AE_MODE_S AEMode;
@@ -724,6 +725,7 @@ typedef struct __VIM_ATTRIBUTE__
 	TEC_LEVEL_E TECLevel;
 	VIM_SHUTTER_STATE ShutterMode;
 }VIM_ATTRIBUTE_S, *pVIM_ATTRIBUTE_S;
+#pragma pack()
 
 typedef struct __VIM_GENERAL_INFO__{
     UINT16 flag;
