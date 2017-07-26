@@ -1,0 +1,17 @@
+#
+# DM365ADC devices
+#
+
+menu "DM368ADC Devices"
+
+config DM368_ADC
+	tristate "DM368 ADC support"
+	default y
+	---help---
+	This option enables basic support for the DM365
+	ADC Devices.
+
+	If you want to use the DM365 ADC Devices Y.
+	Otherwise say N.
+
+endmenu
