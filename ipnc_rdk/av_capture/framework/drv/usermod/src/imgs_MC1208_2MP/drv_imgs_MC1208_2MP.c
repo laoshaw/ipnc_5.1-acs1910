@@ -218,7 +218,7 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
         close(fd);
     }//end test adc
 #endif
-#if 0 
+#if 1 
     {
         status = PWM_init();
         if(status !=0)

@@ -30,6 +30,7 @@
 #include <asm/uaccess.h>	/* for VERIFY_READ/VERIFY_WRITE/copy_from_user */
 #include <linux/clk.h>
 #include <linux/wait.h>
+#include <linux/io.h>
 #include <linux/platform_device.h>
 #include <mach/hardware.h>
 #include <linux/davinci_pwm.h>
@@ -37,6 +38,7 @@
 #include <linux/semaphore.h>
 #include <mach/irqs.h>
 #include <mach/cputype.h>
+#include <mach/mux.h>
 
 #define	DRIVER_NAME		"PWM"
 #define	DAVINCI_PWM_TIMEOUT	(1*HZ)
@@ -360,7 +362,12 @@ static int __init pwm_init(void)
 		for (i = 0; i < pwm_minor_count; i++)
 			name[i] = dm646x_name[i];
 	} else */
-    if (cpu_is_davinci_dm355() || cpu_is_davinci_dm365()) {
+    davinci_cfg_reg(DM365_PWM0);
+    davinci_cfg_reg(DM365_PWM1);
+    davinci_cfg_reg(DM365_PWM2_G87);
+    davinci_cfg_reg(DM365_PWM3_G85);
+
+	if (cpu_is_davinci_dm355() || cpu_is_davinci_dm365()) {
 		pwm_minor_count = DM3XX_PWM_MINORS;
 		for (i = 0; i < pwm_minor_count; i++)
 			name[i] = dm3xx_name[i];

@@ -741,11 +741,11 @@ static __init void dm368_evm_init(void)
 	dm365evm_usb_configure();
     
     //davinci_cfg_reg(DM365_PWM0);
-    davinci_cfg_reg(DM365_PWM1);
-    davinci_cfg_reg(DM365_PWM2_G87);
-    davinci_cfg_reg(DM365_PWM3_G85);
+    //davinci_cfg_reg(DM365_PWM1);
+    //davinci_cfg_reg(DM365_PWM2_G87);
+    //davinci_cfg_reg(DM365_PWM3_G85);
 
-	dm365_init_spi0(BIT(0), dm3xx_spi_board_info,
+    dm365_init_spi0(BIT(0), dm3xx_spi_board_info,
 			ARRAY_SIZE(dm3xx_spi_board_info));
 #if 0
     printk("start dm368 init spi1\n");

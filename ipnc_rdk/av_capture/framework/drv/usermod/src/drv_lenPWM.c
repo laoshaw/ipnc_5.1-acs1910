@@ -44,18 +44,48 @@ int PWM_init(void)
     
     int ret;
 
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 0, &value32);
+    printf("pinmux0 = 0x%08X\n", value32);
+    value32 &= 0xFFF3FFFF;
+    CSL_gpioSetPinmux(&gCSL_gpioHndl, 0, value32);
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 0, &value32);
+    printf("pinmux0 = 0x%08X\n\n", value32);
+
+
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 1, &value32);
+    printf("pinmux1 = 0x%08X\n", value32);
+    value32 |= 0x0042080A;
+    value32 &= 0xFFC3BBFA;
+    CSL_gpioSetPinmux(&gCSL_gpioHndl, 1, value32);
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 1, &value32);
+    printf("pinmux1 = 0x%08X\n\n", value32);
+
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 3, &value32);
+    printf("pinmux3 = 0x%08X\n", value32);
+    value32 &= 0x7FFFFFFF;
+    CSL_gpioSetPinmux(&gCSL_gpioHndl, 3, value32);
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 3, &value32);
+    printf("pinmux3 = 0x%08X\n\n", value32);
+
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
+    printf("pinmux4 = 0x%08X\n", value32);
+    value32 &= 0xFFCFFFFF;
+    CSL_gpioSetPinmux(&gCSL_gpioHndl, 4, value32);
+    CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
+    printf("pinmux4 = 0x%08X\n\n", value32);
+
+#if 1
     fd_pwm0 = open("/dev/davinci_pwm0", O_RDWR);
     if(fd_pwm0 < 0)
     {
         printf("Can't open /dev/davinci_pwm0\n");
         return OSA_EFAIL;
     }
-#if 0
-    retVal = ioctl(fd_pwm0, 9, 0x4ff );
+    retVal = ioctl(fd_pwm0, PWMIOC_SET_PERIOD, 0x4ff );
     if(retVal < 0)
     {
         printf("errno=%d\n",errno);
-        printf("Set period error\n");
+        printf("Set period0 error\n");
 
 
         control_led_pwm = 0;
@@ -90,7 +120,7 @@ int PWM_init(void)
         
     }
 #endif
-#if 0
+#if 1
     fd_pwm1 = open("/dev/davinci_pwm1", O_RDWR);
     if(fd_pwm1 < 0)
     {
@@ -101,7 +131,7 @@ int PWM_init(void)
     retVal = ioctl(fd_pwm1, PWMIOC_SET_PERIOD, 0x4ff);
     if(retVal < 0)
     {
-        printf("Set period error\n");
+        printf("Set period1 error\n");
         control_led_pwm = 0;
         
     }
@@ -142,52 +172,15 @@ int PWM_init(void)
         printf("Can't open /dev/davinci_pwm2\n");
         return OSA_EFAIL;
     }
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 1, &value32);
-    printf("pinmux1 = 0x%08X\n", value32);
-    value32 |= 0x00020000;  
-    CSL_gpioSetPinmux(&gCSL_gpioHndl, 1, value32);
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 1, &value32);
-    printf("pinmux1 = 0x%08X\n", value32);
 
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 0, &value32);
-    printf("pinmux0 = 0x%08X\n", value32);
-    value32 &= 0xFFF3FFFF;  
-    CSL_gpioSetPinmux(&gCSL_gpioHndl, 0, value32);
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 0, &value32);
-    printf("pinmux0 = 0x%08X\n", value32);
-
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
-    printf("pinmux4 = 0x%08X\n", value32);
-    value32 &= 0xFFCFFFFF;  
-    CSL_gpioSetPinmux(&gCSL_gpioHndl, 4, value32);
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
-    printf("pinmux4 = 0x%08X\n", value32);
-    
-
-
-    DRV_gpioSetMode(82, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(82);
-    DRV_gpioSetMode(81, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(81);
-    DRV_gpioSetMode(44, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(44);
-     DRV_gpioSetMode(45,DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(45);
-      DRV_gpioSetMode(37, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(37);
-     DRV_gpioSetMode(79,DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(79);
-     DRV_gpioSetMode(80,DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(80);
- 
-    retVal = ioctl(fd_pwm2, PWMIOC_SET_PERIOD, 0x4ff);
+    retVal = ioctl(fd_pwm2, PWMIOC_SET_PERIOD, 0x3ff);
     if(retVal < 0)
     {
-        printf("Set period error\n");
+        printf("Set period2 error\n");
         control_led_pwm = 0;
         
     }
-    retVal = ioctl(fd_pwm2, PWMIOC_SET_DURATION, 0xff);
+    retVal = ioctl(fd_pwm2, PWMIOC_SET_DURATION, 0x1ff);
     if(retVal < 0)
     {
         printf("Set duration error\n");
@@ -216,28 +209,9 @@ int PWM_init(void)
         
     }
 
-while(1)
-{
-    //DRV_gpioSet(81);
-    DRV_gpioClr(82);
 
-    DRV_gpioClr(44);
-    DRV_gpioClr(45);
-    DRV_gpioClr(37);
-    DRV_gpioClr(79);
-    DRV_gpioClr(80);
-    sleep(1);
-    //DRV_gpioClr(81);
-    DRV_gpioSet(44);
-    DRV_gpioSet(45);
-    DRV_gpioSet(37);
-    DRV_gpioSet(79);
-    DRV_gpioSet(80);
-    DRV_gpioSet(82);
-    sleep(1);
-}
 #endif
-#if 0
+#if 1
     fd_pwm3 = open("/dev/davinci_pwm3", O_RDWR);
     if(fd_pwm3 < 0)
     {
@@ -247,7 +221,7 @@ while(1)
     retVal = ioctl(fd_pwm3, PWMIOC_SET_PERIOD, 0x4ff);
     if(retVal < 0)
     {
-        printf("Set period error\n");
+        printf("Set period3 error\n");
         control_led_pwm = 0;
         
     }
@@ -280,7 +254,59 @@ while(1)
         
     }
 #endif
-    
+  
+
+    DRV_gpioSetMode(82, DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(82);
+    DRV_gpioSetMode(81, DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(81);
+
+    DRV_gpioSetMode(44, DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(44);
+    DRV_gpioSetMode(26, DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(26);
+
+    DRV_gpioSetMode(45,DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(45);
+    DRV_gpioSetMode(37, DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(37);
+
+    DRV_gpioSetMode(79,DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(79);
+    DRV_gpioSetMode(80,DRV_GPIO_DIR_OUT);
+    DRV_gpioClr(80);
+ //while(1)
+{
+  //  DRV_gpioSet(81);
+  //  DRV_gpioClr(82);
+
+  //  DRV_gpioSet(44);
+  //  DRV_gpioClr(26);
+
+  //  DRV_gpioSet(45);
+  //  DRV_gpioClr(37);
+
+  //  DRV_gpioSet(79);
+  //  DRV_gpioClr(80);
+
+  //  sleep(1);
+ 
+  //  DRV_gpioClr(81);
+  //  DRV_gpioSet(82);
+
+  //  DRV_gpioClr(44);
+  //  DRV_gpioSet(26);
+
+  //  DRV_gpioClr(45);
+  //  DRV_gpioSet(37);
+
+  //  DRV_gpioClr(79);
+  //  DRV_gpioSet(80);
+
+
+
+  //  sleep(1);
+}    
 #if 0
     while(1)
     {

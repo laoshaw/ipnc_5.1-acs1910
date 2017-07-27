@@ -173,10 +173,11 @@ int DRV_vpssInit()
     status = CSL_gpioSetPinmux(&gCSL_gpioHndl, 0, value32);
   }
 
+#if 0
   // init PINMUX1
   status = CSL_gpioGetPinmux(&gCSL_gpioHndl, 1, &value32);
   if(status==OSA_SOK) {
-    value32 &= 0xFFFFFFF0; // enable gio91 gio92
+    value32 &= 0xFFFFFFFF; // enable gio91 gio92
  
     status = CSL_gpioSetPinmux(&gCSL_gpioHndl, 1, value32);
   }
@@ -184,10 +185,11 @@ int DRV_vpssInit()
   // init PINMUX4
   status = CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
   if(status==OSA_SOK) {
-    value32 &= 0xFFF3FC3F; // enable gio30 gio31 gio36
+    value32 &= 0xFFFFFFFF; // enable gio30 gio31 gio36
  
     status = CSL_gpioSetPinmux(&gCSL_gpioHndl, 4, value32);
   }
+#endif
 
   if(status!=OSA_SOK) {
     OSA_ERROR("CSL_gpioGetPimux()\n");
