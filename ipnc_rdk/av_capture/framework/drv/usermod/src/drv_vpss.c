@@ -184,11 +184,9 @@ int DRV_vpssInit()
   // init PINMUX4
   status = CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
   if(status==OSA_SOK) {
-    value32 &= 0xFFF3FFFF; // enable gio30 gio31 gio36
+    value32 &= 0xFFF3FC3F; // enable gio30 gio31 gio36
  
     status = CSL_gpioSetPinmux(&gCSL_gpioHndl, 4, value32);
-    status = CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
-    printf("***************pinmux4 = 0x%08X*****************\n", value32);
   }
 
   if(status!=OSA_SOK) {

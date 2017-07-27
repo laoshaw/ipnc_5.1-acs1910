@@ -12,8 +12,8 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
-static char *device = "/dev/spidev2.0";
-static uint8_t mode = 0x08;
+static char *device = "/dev/spidev0.0";
+static uint8_t mode = SPI_CPOL;
 static uint8_t bits = 16;
 static uint32_t speed = 24000000;
 static uint16_t delay = 0;

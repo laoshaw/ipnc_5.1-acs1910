@@ -172,11 +172,21 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     {
 //        while(1)
         {
+            #pragma pack(1)
+            typedef struct 
+            {
+                unsigned short addr;
+                unsigned short data;
+            }fpga_spi_data_t;
+            #pragma pack()
+            fpga_spi_data_t fpga_spi_data; 
+            fpga_spi_data.addr = 0x1234;
+            fpga_spi_data.data = 0x5678;
             unsigned int buf= 0x12345678;
             unsigned int Obuf;
-            status = DRV_SPIRead(&gDRV_imgsObj.spiHndl, &buf, sizeof(buf), &Obuf);
+            status = DRV_SPIRead(&gDRV_imgsObj.spiHndl, &fpga_spi_data, sizeof(fpga_spi_data_t), &Obuf);
             printf("==============================status = %d, Obuf = %x\n", status, Obuf);
-//            sleep(2);
+            sleep(2);
         }
     }
 #endif
