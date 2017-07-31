@@ -1,4 +1,3 @@
-
 #include "drv_imgs_MC1208_2MP.h"
 #include <drv_gpio.h>
 #include "VIM_API_Release.h"

@@ -53,7 +53,8 @@ enum{
 portNumBits rtspServerPortNum = 8557;
 char const* MjpegStreamName = "PSIA/Streaming/channels/0?videoCodecType=MJPEG";  //mjpeg  0?videoCodecType=MJPEG
 char const* Mpeg4StreamName = "PSIA/Streaming/channels/1?videoCodecType=MPEG4";  //mpeg4  1?videoCodecType=MPEG4
-char const* H264StreamName = "PSIA/Streaming/channels/2?videoCodecType=H.264";    //h264  2?videoCodecType=H.264
+//char const* H264StreamName = "PSIA/Streaming/channels/3?videoCodecType=H.264";    //h264  2?videoCodecType=H.264
+char const* H264StreamName = "videoCodecType=H.264";    //h264  2?videoCodecType=H.264
 char const* streamDescription = "RTSP/RTP stream from IPNC";
 
 int MjpegVideoBitrate = 12000000;
