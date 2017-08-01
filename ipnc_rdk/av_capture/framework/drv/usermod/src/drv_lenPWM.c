@@ -30,7 +30,7 @@ static int fd_pwm0, fd_pwm1, fd_pwm2, fd_pwm3;
 #define ZOOM_PWM    fd_pwm0
 #define FOCUS_PWM   fd_pwm1
 #define IRIS_PWM    fd_pwm3
-
+#@asdfasdfasdfasdf
 static void control_led_pwm_thread(void)
 {
 }

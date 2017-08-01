@@ -38,7 +38,7 @@ Mkfile.old
 dkms.conf
 tftp/
 ipnc_rdk/target/filesys_dm368/opt/ipnc/
-dvsdk_ipnctools/linuxutils_2_26_02_05/packages/ti/
+#dvsdk_ipnctools/linuxutils_2_26_02_05/packages/ti/
 *.o
 *.depend
 *.DEPEND
