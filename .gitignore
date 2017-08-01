@@ -36,7 +36,13 @@ modules.order
 Module.symvers
 Mkfile.old
 dkms.conf
-tftp/
+tftp/DM369
+tftp/DM365
+tftp/DMVA1
+tftp/DMVA2
+tftp/DM368/*.bin
+tftp/DM368/ipnc_dm368_ubifs
+tftp/DM368/uImage_ipnc_dm368
 ipnc_rdk/target/filesys_dm368/opt/ipnc/
 #dvsdk_ipnctools/linuxutils_2_26_02_05/packages/ti/
 *.o
