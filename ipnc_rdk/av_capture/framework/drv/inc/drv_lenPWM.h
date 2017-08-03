@@ -1,24 +1,6 @@
 #ifndef _DRV_LED_PWM_H_
 #define _DRV_LED_PWM_H_
 
-
-#define VI_DEBUG_MODE
-
-#ifdef VI_DEBUG_MODE
-#define VI_DEBUG(...) \
-    do \
-    { \
-        fprintf(stderr, " DEBUG (%s|%s|%d): ", \
-                __FILE__, __func__, __LINE__); \
-        fprintf(stderr, __VA_ARGS__); \
-    } \
-    while(0)
-
-#else
-#define VI_DEBUG(...)
-#endif
-
-
 #define	PWMIOC_SET_MODE			0x01
 #define	PWMIOC_SET_PERIOD		0x09
 #define	PWMIOC_SET_DURATION		0x03
@@ -72,7 +54,7 @@
 
 
 
-int PWM_init();
-int PWM_exit();
+int lenPWM_init();
+int lenPWM_exit();
 
 #endif

@@ -11,6 +11,7 @@ Copyright (c) 2016-2016 VIFOCUS
 #include <sys/ipc.h>
 #include <sys/sem.h>
 #include <sys/msg.h>
+#include <drv.h>
 #include "drv_lenPWM.h"
 #include <fcntl.h>
 #include <termios.h>
@@ -30,12 +31,11 @@ static int fd_pwm0, fd_pwm1, fd_pwm2, fd_pwm3;
 #define ZOOM_PWM    fd_pwm0
 #define FOCUS_PWM   fd_pwm1
 #define IRIS_PWM    fd_pwm3
-#@asdfasdfasdfasdf
 static void control_led_pwm_thread(void)
 {
 }
 
-int PWM_init(void)
+int lenPWM_init(void)
 {
     int retVal;
     int dev_fp;
@@ -451,7 +451,7 @@ int PWM_init(void)
 int ledPWM_exit(void)
 {
     //close(fd_pwm0);
-    control_led_pwm = 0;
-    pthread_join(control_led_pwm_thread_id, NULL);
+//    control_led_pwm = 0;
+//    pthread_join(control_led_pwm_thread_id, NULL);
     return 0;
 }

@@ -100,14 +100,11 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
         return OSA_EFAIL;
     }
     {//start VIM initial
-        //VIM_ATTRIBUTE_S VIM_CurAttr;
-        UINT8 CurAttr[4096];
-        //pVIM_ATTRIBUTE_S pVIM_CurAttr;
         VIM_ATTRIBUTE_S VIM_CurAttr;
         VIM_GENERAL_INFO VIM_GenInfo;
-        FLIP_MIRROR_MODE_E VIM_FlipMirrorMode = VIM_FLIP_MIRROR_FlipMirror;
-        MAXFRMRATE_E fps_mode = FPS30;
-        VIM_VOUT_VIDEOMODE_16BIT_E emode = VIDEOMODE_SEP_16BIT;
+        //FLIP_MIRROR_MODE_E VIM_FlipMirrorMode = VIM_FLIP_MIRROR_FlipMirror;
+        //MAXFRMRATE_E fps_mode = FPS30;
+        //VIM_VOUT_VIDEOMODE_16BIT_E emode = VIDEOMODE_SEP_16BIT;
 
         status = DRV_GetVIMAttr(&VIM_CurAttr);
         if(status!=VIM_SUCCEED){
@@ -219,7 +216,7 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
 #endif
 #if 1 
     {
-        status = PWM_init();
+        status = lenPWM_init();
         if(status !=0)
         {
             return OSA_EFAIL;
