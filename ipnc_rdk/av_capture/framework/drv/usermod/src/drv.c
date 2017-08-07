@@ -8,6 +8,7 @@
 #include <drv_imageTune.h>
 #include <drv_ldc.h>
 #include <drv_imgs.h>
+#include <drv_ACS1910.h>
 
 #include <drv_audio.h>
 
@@ -77,7 +78,16 @@ int DRV_init()
     goto imagetune_error_exit;
   }
 
+  status = DRV_ACS1910Init();
+  if(status!=OSA_SOK){
+    OSA_ERROR("ACS1910 Init Error");
+    goto acs1910_error_exit;
+  }
+
   return OSA_SOK;
+
+acs1910_error_exit:
+  DRV_ACS1910Init();
 
 imagetune_error_exit:
   DRV_imageTuneExit();
@@ -138,7 +148,10 @@ int DRV_drvTestMain(int argc, char **argv)
     OSA_ERROR("DRV_init()\n");
     return status;
   }
-
+    while(1)
+    {
+        sleep(5);
+    }
   DRV_exit();
 
   return OSA_SOK;

@@ -4,11 +4,19 @@
 #include <fcntl.h>
 #include "osa_file.h"
 #include "drv_lenPWM.h"
+#include <sys/msg.h>
+#include <cmd_server.h>
 
 DRV_ImgsObj gDRV_imgsObj;
 //VIM_ATTRIBUTE_S gVIM_CurAttr;
+static int vim_cmd_msqid = 0;
+static int VIM_control_thread_run = 0;
+VF_AE_SHUTTER_MODE_E gVIMAEShutterMode;
 
-int DRV_GetVIMAttr(pVIM_ATTRIBUTE_S pVIM_CurAttr)
+static pthread_t VIM_control_thread_id;
+
+
+int DRV_GetVIMAttr(pVIM_ATTRIBUTE_S pVIM_CurAttr, pVIM_GENERAL_INFO pVIM_GenInfo)
 {
    int status = VIM_SUCCEED;
    int i;
@@ -23,6 +31,7 @@ int DRV_GetVIMAttr(pVIM_ATTRIBUTE_S pVIM_CurAttr)
     }
     i = 0;
     pVIM_CurAttr->AEMode.AE_Shutter_Mode = CurAttr[i++];
+    gVIMAEShutterMode = pVIM_CurAttr->AEMode.AE_Shutter_Mode;
     pVIM_CurAttr->AEMode.AE_MaxET_Mode = CurAttr[i++];
     pVIM_CurAttr->AEMode.Exposuretime = (CurAttr[i] << 24) + (CurAttr[i+1] << 16) + (CurAttr[i+2] << 8) + CurAttr[i+3];
     i = i+4;
@@ -74,12 +83,171 @@ int DRV_GetVIMAttr(pVIM_ATTRIBUTE_S pVIM_CurAttr)
     VI_DEBUG("MaxFrmRate                                = %d\n", pVIM_CurAttr->MaxFrmRate);
     VI_DEBUG("FlipMirrorMode                            = %d\n", pVIM_CurAttr->FlipMirrorMode);
 
-    return status;
+    status = VIM_GetGeneralAttribute(pVIM_GenInfo);
+    if(status!=VIM_SUCCEED){
+        OSA_ERROR("VIM GetGeneralAttribute");
+        printf("status = %d\n", status);
+        return OSA_EFAIL;
+    }
+    VI_DEBUG("General Attribute flag                    = %x\n", pVIM_GenInfo->flag);
+    VI_DEBUG("General Attribute Sensor_VID              = %d\n", pVIM_GenInfo->sensor_VID);
+    VI_DEBUG("General Attribute Sensor_ID               = %d\n", pVIM_GenInfo->sensor_ID);
+    VI_DEBUG("General Attribute Chip_Version            = %d\n", pVIM_GenInfo->chip_Version);
+    VI_DEBUG("General Attribute Ini_Version             = %d\n", pVIM_GenInfo->Ini_Version);
+    VI_DEBUG("General Attribute ProjectSpec_Version     = %d\n", pVIM_GenInfo->projectSpec_Version);
+    VI_DEBUG("General Attribute Content_Version         = %d\n", pVIM_GenInfo->content_Version);
+    VI_DEBUG("General Attribute date_info               = %02x %02x %02x %02x\n", pVIM_GenInfo->date_info[3], pVIM_GenInfo->date_info[2], pVIM_GenInfo->date_info[1], pVIM_GenInfo->date_info[0]);
+    VI_DEBUG("General Attribute Firmware_version        = %d\n", pVIM_GenInfo->Firmware_Version);
+
+     return status;
 }
+
+static int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
+{
+    int ret = 0;
+    GLOBAL_GAIN_FORMAT_E gainFormat = Ten_Point_Six;
+   
+    ret = VIM_ISP_GetCurrentAEETGain(&pETGain->etus, &pETGain->gainValue, &gainFormat);
+    if(ret != VIM_SUCCEED)
+    {
+        OSA_ERROR("VIM GetETGain error = %d\n", ret);
+        ret = -1;
+    }
+    VI_DEBUG("VIM Shutter = %x, VIM Gain = %x\n", pETGain->etus, pETGain->gainValue);
+    return ret;
+}
+
+static int DRV_SetBaseAttr(pVF_BASE_ATTRIBUTE_S pBaseAttr)
+{
+    int ret = 0;
+    VI_DEBUG("BrightCoeff: %d\n", pBaseAttr->BrightnessCoeff);
+    ret = VIM_ISP_SetBrightness(pBaseAttr->BrightnessCoeff);
+    if(ret != VIM_SUCCEED)
+    {
+       OSA_ERROR("VIM SetBrightness error = %d\n", ret);
+       ret = -1;
+    }
+    VI_DEBUG("BrightCoeff: %d\n", pBaseAttr->ContrastCoeff);
+    ret = VIM_ISP_SetContrast(pBaseAttr->ContrastCoeff);
+    if(ret != VIM_SUCCEED)
+    {
+       OSA_ERROR("VIM SetContrast error = %d\n", ret);
+       ret = -1;
+    }
+    VI_DEBUG("BrightCoeff: %d\n", pBaseAttr->SaturationCoeff);
+    ret = VIM_ISP_SetSaturation(pBaseAttr->SaturationCoeff);
+    if(ret != VIM_SUCCEED)
+    {
+       OSA_ERROR("VIM SetSaturation error = %d\n", ret);
+       ret = -1;
+    }
+    VI_DEBUG("BrightCoeff: %d\n", pBaseAttr->HueCoeff);
+    ret = VIM_ISP_SetHue(pBaseAttr->HueCoeff);
+    if(ret != VIM_SUCCEED)
+    {
+       OSA_ERROR("VIM SetHue error = %d\n", ret);
+       ret = -1;
+    }
+    VI_DEBUG("BrightCoeff: %d\n", pBaseAttr->SharpnessCoeff);
+    ret = VIM_ISP_SetSharpness(pBaseAttr->SharpnessCoeff);
+    if(ret != VIM_SUCCEED)
+    {
+       OSA_ERROR("VIM SetSharpness error = %d\n", ret);
+       ret = -1;
+    }
+    return ret;
+}
+
+static int VIM_control_msg_init()
+{
+    int retVal = OSA_SOK;
+    
+    VI_DEBUG("Get vim_msg_msqid!\n");
+
+    vim_cmd_msqid = msgget((key_t)VIM_CMD_MSG_KEY, IPC_CREAT|0666);
+
+    if(vim_cmd_msqid == 0)
+    {
+        msgctl(vim_cmd_msqid, IPC_RMID, 0);
+        vim_cmd_msqid = msgget((key_t)VIM_CMD_MSG_KEY, IPC_CREAT|0666);
+    }
+    if(vim_cmd_msqid < 0)
+    {
+        perror("Get vim_cmd_msqid error!\n");
+        retVal = OSA_EFAIL;
+    }
+    VI_DEBUG("Get vim_cmd_msqid %d done!\n\n", vim_cmd_msqid);
+
+    return retVal;
+}
+
+void VIM_control_thread()
+{
+    unsigned char rcv_msg_data[MSG_BUF_SIZE];
+    unsigned char snd_msg_data[MSG_BUF_SIZE]; 
+    tCmdServerMsg vim_control_rcv_msg;
+    tCmdServerMsg vim_control_snd_msg;
+    int ret;
+    pVF_AE_ETGain_S pETGain;
+
+    VI_DEBUG("Hello VIM control thread!\n");
+
+    while(VIM_control_thread_run)
+    {
+        VI_DEBUG("wait msg from cmd server!\n");
+        msgrcv(vim_cmd_msqid, &vim_control_rcv_msg, MSG_BUF_SIZE, 0, 0);
+        printf("\n");
+        VI_DEBUG("receive msg type: 0x%lx\n\n", vim_control_rcv_msg.msg_type);
+        vim_control_snd_msg.msg_type = vim_control_rcv_msg.msg_type;
+        switch(vim_control_rcv_msg.msg_type)
+        {
+            case IP_CMD_ISP_GET_ETGAIN:
+                pETGain = (pVF_AE_ETGain_S)&(vim_control_snd_msg.msg_data);
+                //if()
+                ret = DRV_GetVIMETGain((pVF_AE_ETGain_S)&(vim_control_snd_msg.msg_data));
+                VI_DEBUG("vim_control_snd_msg: Shutter = %x\n, Gain = %x\n", 
+                            pETGain->etus, pETGain->gainValue);
+                if(ret == -1)
+                    vim_control_snd_msg.msg_type = IP_CMD_ISP_GET_ERROR;
+                else 
+                {
+                    msgsnd(vim_cmd_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
+                }
+            case IP_CMD_ISP_SET_BASE_ATTR:
+                DRV_SetBaseAttr((pVF_BASE_ATTRIBUTE_S)&(vim_control_rcv_msg.msg_data));
+                break;
+            default:
+                break;
+        }
+    }
+}
+
+
+int VIM_control_thread_init()
+{
+    int retVal = 0;
+    VI_DEBUG("Initialize VIM control thread\n");
+   
+    if((retVal = pthread_create(&VIM_control_thread_id, NULL, VIM_control_thread, NULL)) != 0)
+    {
+        perror("Create VIM control thread\n");
+    }
+    else 
+    {
+        VIM_control_thread_run = 1;
+        VI_DEBUG("Create VIM control thread done!\n\n");
+    }
+    
+    return retVal;
+}
+
+
+
+
 
 int DRV_imgsOpen(DRV_ImgsConfig *config)
 {
-  int status, retry=10;
+  int status;
   Uint16 width, height;
 
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
@@ -92,6 +260,7 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
   DRV_imgsCalcFrameTime(config->fps, width, height, config->binEnable, config->flipH, config->flipV);
 
 #if 1
+//start VIM initial
     VIM_SystemInit();
     status = VIM_OpenChannel(CHANNEL_I2C, 100, "/dev/i2c-1");
     printf("VIM open channel return %d\n", status);
@@ -99,137 +268,37 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
         OSA_ERROR("DRV_i2cOpen()\n");
         return OSA_EFAIL;
     }
-    {//start VIM initial
+    {
         VIM_ATTRIBUTE_S VIM_CurAttr;
         VIM_GENERAL_INFO VIM_GenInfo;
-        //FLIP_MIRROR_MODE_E VIM_FlipMirrorMode = VIM_FLIP_MIRROR_FlipMirror;
-        //MAXFRMRATE_E fps_mode = FPS30;
-        //VIM_VOUT_VIDEOMODE_16BIT_E emode = VIDEOMODE_SEP_16BIT;
 
-        status = DRV_GetVIMAttr(&VIM_CurAttr);
+        status = DRV_GetVIMAttr(&VIM_CurAttr, &VIM_GenInfo);
         if(status!=VIM_SUCCEED){
             OSA_ERROR("VIM GetCurAtrribute");
             printf("status = %d\n", status);
             return OSA_EFAIL;
         }
 
-        status = VIM_GetGeneralAttribute(&VIM_GenInfo);
-        if(status!=VIM_SUCCEED){
-            OSA_ERROR("VIM GetGeneralAttribute");
-            printf("status = %d\n", status);
-            return OSA_EFAIL;
-        }
-        VI_DEBUG("General Attribute flag                    = %x\n", VIM_GenInfo.flag);
-        VI_DEBUG("General Attribute Sensor_VID              = %d\n", VIM_GenInfo.sensor_VID);
-        VI_DEBUG("General Attribute Sensor_ID               = %d\n", VIM_GenInfo.sensor_ID);
-        VI_DEBUG("General Attribute Chip_Version            = %d\n", VIM_GenInfo.chip_Version);
-        VI_DEBUG("General Attribute Ini_Version             = %d\n", VIM_GenInfo.Ini_Version);
-        VI_DEBUG("General Attribute ProjectSpec_Version     = %d\n", VIM_GenInfo.projectSpec_Version);
-        VI_DEBUG("General Attribute Content_Version         = %d\n", VIM_GenInfo.content_Version);
-        VI_DEBUG("General Attribute date_info               = %02x %02x %02x %02x\n", VIM_GenInfo.date_info[3], VIM_GenInfo.date_info[2], VIM_GenInfo.date_info[1], VIM_GenInfo.date_info[0]);
-        VI_DEBUG("General Attribute Firmware_version        = %d\n", VIM_GenInfo.Firmware_Version);
-
-    #if 0
-        status = VIM_ISP_SetFlipMirror(VIM_FlipMirrorMode);
-        if(status!=VIM_SUCCEED){
-            OSA_ERROR("VIM GetGeneralAttribute");
-            printf("status = %d\n", status);
-            return OSA_EFAIL;
-        }
-        status = VIM_VOUT_SetMaxFrmRate(emode, fps_mode);
-        if(status!=VIM_SUCCEED){
-            OSA_ERROR("VIM SetMaxFrmRate");
-            printf("status = %d\n", status);
-            return OSA_EFAIL;
-        }
-        
-        #if 1
-        status = VIM_UpdateAttribute();
-        if(status!=VIM_SUCCEED){
-            OSA_ERROR("VIM UpdateAttribute");
-            printf("status = %d\n", status);
-            return OSA_EFAIL;
-        }
-        #endif
-    #endif
-    }//end VIM initial
-#endif
-  status = DRV_i2cOpen(&gDRV_imgsObj.i2cHndl, IMGS_I2C_ADDR);
-  if(status!=OSA_SOK) {
-    OSA_ERROR("DRV_i2cOpen()\n");
-    return status;
-  }
-#if 1
-    status = DRV_SPIOpen(&gDRV_imgsObj.spiHndl, 0);
-    if(status == OSA_EFAIL)
-    {
-        OSA_ERROR("Open SPI\n");
-    }
-    {
-//        while(1)
-        {
-            #pragma pack(1)
-            typedef struct 
-            {
-                unsigned short addr;
-                unsigned short data;
-            }fpga_spi_data_t;
-            #pragma pack()
-            fpga_spi_data_t fpga_spi_data; 
-            fpga_spi_data.addr = 0x1234;
-            fpga_spi_data.data = 0x5678;
-            unsigned int buf= 0x12345678;
-            unsigned int Obuf;
-            status = DRV_SPIRead(&gDRV_imgsObj.spiHndl, &fpga_spi_data, sizeof(fpga_spi_data_t), &Obuf);
-            printf("==============================status = %d, Obuf = %x\n", status, Obuf);
-            sleep(2);
-        }
-    }
+   }
+//end VIM initial
 #endif
 
-#if 0
-    {//test adc
-        int fd,ret,i,times=10;
-        int adc_data[6];
-
-        memset(adc_data,0,sizeof(adc_data));
-        fd = open("/dev/adc_device", O_RDWR);        
-        if (fd < 0) {
-            printf("Can't open /dev/adc_device\n");
-            return -1;
-        }
-        while(1)
-        {
-            ret= read(fd,adc_data,sizeof(adc_data)); 
-
-     // printf("adc value is:");
-            for(i=0;i<6;i++)
-            {
-                printf("CH%d:%4d ",i,adc_data[i]);
-            }
-            printf("\n");
-            sleep(1);
-        }
- 
-        close(fd);
-    }//end test adc
-#endif
-#if 1 
-    {
-        status = lenPWM_init();
-        if(status !=0)
-        {
-            return OSA_EFAIL;
-        }
-    }
-#endif
-    VI_DEBUG("End DRV_imgsOpen()\n");
+    status = VIM_control_msg_init();
+    if(status < 0)
+        return OSA_EFAIL;
+   status = VIM_control_thread_init(); 
+   if(status < 0)
+       return OSA_EFAIL;
+    
   return 0;
 }
 
 int DRV_imgsClose()
 {
   int status;
+
+  VIM_control_thread_run = 0;
+  pthread_join(VIM_control_thread_id, NULL);
 
   status = DRV_imgsEnable(FALSE);
   status |= DRV_i2cClose(&gDRV_imgsObj.i2cHndl);

@@ -49,8 +49,30 @@
 #define PWM_CFG_INTEN_DISABLE (0)
 #define PWM_CFG_INTEN_ENABLE (1)
 
-#define PWM_CFG_MODE_ONESHOT (1)
-#define PWM_CFG_MODE_CONTINUOUS (2)
+#define FOCUS_PWM    (fd_pwm0)
+#define ZOOM_PWM   (fd_pwm1)
+#define IRIS_PWM    (fd_pwm2)
+#define IRCUT_PWM   (fd_pwm3)
+
+#define FOCUS_PWM_INIT_PER (0x3ff)
+#define FOCUS_PWM_INIT_P1D (0x1ff)
+#define FOCUS_PWM_INIT_P1OUT (0x1)
+
+#define ZOOM_PWM_INIT_PER (0x3ff)
+#define ZOOM_PWM_INIT_P1D (0x1ff)
+#define ZOOM_PWM_INIT_P1OUT (0x1)
+
+#define IRIS_PWM_INIT_PER (0x3ff)
+#define IRIS_PWM_INIT_P1D (0x1ff)
+#define IRIS_PWM_INIT_P1OUT (0x1)
+
+#define IRCUT_PWM_INIT_PER (0x3ff)
+#define IRCUT_PWM_INIT_P1D (0x3ff)
+#define IRCUT_PWM_INIT_P1OUT (0x1)
+
+
+
+
 
 
 

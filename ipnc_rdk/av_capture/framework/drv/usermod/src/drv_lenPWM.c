@@ -19,439 +19,335 @@ Copyright (c) 2016-2016 VIFOCUS
 #include <sys/mman.h>
 #include <linux/types.h>
 #include <sys/ioctl.h>
+#include <sys/msg.h>
 #include <osa.h>
 #include <errno.h> 
 #include <drv_csl.h>
 #include <drv_gpio.h>
+#include "cmd_server.h"
 
-static int control_led_pwm = 0;
-static pthread_t control_led_pwm_thread_id;
 static int fd_pwm0, fd_pwm1, fd_pwm2, fd_pwm3;
 
-#define ZOOM_PWM    fd_pwm0
-#define FOCUS_PWM   fd_pwm1
-#define IRIS_PWM    fd_pwm3
-static void control_led_pwm_thread(void)
+static int len_cmd_msqid = 0;
+static int len_control_thread_run = 0;
+static pthread_t len_control_thread_id;
+static tCmdServerMsg len_control_rcv_msg;
+static tCmdServerMsg len_control_snd_msg;
+
+static void lenPWM_control_thread(void)
 {
+    VF_LEN_CONTROL_S len_control_data;
+    
+    VI_DEBUG("Hello len control thread!\n");
+    while(len_control_thread_run)
+    {
+        VI_DEBUG("wait msg from cmd_server\n");
+        msgrcv(len_cmd_msqid, &len_control_rcv_msg, MSG_BUF_SIZE, 0, 0);
+        printf("\n");
+        VI_DEBUG("receive msg type: 0x%lx\n\n", len_control_rcv_msg.msg_type);
+        memcpy(&len_control_data, len_control_rcv_msg.msg_data, sizeof(VF_LEN_CONTROL_S));
+        VI_DEBUG("len_control_data.Mode = %x, .speed = %x\n", len_control_data.Mode, len_control_data.speed);
+        if(len_control_rcv_msg.msg_type == IP_CMD_LEN_CONTROL)
+        {
+            switch(len_control_data.Mode)
+            {
+                case VF_CONTROL_ZOOM_WIDE:
+                    break;
+                case VF_CONTROL_ZOOM_TELE:
+                    break;
+                case VF_CONTROL_FOCUS_FAR:
+                    break;
+                case VF_CONTROL_FOCUS_NEAR:
+                    break;
+                case VF_CONTROL_IRIS_LARGE:
+                    break;
+                case VF_CONTROL_IRIS_SMALL:
+                    break;
+                case VF_CONTROL_LEN_STOP:
+                    break;
+                default:
+                    break;
+            }
+        }
+
+    }
+    VI_DEBUG("GoodBye len control thread!\n");
+
+      
+}
+/***********************************************************
+\brief 设置PWM的周期 
+\param fd:pwm设备文件, per:周期 
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+static int PWM_set_period(int fd, int per)
+{
+    int retVal = 0;
+    retVal = ioctl(fd, PWMIOC_SET_PERIOD, per);
+    if(retVal < 0)
+    {
+        perror("Set period0 error\n");
+    }
+    return retVal;
+}
+
+/***********************************************************
+\brief 设置PWM的占空比（p1out为高的时候）
+\param fd:pwm设备文件, p1d: 占空比（p1out为高时） 
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+static int PWM_set_p1d(int fd, int p1d)
+{
+    int retVal = 0;
+    retVal = ioctl(fd, PWMIOC_SET_DURATION, p1d);
+    if(retVal < 0)
+    {
+        perror("Set duration error\n");
+    }
+    return retVal; 
+}
+
+/***********************************************************
+\brief 设置PWM的模式
+\param fd:pwm设备文件, mode:连续模式 or one-shot模式
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+static int PWM_set_mode(int fd, int mode)
+{
+    int retVal = 0;
+    retVal = ioctl(fd, PWMIOC_SET_MODE, mode);
+    if(retVal < 0)
+    {
+        perror("Set mode error\n");
+    }
+    return retVal;
+}
+
+/***********************************************************
+\brief 设置PWM的模式
+\param fd:pwm设备文件, p1out:第一个输出的状态，高电平 or 低电平
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+static int PWM_set_p1out(int fd, int p1out)
+{
+    int retVal = 0;
+    retVal = ioctl(fd, PWMIOC_SET_FIRST_PHASE_STATE, 1);
+    if(retVal < 0)
+    {
+        perror("Set p1out error\n");
+    }
+    return retVal;
+}
+/***********************************************************
+\brief 启动pwm 
+\param fd:pwm设备文件
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+static int PWM_start(int fd)
+{
+    int retVal = 0;
+    retVal = ioctl(fd_pwm0, PWMIOC_START, 0);
+    if(retVal < 0)
+    {
+        perror("Start pwm error\n");
+    }
+    return retVal;
+}
+
+/***********************************************************
+\brief 初始化PWM参数 
+\param fd:pwm设备文件, per:周期, p1d:占空比, mode:模式, 
+       p1out:第一个输出高低电平
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+static int PWM_init(int fd, int per, int p1d, int mode, int p1out)
+{
+    int retVal; 
+    retVal = PWM_set_period(fd, per);
+    if(retVal < 0)
+        return retVal;
+    retVal = PWM_set_p1d(fd, p1d);
+    if(retVal < 0)
+        return retVal;
+    retVal = PWM_set_mode(fd, mode);
+    if(retVal < 0)
+        return retVal;
+    retVal = PWM_set_p1out(fd, p1out);
+    if(retVal < 0)
+        return retVal;
+    return retVal;
+  
+}
+
+/***********************************************************
+\brief 初始化消息队列，用于接收cmd_server传过来的镜头控制命令 
+\param fd:pwm设备文件
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+static int lenPWM_msg_init()
+{
+    int retVal = 0;
+    typedef struct{
+        unsigned int a;
+        unsigned char b;
+        unsigned char c;
+        unsigned char d;
+        unsigned char e:1;
+
+    }test;
+
+   VI_DEBUG("%d\n", sizeof(test)); 
+    VI_DEBUG("Get len_cmd_msqid!\n");
+
+    len_cmd_msqid = msgget((key_t)LEN_CMD_MSG_KEY, IPC_CREAT|0666);
+
+    if(len_cmd_msqid == 0)
+    {
+        msgctl(len_cmd_msqid, IPC_RMID, 0);
+        len_cmd_msqid = msgget((key_t)LEN_CMD_MSG_KEY, IPC_CREAT|0666);
+    }
+    if(len_cmd_msqid < 0)
+    {
+        perror("Get len_cmd_msqid error!\n");
+        retVal = len_cmd_msqid;
+    }
+    VI_DEBUG("Get len_cmd_msqid %d done!\n\n", len_cmd_msqid);
+
+    return retVal;
+}
+
+/***********************************************************
+\brief 创建镜头控制进程，用于处理cmd_server发过来的命令
+       并执行相应的操作
+\param fd:pwm设备文件
+ 
+\return 0:成功 其它:失败
+***********************************************************/
+int lenPWM_control_thread_init()
+{
+    int retVal = 0;
+    VI_DEBUG("Initialize lenPWM control thread\n");
+   
+    if((retVal = pthread_create(&len_control_thread_id, NULL, lenPWM_control_thread, NULL)) != 0)
+    {
+        perror("Create lenPWM control thread\n");
+    }
+    else 
+    {
+        len_control_thread_run = 1;
+        VI_DEBUG("Create lenPWM control thread done!\n\n");
+    }
+    
+    return retVal;
 }
 
 int lenPWM_init(void)
 {
     int retVal;
-    int dev_fp;
-    unsigned long phyAddr = 0x01c22000;
-    unsigned int value32;
-    
-    int ret;
 
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 0, &value32);
-    printf("pinmux0 = 0x%08X\n", value32);
-    value32 &= 0xFFF3FFFF;
-    CSL_gpioSetPinmux(&gCSL_gpioHndl, 0, value32);
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 0, &value32);
-    printf("pinmux0 = 0x%08X\n\n", value32);
-
-
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 1, &value32);
-    printf("pinmux1 = 0x%08X\n", value32);
-    value32 |= 0x0042080A;
-    value32 &= 0xFFC3BBFA;
-    CSL_gpioSetPinmux(&gCSL_gpioHndl, 1, value32);
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 1, &value32);
-    printf("pinmux1 = 0x%08X\n\n", value32);
-
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 3, &value32);
-    printf("pinmux3 = 0x%08X\n", value32);
-    value32 &= 0x7FFFFFFF;
-    CSL_gpioSetPinmux(&gCSL_gpioHndl, 3, value32);
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 3, &value32);
-    printf("pinmux3 = 0x%08X\n\n", value32);
-
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
-    printf("pinmux4 = 0x%08X\n", value32);
-    value32 &= 0xFFCFFFFF;
-    CSL_gpioSetPinmux(&gCSL_gpioHndl, 4, value32);
-    CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
-    printf("pinmux4 = 0x%08X\n\n", value32);
-
-#if 1
+    //initial pwm 
+    VI_DEBUG("Start intialize PWM\n");
     fd_pwm0 = open("/dev/davinci_pwm0", O_RDWR);
     if(fd_pwm0 < 0)
     {
         printf("Can't open /dev/davinci_pwm0\n");
         return OSA_EFAIL;
     }
-    retVal = ioctl(fd_pwm0, PWMIOC_SET_PERIOD, 0x4ff );
-    if(retVal < 0)
-    {
-        printf("errno=%d\n",errno);
-        printf("Set period0 error\n");
-
-
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm0, PWMIOC_SET_DURATION, 0xff);
-    if(retVal < 0)
-    {
-        printf("Set duration error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm0, PWMIOC_SET_MODE, PWM_CONTINUOUS_MODE);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm0, PWMIOC_SET_FIRST_PHASE_STATE, 1);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm0, PWMIOC_START, 0);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-#endif
-#if 1
     fd_pwm1 = open("/dev/davinci_pwm1", O_RDWR);
     if(fd_pwm1 < 0)
     {
+        close(fd_pwm0);
         printf("Can't open /dev/davinci_pwm1\n");
         return OSA_EFAIL;
     }
 
-    retVal = ioctl(fd_pwm1, PWMIOC_SET_PERIOD, 0x4ff);
-    if(retVal < 0)
-    {
-        printf("Set period1 error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm1, PWMIOC_SET_DURATION, 0xff);
-    if(retVal < 0)
-    {
-        printf("Set duration error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm1, PWMIOC_SET_MODE, PWM_CONTINUOUS_MODE);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm1, PWMIOC_SET_FIRST_PHASE_STATE, 1);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm1, PWMIOC_START, 0);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-#endif
-#if 1
-
     fd_pwm2 = open("/dev/davinci_pwm2", O_RDWR);
     if(fd_pwm2 < 0)
     {
+        close(fd_pwm1);
         printf("Can't open /dev/davinci_pwm2\n");
         return OSA_EFAIL;
     }
 
-    retVal = ioctl(fd_pwm2, PWMIOC_SET_PERIOD, 0x3ff);
-    if(retVal < 0)
-    {
-        printf("Set period2 error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm2, PWMIOC_SET_DURATION, 0x1ff);
-    if(retVal < 0)
-    {
-        printf("Set duration error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm2, PWMIOC_SET_MODE, PWM_CONTINUOUS_MODE);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm2, PWMIOC_SET_FIRST_PHASE_STATE, 1);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm2, PWMIOC_START, 0);
-    if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-
-
-#endif
-#if 1
     fd_pwm3 = open("/dev/davinci_pwm3", O_RDWR);
     if(fd_pwm3 < 0)
     {
+        close(fd_pwm2);
         printf("Can't open /dev/davinci_pwm3\n");
         return OSA_EFAIL;
     }
-    retVal = ioctl(fd_pwm3, PWMIOC_SET_PERIOD, 0x4ff);
+
+    retVal = PWM_init(FOCUS_PWM, FOCUS_PWM_INIT_PER, FOCUS_PWM_INIT_P1D, PWM_CONTINUOUS_MODE, FOCUS_PWM_INIT_P1OUT);
     if(retVal < 0)
-    {
-        printf("Set period3 error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm3, PWMIOC_SET_DURATION, 0xff);
+        goto pwm_init_error;
+
+    retVal = PWM_init(ZOOM_PWM, ZOOM_PWM_INIT_PER, ZOOM_PWM_INIT_P1D, PWM_CONTINUOUS_MODE, ZOOM_PWM_INIT_P1OUT);
     if(retVal < 0)
-    {
-        printf("Set duration error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm3, PWMIOC_SET_MODE, PWM_CONTINUOUS_MODE);
+        goto pwm_init_error;
+
+    retVal = PWM_init(IRIS_PWM, IRIS_PWM_INIT_PER, IRIS_PWM_INIT_P1D, PWM_CONTINUOUS_MODE, IRIS_PWM_INIT_P1OUT);
     if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm3, PWMIOC_SET_FIRST_PHASE_STATE, 1);
+        goto pwm_init_error;
+
+    retVal = PWM_init(IRCUT_PWM, IRCUT_PWM_INIT_PER, IRCUT_PWM_INIT_P1D, PWM_CONTINUOUS_MODE, IRCUT_PWM_INIT_P1OUT);
     if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-    retVal = ioctl(fd_pwm3, PWMIOC_START, 0);
+        goto pwm_init_error;
+
+    retVal = PWM_start(FOCUS_PWM); 
     if(retVal < 0)
-    {
-        printf("Set mode error\n");
-        control_led_pwm = 0;
-        
-    }
-#endif
-  
+        goto pwm_init_error;
 
-    DRV_gpioSetMode(82, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(82);
-    DRV_gpioSetMode(81, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(81);
+    retVal = PWM_start(ZOOM_PWM);
+     if(retVal < 0)
+        goto pwm_init_error;
 
-    DRV_gpioSetMode(44, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(44);
-    DRV_gpioSetMode(26, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(26);
+    retVal = PWM_start(IRIS_PWM);
+      if(retVal < 0)
+        goto pwm_init_error;
 
-    DRV_gpioSetMode(45,DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(45);
-    DRV_gpioSetMode(37, DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(37);
+    retVal = PWM_start(IRCUT_PWM);
+    if(retVal < 0)
+        goto pwm_init_error;
 
-    DRV_gpioSetMode(79,DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(79);
-    DRV_gpioSetMode(80,DRV_GPIO_DIR_OUT);
-    DRV_gpioClr(80);
- //while(1)
-{
-  //  DRV_gpioSet(81);
-  //  DRV_gpioClr(82);
+    retVal = lenPWM_msg_init();
+    if(retVal < 0)
+        goto pwm_init_error;
+    retVal = lenPWM_control_thread_init();
+    if(retVal != 0)
+        goto pwm_control_thread_init_error;
 
-  //  DRV_gpioSet(44);
-  //  DRV_gpioClr(26);
-
-  //  DRV_gpioSet(45);
-  //  DRV_gpioClr(37);
-
-  //  DRV_gpioSet(79);
-  //  DRV_gpioClr(80);
-
-  //  sleep(1);
- 
-  //  DRV_gpioClr(81);
-  //  DRV_gpioSet(82);
-
-  //  DRV_gpioClr(44);
-  //  DRV_gpioSet(26);
-
-  //  DRV_gpioClr(45);
-  //  DRV_gpioSet(37);
-
-  //  DRV_gpioClr(79);
-  //  DRV_gpioSet(80);
-
-
-
-  //  sleep(1);
-}    
-#if 0
-    while(1)
-    {
-        sleep(2);
-    }
-#endif
-#if 0
-    {//test adc
-        int fd,ret,i,times=10;
-        int adc_data[6];
-
-        memset(adc_data,0,sizeof(adc_data));
-        fd = open("/dev/adc_device", O_RDWR);        
-        if (fd < 0) {
-            printf("Can't open /dev/adc_device\n");
-            return -1;
-        }
-        while(1)
-        {
-            ret= read(fd,adc_data,sizeof(adc_data)); 
-
-     // printf("adc value is:");
-            for(i=0;i<6;i++)
-            {
-                printf("CH%d:%4d ",i,adc_data[i]);
-            }
-            printf("\n");
-            sleep(1);
-        }
- 
-        close(fd);
-    }//end test adc
-#endif
-
-#if 0
-    if ((dev_fp=open("/dev/mem",O_RDWR|O_SYNC))==-1)
-	{
-		VI_DEBUG("dev_fp Fail!! \n");
-		return ;
-	}
-	pwm0_base_addr = mmap(NULL, 0x1000, PROT_READ|PROT_WRITE,MAP_SHARED, dev_fp, phyAddr);
-    pwm0_pid_addr = (unsigned int *)pwm0_base_addr;
-    printf("pwm0_base_addr : 0x%08X = 0x%08x\n", pwm0_pid_addr, *pwm0_pid_addr );
-
-    //retVal = DM365MM_init(); 
-    //if(retVal != 0)
-    //{
-    //    VI_DEBUG("DM365MM_init() error!\n");
-    //    return retVal;
-    //}
-    //pwm0_base_addr = (unsigned int *)DM365MM_mmap(PWM0_BASE_ADDR, PWM_REG_SIZE*4);
-    pwm0_pid_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_PID_OFFSET);
-    pwm0_pcr_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_PCR_OFFSET);
-    pwm0_cfg_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_CFG_OFFSET);
-    pwm0_start_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_START_OFFSET);
-    pwm0_rpt_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_RPT_OFFSET);
-    pwm0_per_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_PER_OFFSET);
-    pwm0_ph1d_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_PH1D_OFFSET);
-
-    pwm1_base_addr = (unsigned int *)((char *)pwm0_base_addr + PWM_REG_SIZE);
-    pwm1_pid_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_PID_OFFSET);
-    pwm1_pcr_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_PCR_OFFSET);
-    pwm1_cfg_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_CFG_OFFSET);
-    pwm1_start_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_START_OFFSET);
-    pwm1_rpt_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_RPT_OFFSET);
-    pwm1_per_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_PER_OFFSET);
-    pwm1_ph1d_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_PH1D_OFFSET);
-
-   
-    pwm2_base_addr = (unsigned int *)((char *)pwm1_base_addr + PWM_REG_SIZE);
-    pwm2_pid_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_PID_OFFSET);
-    pwm2_pcr_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_PCR_OFFSET);
-    pwm2_cfg_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_CFG_OFFSET);
-    pwm2_start_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_START_OFFSET);
-    pwm2_rpt_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_RPT_OFFSET);
-    pwm2_per_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_PER_OFFSET);
-    pwm2_ph1d_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_PH1D_OFFSET);
-
-
-    pwm3_base_addr = (unsigned int *)((char *)pwm2_base_addr + PWM_REG_SIZE);
-    pwm3_pid_addr = (unsigned int *)((char *)pwm3_base_addr + PWM_PID_OFFSET);
-    pwm3_pcr_addr = (unsigned int *)((char *)pwm3_base_addr + PWM_PCR_OFFSET);
-    pwm3_cfg_addr = (unsigned int *)((char *)pwm3_base_addr + PWM_CFG_OFFSET);
-    pwm3_start_addr = (unsigned int *)((char *)pwm3_base_addr + PWM_START_OFFSET);
-    pwm3_rpt_addr = (unsigned int *)((char *)pwm3_base_addr + PWM_RPT_OFFSET);
-    pwm3_per_addr = (unsigned int *)((char *)pwm3_base_addr + PWM_PER_OFFSET);
-    pwm3_ph1d_addr = (unsigned int *)((char *)pwm3_base_addr + PWM_PH1D_OFFSET);
-
-    *pwm0_per_addr = 0x4ff;
-    *pwm0_ph1d_addr = 0x0ff;
-    *pwm0_cfg_addr = (PWM_CFG_INTEN_DISABLE << PWM_CFG_INTEN_OFFSET)
-                       + (PWM_CFG_INACTOUT_HIGH << PWM_CFG_INACTOUT_OFFSET)
-                       + (PWM_CFG_P1OUT_HIGH << PWM_CFG_P1OUT_OFFSET)
-                       + (PWM_CFG_MODE_CONTINUOUS << PWM_CFG_MODE_OFFSET);
-    *pwm1_per_addr = 0x4ff;
-    *pwm1_ph1d_addr = 0x0ff;
-   // *pwm1_cfg_addr = (PWM_CFG_INTEN_DISABLE << PWM_CFG_INTEN_OFFSET)
-   //                    + (PWM_CFG_INACTOUT_HIGH << PWM_CFG_INACTOUT_OFFSET)
-   //                    + (PWM_CFG_P1OUT_HIGH << PWM_CFG_P1OUT_OFFSET)
-   //                    + (PWM_CFG_MODE_CONTINUOUS << PWM_CFG_MODE_OFFSET);
-    *pwm2_per_addr = 0x4ff;
-    *pwm2_ph1d_addr = 0x0ff;
-   // *pwm2_cfg_addr = (PWM_CFG_INTEN_DISABLE << PWM_CFG_INTEN_OFFSET)
-   //                    + (PWM_CFG_INACTOUT_HIGH << PWM_CFG_INACTOUT_OFFSET)
-   //                    + (PWM_CFG_P1OUT_HIGH << PWM_CFG_P1OUT_OFFSET)
-   //                    + (PWM_CFG_MODE_CONTINUOUS << PWM_CFG_MODE_OFFSET);
-    *pwm3_per_addr = 0x4ff;
-    *pwm3_ph1d_addr = 0x0ff;
-   // *pwm3_cfg_addr = (PWM_CFG_INTEN_DISABLE << PWM_CFG_INTEN_OFFSET)
-   //                    + (PWM_CFG_INACTOUT_HIGH << PWM_CFG_INACTOUT_OFFSET)
-   //                    + (PWM_CFG_P1OUT_HIGH << PWM_CFG_P1OUT_OFFSET)
-   //                    + (PWM_CFG_MODE_CONTINUOUS << PWM_CFG_MODE_OFFSET);
-    VI_DEBUG("pwm0_per_reg 0x%08X = 0x%08X\n", pwm0_per_addr, *pwm0_per_addr);
-    VI_DEBUG("pwm0_ph1d_reg 0x%08X = 0x%08X\n",pwm0_ph1d_addr,  *pwm0_ph1d_addr);
-    VI_DEBUG("pwm0_cfg_reg 0x%08X = 0x%08X\n", pwm0_cfg_addr, *pwm0_cfg_addr);
-    VI_DEBUG("pwm1_per_reg 0x%08X = 0x%08X\n", pwm1_per_addr, *pwm1_per_addr);
-    VI_DEBUG("pwm1_ph1d_reg 0x%08X = 0x%08X\n", pwm1_ph1d_addr, *pwm1_ph1d_addr);
-    VI_DEBUG("pwm1_cfg_reg 0x%08X = 0x%08X\n", pwm1_cfg_addr, *pwm1_cfg_addr);
-    VI_DEBUG("pwm2_per_reg 0x%08X = 0x%08X\n", pwm2_per_addr, *pwm2_per_addr);
-    VI_DEBUG("pwm2_ph1d_reg 0x%08X = 0x%08X\n", pwm2_ph1d_addr, *pwm2_ph1d_addr);
-    VI_DEBUG("pwm2_cfg_reg 0x%08X = 0x%08X\n", pwm2_cfg_addr, *pwm2_cfg_addr);
-    VI_DEBUG("pwm3_per_reg 0x%08X = 0x%08X\n", pwm3_per_addr, *pwm3_per_addr);
-    VI_DEBUG("pwm3_ph1d_reg 0x%08X = 0x%08X\n", pwm3_ph1d_addr, *pwm3_ph1d_addr);
-    VI_DEBUG("pwm3_cfg_reg 0x%08X = 0x%08X\n", pwm3_cfg_addr, *pwm3_cfg_addr);
-     //VI_DEBUG("pwm3_base_addr = 0x%08X\n", pwm3_base_addr);
-
-    //VI_DEBUG("pwm0_pid = 0x%08X\n", *pwm0_pid_addr);
-    //VI_DEBUG("pwm1_pid = 0x%08X\n", *pwm1_pid_addr);
-    //VI_DEBUG("pwm2_pid = 0x%08X\n", *pwm2_pid_addr);
-    //VI_DEBUG("pwm3_pid = 0x%08X\n", *pwm3_pid_addr);
-
-   // control_led_pwm = 1;
-   // if(pthread_create(&control_led_pwm_thread_id, NULL, control_led_pwm_thread, NULL))
-   // {
-   //     printf("create telemetry_thread err\n");
-   //     return -1;
-   // } 
-#endif
+    VI_DEBUG("Intialize PWM done!\n\n");
     return 0;
+
+pwm_control_thread_init_error:
+    msgctl(len_cmd_msqid, IPC_RMID, 0);
+
+pwm_init_error:
+    close(fd_pwm0);
+    close(fd_pwm1);
+    close(fd_pwm2);
+    close(fd_pwm3);
+    VI_DEBUG("Intialize PWM error!\n\n");
+    return retVal;
 }
 
 int ledPWM_exit(void)
 {
-    //close(fd_pwm0);
-//    control_led_pwm = 0;
-//    pthread_join(control_led_pwm_thread_id, NULL);
+    close(fd_pwm0);
+    close(fd_pwm1);
+    close(fd_pwm2);
+    close(fd_pwm3);
+    
+    msgctl(len_cmd_msqid, IPC_RMID, 0);
+    len_control_thread_run = 0;
+    pthread_join(len_control_thread_id, NULL);
+
     return 0;
 }

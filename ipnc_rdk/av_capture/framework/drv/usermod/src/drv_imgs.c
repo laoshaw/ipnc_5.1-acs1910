@@ -29,12 +29,18 @@ int DRV_imgsTestMain(int argc, char **argv)
   
     DRV_imgsEnable(TRUE);
     
-    OSA_DEBUG_WAIT;
-    
-    DRV_imgsEnable(FALSE);
+    //OSA_DEBUG_WAIT;
+    //
+    //DRV_imgsEnable(FALSE);
   
-    DRV_imgsClose();
+    //DRV_imgsClose();
   }
+
+  while(1)
+  {
+      sleep(5);
+  }
+
 
   DRV_exit();
   
