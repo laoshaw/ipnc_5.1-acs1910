@@ -85,7 +85,7 @@ typedef enum VF_AE_SHUTTER_MODE_E
     VF_AE_50Hz_Indoor, 
     VF_AE_60Hz_Indoor, 
     VF_AE_ROI,
-    VF_AE_MANUAL_VF = 0xf, 
+    VF_AE_MANUAL = 0xf, 
     VF_AE_INVALID = 0xff 
 }VF_AE_SHUTTER_MODE_E;
 
@@ -143,7 +143,7 @@ typedef struct VF_AWB_MODE_S
     unsigned short interval;
     unsigned char speed;
     unsigned short Delay;
-}VF_AE_AWB_MODE_S, *pVF_AE_AEB_MODE_S;
+}VF_AWB_MODE_S, *pVF_AWB_MODE_S;
 
 //Base attribute
 typedef struct VF_BASE_ATTRIBUTE_S

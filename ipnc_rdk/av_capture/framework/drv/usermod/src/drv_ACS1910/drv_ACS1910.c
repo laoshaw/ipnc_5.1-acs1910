@@ -82,7 +82,7 @@ static tACS1910Cfg ACS1910_default_cfg = {
     //VF_DEFOG_MODE_E DefogMode;
     VF_DEFOG_CLOSE,
     //VF_MAXFRMRATE_E MaxFrmRate
-    VF_FPS30
+    VF_FPS25
 };
 #endif
 /***********************************************************
@@ -154,6 +154,73 @@ static void acs1910_gpio_init()
 
 }
 
+static int check_cfg_file()
+{
+    FILE *fp;
+    int ret;
+
+    //check default cfg, if there is no then create one
+    fp = fopen(ACS1910_DEFAULT_CFG, "rb"); 
+    if(fp == NULL)
+    {
+        perror("check_cfg_file open error!\n");
+        fp = fopen(ACS1910_DEFAULT_CFG, "wb");
+        if(fp == NULL)
+        {
+           perror("create default_cfg file error\n"); 
+           return OSA_EFAIL;
+        }
+        else 
+        {
+            ret = fwrite(&ACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
+            VI_DEBUG("write %d into cfg\n", ret);
+            if(ret != sizeof(tACS1910Cfg))
+            {
+                perror("write default_cfg file error\n");
+                fclose(fp);
+                return OSA_EFAIL;
+            }
+            fclose(fp);
+        }
+    }
+    else 
+    {
+        VI_DEBUG("There is a default cfg file\n");
+        fclose(fp);
+    }
+    //check saved cfg, if there is no then create one equal the default one 
+    fp = fopen(ACS1910_SAVED_CFG, "rb");
+    if(fp == NULL)
+    {
+        perror("check_cfg_file open error!\n");
+        fp = fopen(ACS1910_SAVED_CFG, "wb");
+        if(fp == NULL)
+        {
+           perror("create default_cfg file error\n"); 
+           return OSA_EFAIL;
+        }
+        else 
+        {
+            ret = fwrite(&ACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
+            VI_DEBUG("write %d into cfg\n", ret);
+            if(ret != sizeof(tACS1910Cfg))
+            {
+                perror("write default_cfg file error\n");
+                fclose(fp);
+                return OSA_EFAIL;
+            }
+            fclose(fp);
+        }
+    }
+    else 
+    {
+        VI_DEBUG("There is a saved cfg file\n");
+        fclose(fp);
+    }
+    return OSA_SOK; 
+    
+}
+
 /***********************************************************
 \brief 初始化ACS1910相关的硬件、消息等 
 \param 
@@ -164,12 +231,20 @@ int DRV_ACS1910Init()
 {
     int status = OSA_SOK;
 
+    status = check_cfg_file(ACS1910_DEFAULT_CFG);
+    if(status != OSA_SOK)
+    {
+        VI_DEBUG("check cfg file error!\n");
+        return status;
+    }
     acs1910_gpio_init();
 
-    read_default_cfg(ACS1910_DEFAULT_CFG);
-    
-
     status = lenPWM_init();
+    if(status != OSA_SOK)
+    {
+        VI_DEBUG("lenPWM init error!\n");
+        return status;
+    }
 
     return status;
 }

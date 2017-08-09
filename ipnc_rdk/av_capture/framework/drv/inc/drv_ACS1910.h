@@ -43,8 +43,8 @@ Copyright (c) 2017-2019 VIFOCUS
 #define SPI2_SIMO_IO        (30)
 #define SPI2_SCLK_IO        (32)
 
-#define ACS1910_DEFAULT_CFG /mnt/nand/acs1910_default.cfg
-#define ACS1910_SAVED_CFG /mnt/nand/acs1910_saved.cfg
+#define ACS1910_DEFAULT_CFG "/mnt/nand/acs1910_default.cfg"
+#define ACS1910_SAVED_CFG "/mnt/nand/acs1910_saved.cfg"
 
 #define DEFAULT_EXPOSURE_TIME 9984
 
@@ -81,7 +81,7 @@ Copyright (c) 2017-2019 VIFOCUS
 typedef struct ACS1910_CFG{
     VF_AE_MODE_S AEMode;
     VF_AE_ROI_S AERoi[ROI_NO];
-    VF_AE_AWB_MODE_S AEAWBMode;
+    VF_AWB_MODE_S AWBMode;
     VF_BASE_ATTRIBUTE_S BaseAttr;
     VF_IRCUT_MODE_S IRCutMode;
     VF_DR_MODE_S DRMode;
@@ -92,7 +92,8 @@ typedef struct ACS1910_CFG{
     VF_EIS_FLAG_E EISFlag;
     VF_DEFOG_MODE_E DefogMode;
     VF_MAXFRMRATE_E MaxFrmRate;
-}tACS1910Cfg;
+    //unsigned int AEDelay;
+}tACS1910Cfg, *ptACS1910Cfg;
 
 int DRV_ACS1910Init();
 
