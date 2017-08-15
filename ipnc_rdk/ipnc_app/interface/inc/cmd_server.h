@@ -23,7 +23,7 @@
 #define VIM_CMD_MSG_KEY 0x7000000
 #define SYS_CMD_MSG_KEY 0x8000000
 
-#define MSG_BUF_SIZE 256
+#define MSG_BUF_SIZE 1024
 
 #define IP_CMD_ISP_SET_EXPOSURE 0x01 
 #define IP_CMD_ISP_SET_AE_DELAY 0x02
@@ -40,14 +40,48 @@
 #define IP_CMD_ISP_SET_EIS 0x0E
 #define IP_CMD_ISP_SET_DEFOG 0x0F
 #define IP_CMD_ISP_SET_SAVE_ATTR 0x10
-#define IP_CMD_ISP_SET_DEFAULT_ATTR 0x11
-#define IP_CMD_ISP_GET_CURRENT_ATTR 0x12
-#define IP_CMD_SYS_SET_CAMERA_IP 0x13
-#define IP_CMD_SYS_SET_TIME 0x14
-#define IP_CMD_SYS_GET_TIME 0x15
+#define IP_CMD_ISP_SET_LOAD_DEFAULT 0x11
+#define IP_CMD_ISP_SET_LOAD_SAVED 0x12
+#define IP_CMD_ISP_GET_CURRENT_ATTR 0x13
+
+#define IP_CMD_SYS_SET_CAMERA_IP 0x20
+#define IP_CMD_SYS_SET_TIME 0x21
+#define IP_CMD_SYS_GET_TIME 0x22
+#define IP_CMD_SYS_GET_INFO 0x23
+#define IP_CMD_SYS_SET_INFO 0x24 //not for customer
+
 #define IP_CMD_LEN_CONTROL 0x36
+#define IP_CMD_LEN_SET_SAVE_SPEED 0x37
+//#define IP_CMD_LEN_GET_SAVED_SPEED 0x38
+//#define IP_CMD_LEN_GET_CURRENT_SPEED 0x39
+
+#define IP_CMD_ERROR_BASE (20000)
+#define IP_CMD_CRC_ERROR (IP_CMD_ERROR_BASE)
+#define IP_CMD_DATA_LENGTH_ERROR (IP_CMD_ERROR_BASE + 1)
+#define IP_CMD_DATA_ERROR (IP_CMD_ERROR_BASE + 2)
+#define IP_CMD_MSG_ERROR (IP_CMD_ERROR_BASE + 3)
 
 #define IP_CMD_ISP_GET_ERROR 0xFF
+
+#define CMD_PORT 2500
+#define BUF_SIZE 1024
+#define RECV_TIMEOUT 10
+#define NEED_ACK 1
+#define DO_NOT_ACK 0
+#define CMD_PACK_HEADER_SIZE (4)
+#define CMD_PACK_MSG_SIZE (1)
+#define CMD_PACK_MSG_OFFSET (CMD_PACK_HEADER_SIZE)
+#define CMD_PACK_DATA_LENGTH_SIZE (2)
+#define CMD_PACK_DATA_LENGTH_OFFSET (CMD_PACK_MSG_OFFSET + CMD_PACK_MSG_SIZE)
+#define CMD_PACK_DATA_OFFSET (CMD_PACK_DATA_LENGTH_OFFSET + CMD_PACK_DATA_LENGTH_SIZE)
+
+#define HEART_BEAT_SIZE (8)
+#define SERVER_OK_SIZE (8)
+#define SERVER_ERROR_SIZE (12)
+#define SERVER_ERROR_CODE_OFFSET (7)
+#define CLIENT_ID_DATA 0x56, 0x46, 0x55, 0x01
+#define SERVER_ID_DATA 0x56, 0x46, 0x44, 0x01
+#define SERVER_ERROR_DATA 0x56, 0x46, 0x44, 0xFF
 
 typedef struct _cmd_server_msg_t
 {
@@ -84,7 +118,7 @@ typedef enum VF_AE_SHUTTER_MODE_E
     VF_AE_60Hz_Auto, 
     VF_AE_50Hz_Indoor, 
     VF_AE_60Hz_Indoor, 
-    VF_AE_ROI,
+    VF_AE_ROI = 0x04,
     VF_AE_MANUAL = 0xf, 
     VF_AE_INVALID = 0xff 
 }VF_AE_SHUTTER_MODE_E;
@@ -110,6 +144,7 @@ typedef struct VF_AE_ETGain_S
 typedef struct VF_AE_ROI_S
 {
 	unsigned int ROI_No;
+    unsigned int onoff;
 	unsigned int x;
 	unsigned int y;
 	unsigned int width;
@@ -158,10 +193,10 @@ typedef struct VF_BASE_ATTRIBUTE_S
 //Flip and Mirror
 typedef enum VF_FLIP_MIRROR_MODE_E 
 { 
-    VF_FLIP_MIRROR_Normal, //默认值
+    VF_FLIP_MIRROR_Normal, 
     VF_FLIP_MIRROR_Flip, 
     VF_FLIP_MIRROR_Mirror,
-    VF_FLIP_MIRROR_FlipMirror 
+    VF_FLIP_MIRROR_FlipMirror //默认值
 }VF_FLIP_MIRROR_MODE_E;
 
 //IRIS

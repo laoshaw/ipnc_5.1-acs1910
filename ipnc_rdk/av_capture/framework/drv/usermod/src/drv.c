@@ -87,7 +87,7 @@ int DRV_init()
   return OSA_SOK;
 
 acs1910_error_exit:
-  DRV_ACS1910Init();
+  DRV_ACS1910Exit();
 
 imagetune_error_exit:
   DRV_imageTuneExit();
@@ -125,6 +125,8 @@ int DRV_exit()
 
   isExitDone=1;
 
+  status |=DRV_ACS1910Exit();
+
   status |= DRV_ldcExit();
   status |= DRV_imageTuneExit();
   status |= DRV_frameCopyExit();
@@ -133,6 +135,7 @@ int DRV_exit()
   status |= DRV_vpssExit();
   status |= CMEM_exit();
   status |= CSL_sysExit();
+  
 
   OSA_exit();
 

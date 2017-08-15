@@ -29,29 +29,13 @@ Copyright (c) 2017-2019 VIFOCUS
 #include "sys_msg_drv.h"
 #include "sem_util.h"    
 
-#define CMD_PORT 2500
-#define BUF_SIZE 1024
-#define RECV_TIMEOUT 10
-#define NEED_ACK 1
-#define DO_NOT_ACK 0
-#define CMD_PACK_HEADER_SIZE (4)
-#define CMD_PACK_MSG_SIZE (1)
-#define CMD_PACK_MSG_OFFSET (CMD_PACK_HEADER_SIZE)
-#define CMD_PACK_DATA_LENGTH_SIZE (2)
-#define CMD_PACK_DATA_LENGTH_OFFSET (CMD_PACK_MSG_OFFSET + CMD_PACK_MSG_SIZE)
-#define CMD_PACK_DATA_OFFSET (CMD_PACK_DATA_LENGTH_OFFSET + CMD_PACK_DATA_LENGTH_SIZE)
-
-#define HEART_BEAT_SIZE (8)
-#define SERVER_OK_SIZE (8)
-#define CLIENT_ID_DATA 0x56, 0x46, 0x55, 0x01
-#define SERVER_ID_DATA 0x56, 0x46, 0x44, 0x01
-
 unsigned char client_id[CMD_PACK_HEADER_SIZE] = {CLIENT_ID_DATA}; //'VFU'0x01
 unsigned char client_heart_beat[HEART_BEAT_SIZE] = {CLIENT_ID_DATA, 0x00, 0x00, 0x00, 0x44};
 
 unsigned char server_id[CMD_PACK_HEADER_SIZE] = {SERVER_ID_DATA}; //'VFD'0x01
 unsigned char server_ok[SERVER_OK_SIZE] = {SERVER_ID_DATA, 0x00, 0x00, 0x00,0x00};
 unsigned char server_heart_beat[HEART_BEAT_SIZE] = {SERVER_ID_DATA, 0x00, 0x00, 0x00, 0x55};
+unsigned char server_error[SERVER_ERROR_SIZE] = {SERVER_ERROR_DATA, 0x00, 0x00, 0x04, 0x00, 0x00, 0x00, 0x00, 0x00};
 
 static int g_cmd_server_run = 1;
 static int len_cmd_msqid;
@@ -133,11 +117,14 @@ static unsigned char calc_check_code(unsigned char *buf, int size)
     unsigned char check_code = 0;
     int i;
 
+    //VI_DEBUG("xxxxx check_code = %x\n", check_code);
     for(i = 0; i < size; i++)
     {
+    //    VI_DEBUG("buf[%d] = %x\n", i, *buf);
         check_code ^= *(buf++);
+    //    VI_DEBUG("check_code = %x\n", check_code);
     }
-
+    //VI_DEBUG("xxxxx check_code = %x\n", check_code);
     return check_code;
 }
 
@@ -157,14 +144,17 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     VI_DEBUG("data_len = %d\n", data_len);
     
     memcpy(cmd_server_snd_msg.msg_data, &recv[CMD_PACK_DATA_OFFSET], data_len);
-
+    for(i = 0; i < data_len; i++)
+    {
+        VI_DEBUG("cmd_server_snd_msg.msg_data[%d]: %x\n", i, cmd_server_snd_msg.msg_data[i]);
+    }
     switch(recv[CMD_PACK_MSG_OFFSET])
     {
         case IP_CMD_ISP_SET_EXPOSURE: 
             if(data_len != sizeof(VF_AE_MODE_S))
             {
                 VI_DEBUG("SET_EXPOSURE cmd msg error!\n");
-                ret = -1;
+                ret = IP_CMD_DATA_LENGTH_ERROR;
             }
             else 
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
@@ -173,54 +163,62 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             if(data_len != sizeof(int))
             {
                 VI_DEBUG("SET_AE_DELAY cmd error!\n");
-                ret = -1;
+                ret = IP_CMD_DATA_LENGTH_ERROR;
             }
             else 
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
             break;
         case IP_CMD_ISP_GET_ETGAIN:
-            if(data_len != sizeof(VF_AE_ETGain_S))
+            if(data_len != 0)
             {
                 VI_DEBUG("GET_ETGAIN cmd error!\n");
-                ret = -1;
+                ret = IP_CMD_DATA_LENGTH_ERROR;
             }
             else 
             {
-                send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(VF_AE_ETGain_S) << 8);
-                send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(VF_AE_ETGain_S);
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
                 msgrcv(vim_cmd_msqid, &cmd_server_rcv_msg, MSG_BUF_SIZE, 0, 0);
+                VI_DEBUG("recv from vim control thread\n");
+                send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(VF_AE_ETGain_S) << 8);
+                VI_DEBUG("sizeof(VF_AE_ETGain_S) = %x\n", sizeof(VF_AE_ETGain_S));
+                VI_DEBUG("send[%d] = %x\n", CMD_PACK_DATA_LENGTH_OFFSET, send[CMD_PACK_DATA_LENGTH_OFFSET]); 
+                send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(VF_AE_ETGain_S);
+                VI_DEBUG("send[%d] = %x\n", CMD_PACK_DATA_LENGTH_OFFSET + 1, send[CMD_PACK_DATA_LENGTH_OFFSET + 1]);
                 send[CMD_PACK_MSG_OFFSET] = cmd_server_rcv_msg.msg_type;
+                VI_DEBUG("MSG : %x\n", send[CMD_PACK_MSG_OFFSET]);
+                VI_DEBUG("copy to send buf\n");
                 memcpy(&send[CMD_PACK_DATA_OFFSET], &cmd_server_rcv_msg.msg_data, sizeof(VF_AE_ETGain_S));
-                send[(CMD_PACK_DATA_OFFSET + sizeof(VF_AE_ETGain_S))]
-                    = calc_check_code(send, (CMD_PACK_DATA_OFFSET + sizeof(VF_AE_ETGain_S)));
-                ret = CMD_PACK_DATA_OFFSET + sizeof(VF_AE_ETGain_S) + 1;
-                VI_DEBUG("ret = %d\n", ret);
-                for(i = 0; i < ret; i++)
-                {
-                    VI_DEBUG("send[%d] = %02x\n", i, send[i]);
-                }
+                VI_DEBUG("cmd have done\n");
+                ret = 1;
             }
             break;
         case IP_CMD_ISP_SET_AE_ROI:
             if(data_len != sizeof(VF_AE_ROI_S))
             {
                 VI_DEBUG("cmd error!\n");
-                ret = -1;
+                ret = IP_CMD_DATA_LENGTH_ERROR;
             }            
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_AWB:
-            //if(data_len != sizeof())
+            if(data_len != sizeof(VF_AWB_MODE_S))
             {
                 VI_DEBUG("cmd error!\n");
-                ret = -1;
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
             }
             break;
         case IP_CMD_ISP_SET_BASE_ATTR:
             if(data_len != sizeof(VF_BASE_ATTRIBUTE_S))
             {
                 VI_DEBUG("cmd error!\n");
-                ret= -1;
+                ret = IP_CMD_DATA_LENGTH_ERROR;
             }
             else 
             {
@@ -228,36 +226,194 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             }
             break;
         case IP_CMD_ISP_SET_FLIP_MIRROR:
+            if(data_len != sizeof(VF_FLIP_MIRROR_MODE_E))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_IRIS:
+            if(data_len != sizeof(VF_IRIS_MODE_E))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_IRCUT:
+            if(data_len != sizeof(VF_IRCUT_MODE_S))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_COLOR_BLACK:
+            if(data_len != sizeof(VF_COLORBLACK_MODE_E))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_DR_MODE:
+            if(data_len != sizeof(VF_DR_MODE_S))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_DENOISE:
+            if(data_len != sizeof(VF_DENOISE_MODE_S))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_EIS:
+            if(data_len != sizeof(VF_EIS_FLAG_E))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                for(i = 0; i < data_len; i++)
+                {
+                    VI_DEBUG("cmd_server_snd_msg.msg_data[%d]: %x\n", i, cmd_server_snd_msg.msg_data[i]);
+                }
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_DEFOG:
+            if(data_len != sizeof(VF_DEFOG_MODE_E))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                for(i = 0; i < data_len; i++)
+                {
+                    VI_DEBUG("cmd_server_snd_msg.msg_data[%d]: %x\n", i, cmd_server_snd_msg.msg_data[i]);
+                }
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_ISP_SET_SAVE_ATTR:
+            if(data_len != 0)
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
-        case IP_CMD_ISP_SET_DEFAULT_ATTR:
+        case IP_CMD_ISP_SET_LOAD_DEFAULT:
+            if(data_len != 0)
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
+        case IP_CMD_ISP_SET_LOAD_SAVED:
+            if(data_len != 0)
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
+            break;        
         case IP_CMD_ISP_GET_CURRENT_ATTR:
+            if(data_len != 0)
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_SYS_SET_CAMERA_IP:
             break;
         case IP_CMD_SYS_SET_TIME:
             break;
         case IP_CMD_LEN_CONTROL:
-            VI_DEBUG("cmd is IP_CMD_LEN_CONTROL");
-            msgsnd(len_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            if(data_len != sizeof(VF_LEN_CONTROL_S))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else
+            {
+                if((((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_ZOOM_TELE) && 
+                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_ZOOM_WIDE) && 
+                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_FOCUS_FAR) &&
+                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_FOCUS_NEAR)&&
+                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_IRIS_SMALL)&&
+                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_IRIS_LARGE)&&
+                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_LEN_STOP))
+                {
+                    VI_DEBUG("LEN CONTROL MODE is error\n");
+                    ret = IP_CMD_DATA_ERROR;
+                }
+                if((((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed > 10) || 
+                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed == 0))
+                {
+                    VI_DEBUG("LEN CONTROL Speed is error\n");
+                    ret = IP_CMD_DATA_ERROR;
+                }
+                if(ret == 0) 
+                {
+                    VI_DEBUG("LEN CONTROL CMD is right\n");
+                    msgsnd(len_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+                }
+            }
+            break;
+        case IP_CMD_LEN_SET_SAVE_SPEED:
+            if(data_len != 0) 
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else
+            {
+                msgsnd(len_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         default:
+            ret = IP_CMD_MSG_ERROR;
             break;
     }
 
@@ -373,18 +529,48 @@ int main(int argc, char **argv)
                             }
                             else
                             {
-                                server_ok[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET]; 
-                                check_code = calc_check_code(server_ok, sizeof(server_ok));
-                                VI_DEBUG("server_ok check_code = %x\n", check_code);
-                                server_ok[(sizeof(server_ok) - 1)] = check_code; 
-                                sendto(cmd_socketfd, server_ok, sizeof(server_ok), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
                                 //parse_cmd begain with cmd no
-                                ack_len = parse_cmd(recv_buf, send_buf);
-                                if(ack_len > 0)
+                                ret = parse_cmd(recv_buf, send_buf);
+                                if(1 == ret)
                                 {
+                                    VI_DEBUG("many bytes need send\n");
+                                    ack_len = CMD_PACK_DATA_OFFSET + (send_buf[CMD_PACK_DATA_LENGTH_OFFSET] << 8) + 
+                                              (send_buf[CMD_PACK_DATA_LENGTH_OFFSET + 1]) + 1;
+                                    VI_DEBUG("ack_len = %d\n", ack_len);
+                                    send_buf[ack_len - 1] = calc_check_code(send_buf, ack_len - 1 );
+                                    for(i = 0; i < ack_len; i++)
+                                        VI_DEBUG("send_buf[%02d] = %02X\n", i, send_buf[i]);
                                     sendto(cmd_socketfd, send_buf, ack_len, 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
                                 }
+                                else if(0 == ret)
+                                {
+                                    server_ok[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
+                                    server_ok[sizeof(server_ok) - 1] = calc_check_code(server_ok, sizeof(server_ok) - 1);
+                                    sendto(cmd_socketfd, server_ok, sizeof(server_ok), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
+                                    for(i = 0; i < sizeof(server_ok); i++)
+                                        VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
+                                }
+                                else 
+                                {
+                                    server_error[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
+                                    memcpy(&(server_error[SERVER_ERROR_CODE_OFFSET]), &ret, sizeof(ret));
+                                    server_error[SERVER_ERROR_SIZE - 1] = calc_check_code(server_error, sizeof(server_error) - 1);
+                                    sendto(cmd_socketfd, server_error, sizeof(server_error), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
+                                    for(i = 0; i < sizeof(server_error); i++)
+                                        VI_DEBUG("server_error[%02d] = %02X\n", i, server_error[i]);
+                                }
                             }
+                        }
+                        else 
+                        {
+                            server_error[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
+                            VI_DEBUG("check_code is error\n");
+                            ret = IP_CMD_CRC_ERROR;
+                            memcpy(&(server_error[SERVER_ERROR_CODE_OFFSET]), &ret, sizeof(ret));
+                            VI_DEBUG("check_code is error\n");
+                            server_error[SERVER_ERROR_SIZE - 1] = calc_check_code(server_error, sizeof(server_error) - 1);
+                            VI_DEBUG("check_code is error\n");
+                            sendto(cmd_socketfd, server_error, sizeof(server_error), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
                         }
                     }
                 }
