@@ -713,6 +713,11 @@ static int dm365_rmd_cs_rdk_150_wl_set_power(int slot, int power_on)
 #endif
 static __init void dm368_evm_init(void)
 {
+    void __iomem *pinmux4 = (void __iomem *) IO_ADDRESS(0x01C40010);
+    unsigned int temp1;
+    void __iomem *giodir01 = (void __iomem*) IO_ADDRESS(0x01C67010);
+    void __iomem *gioset01 = (void __iomem*) IO_ADDRESS(0x01C67018);
+
        evm_init_i2c();
         setup_sensor();           
 	davinci_serial_init(&uart_config);
@@ -739,8 +744,30 @@ static __init void dm368_evm_init(void)
 	davinci_psc_config(DAVINCI_GPSC_ARMDOMAIN, 0, DM365_LPSC_VPSSMSTR, PSC_STATE_SYNCRST, 1);
 	davinci_psc_config(DAVINCI_GPSC_ARMDOMAIN, 0, DM365_LPSC_VPSSMSTR, PSC_STATE_ENABLE, 1);
 	dm365evm_usb_configure();
-    
-    //davinci_cfg_reg(DM365_PWM0);
+   
+
+
+        temp1 = __raw_readl(pinmux4);  //select gio91
+        //printk("pinmux1 = 0x%08X\n", temp1 );
+        temp1 &= 0xFFFFFFF3;
+        __raw_writel(temp1, pinmux4);
+        temp1 = __raw_readl(pinmux4);  //select gio91
+        //printk("pinmux1 = 0x%08X\n", temp1 );
+
+        temp1 = __raw_readl(giodir01);  //select gio91
+        //printk("giodir01 = 0x%08X\n", temp1 );
+        temp1 &= 0xEFFFFFFF;
+        __raw_writel(temp1, giodir01);
+        temp1 = __raw_readl(giodir01);  //select gio91
+        //printk("giodir01 = 0x%08X\n", temp1 );
+  
+        temp1 = __raw_readl(gioset01);  //select gio91
+        //printk("gioset01 = 0x%08X\n", temp1 );
+        temp1 |= 0x10000000;
+        __raw_writel(temp1, gioset01);
+        temp1 = __raw_readl(gioset01);  //select gio91
+        //printk("gioset01 = 0x%08X\n", temp1 );
+     //davinci_cfg_reg(DM365_PWM0);
     //davinci_cfg_reg(DM365_PWM1);
     //davinci_cfg_reg(DM365_PWM2_G87);
     //davinci_cfg_reg(DM365_PWM3_G85);
