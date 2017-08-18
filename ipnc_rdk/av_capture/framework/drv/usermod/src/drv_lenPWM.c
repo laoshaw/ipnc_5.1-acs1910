@@ -31,6 +31,7 @@ static int fd_pwm0, fd_pwm1, fd_pwm2, fd_pwm3;
 static int fd_adc;
 
 static int len_cmd_msqid = 0;
+static int len_ack_msqid = 0;
 static int len_control_thread_run = 0;
 static pthread_t len_control_thread_id;
 
@@ -412,7 +413,21 @@ static int lenPWM_msg_init()
     }
     VI_DEBUG("Get len_cmd_msqid %d done!\n\n", len_cmd_msqid);
 
-    return retVal;
+    len_ack_msqid = msgget((key_t)LEN_ACK_MSG_KEY, IPC_CREAT|0666);
+
+    if(len_ack_msqid == 0)
+    {
+        msgctl(len_ack_msqid, IPC_RMID, 0);
+        len_ack_msqid = msgget((key_t)LEN_ACK_MSG_KEY, IPC_CREAT|0666);
+    }
+    if(len_ack_msqid < 0)
+    {
+        perror("Get len_ack_msqid error!\n");
+        retVal = len_ack_msqid;
+    }
+    VI_DEBUG("Get len_ack_msqid %d done!\n\n", len_ack_msqid);
+
+     return retVal;
 }
 
 /***********************************************************
@@ -611,6 +626,7 @@ adc_control_thread_init_error:
 
 pwm_control_thread_init_error:
     msgctl(len_cmd_msqid, IPC_RMID, 0);
+    msgctl(len_ack_msqid, IPC_RMID, 0);
 
 pwm_init_error:
     close(fd_adc);
@@ -638,6 +654,7 @@ int ledPWM_exit(void)
     len_control_thread_run = 0;
     ADC_control_thread_run = 0;
     msgctl(len_cmd_msqid, IPC_RMID, 0);
+    msgctl(len_ack_msqid, IPC_RMID, 0);
     usleep(10000);
     pthread_join(len_control_thread_id, NULL);
     pthread_join(ADC_control_thread_id, NULL);

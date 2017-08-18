@@ -24,6 +24,7 @@ Copyright (c) 2017-2019 VIFOCUS
 #include <netinet/in.h>
 #include <string.h>
 
+#include "drv_ACS1910.h"
 #include "cmd_server.h"
 #include "file_msg_drv.h"
 #include "sys_msg_drv.h"
@@ -39,8 +40,11 @@ unsigned char server_error[SERVER_ERROR_SIZE] = {SERVER_ERROR_DATA, 0x00, 0x00, 
 
 static int g_cmd_server_run = 1;
 static int len_cmd_msqid;
+static int len_ack_msqid;
 static int vim_cmd_msqid;
+static int vim_ack_msqid;
 static int sys_cmd_msqid;
+static int sys_ack_msqid;
 
 void cmd_server_stop(void)
 {
@@ -78,18 +82,27 @@ static int cmd_server_init(void)
      
     if((len_cmd_msqid = cmd_server_msg_init((key_t)LEN_CMD_MSG_KEY)) < 0)
         return -1;
-
     VI_DEBUG("Get len_cmd_msqid %d done!\n", len_cmd_msqid);
+
+    if((len_ack_msqid = cmd_server_msg_init((key_t)LEN_ACK_MSG_KEY)) < 0)
+        return -1;
+    VI_DEBUG("Get len_ack_msqid %d done!\n", len_ack_msqid);
 
     if((vim_cmd_msqid = cmd_server_msg_init((key_t)VIM_CMD_MSG_KEY)) < 0)
         return -1;
-
     VI_DEBUG("Get vim_cmd_msqid %d done!\n", vim_cmd_msqid);
+
+    if((vim_ack_msqid = cmd_server_msg_init((key_t)VIM_ACK_MSG_KEY)) < 0)
+        return -1;
+    VI_DEBUG("Get vim_ack_msqid %d done!\n", vim_ack_msqid);
 
     if((sys_cmd_msqid = cmd_server_msg_init((key_t)SYS_CMD_MSG_KEY)) < 0)
         return -1;
-
     VI_DEBUG("Get sys_cmd_msqid %d done!\n", sys_cmd_msqid);
+
+    if((sys_ack_msqid = cmd_server_msg_init((key_t)SYS_ACK_MSG_KEY)) < 0)
+        return -1;
+    VI_DEBUG("Get sys_ack_msqid %d done!\n", sys_ack_msqid);
 
     VI_DEBUG("Intialize msg in cmd_server done!\n\n");
 
@@ -138,7 +151,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     int i;
 
     cmd_server_snd_msg.msg_type = recv[CMD_PACK_MSG_OFFSET];
-    VI_DEBUG("cmd msg type = %x\n", cmd_server_snd_msg.msg_type);
+    VI_DEBUG("cmd msg type = %02x\n", cmd_server_snd_msg.msg_type);
 
     data_len = (recv[CMD_PACK_DATA_LENGTH_OFFSET] << 8) | recv[CMD_PACK_DATA_LENGTH_OFFSET+1];
     VI_DEBUG("data_len = %d\n", data_len);
@@ -146,7 +159,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     memcpy(cmd_server_snd_msg.msg_data, &recv[CMD_PACK_DATA_OFFSET], data_len);
     for(i = 0; i < data_len; i++)
     {
-        VI_DEBUG("cmd_server_snd_msg.msg_data[%d]: %x\n", i, cmd_server_snd_msg.msg_data[i]);
+        VI_DEBUG("cmd_server_snd_msg.msg_data[%02d]: %02x\n", i, cmd_server_snd_msg.msg_data[i]);
     }
     switch(recv[CMD_PACK_MSG_OFFSET])
     {
@@ -172,23 +185,38 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             if(data_len != 0)
             {
                 VI_DEBUG("GET_ETGAIN cmd error!\n");
-                ret = IP_CMD_DATA_LENGTH_ERROR;
+                ret = IP_CMD_DATA_LENGTH_ERROR ;
             }
             else 
             {
+
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
-                msgrcv(vim_cmd_msqid, &cmd_server_rcv_msg, MSG_BUF_SIZE, 0, 0);
+                msgrcv(vim_ack_msqid, &cmd_server_rcv_msg, MSG_BUF_SIZE, 0, 0);
                 VI_DEBUG("recv from vim control thread\n");
-                send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(VF_AE_ETGain_S) << 8);
-                VI_DEBUG("sizeof(VF_AE_ETGain_S) = %x\n", sizeof(VF_AE_ETGain_S));
-                VI_DEBUG("send[%d] = %x\n", CMD_PACK_DATA_LENGTH_OFFSET, send[CMD_PACK_DATA_LENGTH_OFFSET]); 
-                send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(VF_AE_ETGain_S);
-                VI_DEBUG("send[%d] = %x\n", CMD_PACK_DATA_LENGTH_OFFSET + 1, send[CMD_PACK_DATA_LENGTH_OFFSET + 1]);
-                send[CMD_PACK_MSG_OFFSET] = cmd_server_rcv_msg.msg_type;
-                VI_DEBUG("MSG : %x\n", send[CMD_PACK_MSG_OFFSET]);
-                VI_DEBUG("copy to send buf\n");
-                memcpy(&send[CMD_PACK_DATA_OFFSET], &cmd_server_rcv_msg.msg_data, sizeof(VF_AE_ETGain_S));
-                VI_DEBUG("cmd have done\n");
+                if(cmd_server_rcv_msg.msg_type == IP_CMD_ISP_GET_ERROR)
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(unsigned int) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(unsigned int);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_ISP_GET_ETGAIN; 
+                    send[CMD_PACK_MSG_OFFSET - 1] = 0xFF;
+                    send[CMD_PACK_DATA_OFFSET] = IP_CMD_DATA_ERROR;
+                    send[CMD_PACK_DATA_OFFSET + 1] = IP_CMD_DATA_ERROR >> 8;
+                    send[CMD_PACK_DATA_OFFSET + 2] = IP_CMD_DATA_ERROR >> 16;
+                    send[CMD_PACK_DATA_OFFSET + 3] = IP_CMD_DATA_ERROR >> 24;
+                } 
+                else 
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(VF_AE_ETGain_S) >> 8);
+                    //VI_DEBUG("sizeof(VF_AE_ETGain_S) = %02x\n", sizeof(VF_AE_ETGain_S));
+                    //VI_DEBUG("send[%02d] = %02x\n", CMD_PACK_DATA_LENGTH_OFFSET, send[CMD_PACK_DATA_LENGTH_OFFSET]); 
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(VF_AE_ETGain_S);
+                    //VI_DEBUG("send[%02d] = %02x\n", CMD_PACK_DATA_LENGTH_OFFSET + 1, send[CMD_PACK_DATA_LENGTH_OFFSET + 1]);
+                    send[CMD_PACK_MSG_OFFSET] = cmd_server_rcv_msg.msg_type;
+                    VI_DEBUG("MSG : %02x\n", send[CMD_PACK_MSG_OFFSET]);
+                    VI_DEBUG("copy to send buf\n");
+                    memcpy(&send[CMD_PACK_DATA_OFFSET], &cmd_server_rcv_msg.msg_data, sizeof(VF_AE_ETGain_S));
+                    VI_DEBUG("cmd have done\n");
+                }
                 ret = 1;
             }
             break;
@@ -301,7 +329,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             {
                 for(i = 0; i < data_len; i++)
                 {
-                    VI_DEBUG("cmd_server_snd_msg.msg_data[%d]: %x\n", i, cmd_server_snd_msg.msg_data[i]);
+                    VI_DEBUG("cmd_server_snd_msg.msg_data[%02d]: %02x\n", i, cmd_server_snd_msg.msg_data[i]);
                 }
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
             }
@@ -316,7 +344,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             {
                 for(i = 0; i < data_len; i++)
                 {
-                    VI_DEBUG("cmd_server_snd_msg.msg_data[%d]: %x\n", i, cmd_server_snd_msg.msg_data[i]);
+                    VI_DEBUG("cmd_server_snd_msg.msg_data[%02d]: %02x\n", i, cmd_server_snd_msg.msg_data[i]);
                 }
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
             }
@@ -354,7 +382,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
             }
             break;        
-        case IP_CMD_ISP_GET_CURRENT_ATTR:
+        case IP_CMD_ISP_GET_CURRENT_ISP_ATTR:
             if(data_len != 0)
             {
                 VI_DEBUG("cmd error!\n");
@@ -363,6 +391,63 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             else 
             {
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+                msgrcv(vim_ack_msqid, &cmd_server_rcv_msg, MSG_BUF_SIZE, 0, 0);
+                VI_DEBUG("recv from vim control thread\n");
+                if(cmd_server_rcv_msg.msg_type == IP_CMD_ISP_GET_ERROR)
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(unsigned int) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(unsigned int);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_ISP_GET_CURRENT_ISP_ATTR;
+                    send[CMD_PACK_MSG_OFFSET - 1] = 0xFF;
+                    send[CMD_PACK_DATA_OFFSET] = IP_CMD_DATA_ERROR;
+                    send[CMD_PACK_DATA_OFFSET + 1] = IP_CMD_DATA_ERROR >> 8;
+                    send[CMD_PACK_DATA_OFFSET + 2] = IP_CMD_DATA_ERROR >> 16;
+                    send[CMD_PACK_DATA_OFFSET + 3] = IP_CMD_DATA_ERROR >> 24;
+                }
+                else
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(tACS1910ISPNormalCfg) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(tACS1910ISPNormalCfg);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_ISP_GET_CURRENT_ISP_ATTR;
+                    VI_DEBUG("MSG : %02x\n", send[CMD_PACK_MSG_OFFSET]);
+                    memcpy(&send[CMD_PACK_DATA_OFFSET], &cmd_server_rcv_msg.msg_data, sizeof(tACS1910ISPNormalCfg));
+                    VI_DEBUG("cmd have done\n");
+                }
+                ret = 1;
+            }
+            break;
+        case IP_CMD_ISP_GET_AE_ROI:
+            if(data_len != sizeof(unsigned int))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+                msgrcv(vim_ack_msqid, &cmd_server_rcv_msg, MSG_BUF_SIZE, 0, 0);
+                VI_DEBUG("recv from vim control thread\n");
+                if(cmd_server_rcv_msg.msg_type == IP_CMD_ISP_GET_ERROR)
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(unsigned int) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(unsigned int);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_ISP_GET_AE_ROI;
+                    send[CMD_PACK_MSG_OFFSET - 1] = 0xFF;
+                    send[CMD_PACK_DATA_OFFSET] = IP_CMD_DATA_ERROR;
+                    send[CMD_PACK_DATA_OFFSET + 1] = IP_CMD_DATA_ERROR >> 8;
+                    send[CMD_PACK_DATA_OFFSET + 2] = IP_CMD_DATA_ERROR >> 16;
+                    send[CMD_PACK_DATA_OFFSET + 3] = IP_CMD_DATA_ERROR >> 24;
+                }
+                else
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(VF_AE_ROI_S) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(VF_AE_ROI_S);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_ISP_GET_AE_ROI;
+                    VI_DEBUG("MSG : %02x\n", send[CMD_PACK_MSG_OFFSET]);
+                    memcpy(&send[CMD_PACK_DATA_OFFSET], &cmd_server_rcv_msg.msg_data, sizeof(VF_AE_ROI_S));
+                    VI_DEBUG("cmd have done\n");
+                }
+                ret = 1;
             }
             break;
         case IP_CMD_SYS_SET_CAMERA_IP:
@@ -475,6 +560,7 @@ int main(int argc, char **argv)
     while(g_cmd_server_run)
     {
         //VI_DEBUG("wait from client\n");
+        
 
         FD_ZERO(&recv_fd);
         FD_SET(cmd_socketfd, &recv_fd);
@@ -500,7 +586,7 @@ int main(int argc, char **argv)
                     perror("recvfrom\n");
                 }
                 else
-                {
+                {//接收到数据
                     client_ip= inet_ntoa(client_addr.sin_addr.s_addr);
                     VI_DEBUG("recv %d data %s\n",recv_count, client_ip);
                     if(memcmp(recv_buf, client_id, 4) != 0)
@@ -508,31 +594,31 @@ int main(int argc, char **argv)
                         printf("not my data\n");
                     }
                     else
-                    {
+                    {//包头正确
                         cmd_data_len = (recv_buf[CMD_PACK_DATA_LENGTH_OFFSET] << 8) | recv_buf[CMD_PACK_DATA_LENGTH_OFFSET+1]; 
                         VI_DEBUG("cmd data length is %d\n", cmd_data_len);
                         cmd_len = cmd_data_len + CMD_PACK_HEADER_SIZE + CMD_PACK_MSG_SIZE + CMD_PACK_DATA_LENGTH_SIZE + 1; 
                         VI_DEBUG("cmd length is %d\n", cmd_len);
                         for(i = 0; i < cmd_len; i++)
                         {
-                            VI_DEBUG("recv_buf[%d] = %x \n", i, recv_buf[i]);
+                            VI_DEBUG("recv_buf[%02d] = %02x \n", i, recv_buf[i]);
                         }
                         check_code = calc_check_code(recv_buf, (cmd_len-1));
-                        VI_DEBUG("check_code = %x\n", check_code);
+                        VI_DEBUG("check_code = %02x\n", check_code);
                         if(check_code == recv_buf[cmd_len - 1])
-                        {
+                        {//校验正确
                             VI_DEBUG("recv data check ok\n");
                             if(memcmp(recv_buf, client_heart_beat, HEART_BEAT_SIZE) == 0)
-                            {
+                            {//心跳数据
                                 VI_DEBUG("it is heart beat\n");
                                 sendto(cmd_socketfd, server_heart_beat, sizeof(server_heart_beat), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                            }
+                            }//心跳数据
                             else
-                            {
+                            {//非心跳数据
                                 //parse_cmd begain with cmd no
                                 ret = parse_cmd(recv_buf, send_buf);
                                 if(1 == ret)
-                                {
+                                {//需要回复数据的
                                     VI_DEBUG("many bytes need send\n");
                                     ack_len = CMD_PACK_DATA_OFFSET + (send_buf[CMD_PACK_DATA_LENGTH_OFFSET] << 8) + 
                                               (send_buf[CMD_PACK_DATA_LENGTH_OFFSET + 1]) + 1;
@@ -543,7 +629,7 @@ int main(int argc, char **argv)
                                     sendto(cmd_socketfd, send_buf, ack_len, 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
                                 }
                                 else if(0 == ret)
-                                {
+                                {//不需要回复数据的，回复执行ok的
                                     server_ok[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
                                     server_ok[sizeof(server_ok) - 1] = calc_check_code(server_ok, sizeof(server_ok) - 1);
                                     sendto(cmd_socketfd, server_ok, sizeof(server_ok), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
@@ -551,7 +637,7 @@ int main(int argc, char **argv)
                                         VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
                                 }
                                 else 
-                                {
+                                {//各种错误的
                                     server_error[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
                                     memcpy(&(server_error[SERVER_ERROR_CODE_OFFSET]), &ret, sizeof(ret));
                                     server_error[SERVER_ERROR_SIZE - 1] = calc_check_code(server_error, sizeof(server_error) - 1);
@@ -559,10 +645,10 @@ int main(int argc, char **argv)
                                     for(i = 0; i < sizeof(server_error); i++)
                                         VI_DEBUG("server_error[%02d] = %02X\n", i, server_error[i]);
                                 }
-                            }
-                        }
+                            }//非心跳数据
+                        }//校验正确
                         else 
-                        {
+                        {//校验错
                             server_error[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
                             VI_DEBUG("check_code is error\n");
                             ret = IP_CMD_CRC_ERROR;
@@ -571,12 +657,13 @@ int main(int argc, char **argv)
                             server_error[SERVER_ERROR_SIZE - 1] = calc_check_code(server_error, sizeof(server_error) - 1);
                             VI_DEBUG("check_code is error\n");
                             sendto(cmd_socketfd, server_error, sizeof(server_error), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                        }
-                    }
-                }
-            }
-        }
-    }
+                        }//校验错
+                        memcpy(send_buf, server_id, sizeof(server_id));//接收发送完成之后，重新初始化一下发送buffer
+                    }//包头正确
+                }//接收到数据
+            }//FD_ISSET(cmd_socketfd, &recv_fd)
+        }//select返回非0
+    }//while
 
     close(cmd_socketfd); 
     cmd_server_exit();

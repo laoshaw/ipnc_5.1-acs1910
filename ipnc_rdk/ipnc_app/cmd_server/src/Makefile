@@ -7,6 +7,7 @@ C_FLAGS += -Wall -O3
 
 CPP_FLAGS += -I$(PUBLIC_INCLUDE_DIR) \
 		-I../inc  \
+		-I$(AVCAPTURE_BUILD_DIR)/../framework/drv/inc\
 		-D_GNU_SOURCE \
 		-D_LARGEFILE64_SOURCE \
 		-D_FILE_OFFSET_BITS=64 

@@ -10,10 +10,12 @@
 #include <sys/msg.h>
 #include <cmd_server.h>
 #include "drv_ACS1910.h"
+#include <linux/spi/spidev.h>
 
 DRV_ImgsObj gDRV_imgsObj;
 //VIM_ATTRIBUTE_S gVIM_CurAttr;
 static int vim_cmd_msqid = 0;
+static int vim_ack_msqid = 0;
 VF_AE_SHUTTER_MODE_E gVIMAEShutterMode;
 
 //tACS1910Cfg ggACS1910_current_cfg;
@@ -30,13 +32,62 @@ static int VIM_roi_autoexp_thread_run = 0;
 
 \return 0:成功 其它:失败
 ***********************************************************/
+static int DRV_FPGASPIWrite(unsigned short reg, unsigned short data)
+{
+    int status = OSA_SOK;
+
+    fpga_spi_data spi_data;
+
+    spi_data.wr = FPGA_SPI_WR_WRITE & 0x01;
+    spi_data.reg_addr = reg & 0x7fff;
+    spi_data.data = data;
+
+    if(DRV_SPIWrite(&gDRV_imgsObj.spiHndl, &spi_data, sizeof(fpga_spi_data)) != sizeof(fpga_spi_data))
+    {
+        VI_DEBUG("DRV_SPIWrite FPGA error!\n");
+        status = OSA_EFAIL;
+    }
+    return status;
+}
+/***********************************************************
+\brief 获取VIM模组的版本信息 
+\param pVIM_GenInfo:版本信息数据指针 
+
+\return 0:成功 其它:失败
+***********************************************************/
+static int DRV_FPGASPIRead(unsigned short reg, unsigned short *data)
+{
+    int status = OSA_SOK;
+
+    fpga_spi_data spi_data;
+    fpga_spi_data spi_read;
+
+    spi_data.wr = FPGA_SPI_WR_READ & 0x01;
+    spi_data.reg_addr = reg & 0x7fff;
+    spi_data.data = 0;
+
+    if(DRV_SPIRead(&gDRV_imgsObj.spiHndl, &spi_data, sizeof(fpga_spi_data), &spi_read) != sizeof(fpga_spi_data))
+    {
+        VI_DEBUG("DRV_SPIRead FPGA error!\n");
+        return OSA_EFAIL;
+    }
+    *data = spi_read.data;
+
+    return status;
+}
+/***********************************************************
+\brief 获取VIM模组的版本信息 
+\param pVIM_GenInfo:版本信息数据指针 
+
+\return 0:成功 其它:失败
+***********************************************************/
 static int DRV_GetVIMGenInfo(pVIM_GENERAL_INFO pVIM_GenInfo)
 {
     int status = 0;
 
     status = VIM_GetGeneralAttribute(pVIM_GenInfo);
     if(status!=VIM_SUCCEED){
-        OSA_ERROR("VIM GetGeneralAttribute");
+        OSA_ERROR("VIM GetGeneralAttribute\n");
         printf("status = %d\n", status);
         return OSA_EFAIL;
     }
@@ -286,13 +337,122 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
 {
     int ret = OSA_SOK;
     int num = 0;
+    fpga_spi_data spi_roi;
 
     num = pROI->ROI_No;
 
-    VI_DEBUG("AERoi[%d].ROI_No = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No);
-    VI_DEBUG("AERoi[%d].ROI_No = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No);
-    VI_DEBUG("AERoi[%d].ROI_No = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No);
-    VI_DEBUG("AERoi[%d].ROI_No = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No);
+    VI_DEBUG("AERoi[%02d].ROI_No = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No);
+    VI_DEBUG("AERoi[%02d].onoff  = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].onoff);
+    VI_DEBUG("AERoi[%02d].x      = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].x);
+    VI_DEBUG("AERoi[%02d].y      = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].y);
+    VI_DEBUG("AERoi[%02d].width  = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].width);
+    VI_DEBUG("AERoi[%02d].height = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].height);
+    VI_DEBUG("pROI->ROI_No       = %08x\n", pROI->ROI_No);
+    VI_DEBUG("pROI->onoff        = %08x\n", pROI->onoff);
+    VI_DEBUG("pROI->x            = %08x\n", pROI->x);
+    VI_DEBUG("pROI->y            = %08x\n", pROI->y);
+    VI_DEBUG("pROI->width        = %08x\n", pROI->width);
+    VI_DEBUG("pROI->height       = %08x\n", pROI->height);
+
+
+    switch(num)
+    {
+        case 0:
+            if(DRV_FPGASPIWrite(ROI_0_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[0].x = pROI->x;
+                VI_DEBUG("AERoi[0].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].x);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_0_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[0].y = pROI->y;
+                VI_DEBUG("AERoi[0].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].y);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_0_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[0].width = pROI->width;
+                VI_DEBUG("AERoi[0].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].width);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_0_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[0].height = pROI->height;
+                VI_DEBUG("AERoi[0].height = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].height);
+            }
+            else 
+                return OSA_EFAIL;
+            gACS1910_current_cfg.ISPAllCfg.AERoi[0].onoff = pROI->onoff;
+            break;
+        case 1:
+            if(DRV_FPGASPIWrite(ROI_1_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[1].x = pROI->x;
+                VI_DEBUG("AERoi[1].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].x);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_1_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[1].y = pROI->y;
+                VI_DEBUG("AERoi[1].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].y);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_1_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[1].width = pROI->width;
+                VI_DEBUG("AERoi[1].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].width);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_1_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[1].height = pROI->height;
+                VI_DEBUG("AERoi[1].height= %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].height);
+            }
+            else 
+                return OSA_EFAIL;
+            gACS1910_current_cfg.ISPAllCfg.AERoi[1].onoff = pROI->onoff;
+            break;
+        case 2:
+            if(DRV_FPGASPIWrite(ROI_2_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[2].x = pROI->x;
+                VI_DEBUG("AERoi[2].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].x);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_2_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[2].y = pROI->y;
+                VI_DEBUG("AERoi[2].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].y);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_2_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[2].width = pROI->width;
+                VI_DEBUG("AERoi[2].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].width);
+            }
+            else 
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite(ROI_2_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
+            {
+                gACS1910_current_cfg.ISPAllCfg.AERoi[2].height = pROI->height;
+                VI_DEBUG("AERoi[2].height = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].height);
+            }
+            else 
+                return OSA_EFAIL;
+            gACS1910_current_cfg.ISPAllCfg.AERoi[2].onoff = pROI->onoff;
+            break;
+        default:
+            break;
+    }
     //gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No = pROI->ROI_No;
     //gACS1910_current_cfg.ISPAllCfg.AERoi[num].x = pROI->x;
     //gACS1910_current_cfg.ISPAllCfg.AERoi[num].y = pROI->y;
@@ -589,7 +749,21 @@ static int VIM_control_msg_init()
         perror("Get vim_cmd_msqid error!\n");
         retVal = OSA_EFAIL;
     }
-    VI_DEBUG("Get vim_cmd_msqid %d done!\n\n", vim_cmd_msqid);
+    VI_DEBUG("Get vim_cmd_msqid %d done!\n", vim_cmd_msqid);
+
+    vim_ack_msqid = msgget((key_t)VIM_ACK_MSG_KEY, IPC_CREAT|0666);
+
+    if(vim_ack_msqid == 0)
+    {
+        msgctl(vim_ack_msqid, IPC_RMID, 0);
+        vim_cmd_msqid = msgget((key_t)VIM_ACK_MSG_KEY, IPC_CREAT|0666);
+    }
+    if(vim_ack_msqid < 0)
+    {
+        perror("Get vim_ack_msqid error!\n");
+        retVal = OSA_EFAIL;
+    }
+    VI_DEBUG("Get vim_ack_msqid %d done!\n\n", vim_ack_msqid);
 
     return retVal;
 }
@@ -600,8 +774,9 @@ void VIM_control_thread()
     unsigned char snd_msg_data[MSG_BUF_SIZE]; 
     tCmdServerMsg vim_control_rcv_msg;
     tCmdServerMsg vim_control_snd_msg;
-    int ret;
+    int ret, i;
     pVF_AE_ETGain_S pETGain;
+    unsigned int roi_no;
 
     VI_DEBUG("Hello VIM control thread!\n");
 
@@ -609,8 +784,7 @@ void VIM_control_thread()
     {
         VI_DEBUG("wait msg from cmd server!\n");
         msgrcv(vim_cmd_msqid, &vim_control_rcv_msg, MSG_BUF_SIZE, 0, 0);
-        printf("\n");
-        VI_DEBUG("receive msg type: 0x%lx\n\n", vim_control_rcv_msg.msg_type);
+        VI_DEBUG("receive msg type: 0x%lx\n", vim_control_rcv_msg.msg_type);
         vim_control_snd_msg.msg_type = vim_control_rcv_msg.msg_type;
         switch(vim_control_rcv_msg.msg_type)
         {
@@ -619,13 +793,13 @@ void VIM_control_thread()
                 break;
             case IP_CMD_ISP_GET_ETGAIN:
                 ret = DRV_GetVIMETGain((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data);
-                VI_DEBUG("ret = %d, vim_control_snd_msg: Shutter = %x\n, Gain = %x\n", 
+                VI_DEBUG("ret = %d, vim_control_snd_msg: Shutter = %d, Gain = %d\n", 
                         ret, ((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data)->etus, ((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data)->gainValue);
                 if(ret != VIM_SUCCEED)
                     vim_control_snd_msg.msg_type = IP_CMD_ISP_GET_ERROR;
                 else 
                 {
-                    msgsnd(vim_cmd_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
+                    msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 }
                 break;
             case IP_CMD_ISP_SET_BASE_ATTR:
@@ -673,6 +847,32 @@ void VIM_control_thread()
                 VI_DEBUG("load saved cfg to current\n");
                 memcpy(&(gACS1910_current_cfg.ISPAllCfg), &(gACS1910_saved_cfg.ISPAllCfg), sizeof(tACS1910ISPAllCfg));
                 DRV_InitVIM(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg));
+                break;
+            case IP_CMD_ISP_GET_AE_ROI:
+                roi_no = *(unsigned int *)vim_control_rcv_msg.msg_data;
+                VI_DEBUG("get roi %d\n", roi_no);
+                if(roi_no > (ROI_NO - 1))
+                {
+                    VI_DEBUG("roi_no error\n");
+                    vim_control_snd_msg.msg_type = IP_CMD_ISP_GET_ERROR;
+                    *(unsigned int *)vim_control_snd_msg.msg_data = IP_CMD_DATA_ERROR; 
+                    msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
+                }
+                else
+                {
+                    VI_DEBUG("get roi %d data\n", roi_no);
+                    memcpy(vim_control_snd_msg.msg_data, &(gACS1910_current_cfg.ISPAllCfg.AERoi[roi_no]), sizeof(VF_AE_ROI_S));
+                    for(i = 0; i < sizeof(VF_AE_ROI_S); i++)
+                        VI_DEBUG("vim_control_snd_msg.msg_data[%02d] = %02x\n", i, vim_control_snd_msg.msg_data[i]);
+                    msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
+                }
+                break;
+            case IP_CMD_ISP_GET_CURRENT_ISP_ATTR:
+                VI_DEBUG("get current isp attr!\n");
+                memcpy(vim_control_snd_msg.msg_data, &(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg), sizeof(tACS1910ISPAllCfg));
+                for(i = 0; i < sizeof(VF_AE_ROI_S); i++)
+                    VI_DEBUG("vim_control_snd_msg.msg_data[%02d] = %02x\n", i, vim_control_snd_msg.msg_data[i]);
+                msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 break;
             default:
                 break;
@@ -741,6 +941,8 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
   Uint16 width, height;
     VIM_ATTRIBUTE_S VIM_CurAttr;
     VIM_GENERAL_INFO VIM_GenInfo;
+    DRV_SPICfg fpga_spi0_cfg;
+    unsigned char *spi0dev = "/dev/spidev0.0";
 
 
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
@@ -789,6 +991,30 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     status = VIM_roi_autoexp_thread_init();
     if(status < 0)
         return OSA_EFAIL;
+
+
+    fpga_spi0_cfg.mode = SPI_MODE_0;
+    fpga_spi0_cfg.bits = 16;
+    fpga_spi0_cfg.speed = 24000000;
+    fpga_spi0_cfg.delay = 0;
+    status = DRV_SPIOpen(&gDRV_imgsObj.spiHndl, spi0dev, &fpga_spi0_cfg);
+    VI_DEBUG("gDRV_imgsObj.spiHndl.fd = %d\n", gDRV_imgsObj.spiHndl.fd);
+    if(status < 0)
+        return OSA_EFAIL;
+
+    fpga_spi_data test;
+    VI_DEBUG("===============sizeof(fpga_spi_data) = %d===============\n", sizeof(fpga_spi_data));
+    test.wr = 1;
+    test.reg_addr = 0x7f;
+    test.data = 3;
+
+    VI_DEBUG("address wr = %08x\n", &test);
+    VI_DEBUG("address data = %08x\n", &test.data);
+
+    VI_DEBUG("%x\n", *((unsigned short *)(&test)));
+    VI_DEBUG("%x\n", *((unsigned short *)(&test.data)));
+
+
     
   return 0;
 }
@@ -797,14 +1023,25 @@ int DRV_imgsClose()
 {
   int status;
 
-  VIM_control_thread_run = 0;
-  pthread_join(VIM_control_thread_id, NULL);
+  if(VIM_control_thread_run == 1)
+  {
+    VIM_control_thread_run = 0;
+    pthread_join(VIM_control_thread_id, NULL);
+  }
 
-  VIM_roi_autoexp_thread_run = 0;
-  pthread_join(VIM_roi_autoexp_thread_id, NULL);
+  if(VIM_roi_autoexp_thread_run == 1)
+  {
+    VIM_roi_autoexp_thread_run = 0;
+    pthread_join(VIM_roi_autoexp_thread_id, NULL);
+  }
 
-
+  if(vim_cmd_msqid > 0)
     msgctl(vim_cmd_msqid, IPC_RMID, 0);
+  if(vim_ack_msqid > 0)
+    msgctl(vim_ack_msqid, IPC_RMID, 0);
+
+  if(gDRV_imgsObj.spiHndl.fd > 0)
+      close(gDRV_imgsObj.spiHndl.fd);
 
   status = DRV_imgsEnable(FALSE);
   //status |= DRV_i2cClose(&gDRV_imgsObj.i2cHndl);

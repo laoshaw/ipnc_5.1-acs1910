@@ -837,7 +837,7 @@ typedef struct {
 typedef struct {
 
   DRV_I2cHndl i2cHndl;
-    DRV_SPIHndl spiHndl;
+  DRV_SPIHndl spiHndl;
 
   DRV_ImgsFrameTime curFrameTime;
   DRV_ImgsModeConfig curModeConfig;

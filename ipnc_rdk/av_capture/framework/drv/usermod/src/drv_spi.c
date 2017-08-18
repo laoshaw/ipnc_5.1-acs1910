@@ -18,44 +18,44 @@ static uint8_t bits = 16;
 static uint32_t speed = 24000000;
 static uint16_t delay = 0;
 
-int DRV_SPIOpen(DRV_SPIHndl *hndl, Uint8 devAddr)
+int DRV_SPIOpen(DRV_SPIHndl *hndl, Uint8 *devAddr, DRV_SPICfg *cfg)
 {
 
 
 	int ret;
 	int fd;
 
-	hndl->fd = fd =open(device, O_RDWR);
+	hndl->fd = fd =open(devAddr, O_RDWR);
 	if(hndl->fd<0)
 		return OSA_EFAIL;
 
-	ret = ioctl(fd, SPI_IOC_WR_MODE, &mode);
+	ret = ioctl(fd, SPI_IOC_WR_MODE, &cfg->mode);
 	if (ret == -1)
 		OSA_ERROR("can't set spi mode");
 
-	ret = ioctl(fd, SPI_IOC_RD_MODE, &mode);
+	ret = ioctl(fd, SPI_IOC_RD_MODE, &cfg->mode);
 	if (ret == -1)
 		OSA_ERROR("can't get spi mode");
 
 	/*
 	 * bits per word
 	 */
-	ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits);
+	ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &cfg->bits);
 	if (ret == -1)
 		OSA_ERROR("can't set bits per word");
 
-	ret = ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &bits);
+	ret = ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &cfg->bits);
 	if (ret == -1)
 		OSA_ERROR("can't get bits per word");
 
 	/*
 	 * max speed hz
 	 */
-	ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed);
+	ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &cfg->speed);
 	if (ret == -1)
 		OSA_ERROR("can't set max speed hz");
 
-	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed);
+	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &cfg->speed);
 	if (ret == -1)
 		OSA_ERROR("can't get max speed hz");
 

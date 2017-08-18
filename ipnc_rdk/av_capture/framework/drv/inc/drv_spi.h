@@ -11,7 +11,14 @@ typedef struct {
 
 } DRV_SPIHndl;
 
-int DRV_SPIOpen(DRV_SPIHndl *hndl, Uint8 devAddr);
+typedef struct {
+    unsigned char mode;
+    unsigned char bits;
+    unsigned int speed;
+    unsigned short delay;
+} DRV_SPICfg;
+
+int DRV_SPIOpen(DRV_SPIHndl *hndl, Uint8 *devAddr, DRV_SPICfg *cfg);
 int DRV_SPIRead(DRV_SPIHndl *hndl, Uint8 *buf,  Uint32 count, Uint8 *Obuf);
 int DRV_SPIWrite(DRV_SPIHndl *hndl, Uint8 *buf, Uint32 count);
 int DRV_SPIClose(DRV_SPIHndl *hndl);

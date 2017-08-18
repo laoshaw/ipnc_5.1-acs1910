@@ -135,10 +135,10 @@ static void acs1910_gpio_init()
     CSL_gpioGetPinmux(&gCSL_gpioHndl, 3, &value32);
     VI_DEBUG("pinmux3 = 0x%08X\n\n", value32);
 
-    //enable gio37 gio33(SPI2_CS) gio32(SPI2_SCLK) gio31(SPI2_SMOI) gio30(SPI2_SIMO) 
+    //enable gio37 gio33(SPI2_CS) gio32(SPI2_SCLK) gio31(SPI2_SMOI) gio30(SPI2_SIMO) gio28(reset vim) 
     CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
     VI_DEBUG("pinmux4 = 0x%08X\n", value32);
-    value32 &= 0xFFCFC03F;
+    value32 &= 0xFFCFC033;
     CSL_gpioSetPinmux(&gCSL_gpioHndl, 4, value32);
     CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
     VI_DEBUG("pinmux4 = 0x%08X\n\n", value32);
@@ -166,6 +166,11 @@ static void acs1910_gpio_init()
     DRV_gpioSetMode(SPI2_SIMO_IO, DRV_GPIO_DIR_IN);
     DRV_gpioSetMode(SPI2_SOMI_IO, DRV_GPIO_DIR_IN);
 
+    //DRV_gpioSetMode(VIM_RESET_IO, DRV_GPIO_DIR_OUT);
+    //DRV_gpioClr(VIM_RESET_IO);
+    //sleep(1);
+    //DRV_gpioSet(VIM_RESET_IO);
+    //sleep(5);
     VI_DEBUG("ACS1910 GPIO Initial OK!\n\n");
 
 }
@@ -311,7 +316,7 @@ int DRV_ACS1910Init()
 
     acs1910_gpio_init();
 
-    status = lenPWM_init();
+    //status = lenPWM_init();
     if(status != OSA_SOK)
     {
         VI_DEBUG("lenPWM init error!\n");
