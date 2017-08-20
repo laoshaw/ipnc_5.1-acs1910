@@ -1,6 +1,6 @@
 #ifndef _CMD_SERVER_H
 #define _CMD_SERVER_H
-
+#include <netinet/in.h>
 #define VI_DEBUG_MODE
 
 #ifdef VI_DEBUG_MODE
@@ -26,7 +26,7 @@
 #define SYS_CMD_MSG_KEY 0x8000000
 #define SYS_ACK_MSG_KEY 0x9000000
 
-#define MSG_BUF_SIZE 1024
+#define MSG_BUF_SIZE 256 
 
 #define IP_CMD_ISP_SET_EXPOSURE 0x01 
 #define IP_CMD_ISP_SET_AE_DELAY 0x02
@@ -386,6 +386,11 @@ typedef struct VF_LEN_CONTROL_S
 }VF_LEN_CONTROL_S, *pVF_LEN_CONTROL_S;
 
 
+typedef struct VF_CAMERA_IP
+{
+   struct in_addr ipaddr;
+   struct in_addr netmask;
+}VF_CAMERA_IP_S, *pVF_CAMERA_IP_S;
 
 
 

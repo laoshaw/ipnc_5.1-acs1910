@@ -12,11 +12,10 @@
 #include <linux/types.h>
 #include <linux/spi/spidev.h>
 
-static char *device = "/dev/spidev0.0";
-static uint8_t mode = SPI_CPOL;
-static uint8_t bits = 16;
-static uint32_t speed = 24000000;
-static uint16_t delay = 0;
+static uint8_t mode;
+static uint8_t bits;
+static uint32_t speed;
+static uint16_t delay;
 
 int DRV_SPIOpen(DRV_SPIHndl *hndl, Uint8 *devAddr, DRV_SPICfg *cfg)
 {
@@ -25,37 +24,42 @@ int DRV_SPIOpen(DRV_SPIHndl *hndl, Uint8 *devAddr, DRV_SPICfg *cfg)
 	int ret;
 	int fd;
 
+    mode = cfg->mode;
+    bits = cfg->bits;
+    speed = cfg->speed;
+    delay = cfg->delay;
+
 	hndl->fd = fd =open(devAddr, O_RDWR);
 	if(hndl->fd<0)
 		return OSA_EFAIL;
 
-	ret = ioctl(fd, SPI_IOC_WR_MODE, &cfg->mode);
+	ret = ioctl(fd, SPI_IOC_WR_MODE, &mode);
 	if (ret == -1)
 		OSA_ERROR("can't set spi mode");
 
-	ret = ioctl(fd, SPI_IOC_RD_MODE, &cfg->mode);
+	ret = ioctl(fd, SPI_IOC_RD_MODE, &mode);
 	if (ret == -1)
 		OSA_ERROR("can't get spi mode");
 
 	/*
 	 * bits per word
 	 */
-	ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &cfg->bits);
+	ret = ioctl(fd, SPI_IOC_WR_BITS_PER_WORD, &bits);
 	if (ret == -1)
 		OSA_ERROR("can't set bits per word");
 
-	ret = ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &cfg->bits);
+	ret = ioctl(fd, SPI_IOC_RD_BITS_PER_WORD, &bits);
 	if (ret == -1)
 		OSA_ERROR("can't get bits per word");
 
 	/*
 	 * max speed hz
 	 */
-	ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &cfg->speed);
+	ret = ioctl(fd, SPI_IOC_WR_MAX_SPEED_HZ, &speed);
 	if (ret == -1)
 		OSA_ERROR("can't set max speed hz");
 
-	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &cfg->speed);
+	ret = ioctl(fd, SPI_IOC_RD_MAX_SPEED_HZ, &speed);
 	if (ret == -1)
 		OSA_ERROR("can't get max speed hz");
 

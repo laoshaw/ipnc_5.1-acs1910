@@ -23,6 +23,8 @@ Copyright (c) 2017-2019 VIFOCUS
 #include <sys/msg.h>
 #include <netinet/in.h>
 #include <string.h>
+#include <time.h>
+#include <sys/time.h>
 
 #include "drv_ACS1910.h"
 #include "cmd_server.h"
@@ -44,7 +46,49 @@ static int len_ack_msqid;
 static int vim_cmd_msqid;
 static int vim_ack_msqid;
 static int sys_cmd_msqid;
-static int sys_ack_msqid;
+static int sys_ack_msqid; 
+static SysInfo acs1910_ipnc_sysinfo; 
+
+static int cmd_server_setip(pVF_CAMERA_IP_S camera_ip)
+{
+    int ret = 0;
+    FILE *fp;
+    unsigned long magic_num = MAGIC_NUM;
+    int i;
+    
+    acs1910_ipnc_sysinfo.lan_config.net.ip = camera_ip->ipaddr; 
+    acs1910_ipnc_sysinfo.lan_config.net.netmask = camera_ip->netmask; 
+    VI_DEBUG("acs1910_ipnc_sysinfo.lan_config.net.Mac:");
+    for(i = 0; i < 6; i++)
+        printf("%02X ", acs1910_ipnc_sysinfo.lan_config.net.MAC[i]);
+    printf("\n ");
+
+
+    fp = fopen("/mnt/nand/sysenv.cfg", "wb");
+    if(fp == NULL)
+    {
+        VI_DEBUG("open sysenv.cfg error\n");
+        perror("open sysenv.cfg error\n");
+        ret = -1;
+    }
+    else if(fwrite(&magic_num, 1, sizeof(magic_num), fp) != sizeof(magic_num))
+    {
+        VI_DEBUG("write magic_num error\n");
+        perror("write magic_num error\n");
+        ret = -1;
+    }
+    else if(fwrite(&acs1910_ipnc_sysinfo, 1, sizeof(acs1910_ipnc_sysinfo), fp) != sizeof(acs1910_ipnc_sysinfo))
+    {
+        VI_DEBUG("write sysinfo error\n");
+        perror("write sysinfo error\n");
+        ret = -1;
+    }
+    fclose(fp);
+    //sleep(1);
+    //system("reboot");
+    return ret;
+
+}
 
 void cmd_server_stop(void)
 {
@@ -75,11 +119,29 @@ static int cmd_server_msg_init(key_t key)
 static int cmd_server_init(void)
 {
     int ret = 0;
+    unsigned long magic_num;
+    FILE *fp;
+    char *ip_a;
          
     signal(SIGINT, cmd_server_stop);
 
     VI_DEBUG("Intialize msg in cmd_server!\n");
      
+    VI_DEBUG("sizeof SysInfo = %d\n", sizeof(SysInfo)); 
+
+    fp = fopen("/mnt/nand/sysenv.cfg", "rb");
+    if(fp == NULL)
+        perror("open SYS_ENV_FILE error\n");
+    ret = fread(&magic_num, 1, sizeof(magic_num), fp);
+    VI_DEBUG("ret = %d magic_num = %x\n", ret , magic_num);
+    ret = fread(&acs1910_ipnc_sysinfo, 1, sizeof(acs1910_ipnc_sysinfo), fp);
+    ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.ip);
+    VI_DEBUG("ip_a = %s\n", ip_a);
+    ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.netmask);
+    VI_DEBUG("ip_a = %s\n", ip_a);
+    fclose(fp);
+
+    ret = 0;
     if((len_cmd_msqid = cmd_server_msg_init((key_t)LEN_CMD_MSG_KEY)) < 0)
         return -1;
     VI_DEBUG("Get len_cmd_msqid %d done!\n", len_cmd_msqid);
@@ -146,9 +208,11 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     int ret = 0;
     tCmdServerMsg cmd_server_snd_msg;
     tCmdServerMsg cmd_server_rcv_msg;
+    VF_CAMERA_IP_S camera_ip_s;
     int data_len = 0;
     int send_len = 0;
     int i;
+    char *ip_a;
 
     cmd_server_snd_msg.msg_type = recv[CMD_PACK_MSG_OFFSET];
     VI_DEBUG("cmd msg type = %02x\n", cmd_server_snd_msg.msg_type);
@@ -157,10 +221,10 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     VI_DEBUG("data_len = %d\n", data_len);
     
     memcpy(cmd_server_snd_msg.msg_data, &recv[CMD_PACK_DATA_OFFSET], data_len);
-    for(i = 0; i < data_len; i++)
-    {
-        VI_DEBUG("cmd_server_snd_msg.msg_data[%02d]: %02x\n", i, cmd_server_snd_msg.msg_data[i]);
-    }
+    //for(i = 0; i < data_len; i++)
+    //{
+    //    VI_DEBUG("cmd_server_snd_msg.msg_data[%02d]: %02x\n", i, cmd_server_snd_msg.msg_data[i]);
+    //}
     switch(recv[CMD_PACK_MSG_OFFSET])
     {
         case IP_CMD_ISP_SET_EXPOSURE: 
@@ -451,6 +515,14 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             }
             break;
         case IP_CMD_SYS_SET_CAMERA_IP:
+            memcpy(&camera_ip_s, &recv[CMD_PACK_DATA_OFFSET], data_len);
+            VI_DEBUG("camera_ip_s.ipaddr = %x\n", camera_ip_s.ipaddr);
+            VI_DEBUG("camera_ip_s.netmask = %x\n", camera_ip_s.netmask);
+            ip_a = inet_ntoa(camera_ip_s.ipaddr);
+            VI_DEBUG("ipaddr = %s\n", ip_a);
+            ip_a = inet_ntoa(camera_ip_s.netmask);
+            VI_DEBUG("ipaddr = %s\n", ip_a);
+            ret = cmd_server_setip(&camera_ip_s);
             break;
         case IP_CMD_SYS_SET_TIME:
             break;
@@ -523,6 +595,7 @@ int main(int argc, char **argv)
     int addr_len = sizeof(struct sockaddr_in);
     fd_set recv_fd;
     struct timeval timeout;
+    struct timeval tv1, tv2, tv3;
 
     ret = cmd_server_init();
     if(ret < 0)
@@ -587,6 +660,7 @@ int main(int argc, char **argv)
                 }
                 else
                 {//接收到数据
+                    gettimeofday(&tv1, NULL);
                     client_ip= inet_ntoa(client_addr.sin_addr.s_addr);
                     VI_DEBUG("recv %d data %s\n",recv_count, client_ip);
                     if(memcmp(recv_buf, client_id, 4) != 0)
@@ -596,9 +670,9 @@ int main(int argc, char **argv)
                     else
                     {//包头正确
                         cmd_data_len = (recv_buf[CMD_PACK_DATA_LENGTH_OFFSET] << 8) | recv_buf[CMD_PACK_DATA_LENGTH_OFFSET+1]; 
-                        VI_DEBUG("cmd data length is %d\n", cmd_data_len);
+                        //VI_DEBUG("cmd data length is %d\n", cmd_data_len);
                         cmd_len = cmd_data_len + CMD_PACK_HEADER_SIZE + CMD_PACK_MSG_SIZE + CMD_PACK_DATA_LENGTH_SIZE + 1; 
-                        VI_DEBUG("cmd length is %d\n", cmd_len);
+                        //VI_DEBUG("cmd length is %d\n", cmd_len);
                         for(i = 0; i < cmd_len; i++)
                         {
                             VI_DEBUG("recv_buf[%02d] = %02x \n", i, recv_buf[i]);
@@ -607,7 +681,7 @@ int main(int argc, char **argv)
                         VI_DEBUG("check_code = %02x\n", check_code);
                         if(check_code == recv_buf[cmd_len - 1])
                         {//校验正确
-                            VI_DEBUG("recv data check ok\n");
+                            //VI_DEBUG("recv data check ok\n");
                             if(memcmp(recv_buf, client_heart_beat, HEART_BEAT_SIZE) == 0)
                             {//心跳数据
                                 VI_DEBUG("it is heart beat\n");
@@ -619,22 +693,29 @@ int main(int argc, char **argv)
                                 ret = parse_cmd(recv_buf, send_buf);
                                 if(1 == ret)
                                 {//需要回复数据的
-                                    VI_DEBUG("many bytes need send\n");
+                                    //VI_DEBUG("many bytes need send\n");
                                     ack_len = CMD_PACK_DATA_OFFSET + (send_buf[CMD_PACK_DATA_LENGTH_OFFSET] << 8) + 
                                               (send_buf[CMD_PACK_DATA_LENGTH_OFFSET + 1]) + 1;
-                                    VI_DEBUG("ack_len = %d\n", ack_len);
+                                    //VI_DEBUG("ack_len = %d\n", ack_len);
                                     send_buf[ack_len - 1] = calc_check_code(send_buf, ack_len - 1 );
-                                    for(i = 0; i < ack_len; i++)
-                                        VI_DEBUG("send_buf[%02d] = %02X\n", i, send_buf[i]);
+                                    gettimeofday(&tv2, NULL);
                                     sendto(cmd_socketfd, send_buf, ack_len, 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
+                                    gettimeofday(&tv3, NULL);
+                                    printf("tv1 = %ld\n", tv1.tv_sec*1000 + tv1.tv_usec/1000);
+                                    printf("tv2 = %ld\n", tv2.tv_sec*1000 + tv2.tv_usec/1000);
+                                    printf("tv3 = %ld\n", tv3.tv_sec*1000 + tv3.tv_usec/1000);
+                                    printf("tv2 - tv1 = %d\n", ((tv2.tv_sec*1000 + tv2.tv_usec/1000) - (tv1.tv_sec*1000 + tv1.tv_usec/1000)));
+                                    printf("tv3 - tv2 = %d\n", ((tv3.tv_sec*1000 + tv3.tv_usec/1000) - (tv2.tv_sec*1000 + tv2.tv_usec/1000)));
+                                    //for(i = 0; i < ack_len; i++)
+                                    //    VI_DEBUG("send_buf[%02d] = %02X\n", i, send_buf[i]);
                                 }
                                 else if(0 == ret)
                                 {//不需要回复数据的，回复执行ok的
                                     server_ok[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
                                     server_ok[sizeof(server_ok) - 1] = calc_check_code(server_ok, sizeof(server_ok) - 1);
                                     sendto(cmd_socketfd, server_ok, sizeof(server_ok), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                                    for(i = 0; i < sizeof(server_ok); i++)
-                                        VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
+                                    //for(i = 0; i < sizeof(server_ok); i++)
+                                    //    VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
                                 }
                                 else 
                                 {//各种错误的

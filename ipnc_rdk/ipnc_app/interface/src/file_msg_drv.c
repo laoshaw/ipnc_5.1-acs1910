@@ -284,8 +284,11 @@ int fSetIp(struct in_addr ip)
 {
 	SysInfo *pSysInfo = (SysInfo *)pShareMem;
 	if(pSysInfo == NULL)
+    {
+        printf("==========================\n============================\n");
 		return -1;
-	memcpy(&pSysInfo->lan_config.net.ip, &ip, sizeof(ip));
+    }
+    memcpy(&pSysInfo->lan_config.net.ip, &ip, sizeof(ip));
 	return SetSysInfoImmediately();
 }
 /**
