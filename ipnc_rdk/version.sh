@@ -18,6 +18,6 @@ else
 fi
 rm -f config.git-hash
 
-cat version.h.template | sed "s/\$FULL_VERSION/$GIT_VERSION/g" > version.h
+cat version.h.template | sed "s/\$FULL_VERSION/$GIT_VERSION/g" > ipnc_app/cmd_server/inc/version.h
 
 echo "Generated version.h"
