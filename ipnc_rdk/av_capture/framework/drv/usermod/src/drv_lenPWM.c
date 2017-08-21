@@ -131,7 +131,7 @@ static int PWM_set_p1out(int fd, int p1out)
 static int PWM_start(int fd)
 {
     int retVal = 0;
-    retVal = ioctl(fd_pwm0, PWMIOC_START, 0);
+    retVal = ioctl(fd, PWMIOC_START, 0);
     if(retVal < 0)
     {
         perror("Start pwm error\n");
@@ -225,6 +225,8 @@ int PWM_FOCUS_control(VF_LEN_CONTROL_E dir, unsigned char speed)
 int PWM_ZOOM_control(VF_LEN_CONTROL_E dir, unsigned char speed)
 {
     int ret = 0;
+    unsigned int value32;
+
     if(dir == VF_CONTROL_ZOOM_WIDE)
     {
         VI_DEBUG("zoom wide control\n");
@@ -469,33 +471,63 @@ static void ADC_control_thread()
         {
             if(adc_data[FOCUS_WIPPER_ADC_CH] > FOCUS_FAR_LIMIT)
             {
-                DRV_gpioClr(FOCUS_A_IO);
+                //DRV_gpioClr(FOCUS_A_IO);
+                //flag_focus_far_limit = 1;
                 //VI_DEBUG("FOCUS_FAR_LIMIT\n");
+            }
+            else 
+            {
+                flag_focus_far_limit = 0;
             }
             if(adc_data[FOCUS_WIPPER_ADC_CH] < FOCUS_NEAR_LIMIT)
             {
-                DRV_gpioClr(FOCUS_B_IO);
+                //DRV_gpioClr(FOCUS_B_IO);
+                //flag_focus_near_limit = 1;
                 //VI_DEBUG("FOCUS_NEAR_LIMIT\n");
+            }
+            else 
+            {
+                flag_focus_near_limit = 0;
             }
             if(adc_data[ZOOM_WIPPER_ADC_CH] > ZOOM_WIDE_LIMIT)
             {
-                DRV_gpioClr(ZOOM_A_IO);
+                //DRV_gpioClr(ZOOM_A_IO);
+                //flag_zoom_wide_limit = 1;
                 //VI_DEBUG("ZOOM_WIDE_LIMIT\n");
+            }
+            else 
+            {
+                flag_zoom_wide_limit = 0;
             }
             if(adc_data[ZOOM_WIPPER_ADC_CH] < ZOOM_TELE_LIMIT)
             {
-                DRV_gpioClr(ZOOM_B_IO);
+                //DRV_gpioClr(ZOOM_B_IO);
+                //flag_zoom_tele_limit = 1;
                 //VI_DEBUG("ZOOM_TELE_LIMIT\n");
+            }
+            else 
+            {
+                flag_zoom_tele_limit = 0;
             }
             if(adc_data[IRIS_WIPPER_ADC_CH] > IRIS_LARGE_LIMIT)
             {
-                DRV_gpioClr(IRIS_A_IO);
+                //DRV_gpioClr(IRIS_A_IO);
+                //flag_iris_large_limit = 1;
                 //VI_DEBUG("IRIS_LARGE_LIMIT\n");
+            }
+            else 
+            {
+                flag_iris_large_limit = 0;
             }
             if(adc_data[IRIS_WIPPER_ADC_CH] < IRIS_SMALL_LIMIT)
             {
-                DRV_gpioClr(IRIS_B_IO);
+                //DRV_gpioClr(IRIS_B_IO);
+                //flag_iris_small_limit = 1;
                 //VI_DEBUG("IRIS_SMALL_LIMIT\n");
+            }
+            else 
+            {
+                flag_iris_small_limit = 0;
             }
         }
         usleep(5000);

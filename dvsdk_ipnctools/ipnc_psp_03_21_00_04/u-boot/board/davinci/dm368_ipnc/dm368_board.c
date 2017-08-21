@@ -39,6 +39,7 @@
 #define SYS_PERI_CLKCTL	*(volatile unsigned int *)0x01C40048
 #define PLL1_CKEN	*(volatile unsigned int *)0x01C40948
 #define PINMUX4	*(volatile unsigned int *)0x01C40010
+#define PINMUX1 *(volatile unsigned int *)0x01C40004
 extern int timer_init(void);
 extern int eth_hw_init(void);
 
@@ -53,9 +54,11 @@ void EnableClock0Output()
 	/* Enable output CLKOUT0 */
 	SYS_PERI_CLKCTL &= ~1;
 	/* PLL1 enable output OBSCLK for CLKOUT0 */
-	PLL1_CKEN |= 0x2;
+	//PLL1_CKEN |= 0x2;
 	/* Set GPIO37 function to CLKOUT0 */
-	PINMUX4 |= 0x00300000;
+	//PINMUX4 |= 0x00300000;
+	
+	PINMUX1 |= 0x00000800;
 }
 
 /*******************************************

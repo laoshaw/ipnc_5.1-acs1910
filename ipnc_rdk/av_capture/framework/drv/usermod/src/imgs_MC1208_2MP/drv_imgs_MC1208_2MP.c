@@ -155,6 +155,38 @@ static int DRV_UpdateVIMGenInfoFile()
     return OSA_SOK; 
     
 }
+/***********************************************************
+\brief  设置相机ID
+       
+\param  pVF_CAMERA_ID_S:参数数据结构 
+
+\return 0:成功 其它:失败
+***********************************************************/
+int DRV_SetCameraID(pVF_CAMERA_ID_S pCameraID)
+{
+    int ret = 0;
+    FILE *fp;
+    
+
+    VI_DEBUG("Camera id = %d\n", pCameraID->id);
+    VI_DEBUG("Camera name = %s\n", pCameraID->name);
+    memcpy(&gACS1910_saved_cfg.SYSCfg.camera_id, pCameraID, sizeof(VF_CAMERA_ID_S));
+    memcpy(&gACS1910_current_cfg.SYSCfg.camera_id, pCameraID, sizeof(VF_CAMERA_ID_S));
+    fp = fopen(ACS1910_SAVED_CFG, "wb");
+    if(fp == NULL)
+    {
+        VI_DEBUG(":");
+        perror("open ACS1910_SAVED_CFG\n");
+    }
+    ret = fwrite(&gACS1910_saved_cfg, 1, sizeof(tACS1910Cfg), fp);
+    if(ret != sizeof(tACS1910Cfg))
+    {
+        perror("save saved cfg error\n");
+        return OSA_EFAIL;
+    }
+    fclose(fp);
+    return 0; 
+}
 
 /***********************************************************
 \brief 获取VIM当前的设置参数
@@ -926,6 +958,15 @@ void VIM_control_thread()
                 msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 //for(i = 0; i < sizeof(tACS1910ISPNormalCfg); i++)
                 //    VI_DEBUG("vim_control_snd_msg.msg_data[%02d] = %02x\n", i, vim_control_snd_msg.msg_data[i]);
+                break;
+            case IP_CMD_SYS_GET_SYS_CFG:
+                VI_DEBUG("get sys cfg!\n");
+                memcpy(vim_control_snd_msg.msg_data, &(gACS1910_current_cfg.SYSCfg), sizeof(tACS1910SYSCfg));
+                msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
+                break;
+            case IP_CMD_SYS_SET_CAMERA_ID:
+                VI_DEBUG("set camera id!\n");
+                DRV_SetCameraID((pVF_CAMERA_ID_S)vim_control_rcv_msg.msg_data);
                 break;
             default:
                 break;

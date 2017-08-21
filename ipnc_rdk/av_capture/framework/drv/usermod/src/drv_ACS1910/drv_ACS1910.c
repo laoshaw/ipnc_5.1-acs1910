@@ -88,10 +88,18 @@ tACS1910Cfg gACS1910_default_cfg = {
             VF_FPS25
         }//ISPNormalCfg
     },//ISPAllCfg
-    {
-        0
+    {//SYSCfg
+        {//camera id
+            1,
+            DEFAULT_CAMERA_NAME
+        },
+        {//osd_onoff
+            0,
+            0,
+            0
+        }
     },
-    {
+    {//LenCfg
         5,
         5,
         5
@@ -147,14 +155,17 @@ static void acs1910_gpio_init()
     DRV_gpioClr(FOCUS_A_IO);//Disable FOCUS PWM Out
     DRV_gpioSetMode(FOCUS_B_IO, DRV_GPIO_DIR_OUT);
     DRV_gpioClr(FOCUS_B_IO);//Disable FOCUS PWM Out
+    
     DRV_gpioSetMode(ZOOM_A_IO, DRV_GPIO_DIR_OUT);
     DRV_gpioClr(ZOOM_A_IO);//Disable ZOOM PWM Out
     DRV_gpioSetMode(ZOOM_B_IO, DRV_GPIO_DIR_OUT);
     DRV_gpioClr(ZOOM_B_IO);//Disable ZOOM PWM Out
+
     DRV_gpioSetMode(IRIS_A_IO, DRV_GPIO_DIR_OUT);
     DRV_gpioClr(IRIS_A_IO);//Disable IRIS PWM Out
     DRV_gpioSetMode(IRIS_B_IO, DRV_GPIO_DIR_OUT);
     DRV_gpioClr(IRIS_B_IO);//Disable IRIS PWM Out
+
     DRV_gpioSetMode(IRCUT_A_IO, DRV_GPIO_DIR_OUT);
     DRV_gpioClr(IRCUT_A_IO);//Disable IRCUT PWM Out
     DRV_gpioSetMode(IRCUT_B_IO, DRV_GPIO_DIR_OUT);
@@ -316,7 +327,7 @@ int DRV_ACS1910Init()
 
     acs1910_gpio_init();
 
-    //status = lenPWM_init();
+    status = lenPWM_init();
     if(status != OSA_SOK)
     {
         VI_DEBUG("lenPWM init error!\n");

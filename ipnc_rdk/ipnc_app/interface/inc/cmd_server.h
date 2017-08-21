@@ -51,8 +51,12 @@
 #define IP_CMD_SYS_SET_CAMERA_IP 0x20
 #define IP_CMD_SYS_SET_TIME 0x21
 #define IP_CMD_SYS_GET_TIME 0x22
-#define IP_CMD_SYS_GET_INFO 0x23
-#define IP_CMD_SYS_SET_INFO 0x24 //not for customer
+#define IP_CMD_SYS_SET_CAMERA_ID 0x23
+#define IP_CMD_SYS_SET_OSD 0x25 
+#define IP_CMD_SYS_GET_SYS_CFG 0x26
+
+#define IP_CMD_SYS_SET_NET 0xFC 
+#define IP_CMD_SYS_GET_NET 0xFB
 
 #define IP_CMD_LEN_CONTROL 0x36
 #define IP_CMD_LEN_SET_SAVE_SPEED 0x37
@@ -390,7 +394,32 @@ typedef struct VF_CAMERA_IP
 {
    struct in_addr ipaddr;
    struct in_addr netmask;
-}VF_CAMERA_IP_S, *pVF_CAMERA_IP_S;
+   struct in_addr gateway;
+   unsigned char MAC[6];
+}VF_CAMERA_NETINFO_S, *pVF_CAMERA_NETINFO_S;
+
+typedef struct VF_CAMERA_ID
+{
+    unsigned int id;
+    char name[41];
+}VF_CAMERA_ID_S, *pVF_CAMERA_ID_S;
+
+typedef struct VF_TIME_S
+{
+    unsigned char year;
+    unsigned char month;
+    unsigned char day;
+    unsigned char hour;
+    unsigned char minute;
+    unsigned char second;
+}VF_TIME_S, *pVF_TIME_S;
+
+typedef struct VF_OSD_ONOFF
+{
+    unsigned char time_onoff;
+    unsigned char id_onoff;
+    unsigned char name_onoff;
+}VF_OSD_ONOFF_S, *pVF_OSD_ONOFF_S;
 
 
 

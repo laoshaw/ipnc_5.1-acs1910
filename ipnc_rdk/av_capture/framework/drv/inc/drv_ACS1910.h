@@ -101,7 +101,7 @@ typedef struct
 #define ACS1910_DEFAULT_CFG "/mnt/nand/acs1910_default.cfg"
 #define ACS1910_SAVED_CFG "/mnt/nand/acs1910_saved.cfg"
 
-#define DEFAULT_EXPOSURE_TIME 9984
+#define DEFAULT_EXPOSURE_TIME 1000 
 
 #define DEFAULT_ROI_ON 1
 #define DEFAULT_ROI_OFF 0
@@ -134,6 +134,7 @@ typedef struct
 #define DEFAULT_SHARPNESS 50
 
 #define DEFAULT_IRCUT_TH 16
+#define DEFAULT_CAMERA_NAME "ACS1910_IP_C"
 
 typedef struct ACS1910_ISP_NORMAL_CFG{
     VF_AE_MODE_S AEMode;
@@ -157,7 +158,8 @@ typedef struct ACS1910_ISP_ALL_CFG{
 }tACS1910ISPAllCfg, *ptACS1910ISPAllCfg;
 
 typedef struct ACS1910_SYS_CFG{
-    unsigned char reserved;
+    VF_CAMERA_ID_S camera_id;
+    VF_OSD_ONOFF_S osd_onoff;
 }tACS1910SYSCfg, *ptACS1910SYSCfg;
 
 typedef struct ACS1910_LEN_CFG{

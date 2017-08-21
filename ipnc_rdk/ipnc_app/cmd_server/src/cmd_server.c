@@ -24,6 +24,7 @@ Copyright (c) 2017-2019 VIFOCUS
 #include <netinet/in.h>
 #include <string.h>
 #include <time.h>
+#include <net/if.h>
 #include <sys/time.h>
 
 #include "drv_ACS1910.h"
@@ -31,6 +32,8 @@ Copyright (c) 2017-2019 VIFOCUS
 #include "file_msg_drv.h"
 #include "sys_msg_drv.h"
 #include "sem_util.h"    
+
+int SYSTEM(char *arg);
 
 unsigned char client_id[CMD_PACK_HEADER_SIZE] = {CLIENT_ID_DATA}; //'VFU'0x01
 unsigned char client_heart_beat[HEART_BEAT_SIZE] = {CLIENT_ID_DATA, 0x00, 0x00, 0x00, 0x44};
@@ -45,24 +48,36 @@ static int len_cmd_msqid;
 static int len_ack_msqid;
 static int vim_cmd_msqid;
 static int vim_ack_msqid;
-static int sys_cmd_msqid;
-static int sys_ack_msqid; 
+//static int sys_cmd_msqid;
+//static int sys_ack_msqid; 
 static SysInfo acs1910_ipnc_sysinfo; 
 
-static int cmd_server_setip(pVF_CAMERA_IP_S camera_ip)
+static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
 {
     int ret = 0;
     FILE *fp;
     unsigned long magic_num = MAGIC_NUM;
     int i;
+    char syscmd[64];
     
-    acs1910_ipnc_sysinfo.lan_config.net.ip = camera_ip->ipaddr; 
-    acs1910_ipnc_sysinfo.lan_config.net.netmask = camera_ip->netmask; 
+    memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.ip), &(camera_ip->ipaddr), sizeof(struct in_addr)); 
+    memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.netmask), &(camera_ip->netmask), sizeof(struct in_addr)); 
+    memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.gateway), &(camera_ip->gateway), sizeof(struct in_addr)); 
+    if(mac == 1)
+        memcpy(acs1910_ipnc_sysinfo.lan_config.net.MAC, camera_ip->MAC, 6);
     VI_DEBUG("acs1910_ipnc_sysinfo.lan_config.net.Mac:");
     for(i = 0; i < 6; i++)
         printf("%02X ", acs1910_ipnc_sysinfo.lan_config.net.MAC[i]);
     printf("\n ");
 
+    VI_DEBUG("camera_ip.Mac:");
+    for(i = 0; i < 6; i++)
+        printf("%02X ", camera_ip->MAC[i]);
+    printf("\n ");
+
+
+    //sprintf(syscmd, "ifconfig eth0 hw ether %02X:%02X:%02X:%02X:%02X:%02X", acs1910_ipnc_sysinfo.lan_config.net.MAC[0] , acs1910_ipnc_sysinfo.lan_config.net.MAC[1], acs1910_ipnc_sysinfo.lan_config.net.MAC[2], acs1910_ipnc_sysinfo.lan_config.net.MAC[3], acs1910_ipnc_sysinfo.lan_config.net.MAC[4], acs1910_ipnc_sysinfo.lan_config.net.MAC[5]); 
+   // VI_DEBUG("syscmd = %s\n", syscmd);
 
     fp = fopen("/mnt/nand/sysenv.cfg", "wb");
     if(fp == NULL)
@@ -85,9 +100,66 @@ static int cmd_server_setip(pVF_CAMERA_IP_S camera_ip)
     }
     fclose(fp);
     //sleep(1);
-    //system("reboot");
+    SYSTEM("reboot\n");
     return ret;
 
+}
+
+int cmd_server_getmac(unsigned char *mac)
+{
+	struct ifreq ifr;
+	int skfd;
+    char *ifname = "eth0";
+
+	if ( (skfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
+		perror("socket error");
+		return -1;
+	}
+
+	strncpy(ifr.ifr_name, ifname, IFNAMSIZ);
+	if (ioctl(skfd, SIOCGIFHWADDR, &ifr) < 0) {
+		perror("net_get_hwaddr: ioctl SIOCGIFHWADDR");
+		close(skfd);
+		return -1;
+	}
+	close(skfd);
+
+	memcpy(mac, ifr.ifr_ifru.ifru_hwaddr.sa_data, IFHWADDRLEN);
+}	
+
+int cmd_server_settime(pVF_TIME_S ptime)
+{
+   char time_date[32];
+
+   struct tm t_tm;
+   struct timeval tv;
+   time_t timep;
+
+   t_tm.tm_sec = ptime->second;
+   t_tm.tm_min = ptime->minute;
+   t_tm.tm_hour = ptime->hour;
+   t_tm.tm_mday = ptime->day;
+   t_tm.tm_mon = ptime->month - 1;
+   t_tm.tm_year = ptime->year + 2000 - 1900;
+
+   if(ptime->month == 1 || ptime->month == 2)
+   {
+       ptime->month += 12;
+       ptime->year--;
+   }
+   t_tm.tm_wday = (ptime->day + 1 + 2*ptime->month + 3*(ptime->month + 1)/5 + ptime->year + ptime->year/4 - ptime->year/100 + ptime->year/400) % 7;
+   VI_DEBUG("t_tm.tm_wday = %d\n", t_tm.tm_wday);
+
+   timep = mktime(&t_tm);
+   tv.tv_sec = timep;
+   tv.tv_usec = 0;
+   
+   if(settimeofday(&tv, (struct timezone *)0) < 0)
+   {
+       perror("settimeofday");
+       return -1;
+   }
+   return 0;
 }
 
 void cmd_server_stop(void)
@@ -135,10 +207,10 @@ static int cmd_server_init(void)
     ret = fread(&magic_num, 1, sizeof(magic_num), fp);
     VI_DEBUG("ret = %d magic_num = %x\n", ret , magic_num);
     ret = fread(&acs1910_ipnc_sysinfo, 1, sizeof(acs1910_ipnc_sysinfo), fp);
-    ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.ip);
-    VI_DEBUG("ip_a = %s\n", ip_a);
-    ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.netmask);
-    VI_DEBUG("ip_a = %s\n", ip_a);
+    //ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.ip);
+    //VI_DEBUG("ip_a = %s\n", ip_a);
+    //ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.netmask);
+    //VI_DEBUG("ip_a = %s\n", ip_a);
     fclose(fp);
 
     ret = 0;
@@ -158,13 +230,13 @@ static int cmd_server_init(void)
         return -1;
     VI_DEBUG("Get vim_ack_msqid %d done!\n", vim_ack_msqid);
 
-    if((sys_cmd_msqid = cmd_server_msg_init((key_t)SYS_CMD_MSG_KEY)) < 0)
-        return -1;
-    VI_DEBUG("Get sys_cmd_msqid %d done!\n", sys_cmd_msqid);
-
-    if((sys_ack_msqid = cmd_server_msg_init((key_t)SYS_ACK_MSG_KEY)) < 0)
-        return -1;
-    VI_DEBUG("Get sys_ack_msqid %d done!\n", sys_ack_msqid);
+//    if((sys_cmd_msqid = cmd_server_msg_init((key_t)SYS_CMD_MSG_KEY)) < 0)
+//        return -1;
+//    VI_DEBUG("Get sys_cmd_msqid %d done!\n", sys_cmd_msqid);
+//
+//    if((sys_ack_msqid = cmd_server_msg_init((key_t)SYS_ACK_MSG_KEY)) < 0)
+//        return -1;
+//    VI_DEBUG("Get sys_ack_msqid %d done!\n", sys_ack_msqid);
 
     VI_DEBUG("Intialize msg in cmd_server done!\n\n");
 
@@ -208,7 +280,8 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     int ret = 0;
     tCmdServerMsg cmd_server_snd_msg;
     tCmdServerMsg cmd_server_rcv_msg;
-    VF_CAMERA_IP_S camera_ip_s;
+    VF_CAMERA_NETINFO_S camera_ip_s;
+    VF_TIME_S camera_time_s;
     int data_len = 0;
     int send_len = 0;
     int i;
@@ -391,10 +464,10 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             }
             else 
             {
-                for(i = 0; i < data_len; i++)
-                {
-                    VI_DEBUG("cmd_server_snd_msg.msg_data[%02d]: %02x\n", i, cmd_server_snd_msg.msg_data[i]);
-                }
+//                for(i = 0; i < data_len; i++)
+//                {
+//                    VI_DEBUG("cmd_server_snd_msg.msg_data[%02d]: %02x\n", i, cmd_server_snd_msg.msg_data[i]);
+//                }
                 msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
             }
             break;
@@ -515,16 +588,129 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             }
             break;
         case IP_CMD_SYS_SET_CAMERA_IP:
-            memcpy(&camera_ip_s, &recv[CMD_PACK_DATA_OFFSET], data_len);
-            VI_DEBUG("camera_ip_s.ipaddr = %x\n", camera_ip_s.ipaddr);
-            VI_DEBUG("camera_ip_s.netmask = %x\n", camera_ip_s.netmask);
-            ip_a = inet_ntoa(camera_ip_s.ipaddr);
-            VI_DEBUG("ipaddr = %s\n", ip_a);
-            ip_a = inet_ntoa(camera_ip_s.netmask);
-            VI_DEBUG("ipaddr = %s\n", ip_a);
-            ret = cmd_server_setip(&camera_ip_s);
+            if(data_len != sizeof(camera_ip_s))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            {
+                memcpy(&camera_ip_s, &recv[CMD_PACK_DATA_OFFSET], data_len);
+                VI_DEBUG("camera_ip_s.ipaddr = %x\n", camera_ip_s.ipaddr);
+                VI_DEBUG("camera_ip_s.netmask = %x\n", camera_ip_s.netmask);
+                VI_DEBUG("camera_ip_s.gateway = %x\n", camera_ip_s.gateway);
+                ip_a = inet_ntoa(camera_ip_s.ipaddr);
+                VI_DEBUG("ipaddr = %s\n", ip_a);
+                ip_a = inet_ntoa(camera_ip_s.netmask);
+                VI_DEBUG("ipaddr = %s\n", ip_a);
+                ret = cmd_server_setip(&camera_ip_s, 0);
+            }
+            break;
+        case IP_CMD_SYS_SET_NET:
+            if(data_len != sizeof(camera_ip_s))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                memcpy(&camera_ip_s, &recv[CMD_PACK_DATA_OFFSET], data_len);
+                VI_DEBUG("camera_ip_s.ipaddr = %x\n", camera_ip_s.ipaddr);
+                VI_DEBUG("camera_ip_s.netmask = %x\n", camera_ip_s.netmask);
+                VI_DEBUG("camera_ip_s.gateway = %x\n", camera_ip_s.gateway);
+                ip_a = inet_ntoa(camera_ip_s.ipaddr);
+                VI_DEBUG("ipaddr = %s\n", ip_a);
+                ip_a = inet_ntoa(camera_ip_s.netmask);
+                VI_DEBUG("ipaddr = %s\n", ip_a);
+                ret = cmd_server_setip(&camera_ip_s, 1);
+            }
+            break;
+        case IP_CMD_SYS_GET_NET:
+            if(data_len != 0)
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                memcpy(&(camera_ip_s.ipaddr), &(acs1910_ipnc_sysinfo.lan_config.net.ip), sizeof(struct in_addr)); 
+                memcpy(&(camera_ip_s.netmask), &(acs1910_ipnc_sysinfo.lan_config.net.netmask), sizeof(struct in_addr)); 
+                memcpy(&(camera_ip_s.gateway), &(acs1910_ipnc_sysinfo.lan_config.net.gateway), sizeof(struct in_addr)); 
+                cmd_server_getmac(camera_ip_s.MAC);
+                ip_a = inet_ntoa(camera_ip_s.ipaddr);
+                VI_DEBUG("ipaddr = %s\n", ip_a);
+                ip_a = inet_ntoa(camera_ip_s.gateway);
+                VI_DEBUG("gateway = %s\n", ip_a);
+                send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(camera_ip_s) >> 8);
+                send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(camera_ip_s);
+                send[CMD_PACK_MSG_OFFSET] = IP_CMD_SYS_GET_NET;
+                VI_DEBUG("MSG : %02x\n", send[CMD_PACK_MSG_OFFSET]);
+                memcpy(&send[CMD_PACK_DATA_OFFSET], &camera_ip_s, sizeof(camera_ip_s));
+                VI_DEBUG("cmd have done\n");
+                ret = 1;
+            }
             break;
         case IP_CMD_SYS_SET_TIME:
+            VI_DEBUG("set time\n");
+            if(data_len != sizeof(VF_TIME_S))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                memcpy(&camera_time_s, &recv[CMD_PACK_DATA_OFFSET], sizeof(camera_time_s));
+                cmd_server_settime((pVF_TIME_S)&camera_time_s);
+            }
+            break;
+        case IP_CMD_SYS_SET_CAMERA_ID:
+            VI_DEBUG("set camera id\n");
+            if(data_len != sizeof(VF_CAMERA_ID_S))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
+            break;
+        case IP_CMD_SYS_SET_OSD:
+            VI_DEBUG("set osd\n");
+            break;
+        case IP_CMD_SYS_GET_SYS_CFG:
+            VI_DEBUG("get sys cfg\n");
+            if(data_len != 0)
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+                msgrcv(vim_ack_msqid, &cmd_server_rcv_msg, MSG_BUF_SIZE, 0, 0);
+                VI_DEBUG("recv from vim control thread\n");
+                if(cmd_server_rcv_msg.msg_type == IP_CMD_ISP_GET_ERROR)
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(unsigned int) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(unsigned int);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_SYS_GET_SYS_CFG;
+                    send[CMD_PACK_MSG_OFFSET - 1] = 0xFF;
+                    send[CMD_PACK_DATA_OFFSET] = IP_CMD_DATA_ERROR;
+                    send[CMD_PACK_DATA_OFFSET + 1] = IP_CMD_DATA_ERROR >> 8;
+                    send[CMD_PACK_DATA_OFFSET + 2] = IP_CMD_DATA_ERROR >> 16;
+                    send[CMD_PACK_DATA_OFFSET + 3] = IP_CMD_DATA_ERROR >> 24;
+                }
+                else
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(tACS1910SYSCfg) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(tACS1910SYSCfg);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_SYS_GET_SYS_CFG;
+                    VI_DEBUG("MSG : %02x\n", send[CMD_PACK_MSG_OFFSET]);
+                    memcpy(&send[CMD_PACK_DATA_OFFSET], &cmd_server_rcv_msg.msg_data, sizeof(tACS1910SYSCfg));
+                    VI_DEBUG("cmd have done\n");
+                }
+                ret = 1;
+            }
             break;
         case IP_CMD_LEN_CONTROL:
             if(data_len != sizeof(VF_LEN_CONTROL_S))
