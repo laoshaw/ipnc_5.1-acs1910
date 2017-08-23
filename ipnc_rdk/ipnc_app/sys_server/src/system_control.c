@@ -361,6 +361,7 @@ int StartStaticNetwork(SysInfo *pSysInfo)
         //	return -1;
     	//}
         sprintf(syscmd, "ifconfig eth0 hw ether %02X:%02X:%02X:%02X:%02X:%02X\n", pSysInfo->lan_config.net.MAC[0] , pSysInfo->lan_config.net.MAC[1], pSysInfo->lan_config.net.MAC[2], pSysInfo->lan_config.net.MAC[3], pSysInfo->lan_config.net.MAC[4], pSysInfo->lan_config.net.MAC[5]); 
+
         SYSTEM(syscmd);
     	SYSTEM("ifconfig eth0 up\n");
     	if(net_set_ifaddr(ETH_NAME, pSysInfo->lan_config.net.ip.s_addr) < 0){

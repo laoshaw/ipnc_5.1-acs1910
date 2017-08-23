@@ -4,7 +4,7 @@
 @version  V1.0
 @date     2016-12-01
 @author   pamsimochen
-Copyright (c) 2016-2016 VIFOCUS
+Copyright (c) 2017-2017 VIFOCUS
 ***********************************************************/
 
 #include <stdio.h>

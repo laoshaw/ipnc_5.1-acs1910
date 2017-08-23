@@ -127,41 +127,6 @@ int cmd_server_getmac(unsigned char *mac)
 	memcpy(mac, ifr.ifr_ifru.ifru_hwaddr.sa_data, IFHWADDRLEN);
 }	
 
-int cmd_server_settime(pVF_TIME_S ptime)
-{
-   char time_date[32];
-
-   struct tm t_tm;
-   struct timeval tv;
-   time_t timep;
-
-   t_tm.tm_sec = ptime->second;
-   t_tm.tm_min = ptime->minute;
-   t_tm.tm_hour = ptime->hour;
-   t_tm.tm_mday = ptime->day;
-   t_tm.tm_mon = ptime->month - 1;
-   t_tm.tm_year = ptime->year + 2000 - 1900;
-
-   if(ptime->month == 1 || ptime->month == 2)
-   {
-       ptime->month += 12;
-       ptime->year--;
-   }
-   t_tm.tm_wday = (ptime->day + 1 + 2*ptime->month + 3*(ptime->month + 1)/5 + ptime->year + ptime->year/4 - ptime->year/100 + ptime->year/400) % 7;
-   VI_DEBUG("t_tm.tm_wday = %d\n", t_tm.tm_wday);
-
-   timep = mktime(&t_tm);
-   tv.tv_sec = timep;
-   tv.tv_usec = 0;
-   
-   if(settimeofday(&tv, (struct timezone *)0) < 0)
-   {
-       perror("settimeofday");
-       return -1;
-   }
-   return 0;
-}
-
 void cmd_server_stop(void)
 {
     VI_DEBUG("cmd_server_stop now!\n");
@@ -291,7 +256,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     VI_DEBUG("cmd msg type = %02x\n", cmd_server_snd_msg.msg_type);
 
     data_len = (recv[CMD_PACK_DATA_LENGTH_OFFSET] << 8) | recv[CMD_PACK_DATA_LENGTH_OFFSET+1];
-    VI_DEBUG("data_len = %d\n", data_len);
+    //VI_DEBUG("data_len = %d\n", data_len);
     
     memcpy(cmd_server_snd_msg.msg_data, &recv[CMD_PACK_DATA_OFFSET], data_len);
     //for(i = 0; i < data_len; i++)
@@ -658,8 +623,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             }
             else 
             {
-                memcpy(&camera_time_s, &recv[CMD_PACK_DATA_OFFSET], sizeof(camera_time_s));
-                cmd_server_settime((pVF_TIME_S)&camera_time_s);
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
             }
             break;
         case IP_CMD_SYS_SET_CAMERA_ID:
@@ -846,9 +810,9 @@ int main(int argc, char **argv)
                 }
                 else
                 {//接收到数据
-                    gettimeofday(&tv1, NULL);
+                    //gettimeofday(&tv1, NULL);
                     client_ip= inet_ntoa(client_addr.sin_addr.s_addr);
-                    VI_DEBUG("recv %d data %s\n",recv_count, client_ip);
+                    //VI_DEBUG("recv %d data %s\n",recv_count, client_ip);
                     if(memcmp(recv_buf, client_id, 4) != 0)
                     {
                         printf("not my data\n");
@@ -859,12 +823,12 @@ int main(int argc, char **argv)
                         //VI_DEBUG("cmd data length is %d\n", cmd_data_len);
                         cmd_len = cmd_data_len + CMD_PACK_HEADER_SIZE + CMD_PACK_MSG_SIZE + CMD_PACK_DATA_LENGTH_SIZE + 1; 
                         //VI_DEBUG("cmd length is %d\n", cmd_len);
-                        for(i = 0; i < cmd_len; i++)
-                        {
-                            VI_DEBUG("recv_buf[%02d] = %02x \n", i, recv_buf[i]);
-                        }
+                        //for(i = 0; i < cmd_len; i++)
+                        //{
+                        //    VI_DEBUG("recv_buf[%02d] = %02x \n", i, recv_buf[i]);
+                        //}
                         check_code = calc_check_code(recv_buf, (cmd_len-1));
-                        VI_DEBUG("check_code = %02x\n", check_code);
+                        //VI_DEBUG("check_code = %02x\n", check_code);
                         if(check_code == recv_buf[cmd_len - 1])
                         {//校验正确
                             //VI_DEBUG("recv data check ok\n");
@@ -884,14 +848,14 @@ int main(int argc, char **argv)
                                               (send_buf[CMD_PACK_DATA_LENGTH_OFFSET + 1]) + 1;
                                     //VI_DEBUG("ack_len = %d\n", ack_len);
                                     send_buf[ack_len - 1] = calc_check_code(send_buf, ack_len - 1 );
-                                    gettimeofday(&tv2, NULL);
+                                    //gettimeofday(&tv2, NULL);
                                     sendto(cmd_socketfd, send_buf, ack_len, 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                                    gettimeofday(&tv3, NULL);
-                                    printf("tv1 = %ld\n", tv1.tv_sec*1000 + tv1.tv_usec/1000);
-                                    printf("tv2 = %ld\n", tv2.tv_sec*1000 + tv2.tv_usec/1000);
-                                    printf("tv3 = %ld\n", tv3.tv_sec*1000 + tv3.tv_usec/1000);
-                                    printf("tv2 - tv1 = %d\n", ((tv2.tv_sec*1000 + tv2.tv_usec/1000) - (tv1.tv_sec*1000 + tv1.tv_usec/1000)));
-                                    printf("tv3 - tv2 = %d\n", ((tv3.tv_sec*1000 + tv3.tv_usec/1000) - (tv2.tv_sec*1000 + tv2.tv_usec/1000)));
+                                    //gettimeofday(&tv3, NULL);
+                                    //printf("tv1 = %ld\n", tv1.tv_sec*1000 + tv1.tv_usec/1000);
+                                    //printf("tv2 = %ld\n", tv2.tv_sec*1000 + tv2.tv_usec/1000);
+                                    //printf("tv3 = %ld\n", tv3.tv_sec*1000 + tv3.tv_usec/1000);
+                                    //printf("tv2 - tv1 = %d\n", ((tv2.tv_sec*1000 + tv2.tv_usec/1000) - (tv1.tv_sec*1000 + tv1.tv_usec/1000)));
+                                    //printf("tv3 - tv2 = %d\n", ((tv3.tv_sec*1000 + tv3.tv_usec/1000) - (tv2.tv_sec*1000 + tv2.tv_usec/1000)));
                                     //for(i = 0; i < ack_len; i++)
                                     //    VI_DEBUG("send_buf[%02d] = %02X\n", i, send_buf[i]);
                                 }

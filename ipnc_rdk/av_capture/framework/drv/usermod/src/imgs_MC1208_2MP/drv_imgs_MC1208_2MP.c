@@ -10,6 +10,7 @@
 #include <sys/msg.h>
 #include <cmd_server.h>
 #include "drv_ACS1910.h"
+#include "drv_rtc.h"
 #include <linux/spi/spidev.h>
 
 DRV_ImgsObj gDRV_imgsObj;
@@ -155,6 +156,54 @@ static int DRV_UpdateVIMGenInfoFile()
     return OSA_SOK; 
     
 }
+
+int Set_SysTime(pVF_TIME_S ptime)
+{
+   char time_date[32];
+
+   struct tm t_tm;
+   struct timeval tv;
+   time_t timep;
+
+   t_tm.tm_sec = ptime->second;
+   t_tm.tm_min = ptime->minute;
+   t_tm.tm_hour = ptime->hour;
+   t_tm.tm_mday = ptime->day;
+   t_tm.tm_mon = ptime->month - 1;
+   t_tm.tm_year = ptime->year + 2000 - 1900;
+
+   if(ptime->month == 1 || ptime->month == 2)
+   {
+       ptime->month += 12;
+       ptime->year--;
+   }
+   t_tm.tm_wday = (ptime->day + 1 + 2*ptime->month + 3*(ptime->month + 1)/5 + ptime->year + ptime->year/4 - ptime->year/100 + ptime->year/400) % 7;
+   VI_DEBUG("t_tm.tm_wday = %d\n", t_tm.tm_wday);
+
+   timep = mktime(&t_tm);
+   tv.tv_sec = timep;
+   tv.tv_usec = 0;
+   
+   if(settimeofday(&tv, (struct timezone *)0) < 0)
+   {
+       perror("settimeofday");
+       return -1;
+   }
+   return 0;
+}
+
+/***********************************************************
+\brief  设置相机时间，设置系统时间以及ＲＴＣ的时间
+       
+\param  pVF_TIME_S:参数数据结构 
+
+\return 0:成功 其它:失败
+***********************************************************/
+int DRV_SetTime(pVF_TIME_S ptime)
+{
+    Set_SysTime(ptime);
+    RTC_SetDate(ptime);
+}
 /***********************************************************
 \brief  设置相机ID
        
@@ -284,7 +333,7 @@ static int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
     {
         OSA_ERROR("VIM GetETGain error = %d\n", ret);
     }
-    VI_DEBUG("VIM Shutter = %d, VIM Gain = %x %d.%d\n", pETGain->etus, pETGain->gainValue,  (pETGain->gainValue >> 6), (pETGain->gainValue & 0x3f));
+    VI_DEBUG("VIM Shutter = %d, VIM Gain = 0x%x %d.%d\n", pETGain->etus, pETGain->gainValue,  (pETGain->gainValue >> 6), (pETGain->gainValue & 0x3f));
     return ret;
 }
 
@@ -353,10 +402,10 @@ static int DRV_SetVIMAEMode(pVF_AE_MODE_S pAEMode)
     VIMAEMode.MaxDGain = pAEMode->MaxGain;
     VIMAEMode.DGainDeci = pAEMode->GainDeci;
     VI_DEBUG("AE_Shutter_Mode= %d\n", VIMAEMode.AE_Shutter_Mode);
-    VI_DEBUG("AE_MaxET_Mode = %d\n", VIMAEMode.AE_MaxET_Mode);
+    //VI_DEBUG("AE_MaxET_Mode = %d\n", VIMAEMode.AE_MaxET_Mode);
     VI_DEBUG("Exposuretime = %d\n", VIMAEMode.Exposuretime);
     VI_DEBUG("DGain = %d\n", VIMAEMode.DGain);
-    VI_DEBUG("MaxDGain = %d\n", VIMAEMode.MaxDGain);
+    //VI_DEBUG("MaxDGain = %d\n", VIMAEMode.MaxDGain);
     VI_DEBUG("DGainDeci = %d\n", VIMAEMode.DGainDeci);
     ret = VIM_ISP_SetAEMode(VIMAEMode);
     if(ret != VIM_SUCCEED)
@@ -406,14 +455,26 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
 //      DRV_FPGASPIRead(0x23, &data);
 //      DRV_FPGASPIRead(0x24, &data);
     
-      DRV_FPGASPIRead(ROI_0_X_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI_0_Y_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI_0_WIDTH_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI_0_HEIGHT_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI0_X_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI0_Y_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI0_WIDTH_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI0_HEIGHT_FPGA_REG_ADDR, &data);
 
-    //DRV_FPGASPIRead(37, &data);
-      DRV_FPGASPIRead(ROI_0_HISTOGRAM_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(113, &data);
+      DRV_FPGASPIRead(ROI1_X_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI1_Y_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI1_WIDTH_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI1_HEIGHT_FPGA_REG_ADDR, &data);
+
+      DRV_FPGASPIRead(ROI2_X_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI2_Y_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI2_WIDTH_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI2_HEIGHT_FPGA_REG_ADDR, &data);
+
+    //DRV_FPGASPIRead(37,&data);
+      DRV_FPGASPIRead(ROI0_HISTOGRAM_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI1_HISTOGRAM_FPGA_REG_ADDR, &data);
+      DRV_FPGASPIRead(ROI2_HISTOGRAM_FPGA_REG_ADDR, &data);
+        VI_DEBUG("sizeof(VF_AE_MODE_S) = %d\n", sizeof(VF_AE_MODE_S));
     //DRV_FPGASPIRead(120, &data);
 
 #if 0
@@ -533,6 +594,21 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
     return ret;
 }
 
+static int DRV_SetVIMFlipMirror(VF_FLIP_MIRROR_MODE_E FlipMirrorMode)
+{
+    int ret;
+
+    ret = VIM_ISP_SetFlipMirror((FLIP_MIRROR_MODE_E)FlipMirrorMode);
+    if(ret != VIM_SUCCEED)
+    {
+        OSA_ERROR("VIM Set FlipMirror error = %d\n", ret);
+        return ret;
+    }
+    gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.FlipMirrorMode = FlipMirrorMode;
+    VI_DEBUG("gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.FlipMirrorMode = %d\n ", gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.FlipMirrorMode);
+    return ret;
+}
+
 static int DRV_SetVIMAWBMode(pVF_AWB_MODE_S pAWBMode)
 {
     int ret = OSA_SOK;
@@ -575,20 +651,6 @@ static int DRV_SetVIMAWBMode(pVF_AWB_MODE_S pAWBMode)
 
     memcpy(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AWBMode), pAWBMode, sizeof(VF_AWB_MODE_S) );
     VI_DEBUG("gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AWBMode.Mode = %d\n ", gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AWBMode.Mode);
-    return ret;
-}
-
-static int DRV_SetVIMFlipMirror(VF_FLIP_MIRROR_MODE_E FlipMirrorMode)
-{
-    int ret;
-
-    ret = VIM_ISP_SetFlipMirror((FLIP_MIRROR_MODE_E)FlipMirrorMode);
-    if(ret != VIM_SUCCEED)
-    {
-        OSA_ERROR("VIM Set FlipMirror error = %d\n", ret);
-        return ret;
-    }
-    gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.FlipMirrorMode = FlipMirrorMode;
     return ret;
 }
 
@@ -849,6 +911,7 @@ void VIM_control_thread()
     tACS1910ISPNormalCfg acs1910_isp_normal_cfg;
     int ret, i;
     VF_AE_ETGain_S ETGain;
+    VIM_ATTRIBUTE_S vim_attr;
     unsigned int roi_no;
 
     VI_DEBUG("Hello VIM control thread!\n");
@@ -866,8 +929,8 @@ void VIM_control_thread()
                 break;
             case IP_CMD_ISP_GET_ETGAIN:
                 ret = DRV_GetVIMETGain((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data);
-                VI_DEBUG("ret = %d, vim_control_snd_msg: Shutter = %d, Gain = %d\n", 
-                        ret, ((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data)->etus, ((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data)->gainValue);
+                //VI_DEBUG("ret = %d, vim_control_snd_msg: Shutter = %d, Gain = %d\n", 
+                //       ret, ((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data)->etus, ((pVF_AE_ETGain_S)vim_control_snd_msg.msg_data)->gainValue);
                 if(ret != VIM_SUCCEED)
                     vim_control_snd_msg.msg_type = IP_CMD_ISP_GET_ERROR;
                 else 
@@ -883,6 +946,7 @@ void VIM_control_thread()
                 break;
             case IP_CMD_ISP_SET_AWB:
                 DRV_SetVIMAWBMode((pVF_AWB_MODE_S)vim_control_rcv_msg.msg_data);
+                break;
             case IP_CMD_ISP_SET_FLIP_MIRROR:
                 DRV_SetVIMFlipMirror(*(VF_FLIP_MIRROR_MODE_E *)vim_control_rcv_msg.msg_data);
                 break;
@@ -943,7 +1007,8 @@ void VIM_control_thread()
             case IP_CMD_ISP_GET_CURRENT_ISP_ATTR:
                 VI_DEBUG("get current isp attr!\n");
                 memcpy(&(acs1910_isp_normal_cfg), &(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg), sizeof(tACS1910ISPAllCfg));
-                if((acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_MANUAL) || (acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_ROI))
+                VI_DEBUG("acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode = %x\n", acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode);
+                if((acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_MANUAL) && (acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_ROI))
                 {
                     VI_DEBUG("it is auto mode, need to read shutter and gain on time \n");
                     DRV_GetVIMETGain(&ETGain);
@@ -952,8 +1017,13 @@ void VIM_control_thread()
                     //VI_DEBUG("acs1910_isp_normal_cfg.AEmode.Gain = %d\n", acs1910_isp_normal_cfg.AEMode.Gain);
                     acs1910_isp_normal_cfg.AEMode.GainDeci =(unsigned char)(((( ETGain.gainValue & 0x3f) + 5)/10));
                     //VI_DEBUG("acs1910_isp_normal_cfg.AEmode.GainDeci = %d\n", acs1910_isp_normal_cfg.AEMode.GainDeci);
-                 }
-                //VI_DEBUG("acs1910_isp_normal_cfg.AWBMode.Mode = %d\n", acs1910_isp_normal_cfg.AWBMode.Mode); 
+                }
+                else 
+                {
+                    VI_DEBUG("it is manual mode\n");
+                    DRV_GetVIMETGain(&ETGain);
+                }
+                VI_DEBUG("acs1910_isp_normal_cfg.AEMode.Exposuretime = %d\n", acs1910_isp_normal_cfg.AEMode.Exposuretime); 
                 memcpy(vim_control_snd_msg.msg_data, &(acs1910_isp_normal_cfg), sizeof(tACS1910ISPNormalCfg));
                 msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 //for(i = 0; i < sizeof(tACS1910ISPNormalCfg); i++)
@@ -963,6 +1033,10 @@ void VIM_control_thread()
                 VI_DEBUG("get sys cfg!\n");
                 memcpy(vim_control_snd_msg.msg_data, &(gACS1910_current_cfg.SYSCfg), sizeof(tACS1910SYSCfg));
                 msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
+                break;
+            case IP_CMD_SYS_SET_TIME:
+                VI_DEBUG("set time!\n");
+                DRV_SetTime((pVF_TIME_S)vim_control_rcv_msg.msg_data);
                 break;
             case IP_CMD_SYS_SET_CAMERA_ID:
                 VI_DEBUG("set camera id!\n");
@@ -1039,9 +1113,8 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
   Uint16 width, height;
     VIM_ATTRIBUTE_S VIM_CurAttr;
     VIM_GENERAL_INFO VIM_GenInfo;
-    DRV_SPICfg fpga_spi0_cfg;
-    unsigned char *spi0dev = "/dev/spidev0.0";
-
+    DRV_SPICfg fpga_spi_cfg;
+    unsigned char *fpga_spi_dev = "/dev/spidev0.0";
 
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
 
@@ -1091,20 +1164,28 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
         return OSA_EFAIL;
 
 
-    fpga_spi0_cfg.mode = SPI_MODE_0;
-    fpga_spi0_cfg.bits = 16;
-    fpga_spi0_cfg.speed = 1000000;
-    fpga_spi0_cfg.delay = 0;
-    status = DRV_SPIOpen(&gDRV_imgsObj.spiHndl, spi0dev, &fpga_spi0_cfg);
+    fpga_spi_cfg.mode = SPI_MODE_0;
+    fpga_spi_cfg.bits = 16;
+    fpga_spi_cfg.speed = 1000000;
+    fpga_spi_cfg.delay = 0;
+    status = DRV_SPIOpen(&gDRV_imgsObj.spiHndl, fpga_spi_dev, &fpga_spi_cfg);
     VI_DEBUG("gDRV_imgsObj.spiHndl.fd = %d\n", gDRV_imgsObj.spiHndl.fd);
     if(status < 0)
         return OSA_EFAIL;
 
     DRV_FPGASPIWrite(32, 1);
-//    DRV_FPGASPIWrite(ROI_0_X_FPGA_REG_ADDR, 0);
-//    DRV_FPGASPIWrite(ROI_0_Y_FPGA_REG_ADDR, 0);
-//    DRV_FPGASPIWrite(ROI_0_WIDTH_FPGA_REG_ADDR, 1919);
-//    DRV_FPGASPIWrite(ROI_0_HEIGHT_FPGA_REG_ADDR, 1079);
+    DRV_FPGASPIWrite(ROI0_X_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[0].x);
+    DRV_FPGASPIWrite(ROI0_Y_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[0].y);
+    DRV_FPGASPIWrite(ROI0_WIDTH_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[0].width);
+    DRV_FPGASPIWrite(ROI0_HEIGHT_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[0].height);
+    DRV_FPGASPIWrite(ROI1_X_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[1].x);
+    DRV_FPGASPIWrite(ROI1_Y_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[1].y);
+    DRV_FPGASPIWrite(ROI1_WIDTH_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[1].width);
+    DRV_FPGASPIWrite(ROI1_HEIGHT_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[1].height);
+    DRV_FPGASPIWrite(ROI2_X_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].x);
+    DRV_FPGASPIWrite(ROI2_Y_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].y);
+    DRV_FPGASPIWrite(ROI2_WIDTH_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].width);
+    DRV_FPGASPIWrite(ROI2_HEIGHT_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].height);
 
     return OSA_SOK;
 }

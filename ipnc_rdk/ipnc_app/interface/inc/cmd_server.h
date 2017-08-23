@@ -421,6 +421,13 @@ typedef struct VF_OSD_ONOFF
     unsigned char name_onoff;
 }VF_OSD_ONOFF_S, *pVF_OSD_ONOFF_S;
 
+typedef struct VF_SYS_VER
+{
+    char dsp_ver[32];
+    char fpga_ver[32];
+    char sensor_ver[64];
+}
+
 
 
 

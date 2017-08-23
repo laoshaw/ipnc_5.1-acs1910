@@ -28,6 +28,8 @@ Copyright (c) 2017-2019 VIFOCUS
 #include "drv_ACS1910.h"
 #include "cmd_server.h"
 #include "VIM_API_Release.h"
+#include "drv_rtc.h"
+
 #if 1
 tACS1910Cfg gACS1910_default_cfg = {
     {//ISPallCfg
@@ -309,6 +311,7 @@ int save_current_cfg()
 int DRV_ACS1910Init()
 {
     int status = OSA_SOK;
+    VF_TIME_S date_time;
 
     status = check_cfg_file();
     if(status != OSA_SOK)
@@ -333,6 +336,9 @@ int DRV_ACS1910Init()
         VI_DEBUG("lenPWM init error!\n");
         return status;
     }
+
+    RTC_GetDate(&date_time);
+    Set_SysTime(&date_time);
 
     return status;
 }
