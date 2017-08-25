@@ -27,7 +27,8 @@ static pthread_t VIM_control_thread_id;
 static int VIM_control_thread_run = 0;
 pthread_t VIM_roi_autoexp_thread_id;
 int VIM_roi_autoexp_thread_run = 0;
-sem_t roi_spi_sem;
+sem_t fpga_spi_sem;
+sem_t vim_sem;
 
 /***********************************************************
 \brief 获取VIM模组的版本信息 
@@ -35,7 +36,7 @@ sem_t roi_spi_sem;
 
 \return 0:成功 其它:失败
 ***********************************************************/
-static int DRV_FPGASPIWrite(unsigned short reg, unsigned short data)
+int DRV_FPGASPIWrite(unsigned short reg, unsigned short data)
 {
     int status = OSA_SOK;
 
@@ -45,11 +46,13 @@ static int DRV_FPGASPIWrite(unsigned short reg, unsigned short data)
     spi_data.reg_addr = reg & 0x7fff;
     spi_data.data = data;
 
+    sem_wait(&fpga_spi_sem);
     if(DRV_SPIWrite(&gDRV_imgsObj.spiHndl, &spi_data, sizeof(fpga_spi_data)) != sizeof(fpga_spi_data))
     {
         VI_DEBUG("DRV_SPIWrite FPGA error!\n");
         status = OSA_EFAIL;
     }
+    sem_post(&fpga_spi_sem);
     return status;
 }
 /***********************************************************
@@ -58,7 +61,7 @@ static int DRV_FPGASPIWrite(unsigned short reg, unsigned short data)
 
 \return 0:成功 其它:失败
 ***********************************************************/
-static int DRV_FPGASPIRead(unsigned short reg, unsigned short *data)
+int DRV_FPGASPIRead(unsigned short reg, unsigned short *data)
 {
     int status = OSA_SOK;
 
@@ -71,13 +74,18 @@ static int DRV_FPGASPIRead(unsigned short reg, unsigned short *data)
 
     VI_DEBUG("wr reg_addr: 0x%04X\n ", *(unsigned short *)&spi_data);
 
+    sem_wait(&fpga_spi_sem);
     if(DRV_SPIRead(&gDRV_imgsObj.spiHndl, &spi_data, sizeof(fpga_spi_data), &spi_read) != sizeof(fpga_spi_data))
     {
         VI_DEBUG("DRV_SPIRead FPGA error!\n");
-        return OSA_EFAIL;
+        status = OSA_EFAIL;
     }
-    VI_DEBUG("spi_read.data = %d\n", spi_read.data);
-    *data = spi_read.data;
+    else
+    {
+        //VI_DEBUG("spi_read.data = %d\n", spi_read.data);
+        *data = spi_read.data;
+    }
+    sem_post(&fpga_spi_sem);
 
     return status;
 }
@@ -218,7 +226,9 @@ int DRV_GetVIMAttr(pVIM_ATTRIBUTE_S pVIM_CurAttr)
    int i;
    UINT8 CurAttr[4096];
 
+    sem_wait(&vim_sem);
     status = VIM_GetCurrentAttribute(CurAttr);
+    sem_post(&vim_sem);
     VI_DEBUG("sizeof VIM_ATTRIBUTE_S = %d\n", sizeof(VIM_ATTRIBUTE_S));
     if(status!=VIM_SUCCEED){
         OSA_ERROR("VIM GetCurrentAttribute");
@@ -294,8 +304,9 @@ static int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
 {
     int ret = 0;
     GLOBAL_GAIN_FORMAT_E gainFormat = Ten_Point_Six;
-   
+    sem_wait(&vim_sem); 
     ret = VIM_ISP_GetCurrentAEETGain(&pETGain->etus, &pETGain->gainValue, &gainFormat);
+    sem_post(&vim_sem); 
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM GetETGain error = %d\n", ret);
@@ -315,35 +326,45 @@ static int DRV_SetVIMBaseAttr(pVF_BASE_ATTRIBUTE_S pBaseAttr)
 {
     int ret = 0;
     //VI_DEBUG("BrightCoeff: %d\n", pBaseAttr->BrightnessCoeff);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetBrightness(pBaseAttr->BrightnessCoeff);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
        OSA_ERROR("VIM SetBrightness error = %d\n", ret);
        return ret;
     }
     //VI_DEBUG("ContrastCoeff: %d\n", pBaseAttr->ContrastCoeff);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetContrast(pBaseAttr->ContrastCoeff);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
        OSA_ERROR("VIM SetContrast error = %d\n", ret);
        return ret;
     }
     //VI_DEBUG("SaturationCoeff: %d\n", pBaseAttr->SaturationCoeff);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetSaturation(pBaseAttr->SaturationCoeff);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
        OSA_ERROR("VIM SetSaturation error = %d\n", ret);
        return ret;
     }
     //VI_DEBUG("HueCoeff: %d\n", pBaseAttr->HueCoeff);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetHue(pBaseAttr->HueCoeff);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
        OSA_ERROR("VIM SetHue error = %d\n", ret);
        return ret;
     }
     //VI_DEBUG("SharpnessCoeff: %d\n", pBaseAttr->SharpnessCoeff);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetSharpness(pBaseAttr->SharpnessCoeff);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
        OSA_ERROR("VIM SetSharpness error = %d\n", ret);
@@ -374,7 +395,9 @@ static int DRV_SetVIMAEMode(pVF_AE_MODE_S pAEMode)
     VI_DEBUG("DGain = %d\n", VIMAEMode.DGain);
     //VI_DEBUG("MaxDGain = %d\n", VIMAEMode.MaxDGain);
     VI_DEBUG("DGainDeci = %d\n", VIMAEMode.DGainDeci);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetAEMode(VIMAEMode);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set AEMode error = %d\n", ret);
@@ -408,8 +431,6 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
     //VI_DEBUG("pROI->width        = %08x\n", pROI->width);
     //VI_DEBUG("pROI->height       = %08x\n", pROI->height);
 
-    if(pROI->x > 1)
-
 #if 1
     switch(num)
     {
@@ -442,7 +463,9 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
             {
                 pROI->height--;
             }
-            if(DRV_FPGASPIWrite(ROI0_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
+            if(pROI->height == 0 || pROI->width == 0)
+                return OSA_EFAIL;
+            if(DRV_FPGASPIWrite((unsigned short)ROI0_X_FPGA_REG_ADDR, (unsigned short)pROI->x) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[0].x = pROI->x;
                 //VI_DEBUG("AERoi[0].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].x);
@@ -451,7 +474,7 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI0_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
+            if(DRV_FPGASPIWrite((unsigned short)ROI0_Y_FPGA_REG_ADDR, (unsigned short)pROI->y) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[0].y = pROI->y;
                 //VI_DEBUG("AERoi[0].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].y);
@@ -460,7 +483,7 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI0_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
+            if(DRV_FPGASPIWrite((unsigned short)ROI0_WIDTH_FPGA_REG_ADDR, (unsigned short)pROI->width) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[0].width = pROI->width;
                 //VI_DEBUG("AERoi[0].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].width);
@@ -509,6 +532,8 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
             {
                 pROI->height--;
             }
+            if(pROI->height == 0 || pROI->width == 0)
+                return OSA_EFAIL;
             if(DRV_FPGASPIWrite(ROI1_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[1].x = pROI->x;
@@ -576,6 +601,8 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
             {
                 pROI->height--;
             }            
+            if(pROI->height == 0 || pROI->width == 0)
+                return OSA_EFAIL;
             if(DRV_FPGASPIWrite(ROI2_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[2].x = pROI->x;
@@ -1027,8 +1054,8 @@ void VIM_control_thread()
                 {
                     VI_DEBUG("get roi %d data\n", roi_no);
                     memcpy(vim_control_snd_msg.msg_data, &(gACS1910_current_cfg.ISPAllCfg.AERoi[roi_no]), sizeof(VF_AE_ROI_S));
-                    //for(i = 0; i < sizeof(VF_AE_ROI_S); i++)
-                    //    VI_DEBUG("vim_control_snd_msg.msg_data[%02d] = %02x\n", i, vim_control_snd_msg.msg_data[i]);
+                    for(i = 0; i < sizeof(VF_AE_ROI_S); i++)
+                        VI_DEBUG("vim_control_snd_msg.msg_data[%02d] = %02x\n", i, vim_control_snd_msg.msg_data[i]);
                     msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 }
                 break;
@@ -1104,6 +1131,10 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     DRV_SPICfg fpga_spi_cfg;
     unsigned char *fpga_spi_dev = "/dev/spidev0.0";
 
+    sem_init(&fpga_spi_sem, 0, 1);
+    sem_init(&vim_sem, 0, 1);
+
+
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
 
   DRV_imgGetWidthHeight(config->sensorMode, &width, &height);
@@ -1175,8 +1206,6 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     DRV_FPGASPIWrite(ROI2_WIDTH_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].width);
     DRV_FPGASPIWrite(ROI2_HEIGHT_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].height);
 
-    sem_init(&roi_spi_sem, 0, 1);
-
     return OSA_SOK;
 }
 
@@ -1204,7 +1233,8 @@ int DRV_imgsClose()
   if(gDRV_imgsObj.spiHndl.fd > 0)
       close(gDRV_imgsObj.spiHndl.fd);
 
-    sem_destroy(&roi_spi_sem);
+    sem_destroy(&fpga_spi_sem);
+    sem_destroy(&vim_sem);
 
   status = DRV_imgsEnable(FALSE);
   //status |= DRV_i2cClose(&gDRV_imgsObj.i2cHndl);

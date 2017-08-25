@@ -193,6 +193,7 @@ extern int VIM_roi_autoexp_thread_run;
 int DRV_ACS1910Init();
 int save_current_cfg();
 int Set_SysTime(pVF_TIME_S ptime);
+int DRV_FPGASPIRead(unsigned short reg, unsigned short *data);
 
 #endif
 
