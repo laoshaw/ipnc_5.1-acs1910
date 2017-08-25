@@ -12,6 +12,7 @@
 #include "drv_ACS1910.h"
 #include "drv_rtc.h"
 #include <linux/spi/spidev.h>
+#include <semaphore.h>
 
 DRV_ImgsObj gDRV_imgsObj;
 //VIM_ATTRIBUTE_S gVIM_CurAttr;
@@ -24,8 +25,9 @@ VF_AE_SHUTTER_MODE_E gVIMAEShutterMode;
 
 static pthread_t VIM_control_thread_id;
 static int VIM_control_thread_run = 0;
-static pthread_t VIM_roi_autoexp_thread_id;
-static int VIM_roi_autoexp_thread_run = 0;
+pthread_t VIM_roi_autoexp_thread_id;
+int VIM_roi_autoexp_thread_run = 0;
+sem_t roi_spi_sem;
 
 /***********************************************************
 \brief 获取VIM模组的版本信息 
@@ -155,41 +157,6 @@ static int DRV_UpdateVIMGenInfoFile()
 
     return OSA_SOK; 
     
-}
-
-int Set_SysTime(pVF_TIME_S ptime)
-{
-   char time_date[32];
-
-   struct tm t_tm;
-   struct timeval tv;
-   time_t timep;
-
-   t_tm.tm_sec = ptime->second;
-   t_tm.tm_min = ptime->minute;
-   t_tm.tm_hour = ptime->hour;
-   t_tm.tm_mday = ptime->day;
-   t_tm.tm_mon = ptime->month - 1;
-   t_tm.tm_year = ptime->year + 2000 - 1900;
-
-   if(ptime->month == 1 || ptime->month == 2)
-   {
-       ptime->month += 12;
-       ptime->year--;
-   }
-   t_tm.tm_wday = (ptime->day + 1 + 2*ptime->month + 3*(ptime->month + 1)/5 + ptime->year + ptime->year/4 - ptime->year/100 + ptime->year/400) % 7;
-   VI_DEBUG("t_tm.tm_wday = %d\n", t_tm.tm_wday);
-
-   timep = mktime(&t_tm);
-   tv.tv_sec = timep;
-   tv.tv_usec = 0;
-   
-   if(settimeofday(&tv, (struct timezone *)0) < 0)
-   {
-       perror("settimeofday");
-       return -1;
-   }
-   return 0;
 }
 
 /***********************************************************
@@ -422,97 +389,91 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
     int ret = OSA_SOK;
     int num = 0;
     unsigned short data = 0;
+    ptACS1910ISPAllCfg pISPAllCfg = &(gACS1910_current_cfg.ISPAllCfg);
 
 
 
     num = pROI->ROI_No;
 
-    VI_DEBUG("AERoi[%02d].ROI_No = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No);
-    VI_DEBUG("AERoi[%02d].onoff  = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].onoff);
-    VI_DEBUG("AERoi[%02d].x      = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].x);
-    VI_DEBUG("AERoi[%02d].y      = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].y);
-    VI_DEBUG("AERoi[%02d].width  = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].width);
-    VI_DEBUG("AERoi[%02d].height = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].height);
-    VI_DEBUG("pROI->ROI_No       = %08x\n", pROI->ROI_No);
-    VI_DEBUG("pROI->onoff        = %08x\n", pROI->onoff);
-    VI_DEBUG("pROI->x            = %08x\n", pROI->x);
-    VI_DEBUG("pROI->y            = %08x\n", pROI->y);
-    VI_DEBUG("pROI->width        = %08x\n", pROI->width);
-    VI_DEBUG("pROI->height       = %08x\n", pROI->height);
+    //VI_DEBUG("AERoi[%02d].ROI_No = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No);
+    //VI_DEBUG("AERoi[%02d].onoff  = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].onoff);
+    //VI_DEBUG("AERoi[%02d].x      = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].x);
+    //VI_DEBUG("AERoi[%02d].y      = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].y);
+    //VI_DEBUG("AERoi[%02d].width  = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].width);
+    //VI_DEBUG("AERoi[%02d].height = %08x\n", num, gACS1910_current_cfg.ISPAllCfg.AERoi[num].height);
+    //VI_DEBUG("pROI->ROI_No       = %08x\n", pROI->ROI_No);
+    //VI_DEBUG("pROI->onoff        = %08x\n", pROI->onoff);
+    //VI_DEBUG("pROI->x            = %08x\n", pROI->x);
+    //VI_DEBUG("pROI->y            = %08x\n", pROI->y);
+    //VI_DEBUG("pROI->width        = %08x\n", pROI->width);
+    //VI_DEBUG("pROI->height       = %08x\n", pROI->height);
 
-//    DRV_FPGASPIWrite(127, 0);
-//    DRV_FPGASPIWrite(128, 0);
-//    DRV_FPGASPIWrite(129, 1919);
-//    DRV_FPGASPIWrite(130, 1079);
-//    DRV_FPGASPIRead(0x20, &data);
-//    DRV_FPGASPIRead(0x21, &data);
-//    DRV_FPGASPIRead(0x22, &data);
-//    DRV_FPGASPIRead(0x23, &data);
-//    DRV_FPGASPIRead(0x24, &data);
-//      DRV_FPGASPIRead(0x20, &data);
-//      DRV_FPGASPIRead(0x21, &data);
-//      DRV_FPGASPIRead(0x22, &data);
-//      DRV_FPGASPIRead(0x23, &data);
-//      DRV_FPGASPIRead(0x24, &data);
-    
-      DRV_FPGASPIRead(ROI0_X_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI0_Y_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI0_WIDTH_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI0_HEIGHT_FPGA_REG_ADDR, &data);
+    if(pROI->x > 1)
 
-      DRV_FPGASPIRead(ROI1_X_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI1_Y_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI1_WIDTH_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI1_HEIGHT_FPGA_REG_ADDR, &data);
-
-      DRV_FPGASPIRead(ROI2_X_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI2_Y_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI2_WIDTH_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI2_HEIGHT_FPGA_REG_ADDR, &data);
-
-    //DRV_FPGASPIRead(37,&data);
-      DRV_FPGASPIRead(ROI0_HISTOGRAM_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI1_HISTOGRAM_FPGA_REG_ADDR, &data);
-      DRV_FPGASPIRead(ROI2_HISTOGRAM_FPGA_REG_ADDR, &data);
-        VI_DEBUG("sizeof(VF_AE_MODE_S) = %d\n", sizeof(VF_AE_MODE_S));
-    //DRV_FPGASPIRead(120, &data);
-
-#if 0
+#if 1
     switch(num)
     {
         case 0:
-            if(DRV_FPGASPIWrite(ROI_0_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
+            if(pROI->x > ROI_X_LIMIT)
+            {
+                pROI->x = ROI_X_LIMIT;
+                VI_DEBUG("pROI->x > ROI_X_LIMIT\n");
+            }
+            if((pROI->x + pROI->width) > ROI_WIDTH_LIMIT)
+            {
+                pROI->width = ROI_WIDTH_LIMIT - pROI->x;
+                VI_DEBUG("x + width > ROI_WIDTH_LIMIT\n");
+            }
+            if(pROI->y > ROI_Y_LIMIT)
+            {
+                pROI->y = ROI_Y_LIMIT;
+                VI_DEBUG("pROI->y > ROI_Y_LIMIT\n");
+            }
+            if((pROI->y + pROI->height) > ROI_HEIGHT_LIMIT)
+            {
+                pROI->height = ROI_HEIGHT_LIMIT - pROI->y;
+                VI_DEBUG("y + height > ROI_WIDTH_LIMIT\n");
+            }
+            if((pROI->y + pROI->height) == pISPAllCfg->AERoi[1].y + pISPAllCfg->AERoi[1].height)
+            {
+                pROI->height--;
+            }
+            if((pROI->y + pROI->height) == pISPAllCfg->AERoi[2].y + pISPAllCfg->AERoi[2].height)
+            {
+                pROI->height--;
+            }
+            if(DRV_FPGASPIWrite(ROI0_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[0].x = pROI->x;
-                VI_DEBUG("AERoi[0].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].x);
-                DRV_FPGASPIRead(ROI_0_X_FPGA_REG_ADDR, &data);
-                VI_DEBUG("ROI_0_X_FPGA_REG_ADDR = %d\n", data);
+                //VI_DEBUG("AERoi[0].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].x);
+                DRV_FPGASPIRead(ROI0_X_FPGA_REG_ADDR, &data);
+                //VI_DEBUG("ROI0_X_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_0_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI0_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[0].y = pROI->y;
-                VI_DEBUG("AERoi[0].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].y);
-                DRV_FPGASPIRead(ROI_0_Y_FPGA_REG_ADDR, &data);
-                VI_DEBUG("ROI_0_Y_FPGA_REG_ADDR = %d\n", data);
+                //VI_DEBUG("AERoi[0].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].y);
+                DRV_FPGASPIRead(ROI0_Y_FPGA_REG_ADDR, &data);
+                //VI_DEBUG("ROI_0_Y_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_0_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI0_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[0].width = pROI->width;
-                VI_DEBUG("AERoi[0].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].width);
-                DRV_FPGASPIRead(ROI_0_WIDTH_FPGA_REG_ADDR, &data);
-                VI_DEBUG("ROI_0_WIDTH_FPGA_REG_ADDR = %d\n", data);
+                //VI_DEBUG("AERoi[0].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].width);
+                DRV_FPGASPIRead(ROI0_WIDTH_FPGA_REG_ADDR, &data);
+                //VI_DEBUG("ROI_0_WIDTH_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_0_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI0_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[0].height = pROI->height;
                 VI_DEBUG("AERoi[0].height = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[0].height);
-                DRV_FPGASPIRead(ROI_0_HEIGHT_FPGA_REG_ADDR, &data);
+                DRV_FPGASPIRead(ROI0_HEIGHT_FPGA_REG_ADDR, &data);
                 VI_DEBUG("ROI_0_HEIGHT_FPGA_REG_ADDR = %d\n", data);
             }
             else 
@@ -520,62 +481,134 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
             gACS1910_current_cfg.ISPAllCfg.AERoi[0].onoff = pROI->onoff;
             break;
         case 1:
-            if(DRV_FPGASPIWrite(ROI_1_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
+            if(pROI->x > ROI_X_LIMIT)
+            {
+                pROI->x = ROI_X_LIMIT;
+                VI_DEBUG("pROI->x > ROI_X_LIMIT\n");
+            }
+            if((pROI->x + pROI->width) > ROI_WIDTH_LIMIT)
+            {
+                pROI->width = ROI_WIDTH_LIMIT - pROI->x;
+                VI_DEBUG("x + width > ROI1_WIDTH_LIMIT\n");
+            }
+            if(pROI->y > ROI_Y_LIMIT)
+            {
+                pROI->y = ROI_Y_LIMIT;
+                VI_DEBUG("pROI->y > ROI1_Y_LIMIT\n");
+            }
+            if((pROI->y + pROI->height) > ROI_HEIGHT_LIMIT)
+            {
+                pROI->height = ROI_HEIGHT_LIMIT - pROI->y;
+                VI_DEBUG("y + height > ROI1_WIDTH_LIMIT\n");
+            }
+            if((pROI->y + pROI->height) == pISPAllCfg->AERoi[0].y + pISPAllCfg->AERoi[0].height)
+            {
+                pROI->height--;
+            }
+            if((pROI->y + pROI->height) == pISPAllCfg->AERoi[2].y + pISPAllCfg->AERoi[2].height)
+            {
+                pROI->height--;
+            }
+            if(DRV_FPGASPIWrite(ROI1_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[1].x = pROI->x;
                 VI_DEBUG("AERoi[1].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].x);
+                DRV_FPGASPIRead(ROI1_X_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_1_HEIGHT_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_1_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI1_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[1].y = pROI->y;
                 VI_DEBUG("AERoi[1].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].y);
+                DRV_FPGASPIRead(ROI1_Y_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_1_Y_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_1_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI1_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[1].width = pROI->width;
                 VI_DEBUG("AERoi[1].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].width);
+                DRV_FPGASPIRead(ROI1_WIDTH_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_1_WIDTH_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_1_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI1_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[1].height = pROI->height;
                 VI_DEBUG("AERoi[1].height= %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[1].height);
+                DRV_FPGASPIRead(ROI1_HEIGHT_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_1_HEIGHT_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
             gACS1910_current_cfg.ISPAllCfg.AERoi[1].onoff = pROI->onoff;
             break;
         case 2:
-            if(DRV_FPGASPIWrite(ROI_2_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
+            if(pROI->x > ROI_X_LIMIT)
+            {
+                pROI->x = ROI_X_LIMIT;
+                VI_DEBUG("pROI->x > ROI2_X_LIMIT\n");
+            }
+            if((pROI->x + pROI->width) > ROI_WIDTH_LIMIT)
+            {
+                pROI->width = ROI_WIDTH_LIMIT - pROI->x;
+                VI_DEBUG("x + width > ROI2_WIDTH_LIMIT\n");
+            }
+            if(pROI->y > ROI_Y_LIMIT)
+            {
+                pROI->y = ROI_Y_LIMIT;
+                VI_DEBUG("pROI->y > ROI2_Y_LIMIT\n");
+            }
+            if((pROI->y + pROI->height) > ROI_HEIGHT_LIMIT)
+            {
+                pROI->height = ROI_HEIGHT_LIMIT - pROI->y;
+                VI_DEBUG("y + height > ROI2_WIDTH_LIMIT\n");
+            }
+            if((pROI->y + pROI->height) == pISPAllCfg->AERoi[0].y + pISPAllCfg->AERoi[0].height)
+            {
+                pROI->height--;
+            }
+            if((pROI->y + pROI->height) == pISPAllCfg->AERoi[1].y + pISPAllCfg->AERoi[1].height)
+            {
+                pROI->height--;
+            }            
+            if(DRV_FPGASPIWrite(ROI2_X_FPGA_REG_ADDR, pROI->x) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[2].x = pROI->x;
                 VI_DEBUG("AERoi[2].x = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].x);
+                DRV_FPGASPIRead(ROI2_X_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_2_X_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_2_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI2_Y_FPGA_REG_ADDR, pROI->y) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[2].y = pROI->y;
                 VI_DEBUG("AERoi[2].y = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].y);
+                DRV_FPGASPIRead(ROI2_Y_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_2_Y_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_2_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI2_WIDTH_FPGA_REG_ADDR, pROI->width) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[2].width = pROI->width;
                 VI_DEBUG("AERoi[2].width = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].width);
+                DRV_FPGASPIRead(ROI2_WIDTH_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_2_WIDTH_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
-            if(DRV_FPGASPIWrite(ROI_2_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
+            if(DRV_FPGASPIWrite(ROI2_HEIGHT_FPGA_REG_ADDR, pROI->height) == OSA_SOK)
             {
                 gACS1910_current_cfg.ISPAllCfg.AERoi[2].height = pROI->height;
                 VI_DEBUG("AERoi[2].height = %d\n", gACS1910_current_cfg.ISPAllCfg.AERoi[2].height);
+                DRV_FPGASPIRead(ROI2_HEIGHT_FPGA_REG_ADDR, &data);
+                VI_DEBUG("ROI_2_HEIGHT_FPGA_REG_ADDR = %d\n", data);
             }
             else 
                 return OSA_EFAIL;
@@ -584,11 +617,6 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
         default:
             break;
     }
-    //gACS1910_current_cfg.ISPAllCfg.AERoi[num].ROI_No = pROI->ROI_No;
-    //gACS1910_current_cfg.ISPAllCfg.AERoi[num].x = pROI->x;
-    //gACS1910_current_cfg.ISPAllCfg.AERoi[num].y = pROI->y;
-    //gACS1910_current_cfg.ISPAllCfg.AERoi[num].width = pROI->width;
-    //gACS1910_current_cfg.ISPAllCfg.AERoi[num].height = pROI->height;
 #endif
 
     return ret;
@@ -1048,30 +1076,6 @@ void VIM_control_thread()
     }
 }
 
-void VIM_roi_autoexp_thread()
-{
-
-    VI_DEBUG("Hello roi autoexp thread!\n");
-
-    while(VIM_roi_autoexp_thread_run)
-    {
-        if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AEMode.AE_Shutter_Mode == VF_AE_ROI)
-        {
-            VI_DEBUG("ROI autoexp\n");
-            if(gACS1910_current_cfg.ISPAllCfg.AERoi[0].onoff == 1)
-            {
-
-            }
-            usleep(1000000);
-        }
-        else 
-        {
-            sleep(1);
-        }
-    }
-}
-
-
 int VIM_control_thread_init()
 {
     int retVal = 0;
@@ -1088,22 +1092,6 @@ int VIM_control_thread_init()
     }
     
     return retVal;
-}
-
-int VIM_roi_autoexp_thread_init()
-{
-    int retVal = 0;
-    VI_DEBUG("Initialize roi autoexp_thread\n");
-
-    if((retVal = pthread_create(&VIM_roi_autoexp_thread_id, NULL, VIM_roi_autoexp_thread, NULL)) != 0)
-    {
-        perror("Create ROI autoexp thread\n");
-    }
-    else 
-    {
-        VIM_roi_autoexp_thread_run = 1;
-        VI_DEBUG("Create roi autoexp thread done!\n\n");
-    }
 }
 
 
@@ -1162,7 +1150,7 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     status = VIM_roi_autoexp_thread_init();
     if(status < 0)
         return OSA_EFAIL;
-
+    
 
     fpga_spi_cfg.mode = SPI_MODE_0;
     fpga_spi_cfg.bits = 16;
@@ -1186,6 +1174,8 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     DRV_FPGASPIWrite(ROI2_Y_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].y);
     DRV_FPGASPIWrite(ROI2_WIDTH_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].width);
     DRV_FPGASPIWrite(ROI2_HEIGHT_FPGA_REG_ADDR, gACS1910_saved_cfg.ISPAllCfg.AERoi[2].height);
+
+    sem_init(&roi_spi_sem, 0, 1);
 
     return OSA_SOK;
 }
@@ -1213,6 +1203,8 @@ int DRV_imgsClose()
 
   if(gDRV_imgsObj.spiHndl.fd > 0)
       close(gDRV_imgsObj.spiHndl.fd);
+
+    sem_destroy(&roi_spi_sem);
 
   status = DRV_imgsEnable(FALSE);
   //status |= DRV_i2cClose(&gDRV_imgsObj.i2cHndl);

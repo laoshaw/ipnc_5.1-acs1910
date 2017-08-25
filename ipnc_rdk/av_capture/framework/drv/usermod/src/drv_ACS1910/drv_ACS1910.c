@@ -302,6 +302,41 @@ int save_current_cfg()
    return OSA_SOK;
 }
 
+int Set_SysTime(pVF_TIME_S ptime)
+{
+   char time_date[32];
+
+   struct tm t_tm;
+   struct timeval tv;
+   time_t timep;
+
+   t_tm.tm_sec = ptime->second;
+   t_tm.tm_min = ptime->minute;
+   t_tm.tm_hour = ptime->hour;
+   t_tm.tm_mday = ptime->day;
+   t_tm.tm_mon = ptime->month - 1;
+   t_tm.tm_year = ptime->year + 2000 - 1900;
+
+   if(ptime->month == 1 || ptime->month == 2)
+   {
+       ptime->month += 12;
+       ptime->year--;
+   }
+   t_tm.tm_wday = (ptime->day + 1 + 2*ptime->month + 3*(ptime->month + 1)/5 + ptime->year + ptime->year/4 - ptime->year/100 + ptime->year/400) % 7;
+   VI_DEBUG("t_tm.tm_wday = %d\n", t_tm.tm_wday);
+
+   timep = mktime(&t_tm);
+   tv.tv_sec = timep;
+   tv.tv_usec = 0;
+   
+   if(settimeofday(&tv, (struct timezone *)0) < 0)
+   {
+       perror("settimeofday");
+       return -1;
+   }
+   return 0;
+}
+
 /***********************************************************
 \brief 初始化ACS1910相关的硬件、消息等 
 \param 

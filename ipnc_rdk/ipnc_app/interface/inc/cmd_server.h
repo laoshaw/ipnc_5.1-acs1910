@@ -423,10 +423,10 @@ typedef struct VF_OSD_ONOFF
 
 typedef struct VF_SYS_VER
 {
-    char dsp_ver[32];
-    char fpga_ver[32];
+    char dsp_ver[16];
+    char fpga_ver[16];
     char sensor_ver[64];
-}
+}VF_SYS_VER_S, *pVF_SYS_VER_S;
 
 
 
