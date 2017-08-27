@@ -11,6 +11,7 @@ Copyright (c) 2017-2019 VIFOCUS
 #define _DRV_ACS1910_H_ 
 
 #include "cmd_server.h"
+#include <semaphore.h>
 
 #define FOCUS_PWM_IO    (92) 
 #define FOCUS_PWM_NO    0
@@ -102,6 +103,10 @@ typedef struct
 
 #define ROI2_HISTOGRAM_FPGA_REG_ADDR (0x2F)
 
+#define FPGA_VER_FPGA_REG1_ADDR (0x20)
+#define FPGA_VER_FPGA_REG2_ADDR (0x20)
+#define FPGA_VER_FPGA_REG3_ADDR (0x20)
+
 #define ACS1910_DEFAULT_CFG "/mnt/nand/acs1910_default.cfg"
 #define ACS1910_SAVED_CFG "/mnt/nand/acs1910_saved.cfg"
 
@@ -122,9 +127,9 @@ typedef struct
 #define DEFAULT_ROI2_WIDTH 959
 #define DEFAULT_ROI2_HEIGHT 1077 
 #define ROI_NO 3
-#define DEFAULT_ROI0 {0, DEFAULT_ROI_OFF, DEFAULT_ROI0_X, DEFAULT_ROI0_Y, DEFAULT_ROI0_WIDTH, DEFAULT_ROI0_HEIGHT}
-#define DEFAULT_ROI1 {1, DEFAULT_ROI_OFF, DEFAULT_ROI1_X, DEFAULT_ROI1_Y, DEFAULT_ROI1_WIDTH, DEFAULT_ROI1_HEIGHT}
-#define DEFAULT_ROI2 {2, DEFAULT_ROI_OFF, DEFAULT_ROI2_X, DEFAULT_ROI2_Y, DEFAULT_ROI2_WIDTH, DEFAULT_ROI2_HEIGHT}
+#define DEFAULT_ROI0 {0, DEFAULT_ROI_ON, DEFAULT_ROI0_X, DEFAULT_ROI0_Y, DEFAULT_ROI0_WIDTH, DEFAULT_ROI0_HEIGHT}
+#define DEFAULT_ROI1 {1, DEFAULT_ROI_ON, DEFAULT_ROI1_X, DEFAULT_ROI1_Y, DEFAULT_ROI1_WIDTH, DEFAULT_ROI1_HEIGHT}
+#define DEFAULT_ROI2 {2, DEFAULT_ROI_ON, DEFAULT_ROI2_X, DEFAULT_ROI2_Y, DEFAULT_ROI2_WIDTH, DEFAULT_ROI2_HEIGHT}
 #define DEFAULT_AE_ROI {DEFAULT_ROI0, DEFAULT_ROI1, DEFAULT_ROI2}
 
 #define ROI_X_LIMIT 1918
@@ -190,6 +195,8 @@ extern tACS1910Cfg gACS1910_saved_cfg;
 extern tACS1910Cfg gACS1910_current_cfg;
 extern pthread_t VIM_roi_autoexp_thread_id;
 extern int VIM_roi_autoexp_thread_run;
+extern sem_t vim_aemode_sem;
+extern sem_t vim_sem;
 int DRV_ACS1910Init();
 int save_current_cfg();
 int Set_SysTime(pVF_TIME_S ptime);

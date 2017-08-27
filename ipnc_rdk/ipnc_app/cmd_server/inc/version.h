@@ -1,4 +1,4 @@
-#ifudef VERSION_H
+#ifndef VERSION_H
 #define VERSION_H
 
 #define VERSION_NUMBER "r52M 386db46"

@@ -26,6 +26,7 @@ Copyright (c) 2017-2019 VIFOCUS
 #include <time.h>
 #include <net/if.h>
 #include <sys/time.h>
+#include "version.h"
 
 #include "drv_ACS1910.h"
 #include "cmd_server.h"
@@ -247,6 +248,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
     tCmdServerMsg cmd_server_rcv_msg;
     VF_CAMERA_NETINFO_S camera_ip_s;
     VF_TIME_S camera_time_s;
+    VF_SYS_VER_S sys_ver;
     int data_len = 0;
     int send_len = 0;
     int i;
@@ -641,6 +643,46 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
         case IP_CMD_SYS_SET_OSD:
             VI_DEBUG("set osd\n");
             break;
+        case IP_CMD_SYS_GET_VER:
+            VI_DEBUG("get ver\n");
+            if(data_len != 0)
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+                msgrcv(vim_ack_msqid, &cmd_server_rcv_msg, MSG_BUF_SIZE, 0, 0);
+                VI_DEBUG("recv from vim control thread\n");
+                if(cmd_server_rcv_msg.msg_type == IP_CMD_ISP_GET_ERROR)
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(unsigned int) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(unsigned int);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_SYS_GET_SYS_CFG;
+                    send[CMD_PACK_MSG_OFFSET - 1] = 0xFF;
+                    send[CMD_PACK_DATA_OFFSET] = IP_CMD_DATA_ERROR;
+                    send[CMD_PACK_DATA_OFFSET + 1] = IP_CMD_DATA_ERROR >> 8;
+                    send[CMD_PACK_DATA_OFFSET + 2] = IP_CMD_DATA_ERROR >> 16;
+                    send[CMD_PACK_DATA_OFFSET + 3] = IP_CMD_DATA_ERROR >> 24;
+                }
+                else
+                {
+                    send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(VF_SYS_VER_S) >> 8);
+                    send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(VF_SYS_VER_S);
+                    send[CMD_PACK_MSG_OFFSET] = IP_CMD_SYS_GET_VER;
+                    VI_DEBUG("MSG : %02x\n", send[CMD_PACK_MSG_OFFSET]);
+                    memcpy(&sys_ver, &cmd_server_rcv_msg.msg_data, sizeof(VF_SYS_VER_S));
+                    sprintf(sys_ver.dsp_ver, "%s", VERSION_NUMBER);
+                    VI_DEBUG("dsp_ver = %s\n", sys_ver.dsp_ver);
+                    VI_DEBUG("fpga_ver = %s\n", sys_ver.fpga_ver);
+                    VI_DEBUG("sensor_ver = %s\n", sys_ver.sensor_ver);
+                    memcpy(&send[CMD_PACK_DATA_OFFSET], &sys_ver, sizeof(VF_SYS_VER_S));
+                    VI_DEBUG("cmd have done\n");
+                }
+                ret = 1;  
+            }
+            break;
         case IP_CMD_SYS_GET_SYS_CFG:
             VI_DEBUG("get sys cfg\n");
             if(data_len != 0)
@@ -742,6 +784,7 @@ int main(int argc, char **argv)
     unsigned char check_code = 0;
     int recv_count = 0;
     int ack_len = 0;
+    int send_len = 0;
     int addr_len = sizeof(struct sockaddr_in);
     fd_set recv_fd;
     struct timeval timeout;
@@ -810,7 +853,7 @@ int main(int argc, char **argv)
                 }
                 else
                 {//接收到数据
-                    //gettimeofday(&tv1, NULL);
+                    gettimeofday(&tv1, NULL);
                     client_ip= inet_ntoa(client_addr.sin_addr.s_addr);
                     //VI_DEBUG("recv %d data %s\n",recv_count, client_ip);
                     if(memcmp(recv_buf, client_id, 4) != 0)
@@ -846,26 +889,30 @@ int main(int argc, char **argv)
                                     //VI_DEBUG("many bytes need send\n");
                                     ack_len = CMD_PACK_DATA_OFFSET + (send_buf[CMD_PACK_DATA_LENGTH_OFFSET] << 8) + 
                                               (send_buf[CMD_PACK_DATA_LENGTH_OFFSET + 1]) + 1;
-                                    //VI_DEBUG("ack_len = %d\n", ack_len);
+                                    VI_DEBUG("ack_len = %d\n", ack_len);
                                     send_buf[ack_len - 1] = calc_check_code(send_buf, ack_len - 1 );
-                                    //gettimeofday(&tv2, NULL);
-                                    sendto(cmd_socketfd, send_buf, ack_len, 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                                    //gettimeofday(&tv3, NULL);
-                                    //printf("tv1 = %ld\n", tv1.tv_sec*1000 + tv1.tv_usec/1000);
-                                    //printf("tv2 = %ld\n", tv2.tv_sec*1000 + tv2.tv_usec/1000);
-                                    //printf("tv3 = %ld\n", tv3.tv_sec*1000 + tv3.tv_usec/1000);
-                                    //printf("tv2 - tv1 = %d\n", ((tv2.tv_sec*1000 + tv2.tv_usec/1000) - (tv1.tv_sec*1000 + tv1.tv_usec/1000)));
-                                    //printf("tv3 - tv2 = %d\n", ((tv3.tv_sec*1000 + tv3.tv_usec/1000) - (tv2.tv_sec*1000 + tv2.tv_usec/1000)));
                                     //for(i = 0; i < ack_len; i++)
-                                    //    VI_DEBUG("send_buf[%02d] = %02X\n", i, send_buf[i]);
-                                }
+                                    //   VI_DEBUG("send_buf[%02d] = %02X\n", i, send_buf[i]);
+                                    gettimeofday(&tv2, NULL);
+                                    send_len = sendto(cmd_socketfd, send_buf, ack_len, 0, (struct sockaddr *)&client_addr, sizeof(client_addr)); 
+                                    if(send_len != ack_len)
+                                    {
+                                       VI_DEBUG("send_len = %d\n", send_len); 
+                                    }
+                                    gettimeofday(&tv3, NULL);
+                                    printf("tv1 = %ld\n", tv1.tv_sec*1000 + tv1.tv_usec/1000);
+                                    printf("tv2 = %ld\n", tv2.tv_sec*1000 + tv2.tv_usec/1000);
+                                    printf("tv3 = %ld\n", tv3.tv_sec*1000 + tv3.tv_usec/1000);
+                                    printf("tv2 - tv1 = %d\n", ((tv2.tv_sec*1000 + tv2.tv_usec/1000) - (tv1.tv_sec*1000 + tv1.tv_usec/1000)));
+                                    printf("tv3 - tv2 = %d\n", ((tv3.tv_sec*1000 + tv3.tv_usec/1000) - (tv2.tv_sec*1000 + tv2.tv_usec/1000)));
+                               }
                                 else if(0 == ret)
                                 {//不需要回复数据的，回复执行ok的
                                     server_ok[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
                                     server_ok[sizeof(server_ok) - 1] = calc_check_code(server_ok, sizeof(server_ok) - 1);
                                     sendto(cmd_socketfd, server_ok, sizeof(server_ok), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                                    //for(i = 0; i < sizeof(server_ok); i++)
-                                    //    VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
+                                    for(i = 0; i < sizeof(server_ok); i++)
+                                        VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
                                 }
                                 else 
                                 {//各种错误的

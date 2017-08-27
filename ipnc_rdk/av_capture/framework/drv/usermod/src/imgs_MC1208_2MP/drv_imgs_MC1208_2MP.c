@@ -29,6 +29,7 @@ pthread_t VIM_roi_autoexp_thread_id;
 int VIM_roi_autoexp_thread_run = 0;
 sem_t fpga_spi_sem;
 sem_t vim_sem;
+sem_t vim_aemode_sem;
 
 /***********************************************************
 \brief 获取VIM模组的版本信息 
@@ -72,7 +73,7 @@ int DRV_FPGASPIRead(unsigned short reg, unsigned short *data)
     spi_data.reg_addr = reg & 0x7fff;
     spi_data.data = 0;
 
-    VI_DEBUG("wr reg_addr: 0x%04X\n ", *(unsigned short *)&spi_data);
+    //VI_DEBUG("wr reg_addr: 0x%04X\n ", *(unsigned short *)&spi_data);
 
     sem_wait(&fpga_spi_sem);
     if(DRV_SPIRead(&gDRV_imgsObj.spiHndl, &spi_data, sizeof(fpga_spi_data), &spi_read) != sizeof(fpga_spi_data))
@@ -84,6 +85,7 @@ int DRV_FPGASPIRead(unsigned short reg, unsigned short *data)
     {
         //VI_DEBUG("spi_read.data = %d\n", spi_read.data);
         *data = spi_read.data;
+        //VI_DEBUG("*data = %d\n", *data);
     }
     sem_post(&fpga_spi_sem);
 
@@ -95,16 +97,22 @@ int DRV_FPGASPIRead(unsigned short reg, unsigned short *data)
 
 \return 0:成功 其它:失败
 ***********************************************************/
-static int DRV_GetVIMGenInfo(pVIM_GENERAL_INFO pVIM_GenInfo)
+static int DRV_GetVIMGenInfo(char *geninfo)
 {
     int status = 0;
+    VIM_GENERAL_INFO VIM_GenInfo;
 
-    status = VIM_GetGeneralAttribute(pVIM_GenInfo);
+    status = VIM_GetGeneralAttribute(&VIM_GenInfo);
     if(status!=VIM_SUCCEED){
         OSA_ERROR("VIM GetGeneralAttribute\n");
         printf("status = %d\n", status);
         return OSA_EFAIL;
     }
+        sprintf(geninfo, "%04X,%X,%04X,%04X,%04X,%04X,%X,%X,%X,%X,%X,%08X\n", \
+                VIM_GenInfo.flag, VIM_GenInfo.sensor_VID, VIM_GenInfo.sensor_ID, VIM_GenInfo.chip_Version,\
+                VIM_GenInfo.Ini_Version, VIM_GenInfo.projectSpec_Version, VIM_GenInfo.content_Version,\
+                VIM_GenInfo.date_info[3], VIM_GenInfo.date_info[2],VIM_GenInfo.date_info[1], VIM_GenInfo.date_info[0],\
+                VIM_GenInfo.Firmware_Version);
 #if 0
     VI_DEBUG("General Attribute flag                    = %x\n", pVIM_GenInfo->flag);
     VI_DEBUG("General Attribute Sensor_VID              = %d\n", pVIM_GenInfo->sensor_VID);
@@ -132,8 +140,11 @@ static int DRV_UpdateVIMGenInfoFile()
     FILE *fp;
     int ret;
     VIM_GENERAL_INFO VIM_GenInfo;
+    char geninfo[64];
 
-    ret = DRV_GetVIMGenInfo(&VIM_GenInfo);
+    memset(geninfo, 0, 64);
+
+    ret = DRV_GetVIMGenInfo(geninfo);
     if(ret != VIM_SUCCEED)
     {
         VI_DEBUG("Get VIM GenInfo error!\n");
@@ -149,12 +160,8 @@ static int DRV_UpdateVIMGenInfoFile()
     else 
     {
         fseek(fp, 0, SEEK_SET);
-        ret = fprintf(fp, "%04X,%X,%04X,%04X,%04X,%04X,%X,%X,%X,%X,%X,%08X\n", \
-                VIM_GenInfo.flag, VIM_GenInfo.sensor_VID, VIM_GenInfo.sensor_ID, VIM_GenInfo.chip_Version,\
-                VIM_GenInfo.Ini_Version, VIM_GenInfo.projectSpec_Version, VIM_GenInfo.content_Version,\
-                VIM_GenInfo.date_info[3], VIM_GenInfo.date_info[2],VIM_GenInfo.date_info[1], VIM_GenInfo.date_info[0],\
-                VIM_GenInfo.Firmware_Version);
-        if(ret == 0)
+        ret = fwrite(geninfo, 1, strlen(geninfo), fp);
+        if(ret != strlen(geninfo))
         {
             perror("write vim info error\n");
             fclose(fp);
@@ -300,7 +307,7 @@ int DRV_GetVIMAttr(pVIM_ATTRIBUTE_S pVIM_CurAttr)
 
 \return 0:成功 其它:失败
 ***********************************************************/
-static int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
+int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
 {
     int ret = 0;
     GLOBAL_GAIN_FORMAT_E gainFormat = Ten_Point_Six;
@@ -311,7 +318,7 @@ static int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
     {
         OSA_ERROR("VIM GetETGain error = %d\n", ret);
     }
-    VI_DEBUG("VIM Shutter = %d, VIM Gain = 0x%x %d.%d\n", pETGain->etus, pETGain->gainValue,  (pETGain->gainValue >> 6), (pETGain->gainValue & 0x3f));
+    VI_DEBUG("VIM Shutter = %d, VIM Gain = 0x%x\n", pETGain->etus, pETGain->gainValue);
     return ret;
 }
 
@@ -374,21 +381,30 @@ static int DRV_SetVIMBaseAttr(pVF_BASE_ATTRIBUTE_S pBaseAttr)
     return ret;
 }
 
-static int DRV_SetVIMAEMode(pVF_AE_MODE_S pAEMode)
+int DRV_SetVIMAEMode(pVF_AE_MODE_S pAEMode)
 {
     int ret = OSA_SOK;
     AE_MODE_S VIMAEMode;
 
+    sem_wait(&vim_aemode_sem);
     if(pAEMode->AE_Shutter_Mode == VF_AE_ROI)
+    {
         VIMAEMode.AE_Shutter_Mode = (AE_SHUTTER_MODE_E)AE_MANUAL_VIM;
+        VIMAEMode.Exposuretime = pAEMode->Exposuretime;//gACS1910_saved_cfg.ISPAllCfg.ISPNormalCfg.AEMode.Exposuretime;
+        VIMAEMode.DGain = pAEMode->Gain;//1;
+        VIMAEMode.DGainDeci = pAEMode->GainDeci;//0;
+    }
     else
+    {
         VIMAEMode.AE_Shutter_Mode = (AE_SHUTTER_MODE_E)pAEMode->AE_Shutter_Mode;
+        VIMAEMode.Exposuretime = pAEMode->Exposuretime;
+        VIMAEMode.DGain = pAEMode->Gain;
+        VIMAEMode.DGainDeci = pAEMode->GainDeci;
+    }
+
     VIMAEMode.AE_MaxET_Mode = (AE_MAXET_MODE_E)pAEMode->AE_MaxET_Mode;
-    VIMAEMode.Exposuretime = pAEMode->Exposuretime;
     VIMAEMode.MaxET = pAEMode->MaxET;
-    VIMAEMode.DGain = pAEMode->Gain;
     VIMAEMode.MaxDGain = pAEMode->MaxGain;
-    VIMAEMode.DGainDeci = pAEMode->GainDeci;
     VI_DEBUG("AE_Shutter_Mode= %d\n", VIMAEMode.AE_Shutter_Mode);
     //VI_DEBUG("AE_MaxET_Mode = %d\n", VIMAEMode.AE_MaxET_Mode);
     VI_DEBUG("Exposuretime = %d\n", VIMAEMode.Exposuretime);
@@ -401,9 +417,11 @@ static int DRV_SetVIMAEMode(pVF_AE_MODE_S pAEMode)
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set AEMode error = %d\n", ret);
+        sem_post(&vim_aemode_sem);
         return ret;
     }
     memcpy(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AEMode), pAEMode, sizeof(VF_AE_MODE_S) );
+    sem_post(&vim_aemode_sem);
     return ret;
 }
 
@@ -430,6 +448,12 @@ static int DRV_SetVIMROI(pVF_AE_ROI_S pROI)
     //VI_DEBUG("pROI->y            = %08x\n", pROI->y);
     //VI_DEBUG("pROI->width        = %08x\n", pROI->width);
     //VI_DEBUG("pROI->height       = %08x\n", pROI->height);
+    DRV_FPGASPIRead(ROI0_HISTOGRAM_FPGA_REG_ADDR, &data);
+    VI_DEBUG("ROI0 avg = %d\n", data);
+    DRV_FPGASPIRead(ROI1_HISTOGRAM_FPGA_REG_ADDR, &data);
+    VI_DEBUG("ROI1 avg = %d\n", data);
+    DRV_FPGASPIRead(ROI2_HISTOGRAM_FPGA_REG_ADDR, &data);
+    VI_DEBUG("ROI2 avg = %d\n", data);
 
 #if 1
     switch(num)
@@ -967,6 +991,8 @@ void VIM_control_thread()
     int ret, i;
     VF_AE_ETGain_S ETGain;
     VIM_ATTRIBUTE_S vim_attr;
+    VF_SYS_VER_S sys_ver;
+    unsigned short fpga_ver1, fpga_ver2, fpga_ver3;
     unsigned int roi_no;
 
     VI_DEBUG("Hello VIM control thread!\n");
@@ -1054,8 +1080,8 @@ void VIM_control_thread()
                 {
                     VI_DEBUG("get roi %d data\n", roi_no);
                     memcpy(vim_control_snd_msg.msg_data, &(gACS1910_current_cfg.ISPAllCfg.AERoi[roi_no]), sizeof(VF_AE_ROI_S));
-                    for(i = 0; i < sizeof(VF_AE_ROI_S); i++)
-                        VI_DEBUG("vim_control_snd_msg.msg_data[%02d] = %02x\n", i, vim_control_snd_msg.msg_data[i]);
+                    //for(i = 0; i < sizeof(VF_AE_ROI_S); i++)
+                    //    VI_DEBUG("vim_control_snd_msg.msg_data[%02d] = %02x\n", i, vim_control_snd_msg.msg_data[i]);
                     msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 }
                 break;
@@ -1097,6 +1123,17 @@ void VIM_control_thread()
                 VI_DEBUG("set camera id!\n");
                 DRV_SetCameraID((pVF_CAMERA_ID_S)vim_control_rcv_msg.msg_data);
                 break;
+            case IP_CMD_SYS_GET_VER:
+                VI_DEBUG("get ver!\n");
+                DRV_GetVIMGenInfo(sys_ver.sensor_ver);
+                VI_DEBUG("sensor_ver = %s\n", sys_ver.sensor_ver);
+                DRV_FPGASPIRead(FPGA_VER_FPGA_REG1_ADDR, &fpga_ver1);
+                DRV_FPGASPIRead(FPGA_VER_FPGA_REG2_ADDR, &fpga_ver2);
+                DRV_FPGASPIRead(FPGA_VER_FPGA_REG3_ADDR, &fpga_ver3);
+                sprintf(sys_ver.fpga_ver, "%d.%d.%d", fpga_ver3, fpga_ver2, fpga_ver1);
+                memcpy(vim_control_snd_msg.msg_data, &sys_ver, sizeof(VF_SYS_VER_S));
+                msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
+                break;
             default:
                 break;
         }
@@ -1133,6 +1170,7 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
 
     sem_init(&fpga_spi_sem, 0, 1);
     sem_init(&vim_sem, 0, 1);
+    sem_init(&vim_aemode_sem, 0, 1);
 
 
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
@@ -1235,6 +1273,7 @@ int DRV_imgsClose()
 
     sem_destroy(&fpga_spi_sem);
     sem_destroy(&vim_sem);
+    sem_destroy(&vim_aemode_sem);
 
   status = DRV_imgsEnable(FALSE);
   //status |= DRV_i2cClose(&gDRV_imgsObj.i2cHndl);
