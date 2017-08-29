@@ -866,7 +866,6 @@ static int DRV_InitVIM(ptACS1910ISPNormalCfg ptACS1910_isp_normal_cfg)
         OSA_ERROR("DRV_UpdateVIMGenInfoFile");
         return ret;
     }
-
     
     ret = DRV_SetVIMAEMode(&ptACS1910_isp_normal_cfg->AEMode);
     if(ret != VIM_SUCCEED)
@@ -1059,11 +1058,17 @@ void VIM_control_thread()
             case IP_CMD_ISP_SET_LOAD_DEFAULT:
                 VI_DEBUG("load default cfg to current\n");
                 memcpy(&(gACS1910_current_cfg.ISPAllCfg), &(gACS1910_default_cfg.ISPAllCfg), sizeof(tACS1910ISPAllCfg));
+                DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[0]));
+                DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[1]));
+                DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[2]));
                 DRV_InitVIM(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg));
                 break;
             case IP_CMD_ISP_SET_LOAD_SAVED:
                 VI_DEBUG("load saved cfg to current\n");
                 memcpy(&(gACS1910_current_cfg.ISPAllCfg), &(gACS1910_saved_cfg.ISPAllCfg), sizeof(tACS1910ISPAllCfg));
+                DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[0]));
+                DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[1]));
+                DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[2]));
                 DRV_InitVIM(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg));
                 break;
             case IP_CMD_ISP_GET_AE_ROI:
@@ -1191,8 +1196,13 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
         OSA_ERROR("DRV_i2cOpen()\n");
         return OSA_EFAIL;
     }
+
     
+    DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[0]));
+    DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[1]));
+    DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[2]));
     DRV_InitVIM(&(gACS1910_saved_cfg.ISPAllCfg.ISPNormalCfg));
+    
     //status = VIM_UpdateAttribute();
     //if(status!=VIM_SUCCEED){
     //    OSA_ERROR("VIM UpdateAtrribute!\n");

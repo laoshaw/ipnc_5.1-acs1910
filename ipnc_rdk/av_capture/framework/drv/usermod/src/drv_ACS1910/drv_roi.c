@@ -138,7 +138,7 @@ unsigned char VIM_roi_calc_histogram_avg(unsigned int *shutter, unsigned short *
         //ROI_DEBUG("roi2+1+0_his_avg = %d\n", roi_his_avg);
     }
 
-    //ROI_DEBUG("roi_his_avg = %d\n", roi_his_avg);
+    ROI_DEBUG("roi_his_avg = %d\n", roi_his_avg);
 
     return (unsigned char)roi_his_avg;
 }
@@ -259,6 +259,13 @@ void VIM_roi_autoexp_thread()
                         shutter = 40000 + 1;
                         //ROI_DEBUG("gain = %d, dgain = %d, dgaindeci = %d\n", gain, gain/10, gain%10);
                     }
+                    else if((shutter > 40000) && (gain < gain_max))
+                    {
+                        ROI_DEBUG("shutter > 40000, gain < gain_max");
+                        shutter = 40000 + 1;
+                        dgain = 1;
+                        dgaindeci = 0;
+                    }
                     else 
                     {
                         ROI_DEBUG("gain == gain_max, adjust shutter down the fps\n");
@@ -330,6 +337,13 @@ void VIM_roi_autoexp_thread()
                         dgaindeci = gain % 10;
                         shutter = 40001;
                     }
+                    //else if((shutter < 40000) && (gain > 10))
+                    //{
+                    //    ROI_DEBUG("shutter < 4000 and gain > 10");
+                    //    shutter = 40000 + 1;
+                    //    dgain = 1;
+                    //    dgaindeci = 0;
+                    //}
                     else 
                     {
                         ROI_DEBUG("gain == 10, down shutter\n");

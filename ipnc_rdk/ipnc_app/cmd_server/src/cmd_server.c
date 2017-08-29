@@ -65,17 +65,18 @@ static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
     memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.netmask), &(camera_ip->netmask), sizeof(struct in_addr)); 
     memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.gateway), &(camera_ip->gateway), sizeof(struct in_addr)); 
     if(mac == 1)
+    {
         memcpy(acs1910_ipnc_sysinfo.lan_config.net.MAC, camera_ip->MAC, 6);
-    VI_DEBUG("acs1910_ipnc_sysinfo.lan_config.net.Mac:");
-    for(i = 0; i < 6; i++)
-        printf("%02X ", acs1910_ipnc_sysinfo.lan_config.net.MAC[i]);
-    printf("\n ");
+        VI_DEBUG("acs1910_ipnc_sysinfo.lan_config.net.Mac:");
+        for(i = 0; i < 6; i++)
+            printf("%02X ", acs1910_ipnc_sysinfo.lan_config.net.MAC[i]);
+        printf("\n ");
 
-    VI_DEBUG("camera_ip.Mac:");
-    for(i = 0; i < 6; i++)
-        printf("%02X ", camera_ip->MAC[i]);
-    printf("\n ");
-
+        VI_DEBUG("camera_ip.Mac:");
+        for(i = 0; i < 6; i++)
+            printf("%02X ", camera_ip->MAC[i]);
+        printf("\n ");
+    }
 
     //sprintf(syscmd, "ifconfig eth0 hw ether %02X:%02X:%02X:%02X:%02X:%02X", acs1910_ipnc_sysinfo.lan_config.net.MAC[0] , acs1910_ipnc_sysinfo.lan_config.net.MAC[1], acs1910_ipnc_sysinfo.lan_config.net.MAC[2], acs1910_ipnc_sysinfo.lan_config.net.MAC[3], acs1910_ipnc_sysinfo.lan_config.net.MAC[4], acs1910_ipnc_sysinfo.lan_config.net.MAC[5]); 
    // VI_DEBUG("syscmd = %s\n", syscmd);
@@ -154,6 +155,7 @@ static int cmd_server_msg_init(key_t key)
 
     return msqid;
 }
+
 static int cmd_server_init(void)
 {
     int ret = 0;
@@ -203,7 +205,7 @@ static int cmd_server_init(void)
 //    if((sys_ack_msqid = cmd_server_msg_init((key_t)SYS_ACK_MSG_KEY)) < 0)
 //        return -1;
 //    VI_DEBUG("Get sys_ack_msqid %d done!\n", sys_ack_msqid);
-
+     
     VI_DEBUG("Intialize msg in cmd_server done!\n\n");
 
     return ret;
@@ -222,6 +224,8 @@ static void cmd_server_exit(void)
 //    sem_destroy(&emif_sem);
 //    msgctl(ch_id, IPC_RMID, 0);
     //msgctl(len_cmd_msqid, IPC_RMID, 0);
+    //
+
     VI_DEBUG("cmd_server_exit success\n");
 }
 
@@ -588,7 +592,7 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
                 VI_DEBUG("ipaddr = %s\n", ip_a);
                 ip_a = inet_ntoa(camera_ip_s.netmask);
                 VI_DEBUG("ipaddr = %s\n", ip_a);
-                ret = cmd_server_setip(&camera_ip_s, 1);
+                ret = cmd_server_setip(&camera_ip_s, 0);
             }
             break;
         case IP_CMD_SYS_GET_NET:
