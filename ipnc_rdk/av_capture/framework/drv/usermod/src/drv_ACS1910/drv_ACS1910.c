@@ -114,6 +114,7 @@ tACS1910Cfg gACS1910_current_cfg;
 
 static pthread_t check_default_set_thread_id;
 static int check_default_set_thread_run = 0;
+static int check_fpga_down = 1;
 
 #endif
 /***********************************************************
@@ -150,10 +151,11 @@ static void acs1910_gpio_init()
     CSL_gpioGetPinmux(&gCSL_gpioHndl, 3, &value32);
     VI_DEBUG("pinmux3 = 0x%08X\n\n", value32);
 
-    //enable gio37 gio33(SPI2_CS) gio32(SPI2_SCLK) gio31(SPI2_SMOI) gio30(SPI2_SIMO) gio28(reset vim) 
+    //enable gio37 gio33(SPI2_CS) gio32(SPI2_SCLK) gio31(SPI2_SMOI) gio30(SPI2_SIMO) gio28(reset vim) gio27(program_b) 
+    //gio35(done)
     CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
     VI_DEBUG("pinmux4 = 0x%08X\n", value32);
-    value32 &= 0xFFCFC033;
+    value32 &= 0xFFCCC030;
     CSL_gpioSetPinmux(&gCSL_gpioHndl, 4, value32);
     CSL_gpioGetPinmux(&gCSL_gpioHndl, 4, &value32);
     VI_DEBUG("pinmux4 = 0x%08X\n\n", value32);
@@ -186,6 +188,9 @@ static void acs1910_gpio_init()
 
     DRV_gpioSetMode(SYS_SET_DEFAULT_IO, DRV_GPIO_DIR_IN);
 
+    DRV_gpioSetMode(FPGA_PROGRAM_B_IO, DRV_GPIO_DIR_IN);
+    DRV_gpioSetMode(FPGA_DONE_IO, DRV_GPIO_DIR_IN);
+
     //DRV_gpioSetMode(VIM_RESET_IO, DRV_GPIO_DIR_OUT);
     //DRV_gpioClr(VIM_RESET_IO);
     //sleep(1);
@@ -203,12 +208,46 @@ static int check_cfg_file()
     struct stat cfg_stat;
 
     //check default cfg, if there is no then create one
-    fp = fopen(ACS1910_DEFAULT_CFG, "rb"); 
-    if(fp == NULL)
-    {
-        VI_DEBUG("open default cfg error\n");
-        need_create = 1;
-//        perror("check_cfg_file open error!\n");
+//    fp = fopen(ACS1910_DEFAULT_CFG, "rb"); 
+//    if(fp == NULL)
+//    {
+//        VI_DEBUG("open default cfg error\n");
+//        need_create = 1;
+////        perror("check_cfg_file open error!\n");
+////        fp = fopen(ACS1910_DEFAULT_CFG, "wb");
+////        if(fp == NULL)
+////        {
+////           perror("create default_cfg file error\n"); 
+////           return OSA_EFAIL;
+////        }
+////        else 
+////        {
+////            ret = fwrite(&gACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
+////            VI_DEBUG("write %d into cfg\n", ret);
+////            if(ret != sizeof(tACS1910Cfg))
+////            {
+////                perror("write default_cfg file error\n");
+////                fclose(fp);
+////                return OSA_EFAIL;
+////            }
+////            fclose(fp);
+////        }
+//    }
+//    else 
+//    {
+//        VI_DEBUG("There is a default cfg file\n");
+//        fclose(fp);
+//        stat(ACS1910_DEFAULT_CFG, &cfg_stat);
+//        VI_DEBUG("default file size = %d\n", cfg_stat.st_size);
+//        if(cfg_stat.st_size != sizeof(tACS1910Cfg))
+//        {
+//            VI_DEBUG("file size is wrong\n");
+//            need_create = 1;
+//        }
+//    }
+//    if(need_create == 1)
+//    {
+//        VI_DEBUG("create a new default cfg\n");
 //        fp = fopen(ACS1910_DEFAULT_CFG, "wb");
 //        if(fp == NULL)
 //        {
@@ -227,41 +266,7 @@ static int check_cfg_file()
 //            }
 //            fclose(fp);
 //        }
-    }
-    else 
-    {
-        VI_DEBUG("There is a default cfg file\n");
-        fclose(fp);
-        stat(ACS1910_DEFAULT_CFG, &cfg_stat);
-        VI_DEBUG("default file size = %d\n", cfg_stat.st_size);
-        if(cfg_stat.st_size != sizeof(tACS1910Cfg))
-        {
-            VI_DEBUG("file size is wrong\n");
-            need_create = 1;
-        }
-    }
-    if(need_create == 1)
-    {
-        VI_DEBUG("create a new default cfg\n");
-        fp = fopen(ACS1910_DEFAULT_CFG, "wb");
-        if(fp == NULL)
-        {
-           perror("create default_cfg file error\n"); 
-           return OSA_EFAIL;
-        }
-        else 
-        {
-            ret = fwrite(&gACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
-            VI_DEBUG("write %d into cfg\n", ret);
-            if(ret != sizeof(tACS1910Cfg))
-            {
-                perror("write default_cfg file error\n");
-                fclose(fp);
-                return OSA_EFAIL;
-            }
-            fclose(fp);
-        }
-    }
+//    }
     //check saved cfg, if there is no then create one equal the default one 
     need_create = 0;
     fp = fopen(ACS1910_SAVED_CFG, "rb");
@@ -390,8 +395,25 @@ void check_default_set_thread()
         if(count == 3)
             check_default_set_thread_run = 0;
     }
+    VI_DEBUG("Reset FPGA\n"); 
+    default_set = 0;
+    DRV_gpioSetMode(FPGA_PROGRAM_B_IO, DRV_GPIO_DIR_OUT); 
+    DRV_gpioClr(FPGA_PROGRAM_B_IO);
+    usleep(1000000);
+    DRV_gpioSet(FPGA_PROGRAM_B_IO);
+    DRV_gpioSetMode(FPGA_PROGRAM_B_IO, DRV_GPIO_DIR_IN);
+    while(check_fpga_down)
+    {
+        sleep(1);
+        default_set = DRV_gpioGet(FPGA_DONE_IO);
+        VI_DEBUG("done is %d\n", default_set);
+        if(default_set == 1)
+            check_fpga_down = 0;
+    }
+    
+
     VI_DEBUG("rm -rf cfg file\n");
-    system("rm -rf /mnt/nand/acs1910_default.cfg");
+    //system("rm -rf /mnt/nand/acs1910_default.cfg");
     system("rm -rf /mnt/nand/acs1910_saved.cfg");
     system("rm -rf /mnt/nand/sysenv.cfg");
     system("reboot");
@@ -509,6 +531,7 @@ int DRV_ACS1910Exit()
       check_default_set_thread_run = 0;
       pthread_join(check_default_set_thread_id, NULL);
     }
+    check_fpga_down = 0;
 }
 
 

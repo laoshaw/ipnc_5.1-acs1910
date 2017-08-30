@@ -55,6 +55,9 @@ Copyright (c) 2017-2019 VIFOCUS
 
 #define SYS_SET_DEFAULT_IO     (83)
 
+#define FPGA_PROGRAM_B_IO (27)
+#define FPGA_DONE_IO (35)
+
 //#pragma pack(1)
 typedef struct 
 {

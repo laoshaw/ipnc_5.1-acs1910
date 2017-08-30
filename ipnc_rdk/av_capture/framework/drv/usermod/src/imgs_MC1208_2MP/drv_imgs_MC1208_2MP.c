@@ -1198,9 +1198,9 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     }
 
     
-    DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[0]));
-    DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[1]));
-    DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[2]));
+    //DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[0]));
+    //DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[1]));
+    //DRV_SetVIMROI(&(gACS1910_saved_cfg.ISPAllCfg.AERoi[2]));
     DRV_InitVIM(&(gACS1910_saved_cfg.ISPAllCfg.ISPNormalCfg));
     
     //status = VIM_UpdateAttribute();

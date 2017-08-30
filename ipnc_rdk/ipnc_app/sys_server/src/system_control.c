@@ -352,6 +352,7 @@ int IsUsbConnect()
 int StartStaticNetwork(SysInfo *pSysInfo)
 {
 	int dhcp;
+    int i;
     //char syscmd[64];
 	if(pSysInfo == NULL){
     	return -1;
@@ -360,6 +361,11 @@ int StartStaticNetwork(SysInfo *pSysInfo)
     		__E("Error on get MAC address\n");
         	return -1;
     	}
+        printf("==================================\n");
+        printf("MAC is: ");
+        for(i = 0; i < 6; i++)
+            printf("%02x ", pSysInfo->lan_config.net.MAC[i]);
+        printf("\n==================================\n");
         //sprintf(syscmd, "ifconfig eth0 hw ether %02X:%02X:%02X:%02X:%02X:%02X\n", pSysInfo->lan_config.net.MAC[0] , pSysInfo->lan_config.net.MAC[1], pSysInfo->lan_config.net.MAC[2], pSysInfo->lan_config.net.MAC[3], pSysInfo->lan_config.net.MAC[4], pSysInfo->lan_config.net.MAC[5]); 
 
         //SYSTEM(syscmd);

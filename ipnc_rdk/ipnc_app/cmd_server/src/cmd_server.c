@@ -830,7 +830,6 @@ int main(int argc, char **argv)
     while(g_cmd_server_run)
     {
         //VI_DEBUG("wait from client\n");
-        
 
         FD_ZERO(&recv_fd);
         FD_SET(cmd_socketfd, &recv_fd);
@@ -893,7 +892,7 @@ int main(int argc, char **argv)
                                     //VI_DEBUG("many bytes need send\n");
                                     ack_len = CMD_PACK_DATA_OFFSET + (send_buf[CMD_PACK_DATA_LENGTH_OFFSET] << 8) + 
                                               (send_buf[CMD_PACK_DATA_LENGTH_OFFSET + 1]) + 1;
-                                    VI_DEBUG("ack_len = %d\n", ack_len);
+                                    //VI_DEBUG("ack_len = %d\n", ack_len);
                                     send_buf[ack_len - 1] = calc_check_code(send_buf, ack_len - 1 );
                                     //for(i = 0; i < ack_len; i++)
                                     //   VI_DEBUG("send_buf[%02d] = %02X\n", i, send_buf[i]);
@@ -915,8 +914,8 @@ int main(int argc, char **argv)
                                     server_ok[CMD_PACK_MSG_OFFSET] = recv_buf[CMD_PACK_MSG_OFFSET];
                                     server_ok[sizeof(server_ok) - 1] = calc_check_code(server_ok, sizeof(server_ok) - 1);
                                     sendto(cmd_socketfd, server_ok, sizeof(server_ok), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                                    for(i = 0; i < sizeof(server_ok); i++)
-                                        VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
+                                    //for(i = 0; i < sizeof(server_ok); i++)
+                                    //    VI_DEBUG("server_ok[%02d] = %02X\n", i, server_ok[i]);
                                 }
                                 else 
                                 {//各种错误的
@@ -924,8 +923,8 @@ int main(int argc, char **argv)
                                     memcpy(&(server_error[SERVER_ERROR_CODE_OFFSET]), &ret, sizeof(ret));
                                     server_error[SERVER_ERROR_SIZE - 1] = calc_check_code(server_error, sizeof(server_error) - 1);
                                     sendto(cmd_socketfd, server_error, sizeof(server_error), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
-                                    for(i = 0; i < sizeof(server_error); i++)
-                                        VI_DEBUG("server_error[%02d] = %02X\n", i, server_error[i]);
+                                    //for(i = 0; i < sizeof(server_error); i++)
+                                    //    VI_DEBUG("server_error[%02d] = %02X\n", i, server_error[i]);
                                 }
                             }//非心跳数据
                         }//校验正确
@@ -935,9 +934,7 @@ int main(int argc, char **argv)
                             VI_DEBUG("check_code is error\n");
                             ret = IP_CMD_CRC_ERROR;
                             memcpy(&(server_error[SERVER_ERROR_CODE_OFFSET]), &ret, sizeof(ret));
-                            VI_DEBUG("check_code is error\n");
                             server_error[SERVER_ERROR_SIZE - 1] = calc_check_code(server_error, sizeof(server_error) - 1);
-                            VI_DEBUG("check_code is error\n");
                             sendto(cmd_socketfd, server_error, sizeof(server_error), 0, (struct sockaddr *)&client_addr, sizeof(client_addr));
                         }//校验错
                         memcpy(send_buf, server_id, sizeof(server_id));//接收发送完成之后，重新初始化一下发送buffer
