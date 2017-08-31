@@ -52,6 +52,7 @@ static int vim_ack_msqid;
 //static int sys_cmd_msqid;
 //static int sys_ack_msqid; 
 static SysInfo acs1910_ipnc_sysinfo; 
+char version[32];
 
 static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
 {
@@ -680,7 +681,8 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
                     send[CMD_PACK_MSG_OFFSET] = IP_CMD_SYS_GET_VER;
                     VI_DEBUG("MSG : %02x\n", send[CMD_PACK_MSG_OFFSET]);
                     memcpy(&sys_ver, &cmd_server_rcv_msg.msg_data, sizeof(VF_SYS_VER_S));
-                    sprintf(sys_ver.dsp_ver, "%s", VERSION_NUMBER);
+                    strcpy(sys_ver.dsp_ver, version);
+                    //sprintf(sys_ver.dsp_ver, "%s", VERSION_NUMBER);
                     VI_DEBUG("dsp_ver = %s\n", sys_ver.dsp_ver);
                     VI_DEBUG("fpga_ver = %s\n", sys_ver.fpga_ver);
                     VI_DEBUG("sensor_ver = %s\n", sys_ver.sensor_ver);
@@ -796,6 +798,8 @@ int main(int argc, char **argv)
     fd_set recv_fd;
     struct timeval timeout;
     struct timeval tv1, tv2, tv3;
+
+    sprintf(version, "%s", VERSION_NUMBER);
 
     ret = cmd_server_init();
     if(ret < 0)
