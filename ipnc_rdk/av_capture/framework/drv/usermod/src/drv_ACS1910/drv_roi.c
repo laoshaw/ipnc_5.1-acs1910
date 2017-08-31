@@ -174,7 +174,7 @@ void VIM_roi_autoexp_thread()
             ROI_DEBUG("ROI autoexp\n");
             usleep(400000);
             ROI_DEBUG("=========================================\n");
-            gettimeofday(&t1, NULL);
+            //gettimeofday(&t1, NULL);
             if(pAEMode->AE_Shutter_Mode != VF_AE_ROI)
             {
                 continue;
@@ -190,9 +190,12 @@ void VIM_roi_autoexp_thread()
                 shutter_max_bigger = 0;
 
             gain_max = pAEMode->MaxGain * 10;
-            avg_max = DEFAULT_AVG_MAX;
-            avg_min = DEFAULT_AVG_MIN;
+            sem_wait(&bright_sem);
+            avg_max = DEFAULT_AVG_MAX - 50 + pISPNormalCfg->BaseAttr.BrightnessCoeff; 
+            avg_min = DEFAULT_AVG_MIN - 50 + pISPNormalCfg->BaseAttr.BrightnessCoeff;
+            sem_post(&bright_sem);
             avg_target = (avg_max + avg_min) >> 1; 
+            ROI_DEBUG("avg_max = %d, avg_min = %d, avg_target = %d\n", avg_max, avg_min, avg_target);
 
             memcpy(&AEMode_adj, pAEMode, sizeof(VF_AE_MODE_S));
             //获取当前shutter、gain、roi灰度平均值
@@ -390,7 +393,7 @@ void VIM_roi_autoexp_thread()
                 AEMode_adj.GainDeci = gain % 10;
                 ROI_SetVIMAEMode(&AEMode_adj);
             }
-            gettimeofday(&t2, NULL);
+            //gettimeofday(&t2, NULL);
             ROI_DEBUG("t2 - t1 = %d\n", ((t2.tv_sec*1000 + t2.tv_usec/1000) - (t1.tv_sec*1000 + t1.tv_usec/1000)));
         }
         else 

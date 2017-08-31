@@ -202,6 +202,7 @@ extern pthread_t VIM_roi_autoexp_thread_id;
 extern int VIM_roi_autoexp_thread_run;
 extern sem_t vim_aemode_sem;
 extern sem_t vim_sem;
+extern sem_t bright_sem;
 int DRV_ACS1910Init();
 int save_current_cfg();
 int Set_SysTime(pVF_TIME_S ptime);

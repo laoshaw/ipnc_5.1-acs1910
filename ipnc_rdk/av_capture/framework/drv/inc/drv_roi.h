@@ -1,7 +1,7 @@
 #ifndef __DRV_ROI_H
 #define __DRV_ROI_H
 
-#define ROI_DEBUG_MODE
+//#define ROI_DEBUG_MODE
 #ifdef ROI_DEBUG_MODE
 #define ROI_DEBUG(...) \
     do \
@@ -17,8 +17,8 @@
 #endif
 
 
-#define DEFAULT_AVG_MAX 130
-#define DEFAULT_AVG_MIN 110
+#define DEFAULT_AVG_MAX 120
+#define DEFAULT_AVG_MIN 100
 #define DEFAULT_AVG_TARGET ((DEFAULT_AVG_MAX + DEFAULT_AVG_MIN) >> 1)
 
 #define DEFAULT_SHUTTER_MAX 200000

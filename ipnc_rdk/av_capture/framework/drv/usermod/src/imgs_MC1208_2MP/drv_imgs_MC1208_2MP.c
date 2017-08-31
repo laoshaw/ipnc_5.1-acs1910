@@ -30,6 +30,7 @@ int VIM_roi_autoexp_thread_run = 0;
 sem_t fpga_spi_sem;
 sem_t vim_sem;
 sem_t vim_aemode_sem;
+sem_t bright_sem;
 
 /***********************************************************
 \brief 获取VIM模组的版本信息 
@@ -321,7 +322,7 @@ int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
     {
         OSA_ERROR("VIM GetETGain error = %d\n", ret);
     }
-    VI_DEBUG("VIM Shutter = %d, VIM Gain = 0x%x\n", pETGain->etus, pETGain->gainValue);
+    //VI_DEBUG("VIM Shutter = %d, VIM Gain = 0x%x\n", pETGain->etus, pETGain->gainValue);
     return ret;
 }
 
@@ -380,7 +381,9 @@ static int DRV_SetVIMBaseAttr(pVF_BASE_ATTRIBUTE_S pBaseAttr)
        OSA_ERROR("VIM SetSharpness error = %d\n", ret);
        return ret;
     }
+    sem_wait(&bright_sem);
     memcpy(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.BaseAttr), pBaseAttr, sizeof(VF_BASE_ATTRIBUTE_S));
+    sem_post(&bright_sem);
     return ret;
 }
 
@@ -1179,6 +1182,7 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     sem_init(&fpga_spi_sem, 0, 1);
     sem_init(&vim_sem, 0, 1);
     sem_init(&vim_aemode_sem, 0, 1);
+    sem_init(&bright_sem, 0, 1);
 
 
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
@@ -1287,6 +1291,7 @@ int DRV_imgsClose()
     sem_destroy(&fpga_spi_sem);
     sem_destroy(&vim_sem);
     sem_destroy(&vim_aemode_sem);
+    sem_destroy(&bright_sem);
 
   status = DRV_imgsEnable(FALSE);
   //status |= DRV_i2cClose(&gDRV_imgsObj.i2cHndl);
