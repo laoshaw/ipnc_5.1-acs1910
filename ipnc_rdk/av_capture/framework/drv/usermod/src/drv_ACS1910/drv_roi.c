@@ -171,9 +171,14 @@ void VIM_roi_autoexp_thread()
     {
         if(pAEMode->AE_Shutter_Mode == VF_AE_ROI)
         {
-            ROI_DEBUG("ROI autoexp\n");
-            usleep(400000);
             ROI_DEBUG("=========================================\n");
+            ROI_DEBUG("ROI autoexp\n");
+            ROI_DEBUG("shutter = %d\n", shutter);
+            if(shutter < 40002)
+                usleep(400000);
+            else 
+                sleep(1);
+
             //gettimeofday(&t1, NULL);
             if(pAEMode->AE_Shutter_Mode != VF_AE_ROI)
             {
