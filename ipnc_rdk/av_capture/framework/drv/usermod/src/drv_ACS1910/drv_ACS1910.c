@@ -203,103 +203,23 @@ static void acs1910_gpio_init()
 static int check_cfg_file()
 {
     FILE *fp;
+    int fd;
     int ret;
     int need_create = 0;
     struct stat cfg_stat;
 
-    //check default cfg, if there is no then create one
-//    fp = fopen(ACS1910_DEFAULT_CFG, "rb"); 
-//    if(fp == NULL)
-//    {
-//        VI_DEBUG("open default cfg error\n");
-//        need_create = 1;
-////        perror("check_cfg_file open error!\n");
-////        fp = fopen(ACS1910_DEFAULT_CFG, "wb");
-////        if(fp == NULL)
-////        {
-////           perror("create default_cfg file error\n"); 
-////           return OSA_EFAIL;
-////        }
-////        else 
-////        {
-////            ret = fwrite(&gACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
-////            VI_DEBUG("write %d into cfg\n", ret);
-////            if(ret != sizeof(tACS1910Cfg))
-////            {
-////                perror("write default_cfg file error\n");
-////                fclose(fp);
-////                return OSA_EFAIL;
-////            }
-////            fclose(fp);
-////        }
-//    }
-//    else 
-//    {
-//        VI_DEBUG("There is a default cfg file\n");
-//        fclose(fp);
-//        stat(ACS1910_DEFAULT_CFG, &cfg_stat);
-//        VI_DEBUG("default file size = %d\n", cfg_stat.st_size);
-//        if(cfg_stat.st_size != sizeof(tACS1910Cfg))
-//        {
-//            VI_DEBUG("file size is wrong\n");
-//            need_create = 1;
-//        }
-//    }
-//    if(need_create == 1)
-//    {
-//        VI_DEBUG("create a new default cfg\n");
-//        fp = fopen(ACS1910_DEFAULT_CFG, "wb");
-//        if(fp == NULL)
-//        {
-//           perror("create default_cfg file error\n"); 
-//           return OSA_EFAIL;
-//        }
-//        else 
-//        {
-//            ret = fwrite(&gACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
-//            VI_DEBUG("write %d into cfg\n", ret);
-//            if(ret != sizeof(tACS1910Cfg))
-//            {
-//                perror("write default_cfg file error\n");
-//                fclose(fp);
-//                return OSA_EFAIL;
-//            }
-//            fclose(fp);
-//        }
-//    }
-    //check saved cfg, if there is no then create one equal the default one 
     need_create = 0;
-    fp = fopen(ACS1910_SAVED_CFG, "rb");
-    if(fp == NULL)
+    ret = stat(ACS1910_SAVED_CFG, &cfg_stat);
+    if(ret != 0)
     {
-        VI_DEBUG("open saved cfg error\n");
+        if(errno == ENOENT )
+        {
+            VI_DEBUG("saved cfg file is not exist\n");
+        }
         need_create = 1;
-//        perror("check_cfg_file open error!\n");
-//        fp = fopen(ACS1910_SAVED_CFG, "wb");
-//        if(fp == NULL)
-//        {
-//           perror("create default_cfg file error\n"); 
-//           return OSA_EFAIL;
-//        }
-//        else 
-//        {
-//            ret = fwrite(&gACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
-//            VI_DEBUG("write %d into cfg\n", ret);
-//            if(ret != sizeof(tACS1910Cfg))
-//            {
-//                perror("write default_cfg file error\n");
-//                fclose(fp);
-//                return OSA_EFAIL;
-//            }
-//            fclose(fp);
-//        }
     }
     else 
     {
-        VI_DEBUG("There is a saved cfg file\n");
-        fclose(fp);
-        stat(ACS1910_SAVED_CFG, &cfg_stat);
-        VI_DEBUG("saved file size = %d\n", cfg_stat.st_size);
         if(cfg_stat.st_size != sizeof(tACS1910Cfg))
             need_create = 1;
     }
@@ -314,6 +234,7 @@ static int check_cfg_file()
         }
         else 
         {
+            fd = fileno(fp);
             ret = fwrite(&gACS1910_default_cfg, 1, sizeof(tACS1910Cfg), fp);
             VI_DEBUG("write %d into cfg\n", ret);
             if(ret != sizeof(tACS1910Cfg))
@@ -322,15 +243,18 @@ static int check_cfg_file()
                 fclose(fp);
                 return OSA_EFAIL;
             }
+            fsync(fd);
             fclose(fp);
         }
     }
+
     return OSA_SOK; 
 }
 static int init_cfg(char *file)
 {
     int ret;
     FILE *fp;
+    int fd;
 
     
     fp = fopen(file, "rb");
@@ -339,6 +263,7 @@ static int init_cfg(char *file)
         perror("open file error\n");
         return OSA_EFAIL;
     }
+    fd = fileno(fp);
     VI_DEBUG("sizeof(tACS1910Cfg) = %d\n", sizeof(tACS1910Cfg));
     ret = fread(&gACS1910_saved_cfg, 1, sizeof(tACS1910Cfg), fp);
     if(ret != sizeof(tACS1910Cfg))
@@ -346,6 +271,7 @@ static int init_cfg(char *file)
         perror("read saved cfg error!\n");
         return OSA_EFAIL;
     }
+    fsync(fd);
     fclose(fp);
     memcpy(&gACS1910_current_cfg, &gACS1910_saved_cfg, sizeof(tACS1910Cfg));
 
@@ -355,23 +281,49 @@ static int init_cfg(char *file)
 int save_current_cfg()
 {
    int ret;
-   FILE *fp;
-
-   fp = fopen(ACS1910_SAVED_CFG, "w");
-   if(fp == NULL)
+   FILE *saved_fp;
+   int fd;
+#if 0
+   saved_fp = fopen(ACS1910_SAVED_CFG, "wb+");
+   if(saved_fp == NULL)
    {
        perror("open saved cfg file error\n");
        return OSA_EFAIL;
    }
-   ret = fwrite(&gACS1910_current_cfg, 1, sizeof(tACS1910Cfg), fp);
+   ret = fwrite(&gACS1910_current_cfg, 1, sizeof(tACS1910Cfg), saved_fp);
    if(ret != sizeof(tACS1910Cfg))
    {
-       perror("save current cfg error\n");
+       perror("wirte current cfg error\n");
        return OSA_EFAIL;
    }
-   fclose(fp);
+   ret = fflush(saved_fp);
+   ret = fclose(saved_fp);
+   if(ret != 0)
+   {
+       perror("save current cfg error\n");
+   }
    memcpy(&gACS1910_saved_cfg, &gACS1910_current_cfg, sizeof(tACS1910Cfg));
    VI_DEBUG("saved current cfg!\n");
+   //system("cp /mnt/nand/acs1910_saved.cfg /mnt/nand/acs1910_saved.cfg.bak\n");
+
+#endif
+   VI_DEBUG("gACS1910_current_cfg.FlipMirrorMode = %d\n", gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.FlipMirrorMode);
+   fd = open(ACS1910_SAVED_CFG, O_WRONLY | O_TRUNC);
+   if(fd == -1)
+   {
+       perror("open saved cfg file error\n");
+   }
+   ret = write(fd, &gACS1910_current_cfg, sizeof(tACS1910Cfg));
+   if(ret != sizeof(tACS1910Cfg))
+   {
+       perror("write current cfg error\n");
+       close(fd);
+       return OSA_EFAIL;
+   }
+   fsync(fd);
+   close(fd);
+   memcpy(&gACS1910_saved_cfg, &gACS1910_current_cfg, sizeof(tACS1910Cfg));
+   VI_DEBUG("saved current_cfg!\n");
 
    return OSA_SOK;
 }
@@ -526,7 +478,7 @@ int DRV_ACS1910Exit()
     int status = OSA_SOK;
 
     status = ledPWM_exit();
-    if(check_default_set_thread_run == 1)
+//    if(check_default_set_thread_run == 1)
     {
       check_default_set_thread_run = 0;
       pthread_join(check_default_set_thread_id, NULL);

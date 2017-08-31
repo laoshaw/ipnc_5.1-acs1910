@@ -99,10 +99,10 @@ $DVEVMDIR/beforeloadkmodule.sh
 $DVEVMDIR/loadkmodules.sh
 $DVEVMDIR/loadmodules_ipnc.sh
 ifconfig lo 127.0.0.1
-ifconfig eth0 192.168.1.82
+ifconfig eth0 192.168.8.81
 cd $DVEVMDIR
 #./boot_proc 1
-#$DVEVMDIR/autorun.sh
+$DVEVMDIR/autorun.sh
 mount devpts /dev/pts -t devpts
 
 #udevd –d

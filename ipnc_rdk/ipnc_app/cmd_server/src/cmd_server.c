@@ -57,6 +57,7 @@ static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
 {
     int ret = 0;
     FILE *fp;
+    int fd;
     unsigned long magic_num = MAGIC_NUM;
     int i;
     char syscmd[64];
@@ -100,6 +101,8 @@ static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
         perror("write sysinfo error\n");
         ret = -1;
     }
+    fd = fileno(fp);
+    fsync(fd);
     fclose(fp);
     //sleep(1);
     SYSTEM("reboot\n");

@@ -1,5 +1,5 @@
 SUBDIRS = interface sys_server multimedia network root_filesys webdata utils cmd_server up_server
-#SUBDIRS = interface sys_server network root_filesys utils cmd_server up_server
+$SUBDIRS = interface sys_server network root_filesys utils cmd_server up_server
 
 DEBUGSUBDIRS = $(addsuffix .debug, $(SUBDIRS))
 RELEASESUBDIRS = $(addsuffix .release, $(SUBDIRS))

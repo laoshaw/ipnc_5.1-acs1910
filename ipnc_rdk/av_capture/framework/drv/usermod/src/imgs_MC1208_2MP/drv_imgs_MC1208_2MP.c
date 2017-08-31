@@ -151,7 +151,7 @@ static int DRV_UpdateVIMGenInfoFile()
         fclose(fp);
         return OSA_EFAIL;
     }
-    fp = fopen(file, "w"); 
+    fp = fopen(file, "wb"); 
     if(fp == NULL)
     {
         perror("create vim_general_info file error\n"); 
@@ -197,7 +197,7 @@ int DRV_SetCameraID(pVF_CAMERA_ID_S pCameraID)
 {
     int ret = 0;
     FILE *fp;
-    
+    int fd; 
 
     VI_DEBUG("Camera id = %d\n", pCameraID->id);
     VI_DEBUG("Camera name = %s\n", pCameraID->name);
@@ -209,12 +209,15 @@ int DRV_SetCameraID(pVF_CAMERA_ID_S pCameraID)
         VI_DEBUG(":");
         perror("open ACS1910_SAVED_CFG\n");
     }
+    fd = fileno(fp); 
     ret = fwrite(&gACS1910_saved_cfg, 1, sizeof(tACS1910Cfg), fp);
     if(ret != sizeof(tACS1910Cfg))
     {
+        fclose(fp);
         perror("save saved cfg error\n");
         return OSA_EFAIL;
     }
+    fsync(fd);
     fclose(fp);
     return 0; 
 }
@@ -1261,13 +1264,13 @@ int DRV_imgsClose()
 {
   int status;
 
-  if(VIM_control_thread_run == 1)
+  //if(VIM_control_thread_run == 1)
   {
     VIM_control_thread_run = 0;
     pthread_join(VIM_control_thread_id, NULL);
   }
 
-  if(VIM_roi_autoexp_thread_run == 1)
+  //if(VIM_roi_autoexp_thread_run == 1)
   {
     VIM_roi_autoexp_thread_run = 0;
     pthread_join(VIM_roi_autoexp_thread_id, NULL);

@@ -1,4 +1,5 @@
 SUBDIRS = boa-0.94.13 dhcpcd esmtp live ntpclient quftp-1.0.7 ScanIP_Upnp
+#SUBDIRS = dhcpcd esmtp live ntpclient quftp-1.0.7 ScanIP_Upnp
 
 DEBUGSUBDIRS = $(addsuffix .debug, $(SUBDIRS))
 RELEASESUBDIRS = $(addsuffix .release, $(SUBDIRS))
