@@ -94,14 +94,14 @@ mknod /dev/dev_i2c c 253 0
 
 mknod -m 666 /dev/spidev0.0 c 153 0
 
-#./system_server &
+./system_server &
 $DVEVMDIR/beforeloadkmodule.sh
 $DVEVMDIR/loadkmodules.sh
 $DVEVMDIR/loadmodules_ipnc.sh
 ifconfig lo 127.0.0.1
-ifconfig eth0 192.168.8.81
+#ifconfig eth0 192.168.8.81
 cd $DVEVMDIR
-#./boot_proc 1
+./boot_proc 1
 $DVEVMDIR/autorun.sh
 mount devpts /dev/pts -t devpts
 
