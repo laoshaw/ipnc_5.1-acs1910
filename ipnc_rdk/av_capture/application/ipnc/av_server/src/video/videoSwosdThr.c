@@ -7,6 +7,8 @@
 #include <dm365mm.h>
 #include <osa_cmem.h>
 #include <avserver.h>
+#include "h264_osd.h"
+#include "drv_ACS1910.h"
 
 //#define OSD_CMEM_ALLOC OSA_cmemAlloc
 #define OSD_CMEM_ALLOC 	OSA_cmemAllocCached
@@ -2046,6 +2048,10 @@ int VIDEO_swosdTskRun(int streamId, OSA_BufInfo *pBufInfo)
 	int fdStreamId;
 	static int osd_count[AVSERVER_MAX_STREAMS] = {0, 0, 0, 0};
 
+    Dh_Stream_OSD_Config StreamOSDCfg;
+    pVF_OSD_ONOFF_S pOSDOnOff = &(gACS1910_current_cfg.SYSCfg.osd_onoff);
+    pVF_CAMERA_ID_S pCameraID = &(gACS1910_current_cfg.SYSCfg.camera_id);
+
 	if(streamId<0 || streamId >= AVSERVER_MAX_STREAMS) {
 		OSA_ERROR("Invalid streamId %d\n", streamId);
 		return OSA_EFAIL;
@@ -2118,6 +2124,17 @@ int VIDEO_swosdTskRun(int streamId, OSA_BufInfo *pBufInfo)
 	    OSA_prfBegin(&gAVSERVER_ctrl.swosdPrf[streamId]);
 
 		SWOSD_setMainWinPrm(osdHndl, &mainWinPrm);
+
+        StreamOSDCfg.timeen = pOSDOnOff->time_onoff;
+        StreamOSDCfg.addren = pOSDOnOff->name_onoff;
+        StreamOSDCfg.directionen = pOSDOnOff->id_onoff;
+
+        sprintf(StreamOSDCfg.addrtext, "%s", pCameraID->name); 
+        sprintf(StreamOSDCfg.directiontext, "%03d", pCameraID->id);
+
+        dh_h264_osd_setparam(&StreamOSDCfg);
+
+        dh_h264_osd_apply(((unsigned char *)pBufInfo->virtAddr) + 44, 1920, 1088);
 
 		if(osd_count[streamId]>=(gAVSERVER_config.encodeConfig[streamId].frameRateBase/1000)) {
 			swosdDisplay(streamId, osdHndl);

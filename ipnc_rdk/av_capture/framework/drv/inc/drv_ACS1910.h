@@ -152,7 +152,7 @@ typedef struct
 #define DEFAULT_HUE 50
 #define DEFAULT_SHARPNESS 50
 
-#define DEFAULT_IRCUT_TH 16
+#define DEFAULT_IRCUT_TH 1
 #define DEFAULT_CAMERA_NAME "ACS1910_IP_C"
 
 typedef struct ACS1910_ISP_NORMAL_CFG{

@@ -1,7 +1,7 @@
 #ifndef __DRV_ROI_H
 #define __DRV_ROI_H
 
-//#define ROI_DEBUG_MODE
+#define ROI_DEBUG_MODE
 #ifdef ROI_DEBUG_MODE
 #define ROI_DEBUG(...) \
     do \

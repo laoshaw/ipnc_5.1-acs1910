@@ -650,6 +650,15 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             break;
         case IP_CMD_SYS_SET_OSD:
             VI_DEBUG("set osd\n");
+            if(data_len != sizeof(VF_OSD_ONOFF_S))
+            {
+                VI_DEBUG("cmd error!\n");
+                ret = IP_CMD_DATA_LENGTH_ERROR;
+            }
+            else 
+            {
+                msgsnd(vim_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+            }
             break;
         case IP_CMD_SYS_GET_VER:
             VI_DEBUG("get ver\n");

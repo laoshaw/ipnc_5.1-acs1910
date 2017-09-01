@@ -391,6 +391,7 @@ int DRV_SetVIMAEMode(pVF_AE_MODE_S pAEMode)
 {
     int ret = OSA_SOK;
     AE_MODE_S VIMAEMode;
+    VF_IRCUT_MODE_S IRCutMode;
 
     sem_wait(&vim_aemode_sem);
     if(pAEMode->AE_Shutter_Mode == VF_AE_ROI)
@@ -683,7 +684,9 @@ static int DRV_SetVIMFlipMirror(VF_FLIP_MIRROR_MODE_E FlipMirrorMode)
 {
     int ret;
 
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetFlipMirror((FLIP_MIRROR_MODE_E)FlipMirrorMode);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set FlipMirror error = %d\n", ret);
@@ -699,35 +702,45 @@ static int DRV_SetVIMAWBMode(pVF_AWB_MODE_S pAWBMode)
     int ret = OSA_SOK;
 
     VI_DEBUG("Set VIM AWB Mode\n");
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetAWBMode((AWB_MODE_E)pAWBMode->Mode);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set AWBMode error = %d\n", ret);
         return ret;
     }
     
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetAWBAERelation(pAWBMode->value);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set AWBAERelation error = %d\n", ret);
         return ret;
     }
  
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetAWBCalcInterval(pAWBMode->interval);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set AWBCalcInterval error = %d\n", ret);
         return ret;
     }
 
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetAWBUpdateSpeed(pAWBMode->speed);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set AWBUpdateSpeed error = %d\n", ret);
         return ret;
     }
 
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetAWBDelay(pAWBMode->Delay);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set AWBDelay error = %d\n", ret);
@@ -744,7 +757,9 @@ static int DRV_SetVIMIris(VF_IRIS_MODE_E IrisMode)
     int ret;
 
     VI_DEBUG("IrisMode = %x\n", IrisMode);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetIris((IRIS_MODE_E)IrisMode);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set FlipMirror error = %d\n", ret);
@@ -754,31 +769,38 @@ static int DRV_SetVIMIris(VF_IRIS_MODE_E IrisMode)
     return ret;
 }
 
-static int DRV_SetVIMIRCut(pVF_IRCUT_MODE_S pIRCutMode)
+DRV_SetVIMIRCut(pVF_IRCUT_MODE_S pIRCutMode)
 {
     int ret;
 
-    ret = VIM_ISP_SetIrCut((IRCUT_MODE_E)pIRCutMode->Mode);
-    if(ret != VIM_SUCCEED)
-    {
-        OSA_ERROR("VIM Set IRCutMode error = %d\n", ret);
-        return ret;
-    }
-    ret = VIM_ISP_SetIrCut(pIRCutMode->Th);
+    sem_wait(&vim_sem);
+    ret = VIM_ISP_SetIrCutTh(pIRCutMode->Th);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set IRCut Th error = %d\n", ret);
+        return ret;
+    }
+    sem_wait(&vim_sem);
+    ret = VIM_ISP_SetIrCut((IRCUT_MODE_E)pIRCutMode->Mode);
+    sem_post(&vim_sem);
+    VI_DEBUG("IRCutMode = %d\n", (IRCUT_MODE_E)pIRCutMode->Mode);
+    if(ret != VIM_SUCCEED)
+    {
+        OSA_ERROR("VIM Set IRCutMode error = %d\n", ret);
         return ret;
     }
     memcpy(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode), pIRCutMode, sizeof(VF_IRCUT_MODE_S));
     return ret;
 }
 
-static int DRV_SetVIMColorBlack(VF_COLORBLACK_MODE_E colorblack)
+int DRV_SetVIMColorBlack(VF_COLORBLACK_MODE_E colorblack)
 {
     int ret;
 
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetColorBlack((COLORBLACK_MODE_E)colorblack);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set ColorBlack error = %d\n", ret);
@@ -792,7 +814,9 @@ static int DRV_SetVIMDRMode(pVF_DR_MODE_S pDRMode)
 {
     int ret;
 
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetDRMode((DR_MODE_E)pDRMode->Mode, (DR_LEVEL_E)pDRMode->Level);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set IRDRMode error = %d\n", ret);
@@ -805,7 +829,9 @@ static int DRV_SetVIMDeNoiseMode(pVF_DENOISE_MODE_S pDeNoiseMode)
 {
     int ret;
 
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetDenoiseMode((DENOISE_MODE_E)pDeNoiseMode->Mode, (NR3D_LEVEL_E)pDeNoiseMode->Level);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set DeNoiseMode error = %d\n", ret);
@@ -820,7 +846,9 @@ static int DRV_SetVIMEISEnable(VF_EIS_FLAG_E flag)
     int ret;
 
     VI_DEBUG("Set VIM EIS Enable: %d\n", flag);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetEISEnable((EIS_FLAG_E)flag);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set EISEnable error = %d\n", ret);
@@ -835,7 +863,9 @@ static int DRV_SetVIMDefogMode(VF_DEFOG_MODE_E DefogMode)
     int ret;
 
     VI_DEBUG("Set VIM Defog Mode: %d\n", DefogMode);
+    sem_wait(&vim_sem);
     ret = VIM_ISP_SetDefogMode((DEFOG_MODE_E)DefogMode);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM Set DefogMode error = %d\n", ret);
@@ -850,7 +880,9 @@ static int DRV_SetVIMMaxFrmRate(VF_MAXFRMRATE_E fps_mode)
     int ret;
 
     VI_DEBUG("fps_mode = %d\n", fps_mode);
+    sem_wait(&vim_sem);
     ret = VIM_VOUT_SetMaxFrmRate(VIDEOMODE_SEP_16BIT, (MAXFRMRATE_E)fps_mode);
+    sem_post(&vim_sem);
     if(ret != VIM_SUCCEED)
     {
         OSA_ERROR("VIM SetMaxFrmRate error = %d\n", ret);
@@ -1040,6 +1072,7 @@ void VIM_control_thread()
                 DRV_SetVIMIris(*(VF_IRIS_MODE_E *)vim_control_rcv_msg.msg_data);
                 break;
             case IP_CMD_ISP_SET_IRCUT:
+                VI_DEBUG("set IRCUT");
                 DRV_SetVIMIRCut((pVF_IRCUT_MODE_S)vim_control_rcv_msg.msg_data);
                 break;
             case IP_CMD_ISP_SET_COLOR_BLACK:
@@ -1064,6 +1097,8 @@ void VIM_control_thread()
             case IP_CMD_ISP_SET_LOAD_DEFAULT:
                 VI_DEBUG("load default cfg to current\n");
                 memcpy(&(gACS1910_current_cfg.ISPAllCfg), &(gACS1910_default_cfg.ISPAllCfg), sizeof(tACS1910ISPAllCfg));
+                memcpy(&(gACS1910_current_cfg.SYSCfg), &(gACS1910_default_cfg.SYSCfg), sizeof(tACS1910SYSCfg));
+                memcpy(&(gACS1910_current_cfg.LenCfg), &(gACS1910_default_cfg.LenCfg), sizeof(tACS1910LenCfg));
                 DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[0]));
                 DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[1]));
                 DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[2]));
@@ -1072,6 +1107,8 @@ void VIM_control_thread()
             case IP_CMD_ISP_SET_LOAD_SAVED:
                 VI_DEBUG("load saved cfg to current\n");
                 memcpy(&(gACS1910_current_cfg.ISPAllCfg), &(gACS1910_saved_cfg.ISPAllCfg), sizeof(tACS1910ISPAllCfg));
+                memcpy(&(gACS1910_current_cfg.SYSCfg), &(gACS1910_saved_cfg.SYSCfg), sizeof(tACS1910SYSCfg));
+                memcpy(&(gACS1910_current_cfg.LenCfg), &(gACS1910_saved_cfg.LenCfg), sizeof(tACS1910LenCfg));
                 DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[0]));
                 DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[1]));
                 DRV_SetVIMROI(&(gACS1910_current_cfg.ISPAllCfg.AERoi[2]));
@@ -1145,6 +1182,12 @@ void VIM_control_thread()
                 memcpy(vim_control_snd_msg.msg_data, &sys_ver, sizeof(VF_SYS_VER_S));
                 msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 break;
+            case IP_CMD_SYS_SET_OSD:
+                VI_DEBUG("set osd\n");
+                memcpy(&gACS1910_current_cfg.SYSCfg.osd_onoff, vim_control_rcv_msg.msg_data, sizeof(VF_OSD_ONOFF_S));
+                VI_DEBUG("osd_onoff.time = %d\n", gACS1910_current_cfg.SYSCfg.osd_onoff.time_onoff);
+                VI_DEBUG("osd_onoff.name = %d\n", gACS1910_current_cfg.SYSCfg.osd_onoff.name_onoff);
+                VI_DEBUG("osd_onoff.id = %d\n", gACS1910_current_cfg.SYSCfg.osd_onoff.id_onoff);
             default:
                 break;
         }
