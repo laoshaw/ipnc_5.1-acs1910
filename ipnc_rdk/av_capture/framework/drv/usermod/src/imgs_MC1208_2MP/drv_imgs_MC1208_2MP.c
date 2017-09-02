@@ -828,6 +828,8 @@ static int DRV_SetVIMDRMode(pVF_DR_MODE_S pDRMode)
 static int DRV_SetVIMDeNoiseMode(pVF_DENOISE_MODE_S pDeNoiseMode)
 {
     int ret;
+    pVF_AE_MODE_S pAEMode = &(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AEMode);
+    VF_AE_ETGain_S ETGain;
 
     sem_wait(&vim_sem);
     ret = VIM_ISP_SetDenoiseMode((DENOISE_MODE_E)pDeNoiseMode->Mode, (NR3D_LEVEL_E)pDeNoiseMode->Level);
@@ -838,6 +840,22 @@ static int DRV_SetVIMDeNoiseMode(pVF_DENOISE_MODE_S pDeNoiseMode)
         return ret;
     }
     memcpy(&(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.DeNoiseMode), pDeNoiseMode, sizeof(VF_DENOISE_MODE_S));
+    if(pDeNoiseMode->Mode == VF_DENOISE_3D)
+    {
+        if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AEMode.AE_Shutter_Mode == VF_AE_ROI || 
+                gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.AEMode.AE_Shutter_Mode == VF_AE_MANUAL)
+        {
+            DRV_GetVIMETGain(&ETGain);
+            pAEMode->Exposuretime = ETGain.etus + 35;
+            pAEMode->Gain = (ETGain.gainValue >> 6);
+            if(pAEMode->Gain < 254)
+                pAEMode->Gain++;
+            else
+                pAEMode->Gain--;
+            DRV_SetVIMAEMode(pAEMode);
+        }
+    }
+    VI_DEBUG("pDeNoiseMode->Mode = %d, pDeNoiseMode->Level = %d\n", pDeNoiseMode->Mode, pDeNoiseMode->Level);
     return ret;
 }
 
@@ -904,6 +922,12 @@ static int DRV_InitVIM(ptACS1910ISPNormalCfg ptACS1910_isp_normal_cfg)
         OSA_ERROR("DRV_UpdateVIMGenInfoFile");
         return ret;
     }
+    ret = DRV_SetVIMDeNoiseMode(&ptACS1910_isp_normal_cfg->DeNoiseMode);
+    if(ret != VIM_SUCCEED)
+    {
+        OSA_ERROR("DRV_SetVIMDeNoiseMode error = %d\n", ret);
+        return ret;
+    }  
     
     ret = DRV_SetVIMAEMode(&ptACS1910_isp_normal_cfg->AEMode);
     if(ret != VIM_SUCCEED)
@@ -953,12 +977,12 @@ static int DRV_InitVIM(ptACS1910ISPNormalCfg ptACS1910_isp_normal_cfg)
         OSA_ERROR("DRV_SetVIMDRMode error = %d\n", ret);
         return ret;
     }
-    ret = DRV_SetVIMDeNoiseMode(&ptACS1910_isp_normal_cfg->DeNoiseMode);
-    if(ret != VIM_SUCCEED)
-    {
-        OSA_ERROR("DRV_SetVIMDeNoiseMode error = %d\n", ret);
-        return ret;
-    }  
+    //ret = DRV_SetVIMDeNoiseMode(&ptACS1910_isp_normal_cfg->DeNoiseMode);
+    //if(ret != VIM_SUCCEED)
+    //{
+    //    OSA_ERROR("DRV_SetVIMDeNoiseMode error = %d\n", ret);
+    //    return ret;
+    //}  
     ret = DRV_SetVIMEISEnable(ptACS1910_isp_normal_cfg->EISFlag);
     if(ret != VIM_SUCCEED)
     {

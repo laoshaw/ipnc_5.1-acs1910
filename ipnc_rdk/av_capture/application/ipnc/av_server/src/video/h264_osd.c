@@ -243,22 +243,22 @@ int dh_h264_osd_apply(unsigned int yuv_data_addr,
     {
         if(g_h264_osd_cfg.timeen && (i == 0))
         {
-            sprintf((char *)osd_buffer, "%s", "时间:");
-            snprintf((char *)(osd_buffer+strlen("时间:")), DH_TEXT_LEN * 2,
+            sprintf((char *)osd_buffer, "%s", "时间: ");
+            snprintf((char *)(osd_buffer+strlen("时间: ")), DH_TEXT_LEN * 2,
                 "%s", timestr);
             osd_flag = 1;
         }
         else if(g_h264_osd_cfg.addren && (i == 1))
         {
-            sprintf((char *)osd_buffer, "%s", "名称:");
-            snprintf((char *)(osd_buffer+strlen("名称:")), DH_TEXT_LEN * 2, 
+            sprintf((char *)osd_buffer, "%s", "位置: ");
+            snprintf((char *)(osd_buffer+strlen("位置: ")), DH_TEXT_LEN * 2, 
                 "%s", g_h264_osd_cfg.addrtext);
             osd_flag = 1;
         }
         else if(g_h264_osd_cfg.directionen && (i == 2))
         {
-            sprintf((char *)osd_buffer, "%s", "编号:");
-            snprintf((char *)(osd_buffer+strlen("编号:")), DH_TEXT_LEN * 2,
+            sprintf((char *)osd_buffer, "%s", "编号: ");
+            snprintf((char *)(osd_buffer+strlen("编号: ")), DH_TEXT_LEN * 2,
                 "%s", g_h264_osd_cfg.directiontext);
             osd_flag = 1;
         }

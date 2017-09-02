@@ -220,7 +220,7 @@ int DH_Character_Osd(unsigned char *pDataBuf,
 					switch(yuv_data_type)
 					{
 						case DH_OSD_YUV_420 :
-							if(*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) < 0x80)
+							if(*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) < 0x78)
 								*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) = 240;//pOsdParm->osd_y;
 							else
 								*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) = 0;
@@ -233,7 +233,7 @@ int DH_Character_Osd(unsigned char *pDataBuf,
 							break ;
 						case DH_OSD_YUV_422 :
 
-							if(*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) < 0x80)
+							if(*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) < 0x78)
 								*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) = 240;//pOsdParm->osd_y;
 							else
 								*(pDataBuf+image_offset+hz_offset+i_pos+8*k+j) = 0;

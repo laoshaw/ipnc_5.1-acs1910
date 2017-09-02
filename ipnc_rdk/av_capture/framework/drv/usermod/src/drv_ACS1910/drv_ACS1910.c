@@ -364,11 +364,11 @@ void check_default_set_thread()
     }
     
 
-    VI_DEBUG("rm -rf cfg file\n");
+    //VI_DEBUG("rm -rf cfg file\n");
     //system("rm -rf /mnt/nand/acs1910_default.cfg");
-    system("rm -rf /mnt/nand/acs1910_saved.cfg");
-    system("rm -rf /mnt/nand/sysenv.cfg");
-    system("reboot");
+    //system("rm -rf /mnt/nand/acs1910_saved.cfg");
+    //system("rm -rf /mnt/nand/sysenv.cfg");
+    //system("reboot");
    
 }
 
@@ -462,12 +462,12 @@ int DRV_ACS1910Init()
         return status;
     }
 
-    status = check_default_set_thread_init();
-    if(status != OSA_SOK)
-    {
-        VI_DEBUG("check_default_set_thread init error\n");
-        return status;
-    }
+    //status = check_default_set_thread_init();
+    //if(status != OSA_SOK)
+    //{
+    //    VI_DEBUG("check_default_set_thread init error\n");
+    //    return status;
+    //}
 
     return status;
 }

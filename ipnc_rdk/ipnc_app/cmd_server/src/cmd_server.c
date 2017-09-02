@@ -39,6 +39,9 @@ int SYSTEM(char *arg);
 unsigned char client_id[CMD_PACK_HEADER_SIZE] = {CLIENT_ID_DATA}; //'VFU'0x01
 unsigned char client_heart_beat[HEART_BEAT_SIZE] = {CLIENT_ID_DATA, 0x00, 0x00, 0x00, 0x44};
 
+unsigned char client_broadcast[] = {'V', 'F', 'U', 0xFE, 0x00, 0x00, 0x00, 0xBB}; 
+unsigned char server_broadcast[] = {'V', 'F', 'D', 0xFE, 0x00, 0x00, 0x00, 0xAA};
+
 unsigned char server_id[CMD_PACK_HEADER_SIZE] = {SERVER_ID_DATA}; //'VFD'0x01
 unsigned char server_ok[SERVER_OK_SIZE] = {SERVER_ID_DATA, 0x00, 0x00, 0x00,0x00};
 unsigned char server_heart_beat[HEART_BEAT_SIZE] = {SERVER_ID_DATA, 0x00, 0x00, 0x00, 0x55};
@@ -807,6 +810,8 @@ int main(int argc, char **argv)
     fd_set recv_fd;
     struct timeval timeout;
     struct timeval tv1, tv2, tv3;
+    int opt = 1;
+    int nb = 0;
 
     sprintf(version, "%s", VERSION_NUMBER);
 
@@ -835,6 +840,13 @@ int main(int argc, char **argv)
     server_addr.sin_family = AF_INET;
     server_addr.sin_addr.s_addr = htonl(INADDR_ANY);
     server_addr.sin_port = htons(CMD_PORT);
+
+    nb = setsockopt(cmd_socketfd, SOL_SOCKET, SO_BROADCAST, (char *)&opt, sizeof(opt));
+    if(nb == -1)
+    {
+        perror("set sock opt: ");
+        return nb;
+    }
 
     ret = bind(cmd_socketfd, (struct sockaddr *)&server_addr, sizeof(struct sockaddr_in));
     if(ret < 0)
@@ -874,8 +886,22 @@ int main(int argc, char **argv)
                 {//接收到数据
                     gettimeofday(&tv1, NULL);
                     client_ip= inet_ntoa(client_addr.sin_addr.s_addr);
-                    //VI_DEBUG("recv %d data %s\n",recv_count, client_ip);
-                    if(memcmp(recv_buf, client_id, 4) != 0)
+                    VI_DEBUG("recv %d data %s\n",recv_count, client_ip);
+                    //printf("recv data: ");
+                    //for(i = 0; i < recv_count; i++)
+                    //    printf("0x%02x ", recv_buf[i]);
+                    //printf("\n");
+                    //VI_DEBUG("client_addr.sinaddr.s_addr = %08x\n", client_addr.sin_addr.s_addr);
+                    if(memcmp(recv_buf, client_broadcast, sizeof(client_broadcast)) == 0)
+                    {//广播地址
+                        VI_DEBUG("it is broadcast date\n");
+                        client_addr.sin_addr.s_addr = htonl(INADDR_BROADCAST); 
+                        send_len = sendto(cmd_socketfd, server_broadcast, sizeof(server_broadcast) , 0, (struct sockaddr *)&client_addr, sizeof(client_addr)); 
+                        perror("send_len: ");
+                        VI_DEBUG("send_len == %d\n", send_len);
+
+                    }
+                    else if(memcmp(recv_buf, client_id, 4) != 0)
                     {
                         printf("not my data\n");
                     }

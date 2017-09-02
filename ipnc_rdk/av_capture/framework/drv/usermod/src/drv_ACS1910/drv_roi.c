@@ -21,7 +21,7 @@
 #include "drv_roi.h"
 #include <sys/time.h>
 
-unsigned int shutter_max_g[16] = {200000, 99980, 40000, 33315, 29973, 24995, 19982, 16640, 9991, 8320, 3982, 1991, 995, 177, 71, 0};
+unsigned int shutter_max_g[16] = {200001, 99841, 40001, 33281, 29974, 24996, 19983, 16641, 9992, 8321, 3983, 1992, 996, 178, 72, 0};
 
  
 int ROI_SetVIMAEMode(pVF_AE_MODE_S pAEMode)
@@ -95,7 +95,7 @@ unsigned char VIM_roi_calc_histogram_avg(unsigned int *shutter, unsigned short *
     ptACS1910ISPAllCfg pISPAllCfg = &(gACS1910_current_cfg.ISPAllCfg);
 
     DRV_GetVIMETGain(&ETGain);
-    *shutter = ETGain.etus;
+    *shutter = (ETGain.etus + 1);
     gaindeci = (float)(ETGain.gainValue & 0x003f);
     gaindeci = (gaindeci / 64) * 10 + 0.5;
     *gain = (ETGain.gainValue >> 6) * 10 + (unsigned short)gaindeci;
@@ -154,13 +154,14 @@ void VIM_roi_autoexp_thread()
     ptACS1910ISPNormalCfg pISPNormalCfg = &(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg); 
     unsigned int shutter_max;
     unsigned int shutter_min;
-    unsigned int shutter;
+    unsigned int shutter = 40001;
+    unsigned int shutter_temp;
     unsigned int shutter_max_bigger;
     unsigned short gain_max = 2559;
     unsigned short gain_min = 1;
-    unsigned short gain;
-    unsigned char dgain;
-    unsigned char dgaindeci;
+    unsigned short gain = 10;
+    unsigned char dgain = 1;
+    unsigned char dgaindeci = 0;
     struct timeval t1, t2 ,t3, t4;
     VF_IRCUT_MODE_S IRCutMode;
     VF_COLORBLACK_MODE_E colorblack;
@@ -169,10 +170,11 @@ void VIM_roi_autoexp_thread()
 
     ROI_DEBUG("Hello roi autoexp thread!\n");
 
+    IRCutMode.Mode = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode;
+    colorblack = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.ColorBlackMode;
+
     while(VIM_roi_autoexp_thread_run)
     {
-        IRCutMode.Mode = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode;
-        colorblack = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.ColorBlackMode;
         if(pAEMode->AE_Shutter_Mode == VF_AE_ROI)
         {
             ROI_DEBUG("=========================================\n");
@@ -181,10 +183,10 @@ void VIM_roi_autoexp_thread()
             ROI_DEBUG("dgain = %d\n", dgain);
             ROI_DEBUG("dgaindeci =  %d\n", dgaindeci);
 
-            if(shutter < 40002)
-                usleep(400000);
-            else 
+            if(shutter > 40001)
                 sleep(1);
+            else 
+                usleep(1000000);
 
             //gettimeofday(&t1, NULL);
             if(pAEMode->AE_Shutter_Mode != VF_AE_ROI)
@@ -192,11 +194,11 @@ void VIM_roi_autoexp_thread()
                 continue;
             }
             if(pAEMode->AE_MaxET_Mode == AE_MAXET_MANUAL)
-                shutter_max = pAEMode->MaxET;
+                shutter_max = VIM_shutter_calc(pAEMode->MaxET);
             else
                 shutter_max = shutter_max_g[pAEMode->AE_MaxET_Mode];
             //ROI_DEBUG("shutter_max = %d\n", shutter_max);
-            if(shutter_max > 40000)
+            if(shutter_max > 40001)
                 shutter_max_bigger = 1;
             else 
                 shutter_max_bigger = 0;
@@ -214,7 +216,7 @@ void VIM_roi_autoexp_thread()
             roi_avg_current = VIM_roi_calc_histogram_avg(&shutter, &gain);
 
             if(shutter > shutter_max)
-                shutter = shutter_max + 1;
+                shutter = shutter_max;
             if(gain > gain_max)
                 gain = gain_max;
 
@@ -233,7 +235,7 @@ void VIM_roi_autoexp_thread()
                         //ROI_DEBUG("shutter a = %d ", shutter);
                         shutter = VIM_shutter_calc(shutter);
                         if(shutter > shutter_max)
-                            shutter = shutter_max + 1;
+                            shutter = shutter_max;
                         dgain = 1;
                         dgaindeci = 0;
                     }
@@ -245,24 +247,24 @@ void VIM_roi_autoexp_thread()
                             gain = gain_max;
                         dgain = gain / 10; 
                         dgaindeci = gain % 10;
-                        shutter = shutter_max + 1;
+                        shutter = shutter_max;
                     }
                 }//shutter_max_bigger == 0
                 if(shutter_max_bigger == 1)
                 {//最大积分时间大于帧间隔
                     ROI_DEBUG("shutter_max > 40000\n");
-                    if(shutter < 40000)
+                    if(shutter < 40001)
                     {
                         ROI_DEBUG("shutter is not bigger than 40000\n");
                         shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
                         //ROI_DEBUG("shutter a = %d ", shutter);
                         shutter = VIM_shutter_calc(shutter);
-                        if(shutter > 40000)
-                            shutter = 40000 + 1;
+                        if(shutter > 40001)
+                            shutter = 40001;
                         dgain = 1;
                         dgaindeci = 0;
                     }
-                    else if((shutter == 40000) && (gain < gain_max))
+                    else if((shutter == 40001) && (gain < gain_max))
                     {
                         ROI_DEBUG("shutter is 40000, adjust gain\n"); 
                         gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
@@ -271,13 +273,13 @@ void VIM_roi_autoexp_thread()
                             gain = gain_max;
                         dgain = gain/10;
                         dgaindeci = gain % 10;
-                        shutter = 40000 + 1;
+                        shutter = 40001;
                         //ROI_DEBUG("gain = %d, dgain = %d, dgaindeci = %d\n", gain, gain/10, gain%10);
                     }
-                    else if((shutter > 40000) && (gain < gain_max))
+                    else if((shutter > 40001) && (gain < gain_max))
                     {
                         ROI_DEBUG("shutter > 40000, gain < gain_max");
-                        shutter = 40000 + 1;
+                        shutter = 40001;
                         dgain = 1;
                         dgaindeci = 0;
                     }
@@ -288,7 +290,7 @@ void VIM_roi_autoexp_thread()
                         //ROI_DEBUG("shutter a = %d ", shutter);
                         shutter = VIM_shutter_calc(shutter);
                         if(shutter > shutter_max)
-                            shutter = shutter_max + 1;
+                            shutter = shutter_max;
                         dgain = gain_max/10;
                         dgaindeci = gain_max % 10;
                     }
@@ -315,7 +317,7 @@ void VIM_roi_autoexp_thread()
                             gain = 10;
                         dgain = gain/10;
                         dgaindeci = gain % 10;
-                        shutter = shutter_max + 1;
+                        shutter = shutter_max;
                     }
                     else 
                     {
@@ -332,7 +334,7 @@ void VIM_roi_autoexp_thread()
                 if(shutter_max_bigger == 1)
                 {
                     //ROI_DEBUG("shutter_max > 40000\n");
-                    if(shutter > 40000)
+                    if(shutter > 40001)
                     {
                         ROI_DEBUG("fps is less than 25fps, should up fps\n");
                         dgain = gain_max / 10;
@@ -340,10 +342,10 @@ void VIM_roi_autoexp_thread()
                         shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
                         //ROI_DEBUG("shutter a = %d ", shutter);
                         shutter = VIM_shutter_calc(shutter);
-                        if(shutter < 40000)
+                        if(shutter < 40001)
                             shutter = 40001;
                     }
-                    else if((shutter == 40000) && (gain > 10))
+                    else if((shutter == 40001) && (gain > 10))
                     {
                         ROI_DEBUG("fps is 25fps and gain > 10,  down gain\n");
                         gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
@@ -394,34 +396,45 @@ void VIM_roi_autoexp_thread()
                 }
                 if(shutter_max_bigger == 1)
                 {
-                    if((shutter < 40000) && (gain > 10))
+                    if((shutter < 40001) && (gain > 10))
                     {
                         ROI_DEBUG("   ################# \n");
                         //ROI_DEBUG("but shutter < shutter_max, and gain > 10\n");
-                        shutter = 40000;
+                        shutter = 40001;
                         gain = 10;
                     }
+                    if((shutter > 40001) && (gain < gain_max))
+                    {
+                        ROI_DEBUG("   ================= \n");
+                        shutter = 40001;
+                        gain = gain_max;
+                    }
                 }
-                AEMode_adj.Exposuretime = shutter + 1;
+                AEMode_adj.Exposuretime = shutter;
                 AEMode_adj.Gain = gain / 10;
                 AEMode_adj.GainDeci = gain % 10;
                 ROI_SetVIMAEMode(&AEMode_adj);
             }
-            if((shutter == (shutter_max + 1)) && (dgain == gain_max/10) && (dgaindeci == gain_max%10))
+            //IR_CUT
+#if 0
+            if((shutter == (shutter_max)) && (dgain == gain_max/10) && (dgaindeci == gain_max%10))
             {
-                ROI_DEBUG("Night\n");
-                IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
-                IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                    if(roi_avg_current < avg_min)
+                    {
+                        ROI_DEBUG("Night\n");
+                        IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
+                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                        colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                    }
             }
             else  
             {
                 if(shutter_max_bigger == 1)
                 {
-                    ROI_DEBUG("shutter_max_bigger == 1  ");
-                    if(shutter < 40002)
+                    ROI_DEBUG("shutter_max_bigger == 1  \n");
+                    if(dgain < (gain_max / 10))
                     {
-                        printf("Day\n");
+                        ROI_DEBUG("Day\n");
                         IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
                         IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
                         colorblack = VF_COLORBLACK_MANUAL_COLOR;
@@ -429,16 +442,110 @@ void VIM_roi_autoexp_thread()
                 }
                 if(shutter_max_bigger == 0)
                 {
-                    ROI_DEBUG("shutter_max_bigger == 0  ");
+                    ROI_DEBUG("shutter_max_bigger == 0  \n");
                     if((dgain == 1) && (dgaindeci == 0))
                     {
-                        printf("Day\n");
+                        ROI_DEBUG("Day\n");
                         IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
                         IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
                         colorblack = VF_COLORBLACK_MANUAL_COLOR;
                     }
                 }
             }
+#else 
+            if(shutter_max_bigger == 1)
+            {
+                if(shutter == shutter_max )
+                {
+                    if(roi_avg_current < avg_min)
+                    {
+                        ROI_DEBUG("Night 1\n");
+                        IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
+                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                        colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                    }
+                }
+                if(shutter < 40002)
+                {
+                    if(roi_avg_current > avg_max)
+                    {
+                        ROI_DEBUG("Day 1\n");
+                        IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
+                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                        colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                    }
+                }
+            }
+            if(shutter_max_bigger == 0)
+            {
+                if(!(gain < gain_max))
+                {
+                    if(roi_avg_current < avg_min)
+                    {
+                        ROI_DEBUG("Night 2\n");
+                        IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
+                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                        colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                    }
+                }
+                VI_DEBUG("gain_max = %d\n", gain_max);
+                if(gain_max > 100)
+                {
+                    VI_DEBUG("gain_max >> 1 = %d\n", gain_max >> 1);
+                    if(gain < (gain_max >> 1))
+                        if(roi_avg_current > avg_max)
+                        {
+                            ROI_DEBUG("Day 2.1\n");
+                            IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
+                            IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                            colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                        }
+                }
+                else
+                {
+                    VI_DEBUG("gain_max < 500\n");
+                    switch(shutter_max) 
+                    {
+                        case 40001:
+                            shutter_temp = 33281;
+                        case 33281:
+                        case 29974:
+                        case 24996:
+                        case 19983:
+                        case 16641:
+                            shutter_temp = shutter_max /10000 *10000;
+                            break;
+                        case 9992:
+                        case 8321:
+                        case 3983:
+                        case 1992:
+                            shutter_temp = shutter_max /1000 *1000;
+                            break;
+                        case 996:
+                        case 178:
+                            shutter_temp = shutter_max /100 *100;
+                            break;
+                        case 72:
+                            shutter_temp = shutter_max;
+                            break;
+                        default:
+                            shutter_temp = shutter_max;
+                            break;
+                    }
+                    VI_DEBUG("shutter = %d, shutter_temp = %d\n", shutter, shutter_temp);
+                    if(shutter < shutter_temp)
+                    {
+                        if(roi_avg_current > avg_max)
+                        {
+                            ROI_DEBUG("Day 2.2\n");
+                            IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
+                            IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                            colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                        }
+                    }
+                }
+            }
+#endif
             ROI_DEBUG("gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode = %d\n", gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode);
             if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode == VF_IRCUT_AUTO)
             {
@@ -446,6 +553,11 @@ void VIM_roi_autoexp_thread()
                 sem_wait(&vim_sem);
                 VIM_ISP_SetIrCut(IRCutMode.Mode);
                 VIM_ISP_SetIrCutTh(IRCutMode.Th);
+                sem_post(&vim_sem);
+            }
+            if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode == VF_COLORBLACK_AUTO)
+            {
+                sem_wait(&vim_sem);
                 VIM_ISP_SetColorBlack(colorblack);
                 sem_post(&vim_sem);
             }
