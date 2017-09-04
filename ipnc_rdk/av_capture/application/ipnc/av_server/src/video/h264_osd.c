@@ -181,7 +181,7 @@ int dh_get_time_from_frameinfo(unsigned int yuv_data_addr,
 */
 //------------------------------------------------------------------------
 
-char *wday[] = {"星期一", "星期二", "星期三", "星期四", "星期五", "星期六", "星期日"};
+char *wday[] = {"星期日", "星期一", "星期二", "星期三", "星期四", "星期五", "星期六"};
 
 int dh_h264_osd_apply(unsigned int yuv_data_addr, 
                             unsigned int img_w, unsigned int img_h)
@@ -235,7 +235,7 @@ int dh_h264_osd_apply(unsigned int yuv_data_addr,
     date_time = localtime(&b_time);
     date_time->tm_year = date_time->tm_year + 1900;
     sprintf(timestr, "%d-%02d-%02d %s %02d:%02d:%02d", 
-            date_time->tm_year, date_time->tm_mon + 1, date_time->tm_mday, wday[date_time->tm_wday - 1], 
+            date_time->tm_year, date_time->tm_mon + 1, date_time->tm_mday, wday[date_time->tm_wday], 
             date_time->tm_hour, date_time->tm_min, date_time->tm_sec);
 
     

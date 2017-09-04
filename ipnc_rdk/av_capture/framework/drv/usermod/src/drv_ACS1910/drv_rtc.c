@@ -289,6 +289,7 @@ int RTC_GetDate(pVF_TIME_S ptime)
     int ret = 0;
     DRV_I2cHndl hndl;
 
+    sem_wait(&vim_sem);
     DRV_i2cOpen(&hndl, RTC_READ_ADDR);
     
     RTC_GetSeconds(&hndl, &ptime->second);
@@ -301,6 +302,7 @@ int RTC_GetDate(pVF_TIME_S ptime)
     VI_DEBUG("date is: %04d-%02d-%02d %02d:%02d:%02d\n", ptime->year + 2000, ptime->month, ptime->day, ptime->hour, ptime->minute, ptime->second);
 
     DRV_i2cClose(&hndl);
+    sem_post(&vim_sem);
 
     return ret;
 }
@@ -311,6 +313,7 @@ int RTC_SetDate(pVF_TIME_S ptime)
     DRV_I2cHndl hndl;
     unsigned char week;
 
+    sem_wait(&vim_sem);
     DRV_i2cOpen(&hndl, RTC_WRITE_ADDR);
 
     RTC_SetSeconds(&hndl, ptime->second);
@@ -321,4 +324,7 @@ int RTC_SetDate(pVF_TIME_S ptime)
     RTC_SetWeekDays(&hndl, week);
     RTC_SetMonths(&hndl, ptime->month);
     RTC_SetYears(&hndl, ptime->year);
+
+    DRV_i2cClose(&hndl);
+    sem_post(&vim_sem);
 }

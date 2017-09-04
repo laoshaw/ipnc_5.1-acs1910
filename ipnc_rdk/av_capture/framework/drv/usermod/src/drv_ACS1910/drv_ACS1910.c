@@ -435,6 +435,10 @@ int DRV_ACS1910Init()
     int status = OSA_SOK;
     VF_TIME_S date_time;
 
+    sem_init(&vim_sem, 0, 1);
+    sem_init(&vim_aemode_sem, 0, 1);
+    sem_init(&bright_sem, 0, 1);
+
     RTC_GetDate(&date_time);
     Set_SysTime(&date_time);
 
@@ -484,6 +488,10 @@ int DRV_ACS1910Exit()
       pthread_join(check_default_set_thread_id, NULL);
     }
     check_fpga_down = 0;
+
+    sem_destroy(&vim_sem);
+    sem_destroy(&vim_aemode_sem);
+    sem_destroy(&bright_sem);
 }
 
 

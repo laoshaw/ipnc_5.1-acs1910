@@ -99,19 +99,19 @@ unsigned char VIM_roi_calc_histogram_avg(unsigned int *shutter, unsigned short *
     gaindeci = (float)(ETGain.gainValue & 0x003f);
     gaindeci = (gaindeci / 64) * 10 + 0.5;
     *gain = (ETGain.gainValue >> 6) * 10 + (unsigned short)gaindeci;
-    //ROI_DEBUG("shutter = %d, gain == %d\n", *shutter, *gain);
+    ROI_DEBUG("shutter = %d, gain == %d\n", *shutter, *gain);
 
     DRV_FPGASPIRead(ROI0_WIDTH_FPGA_REG_ADDR, &roi0_width);
     DRV_FPGASPIRead(ROI0_HEIGHT_FPGA_REG_ADDR, &roi0_height);
     DRV_FPGASPIRead(ROI0_HISTOGRAM_FPGA_REG_ADDR, &roi0_his_avg);
     roi_his_avg = roi0_his_avg & 0xff; 
-    roi_pix_sum = roi0_width * roi0_height;
-    roi_his_sum = roi_his_avg * roi_pix_sum;
     //ROI_DEBUG("roi0_width = %d, roi0_height = %d\n", roi0_width, roi0_height);
     //ROI_DEBUG("roi0_his_avg = %d, roi0_pix_sum = %d, roi0_his_sum = %d\n", roi_his_avg, roi_pix_sum, roi_his_sum);
 
     if(pISPAllCfg->AERoi[1].onoff == 1)
     {
+        roi_pix_sum = roi0_width * roi0_height;
+        roi_his_sum = roi_his_avg * roi_pix_sum;
         DRV_FPGASPIRead(ROI1_WIDTH_FPGA_REG_ADDR, &roi1_width);
         DRV_FPGASPIRead(ROI1_HEIGHT_FPGA_REG_ADDR, &roi1_height);
         DRV_FPGASPIRead(ROI1_HISTOGRAM_FPGA_REG_ADDR, &roi1_his_avg);
@@ -165,28 +165,30 @@ void VIM_roi_autoexp_thread()
     struct timeval t1, t2 ,t3, t4;
     VF_IRCUT_MODE_S IRCutMode;
     VF_COLORBLACK_MODE_E colorblack;
+    unsigned char need_update_AE = 0;
+    unsigned char need_update_IRCut = 0;
 
     unsigned char avg_max, avg_min, avg_target;
 
     ROI_DEBUG("Hello roi autoexp thread!\n");
 
-    IRCutMode.Mode = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode;
-    colorblack = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.ColorBlackMode;
+    IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;//gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode;
+    colorblack = VF_COLORBLACK_MANUAL_COLOR;//gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.ColorBlackMode;
 
     while(VIM_roi_autoexp_thread_run)
     {
         if(pAEMode->AE_Shutter_Mode == VF_AE_ROI)
         {
             ROI_DEBUG("=========================================\n");
-            ROI_DEBUG("ROI autoexp\n");
-            ROI_DEBUG("shutter = %d\n", shutter);
-            ROI_DEBUG("dgain = %d\n", dgain);
-            ROI_DEBUG("dgaindeci =  %d\n", dgaindeci);
+            //ROI_DEBUG("ROI autoexp\n");
+            //ROI_DEBUG("shutter = %d\n", shutter);
+            //ROI_DEBUG("dgain = %d\n", dgain);
+            //ROI_DEBUG("dgaindeci =  %d\n", dgaindeci);
 
             if(shutter > 40001)
                 sleep(1);
             else 
-                usleep(1000000);
+                usleep(500000);
 
             //gettimeofday(&t1, NULL);
             if(pAEMode->AE_Shutter_Mode != VF_AE_ROI)
@@ -222,6 +224,9 @@ void VIM_roi_autoexp_thread()
 
             if(roi_avg_current == 0)
                 roi_avg_current = 1;
+
+
+            //ROI autoexp
             if(roi_avg_current < avg_min)
             {//曝光不足
                 ROI_DEBUG("it is dark\n");
@@ -392,6 +397,7 @@ void VIM_roi_autoexp_thread()
                         //ROI_DEBUG("but shutter < shutter_max, and gain > 10\n");
                         shutter = shutter_max;
                         gain = 10;
+                        need_update_AE = 1;
                     }
                 }
                 if(shutter_max_bigger == 1)
@@ -402,77 +408,55 @@ void VIM_roi_autoexp_thread()
                         //ROI_DEBUG("but shutter < shutter_max, and gain > 10\n");
                         shutter = 40001;
                         gain = 10;
+                        need_update_AE = 1;
                     }
                     if((shutter > 40001) && (gain < gain_max))
                     {
                         ROI_DEBUG("   ================= \n");
                         shutter = 40001;
                         gain = gain_max;
+                        need_update_AE = 1;
                     }
                 }
-                AEMode_adj.Exposuretime = shutter;
-                AEMode_adj.Gain = gain / 10;
-                AEMode_adj.GainDeci = gain % 10;
-                ROI_SetVIMAEMode(&AEMode_adj);
+                if(need_update_AE == 1)
+                {
+                    need_update_AE = 0;
+                    AEMode_adj.Exposuretime = shutter;
+                    AEMode_adj.Gain = gain / 10;
+                    AEMode_adj.GainDeci = gain % 10;
+                    ROI_SetVIMAEMode(&AEMode_adj);
+                }
             }
+
             //IR_CUT
-#if 0
-            if((shutter == (shutter_max)) && (dgain == gain_max/10) && (dgaindeci == gain_max%10))
-            {
-                    if(roi_avg_current < avg_min)
-                    {
-                        ROI_DEBUG("Night\n");
-                        IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
-                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                        colorblack = VF_COLORBLACK_MANUAL_BLACK;
-                    }
-            }
-            else  
-            {
-                if(shutter_max_bigger == 1)
-                {
-                    ROI_DEBUG("shutter_max_bigger == 1  \n");
-                    if(dgain < (gain_max / 10))
-                    {
-                        ROI_DEBUG("Day\n");
-                        IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
-                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                        colorblack = VF_COLORBLACK_MANUAL_COLOR;
-                    }
-                }
-                if(shutter_max_bigger == 0)
-                {
-                    ROI_DEBUG("shutter_max_bigger == 0  \n");
-                    if((dgain == 1) && (dgaindeci == 0))
-                    {
-                        ROI_DEBUG("Day\n");
-                        IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
-                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                        colorblack = VF_COLORBLACK_MANUAL_COLOR;
-                    }
-                }
-            }
-#else 
             if(shutter_max_bigger == 1)
             {
-                if(shutter == shutter_max )
+                if(shutter == shutter_max)
                 {
                     if(roi_avg_current < avg_min)
                     {
                         ROI_DEBUG("Night 1\n");
-                        IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
-                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                        colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                        if(IRCutMode.Mode == VF_IRCUT_MANUAL_DAY)
+                        {
+                            IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
+                            IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                            colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                            need_update_IRCut = 1;
+                        }
                     }
                 }
-                if(shutter < 40002)
+                if(gain < 11/*shutter < 40002*/)
                 {
                     if(roi_avg_current > avg_max)
                     {
                         ROI_DEBUG("Day 1\n");
-                        IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
-                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                        colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                        if(IRCutMode.Mode == VF_IRCUT_MANUAL_NIGHT)
+                        {
+                            IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
+                            IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                            colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                            need_update_IRCut = 1;
+                        }
                     }
                 }
             }
@@ -483,22 +467,30 @@ void VIM_roi_autoexp_thread()
                     if(roi_avg_current < avg_min)
                     {
                         ROI_DEBUG("Night 2\n");
-                        IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
-                        IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                        colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                        if(IRCutMode.Mode == VF_IRCUT_MANUAL_DAY)
+                        {
+                            IRCutMode.Mode = VF_IRCUT_MANUAL_NIGHT;
+                            IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                            colorblack = VF_COLORBLACK_MANUAL_BLACK;
+                            need_update_IRCut = 1;
+                        }
                     }
                 }
                 VI_DEBUG("gain_max = %d\n", gain_max);
                 if(gain_max > 100)
                 {
                     VI_DEBUG("gain_max >> 1 = %d\n", gain_max >> 1);
-                    if(gain < (gain_max >> 1))
+                    if(gain < 11/*(gain_max >> 1)*/)
                         if(roi_avg_current > avg_max)
                         {
                             ROI_DEBUG("Day 2.1\n");
-                            IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
-                            IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                            colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                            if(IRCutMode.Mode == VF_IRCUT_MANUAL_NIGHT)
+                            {
+                                IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
+                                IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                                colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                                need_update_IRCut = 1;
+                            }
                         }
                 }
                 else
@@ -538,28 +530,35 @@ void VIM_roi_autoexp_thread()
                         if(roi_avg_current > avg_max)
                         {
                             ROI_DEBUG("Day 2.2\n");
-                            IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
-                            IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
-                            colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                            if(IRCutMode.Mode == VF_IRCUT_MANUAL_NIGHT)
+                            {
+                                IRCutMode.Mode = VF_IRCUT_MANUAL_DAY;
+                                IRCutMode.Th = gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Th;
+                                colorblack = VF_COLORBLACK_MANUAL_COLOR;
+                                need_update_IRCut = 1;
+                            } 
                         }
                     }
-                }
-            }
-#endif
+                }//else
+            }// shutter_max_bigger == 0
             ROI_DEBUG("gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode = %d\n", gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode);
             if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode == VF_IRCUT_AUTO)
             {
-                ROI_DEBUG("AUTO Change IRCUT\n");
-                sem_wait(&vim_sem);
-                VIM_ISP_SetIrCut(IRCutMode.Mode);
-                VIM_ISP_SetIrCutTh(IRCutMode.Th);
-                sem_post(&vim_sem);
-            }
-            if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode == VF_COLORBLACK_AUTO)
-            {
-                sem_wait(&vim_sem);
-                VIM_ISP_SetColorBlack(colorblack);
-                sem_post(&vim_sem);
+                if(need_update_IRCut == 1)
+                {
+                    need_update_IRCut = 0;
+                    ROI_DEBUG("AUTO Change IRCUT\n");
+                    sem_wait(&vim_sem);
+                    VIM_ISP_SetIrCut(IRCutMode.Mode);
+                    VIM_ISP_SetIrCutTh(IRCutMode.Th);
+                    sem_post(&vim_sem);
+                    if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode == VF_COLORBLACK_AUTO)
+                    {
+                        sem_wait(&vim_sem);
+                        VIM_ISP_SetColorBlack(colorblack);
+                        sem_post(&vim_sem);
+                    }
+                }
             }
             //gettimeofday(&t2, NULL);
             //ROI_DEBUG("t2 - t1 = %d\n", ((t2.tv_sec*1000 + t2.tv_usec/1000) - (t1.tv_sec*1000 + t1.tv_usec/1000)));

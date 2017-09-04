@@ -1247,10 +1247,6 @@ int DRV_imgsOpen(DRV_ImgsConfig *config)
     unsigned char *fpga_spi_dev = "/dev/spidev0.0";
 
     sem_init(&fpga_spi_sem, 0, 1);
-    sem_init(&vim_sem, 0, 1);
-    sem_init(&vim_aemode_sem, 0, 1);
-    sem_init(&bright_sem, 0, 1);
-
 
   memset(&gDRV_imgsObj, 0, sizeof(gDRV_imgsObj));
 
@@ -1356,10 +1352,6 @@ int DRV_imgsClose()
       close(gDRV_imgsObj.spiHndl.fd);
 
     sem_destroy(&fpga_spi_sem);
-    sem_destroy(&vim_sem);
-    sem_destroy(&vim_aemode_sem);
-    sem_destroy(&bright_sem);
-
   status = DRV_imgsEnable(FALSE);
   //status |= DRV_i2cClose(&gDRV_imgsObj.i2cHndl);
 
