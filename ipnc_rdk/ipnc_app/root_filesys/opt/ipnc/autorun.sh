@@ -1,5 +1,5 @@
 #./boa -c /etc &
-sleep 1
+sleep 5
 ./cmd_server &
 
 #/usr/sbin/avahi-autoipd --no-drop-root --no-chroot --force-bind -D eth0

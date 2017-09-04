@@ -1202,7 +1202,7 @@ void VIM_control_thread()
                 DRV_FPGASPIRead(FPGA_VER_FPGA_REG1_ADDR, &fpga_ver1);
                 DRV_FPGASPIRead(FPGA_VER_FPGA_REG2_ADDR, &fpga_ver2);
                 DRV_FPGASPIRead(FPGA_VER_FPGA_REG3_ADDR, &fpga_ver3);
-                sprintf(sys_ver.fpga_ver, "%d.%d.%d", fpga_ver3, fpga_ver2, fpga_ver1);
+                sprintf(sys_ver.fpga_ver, "0.0.%d", fpga_ver1);
                 memcpy(vim_control_snd_msg.msg_data, &sys_ver, sizeof(VF_SYS_VER_S));
                 msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
                 break;

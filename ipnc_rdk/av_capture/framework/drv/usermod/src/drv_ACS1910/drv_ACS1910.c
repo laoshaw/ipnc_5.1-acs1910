@@ -97,7 +97,7 @@ tACS1910Cfg gACS1910_default_cfg = {
             DEFAULT_CAMERA_NAME
         },
         {//osd_onoff
-            0,
+            1,
             0,
             0
         }

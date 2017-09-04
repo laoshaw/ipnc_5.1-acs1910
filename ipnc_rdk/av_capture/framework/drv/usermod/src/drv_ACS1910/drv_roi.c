@@ -226,208 +226,6 @@ void VIM_roi_autoexp_thread()
                 roi_avg_current = 1;
 
 
-            //ROI autoexp
-            if(roi_avg_current < avg_min)
-            {//曝光不足
-                ROI_DEBUG("it is dark\n");
-                if(shutter_max_bigger == 0)
-                {//最大积分时间小于或者等于帧间隔
-                    ROI_DEBUG("shutter_max =< 40000\n");
-                    if(shutter < shutter_max)
-                    {
-                        ROI_DEBUG("shutter is not max\n");
-                        shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
-                        //ROI_DEBUG("shutter a = %d ", shutter);
-                        shutter = VIM_shutter_calc(shutter);
-                        if(shutter > shutter_max)
-                            shutter = shutter_max;
-                        dgain = 1;
-                        dgaindeci = 0;
-                    }
-                    else 
-                    {
-                        ROI_DEBUG("shutter is max, adjust gain\n");
-                        gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
-                        if(gain > gain_max)
-                            gain = gain_max;
-                        dgain = gain / 10; 
-                        dgaindeci = gain % 10;
-                        shutter = shutter_max;
-                    }
-                }//shutter_max_bigger == 0
-                if(shutter_max_bigger == 1)
-                {//最大积分时间大于帧间隔
-                    ROI_DEBUG("shutter_max > 40000\n");
-                    if(shutter < 40001)
-                    {
-                        ROI_DEBUG("shutter is not bigger than 40000\n");
-                        shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
-                        //ROI_DEBUG("shutter a = %d ", shutter);
-                        shutter = VIM_shutter_calc(shutter);
-                        if(shutter > 40001)
-                            shutter = 40001;
-                        dgain = 1;
-                        dgaindeci = 0;
-                    }
-                    else if((shutter == 40001) && (gain < gain_max))
-                    {
-                        ROI_DEBUG("shutter is 40000, adjust gain\n"); 
-                        gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
-                        //ROI_DEBUG("gain = %d\n", gain);
-                        if(gain > gain_max)
-                            gain = gain_max;
-                        dgain = gain/10;
-                        dgaindeci = gain % 10;
-                        shutter = 40001;
-                        //ROI_DEBUG("gain = %d, dgain = %d, dgaindeci = %d\n", gain, gain/10, gain%10);
-                    }
-                    else if((shutter > 40001) && (gain < gain_max))
-                    {
-                        ROI_DEBUG("shutter > 40000, gain < gain_max");
-                        shutter = 40001;
-                        dgain = 1;
-                        dgaindeci = 0;
-                    }
-                    else 
-                    {
-                        ROI_DEBUG("gain == gain_max, adjust shutter down the fps\n");
-                        shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
-                        //ROI_DEBUG("shutter a = %d ", shutter);
-                        shutter = VIM_shutter_calc(shutter);
-                        if(shutter > shutter_max)
-                            shutter = shutter_max;
-                        dgain = gain_max/10;
-                        dgaindeci = gain_max % 10;
-                    }
-                }//shutter_max_bigger == 1
-                //ROI_DEBUG("gain = %d\n", gain);
-                AEMode_adj.Exposuretime = shutter;
-                AEMode_adj.Gain = dgain;
-                AEMode_adj.GainDeci = dgaindeci;
-                //ROI_DEBUG("shutter = %d, dgain = %d, dgaindeci = %d\n", AEMode_adj.Exposuretime, AEMode_adj.Gain, AEMode_adj.GainDeci);
-                ROI_SetVIMAEMode(&AEMode_adj);
-            }//(roi_avg_current < avg_min)
-            else if(roi_avg_current > avg_max)
-            {
-                ROI_DEBUG("it is light\n");        
-                if(shutter_max_bigger == 0)
-                {
-                    ROI_DEBUG("shutter_max <= 40000\n");
-                    if(gain > 10)
-                    {
-                        ROI_DEBUG("gain > 1, down gain first\n");
-                        gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
-                        //ROI_DEBUG("gain = %d\n", gain);
-                        if(gain < 10)
-                            gain = 10;
-                        dgain = gain/10;
-                        dgaindeci = gain % 10;
-                        shutter = shutter_max;
-                    }
-                    else 
-                    {
-                        ROI_DEBUG("gain = 1, down shutter\n");
-                        dgain = 1;
-                        dgaindeci = 0;
-                        shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
-                        //ROI_DEBUG("shutter a = %d ", shutter);
-                        shutter = VIM_shutter_calc(shutter);
-                        if(shutter < 36)
-                            shutter = 36;
-                    }
-                }//shutter_max_bigger == 0
-                if(shutter_max_bigger == 1)
-                {
-                    //ROI_DEBUG("shutter_max > 40000\n");
-                    if(shutter > 40001)
-                    {
-                        ROI_DEBUG("fps is less than 25fps, should up fps\n");
-                        dgain = gain_max / 10;
-                        dgaindeci = gain_max % 10;
-                        shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
-                        //ROI_DEBUG("shutter a = %d ", shutter);
-                        shutter = VIM_shutter_calc(shutter);
-                        if(shutter < 40001)
-                            shutter = 40001;
-                    }
-                    else if((shutter == 40001) && (gain > 10))
-                    {
-                        ROI_DEBUG("fps is 25fps and gain > 10,  down gain\n");
-                        gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
-                        //ROI_DEBUG("gain = %d\n", gain);
-                        if(gain < 10)
-                            gain = 10;
-                        dgain = gain / 10;
-                        dgaindeci = gain % 10;
-                        shutter = 40001;
-                    }
-                    //else if((shutter < 40000) && (gain > 10))
-                    //{
-                    //    ROI_DEBUG("shutter < 4000 and gain > 10");
-                    //    shutter = 40000 + 1;
-                    //    dgain = 1;
-                    //    dgaindeci = 0;
-                    //}
-                    else 
-                    {
-                        ROI_DEBUG("gain == 10, down shutter\n");
-                        dgain = 1;
-                        dgaindeci = 0;
-                        shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
-                        //ROI_DEBUG("shutter a = %d ", shutter);
-                        shutter = VIM_shutter_calc(shutter);
-                        if(shutter < 36)
-                            shutter = 36;
-                    }
-                }//shutter_max_bigger == 1
-                AEMode_adj.Exposuretime = shutter;
-                AEMode_adj.Gain = dgain;
-                AEMode_adj.GainDeci = dgaindeci;
-                //ROI_DEBUG("shutter = %d, dgain = %d, dgaindeci = %d\n", shutter, dgain, dgaindeci);
-                ROI_SetVIMAEMode(&AEMode_adj);
-            }//roi_avg_current > avg_max
-            else 
-            {//
-                ROI_DEBUG("it is ok\n");
-                if(shutter_max_bigger == 0)
-                {
-                    if((shutter < shutter_max) && (gain > 10))
-                    {//
-                        ROI_DEBUG("   ***************** \n");
-                        //ROI_DEBUG("but shutter < shutter_max, and gain > 10\n");
-                        shutter = shutter_max;
-                        gain = 10;
-                        need_update_AE = 1;
-                    }
-                }
-                if(shutter_max_bigger == 1)
-                {
-                    if((shutter < 40001) && (gain > 10))
-                    {
-                        ROI_DEBUG("   ################# \n");
-                        //ROI_DEBUG("but shutter < shutter_max, and gain > 10\n");
-                        shutter = 40001;
-                        gain = 10;
-                        need_update_AE = 1;
-                    }
-                    if((shutter > 40001) && (gain < gain_max))
-                    {
-                        ROI_DEBUG("   ================= \n");
-                        shutter = 40001;
-                        gain = gain_max;
-                        need_update_AE = 1;
-                    }
-                }
-                if(need_update_AE == 1)
-                {
-                    need_update_AE = 0;
-                    AEMode_adj.Exposuretime = shutter;
-                    AEMode_adj.Gain = gain / 10;
-                    AEMode_adj.GainDeci = gain % 10;
-                    ROI_SetVIMAEMode(&AEMode_adj);
-                }
-            }
-
             //IR_CUT
             if(shutter_max_bigger == 1)
             {
@@ -541,13 +339,12 @@ void VIM_roi_autoexp_thread()
                     }
                 }//else
             }// shutter_max_bigger == 0
-            ROI_DEBUG("gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode = %d\n", gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode);
+            //ROI_DEBUG("gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode = %d\n", gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode);
             if(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg.IRCutMode.Mode == VF_IRCUT_AUTO)
             {
                 if(need_update_IRCut == 1)
                 {
-                    need_update_IRCut = 0;
-                    ROI_DEBUG("AUTO Change IRCUT\n");
+                    ROI_DEBUG("Change IRCUT\n");
                     sem_wait(&vim_sem);
                     VIM_ISP_SetIrCut(IRCutMode.Mode);
                     VIM_ISP_SetIrCutTh(IRCutMode.Th);
@@ -560,7 +357,220 @@ void VIM_roi_autoexp_thread()
                     }
                 }
             }
-            //gettimeofday(&t2, NULL);
+
+            //ROI autoexp
+
+            if(need_update_IRCut == 0)
+            {
+                if(roi_avg_current < avg_min)
+                {//曝光不足
+                    ROI_DEBUG("it is dark\n");
+                    if(shutter_max_bigger == 0)
+                    {//最大积分时间小于或者等于帧间隔
+                        ROI_DEBUG("shutter_max =< 40000\n");
+                        if(shutter < shutter_max)
+                        {
+                            ROI_DEBUG("shutter is not max\n");
+                            shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
+                            //ROI_DEBUG("shutter a = %d ", shutter);
+                            shutter = VIM_shutter_calc(shutter);
+                            if(shutter > shutter_max)
+                                shutter = shutter_max;
+                            dgain = 1;
+                            dgaindeci = 0;
+                        }
+                        else 
+                        {
+                            ROI_DEBUG("shutter is max, adjust gain\n");
+                            gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
+                            if(gain > gain_max)
+                                gain = gain_max;
+                            dgain = gain / 10; 
+                            dgaindeci = gain % 10;
+                            shutter = shutter_max;
+                        }
+                    }//shutter_max_bigger == 0
+                    if(shutter_max_bigger == 1)
+                    {//最大积分时间大于帧间隔
+                        ROI_DEBUG("shutter_max > 40000\n");
+                        if(shutter < 40001)
+                        {
+                            ROI_DEBUG("shutter is not bigger than 40000\n");
+                            shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
+                            //ROI_DEBUG("shutter a = %d ", shutter);
+                            shutter = VIM_shutter_calc(shutter);
+                            if(shutter > 40001)
+                                shutter = 40001;
+                            dgain = 1;
+                            dgaindeci = 0;
+                        }
+                        else if((shutter == 40001) && (gain < gain_max))
+                        {
+                            ROI_DEBUG("shutter is 40000, adjust gain\n"); 
+                            gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
+                            //ROI_DEBUG("gain = %d\n", gain);
+                            if(gain > gain_max)
+                                gain = gain_max;
+                            dgain = gain/10;
+                            dgaindeci = gain % 10;
+                            shutter = 40001;
+                            //ROI_DEBUG("gain = %d, dgain = %d, dgaindeci = %d\n", gain, gain/10, gain%10);
+                        }
+                        else if((shutter > 40001) && (gain < gain_max))
+                        {
+                            ROI_DEBUG("shutter > 40000, gain < gain_max");
+                            shutter = 40001;
+                            dgain = 1;
+                            dgaindeci = 0;
+                        }
+                        else 
+                        {
+                            ROI_DEBUG("gain == gain_max, adjust shutter down the fps\n");
+                            shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
+                            //ROI_DEBUG("shutter a = %d ", shutter);
+                            shutter = VIM_shutter_calc(shutter);
+                            if(shutter > shutter_max)
+                                shutter = shutter_max;
+                            dgain = gain_max/10;
+                            dgaindeci = gain_max % 10;
+                        }
+                    }//shutter_max_bigger == 1
+                    //ROI_DEBUG("gain = %d\n", gain);
+                    AEMode_adj.Exposuretime = shutter;
+                    AEMode_adj.Gain = dgain;
+                    AEMode_adj.GainDeci = dgaindeci;
+                    //ROI_DEBUG("shutter = %d, dgain = %d, dgaindeci = %d\n", AEMode_adj.Exposuretime, AEMode_adj.Gain, AEMode_adj.GainDeci);
+                    ROI_SetVIMAEMode(&AEMode_adj);
+                }//(roi_avg_current < avg_min)
+                else if(roi_avg_current > avg_max)
+                {
+                    ROI_DEBUG("it is light\n");        
+                    if(shutter_max_bigger == 0)
+                    {
+                        ROI_DEBUG("shutter_max <= 40000\n");
+                        if(gain > 10)
+                        {
+                            ROI_DEBUG("gain > 1, down gain first\n");
+                            gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
+                            //ROI_DEBUG("gain = %d\n", gain);
+                            if(gain < 10)
+                                gain = 10;
+                            dgain = gain/10;
+                            dgaindeci = gain % 10;
+                            shutter = shutter_max;
+                        }
+                        else 
+                        {
+                            ROI_DEBUG("gain = 1, down shutter\n");
+                            dgain = 1;
+                            dgaindeci = 0;
+                            shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
+                            //ROI_DEBUG("shutter a = %d ", shutter);
+                            shutter = VIM_shutter_calc(shutter);
+                            if(shutter < 36)
+                                shutter = 36;
+                        }
+                    }//shutter_max_bigger == 0
+                    if(shutter_max_bigger == 1)
+                    {
+                        //ROI_DEBUG("shutter_max > 40000\n");
+                        if(shutter > 40001)
+                        {
+                            ROI_DEBUG("fps is less than 25fps, should up fps\n");
+                            dgain = gain_max / 10;
+                            dgaindeci = gain_max % 10;
+                            shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
+                            //ROI_DEBUG("shutter a = %d ", shutter);
+                            shutter = VIM_shutter_calc(shutter);
+                            if(shutter < 40001)
+                                shutter = 40001;
+                        }
+                        else if((shutter == 40001) && (gain > 10))
+                        {
+                            ROI_DEBUG("fps is 25fps and gain > 10,  down gain\n");
+                            gain = VIM_roi_factor(avg_target, roi_avg_current, gain);
+                            //ROI_DEBUG("gain = %d\n", gain);
+                            if(gain < 10)
+                                gain = 10;
+                            dgain = gain / 10;
+                            dgaindeci = gain % 10;
+                            shutter = 40001;
+                        }
+                        //else if((shutter < 40000) && (gain > 10))
+                        //{
+                        //    ROI_DEBUG("shutter < 4000 and gain > 10");
+                        //    shutter = 40000 + 1;
+                        //    dgain = 1;
+                        //    dgaindeci = 0;
+                        //}
+                        else 
+                        {
+                            ROI_DEBUG("gain == 10, down shutter\n");
+                            dgain = 1;
+                            dgaindeci = 0;
+                            shutter = VIM_roi_factor(avg_target, roi_avg_current, shutter);
+                            //ROI_DEBUG("shutter a = %d ", shutter);
+                            shutter = VIM_shutter_calc(shutter);
+                            if(shutter < 36)
+                                shutter = 36;
+                        }
+                    }//shutter_max_bigger == 1
+                    AEMode_adj.Exposuretime = shutter;
+                    AEMode_adj.Gain = dgain;
+                    AEMode_adj.GainDeci = dgaindeci;
+                    //ROI_DEBUG("shutter = %d, dgain = %d, dgaindeci = %d\n", shutter, dgain, dgaindeci);
+                    ROI_SetVIMAEMode(&AEMode_adj);
+                }//roi_avg_current > avg_max
+                else 
+                {//
+                    ROI_DEBUG("it is ok\n");
+                    if(shutter_max_bigger == 0)
+                    {
+                        if((shutter < shutter_max) && (gain > 10))
+                        {//
+                            ROI_DEBUG("   ***************** \n");
+                            //ROI_DEBUG("but shutter < shutter_max, and gain > 10\n");
+                            shutter = shutter_max;
+                            gain = 10;
+                            need_update_AE = 1;
+                        }
+                    }
+                    if(shutter_max_bigger == 1)
+                    {
+                        if((shutter < 40001) && (gain > 10))
+                        {
+                            ROI_DEBUG("   ################# \n");
+                            //ROI_DEBUG("but shutter < shutter_max, and gain > 10\n");
+                            shutter = 40001;
+                            gain = 10;
+                            need_update_AE = 1;
+                        }
+                        if((shutter > 40001) && (gain < gain_max))
+                        {
+                            ROI_DEBUG("   ================= \n");
+                            shutter = 40001;
+                            gain = gain_max;
+                            need_update_AE = 1;
+                        }
+                    }
+                    if(need_update_AE == 1)
+                    {
+                        need_update_AE = 0;
+                        AEMode_adj.Exposuretime = shutter;
+                        AEMode_adj.Gain = gain / 10;
+                        AEMode_adj.GainDeci = gain % 10;
+                        ROI_SetVIMAEMode(&AEMode_adj);
+                    }
+                }
+            }
+            else 
+            {
+                ROI_DEBUG("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                ROI_DEBUG("not need adjust shutter or gain\n");
+                ROI_DEBUG("~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~~\n");
+                need_update_IRCut = 0;
+            }
+                //gettimeofday(&t2, NULL);
             //ROI_DEBUG("t2 - t1 = %d\n", ((t2.tv_sec*1000 + t2.tv_usec/1000) - (t1.tv_sec*1000 + t1.tv_usec/1000)));
         }//pAEMode->AE_Shutter_Mode == VF_AE_ROI
         else 
