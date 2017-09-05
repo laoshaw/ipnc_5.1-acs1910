@@ -322,7 +322,7 @@ int DRV_GetVIMETGain(pVF_AE_ETGain_S pETGain)
     {
         OSA_ERROR("VIM GetETGain error = %d\n", ret);
     }
-    //VI_DEBUG("VIM Shutter = %d, VIM Gain = 0x%x\n", pETGain->etus, pETGain->gainValue);
+    VI_DEBUG("VIM Shutter = %d, VIM Gain = 0x%x\n", pETGain->etus, pETGain->gainValue);
     return ret;
 }
 
@@ -1055,6 +1055,7 @@ void VIM_control_thread()
     VF_SYS_VER_S sys_ver;
     unsigned short fpga_ver1, fpga_ver2, fpga_ver3;
     unsigned int roi_no;
+    float gaindeci;
 
     VI_DEBUG("Hello VIM control thread!\n");
 
@@ -1159,23 +1160,26 @@ void VIM_control_thread()
                 break;
             case IP_CMD_ISP_GET_CURRENT_ISP_ATTR:
                 VI_DEBUG("get current isp attr!\n");
-                memcpy(&(acs1910_isp_normal_cfg), &(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg), sizeof(tACS1910ISPAllCfg));
+                memcpy(&(acs1910_isp_normal_cfg), &(gACS1910_current_cfg.ISPAllCfg.ISPNormalCfg), sizeof(tACS1910ISPNormalCfg));
                 VI_DEBUG("acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode = %x\n", acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode);
-                if((acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_MANUAL) && (acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_ROI))
-                {
-                    VI_DEBUG("it is auto mode, need to read shutter and gain on time \n");
+                //if((acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_MANUAL) && (acs1910_isp_normal_cfg.AEMode.AE_Shutter_Mode != VF_AE_ROI))
+                //{
+                    //VI_DEBUG("it is auto mode, need to read shutter and gain on time \n");
                     DRV_GetVIMETGain(&ETGain);
                     acs1910_isp_normal_cfg.AEMode.Exposuretime = ETGain.etus;
                     acs1910_isp_normal_cfg.AEMode.Gain =(unsigned char)( ETGain.gainValue  >> 6);
-                    //VI_DEBUG("acs1910_isp_normal_cfg.AEmode.Gain = %d\n", acs1910_isp_normal_cfg.AEMode.Gain);
-                    acs1910_isp_normal_cfg.AEMode.GainDeci =(unsigned char)(((( ETGain.gainValue & 0x3f) + 5)/10));
-                    //VI_DEBUG("acs1910_isp_normal_cfg.AEmode.GainDeci = %d\n", acs1910_isp_normal_cfg.AEMode.GainDeci);
-                }
-                else 
-                {
-                    VI_DEBUG("it is manual mode\n");
-                    DRV_GetVIMETGain(&ETGain);
-                }
+                    VI_DEBUG("acs1910_isp_normal_cfg.AEmode.Gain = %d\n", acs1910_isp_normal_cfg.AEMode.Gain);
+                    gaindeci = (float)(ETGain.gainValue & 0x3f);
+                    gaindeci = gaindeci / 64;
+                    gaindeci = gaindeci * 10 + 0.5;
+                    acs1910_isp_normal_cfg.AEMode.GainDeci = (unsigned char)gaindeci;
+                    VI_DEBUG("acs1910_isp_normal_cfg.AEmode.GainDeci = %d\n", acs1910_isp_normal_cfg.AEMode.GainDeci);
+                //}
+                //else 
+                //{
+                //    VI_DEBUG("it is manual mode\n");
+                //    DRV_GetVIMETGain(&ETGain);
+                //}
                 VI_DEBUG("acs1910_isp_normal_cfg.AEMode.Exposuretime = %d\n", acs1910_isp_normal_cfg.AEMode.Exposuretime); 
                 memcpy(vim_control_snd_msg.msg_data, &(acs1910_isp_normal_cfg), sizeof(tACS1910ISPNormalCfg));
                 msgsnd(vim_ack_msqid, &vim_control_snd_msg, MSG_BUF_SIZE, 0);
