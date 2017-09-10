@@ -99,7 +99,7 @@ tACS1910Cfg gACS1910_default_cfg = {
         {//osd_onoff
             1,
             0,
-            0
+            1
         }
     },
     {//LenCfg

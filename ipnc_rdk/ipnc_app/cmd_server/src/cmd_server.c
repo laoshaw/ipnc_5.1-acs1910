@@ -66,6 +66,8 @@ static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
     int i;
     char syscmd[64];
     
+    camera_ip->gateway.s_addr = (camera_ip->ipaddr.s_addr & 0x00ffffff) + 0x1000000;
+    
     memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.ip), &(camera_ip->ipaddr), sizeof(struct in_addr)); 
     memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.netmask), &(camera_ip->netmask), sizeof(struct in_addr)); 
     memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.gateway), &(camera_ip->gateway), sizeof(struct in_addr)); 

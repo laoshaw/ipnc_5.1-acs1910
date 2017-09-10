@@ -260,8 +260,8 @@ int dh_h264_osd_apply(unsigned int yuv_data_addr,
         }
         else if(g_h264_osd_cfg.addren && (i == 1))
         {
-            sprintf((char *)osd_buffer, "%s", "Œª÷√: ");
-            snprintf((char *)(osd_buffer+strlen("Œª÷√: ")), DH_TEXT_LEN * 2, 
+            sprintf((char *)osd_buffer, "%s", "");
+            snprintf((char *)(osd_buffer+strlen("")), DH_TEXT_LEN * 2, 
                 "%s", g_h264_osd_cfg.addrtext);
             osd_flag = 1;
         }

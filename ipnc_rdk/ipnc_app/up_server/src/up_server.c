@@ -29,15 +29,15 @@ Copyright (c) 2017-2019 VIFOCUS
 
 #include "sem_util.h"    
 
-#define UP_DEBUG_MODE
+//#define UP_DEBUG_MODE
 
 #ifdef UP_DEBUG_MODE
 #define UP_DEBUG(...) \
     do \
     { \
-        printf(stderr, " DEBUG (%s|%s|%d): ", \
+        fprintf(stderr, " DEBUG (%s|%s|%d): ", \
                 __FILE__, __func__, __LINE__); \
-        printf(stderr, __VA_ARGS__); \
+        fprintf(stderr, __VA_ARGS__); \
     } \
     while(0)
 
@@ -48,7 +48,7 @@ Copyright (c) 2017-2019 VIFOCUS
 
 #define UP_PORT 2501
 #define UP_TIMEOUT 10
-#define RCV_BUF_SIZE 88 
+#define RCV_BUF_SIZE 1296 
 #define SND_BUF_SIZE 12 
 
 //更新数据命令头
@@ -80,7 +80,7 @@ Copyright (c) 2017-2019 VIFOCUS
 #define UP_PACK_FILE_TYPE_OFFSET (UP_PACK_FILE_BLK_CNT_OFFSET + UP_PACK_FILE_BLK_CNT_SIZE)
 #define UP_PACK_FILE_TYPE_SIZE 1
 #define UP_PACK_FILE_CHECK_OFFSET (UP_PACK_FILE_TYPE_OFFSET + UP_PACK_FILE_TYPE_SIZE)
-#define UP_PACK_FILE_CHECK_SIZE 4
+#define UP_PACK_FILE_CHECK_SIZE 64
 #define UP_PACK_FILE_NAME_OFFSET (UP_PACK_FILE_CHECK_OFFSET + UP_PACK_FILE_CHECK_SIZE)
 #define UP_PACK_FILE_NAME_SIZE 20
 #define UP_PACK_FILE_PATH_OFFSET (UP_PACK_FILE_NAME_OFFSET + UP_PACK_FILE_NAME_SIZE)
@@ -105,8 +105,8 @@ Copyright (c) 2017-2019 VIFOCUS
 #define UP_DATA_IS_STEP5_UP_END 30005
 #define UP_DATA_IS_STEP6_UP_CANCEL 30006
 
-//#define FILE_DATA_SIZE 1282
-#define FILE_DATA_SIZE 74
+#define FILE_DATA_SIZE 1282
+//#define FILE_DATA_SIZE 74
 #pragma pack(1)
 typedef struct format1
 {
@@ -161,7 +161,7 @@ void up_server_stop(void)
 static int up_server_init(void)
 {
     int ret = 0;
-    char *ip_a;
+    //char *ip_a;
          
     signal(SIGINT, up_server_stop);
 
@@ -225,13 +225,13 @@ static FILE *create_bak_file(char *file_name)
 static int update_file(FILE *bak_fp, char *path_name, char *file_name)
 {
     FILE *up_fp;
-    char *f[64];
+    char f[64];
     unsigned char buf[4096];
     unsigned int cnt = 0;
     int ret = 0;
     int fd;
 
-    sprintf(f, "%s/%s", path_name, file_name);
+    sprintf(f, "%s%s", path_name, file_name);
     UP_DEBUG("update %s\n", f);
     up_fp = fopen(f, "w");
     if(up_fp == NULL)
@@ -262,24 +262,25 @@ static int update_file(FILE *bak_fp, char *path_name, char *file_name)
 
 int main(int argc, char **argv)
 {
-    int ret = 0, i;
+    int ret = 0;
+    //int i;
 
     int up_socketfd = 0;
     struct sockaddr_in server_addr;
     struct sockaddr_in client_addr;
-    unsigned char rcv_buf[RCV_BUF_SIZE] = {0};
+    //unsigned char rcv_buf[RCV_BUF_SIZE] = {0};
     unsigned char snd_buf[SND_BUF_SIZE] = {0};
-    char *client_ip = NULL;
-    unsigned int cmd_data_len = 0;
-    unsigned int cmd_len = 0;
+    //char *client_ip = NULL;
+    //unsigned int cmd_data_len = 0;
+    //unsigned int cmd_len = 0;
     unsigned char check_code = 0;
     int rcv_count = 0;
-    int ack_len = 0;
+    //int ack_len = 0;
     int snd_len = 0;
     int addr_len = sizeof(struct sockaddr_in);
     fd_set rcv_fd;
     struct timeval timeout;
-    struct timeval tv1, tv2, tv3;
+    //struct timeval tv1, tv2, tv3;
     
     unsigned char client_id[] = {'V', 'F', 'U'};
     unsigned char server_id[] = {'V', 'F', 'D', 0x00/*PRO*/, 0xFD/*MSG*/, 0x00/*LEN_M*/, 0x04/*LEN_L*/, 0x00, 0x00, 0x00, 0x00/*DATA 4Bytes*/, 0x00/*CHECK Code*/};
@@ -301,8 +302,8 @@ int main(int argc, char **argv)
     unsigned int cur_file_len = 0;      //当前文件长度
     unsigned int rcv_file_len = 0;      //已经接收到的文件长度
     FILE *bak_fp = NULL;
-    FILE *up_fp = NULL;
-    int fd;
+    //FILE *up_fp = NULL;
+    //int fd;
     
 
     up_pack_t up_pack_data;
@@ -314,7 +315,7 @@ int main(int argc, char **argv)
         return ret;
     }
     
-    memset(rcv_buf, 0, sizeof(rcv_buf));
+    memset(&up_pack_data, 0, sizeof(up_pack_data));
     memset(snd_buf, 0, sizeof(snd_buf));
 
 //create udp socket
@@ -343,7 +344,7 @@ int main(int argc, char **argv)
 
     while(g_up_server_run)
     {
-        UP_DEBUG("wait from client\n");
+        //UP_DEBUG("wait from client\n");
         memcpy(snd_buf, server_id, SND_BUF_SIZE); 
         memset(&up_pack_data, 0, sizeof(up_pack_data));
 
@@ -355,11 +356,11 @@ int main(int argc, char **argv)
         ret = select(up_socketfd+1, &rcv_fd, 0, 0, &timeout);
         if(ret < 0)
         {
-            UP_DEBUG("cmd server rcv select error\n");
+            //UP_DEBUG("cmd server rcv select error\n");
         }
         else if(ret ==0)
         {
-            UP_DEBUG("time out\n");
+            //UP_DEBUG("time out\n");
         }
         else
         {
@@ -386,7 +387,7 @@ int main(int argc, char **argv)
                     }
                     else
                     {//是我的数据
-                        if(rcv_count != RCV_BUF_SIZE) 
+                        if(rcv_count != sizeof(up_pack_data)) 
                         {//接收到的长度不对
                             snd_error_code = UP_DATA_RCV_SIZE_ERROR;
                             pack_snd_data(snd_buf, 0xff, &snd_error_code);
@@ -394,8 +395,8 @@ int main(int argc, char **argv)
                         else 
                         {//长度正确
                             check_code = calc_check_code((unsigned char *)&up_pack_data, sizeof(up_pack_data) - 1);
-                            UP_DEBUG("check_code = %02X\n", check_code);
-                            UP_DEBUG("up_pack_data.check_code = %02X\n", up_pack_data.check_code);
+                            //UP_DEBUG("check_code = %02X\n", check_code);
+                            //UP_DEBUG("up_pack_data.check_code = %02X\n", up_pack_data.check_code);
                             if(check_code != up_pack_data.check_code)
                             {//校验错
                                 snd_error_code = UP_DATA_RCV_CHECK_CODE_ERROR; 
@@ -404,19 +405,19 @@ int main(int argc, char **argv)
                             else 
                             {//校验正确
                              //   memcpy(&up_pack_data, rcv_buf, RCV_BUF_SIZE);
-                                UP_DEBUG("up_pack_data.header: ");
-                                for(i = 0; i < 3; i++)
-                                    UP_DEBUG("%02X ", up_pack_data.header[i]);
-                                UP_DEBUG("\n");
-                                UP_DEBUG("up_pack_data.pro: %02X\n", up_pack_data.pro); 
-                                UP_DEBUG("up_pack_data.msg: %02X\n", up_pack_data.msg); 
-                                UP_DEBUG("up_pack_data.file_blk_no: %08X\n", up_pack_data.file_blk_no); 
+                                //UP_DEBUG("up_pack_data.header: ");
+                                //for(i = 0; i < 3; i++)
+                                //    printf("%02X ", up_pack_data.header[i]);
+                                //UP_DEBUG("\n");
+                                //UP_DEBUG("up_pack_data.pro: %02X\n", up_pack_data.pro); 
+                                //UP_DEBUG("up_pack_data.msg: %02X\n", up_pack_data.msg); 
+                                //UP_DEBUG("up_pack_data.file_blk_no: %08X\n", up_pack_data.file_blk_no); 
                                 blk_no = (up_pack_data.file_blk_no) & 0x00ffffff;
                                 file_no = ((up_pack_data.file_blk_no) & 0xff000000) >> 24;
                                 UP_DEBUG("blk_no = %x\n", blk_no);
                                 UP_DEBUG("file_no = %x\n", file_no);
-                                UP_DEBUG("up_pack_data.format_data.f2_data.file_name = %s\n", up_pack_data.format_data.f2_data.file_name);
-                                UP_DEBUG("up_pack_data.format_data.f2_data.path_name = %s\n", up_pack_data.format_data.f2_data.path_name);
+                                //UP_DEBUG("up_pack_data.format_data.f2_data.file_name = %s\n", up_pack_data.format_data.f2_data.file_name);
+                                //UP_DEBUG("up_pack_data.format_data.f2_data.path_name = %s\n", up_pack_data.format_data.f2_data.path_name);
                                 if((blk_no == 0x000000) && (file_no == 0x00))
                                 {//格式1
                                     UP_DEBUG("it is update start format 1\n");
@@ -427,6 +428,7 @@ int main(int argc, char **argv)
                                         all_file_len = up_pack_data.format_data.f1_data.all_file_len;
                                         UP_DEBUG("all_file_cnt = %d\n", all_file_cnt);
                                         UP_DEBUG("all_file_len = %d\n", all_file_len);
+                                        UP_DEBUG("cur_blk_len = %d\n", up_pack_data.cur_blk_len);
                                         cur_step = UP_DATA_IS_STEP1_UP_START;
                                         system("/opt/ipnc/killall.sh");
                                         sleep(2);
@@ -435,10 +437,11 @@ int main(int argc, char **argv)
                                     else 
                                     {
                                         UP_DEBUG("cur_step is %d\n", cur_step);
-                                        pack_snd_data(snd_buf, 0xff, &cur_step); 
+                                        //pack_snd_data(snd_buf, 0xff, &cur_step); 
+                                        pack_snd_data(snd_buf, 0x01, &up_pack_data.file_blk_no);
                                     }
                                 }//格式1
-                                if((blk_no == 0x000000) && (file_no != 0xff))
+                                if((blk_no == 0x000000) && (file_no > 0x00) && (file_no < 0x80))
                                 {//格式2
                                     UP_DEBUG("it is file start format 2\n");
                                     if(cur_step == UP_DATA_IS_STEP1_UP_START)
@@ -451,6 +454,8 @@ int main(int argc, char **argv)
                                           cur_file_blk_cnt = up_pack_data.format_data.f2_data.blk_cnt;
                                           memcpy(file_name, up_pack_data.format_data.f2_data.file_name, sizeof(file_name));
                                           memcpy(path_name, up_pack_data.format_data.f2_data.path_name, sizeof(path_name));
+                                          UP_DEBUG("file_name = %s\n", up_pack_data.format_data.f2_data.file_name);
+                                          UP_DEBUG("path_name = %s\n", up_pack_data.format_data.f2_data.path_name);
                                           bak_fp = create_bak_file(file_name);
                                           if(bak_fp == NULL)
                                           {//创建文件失败
@@ -503,8 +508,9 @@ int main(int argc, char **argv)
                                     }//当前是文件更新完成阶段，进入下一个文件更新
                                     else 
                                     {//别的状态
-                                        UP_DEBUG("cur_step = %d\n", cur_step);
-                                        pack_snd_data(snd_buf, 0xff, &cur_step); 
+                                        UP_DEBUG("format 2 is not for cur_step = %d\n", cur_step);
+                                        //pack_snd_data(snd_buf, 0xff, &cur_step); 
+                                        pack_snd_data(snd_buf, 0x01, &up_pack_data.file_blk_no);
                                     }//别的状态
                                 }//格式2
                                 if((blk_no != 0x000000) && (file_no != 0x00) && (up_pack_data.cur_blk_len != 0x0000))
@@ -512,7 +518,7 @@ int main(int argc, char **argv)
                                     UP_DEBUG("it is file data format 3\n");
                                     if(cur_step == UP_DATA_IS_STEP2_FILE_START)
                                     {//从文件开始阶段进入到获取文件内容阶段
-                                        UP_DEBUG("it is first rcv file\n");
+                                        UP_DEBUG("it is first rcv file %s\n", file_name);
                                         if((cur_file_no == file_no) && (blk_no == 0x000001))
                                         {//是当前的文件序号且当前块号为1
                                             UP_DEBUG("file_no  %d is right, and blk_no %d is right\n", file_no, blk_no);
@@ -555,7 +561,7 @@ int main(int argc, char **argv)
                                         UP_DEBUG("it is already in file rcv\n");
                                         if((file_no == cur_file_no) && (blk_no = (cur_blk_no + 1)))
                                         {//文件序号及块号都是对的
-                                            UP_DEBUG("file_no  %d is right, and blk_no %d is right\n", file_no, blk_no);
+                                            UP_DEBUG("file_no %d is right, and blk_no %d is right\n", file_no, blk_no);
                                             if(bak_fp != NULL)
                                             {
                                                 ret = fwrite(up_pack_data.format_data.f3456_data.file_data, 1, up_pack_data.cur_blk_len, bak_fp);
@@ -592,8 +598,9 @@ int main(int argc, char **argv)
                                     }//已经是文件接收阶段了
                                     else 
                                     {//其他状态
-                                        UP_DEBUG("format3 is not right for other steps %d\n", cur_step);
-                                        pack_snd_data(snd_buf, 0xff, &cur_step);
+                                        UP_DEBUG("format 3 is not right for other steps %d\n", cur_step);
+                                        //pack_snd_data(snd_buf, 0xff, &cur_step);
+                                        pack_snd_data(snd_buf, 0x01, &up_pack_data.file_blk_no);
                                     }
                                 }//格式3
                                 if((blk_no == 0x00ffffff) && (file_no != 0xff) && (file_no != 0x00) && (up_pack_data.cur_blk_len == 0x0000))
@@ -609,7 +616,7 @@ int main(int argc, char **argv)
                                             {
                                                 UP_DEBUG("begain to update file\n");
                                                 ret = update_file(bak_fp, path_name, file_name);
-                                                if(ret == 0)
+                                                if(ret != -1)
                                                 {
                                                     UP_DEBUG("update file success\n");
                                                     fclose(bak_fp);
@@ -658,7 +665,8 @@ int main(int argc, char **argv)
                                    else 
                                    {//其他状态
                                         UP_DEBUG("format4 is not right for other steps %d\n", cur_step);
-                                        pack_snd_data(snd_buf, 0xff, &cur_step);
+                                        //pack_snd_data(snd_buf, 0xff, &cur_step);
+                                        pack_snd_data(snd_buf, 0x01, &up_pack_data.file_blk_no);
                                    }
                                 }//格式4
                                 if((blk_no == 0x00ffffff) && (file_no == 0xff) && (up_pack_data.cur_blk_len == 0x0000))
@@ -668,7 +676,11 @@ int main(int argc, char **argv)
                                     {//只有在状态4的时候接收到格式5的指令才是正确的操作
                                      //需要进行更新文件总数，文件总长度的校验之后，就可以进行重启操作，完成更新工作
                                         UP_DEBUG("it is file end status\n");
-                                        if((rcv_file_cnt == all_file_cnt) && (rcv_file_len == all_file_len))
+                                        UP_DEBUG("rcv_file_cnt = %d\n", rcv_file_cnt);
+                                        UP_DEBUG("all_file_cnt = %d\n", all_file_cnt);
+                                        UP_DEBUG("rcv_all_file_len = %d\n", rcv_all_file_len);
+                                        UP_DEBUG("all_file_cnt = %d\n", all_file_cnt);
+                                        if((rcv_file_cnt == all_file_cnt) && (rcv_all_file_len == all_file_len))
                                         {//接收到的文件数量和文件总长度对头
                                             UP_DEBUG("file rcv right\n");
                                             UP_DEBUG("update end\n");
@@ -686,11 +698,13 @@ int main(int argc, char **argv)
                                     else 
                                     {//其他状态
                                         UP_DEBUG("format5 is not right for other steps %d\n", cur_step);
-                                        pack_snd_data(snd_buf, 0xff, &cur_step);
+                                        //pack_snd_data(snd_buf, 0xff, &cur_step);
+                                        pack_snd_data(snd_buf, 0x01, &up_pack_data.file_blk_no);
                                     }
                                 }//格式5
                                 if((blk_no == 0x00000000) && (file_no == 0xff) && (up_pack_data.cur_blk_len == 0x0000))
                                 {//格式6
+                                    UP_DEBUG("it is update cancle format 6\n");
                                     ret = 12345;
                                     pack_snd_data(snd_buf, 0x01, &up_pack_data.file_blk_no);
                                 }
@@ -698,6 +712,12 @@ int main(int argc, char **argv)
                         }
 
                         snd_buf[SND_BUF_SIZE - 1] = calc_check_code(snd_buf, SND_BUF_SIZE - 1);
+                        //UP_DEBUG("snd_buf: ");
+                        //for(i = 0; i < SND_BUF_SIZE; i++)
+                        //{
+                        //    printf("%02x ", snd_buf[i]);
+                        //}
+                        //printf("\n");
                         snd_len = sendto(up_socketfd, snd_buf, SND_BUF_SIZE, 0, (struct sockaddr *)&client_addr, sizeof(client_addr)); 
                         if(snd_len != SND_BUF_SIZE)
                         {
