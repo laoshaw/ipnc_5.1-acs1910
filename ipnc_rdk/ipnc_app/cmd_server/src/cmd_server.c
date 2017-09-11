@@ -760,12 +760,25 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
                     VI_DEBUG("LEN CONTROL MODE is error\n");
                     ret = IP_CMD_DATA_ERROR;
                 }
-                if((((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed > 10) || 
-                        (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed == 0))
+                if(((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed > 10)     
                 {
-                    VI_DEBUG("LEN CONTROL Speed is error\n");
+                    //如果大于最大速度则停止动作，返回错误
+                    ((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode = VF_CONTROL_LEN_STOP;
+                    ((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed = 0;
+                    msgsnd(len_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+                    VI_DEBUG("LEN CONTROL Speed is error speed=%d\n", ((pVF_LEN_CONTROL_S)(cmd_server_snd_msg.msg_data))->speed);
                     ret = IP_CMD_DATA_ERROR;
                 }
+                if ((((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed < 1) && (((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode != VF_CONTROL_LEN_STOP))
+                {
+                    //如果小于最小速度则停止动作，返回错误
+                    ((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->Mode = VF_CONTROL_LEN_STOP;
+                    ((pVF_LEN_CONTROL_S)cmd_server_snd_msg.msg_data)->speed = 0;
+                    msgsnd(len_cmd_msqid, &cmd_server_snd_msg, MSG_BUF_SIZE, 0);
+                     VI_DEBUG("LEN CONTROL Speed is error speed=%d\n", ((pVF_LEN_CONTROL_S)(cmd_server_snd_msg.msg_data))->speed);
+                     ret = IP_CMD_DATA_ERROR;
+                }
+                
                 if(ret == 0) 
                 {
                     VI_DEBUG("LEN CONTROL CMD is right\n");

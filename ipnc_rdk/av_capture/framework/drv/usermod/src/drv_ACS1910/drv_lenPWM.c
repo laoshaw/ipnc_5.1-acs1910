@@ -360,19 +360,19 @@ static void lenPWM_control_thread()
             {
                 case VF_CONTROL_ZOOM_WIDE:
                 case VF_CONTROL_ZOOM_TELE:
-                    PWM_ZOOM_control(len_control_data.Mode, len_control_data.speed);
+                    PWM_ZOOM_control(len_control_data.Mode, len_control_data.speed - 1);
                     gACS1910_current_cfg.LenCfg.zoom_speed = len_control_data.speed;
                     flag_motor_run = 1;
                     break;
                 case VF_CONTROL_FOCUS_FAR:
                 case VF_CONTROL_FOCUS_NEAR:
-                    PWM_FOCUS_control(len_control_data.Mode, len_control_data.speed);
+                    PWM_FOCUS_control(len_control_data.Mode, len_control_data.speed - 1);
                     gACS1910_current_cfg.LenCfg.focus_speed = len_control_data.speed;
                     flag_motor_run = 1;
                     break;
                 case VF_CONTROL_IRIS_LARGE:
                 case VF_CONTROL_IRIS_SMALL:
-                    PWM_IRIS_control(len_control_data.Mode, len_control_data.speed);
+                    PWM_IRIS_control(len_control_data.Mode, len_control_data.speed - 1);
                     gACS1910_current_cfg.LenCfg.iris_speed = len_control_data.speed;
                     flag_motor_run = 1;
                     break;
