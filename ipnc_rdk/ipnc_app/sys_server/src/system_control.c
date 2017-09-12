@@ -49,6 +49,8 @@
 #include <signal.h>
 #include <rtsp_ctrl.h>
 #include <semaphore.h>
+#include "cmd_server.h"
+#include <errno.h>
 
 extern SemHandl_t gFORKSem;
 //#define SYS_CTRL_DEBUG
@@ -348,6 +350,90 @@ int IsUsbConnect()
 * @retval 0 Success
 * @retval -1  Error
 */
+VF_CAMERA_NETINFO_S gACS1910_ip_cfg;
+
+VF_CAMERA_NETINFO_S gACS1910_default_ip_cfg = {
+    {
+        0x5108A8C0 
+    },
+    {
+        0x00FFFFFF
+    },
+    {
+        0x0108A8C0
+    }
+}; 
+
+
+int check_ip_cfg()
+{
+    FILE *fp_def;
+    int fd_def;
+    FILE *fp_read;
+    int fd_read;
+    int ret;
+    int need_create = 0;
+    struct stat cfg_stat;
+    char *ip_a;
+
+    need_create = 0;
+    VI_DEBUG("sizeof(VF_CAMERA_NETINFO_S) = %d\n", sizeof(VF_CAMERA_NETINFO_S));
+    ret = stat("/mnt/nand/acs1910_ip.cfg", &cfg_stat);
+    if(ret != 0)
+    {
+        if(errno == ENOENT )
+        {
+            VI_DEBUG("saved cfg file is not exist\n");
+        }
+        need_create = 1;
+    }
+    else 
+    {
+        if(cfg_stat.st_size != sizeof(VF_CAMERA_NETINFO_S))
+            need_create = 1;
+    }
+    if(need_create == 1)
+    {
+        VI_DEBUG("create a new saved cfg\n");
+        fp_def = fopen("/mnt/nand/acs1910_ip.cfg", "wb");
+        if(fp_def == NULL)
+        {
+           perror("create saved_cfg file error\n"); 
+           return -1;//OSA_EFAIL;
+        }
+        else 
+        {
+            fd_def = fileno(fp_def);
+            ret = fwrite(&gACS1910_default_ip_cfg, 1, sizeof(VF_CAMERA_NETINFO_S), fp_def);
+            VI_DEBUG("write %d into cfg\n", ret);
+            if(ret != sizeof(VF_CAMERA_NETINFO_S))
+            {
+                perror("write saved_cfg file error\n");
+                fclose(fp_def);
+                return -1;//OSA_EFAIL;
+            }
+            fsync(fd_def);
+            fclose(fp_def);
+        }
+    }
+
+    fp_read = fopen("/mnt/nand/acs1910_ip.cfg", "rb");
+    fd_read = fileno(fp_read);
+    if(fp_read == NULL)
+    {
+        perror("read acs1910_ip.cfg\n");
+    }
+    fread(&gACS1910_ip_cfg, 1, sizeof(VF_CAMERA_NETINFO_S), fp_read);
+    fsync(fd_read);
+    fclose(fp_read);
+
+    ip_a = inet_ntoa(gACS1910_ip_cfg.ipaddr);
+    VI_DEBUG("ipaddr = %s\n", ip_a);
+    ip_a = inet_ntoa(gACS1910_ip_cfg.netmask);
+    VI_DEBUG("netmask = %s\n", ip_a);
+    ip_a = inet_ntoa(gACS1910_ip_cfg.gateway);
+    VI_DEBUG("gateway = %s\n", ip_a);
+}
 
 int StartStaticNetwork(SysInfo *pSysInfo)
 {
@@ -369,18 +455,19 @@ int StartStaticNetwork(SysInfo *pSysInfo)
         //sprintf(syscmd, "ifconfig eth0 hw ether %02X:%02X:%02X:%02X:%02X:%02X\n", pSysInfo->lan_config.net.MAC[0] , pSysInfo->lan_config.net.MAC[1], pSysInfo->lan_config.net.MAC[2], pSysInfo->lan_config.net.MAC[3], pSysInfo->lan_config.net.MAC[4], pSysInfo->lan_config.net.MAC[5]); 
 
         //SYSTEM(syscmd);
+        check_ip_cfg();
     	SYSTEM("ifconfig eth0 up\n");
-    	if(net_set_ifaddr(ETH_NAME, pSysInfo->lan_config.net.ip.s_addr) < 0){
+    	if(net_set_ifaddr(ETH_NAME, gACS1910_ip_cfg.ipaddr.s_addr/*pSysInfo->lan_config.net.ip.s_addr*/) < 0){
     		__E("Error on Set ip\n");
         	return -1;
     	}
     	/* set net mask */
-    	if(net_set_netmask(ETH_NAME, pSysInfo->lan_config.net.netmask.s_addr) < 0){
+    	if(net_set_netmask(ETH_NAME, gACS1910_ip_cfg.netmask.s_addr/*pSysInfo->lan_config.net.netmask.s_addr*/) < 0){
     		__E("Fail on set netmask\n");
         	return -1;
     	}
     	/* set gateway */
-    	if(net_set_gateway(pSysInfo->lan_config.net.gateway.s_addr) < 0){
+    	if(net_set_gateway(gACS1910_ip_cfg.gateway.s_addr/*pSysInfo->lan_config.net.gateway.s_addr*/) < 0){
     		__E("Fail on set gateway\n");
         	return -1;
     	}

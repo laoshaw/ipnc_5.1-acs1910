@@ -54,7 +54,8 @@ static int vim_cmd_msqid;
 static int vim_ack_msqid;
 //static int sys_cmd_msqid;
 //static int sys_ack_msqid; 
-static SysInfo acs1910_ipnc_sysinfo; 
+//static SysInfo acs1910_ipnc_sysinfo; 
+static VF_CAMERA_NETINFO_S acs1910_ip_cfg;
 char version[32];
 
 static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
@@ -68,40 +69,40 @@ static int cmd_server_setip(pVF_CAMERA_NETINFO_S camera_ip, int mac)
     
     camera_ip->gateway.s_addr = (camera_ip->ipaddr.s_addr & 0x00ffffff) + 0x1000000;
     
-    memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.ip), &(camera_ip->ipaddr), sizeof(struct in_addr)); 
-    memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.netmask), &(camera_ip->netmask), sizeof(struct in_addr)); 
-    memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.gateway), &(camera_ip->gateway), sizeof(struct in_addr)); 
+    //memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.ip), &(camera_ip->ipaddr), sizeof(struct in_addr)); 
+    //memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.netmask), &(camera_ip->netmask), sizeof(struct in_addr)); 
+    //memcpy(&(acs1910_ipnc_sysinfo.lan_config.net.gateway), &(camera_ip->gateway), sizeof(struct in_addr)); 
     if(mac == 1)
     {
-        memcpy(acs1910_ipnc_sysinfo.lan_config.net.MAC, camera_ip->MAC, 6);
-        VI_DEBUG("acs1910_ipnc_sysinfo.lan_config.net.Mac:");
-        for(i = 0; i < 6; i++)
-            printf("%02X ", acs1910_ipnc_sysinfo.lan_config.net.MAC[i]);
-        printf("\n ");
+        //memcpy(acs1910_ipnc_sysinfo.lan_config.net.MAC, camera_ip->MAC, 6);
+        //VI_DEBUG("acs1910_ipnc_sysinfo.lan_config.net.Mac:");
+        //for(i = 0; i < 6; i++)
+        //    printf("%02X ", acs1910_ipnc_sysinfo.lan_config.net.MAC[i]);
+        //printf("\n ");
 
-        VI_DEBUG("camera_ip.Mac:");
-        for(i = 0; i < 6; i++)
-            printf("%02X ", camera_ip->MAC[i]);
-        printf("\n ");
+        //VI_DEBUG("camera_ip.Mac:");
+        //for(i = 0; i < 6; i++)
+        //    printf("%02X ", camera_ip->MAC[i]);
+        //printf("\n ");
     }
 
     //sprintf(syscmd, "ifconfig eth0 hw ether %02X:%02X:%02X:%02X:%02X:%02X", acs1910_ipnc_sysinfo.lan_config.net.MAC[0] , acs1910_ipnc_sysinfo.lan_config.net.MAC[1], acs1910_ipnc_sysinfo.lan_config.net.MAC[2], acs1910_ipnc_sysinfo.lan_config.net.MAC[3], acs1910_ipnc_sysinfo.lan_config.net.MAC[4], acs1910_ipnc_sysinfo.lan_config.net.MAC[5]); 
    // VI_DEBUG("syscmd = %s\n", syscmd);
 
-    fp = fopen("/mnt/nand/sysenv.cfg", "wb");
+    fp = fopen("/mnt/nand/acs1910_ip.cfg", "wb");
     if(fp == NULL)
     {
         VI_DEBUG("open sysenv.cfg error\n");
         perror("open sysenv.cfg error\n");
         ret = -1;
     }
-    else if(fwrite(&magic_num, 1, sizeof(magic_num), fp) != sizeof(magic_num))
-    {
-        VI_DEBUG("write magic_num error\n");
-        perror("write magic_num error\n");
-        ret = -1;
-    }
-    else if(fwrite(&acs1910_ipnc_sysinfo, 1, sizeof(acs1910_ipnc_sysinfo), fp) != sizeof(acs1910_ipnc_sysinfo))
+//    else if(fwrite(&magic_num, 1, sizeof(magic_num), fp) != sizeof(magic_num))
+//    {
+//        VI_DEBUG("write magic_num error\n");
+//        perror("write magic_num error\n");
+//        ret = -1;
+//    }
+    else if(fwrite(camera_ip, 1, sizeof(VF_CAMERA_NETINFO_S), fp) != sizeof(VF_CAMERA_NETINFO_S))
     {
         VI_DEBUG("write sysinfo error\n");
         perror("write sysinfo error\n");
@@ -171,6 +172,7 @@ static int cmd_server_init(void)
     unsigned long magic_num;
     FILE *fp;
     char *ip_a;
+    int fd;
          
     signal(SIGINT, cmd_server_stop);
 
@@ -178,18 +180,30 @@ static int cmd_server_init(void)
      
     VI_DEBUG("sizeof SysInfo = %d\n", sizeof(SysInfo)); 
 
-    fp = fopen("/mnt/nand/sysenv.cfg", "rb");
-    if(fp == NULL)
-        perror("open SYS_ENV_FILE error\n");
-    ret = fread(&magic_num, 1, sizeof(magic_num), fp);
-    VI_DEBUG("ret = %d magic_num = %x\n", ret , magic_num);
-    ret = fread(&acs1910_ipnc_sysinfo, 1, sizeof(acs1910_ipnc_sysinfo), fp);
+    //fp = fopen("/mnt/nand/sysenv.cfg", "rb");
+    //if(fp == NULL)
+    //    perror("open SYS_ENV_FILE error\n");
+    //ret = fread(&magic_num, 1, sizeof(magic_num), fp);
+    //VI_DEBUG("ret = %d magic_num = %x\n", ret , magic_num);
+    //ret = fread(&acs1910_ipnc_sysinfo, 1, sizeof(acs1910_ipnc_sysinfo), fp);
     //ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.ip);
     //VI_DEBUG("ip_a = %s\n", ip_a);
     //ip_a = inet_ntoa(acs1910_ipnc_sysinfo.lan_config.net.netmask);
     //VI_DEBUG("ip_a = %s\n", ip_a);
-    fclose(fp);
+    //fclose(fp);
 
+    fp = fopen("/mnt/nand/acs1910_ip.cfg", "rb");
+    if(fp == NULL)
+        perror("open acs1910_ip_cfg error");
+    ret = fread(&acs1910_ip_cfg, 1, sizeof(acs1910_ip_cfg), fp);
+    ip_a = inet_ntoa(acs1910_ip_cfg.ipaddr);
+    VI_DEBUG("ip_a = %s\n", ip_a);
+    ip_a = inet_ntoa(acs1910_ip_cfg.gateway);
+    VI_DEBUG("ip_a = %s\n", ip_a);
+    fd = fileno(fp);
+    fsync(fd);
+    fclose(fp);
+    
     ret = 0;
     if((len_cmd_msqid = cmd_server_msg_init((key_t)LEN_CMD_MSG_KEY)) < 0)
         return -1;
@@ -612,13 +626,13 @@ static int parse_cmd(unsigned char *recv, unsigned char *send)
             }
             else 
             {
-                memcpy(&(camera_ip_s.ipaddr), &(acs1910_ipnc_sysinfo.lan_config.net.ip), sizeof(struct in_addr)); 
-                memcpy(&(camera_ip_s.netmask), &(acs1910_ipnc_sysinfo.lan_config.net.netmask), sizeof(struct in_addr)); 
-                memcpy(&(camera_ip_s.gateway), &(acs1910_ipnc_sysinfo.lan_config.net.gateway), sizeof(struct in_addr)); 
+                memcpy(&(camera_ip_s.ipaddr), &(acs1910_ip_cfg.ipaddr), sizeof(struct in_addr)); 
+                memcpy(&(camera_ip_s.netmask), &(acs1910_ip_cfg.netmask), sizeof(struct in_addr)); 
+                memcpy(&(camera_ip_s.gateway), &(acs1910_ip_cfg.gateway), sizeof(struct in_addr)); 
                 cmd_server_getmac(camera_ip_s.MAC);
-                ip_a = inet_ntoa(camera_ip_s.ipaddr);
-                VI_DEBUG("ipaddr = %s\n", ip_a);
-                ip_a = inet_ntoa(camera_ip_s.gateway);
+                //ip_a = inet_ntoa(camera_ip_s.ipaddr);
+                //VI_DEBUG("ipaddr = %s\n", ip_a);
+                //ip_a = inet_ntoa(camera_ip_s.gateway);
                 VI_DEBUG("gateway = %s\n", ip_a);
                 send[CMD_PACK_DATA_LENGTH_OFFSET] = (sizeof(camera_ip_s) >> 8);
                 send[CMD_PACK_DATA_LENGTH_OFFSET + 1] = sizeof(camera_ip_s);

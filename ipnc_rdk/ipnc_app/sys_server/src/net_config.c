@@ -32,6 +32,7 @@
 //#include "lancam.h"
 #include "net_config.h"
 #include "davinci_emac_priv.h"
+#include "cmd_server.h"
 
 #define NET_CONFIG_DEBUG
 
@@ -237,11 +238,24 @@ int net_set_ifaddr(char *ifname, in_addr_t addr)
 {
 	struct ifreq ifr;
 	int skfd;
+//    int fd;
+//    FILE *fp;
+//    VF_CAMERA_NETINFO_S ACS1910_ip_cfg;
 
 	if ( (skfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
 		DBG_ERR("socket error");
 		return -1;
 	}
+//    fp = fopen("/mnt/nand/acs1910_ip.cfg", "rb");
+//    fd = fileno(fp);
+//    if(fp == NULL)
+//    {
+//        perror("read acs1910_ip.cfg\n");
+//    }
+//    fread(&ACS1910_ip_cfg, 1, sizeof(VF_CAMERA_NETINFO_S), fp);
+//    fsync(fd);
+//    fclose(fp);
+//    printf("hello ifaddr %08X===================================\n", ACS1910_ip_cfg.ipaddr.s_addr);
 	sa.sin_addr.s_addr = addr;
 	strncpy(ifr.ifr_name, ifname, IFNAMSIZ);
 	memcpy((char *) &ifr.ifr_addr, (char *) &sa, sizeof(struct sockaddr));
@@ -292,11 +306,24 @@ int net_set_netmask(char *ifname, in_addr_t addr)
 {
 	struct ifreq ifr;
 	int skfd;
+//    int fd;
+//    FILE *fp;
+//    VF_CAMERA_NETINFO_S ACS1910_ip_cfg;
 
 	if ( (skfd = socket(AF_INET, SOCK_DGRAM, 0)) < 0 ) {
 		DBG_ERR("socket error");
 		return -1;
 	}
+//    fp = fopen("/mnt/nand/acs1910_ip.cfg", "rb");
+//    fd = fileno(fp);
+//    if(fp == NULL)
+//    {
+//        perror("read acs1910_ip.cfg\n");
+//    }
+//    fread(&ACS1910_ip_cfg, 1, sizeof(VF_CAMERA_NETINFO_S), fp);
+//    fsync(fd);
+//    fclose(fp);
+//    printf("hello netmask %08X===================================\n", ACS1910_ip_cfg.netmask.s_addr);
 	sa.sin_addr.s_addr = addr;
 	strncpy(ifr.ifr_name, ifname, IFNAMSIZ);
 	memcpy((char *) &ifr.ifr_addr, (char *) &sa, sizeof(struct sockaddr));
@@ -346,6 +373,9 @@ int net_add_gateway(in_addr_t addr)
 {
 	struct rtentry rt;
 	int skfd;
+//    int fd;
+//    FILE *fp;
+//    VF_CAMERA_NETINFO_S ACS1910_ip_cfg;
 
 	/* Clean out the RTREQ structure. */
 	memset((char *) &rt, 0, sizeof(struct rtentry));
@@ -356,6 +386,17 @@ int net_add_gateway(in_addr_t addr)
 	rt.rt_dst.sa_family = PF_INET;
 	rt.rt_genmask.sa_family = PF_INET;
 
+//    fp = fopen("/mnt/nand/acs1910_ip.cfg", "rb");
+//    fd = fileno(fp);
+//    if(fp == NULL)
+//    {
+//        perror("read acs1910_ip.cfg\n");
+//    }
+//    fread(&ACS1910_ip_cfg, 1, sizeof(VF_CAMERA_NETINFO_S), fp);
+//    fsync(fd);
+//    fclose(fp);
+//
+//    printf("hello gateway %08X===================================\n ", ACS1910_ip_cfg.gateway.s_addr);
 	sa.sin_addr.s_addr = addr;
 	memcpy((char *) &rt.rt_gateway, (char *) &sa, sizeof(struct sockaddr));
 
