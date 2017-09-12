@@ -7,6 +7,8 @@
 #include "hzk32.h"
 #include "asc16.h"
 #include "hzk16.h"
+#include "drv_ACS1910.h"
+#include "cmd_server.h"
 //#include "cntrl_SignalingInterface.h"
 //#include <dh_err_cmd_def.h>
 //#include <dh_system_default.h>
@@ -200,6 +202,8 @@ int dh_h264_osd_apply(unsigned int yuv_data_addr,
     unsigned char *asc = NULL;
     time_t b_time;
     struct tm *date_time;
+    VF_TIME_S rtc_time;
+    int week;
     
 
     DH_OsdParm pOsdParm = {
@@ -234,9 +238,15 @@ int dh_h264_osd_apply(unsigned int yuv_data_addr,
     b_time = time(NULL);
     date_time = localtime(&b_time);
     date_time->tm_year = date_time->tm_year + 1900;
-    sprintf(timestr, "%d-%02d-%02d %s %02d:%02d:%02d", 
+    sprintf(timestr, "%04d-%02d-%02d %s %02d:%02d:%02d", 
             date_time->tm_year, date_time->tm_mon + 1, date_time->tm_mday, wday[date_time->tm_wday], 
             date_time->tm_hour, date_time->tm_min, date_time->tm_sec);
+
+//    RTC_GetDate(&rtc_time);
+//    week = (rtc_time.day + 1 + 2*rtc_time.month + 3*(rtc_time.month + 1)/5 + rtc_time.year + rtc_time.year/4 - rtc_time.year/100 + rtc_time.year/400) % 7;
+//    sprintf(timestr, "%04d-%02d-%02d %s %02d:%02d:%02d", 
+//            (rtc_time.year + 2000), rtc_time.month, rtc_time.day, wday[week], 
+//            rtc_time.hour, rtc_time.minute, rtc_time.second);
 
     
     for(i = 0; i < 5; i++)

@@ -105,13 +105,13 @@ unsigned char VIM_roi_calc_histogram_avg(unsigned int *shutter, unsigned short *
     DRV_FPGASPIRead(ROI0_HEIGHT_FPGA_REG_ADDR, &roi0_height);
     DRV_FPGASPIRead(ROI0_HISTOGRAM_FPGA_REG_ADDR, &roi0_his_avg);
     roi_his_avg = roi0_his_avg & 0xff; 
+    roi_pix_sum = roi0_width * roi0_height;
+    roi_his_sum = roi_his_avg * roi_pix_sum;
     //ROI_DEBUG("roi0_width = %d, roi0_height = %d\n", roi0_width, roi0_height);
     //ROI_DEBUG("roi0_his_avg = %d, roi0_pix_sum = %d, roi0_his_sum = %d\n", roi_his_avg, roi_pix_sum, roi_his_sum);
 
     if(pISPAllCfg->AERoi[1].onoff == 1)
     {
-        roi_pix_sum = roi0_width * roi0_height;
-        roi_his_sum = roi_his_avg * roi_pix_sum;
         DRV_FPGASPIRead(ROI1_WIDTH_FPGA_REG_ADDR, &roi1_width);
         DRV_FPGASPIRead(ROI1_HEIGHT_FPGA_REG_ADDR, &roi1_height);
         DRV_FPGASPIRead(ROI1_HISTOGRAM_FPGA_REG_ADDR, &roi1_his_avg);

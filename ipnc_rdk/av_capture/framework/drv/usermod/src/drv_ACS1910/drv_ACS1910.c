@@ -112,8 +112,8 @@ tACS1910Cfg gACS1910_default_cfg = {
 tACS1910Cfg gACS1910_saved_cfg;
 tACS1910Cfg gACS1910_current_cfg;
 
-static pthread_t check_default_set_thread_id;
-static int check_default_set_thread_run = 0;
+static pthread_t check_date_set_thread_id;
+static int check_date_set_thread_run = 0;
 static int check_fpga_down = 1;
 
 #endif
@@ -328,41 +328,79 @@ int save_current_cfg()
    return OSA_SOK;
 }
 
-void check_default_set_thread()
+static int flag = 0;
+
+void check_set_date()
+{
+    struct tm *date_time;
+    time_t b_time;
+    VF_TIME_S v_date_time;
+    int hour, min, sec;
+
+    b_time = time(NULL);
+    date_time = localtime(&b_time);
+    hour = date_time->tm_hour;
+    min = date_time->tm_min;
+    sec = date_time->tm_sec;
+    if((hour == 0) && (min == 0)&& (flag == 0))    
+    {
+        flag = 1;
+        RTC_GetDate(&v_date_time);
+        Set_SysTime(&v_date_time);
+        VI_DEBUG("Set SYS time\n");
+    }
+    if((hour == 0) && (min == 1))
+    {
+        flag = 0;
+    }
+
+
+}
+
+void check_date_set_thread()
 {
     int default_set = 1;
     int count = 0;
     FILE *fp;
+    time_t b_time;
+    struct tm *date_time;
+    int day;
 
-    while(check_default_set_thread_run) 
+  
+    while(check_date_set_thread_run) 
     {
-        sleep(1);
-        default_set = DRV_gpioGet(SYS_SET_DEFAULT_IO);
-        //VI_DEBUG("default_set = %d\n", default_set);
-        if(default_set == 0)
-            count++;
-        if(default_set == 1)
-            count = 0;
-        //VI_DEBUG("count = %d\n", count);
-        if(count == 3)
-            check_default_set_thread_run = 0;
-    }
-    VI_DEBUG("Reset FPGA\n"); 
-    default_set = 0;
-    DRV_gpioSetMode(FPGA_PROGRAM_B_IO, DRV_GPIO_DIR_OUT); 
-    DRV_gpioClr(FPGA_PROGRAM_B_IO);
-    usleep(1000000);
-    DRV_gpioSet(FPGA_PROGRAM_B_IO);
-    DRV_gpioSetMode(FPGA_PROGRAM_B_IO, DRV_GPIO_DIR_IN);
-    while(check_fpga_down)
-    {
-        sleep(1);
-        default_set = DRV_gpioGet(FPGA_DONE_IO);
-        VI_DEBUG("done is %d\n", default_set);
-        if(default_set == 1)
-            check_fpga_down = 0;
+        sleep(1); 
+        check_set_date(); 
+        
+ 
+//        sleep(1);
+//        default_set = DRV_gpioGet(SYS_SET_DEFAULT_IO);
+//        //VI_DEBUG("default_set = %d\n", default_set);
+//        if(default_set == 0)
+//            count++;
+//        if(default_set == 1)
+//            count = 0;
+//        //VI_DEBUG("count = %d\n", count);
+//        if(count == 3)
+//            check_default_set_thread_run = 0;
     }
     
+////    VI_DEBUG("Reset FPGA\n"); 
+//    default_set = 0;
+//    DRV_gpioSetMode(FPGA_PROGRAM_B_IO, DRV_GPIO_DIR_OUT); 
+//    DRV_gpioClr(FPGA_PROGRAM_B_IO);
+//    usleep(1000000);
+//    DRV_gpioSet(FPGA_PROGRAM_B_IO);
+//    DRV_gpioSetMode(FPGA_PROGRAM_B_IO, DRV_GPIO_DIR_IN);
+//    while(check_fpga_down)
+//    {
+//        sleep(1);
+//        default_set = DRV_gpioGet(FPGA_DONE_IO);
+//        VI_DEBUG("done is %d\n", default_set);
+//        if(default_set == 1)
+//            check_fpga_down = 0;
+//    }
+//    
 
     //VI_DEBUG("rm -rf cfg file\n");
     //system("rm -rf /mnt/nand/acs1910_default.cfg");
@@ -372,18 +410,18 @@ void check_default_set_thread()
    
 }
 
-static int check_default_set_thread_init()
+static int check_date_set_thread_init()
 {
     int retVal = 0;
     VI_DEBUG("Initialize check_default_set thread\n");
    
-    if((retVal = pthread_create(&check_default_set_thread_id, NULL, check_default_set_thread, NULL)) != 0)
+    if((retVal = pthread_create(&check_date_set_thread_id, NULL, check_date_set_thread, NULL)) != 0)
     {
         perror("Create check_default_set thread\n");
     }
     else 
     {
-        check_default_set_thread_run = 1;
+        check_date_set_thread_run = 1;
         VI_DEBUG("Create check_default_set thread done!\n\n");
     }
     return retVal;
@@ -466,12 +504,12 @@ int DRV_ACS1910Init()
         return status;
     }
 
-    //status = check_default_set_thread_init();
-    //if(status != OSA_SOK)
-    //{
-    //    VI_DEBUG("check_default_set_thread init error\n");
-    //    return status;
-    //}
+    status = check_date_set_thread_init();
+    if(status != OSA_SOK)
+    {
+        VI_DEBUG("check_default_set_thread init error\n");
+        return status;
+    }
 
     return status;
 }
@@ -484,8 +522,8 @@ int DRV_ACS1910Exit()
     status = ledPWM_exit();
 //    if(check_default_set_thread_run == 1)
     {
-      check_default_set_thread_run = 0;
-      pthread_join(check_default_set_thread_id, NULL);
+      check_date_set_thread_run = 0;
+      pthread_join(check_date_set_thread_id, NULL);
     }
     check_fpga_down = 0;
 
