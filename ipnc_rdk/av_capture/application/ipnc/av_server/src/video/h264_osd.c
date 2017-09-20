@@ -18,7 +18,7 @@
 //#include <mcfw/src_bios6/links_m3vpss/camera/dh_white_balance.h> 
 
 Dh_Stream_OSD_Config g_h264_osd_cfg = {0}; ///<M3中OSD叠加用到的全局变量
-
+Dh_Osd_Block_Diagram_Config Block_Diagram_Osd_Config = {0};
 //extern SWOSD_config_t gSWOSD_config;  //add by gomo 2012-12-18
 
 //------------------------------------------------------------------------
@@ -303,7 +303,73 @@ int dh_h264_osd_apply(unsigned int yuv_data_addr,
             osd_flag = 0;
         }
     }
-    
+/*
+//在图像位置中的字体偏移量
+		hz_offset = CharSizeW/2*Per_En_Num + CharSizeW*Per_Cn_Num;
+		//在图像位置中的起点偏移量		
+		image_offset = OsdStartY*ImgWid+OsdStartX ;
+
+		gACS1910_current_cfg.ISPAllCfg.AERoi[0]
+*/
+   
+    if(g_h264_osd_cfg.diagram_osd_en)
+    {
+        Block_Diagram_Osd_Config.diagram1_enable =  gACS1910_current_cfg.ISPAllCfg.AERoi[0].onoff;// 1;  //开
+        Block_Diagram_Osd_Config.diagram1_startx = gACS1910_current_cfg.ISPAllCfg.AERoi[0].x;//100;
+        Block_Diagram_Osd_Config.diagram1_starty = gACS1910_current_cfg.ISPAllCfg.AERoi[0].y;//100;
+        Block_Diagram_Osd_Config.diagram1_w = gACS1910_current_cfg.ISPAllCfg.AERoi[0].width;//810;
+        Block_Diagram_Osd_Config.diagram1_h = gACS1910_current_cfg.ISPAllCfg.AERoi[0].height;//500;
+
+        Block_Diagram_Osd_Config.diagram2_enable =  gACS1910_current_cfg.ISPAllCfg.AERoi[1].onoff;// 1;  //开
+        Block_Diagram_Osd_Config.diagram2_startx = gACS1910_current_cfg.ISPAllCfg.AERoi[1].x;//100;
+        Block_Diagram_Osd_Config.diagram2_starty = gACS1910_current_cfg.ISPAllCfg.AERoi[1].y;//100;
+        Block_Diagram_Osd_Config.diagram2_w = gACS1910_current_cfg.ISPAllCfg.AERoi[1].width;//810;
+        Block_Diagram_Osd_Config.diagram2_h = gACS1910_current_cfg.ISPAllCfg.AERoi[1].height;//500;
+
+        Block_Diagram_Osd_Config.diagram3_enable =  gACS1910_current_cfg.ISPAllCfg.AERoi[2].onoff;// 1;  //开
+        Block_Diagram_Osd_Config.diagram3_startx = gACS1910_current_cfg.ISPAllCfg.AERoi[2].x;//100;
+        Block_Diagram_Osd_Config.diagram3_starty = gACS1910_current_cfg.ISPAllCfg.AERoi[2].y;//100;
+        Block_Diagram_Osd_Config.diagram3_w = gACS1910_current_cfg.ISPAllCfg.AERoi[2].width;//810;
+        Block_Diagram_Osd_Config.diagram3_h = gACS1910_current_cfg.ISPAllCfg.AERoi[2].height;//500;
+
+
+        __u32 image1_offset , image2_offset,image3_offset;
+        __u32 diagram_osd_offset = 84;
+
+        
+        Block_Diagram_Osd_Config.diagram1_startx = Block_Diagram_Osd_Config.diagram1_startx + diagram_osd_offset;
+        Block_Diagram_Osd_Config.diagram2_startx = Block_Diagram_Osd_Config.diagram2_startx + diagram_osd_offset;
+        Block_Diagram_Osd_Config.diagram3_startx = Block_Diagram_Osd_Config.diagram3_startx + diagram_osd_offset;
+
+        
+        image1_offset = Block_Diagram_Osd_Config.diagram1_starty*img_w + Block_Diagram_Osd_Config.diagram1_startx;
+        image2_offset = Block_Diagram_Osd_Config.diagram2_starty*img_w + Block_Diagram_Osd_Config.diagram2_startx;
+        image3_offset = Block_Diagram_Osd_Config.diagram3_starty*img_w + Block_Diagram_Osd_Config.diagram3_startx;
+
+        if(Block_Diagram_Osd_Config.diagram1_enable)
+            DH_Osd_Block_Diagram( (unsigned char *)yuv_data_addr, //YUV数据地址
+                                                 image1_offset,//int image_offset, 
+                                         	     Block_Diagram_Osd_Config.diagram1_startx,Block_Diagram_Osd_Config.diagram1_starty,//int startx, int starty,
+                                         	     Block_Diagram_Osd_Config.diagram1_w, Block_Diagram_Osd_Config.diagram1_h,//int DiagramW, int DiagramH,
+                                        	     img_w, img_h,//int ImgWid, int ImgHei,
+                                        	     DH_OSD_YUV_420);//int yuv_data_type,);
+
+         if(Block_Diagram_Osd_Config.diagram2_enable)
+            DH_Osd_Block_Diagram( (unsigned char *)yuv_data_addr, //YUV数据地址
+                                                 image2_offset,//int image_offset, 
+                                         	     Block_Diagram_Osd_Config.diagram2_startx,Block_Diagram_Osd_Config.diagram2_starty,//int startx, int starty,
+                                         	     Block_Diagram_Osd_Config.diagram2_w, Block_Diagram_Osd_Config.diagram2_h,//int DiagramW, int DiagramH,
+                                        	     img_w, img_h,//int ImgWid, int ImgHei,
+                                        	     DH_OSD_YUV_420);//int yuv_data_type,);
+
+          if(Block_Diagram_Osd_Config.diagram3_enable)
+            DH_Osd_Block_Diagram( (unsigned char *)yuv_data_addr, //YUV数据地址
+                                                 image3_offset,//int image_offset, 
+                                         	     Block_Diagram_Osd_Config.diagram3_startx,Block_Diagram_Osd_Config.diagram3_starty,//int startx, int starty,
+                                         	     Block_Diagram_Osd_Config.diagram3_w, Block_Diagram_Osd_Config.diagram3_h,//int DiagramW, int DiagramH,
+                                        	     img_w, img_h,//int ImgWid, int ImgHei,
+                                        	     DH_OSD_YUV_420);//int yuv_data_type,);
+    }
     return ret;
 }
 

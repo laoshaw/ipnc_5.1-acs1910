@@ -256,6 +256,74 @@ int DH_Character_Osd(unsigned char *pDataBuf,
 	return 0;//DH_OSD_OK ;
 }
 
+int DH_Osd_Block_Diagram(unsigned char *pDataBuf, int image_offset,
+             	        int startx, int starty,
+             	        int DiagramW, int DiagramH,
+		        int ImgWid, int ImgHei,
+		        int yuv_data_type)
+{
+    int i_pos = 0;
+    int i;     /* 控制行 */
+    int j;     /* 控制一行中的8 个点 */
+    int k;     /* 一行中的第几个"8 个点"了 */
+    int nc = 0;/* 到点阵数据的第几个字节了 */
+
+    int pix_x =  0;
+    int pix_y =  0;
+
+    //控制列，从starty开始，到整个框图高度结束
+    for(i = 0; i < DiagramH; i++)
+    {
+        i_pos = i * ImgWid ;    //line add and offset add
+        if((i == 0) || (i == (DiagramH - 1)))
+        {
+            //控制行，从starx开始，到整个框图宽度结束
+            for(k = 0; k < DiagramW; k++)
+            {
+                if(*(pDataBuf+image_offset+i_pos+k) < 0x78)
+        			*(pDataBuf+image_offset+i_pos+k) = 240;
+        		else
+        			*(pDataBuf+image_offset+i_pos+k) = 0;
+        		
+        		pix_x = startx + k ;  //current osd point  x
+        		pix_y = starty + i ;   //current osd point  y
+        		//osd u and v value                                                             pOsdParm
+        		*(pDataBuf+ImgWid*ImgHei+pix_y/2*ImgWid+pix_x/2*2) = 0x80;//pOsdParm->osd_u ;
+        		*(pDataBuf+ImgWid*ImgHei+pix_y/2*ImgWid+pix_x/2*2+1) = 0x80;//pOsdParm->osd_v ; 	
+            }
+        }
+        else
+        {
+                if(*(pDataBuf+image_offset+i_pos) < 0x78)
+        			*(pDataBuf+image_offset+i_pos) = 240;
+        		else
+        			*(pDataBuf+image_offset+i_pos) = 0;
+
+                if(*(pDataBuf+image_offset+i_pos + DiagramW - 1) < 0x78)
+        			*(pDataBuf+image_offset+i_pos+DiagramW - 1) = 240;
+        		else
+        			*(pDataBuf+image_offset+i_pos+DiagramW - 1) = 0;
+        		
+    		pix_x = startx ;  //current osd point  x
+    		pix_y = starty + i ;   //current osd point  y
+    		//osd u and v value                                                             pOsdParm
+    		*(pDataBuf+ImgWid*ImgHei+pix_y/2*ImgWid+pix_x/2*2) = 0x80;//pOsdParm->osd_u ;
+    		*(pDataBuf+ImgWid*ImgHei+pix_y/2*ImgWid+pix_x/2*2+1) = 0x80;//pOsdParm->osd_v ; 	
+
+             pix_x = startx + DiagramW - 1;  //current osd point  x
+    		pix_y = starty + i ;   //current osd point  y
+    		//osd u and v value                                                             pOsdParm
+    		*(pDataBuf+ImgWid*ImgHei+pix_y/2*ImgWid+pix_x/2*2) = 0x80;//pOsdParm->osd_u ;
+    		*(pDataBuf+ImgWid*ImgHei+pix_y/2*ImgWid+pix_x/2*2+1) = 0x80;//pOsdParm->osd_v ; 
+        }
+        
+    }
+
+    return 0;
+}
+
+
+
 
 /**
 * @brief osd character function.

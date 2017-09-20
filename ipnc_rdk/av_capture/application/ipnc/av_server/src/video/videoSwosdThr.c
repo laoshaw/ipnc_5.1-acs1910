@@ -2128,7 +2128,9 @@ int VIDEO_swosdTskRun(int streamId, OSA_BufInfo *pBufInfo)
         StreamOSDCfg.timeen = pOSDOnOff->time_onoff;
         StreamOSDCfg.addren = pOSDOnOff->name_onoff;
         StreamOSDCfg.directionen = pOSDOnOff->id_onoff;
+        StreamOSDCfg.diagram_osd_en = pOSDOnOff->diagram_onoff;
 
+        
         sprintf(StreamOSDCfg.addrtext, "%s", pCameraID->name); 
         sprintf(StreamOSDCfg.directiontext, "%03d", pCameraID->id);
 

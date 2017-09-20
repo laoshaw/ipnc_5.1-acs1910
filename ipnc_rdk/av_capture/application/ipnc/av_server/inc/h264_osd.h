@@ -38,8 +38,31 @@ typedef struct __Dh_Stream_OSD_Config   ///<start fp: 1196
     __u32   userdef2en;                     ///<fp:216，OSD用户自定义信息2使能，默认：0；0，关闭；1，开启
     __u8    userdef2text[DH_TEXT_LEN*2];    ///<fp:220，OSD车道号信息，默认“\0”
     __u32   reserved[64];                   //fp:284，reserved
+    __u32  diagram_osd_en;
 }Dh_Stream_OSD_Config;                  ///total len 540
 
+
+typedef struct __Dh_Osd_Block_Diagram_Config
+{
+    __u32 diagram1_enable;
+    __u32 diagram2_enable;
+    __u32 diagram3_enable;
+    __u32 diagram1_startx;
+    __u32 diagram1_starty;
+    __u32 diagram2_startx;
+    __u32 diagram2_starty;
+    __u32 diagram3_startx;
+    __u32 diagram3_starty;
+    __u32 diagram1_w;
+    __u32 diagram1_h;
+    __u32 diagram2_w;
+    __u32 diagram2_h;
+    __u32 diagram3_w;
+    __u32 diagram3_h;
+
+}Dh_Osd_Block_Diagram_Config;
+
+extern Dh_Osd_Block_Diagram_Config Block_Diagram_Osd_Config;
 extern Dh_Stream_OSD_Config g_h264_osd_cfg;
 
 ///将av_server传递来的osd结构体赋值给M3全局变量

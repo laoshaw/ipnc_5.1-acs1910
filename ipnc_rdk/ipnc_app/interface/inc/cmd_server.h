@@ -24,7 +24,9 @@
 #define VIM_CMD_MSG_KEY 0x7000000
 #define VIM_ACK_MSG_KEY 0x8000000
 #define SYS_CMD_MSG_KEY 0x8000000
-#define SYS_ACK_MSG_KEY 0x9000000
+#define SYS_ACK_MSG_KEY                    0x9000000
+#define DIAGRAM_OSD_CMD_MSG_KEY  0xa000000
+#define DIAGRAM_OSD_ACK_MSG_KEY  0xb000000
 
 #define MSG_BUF_SIZE 256 
 
@@ -61,6 +63,7 @@
 
 #define IP_CMD_LEN_CONTROL 0x36
 #define IP_CMD_LEN_SET_SAVE_SPEED 0x37
+
 //#define IP_CMD_LEN_GET_SAVED_SPEED 0x38
 //#define IP_CMD_LEN_GET_CURRENT_SPEED 0x39
 
@@ -153,7 +156,7 @@ typedef struct VF_AE_ETGain_S
 typedef struct VF_AE_ROI_S
 {
 	unsigned int ROI_No;
-    unsigned int onoff;
+       unsigned int onoff;
 	unsigned int x;
 	unsigned int y;
 	unsigned int width;
@@ -420,6 +423,7 @@ typedef struct VF_OSD_ONOFF
     unsigned char time_onoff;
     unsigned char id_onoff;
     unsigned char name_onoff;
+    unsigned char diagram_onoff;
 }VF_OSD_ONOFF_S, *pVF_OSD_ONOFF_S;
 
 typedef struct VF_SYS_VER

@@ -65,6 +65,12 @@ int DH_Osd(unsigned char *character,
  	DH_OsdParm *pOsdParm);
 
 
+int DH_Osd_Block_Diagram(unsigned char *pDataBuf,int image_offset,
+             	        int startx, int starty,
+             	        int DiagramW, int DiagramH,
+		        int ImgWid, int ImgHei,
+		        int yuv_data_type);
+
 /**
 * @brief free osd font lib buf function.
 * @brief pfontlibBuf :font lib buf, free by user after used.
